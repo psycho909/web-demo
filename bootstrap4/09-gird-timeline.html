@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap 4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <style>
+        .box {
+            background-color: #7952b3;
+            height: 100px;
+        }
+        .timeline-section{
+            position: relative;
+        }
+        .timeline-section:after{
+            content:'';
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 50%;
+            transform:translateX(-50%);
+            width: 3px;
+            background-color: #ccc;
+        }
+        .timeline-pointer{
+            position: relative;
+        }
+        .timeline-pointer:after{
+            content:'';
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 50%;
+            transform:translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            border:3px solid #ccc;
+            z-index: 1;
+        }
+        @media (max-width:576px){
+            .timeline-section:after,
+            .timeline-pointer:after{
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="timeline-section">
+            <div class="row my-3 timeline-pointer">
+                <div class="col-sm-6">
+                    <h3>This is Title</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="box"></div>
+                </div>
+            </div>
+            <div class="row my-3 flex-sm-row-reverse timeline-pointer">
+                <div class="col-sm-6">
+                    <h3>This is Title</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="box"></div>
+                </div>
+            </div>
+            <div class="row my-3 timeline-pointer">
+                <div class="col-sm-6">
+                    <h3>This is Title</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="box"></div>
+                </div>
+            </div>
+            <div class="row my-3 flex-sm-row-reverse timeline-pointer">
+                <div class="col-sm-6">
+                    <h3>This is Title</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="box"></div>
+                </div>
+            </div>
+            <div class="row my-3 timeline-pointer">
+                <div class="col-sm-6">
+                    <h3>This is Title</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, quidem delectus autem harum deleniti repellendus eum voluptate deserunt illum sequi nam, ex voluptatem alias vitae dolore assumenda, temporibus corporis! Delectus?</p>                    
+                </div>
+                <div class="col-sm-6">
+                    <div class="box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

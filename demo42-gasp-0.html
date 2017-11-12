@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.box{
+			width: 600px;
+			height: 600px;
+			border:0px solid #000;
+			display: flex;
+			flex-wrap:wrap;
+			margin: 0 auto;
+		}
+		.boxs{
+			width:calc(600px / 12);
+			height:calc(600px / 12);
+			border:1px solid gold;
+			cursor: pointer;
+			position: relative;
+			transition: all 2s;
+		}
+	</style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+<script>
+$(function () {
+	for(var i=0;i<144;i++){
+		$('.box').append('<div class="boxs"></div>');
+	}
+	$('.boxs').on('click',function(){
+		$('.boxs').each(function(i){
+			var newTop=Math.floor(Math.random()*500)*((i%2)?Math.random():-Math.random());
+			var newLeft=Math.floor(Math.random()*500)*((i%2)?Math.random():-Math.random());
+			var newScale=Math.round(Math.random()*2);
+
+			$(this).css({
+				position:'relative',
+				opacity:1
+			}).animate({
+				newTop:newTop,
+				newLeft:newLeft
+			},{
+				duration:1000,
+				step:function(now){
+					$(this).css({
+						'transform':'translate('+newLeft+'px,'+newLeft+'px) scale('+newScale+')',
+						'opacity':0
+					})
+				},
+				complete:function(){
+					$('.box').css('display','none');
+				}
+			})
+		})
+	})
+});
+</script>
+</html>

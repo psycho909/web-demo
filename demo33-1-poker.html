@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		#poker-box{
+			width: 360px;
+			height: 546px;
+			position: relative;
+			transform-style: preserve-3d;
+			cursor: pointer;
+			outline: none;
+			border:none;
+			display: block;
+			background-color: transparent;
+		}
+		#poker-box.active .poker-a{
+			transform:rotateY(180deg);
+		}
+		#poker-box.active .poker-b{
+			transform:rotateY(0deg);
+		}
+		.pokers{
+			width: 360px;
+			height: 546px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: transform .3s linear;
+		}
+		.poker-a{
+			background-color: gold;
+			backface-visibility: hidden;
+			text-align: center;
+			line-height: 546px;
+			font-size: 48px;
+			font-weight: bold;
+			font-family: 微軟正黑體
+		}
+		.poker-b{
+			transform:rotateY(180deg);
+			backface-visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+<button id="poker-box" class="poker">
+	<div class="pokers poker-a">背面</div>
+	<canvas id="pokerb" class="poker-b pokers" width="360" height="546"></canvas>
+</button>
+<div id="codeText"></div>
+</body>
+<script>
+var oPoker=document.getElementById('poker-box');
+var pokerb=document.getElementById('pokerb');
+var codeText=document.getElementById('codeText');
+var w=pokerb.width;
+var h=pokerb.height;
+var ctx=pokerb.getContext("2d");
+
+function canvasBg(){
+	ctx.save();
+	ctx.fillStyle="gold";
+	ctx.beginPath();
+	ctx.fillRect(0, 0, 360, 546);
+	ctx.fill();
+	ctx.closePath();
+	ctx.restore();
+}
+function codes(){
+	var src,num;
+	var code='';
+	var abc='abcdefghijklmnopqrstuvwxyz';
+	var abcarr=abc.split('');
+	src=[abcarr[Math.floor(Math.random()*abc.length)],abcarr[Math.floor(Math.random()*abc.length)],abcarr[Math.floor(Math.random()*abc.length)],abcarr[Math.floor(Math.random()*abc.length)]];
+	num=[Math.floor(Math.random()*10),Math.floor(Math.random()*10),Math.floor(Math.random()*10),Math.floor(Math.random()*10)]
+	for(var i=0;i<4;i++){
+		code+=src[i]+''+num[i];
+	}
+	console.log(code)
+	return code;
+}
+window.onload=function(){
+	var i=false;
+	var image;
+	var num=0;
+	var text;
+	oPoker.addEventListener('click',function(){
+		if(num>3){
+			return false;
+		}else{
+			if(!i){
+				oPoker.disabled=true;
+				setTimeout(function(){
+					num++;
+					i=true;
+					canvasBg()
+					ctx.beginPath();
+					ctx.fillStyle="#000";
+					ctx.textAlign="center";
+					ctx.font="48px Arial";
+					text=codes();
+					ctx.fillText(text,w/2,h/2);
+					ctx.closePath();
+					oPoker.className+=' '+'active';
+					codeText.innerHTML+=(text+' ');
+					if(num==3){
+						return false;
+					}else{
+						oPoker.disabled=false;
+						setTimeout(function(){
+							i=false;
+							var a=oPoker.className.split(' ');
+							a.splice(a.length-1,1);
+							oPoker.className='';
+							oPoker.className+=a;
+							canvasBg()
+						},1000)
+					}
+				},500)
+			}
+		}
+		console.log(oPoker.disabled)
+	})
+}
+</script>
+</html>

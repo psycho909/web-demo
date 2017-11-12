@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+ul {
+  list-style: none;
+  position: fixed;
+  font-size: 0;
+  margin: 12px 0;
+}
+.block{
+	height: 84px;
+}
+ul li {
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  cursor: pointer;
+  background-color: silver;
+  text-align: center;
+  line-height: 60px;
+  font-size: 16px;
+  margin: 0 12px;
+}
+.active_li{
+	background-color: gold;
+}
+
+.tab {
+  width: 100%;
+  height: 500px;
+}
+
+#tab1 {
+  background-color: gold;
+}
+
+#tab2 {
+  background-color: green;
+}
+
+#tab3 {
+  background-color: blue;
+}
+.totop{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #e8eac9;
+	text-align: center;
+	line-height: 50px;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<ul class="nav">
+  <li data-name="tab1"><a href="#01">1</a></li>
+  <li data-name="tab2"><a href="#02">2</a></li>
+  <li data-name="tab3">3</li>
+  <li data-name="tab4">4</li>
+</ul>
+<div class="block"></div>
+<div id="tab1" class="tab" data-name="tab1">tab1</div>
+<a name="01" id="01"></a>
+<div id="tab2" class="tab" data-name="tab2">tab2</div>
+<a name="02" id="02"></a>
+<div id="tab3" class="tab" data-name="tab3">tab3</div>
+<div id="tab4" class="tab" data-name="tab4">tab4</div>
+<div class="totop">top</div>
+</body>
+<script>
+var arr=[];
+var liArr=[];
+
+$(function () {
+	// $('.nav li').on('click',function(){
+	// 	var _index=$(this).index();
+	// 	var _top=$('#tab'+(_index+1)).offset().top;
+	// 	$('body,html').animate({
+	// 		scrollTop:_top
+	// 	},500)
+	// 	//console.log(_index)
+	// })
+	$(window).scroll(function(){
+		var top=$(document).scrollTop();
+		$('.tab').each(function(i,v){
+			var index=$(this).index();
+			var tabTop=$(this).offset().top;
+			//console.log(i)
+			if(top>tabTop-50){
+				$('.nav li').not($('.nav li').eq(i)).removeClass('active_li')
+				$('.nav li').eq(i).addClass('active_li');
+				$('.tab').not($('.tab').eq(i)).removeClass('active');
+				$('.tab').eq(i).addClass('active');
+			}
+		})
+		console.log($(window).height(),$(window).scrollTop())
+	})
+});
+
+
+</script>
+</html>

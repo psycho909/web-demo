@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+	*{margin:0;padding:0;list-style-type:none;}
+  .btn{
+    padding:6px 12px;
+    display: block;
+    margin: 12px auto;
+  }
+  #card{
+    max-width: 400px;
+    height: 300px;
+    position: relative;
+    margin: 12px auto;
+  }
+  #canvasOne{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  #canvasTwo{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn" onclick="window.location.reload()">在一次</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" id="col">
+      <div id="card">
+        <canvas id="canvasOne" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+window.onload=function(){
+  var filledInPixels=0;
+  var isDrawing=false;
+  var card=document.getElementById('card');
+
+  var c=document.getElementById('canvasOne');
+  var context=c.getContext("2d");
+
+  var w=c.width;
+  var h=c.height;
+
+  var str="images/";
+  var imgs=['00','01','02','03']
+  var num = Math.floor(Math.random()*4);
+  var jpg = ".jpg";
+  var image = new Image();
+  image.onload=function(){
+
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, w, h);
+    context.fill();
+
+    context.save();
+    context.beginPath();
+    context.arc(w/2, h/2, 50, 0, Math.PI * 2, false);
+    context.fill();
+
+    context.clip();
+    context.drawImage(image, 0, 0)
+    context.restore();
+  }
+  image.src = str+imgs[num]+jpg;
+
+
+  c.addEventListener('mousemove',mouseMove);
+  c.addEventListener('touchmove',mouseMove);
+
+
+  function getMousePos(cv,e){
+    var rect=cv.getBoundingClientRect();
+    return{
+      x:e.clientX-rect.left,
+      y:e.clientY-rect.top
+    }
+  }
+
+  function mouseMove(e){
+
+    if(e.changedTouches){
+      e=e.changedTouches[e.changedTouches.length-1];
+    }
+
+    var pos=getMousePos(c,e);
+
+    context.clearRect(0, 0, w, h);
+
+    context.save();
+    context.beginPath();
+
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, w, h);
+    context.fill();
+
+    context.save();
+    context.beginPath();
+    context.arc(pos.x, pos.y, 50, 0, Math.PI * 2, false);
+    context.fill();
+
+    context.clip();
+    context.drawImage(image, 0, 0)
+    context.restore();
+
+  }
+
+}
+
+
+</script>
+</html>

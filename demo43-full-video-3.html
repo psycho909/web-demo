@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.0.20/jquery.mb.YTPlayer.min.js"></script>
+	<style>
+		*{
+			position: relative;
+			box-sizing: border-box;
+		}
+		body,html{
+			width: 100%;
+			height: 100%;
+		}
+		.video-wrap{
+			width: 100%;
+			height: 1000px;
+			background-color: #000;
+			pointer-events: none;
+		}
+		.video{
+			width: 100%;
+			height: 100%;
+		}
+		.video.video-img{
+			background-image: url('images/001.jpg');
+		}
+		.section{
+			width: 100%;
+			height: 400px;
+		}
+		.section1{
+			background-color: silver;
+		}
+		.bounce-box ul li.active{
+			color:red;
+			font-size: 18px;
+		}
+		.section2{
+			background-color: blue;
+		}
+		.section3{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+<div class="video-wrap">
+	<div class="video video-img" id="video" data-property="{
+		videoURL:'letspjhX4b8',
+		containment:'#video',
+		autoPlay:true,startAt:3,
+		stopAt:28,opacity:1,
+		addRaster:true,
+		loop:true,
+		mute:true,
+		quality:'medium',
+		showControls:false,
+		stopMovieOnBlur:false
+	}">
+</div>
+</div>
+<div class="section section1">
+	<div class="num">1200</div>
+	<div class="bounce-box">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</div>
+</div>
+<div class="section section2">2</div>
+<div class="section section3">3</div>
+</body>
+<script>
+$(function(){
+	$('#video').YTPlayer({
+		onReady:function(e){
+			$('.video').removeClass('video-img')
+		}
+	})
+	var num=parseInt($('.num').text());
+	if(num >= 5000){
+		$('.bounce-box').find('ul li').addClass("active")
+	}else if(num >1000 || num <=3000){
+		$('.bounce-box').find('ul li').eq(0).addClass("active")
+		$('.bounce-box').find('ul li').eq(1).addClass("active")
+	}else{
+		$('.bounce-box').find('ul li').eq(0).addClass("active")
+	}
+	
+})
+</script>
+</html>

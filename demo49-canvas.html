@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+	<style>
+		*{
+			position: relative;
+			margin: 0;
+			padding: 0;
+		}
+		.input-container {
+			width: 500px;
+			position: relative;
+			display: flex;
+			flex-flow: column-reverse;
+			align-items: flex-start;
+			margin: 100px auto;
+		}
+		.input-container input {
+			order: 2;
+			outline: none;
+			border: none;
+			width: 100%;
+			padding: 10px 0;
+			font-size: 20px;
+			border-bottom: 1px solid #d5d5d5;
+			text-indent: 10px;
+		}
+		.input-container input::-webkit-input-placeholder {
+			opacity: 0;
+		}
+		.input-container input, .input-container label {
+			transition: all 0.3s;
+		}
+		.input-container label {
+			order: 3;
+			color: #3f4f5b;
+			transform-origin: left bottom;
+			transform: translate(0px, 40px);
+		}
+		.input-container .bottom-line {
+			order: 1;
+			width: 0;
+			height: 2px;
+			background: #658db5;
+			transition: all 0.3s;
+		}
+		.input-container input:focus {
+			border-bottom-color: #fff;
+		}
+		.input-container input:focus ~ div, .input-container input:not(:placeholder-shown) ~ div {
+			width: 100%;
+		}
+		.input-container input:focus + label, .input-container input:not(:placeholder-shown) + label {
+			color: #52616c;
+			transform: translate(10px) scale(0.9);
+		}
+
+	</style>
+</head>
+<body>
+<div class="input-container">
+    <input type="input" id="input" placeholder="请输入内容">
+    <label for="input">请输入内容</label>
+    <div class="bottom-line"></div>
+</div>
+<div id="main-canvas">
+	<canvas id="canvas" width="600" height="600"></canvas>
+</div>
+<script>
+
+
+	function drawPloygon(){
+		context.beginPath();
+		context.fillStyle="pink";
+		context.strokeStyle="rgba(0,0,100)";
+		context.translate(600/2,600/2)
+		for(var i=0;i<6;i++){
+
+			var angle=((360/6)*(i+1))*Math.PI/180; //求弧度
+			var actAngle=angle-Math.PI/2;
+			var x=Math.cos(actAngle)*100;
+			var y=Math.sin(actAngle)*100;
+			context.lineTo(
+				x,
+				y
+			);
+			console.log(angle+" & "+actAngle)
+		}
+		context.closePath();
+		context.fill();
+		context.stroke();
+	}
+</script>
+</body>
+</html>

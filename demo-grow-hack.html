@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>FLEX grow hack</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery.scrollbar.css">
+	<link rel="stylesheet" href="css/demo0.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jquery.scrollbar.js"></script>
+	<style>
+		body {
+			background-color: rgb(216, 216, 216);
+		}
+
+		.container {
+			margin: 20px auto;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		.item-a {
+			width: 20%;
+			background-color: red;
+		}
+
+		.item-b {
+			width: 80%;
+			background-color: blue;
+		}
+
+		@media screen and (max-width:400px) {
+			.item-a {
+				width: 100%;
+				background-color: green;
+			}
+			.item-b {
+				width: 100%;
+				background-color: gold;
+			}
+		}
+
+		.banner {
+			width: 200px;
+			height: 150px;
+			margin-top: 100px;
+			background: #58a;
+			background: linear-gradient(135deg, transparent 15px, #58a 0) top left,
+			linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+			linear-gradient(-45deg, transparent 15px, #58a 0) bottom right,
+			linear-gradient(45deg, transparent 15px, #58a 0) bottom left;
+			background-size: 50% 50%;
+			background-repeat: no-repeat;
+		}
+
+		.arc {
+			width: 200px;
+			height: 150px;
+			margin-top: 100px;
+			background: #58a;
+			background: radial-gradient(circle at top left, transparent 15px, #58a 0) top left,
+			radial-gradient(circle at top right, transparent 15px, #58a 0) top right,
+			radial-gradient(circle at bottom right, transparent 15px, #58a 0) bottom right,
+			radial-gradient(circle at bottom left, transparent 15px, #58a 0) bottom left;
+			background-size: 50% 50%;
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="item-a">
+			<div class="title">Title</div>
+		</div>
+		<div class="item-b">
+			<div class="content">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi modi mollitia officia soluta. Quia error, consequuntur
+				vero aliquid cum dolor deserunt, explicabo a at accusamus eius qui odit eveniet possimus.
+				<strong>Item B</strong>
+			</div>
+		</div>
+	</div>
+	<div class="banner"></div>
+	<div class="arc"></div>
+</body>
+
+</html>

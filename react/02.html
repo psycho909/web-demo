@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js
+    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+</head>
+<body>
+    <div id="demo"></div>
+    <script type="text/babel">
+        var MyNameComponent=React.createClass({
+            getDefaultProps:function(){
+                return {
+                    title:"hello PropTypes"
+                }
+            },
+            propTypes:{
+                title:React.PropTypes.string
+            },
+            render:function(){
+                return (<h2>{this.props.title}</h2>)
+            }
+        }) 
+
+        class MyComponent extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={
+                    text:'Hello Extents Component'
+                }
+                this.handleClick=this.handleClick.bind(this)
+            }
+            handleClick(event){
+                console.log('HELLO')
+            }
+
+            render(){
+                return  (
+                    <div>
+                        <div onClick={this.handleClick}>{this.state.text}</div>
+                        <div>{this.props.name} World</div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <div>
+                <MyNameComponent />,
+                <MyComponent />
+            </div>,
+        	document.getElementById('reactComponent')
+        )
+    </script>
+</body>
+</html>

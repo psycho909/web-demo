@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <title>Document</title>
+  <style>
+	*{margin:0;padding:0;list-style-type:none;}
+	canvas {
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 3px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, .05);
+        margin: 5px;
+    }
+  </style>
+</head>
+<body>
+
+</body>
+<script>
+var w=300;
+var h=300;
+
+var compositing = ['source-over', 'source-in', 'source-out', 'source-atop', 'destination-over', 'destination-in', 'destination-out', 'destination-atop', 'lighter', 'copy', 'xor', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+
+var first=document.body.firstChild;
+
+var canvas=document.createElement('canvas');
+canvas.width=w;
+canvas.height=h;
+document.body.insertBefore(canvas, first);
+
+var canvas=document.querySelectorAll('canvas');
+var ctx=canvas[0].getContext('2d');
+
+ctx.save();
+ctx.translate(w/2,h/2);
+ctx.fillStyle='red';
+ctx.beginPath();
+ctx.arc(-40,20,80,0,Math.PI*2,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.globalCompositeOperation=compositing[1];
+
+ctx.fillStyle="orange";
+ctx.beginPath();
+ctx.arc(40,20,80,0,Math.PI*2,true);
+ctx.closePath();
+ctx.fill();
+ctx.restore();
+
+ctx.fillStye='black';
+ctx.textBaseLine="middle";
+ctx.textAlign='center';
+ctx.font='30px Arial';
+ctx.fillText('1:'+compositing[1],w/2,40)
+</script>
+</html>

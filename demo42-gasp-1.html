@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		body{
+			overflow: hidden;
+		}
+		.btn{
+			display: block;
+			margin:15px auto 0;
+		}
+		.box{
+			width: 1000px;
+			height:600px;
+			position: relative;
+			margin: 15px auto;
+			perspective: 1000px;
+		}
+		.ball{
+			width: 100px;
+			height: 100px;
+			background-color: #000;
+			border-radius: 50%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -50px;
+			transform:translateZ(300px);
+			z-index: 9;
+			cursor: pointer;
+		}
+		.bg{
+			width: 1000px;
+			height:600px;
+			position: absolute;
+			background-image:url('images/bg01.jpg');
+			background-size: cover;
+		}
+		.glass-bg{
+			width: 1000px;
+			height: 1000px;
+			border:0px solid #000;
+			display: flex;
+			flex-wrap:wrap;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform:translate(-50%,-50%) scale(3);
+			background-image: url(images/glass.png);
+			background-position: center center;
+			background-repeat: no-repeat;
+			opacity: 0;
+		}
+		.glass{
+			width: 1000px;
+			height:600px;
+			border:0px solid #000;
+			display: flex;
+			flex-wrap:wrap;
+			position: absolute;
+			perspective: 1000px;
+			transform-style:preserve-3d;
+			opacity: 0;
+			z-index: 8;
+		}
+		.boxs{
+			width:calc(1000px / 18);
+			height:calc(600px / 18);
+			position: relative;
+			box-shadow: 1px 1px 6px rgba(0,0,0,.5);
+
+		}
+		.bg-final{
+			width: 1000px;
+			height: 600px;
+			background-image: url(images/bg03.png);
+			background-position: center center;
+			background-repeat: no-repeat;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: 7;
+		}
+	</style>
+</head>
+<body>
+<button class="btn">Button</button>
+<div class="box">
+	<div class="ball"></div>
+	<div class="bg"></div>
+	<div class="glass-bg"></div>
+	<div class="glass"></div>
+	<div class="bg-final"></div>
+</div>
+</body>
+<script>
+
+
+$(function () {
+	var tl = new TimelineMax();
+	for(var i=0;i<324;i++){
+		$('.glass').append('<div class="boxs"></div>');
+	}
+	$('.btn').on('click',function(){
+		location.reload();
+	})
+	$('.ball').on('click',function(){
+		tl.to('.ball',0.2,{
+			z:-300,
+			opacity:0,
+			onComplete:function(){
+				tl.to('.glass-bg',.1,{
+					css:{opacity:1,scale:1},
+					onComplete:function(){
+						tl.to('.glass',.1,{
+							css:{opacity:1},
+							onComplete:function(){
+								tl.to('.bg,.glass-bg',0.5,{css:{opacity:0}})
+								setTimeout(function(){
+									$('.bg-final').animate({
+										opacity:1
+									},600);
+								},200)
+								$('.boxs').each(function(i,v){
+									var newTop=Math.floor(Math.random()*500)*((i%2)?Math.random():-Math.random());
+									var newLeft=Math.floor(Math.random()*500)*((i%2)?Math.random():-Math.random());
+									var newScale=Math.round(Math.random()*2);
+									var newRotation=Math.floor(Math.random()*180)*((i%2)?Math.random():-Math.random());
+									var newRotationX=Math.floor(Math.random()*180)*((i%2)?Math.random():-Math.random());
+									var newRotationY=Math.floor(Math.random()*180)*((i%2)?Math.random():-Math.random());
+									var newZ=Math.floor(Math.random()*180);
+
+									tl.to($(this),3,{
+										x:newLeft,
+										y:newTop,
+										z:newZ,
+										rotationY:newRotationX,
+										rotationX:newRotationY,
+										rotation:newRotation,
+										opacity:0,
+										display:'none',
+										transformOrigin:'center center',
+										onComplete:function(){
+											$('.glass-bg').remove();
+										}
+									},0)
+								})
+								setTimeout(function(){
+									$('.glass').css('z-index',1);
+								},3000)
+							}
+						})
+					}
+				});
+			}
+		})
+
+	})
+});
+</script>
+</html>

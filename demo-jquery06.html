@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>JQuery</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		.tabNav {
+			list-style: none;
+		}
+
+		.tabNav li {
+			padding: 6px 12px;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		.tabNav li.current {
+			background-color: orange;
+		}
+
+		.tabContent>div {
+			width: 300px;
+			height: 300px;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="tab">
+		<ul class="tabNav">
+			<li class="border current">html</li>
+			<li class="border">css</li>
+			<li class="border">javascript</li>
+		</ul>
+		<div class="tabContent">
+			<div class="border d-block">html</div>
+			<div class="border">css</div>
+			<div class="border">javascript</div>
+		</div>
+	</div>
+	<script>
+		(function ($) {
+			$.fn.tab = function (options) {
+				var defaults = {
+					currentClass: 'current',
+					tabNav:'.tabNav>li',
+					tabContent:'.tabContent>div',
+					evenType:'click'
+				}
+
+				var options = $.extend(defaults, options)
+
+				this.each(function () {
+					var _this = $(this);
+					_this.find(options.tabNav).on(options.evenType,function(){
+						$(this).addClass(options.currentClass).siblings().removeClass(options.currentClass)
+						var index=$(this).index();
+						_this.find(options.tabContent).eq(index).addClass('d-block').siblings().removeClass('d-block')
+					})
+				})
+				return this;
+			}
+		})(jQuery)
+		$(function () {
+			$('.tab').tab().find('.tabNav > li').css('background','red')
+		})
+	</script>
+</body>
+
+</html>

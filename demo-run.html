@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery.scrollbar.css">
+	<link rel="stylesheet" href="css/demo0.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jquery.scrollbar.js"></script>
+	<style>
+		html,body{
+			box-sizing: border-box;
+		}
+		body{
+			background-color: rgb(216, 216, 216);
+		}
+		.box{
+			width: 150px;
+			height: 34px;
+			position: relative;
+			overflow: hidden;
+			margin: 60px auto;
+		}
+		.marquee-box{
+			width: 300%;
+			height: 34px;
+			font-size: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform:translateX(30%);
+			animation:marquee 3s linear infinite;
+		}
+		@keyframes marquee{
+			to{
+				transform:translateX(-100%);
+			}
+		}
+		.marquee-box div{
+			width: calc(100% / 3);
+			padding: 6px 12px;
+			font-size: 16px;
+			text-align: center;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="marquee-box">
+			<div>Joel Embiid</div>
+			<div>Jerryd Bayless</div>
+			<div>Ben Simmons</div>
+			<div>Joel Embiid</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <title>Document</title>
+  <style>
+	*{
+	  margin: 0;
+	  padding: 0;
+	}
+	body{
+		background-color: #e9e8e5;
+		background-image: url(images/angel-bg.jpg);
+		background-repeat: no-repeat;
+		background-position: bottom center;
+	}
+	.bg-head{
+		background-image: url(images/angel.jpg);
+		background-repeat: no-repeat;
+		background-position: center top;
+		width: 100%;
+		min-width: 1000px;
+		height: 753px;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.warp{
+		width: 100%;
+		min-width: 1000px;
+		position: relative;
+	}
+	.particles{
+	  position: absolute;
+	  width: 100%;
+	  min-width: 1000px;
+	  height: 753px;
+	  background-image: url("");
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  background-position: 50% 50%;
+	}
+	.box{
+		width: 1000px;
+		height: 753px;
+		margin: 0 auto;
+		position: relative;
+	}
+	.box .logo{
+		display: block;
+		width: 270px;
+		position: absolute;
+		top: 120px;
+		opacity: 0;
+		z-index: 999;
+	}
+	.box .logo.angel{
+		opacity: 1;
+		right: 0;
+	}
+	.box .logo.devil{
+		opacity: 1;
+		left: 0;
+	}
+	.box .logo img{
+		width: 270px;
+	}
+	.content{
+		width: 1000px;
+		margin: 0 auto;
+		margin-top: -93px;
+	}
+	.a-box{
+		width: 1000px;
+		height: calc(1040px / 2);
+		background-color: rgba(250,239,56,.3)
+	}
+	.box .change{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 200px;
+		height: 50px;
+	}
+	.box .change .btn{
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		margin: 20px 20px;
+		background-color: gold;
+		text-decoration: none;
+		border-radius: 50%;
+		color:#fff;
+	}
+  </style>
+</head>
+<body>
+<div class="bg-head"></div>
+<div class="warp">
+	<div id="particles-a" class="particles"></div>
+	<div id="particles-b" class="particles"></div>
+	<div class="box">
+		<a href="javascript:;" class="logo">
+			<img src="images/logo-c-p-03.png" alt="">
+		</a>
+		<div class="change">
+			<a href="javascript:;" class="btn">A</a>
+			<a href="javascript:;" class="btn">D</a>
+		</div>
+	</div>
+</div>
+
+</body>
+<script>
+var direction,
+	img,
+	randoma,
+	randomb,
+	index;
+var oldRandom='';
+
+var user={
+	direction:['bottom-left','top-right'],
+	img:['images/feather.png','images/particle.png'],
+	bg:['angel','devil'],
+	class:['angel','devil'],
+	bgColor:['#e9e8e5','#2e284e']
+};
+
+var particleJs=function(name,random){
+	if(random == 0){//angel
+		direction=user.direction[1];
+		img=user.img[0]
+	}else if(random==1){//devil
+		direction=user.direction[0];
+		img=user.img[1]
+	};
+
+	particlesJS(name,{
+		"particles": {
+	    	"number": {
+		    	"value": 8,
+		    	"density": {
+			        "enable": true,
+			        "value_area": 800
+	    		}
+	    	},
+		    "color": {
+		    	"value": "#f00"
+		    },
+		    "shape": {
+		    	"type": "image",//[image,circle,star...]如果是image以下不管用
+		    	"stroke": {
+			        "width": 1,//筆畫
+			        "color": "#f0f"//筆畫顏色
+		    	},
+		    	"polygon": {
+		        	"nb_sides": 5
+		    	},
+		    	"image": {
+			        "src": img,
+			        "width": 20,
+			        "height": 20
+		    	}
+		    },
+		    "opacity": {
+		    	"value": 1,
+		    	"random": true,
+		    	"anim": {
+			        "enable": true,
+			        "speed": 1,
+			        "opacity_min": 0.1,
+			        "sync": false
+		    	}
+		    },
+		    "size": {
+		    	"value": 20,//產生大小
+		    	"random": true,//隨機
+		    	"anim": {
+			        "enable": true,//產生閃爍
+			        "speed": 6,
+			        "size_min": 0.1,
+			        "sync": false
+			    }
+		    },
+		    "line_linked": {
+		    	"enable": false,//是否產生連線
+		    	"distance": 300,
+		    	"color": "#ffffff",
+		    	"opacity": 0.4,
+		    	"width": 2
+		    },
+		    "move": {
+		    	"enable": true,//true
+		    	"speed": 5,//移動速度
+		    	"direction": direction,//移動方向
+		    	"random": true,
+		    	"straight": false,//是否隨著方向固定移動
+		    	"out_mode": "out",//移動出視窗
+		    	"bounce": false,
+		    	"attract": {
+			        "enable": true,
+			        "rotateX": 100,
+			        "rotateY": 100
+		    	}
+		    }
+		},
+		"interactivity": {
+	    	"detect_on": "canvas",
+		    "events": {
+		    	"onhover": {
+			        "enable": false,
+			        "mode": "bubble"
+		    	},
+		    	"onclick": {
+			        "enable": false,
+			        "mode": "push"
+			    },
+			    "resize": true
+		    },
+		    "modes": {
+		    	"grab": {
+			        "distance": 400,
+			        "line_linked": {
+			          "opacity": 1
+		    		}
+		    	},
+			    "bubble": {
+			        "distance": 800,
+			        "size": 0,
+			        "duration": 2,
+			        "opacity": 0.8,
+			        "speed": 3
+			    },
+			    "repulse": {
+			        "distance": 400,
+			        "duration": 0.4
+			    },
+			    "push": {
+			        "particles_nb": 4
+			    },
+			    "remove": {
+			        "particles_nb": 2
+			    }
+	    	}
+		},
+		"retina_detect": true
+	})
+};
+
+$(window).on('load',function(){
+	randoma=Math.floor(Math.random()*2);
+	randomb=Math.floor(Math.random()*2);
+	$('.box .logo').addClass(user.class[randoma]);
+	$('body').css({
+		'backgroundImage':'url(images/'+user.bg[randoma]+'-bg.jpg)',
+		'backgroundColor':user.bgColor[randoma]
+	});
+	$('.bg-head').css('backgroundImage','url(images/'+user.bg[randoma]+'.jpg)');
+	particleJs('particles-a',0);
+	particleJs('particles-b',1);
+})
+</script>
+</html>

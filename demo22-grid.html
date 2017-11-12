@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .grid-container-1{
+          max-width:600px;
+          min-width: 600px;
+          display:grid;
+          grid-template-columns:0.25fr 0.25fr 0.25fr 0.25fr;
+          grid-template-rows:100px 100px 100px;
+          grid-template-areas:"headers headers headers headers"
+                              "main main sidebar sidebar"
+                              "footer footer footer footer";
+        /*   grid-column-gap:10px;
+          grid-row-gap:15px; */
+        }
+        .header{
+          background-color: #8bc574;
+          grid-area:headers;
+        }
+        .main{
+          background-color: #748cc5;
+          grid-area:main;
+        }
+        .main div{
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height: 100%;
+        }
+        .sidebar{
+          background-color: #c57574;
+          grid-area:sidebar;
+        }
+        .footer{
+          background-color: #fce052;
+          grid-area:footer;
+        }
+
+        .grid-1{
+          display:grid;
+          grid-template-columns:150px 20px 150px 20px 150px;
+          grid-template-rows:60px 30px 60px 30px 60px;
+        }
+        .item-1{
+          background: #b03532;
+          grid-column:1;
+          grid-row:1;
+        }
+        .item-2{
+          background: #33a8a5;
+          grid-column:3;
+          grid-row:1;
+        }
+        .item-3{
+          background: #30997a;
+          grid-column:5;
+          grid-row:1;
+        }
+        .item-4{
+          background: #6a478f;
+          grid-column:1;
+          grid-row:3;
+        }
+        .item-5{
+          background: #da6f2b;
+          grid-column:3;
+          grid-row:3;
+        }
+        .item-6{
+          background: #3d8bb1;
+          grid-column:5;
+          grid-row:3;
+        }
+        .item-7{
+          background: #e03f3f;
+          grid-column:1;
+          grid-row:5;
+        }
+        .item-8{
+          background: #59a627;
+          grid-column:3;
+          grid-row:5;
+        }
+        .item-9{
+          background: #4464a1;
+          grid-column:5;
+          grid-row:5;
+        }
+
+        .grid-container{
+          width: 600px;
+          height: 200px;
+          display:grid;
+          grid-template-columns:[line1] 100px [line2] 50px [line3] 0.3fr [line4] 0.7fr [end];
+          grid-template-rows:[row-1-start] 25% [row-2-start] 100px [row-3-start] auto [row-end];
+        }
+        .item-tack{
+          background-color: #8bc574;
+          grid-column:1 / 5;
+          grid-row:1/1;
+        }
+        .item-cell{
+          background-color: #748CC5;
+          grid-column:2 / 2;
+          grid-row:2 / 2;
+        }
+        .item-area{
+          background-color: #c57474;
+          grid-column:3/5;
+          grid-row-start:3;
+          gird-row-end:row-end;
+        }
+        [data-color~='red']{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div class="grid-container-1">
+  <div class="grid-item header">
+    <div data-color="a red">Header</div>
+  </div>
+  <div class="grid-item main">
+    <div data-color="red ared">main</div>
+  </div>
+  <div class="grid-item sidebar">
+    <div data-color="acred">sidebar</div>
+  </div>
+  <div class="grid-item footer">
+    <div data-color="abred">footer</div>
+  </div>
+</div>
+
+<section class="grid-1">
+  <div class="item-1">1</div>
+  <div class="item-2">2</div>
+  <div class="item-3">3</div>
+  <div class="item-4">4</div>
+  <div class="item-5">5</div>
+  <div class="item-6">6</div>
+  <div class="item-7">7</div>
+  <div class="item-8">8</div>
+  <div class="item-9">9</div>
+</section>
+
+<div class="grid-container">
+  <div class="grid-item item-a item-tack">Tack</div>
+  <div class="grid-item item-b item-cell">Cell</div>
+  <div class="grid-item item-c item-area">Area</div>
+</div>
+</body>
+</html>

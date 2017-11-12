@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap 4 Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <style>
+        html {
+            font-size: 12px;
+        }
+        .main{
+            min-height: calc(100vh - (42px + 42px + 29px + 36px + 18px + 36px))
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">商務控制後台</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                <a href="index.html" class="nav-item nav-link">首頁</a>
+                <a href="dashboard_table.html" class="nav-item nav-link">列表</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid mt-4 main">
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" data-toggle="tooltip" data-placement="top" title="Tooltip on top" placeholder="Search for..."
+                        aria-label="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-9 text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" data-title="快速下單">快速下單</button>
+            </div>
+        </div>
+        <div class="card rounded-0">
+            <div class="card-header">Table</div>
+            <div class="card-body">
+                <table class="table table-responsive mb-0 table-hover">
+                    <thead>
+                        <th width="50">#</th>
+                        <th>品項</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>狀態</th>
+                        <th width="150" class="text-right">金額</thw>
+                            <th width="150" class="text-right">操作</th>
+                    </thead>
+                    <tbody>
+                        <tr class="table-danger">
+                            <th>1</th>
+                            <td>300</td>
+                            <td>Mark</td>
+                            <td>Mark@gmail.com</td>
+                            <td>已出貨</td>
+                            <td class="text-right">NT$ 899</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary" data-toggle="modal" data-backdrop="static" data-target="#editModal" data-title="編輯">編輯</button>
+                                    <button class="btn btn-outline-secondary" data-toggle="modal" data-backdrop="static" data-target="#editModal" data-title="查看">查看</button>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                        ...
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-backdrop="static" data-target="#delModal" data-title="編輯">刪除k</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>300</td>
+                            <td>Joe</td>
+                            <td>Joe@gmail.com</td>
+                            <td>已出貨</td>
+                            <td class="text-right">NT$ 1,000</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary">編輯</button>
+                                    <button class="btn btn-outline-secondary">查看</button>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                        ...
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <td>300</td>
+                            <td>Cena</td>
+                            <td>Cena@gmail.com</td>
+                            <td>已出貨</td>
+                            <td class="text-right">NT$ 8990</td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary">編輯</button>
+                                    <button class="btn btn-outline-secondary">查看</button>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                        ...
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">刪除</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="7">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="text-right">月總結收</td>
+                            <td class="text-right">3,750,500</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-right">月總淨利潤</td>
+                            <td class="text-right">2,140,500</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="..." class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">2
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <footer class="mt-5 py-3 bg-light text-secondary text-center">
+        後臺管理系統
+    </footer>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script>
+        $('[data-toggle="tooltip"]').tooltip()
+        $('#editModal').on('show.bs.modal', function (event) {
+            var btn = $(event.relatedTarget)
+            var title = btn.data('title')
+            var modal = $(this)
+            modal.find('.modal-title').text(title)
+        })
+        $('#delModal').on('show.bs.modal', function (event) {
+            var btn = $(event.relatedTarget)
+            var title = btn.data('title')
+            var modal = $(this)
+            modal.find('.modal-title').text('確認刪除 ' + title)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		.box{
+			width: 100%;
+			height: 100%;
+			background-color: pink;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.box:nth-child(1){
+			background-color: gold;
+		}
+		.box:nth-child(2){
+			background-color: silver;
+		}
+		.box:nth-child(3){
+			background-color: green;
+		}
+		.mask {
+	        mask: url(./images/mask.png);
+	        -webkit-mask-size: 100% 100%;
+	        -webkit-mask-position: 0 0;
+	        animation: mask 1s steps(29) forwards;
+			display: block;
+			z-index: 1;
+		}
+		.zindex{
+			z-index: 10;
+		}
+		.boxinner{
+			width: 200px;
+			height: 200px;
+			background-color: #fff;
+			color:#000;
+			font-size: 24px;
+			text-align: center;
+			line-height: 200px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform:translate(-50%,-50%);
+		}
+		@keyframes mask {
+			from {
+				-webkit-mask-position: 0 0;
+				        mask-position: 0 0;
+				        background-color: black;
+			}
+			to {
+				-webkit-mask-position: 100% 0;
+				        mask-position: 100% 0;
+				        background-color: orange;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="box mask zindex" data-num="">
+	<div class="boxinner">
+		box01
+		<ul class="ullist">
+			<li><a href="001.html"></a></li>
+			<li><a href="https://css-tricks.com"></a></li>
+			<li><input name="sex" value="男">  </li>
+		</ul>
+	</div>
+</div>
+<div class="box" data-num="">
+	<div class="boxinner">
+		box02
+	</div>
+</div>
+<div class="box" data-num="">
+	<div class="boxinner">
+		box03
+	</div>
+</div>
+<div class="box" data-num="">
+	<div class="boxinner">
+		box04
+	</div>
+</div>
+
+<script>
+	var i=0;
+	let moving=0;
+	let isAnimating =false;
+	let lastIndex;
+	let lastIIndex;
+	let count=$('.box').length;
+	$(window).mousewheel(function(e){
+		if(moving==1){
+			return
+		}else{
+			moving=1;
+			if(e.deltaY== -1){
+				i++
+			}else if(e.deltaY==1){
+				i--
+			}
+		}
+		if(i>=count){
+			i=0;
+		}else if(i<0){
+			i=3;
+		}
+		$(".box").eq(i).addClass('zindex mask').attr('data-num',(i))
+				.one('animationend ',function(){
+					moving=0;
+					$(".box").not($(".box").eq(i)).removeClass('zindex mask')
+				})
+		lastIIndex=lastIndex;
+		console.log(i)
+	})
+	var div=$('<div>',{
+		'class':'bigBlue',
+		'css':{
+			'background-color':'purple'
+		},
+		"width":20,
+		"height":20,
+		"animate":{
+			"width":200,
+			"height":50
+		}
+	})
+	$('.box').eq(0).append(div)
+	var boxsElem=$('<div>',{
+        "class":"boxs"
+    });
+    var boxsArr=[];
+    for(var i=0;i<10;i++){
+    	boxsArr.push(boxsElem)
+    }
+    var url = 'http://tutorialzine.com/books/jquery-trickshots?trick=12#comments';
+    var a=$('<a>',{href:url})
+    console.log(a.prop('search'))
+    console.log(a.prop('pathname'))
+    console.log(a.prop('hostname'))
+    console.log(a.prop('protocol'))
+    console.log(a.prop('hash'))
+    console.log($.get('http://jsonip.com/', function(r){ console.log(r.ip); }));
+</script>
+</body>
+</html>

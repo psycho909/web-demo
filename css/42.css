@@ -1,0 +1,20 @@
+.box {
+  width: 100%;
+  min-width: 1000px;
+  height: 600px;
+  background-color: gold;
+  display: flex;
+  flex-wrap: wrap;
+  background-image: url("../images/bg01.jpg");
+}
+
+.box .boxs {
+  margin: 0 auto;
+  width: 8.33333%;
+  height: 8.33333%;
+  background-image: url("../images/bg01.jpg");
+}
+ 
+
+
+  /*# sourceMappingURL=42.css.map */

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <title>Document</title>
+  <style>
+	*{margin:0;padding:0;list-style-type:none;}
+  .btn{
+    padding:6px 12px;
+    display: block;
+    margin: 12px auto;
+  }
+  #canvasOne{
+    display: block;
+    margin: 0 auto;
+  }
+  </style>
+</head>
+<body>
+<button class="btn" onclick="window.location.reload()">在一次</button>
+<canvas id="canvasOne" width="500" height="300"></canvas>
+</body>
+<script>
+var filledInPixels=0;
+var isDrawing=false;
+
+var c=document.getElementById('canvasOne');
+var context=c.getContext("2d");
+var w=c.width;
+var h=c.height;
+
+var str="images/";
+var imgs=['00','01','02','03']
+var num = Math.floor(Math.random()*4);
+var jpg = ".jpg";
+
+c.style.background='url('+str+imgs[num]+jpg+')';
+c.style.backgroundSize='cover';
+c.style.backgroundPosition='center center';
+
+context.fillStyle="#ccc";
+context.globalCompositeOperation="destination-over";
+context.beginPath();
+context.fillRect(0,0,w,h);
+context.closePath();
+
+c.addEventListener('mousedown',mouseDown);
+c.addEventListener('mousemove',mouseMove);
+c.addEventListener('mouseup',mouseUp);
+
+function mouseDown(){
+  if(filledInPixels < 10){
+    isDrawing=true;
+    console.log(true)
+  }else{
+    isDrawing=false;
+    console.log(false)
+  }
+}
+
+function mouseMove(e){
+  if(isDrawing == false) return;
+
+  var x= e.clientX-c.offsetLeft;
+  var y= e.clientY-c.offsetTop;
+
+  context.globalCompositeOperation="destination-out";
+  context.beginPath();
+  context.arc(x,y,10,0,Math.PI*2,true);
+  context.fill();
+  context.closePath();
+
+  var pixels = context.getImageData(0, 0, w, h);
+  var pdata = pixels.data;
+  var len = pdata.length;
+  var total = len / 32;
+  var count = 0;
+  for (var i = 0; i < len; i += 32) {
+      if (parseInt(pdata[i]) === 0) {
+          count++;
+      }
+  }
+  filledInPixels=Math.round((count / total) * 100)
+
+  if(filledInPixels>=10){
+    context.globalCompositeOperation="destination-out";
+    context.beginPath();
+    context.fillRect(0,0,w,h);
+    context.fill();
+    context.closePath();
+    switch(num){
+      case 0:
+        console.log('恭喜獲得1獎')
+        break;
+      case 1:
+        console.log('恭喜獲得2獎')
+        break;
+      case 2:
+        console.log('恭喜獲得3獎')
+        break;
+      case 3:
+        console.log('恭喜獲得4獎')
+        break;
+    }
+    isDrawing=false;
+    return filledInPixels;
+  }
+}
+
+function mouseUp(){
+  isDrawing=false;
+  console.log(filledInPixels)
+}
+
+</script>
+</html>

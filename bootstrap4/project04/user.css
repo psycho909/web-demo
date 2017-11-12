@@ -1,0 +1,36 @@
+.btn-cart {
+    background-color: transparent;
+    position: relative;
+}
+
+.btn-cart .badge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+}
+.dropdown-menu-right{
+    right: 0;
+    left:  auto;
+}
+.jumbotron-bg{
+    background-image: url(https://images.unsplash.com/photo-1476029764343-569b983f5785?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=);
+    background-size: cover;
+    background-position: center center;
+    min-height:400px;
+}
+.bg-lighter{
+    background-color: rgba(255,255,255,.35);
+}
+.box-shadow{
+    box-shadow: 0 3px 5px rgba(0,0,0,.15);
+    transition:all .5s;
+}
+.box-shadow:hover{
+    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+}
+.btn.disabled{
+    pointer-events: none;
+}
+.alert-round{
+    border-radius: 50px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+	<style>
+		*{
+			position: relative;
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+<canvas id="myChart"></canvas>
+</body>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var chart = new Chart(ctx,{
+    type: 'line',
+    data: {
+        labels: [2007,2008,2009,2010,2011,2012,2013],
+        datasets: [{
+            label: 'Men',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [106898,103937,99492,87213,101943,118848,103120],
+            fill:false
+        },{
+        	label: 'Female',
+            backgroundColor: 'rgb(100, 199, 132)',
+            borderColor: 'rgb(200, 199, 132)',
+            data: [97516,94796,91818,79673,94684,110633,95993],
+            fill:false
+        }]
+    },
+    options: {
+    	elements: {
+			line: {
+				tension: 0
+			}
+		}
+    }
+});
+
+</script>
+</html>

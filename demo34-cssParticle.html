@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.test-box {
+			width: 600px;
+			height: 300px;
+			background-color: #525252;
+			position: relative;
+			perspective: 1000px;
+		}
+
+		.test {
+			position: absolute;
+			left: 0;
+			background: #FE85C0;
+			width: 5px;
+			height: 5px;
+			/*backface-visibility: hidden;*/
+			transform-style: preserve-3d;
+		}
+
+		.test1 {
+			animation: fall1 12s infinite;
+			position: absolute;
+			top: 50%;
+			left: 0px;
+		}
+
+		.test2 {
+			top: 40%;
+			animation: fall1 8s infinite;
+			animation-delay: -0.3s;
+		}
+
+		.test3 {
+			top: 45%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.4s;
+		}
+
+		.test4 {
+			top: 60%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.3s;
+		}
+
+		.test5 {
+			top: 43%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.1s;
+		}
+
+		.test6 {
+			top: 32%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.6s;
+		}
+
+		.test7 {
+			top: 12%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.2s;
+		}
+
+		.test8 {
+			top: 22%;
+			animation: fall1 10s infinite;
+			animation-delay: -0.4s;
+		}
+
+		@keyframes fall1 {
+			to {
+				transform: translate3d(600px, 0px, 200px) rotate3d(1, 1, 1, 360deg);
+				opacity: 0;
+			}
+		}
+
+		@keyframes rotateY {
+			form {
+				transform: rotate3d(0, 0, 0, 0) translate3d(0px, 0px, -150px);
+			}
+			to {
+				transform: rotate3d(0, 1, 0, 360deg) translate3d(0px, 0px, -150px);
+			}
+		}
+		.test-box2{
+			width: 300px;
+			height: 300px;
+			background-color: gold;
+			margin: 20px;
+			position: relative;
+			perspective: 600px;
+		}
+		.box2{
+			width: 150px;
+			height: 150px;
+			background-color: tomato;
+			position: absolute;
+			top: 10%;
+			left: 10%;
+			transform:rotate3d(0,0,0,0) translate3d(0px,0px,-600px);
+			transform-origin: center center;
+			animation:zooms 3s forwards;
+			animation-delay:1s;
+		}
+		@keyframes zooms{
+			0%{
+				transform:rotate(0deg) translate3d(0px,0px,-600px);
+			}
+			100%{
+				transform:rotate(45deg) translate3d(260px,0px,150px);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-box2">
+		<div class="box2"></div>
+	</div>
+	<div class="test-box">
+		<div class="test test1"></div>
+		<div class="test test2"></div>
+		<div class="test test3"></div>
+		<div class="test test4"></div>
+		<div class="test test5"></div>
+		<div class="test test6"></div>
+		<div class="test test7"></div>
+		<div class="test test8"></div>
+	</div>
+</body>
+<script>
+
+</script>
+
+</html>

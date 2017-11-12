@@ -1,0 +1,88 @@
+/*-webkit-
+-moz-
+-ms-
+-o-*/
+p {
+  font: 12px/30px; }
+
+p:nth-child(1) {
+  font-size: 15px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(1):before {
+    content: "3:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+p:nth-child(2) {
+  font-size: 16px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(2):before {
+    content: "6:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+p:nth-child(3) {
+  font-size: 27px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(3):before {
+    content: "3:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+p:nth-child(4) {
+  font-size: 28px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(4):before {
+    content: "3:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+p:nth-child(5) {
+  font-size: 27px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(5):before {
+    content: "1:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+p:nth-child(6) {
+  font-size: 48px;
+  margin-left: 38px;
+  position: relative; }
+  p:nth-child(6):before {
+    content: "3:";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -36px; }
+
+.darkenBox {
+  width: 100px;
+  height: 72px;
+  background-color: #DC3737;
+  transition: all .6s; }
+  .darkenBox:hover {
+    background-color: #3c0b0b; }
+
+.text img {
+  width: 200px;
+  height: 200px; }
+
+.text .text-inline {
+  display: inline-block;
+  vertical-align: top; }

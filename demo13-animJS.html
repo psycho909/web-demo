@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+        *{
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .mm-box{
+            width: 260px;
+            height: 522px;
+            background-color: #ddd;
+            position: relative;
+            cursor: pointer;
+        }
+        .mm{
+            width: 230px;
+            height: 240px;
+            position: absolute;
+            left: 0;
+            bottom: 20px;
+            right: 0;
+            margin: auto;
+            background-image: url(images/mm.png);
+            background-position: 0 0;
+            z-index: 2;
+        }
+        .light{
+            width: 233px;
+            height: 522px;
+            background-image: url(images/light.png);
+            position: absolute;
+            left: 19px;
+            bottom: 0px;
+            right: 0;
+            margin: auto;
+            opacity: 1;
+            display: none;
+        }
+	</style>
+</head>
+<body>
+<div class="mm-box">
+    <p class="mm"></p>
+    <p class="light"></p>
+</div>
+</body>
+<script>
+var i=0;
+var _x=-230;
+var x;
+var y=0;
+$(function(){
+    var mm=setInterval(function(){
+        i++;
+        if(i%9 == 0){
+            y=-240;
+            i=0;
+        }else{
+            y=0;
+        }
+        x=_x*i;
+        $('.mm').css({backgroundPosition:x+'px '+y+'px'})
+       console.log(x,y)
+    }, 300);
+    $('.mm-box').hover(function(){
+        $('.light').fadeIn(200);
+    },function(){
+        $('.light').fadeOut(200);
+    })
+})
+</script>
+</html>

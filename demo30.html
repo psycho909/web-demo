@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <title>Document</title>
+  <style>
+	*{margin:0;padding:0;list-style-type:none;}
+	body{text-align:center;background:#4f3722 url('images/darkcurtain.jpg') repeat-x;}
+	img{border:none;}
+	.leftcurtain{width:50%;height:495px;top:0px;left:0px;position:absolute;z-index:2;}
+	.rightcurtain{width:50%;height:495px;right:0px;top:0px;position:absolute;z-index:3;}
+	.rightcurtain img, .leftcurtain img{width:100%;height:100%;}
+	.rope{position:absolute;top:-40px;left:70%;z-index:4;}
+  </style>
+</head>
+<body>
+	<div class="leftcurtain"><img src="images/frontcurtain.jpg"></div>
+	<div class="rightcurtain"><img src="images/frontcurtain.jpg"></div>
+	<a class="rope" href="#" style="top: -40px;"><img src="images/rope.png"></a>
+</body>
+<script>
+$(function(){
+
+	$curtainopen = false;
+
+	$(".rope").click(function(){
+		$(this).blur();
+		if ($curtainopen == false){
+			$(this).stop().animate({
+				top: '0px'
+			}, {queue:false, duration:350, easing:'easeOutBounce'});
+			$(".leftcurtain").stop().animate({
+				width:'60px'
+			}, 2000 );
+			$(".rightcurtain").stop().animate({
+				width:'60px'
+			},{queue:true,duration:2000,easing:'easeOutBounce'});
+			$curtainopen = true;
+		}else{
+			$(this).stop().animate({
+				top: '-40px'
+			}, {queue:false, duration:350, easing:'easeOutBounce'});
+			$(".leftcurtain").stop().animate({
+				width:'50%'}
+				, 2000 );
+			$(".rightcurtain").stop().animate({
+				width:'51%'}
+				, 2000 );
+			$curtainopen = false;
+		}
+		return false;
+	});
+
+})
+</script>
+</html>

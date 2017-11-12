@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+	*{margin:0;padding:0;list-style-type:none;}
+  .btn{
+    padding:6px 12px;
+    display: block;
+    margin: 12px auto;
+  }
+  #card{
+    max-width: 400px;
+    height: 300px;
+    position: relative;
+    margin: 12px auto;
+  }
+  #canvasOne{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  #canvasTwo{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn" onclick="window.location.reload()">在一次</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" id="col">
+      <div id="card">
+        <canvas id="canvasOne" width="400" height="300"></canvas>
+        <canvas id="canvasTwo" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+window.onload=function(){
+  var filledInPixels=0;
+  var isDrawing=false;
+  var card=document.getElementById('card');
+
+  var c=document.getElementById('canvasOne');
+  var context=c.getContext("2d");
+
+  var c2=document.getElementById('canvasTwo');
+  var contextTwo=c2.getContext("2d");
+
+  var w=c.width;
+  var h=c.height;
+
+  var str="images/";
+  var imgs=['00','01','02','03']
+  var num = Math.floor(Math.random()*4);
+  var jpg = ".jpg";
+
+  var img=new Image();
+  img.src=str+imgs[num]+jpg;
+
+  img.onload = draw;
+  //drawImage fit
+  function draw() {
+      drawImageProp(contextTwo, this, 0, 0, c.width, c.height, 0.5, 0.5);
+  }
+  //drawImage fit
+  function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
+      if (arguments.length === 2) {
+          x = y = 0;
+          w = ctx.canvas.width;
+          h = ctx.canvas.height;
+      }
+
+      /// default offset is center
+      offsetX = typeof offsetX === 'number' ? offsetX : 0.5;
+      offsetY = typeof offsetY === 'number' ? offsetY : 0.5;
+
+      /// keep bounds [0.0, 1.0]
+      if (offsetX < 0) offsetX = 0;
+      if (offsetY < 0) offsetY = 0;
+      if (offsetX > 1) offsetX = 1;
+      if (offsetY > 1) offsetY = 1;
+
+      var iw = img.width,
+          ih = img.height,
+          r = Math.min(w / iw, h / ih),
+          nw = iw * r,   /// new prop. width
+          nh = ih * r,   /// new prop. height
+          cx, cy, cw, ch, ar = 1;
+
+      /// decide which gap to fill
+      if (nw < w) ar = w / nw;
+      if (nh < h) ar = h / nh;
+      nw *= ar;
+      nh *= ar;
+
+      /// calc source rectangle
+      cw = iw / (nw / w);
+      ch = ih / (nh / h);
+
+      cx = (iw - cw) * offsetX;
+      cy = (ih - ch) * offsetY;
+
+      /// make sure source rectangle is valid
+      if (cx < 0) cx = 0;
+      if (cy < 0) cy = 0;
+      if (cw > iw) cw = iw;
+      if (ch > ih) ch = ih;
+
+      /// fill image in dest. rectangle
+      ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+  }
+
+
+  context.fillStyle="#ccc";
+  context.globalCompositeOperation="destination-over";
+  context.beginPath();
+  context.fillRect(0,0,w,h);
+  context.closePath();
+
+  c.addEventListener('mousedown',mouseDown);
+  c.addEventListener('mousemove',mouseMove);
+  c.addEventListener('mouseup',mouseUp);
+  c.addEventListener('touchstart',mouseDown);
+  c.addEventListener('touchmove',mouseMove);
+  c.addEventListener('touchend',mouseUp);
+  function mouseDown(){
+    if(filledInPixels < 20){
+      isDrawing=true;
+    }else{
+      isDrawing=false;
+    }
+    console.log(isDrawing)
+  }
+
+  function getMousePos(cv,e){
+    var rect=cv.getBoundingClientRect();
+    return{
+      x:e.clientX-rect.left,
+      y:e.clientY-rect.top
+    }
+  }
+
+  function mouseMove(e){
+    if(!isDrawing) return;
+    if(e.changedTouches){
+      e=e.changedTouches[e.changedTouches.length-1];
+    }
+    var pos=getMousePos(c,e);
+    // var x=e.pageX-card.offsetLeft;
+    // var y=e.pageY-card.offsetTop;
+    console.log(pos.x,pos.y)
+    context.globalCompositeOperation="destination-out";
+    context.beginPath();
+    context.arc(pos.x,pos.y,12,0,Math.PI*2,true);
+    context.fill();
+    context.closePath();
+
+    //算出擦拭多少像素百分比
+    var pixels = context.getImageData(0, 0, w, h);
+    var pdata = pixels.data;
+    var len = pdata.length;
+    var total = len / 32;
+    var count = 0;
+    for (var i = 0; i < len; i += 32) {
+        if (parseInt(pdata[i]) === 0) {
+            count++;
+        }
+    }
+    filledInPixels=Math.round((count / total) * 100)//Math.round 四捨五入
+
+    if(filledInPixels>20){
+      context.save();
+      context.fillRect(0,0,w,h);
+      context.fill();
+      context.restore();
+      switch(num){
+        case 0:
+          console.log('恭喜獲得1獎')
+          break;
+        case 1:
+          console.log('恭喜獲得2獎')
+          break;
+        case 2:
+          console.log('恭喜獲得3獎')
+          break;
+        case 3:
+          console.log('恭喜獲得4獎')
+          break;
+      }
+      isDrawing=false;
+    }
+    console.log(filledInPixels+'%');
+  }
+
+  function mouseUp(){
+    isDrawing=false;
+    console.log(filledInPixels)
+  }
+}
+
+
+</script>
+</html>

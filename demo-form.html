@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>JQuery</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+	</style>
+</head>
+<div>
+	<form action="" method="POST" id="example-form" class="form" autocomplete="off">
+		<fieldset class="form__fieldset">
+
+			<div class="form__field">
+				<label for="name" class="form__label">Name</label>
+				<input type="text" id="name" class="form__input" name="name" required>
+			</div>
+
+			<div class="form__field">
+				<label for="email" class="form__label">Email</label>
+				<input type="email" id="email" class="form__input" name="email" required>
+			</div>
+
+			<div class="form__field">
+				<label for="shirtsize" class="form__label">T-Shirt Size</label>
+				<select id="shirtsize" class="form__input" name="shirtsize">
+					<option value="S">Small</option>
+					<option value="M">Medium</option>
+					<option value="L">Large</option>
+					<option value="XL">XLarge</option>
+				</select>
+			</div>
+
+			<div class="form__actions">
+				<button type="submit" class="btn btn--primary" id="submit">Submit Form</button>
+				<div id="feedback" class="form__feedback" aria-live="assertive" role="alert"></div>
+			</div>
+
+		</fieldset>
+	</form>
+
+	<p class="more">Read
+		<a href="https://mxb.at/blog/offline-forms/">more about this here</a>.</p>
+</div>
+
+<body>
+
+	<script>
+		class OfflineForm {
+			constructor(form) {
+				this.id = form.id;
+				this.action = form.action;
+				this.data = {}
+
+				form.addEventListener('submit', e => this.handleSubmit(e))
+			}
+			handleSubmit(e){
+				e.preventDefault();
+				this.getFormData()
+				if(!navigator.onLine){
+					this.storeData()
+				}else{
+					this.sendDate()
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>

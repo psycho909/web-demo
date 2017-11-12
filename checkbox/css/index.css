@@ -1,0 +1,253 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*=====================================*/
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Arial','微軟正黑體';
+}
+
+.checkboxOne {
+  width: 40px;
+  height: 10px;
+  background-color: #555;
+  margin: 20px 80px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.checkboxOne label {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  background-color: #ccc;
+}
+
+.checkboxOne input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkboxOne input[type="checkbox"]:checked + label {
+  left: 27px;
+}
+
+.checkboxTwo {
+  width: 120px;
+  height: 40px;
+  background-color: #333;
+  margin: 20px 60px;
+  border-radius: 50px;
+  position: relative;
+}
+
+.checkboxTwo:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 2px;
+  width: 90px;
+  background-color: #111;
+}
+
+.checkboxTwo label {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 9px;
+  z-index: 1;
+  left: 12px;
+  background-color: #ddd;
+}
+
+.checkboxTwo input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkboxTwo input[type="checkbox"]:checked + label {
+  left: 84px;
+  background-color: #26ca28;
+}
+
+.checkboxThree {
+  width: 120px;
+  height: 40px;
+  background-color: #333;
+  margin: 20px 60px;
+  border-radius: 50px;
+  position: relative;
+}
+
+.checkboxThree:before {
+  content: 'On';
+  position: absolute;
+  top: 12px;
+  left: 13px;
+  height: 2px;
+  color: #26ca28;
+  font-size: 16px;
+}
+
+.checkboxThree label {
+  display: block;
+  width: 52px;
+  height: 22px;
+  border-radius: 50px;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 9px;
+  z-index: 1;
+  left: 12px;
+  background-color: #ddd;
+}
+
+.checkboxThree input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkboxThree input[type="checkbox"]:checked + label {
+  left: 60px;
+  background-color: #26ca28;
+}
+
+.checkboxFour {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  margin: 20px 90px;
+  border-radius: 100%;
+  position: relative;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.checkboxFour label {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  background-color: #333;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.checkboxFour input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkboxFour input[type="checkbox"]:checked + label {
+  background-color: #26ca28;
+}
+
+.checkboxFive {
+  width: 25px;
+  margin: 20px 100px;
+  position: relative;
+}
+
+.checkboxFive label {
+  cursor: pointer;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+.checkboxFive label:after {
+  opacity: .2;
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  background-color: transparent;
+  top: 6px;
+  left: 7px;
+  border: 3px solid #333;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+}
+
+.checkboxFive label:hover::after {
+  opacity: .5;
+}
+
+.checkboxFive input[type="checkbox"] {
+  opacity: 0;
+}
+
+.checkboxFive input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}

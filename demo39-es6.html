@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>ES6</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+
+</body>
+<script>
+
+var state={
+	count:21
+}
+var states = state=> state.count % 2 === 0 ? '偶數' : '奇數'
+console.log(states(state))
+
+var fn=(a,b)=>{
+	return a+b;
+}
+
+var a=20;
+var b=30;
+var c=`${a}+${b}`
+
+var props={
+	className:"trigger-button",
+	loading:false,
+	clicked:true,
+	disabled:'disabled'
+}
+
+var {className,loadimg}=props;
+
+var arr=['chen','ching','yang'];
+var a=arr[0];
+var b=arr[1];
+var c=arr[2];
+
+var arr=['hello','ES6','World'];
+var [a,b,c]=arr;
+
+function add(x,y){
+	var x=x||20;
+	var y=y||30;
+	return x+y;
+}
+
+function add(x=20,y=30){
+	return x+y;
+}
+
+var ButtonGroupProps={
+	size:'normal',
+	className:'xxxx-button-group',
+	borderColor:'#333'
+}
+
+var add=function(props=ButtonGroupProps){
+	return props.size
+}
+
+var arr1=[1,2,3];
+var arr2=[...arr1,10,'ching','chen']
+
+var obj1={
+	a:'chen',
+	b:'ching',
+	c:'www'
+}
+
+// var obj2={
+// 	...obj1,
+// 	d:'ccc',
+// 	e:'fff'
+// }
+//var {a,...others}=props
+
+var addd=(a,b,...more)=>{
+	return more.reduce((m,n)=>m+n)+a+b
+}
+console.log(addd(1,33,2,6,9,5,4))
+
+var person1={name:'Chen',age:100,size:'XL'};
+var person2={name:'Ching',age:26,size:'XXL'};
+
+var sayHello=function(){
+	console.log('sayHello, '+this.name)
+}
+var sayGoodbye=function(){
+	console.log('sayGoodbye, '+this.name)
+}
+sayHello.call(person1)
+sayGoodbye.apply(person1)
+
+var say=function(greeting){
+	console.log(greeting+' , '+this.name)
+}
+say.call(person1,'say')
+
+var update=function(name,age,size){
+	this.name=name;
+	this.age=age;
+	this.size=size;
+}
+
+update.apply(person1,['Yang',200,'L'])
+
+var dispath1=function(person,method,args){
+	method.apply(person,args);
+}
+
+var dispath2=function(person,method,args){
+	method.call(person,args);
+}
+
+var says=function(greeting){
+	console.log(greeting+' , '+this.name+' , age '+this.age+' , size '+this.size)
+}
+
+console.log("/****************/")
+
+dispath1(person1,update,['apply',109,'XXS'])
+dispath1(person1,says,['dispath'])
+
+console.log("/****************/")
+
+dispath1(person1,update,['apply',109,'XXS'])
+dispath2(person1,says,'call',99,'LL')
+
+var arr3=[1,2,3,4,5,6]
+Math.max(...arr3)
+</script>
+</html>

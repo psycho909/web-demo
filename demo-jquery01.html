@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>JQuery</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		.mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, .5);
+			z-index: 2;
+		}
+
+		.info {
+			position: relative;
+			z-index: 999;
+		}
+
+		.close-control {
+			position: absolute;
+			top: 2%;
+			right: 2%;
+			cursor: pointer;
+		}
+
+		.annou {
+			list-style: none;
+		}
+
+		.annou li {
+			height: 30px;
+			line-height: 30px;
+		}
+
+		.boxs {
+			width: 300px;
+			border: 1px solid #000;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="checkbox">
+		<input type="checkbox">
+		<input type="checkbox">
+		<input type="checkbox">
+		<input type="checkbox">
+	</div>
+	<div id="btn">
+		<input type="button" id="checkAll" value="All">
+		<input type="button" id="checkNone" value="None">
+		<input type="button" id="checkReverse" value="Reserve">
+	</div>
+	<a href="#" class="to_box">click</a>
+	<div class="boxs ml-3">
+		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut reprehenderit voluptatum error modi neque ut non doloremque
+		harum magni eligendi magnam consequatur velit sint, natus esse dignissimos accusantium aliquam facilis!
+	</div>
+	<ul class="annou">
+		<li>我是第1條公告</li>
+		<li>我是第2條公告</li>
+		<li>我是第3條公告</li>
+		<li>我是第4條公告</li>
+		<li>我是第5條公告</li>
+		<li>我是第6條公告</li>
+		<li>我是第7條公告</li>
+		<li>我是第8條公告</li>
+		<li>我是第9條公告</li>
+		<li>我是第10條公告</li>
+	</ul>
+	<div class="container info">
+		<div class="row justify-content-center mb-3">
+			<div class="col-md-4">
+				<div class="card popDiv">
+					<div class="card-body">
+						<button type="button" class="close close-control" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<ul class="list-group list-group-flush popUl">
+							<li class="list-group-item bg-transparent">
+								<strong>Name:</strong>
+								<span></span>
+							</li>
+							<li class="list-group-item">
+								<strong>Age:</strong>
+								<span></span>
+							</li>
+							<li class="list-group-item">
+								<strong>Job:</strong>
+								<span></span>
+							</li>
+							<li class="list-group-item">
+								<strong>Salary:</strong>
+								<span></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<table class="table" id="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Job</th>
+					<th>Salary</th>
+					<th>Operating</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Chen</td>
+					<td>29</td>
+					<td>No</td>
+					<td>30000</td>
+					<td>
+						<a href="#" class="view">View</a>
+						<a href="#" class="del">Del</a>
+						<a href="#">Change</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Ching</td>
+					<td>27</td>
+					<td>WW</td>
+					<td>28000</td>
+					<td>
+						<a href="#" class="view">View</a>
+						<a href="#" class="del">Del</a>
+						<a href="#">Change</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Flash</td>
+					<td>27</td>
+					<td>Flash</td>
+					<td>31000</td>
+					<td>
+						<a href="#" class="view">View</a>
+						<a href="#" class="del">Del</a>
+						<a href="#">Change</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var checkAll=$('#checkAll')
+		var checkNone=$('#checkNone')
+		var checkReverse=$('#checkReverse')
+		var checkbox=$('#checkbox > :checkbox')
+
+		checkAll.on('click',function(){
+			checkbox.prop('checked',true)
+		})
+		checkNone.on('click',function(){
+			checkbox.prop('checked',false)
+		})
+		checkReverse.on('click',function(){
+			checkbox.each(function(){
+				$(this).prop('checked',!$(this).prop('checked'))
+			})
+		})
+		var i = true;
+		$('.to_box').on('click', function () {
+			if ($('.boxs').is(':visible')) {
+				$('.boxs').hide(600)
+
+				i = false;
+			} else {
+				$('.boxs').show(600)
+				i = true;
+			}
+
+		})
+		setInterval(function () {
+			var newLi = $('.annou li:first').clone(true);
+			$('.annou').append(newLi)
+			$('.annou li:first').remove();
+		}, 5000)
+
+		$('.view').click(function () {
+			var maskHeight = $(document).height()
+			var maskWidth = $(document).width()
+			$('<div class="mask w-100 h-100"></div>').appendTo('body')
+			$('div.mask').css({
+				'width': maskWidth + 'px',
+				'height': maskHeight + 'px',
+			})
+			var arr = []
+			$(this).parent().siblings().each(function () {
+				arr.push($(this).text())
+			})
+			$('.popDiv').show().find('.popUl').children().each(function (i, v) {
+				$(this).children('span').text(arr[i])
+				//$(v).find('span').text(arr[i])
+			})
+		})
+		$('.close').on('click', function () {
+			$(this).parents('.popDiv').hide()
+			$('.mask').remove();
+		})
+		$('.del').on('click', function () {
+			$(this).parents('tr').remove();
+		})
+	</script>
+</body>
+
+</html>

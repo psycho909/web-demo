@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
+	<!--[if lte IE 8]><script src="js/selectivizr.js"></script><![endif]-->
+	<script type="text/javascript" src="http://www.wasabii.com.tw/scripts/ga/code_event.js"></script>
+	<!--[if !IE]>--><script src="js/vue.min.js"></script><!--<![endif]-->
+	<!--[if !IE]>--><script src="js/respond.min.js"></script><!--<![endif]-->
+	<!--[if lt IE 9]>
+		<p>您正在使用的瀏覽器為 ie9 或比 ie9 更新的版本。</p>
+	<![endif]-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!--[if !IE]>--><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><!--<![endif]-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"></script>
+	<style>
+        *{
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .flex1{
+            margin: 0 auto;
+            width: 240px;
+            background-color: #F6F5F5;
+            display: flex;
+            flex-direction:column;
+            border: 1px solid #000;
+        }
+        .flex-head,.flex-footer{
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+        }
+        .flex-main{
+            display: flex;
+            flex-direction: row;
+            flex-wrap:wrap;
+            justify-content:center;
+            align-content:space-around;
+        }
+        .flex-main div{
+            min-width: 60px;
+            min-height: 60px;
+            background-color: #3BB4C1;
+            color:#fff;
+            text-align: center;
+            line-height: 60px;
+        }
+        .flex-main div:nth-child(1){
+        }
+        .flex-main div:nth-child(2){
+        }
+        .flex-main div:nth-child(3){
+        }
+        .flex-main div.big{
+            min-width: 70px;
+            min-height: 70px;
+            background-color: #455D7A;
+            flex-grow:2;
+        }
+        .flex2{
+            display:flex;
+            flex-wrap:wrap;
+            width:300px;
+            height:300px;
+            margin:0 auto;
+            border:1px solid #000;
+            align-items:center;
+            justify-content: center;
+        }
+        .flex2 > div{
+            background-color: gold;
+            margin: 6px;
+            padding: 12px;
+            font-size: 12px;
+        }
+	</style>
+</head>
+<body>
+<div class="flex1">
+    <div class="flex-head">flex-head</div>
+    <div class="flex-main">
+        <div>1</div>
+        <div class="big">2</div>
+        <div>3</div>
+        <div>4</div>
+        <div class="big mid">
+            <div>5-1</div>
+            <div>5-2</div>
+            <div>5-3</div>
+        </div>
+        <div>6</div>
+        <div>7</div>
+        <div class="big">8</div>
+        <div>9</div>
+    </div>
+    <div class="flex-footer">flex-footer</div>
+</div>
+<div class="flex2">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

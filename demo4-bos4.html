@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+	<!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
+	<!--[if lte IE 8]><script src="js/selectivizr.js"></script><![endif]-->
+	<script type="text/javascript" src="http://www.wasabii.com.tw/scripts/ga/code_event.js"></script>
+	<!--[if !IE]>--><script src="js/vue.min.js"></script><!--<![endif]-->
+	<!--[if !IE]>--><script src="js/respond.min.js"></script><!--<![endif]-->
+	<!--[if lt IE 9]>
+		<p>您正在使用的瀏覽器為 ie9 或比 ie9 更新的版本。</p>
+	<![endif]-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!--[if !IE]>--><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script><!--<![endif]-->
+	<style>
+		*{
+			position: relative;
+		}
+		.col-box{
+			background-color: #FFF2BE;
+			border: 1px solid #ddd;
+		}
+		.box-row{
+			min-height: 10rem;
+			background-color: #F5E1DA;
+		}
+		.aa{
+			width: 100%;
+		}
+		.bb{
+			height: 30px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+		<p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+	</div>
+	<div class="row justify-content-md-center">
+		<div class="col-box col col-lg-2">1 of 2</div>
+		<div class="col-box col-12 col-md-auto">1 of 2</div>
+		<div class="col-box col col-lg-2">1 of 2</div>
+	</div>
+	<div class="box-row row align-items-start">
+		<div class="col-box col align-self-center">1</div>
+		<div class="col-box col">2</div>
+		<div class="w-100"></div>
+		<div class="col-box col">3</div>
+		<div class="col-box col">4</div>
+	</div>
+	<div class="box-row row align-items-center">
+		<div class="col-box col-12 col-md-8">12 8</div>
+		<div class="col-box col-12 col-md-4">6 4</div>
+	</div>
+	<div class="row no-gutters">
+		<div class="col-box col-12 col-sm-6 col-md-8">.col-12 .col-sm-6 .col-md-8</div>
+		<div class="col-box col-6 col-md-4">.col-6 .col-md-4</div>
+	</div>
+	<div class="row">
+		<div class="col-box col-12 col-sm-6 col-md-8">.col-12 .col-sm-6 .col-md-8</div>
+		<div class="col-box col-6 col-md-4">.col-6 .col-md-4</div>
+	</div>
+	<div class="row">
+		<div class="col-box col-md-4">4</div>
+		<div class="col-box col-md-4 offset-md-4">
+			<div class="alert alert-success" role="alert">
+			<h4 class="alert-heading">Well done!</h4>
+			<p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+			<hr>
+			<p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+		</div>
+		</div>
+	</div>
+	<div class="row box-row">
+		<div class="w-100 d-flex flex-md-row flex-sm-column flex-column justify-content-center justify-content-sm-end flex-wrap">
+			<div class="col-box p-5 h-10 align-self-center">flex item 1</div>
+			<div class="col-box p-2 ab" data-index="0">flex item 2</div>
+			<div class="col-box p-2 ab aacc" data-index="1">flex item 3</div>
+			<div class="col-box p-2 ab">flex item 4</div>
+			<div class="col-box p-2 ab">flex item 5</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+			<div class="col-box p-2 ab">flex item 6</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+var arr=[];
+var $arr;
+
+var ab=document.querySelectorAll('.ab');
+ab.forEach(function(v,i){
+	arr.push(v);
+})
+console.log(arr[1].dataset.index)
+$(function () {
+	// $('.ab').each(function(i,v){
+	// 	arr.push(v)
+	// })
+	// console.log(arr)
+	// console.log($(arr)[1]);
+	// console.log($('.ab')[1])
+});
+</script>
+</html>

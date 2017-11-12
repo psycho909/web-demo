@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		#canvas{
+			border:1px solid #000;
+		}
+		#canvass{
+			border:1px solid #000;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="canvas" width="300" height="300"></canvas>
+	<canvas id="canvass" width="300" height="300"></canvas>
+</body>
+<script>
+window.onload=function(){
+	var canvas=document.getElementById('canvas');
+	var canvass=document.getElementById('canvass');
+
+	var ctx=canvas.getContext("2d");
+	var ctxx=canvass.getContext("2d");
+
+	var w=canvas.width;
+	var h=canvas.height;
+	var cx=100;
+	var cy=100;
+
+	ctx.save();
+
+	ctx.beginPath();
+	ctx.fillStyle="tomato";
+	ctx.arc(cx,cy,50,0,Math.PI*2,false);
+	ctx.fill();
+	ctx.clip();
+
+	ctx.beginPath();
+	ctx.fillStyle="#333";
+	ctx.arc(cx+50,cy,50,0,Math.PI*2,false);
+	ctx.fill();
+
+
+	ctx.beginPath();
+	ctx.fillStyle="cornsilk";
+	ctx.arc(cx,cy+50,50,0,Math.PI*2,false);
+	ctx.fill();
+
+	ctx.restore();
+
+	ctx.beginPath();
+	ctx.strokeStyle="#ccc";
+	ctx.lineWidth=6;
+	ctx.arc(cx,cy,50,0,Math.PI*2,false);
+	ctx.stroke();
+
+	var img=new Image();
+	img.src="https://farm3.staticflickr.com/2908/32764885503_1a04915b11_k.jpg";
+
+	img.onload=function(){
+		ctxx.beginPath();
+		ctxx.fillStyle="#000";
+		ctxx.fillRect(0, 0, w, h);
+		ctxx.fill();
+
+		ctxx.save();
+		ctxx.beginPath();
+		ctx.fillStyle="#fff";
+		ctxx.arc(150,150,50,0,Math.PI*2);
+		ctxx.fill();
+		ctxx.clip();
+		ctxx.drawImage(img,0,0)
+	}
+
+	ctxx.restore();
+}
+</script>
+
+</html>

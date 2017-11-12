@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap 4 Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <style>
+        * {
+            font-family: 微軟正黑體;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+        }
+
+        .text-hexschool {
+            color: #00cc99;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#00cc99;">
+        <a class="navbar-brand" href="#">
+            <i class="fa fa-diamond" aria-hidden="true"></i>
+            六腳部落格</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item">
+                <a href="#" class="text-hexschool">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Library</li>
+        </ol>
+        <h1 class="text-hexschool">Bootstrap 4繁體手冊</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="my-2 text-secondary">
+                    <small>
+                        <span class="mr-3">
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            Chen</span>
+                        <span class="mr-3">2017/10/25</span>
+                        <span>
+                            <i class="fa fa-tag" aria-hidden="true"></i>
+                            Data</span>
+                    </small>
+                </div>
+                <article>
+                    <p>《列車上的女孩》是她真正想創作的故事，靈感出自平日搭倫敦地鐵通勤的經驗。小說架構早有雛形，寫到一半卻陷入經濟困境，她的文學經紀人決定寄出不到兩百頁的書稿，開始尋覓合適的出版社。沒想到稿件公開後，各國編輯大為驚豔，紛紛祭出重金競標，其中包括曾發行《龍紋身的女孩》《風之影》《哈利波特》等一流作品的出版社。</p>
+                    <h2 class="text-secondary">「我對快樂、正常的角色絲毫不感興趣。」──珀拉．霍金斯</h2>
+                    <p>美國三個月內累積的讀者就能塞滿11,428個紐約地鐵車廂，更打破了《達文西密碼》紀錄，連續攻占《紐約時報》小說冠軍14週。如今，《列車上的女孩》全球銷量已突破1,800萬冊，紀錄每天都在持續刷新。夢工廠早在故事尚未完稿前果斷搶下電影版權，由艾蜜莉．布朗領銜主演的同名改編電影於2016年上映，亦登上票房冠軍寶座。</p>
+                    <ul>
+                        <li>上癮般研究跳河自殺史的女作家留下道別紙條後揮別人世的女學生妳們都葬身在此， 然而最駭人的祕密，從未隨著妳們沉入水底。</li>
+                        <li>她，不只是與你擦身而過的通勤乘客。
+                            <code>日復一日</code>，瑞秋固定搭乘早晚兩班倫敦通勤列車。但，她的目的地與一般人並不相同。</li>
+                    </ul>
+                    <img class="img-fluid" src="http://im2.book.com.tw/image/getImage?i=http://www.books.com.tw/img/001/076/86/0010768635.jpg&v=59e72d5f&w=348&h=348"
+                        alt="">
+                </article>
+                <div class="card">
+                    <div class="card-header">留言回覆</div>
+                    <div class="card-body">
+                        <div class="media mb-4">
+                            <img width="64" height="64" src="https://randomuser.me/api/portraits/men/78.jpg" alt="" class="d-flex mr-3">
+                            <div class="media-body">
+                                <h5 class="mt-0">Media heading</h5>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="example" name="" id="" cols="30" rows="3"></textarea>
+                                    <button class="btn btn-light btn-block mt-2">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media">
+                            <img width="64" height="64" src="https://randomuser.me/api/portraits/men/78.jpg" alt="" class="d-flex mr-3">
+                            <div class="media-body">
+                                <h5 class="mt-0">Media heading</h5>
+                                以指尖溫度接觸書名，特殊感溫油墨隱匿線索
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-secondary">Tags</h2>
+                <a href="#" class="badge badge-info">
+                    <i class="fa fa-tag" aria-hidden="true"></i>Info</a>
+                <a href="#" class="badge badge-info">
+                    <i class="fa fa-tag" aria-hidden="true"></i>Info</a>
+                <a href="#" class="badge badge-info">
+                    <i class="fa fa-tag" aria-hidden="true"></i>Info</a>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-light py-4 mt-3">
+       <div class="container d-flex justify-content-between">
+            <div class="">@Copyright Notice</div>
+            <div>
+                <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </div>
+       </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

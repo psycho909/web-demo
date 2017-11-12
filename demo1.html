@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		.box{
+			width: 300px;
+			height: 300px;
+			border:1px solid #000;
+			position: relative;
+		}
+		.box-inner{
+			text-align: center;
+			background-color: gold;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			/*transform-origin: center center;*/
+		}
+		.text{
+			width: 100px;
+			margin: 5px;
+			border:1px solid red;
+			text-align-last:justify;
+		}
+		.text[data-color="blue"]{
+			color:blue;
+		}
+		#box-b{
+			display: none;
+			opacity: 0;
+			transition:all .8s;
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+<div id="boxs" class="box">
+	<div id="box-a" class="box-inner">
+		<div class="text">帳號</div>
+		<div class="text">密碼</div>
+		<div class="text">電子郵件</div>
+		<div class="text" data-color="blue">驗證碼</div>
+	</div>
+</div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+</body>
+<script>
+// $(function () {
+// 	$('.box-inner').click(function(){
+// 		$(this).animate({
+// 			height:200+'px'
+// 		},300)
+// 	})
+// });
+var boxS=document.querySelector('#boxs')
+var boxA=document.querySelector('#box-a')
+var mouseX=0,mouseY=0,width=0,height=0;
+// boxS.addEventListener('mousemove',(e)=>{
+// 	mouseX=e.clientX;
+// 	mouseY=e.clientY
+// 	boxAWdth=boxA.clientWidth/2;
+// 	boxAHeight=boxA.clientHeight/2;
+// 	boxA.style.left=(mouseX-boxAWdth)+'px'
+// 	boxA.style.top=(mouseY-boxAHeight)+'px'
+// 	if(mouseX-boxAWdth >= (300-boxA.clientWidth)){
+// 		boxA.style.left= 300-boxA.clientWidth+'px'
+// 	}else if( mouseX-boxAWdth <= 0){
+// 		boxA.style.left= 0+'px'
+// 	}
+// 	if(mouseY-boxAHeight >= (300-boxA.clientHeight)){
+// 		boxA.style.top= 300-boxA.clientHeight+'px'
+// 	}else if(mouseY-boxAHeight <= 0){
+// 		boxA.style.top= 0+'px'
+// 	}
+// 	console.log(boxA.style.top)
+// })
+function getData(){
+	return new Promise((resolve,reject)=>{
+		let req=new XMLHttpRequest();
+		req.open('get','https://training.pada-x.com/resources/javascript-es6-react/data.out')
+		req.onload=function(){
+			resolve(this.responseText)
+		}
+		req.onerror=function(){
+			reject("Error")
+		}
+		req.send()
+	})
+}
+var dataPromise=getData()
+dataPromise.then((result)=>{
+	console.log(result)
+}).catch((error)=>{
+	console.log(error)
+})
+</script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>JQuery</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		.evenRow1{
+			background-color: #38a38a;
+		}
+		.oddRow1{
+			background-color: #09f;
+		}
+		.currentRow1{
+			background-color: yellow;
+		}
+	</style>
+</head>
+
+<body>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Job</th>
+				<th>Sex</th>
+				<th>Phone</th>
+				<th>Height</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>bbb</td>
+				<td>female</td>
+				<td>09877</td>
+				<td>188</td>
+			</tr>
+			<tr>
+				<td>AAAA</td>
+				<td>male</td>
+				<td>09877</td>
+				<td>163</td>
+			</tr>
+			<tr>
+				<td>ddd</td>
+				<td>female</td>
+				<td>09877</td>
+				<td>122</td>
+			</tr>
+			<tr>
+				<td>ccc</td>
+				<td>male</td>
+				<td>09877</td>
+				<td>111</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		(function($){
+			$.fn.table=function(options){
+				var defaults={
+					evenRowClass:'evenRow',
+					oddRowClass:'oddRow',
+					currentRowClass:'currentRow',
+					eventType:'mouseover',
+					eventType2:'mouseout'
+				}
+
+				var options=$.extend(defaults,options)
+
+				this.each(function(){
+					var _this=$(this);
+					_this.find('tr:even').addClass(options.evenRowClass)
+					_this.find('tr:odd').addClass(options.oddRowClass)
+					_this.find('tr').on(options.eventType,function(){
+						$(this).addClass(options.currentRowClass)
+					})
+					_this.find('tr').on(options.eventType2,function(){
+						$(this).removeClass(options.currentRowClass)
+					})
+				})
+			}
+		})(jQuery)
+		$(function(){
+			$('.table').table({
+				evenRowClass:'evenRow1',
+				oddRowClass:'oddRow1',
+				currentRowClass:'currentRow1'
+			});
+		})
+	</script>
+</body>
+
+</html>

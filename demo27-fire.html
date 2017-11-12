@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+	body {background-color:#000}
+
+	#logfire {
+	    position:relative;
+	    background:url(http://sitepointstatic.com/examples/css3/animation/logfire.jpg?r=2) center top no-repeat;
+	    height:400px;
+	    margin-top:100px
+	    }
+	#flamegroup {
+	    margin:0 auto;
+	    position:relative;
+	    top:100px;
+	    width:120px;
+	    height:156px;
+	}
+	.flame {
+	    margin:0 auto;
+	    position:absolute;
+	    width:100px;
+	    height:136px;
+	    background:url(http://sitepointstatic.com/examples/css3/animation/flame-sprite.png?r=6) 0px 0px no-repeat;
+	}
+	#fl1 {
+	   animation: flicker 1.3s infinite;
+	    top:20px;
+	    left:10px
+	}
+	#fl2 {
+	   animation: flicker .7s infinite;
+	    top:10px;
+	    left:20px
+	}
+	#fl3 {
+	   animation: flicker 1.1s infinite;
+	}
+	@keyframes flickers {
+	    0% {
+	        background-position:0px 0px;
+	        opacity:.8;
+		}
+	    25% {
+	        background-position:0px 0px;
+		}
+	    25.1% {
+	        background-position:-100px 0px;
+		}
+	    50% {
+	        background-position:-100px 0px;
+	        opacity:.4;
+		}
+	    50.1% {
+	        background-position:-200px 0px;
+		}
+	    75% {
+	        background-position:-200px 0px;
+		}
+	    75.1% {
+	        background-position:-100px 0px;
+		}
+	    100% {
+	        background-position:-100px 0px;
+	        opacity:.8
+		}
+	}
+  </style>
+</head>
+<body>
+<div id="logfire">
+    <div id="flamegroup">
+           <div class="flame" id="fl1"></div>
+           <div class="flame" id="fl2"></div>
+           <div class="flame" id="fl3"></div> 
+    </div>
+</div>​
+<div id="time"></div>
+<div id="times"></div>
+</body>
+<script>
+var oDiv=document.getElementById('time');
+var oDivs=document.getElementById('times');
+
+window.setInterval(function(){
+  add(1)
+},100)
+
+var i=0;
+function add(a){
+  a=a+1;
+  console.log(a)
+}
+
+function showTime(times){
+  var time=new Date();
+  var months=time.getMonth()+1;
+  var days=time.getDate();
+  var hours=time.getHours();
+  var min=time.getMinutes();
+  var sec=time.getSeconds();
+  var mm=time.getMilliseconds();
+
+  if(mm<10){
+    mm='00'+time.getMilliseconds();
+  }
+  if(mm>10 & mm<100){
+    mm='0'+ time.getMilliseconds();
+  }
+
+  var endtime=new Date(times);
+
+  var spantime=((endtime-time)/(1000))
+
+  var d=Math.floor((spantime/(60*60*24)))
+
+  var h=Math.floor((spantime/(60*60))%24)
+
+  var m=Math.floor((spantime/60)%60)
+
+  var s=Math.floor(spantime%(60));
+
+  oDiv.innerHTML=d+' = '+h+':'+m+':'+s+' '+mm;
+  console.log(1)
+}
+showTime('2017/5/12,14:00:00')
+</script>
+</html>

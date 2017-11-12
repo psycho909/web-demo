@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            font-family: '微軟正黑體';
+            font-size: 16px;
+        }
+        .grid-box-a{
+            display:grid;
+            width: 1000px;
+            grid-template-rows:100px 100px 100px;
+            grid-template-columns:1fr 1fr 1fr;
+            grid-gap:2px;
+        }
+        .grid{
+            color:#fff;
+            text-align: center;
+            background-color: tomato;
+        }
+        .item-a:nth-child(1){
+            background-color: gold;
+            grid-column:1/ span 3;
+        }
+        .item-a:nth-child(2){
+            background-color: silver;
+            grid-row:2/span 2;
+        }
+        .item-a:nth-child(3){
+            background-color: brown;
+        }
+        .item-a:nth-child(4){
+            background-color: burlywood;
+        }
+        .grid-box-b{
+            display:grid;
+            width: 1000px;
+            grid-template-rows:[row-1] 100px [row-2] 100px [row-3];
+            grid-template-columns:[col-1 ]1fr [col-2] 1fr [col-3] 1fr [col-4];
+            grid-auto-rows:140px;
+            grid-gap:2px;
+            margin-top: 1rem;
+        }
+        .item-b:nth-child(1){
+            grid-row-start:row-1;
+            grid-row-end:row-2;
+            grid-column-start:col-2;
+            grid-column-end:col-3;
+        }
+        .grid-box-c{
+            display:grid;
+            width: 1000px;
+            grid-template-areas:"header header"
+                                "content sidebar"
+                                "footer footer";
+            grid-template-rows:[row-1] 100px [row-2] 200px [row-3] 100px [row-4];
+            grid-template-columns:[col-1 ]1fr [col-2] 200px [col-3];
+            grid-gap:2px;
+            margin-top: 1rem;
+        }
+        .header{
+            background-color: green;
+            grid-row:header;
+            grid-column:header;
+        }
+        .content{
+            background-color: pink;
+        }
+        .sidebar{
+            background-color: orangered;
+            grid-row:sidebar;
+            grid-column:sidebar;
+        }
+        .footer{
+            background-color: purple;
+            grid-row:footer;
+            grid-column:footer;
+        }
+        .grid-box-d{
+            display:grid;
+            width: 600px;
+            height: 300px;
+            grid-template-rows: repeat(3,50px);
+            grid-template-columns:repeat(3,50px);
+            grid-gap:2px;
+            margin-top: 1rem;
+            justify-content:flex-end;
+            align-content:flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-box-a">
+        <div class="grid item-a">1</div>
+        <div class="grid item-a">2</div>
+        <div class="grid item-a">3</div>
+        <div class="grid item-a">4</div>
+        <div class="grid item-a">5</div>
+        <div class="grid item-a">6</div>
+    </div>
+
+    <div class="grid-box-b">
+        <div class="grid item-b">1</div>
+        <div class="grid item-b">2</div>
+        <div class="grid item-b">3</div>
+        <div class="grid item-b">4</div>
+        <div class="grid item-b">5</div>
+        <div class="grid item-b">6</div>
+        <div class="grid item-b">7</div>
+    </div>
+
+    <div class="grid-box-c">
+        <div class="grid item-c header">header</div>
+        <div class="grid item-c content">content</div>
+        <div class="grid item-c sidebar">sidebar</div>
+        <div class="grid item-c footer">footer</div>
+    </div>
+
+    <div class="grid-box-d">
+        <div class="grid item-d">1</div>
+        <div class="grid item-d">2</div>
+        <div class="grid item-d">3</div>
+        <div class="grid item-d">4</div>
+        <div class="grid item-d">5</div>
+        <div class="grid item-d">6</div>
+        <div class="grid item-d">7</div>
+        <div class="grid item-d">8</div>
+        <div class="grid item-d">9</div>
+    </div>
+</body>
+</html>

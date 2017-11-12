@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		#main_visual{
+			width: 1200px;
+			height: 600px;
+			position: relative;
+			background-image: url(images/bg02.jpg);
+			-webkit-background-size: cover;
+			background-size: cover;
+			background-position: center center;
+			margin: 0 auto;
+		}
+		.move_item{
+			position: absolute;
+			width: 300px;
+			height: 300px;
+			background-image: url(images/05.png);
+			-webkit-background-size: cover;
+			background-size: cover;
+			background-position: center center;
+			top: 0;
+			left: 0;
+		}
+		.m01{
+			margin: 30% 20% 10% 30%;
+		}
+		.m02{
+			margin: 10% 30% 10% 10%;
+		}
+		.m03{
+			margin: 12% 50% 20% 56%;
+		}
+	</style>
+</head>
+<body>
+<div id="main_visual">
+	<div class="m01 move_item"></div>
+	<div class="m02 move_item"></div>
+	<div class="m03 move_item"></div>
+</div>
+</body>
+<script src="js/mousemove.js"></script>
+</html>

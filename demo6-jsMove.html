@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="js/vue.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<style>
+	@import url("https://fonts.googleapis.com/css?family=Slabo+27px");
+	@font-face {
+	  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/myUnderwood.woff);
+	  font-family: "My Underwood";
+	}
+	* {
+	  box-sizing: border-box;
+	}
+
+	body {
+	  margin: 0;
+	  color: #fff;
+	  background: #522;
+	}
+
+	#boxercontainer {
+	  width: 80%;
+	  max-width: 900px;
+	  margin: 0 auto;
+	  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/concrete-background.jpg);
+	  position: relative;
+	  padding-bottom: 45%;
+	  background-size: 120% 120%;
+	  background-position: 50% 50%;
+	  overflow: hidden;
+	  min-height: 650px;
+	}
+
+	#boxercontainer div {
+	  position: absolute;
+	  width: 60%;
+	  left: 20px;
+	  top: 20px;
+	  border: 1px solid #fff;
+	  padding: 2rem;
+	  font-family: "Slabo 27px", serif;
+	  font-size: 1.2rem;
+	  background: rgba(0, 0, 0, 0.2);
+	}
+
+	#boxercontainer img {
+	  position: absolute;
+	  bottom: -35px;
+	  right: 50px;
+	  width: 40%;
+	  -webkit-filter: drop-shadow(-200px 200px 50px #000);
+	          filter: drop-shadow(-200px 200px 50px #000);
+	  padding: 1rem;
+	  z-index: 2;
+	}
+
+	#boxercontainer h1 {
+	  text-align: center;
+	  font-family: "My Underwood", monospace;
+	  font-size: 3rem;
+	  font-weight: 400;
+	  margin: 0;
+	}
+
+	#boxercontainer p {
+	  position: relative;
+	  line-height: 1.5;
+	  margin: 1rem;
+	  z-index: 3;
+	}
+
+	@media all and (max-width: 1200px) {
+	  #boxercontainer {
+	    width: 100%;
+	  }
+	}
+	@media all and (max-width: 875px) {
+	  #boxercontainer img {
+	    width: 50%;
+	    right: -50px;
+	  }
+	}
+	@media all and (max-width: 785px) {
+	  #boxercontainer div {
+	    top: 5px;
+	    left: 5px;
+	    padding: 1rem;
+	  }
+	}
+	@media all and (max-width: 725px) {
+	  #boxercontainer {
+	    background-size: contain;
+	  }
+
+	  #boxercontainer img {
+	    position: relative;
+	    display: block;
+	    width: 40%;
+	    margin: 0 auto;
+	    margin-top: -5%;
+	    -webkit-filter: drop-shadow(-30px 50px 20px rgba(0, 0, 0, 0.8));
+	            filter: drop-shadow(-30px 50px 20px rgba(0, 0, 0, 0.8));
+	  }
+
+	  #boxercontainer div {
+	    width: 80%;
+	    margin: 1% auto;
+	    position: relative;
+	    background: rgba(0, 0, 0, 0.9);
+	    z-index: 4;
+	  }
+	}
+	@media all and (max-width: 500px) {
+	  #boxercontainer div {
+	    width: 90%;
+	  }
+
+	  #boxercontainer img {
+	    width: 50%;
+	    padding: 0;
+	  }
+	}
+
+	</style>
+</head>
+<body>
+<div id="boxercontainer">
+  <img src="images/05.png" alt id="imgg">
+  <div>
+    <h1>The Boxer</h1>
+    <p>Well, a man had only so many fights in him, to begin with. It was the iron law of the game. One man might have a hundred hard fights in him, another man only twenty; each, according to the make of him and the quality of his fiber, had a definite number, and when he had fought them he was done. Yes, he had had more fights in him than most of them, and he had had far more than his share of the hard, grueling fights—the kind that worked the heart and lungs to bursting, that took the elastic out of the arteries and made hard knots of muscle out of youth's sleek suppleness, that wore out nerve and stamina and made brain and bones weary from excess of effort and endurance overwrought. Yes, he had done better than all of them. There was none of his old fighting partners left. He was the last of the old guard. He had seen them all finished, and he had had a hand in finishing some of them.</p>
+  </div>
+</div>
+</body>
+<script>
+const boxer = boxercontainer.querySelector("img");
+boxerCenterX = boxer.offsetLeft + (boxer.offsetWidth / 2),
+boxerCenterY = boxer.offsetTop + (boxer.offsetHeight / 2),
+fluidboxer = window.matchMedia("(min-width: 726px)");
+
+//console.log(boxerCenterX)
+function getMousePos(xRef, yRef) {
+
+  let panelRect = boxercontainer.getBoundingClientRect();
+  return {
+	  x: Math.floor(xRef - panelRect.left) /(panelRect.width)*boxercontainer.offsetWidth,
+	  y: Math.floor(yRef - panelRect.top) / (panelRect.height) * boxercontainer.offsetHeight
+    };
+
+}
+
+document.body.addEventListener("mousemove", function(e) {
+  let mousePos = getMousePos(e.clientX, e.clientY),
+  distX = mousePos.x - boxerCenterX,
+  distY = mousePos.y - boxerCenterY;
+  console.log(mousePos.x)
+  if (Math.abs(distX) < 500 && distY < 200 && fluidboxer.matches) {
+  	boxer.style.transform = "translate("+(-1*distX)/12+"px,"+(-1*distY)/12+"px)";
+    boxercontainer.style.backgroundPosition = `calc(50% + ${distX/50}px) calc(50% + ${distY/50}px)`;
+  }
+})
+
+// document.body.addEventListener("mousemove", function(e) {
+// 	var distX=e.pageX-boxerCenterX,
+// 		distY=e.pageY-boxerCenterY;
+//   	boxer.style.transform = "translate("+(-1*distX)/12+"px,"+(-1*distY)/12+"px)";
+//     boxercontainer.style.backgroundPosition = `calc(50% + ${distX/50}px) calc(50% + ${distY/50}px)`;
+// })
+</script>
+</html>

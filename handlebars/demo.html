@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		.card{
+			font-size: 30px;
+			float: left;
+			margin: 20px;
+			background-color: silver;
+		}
+	</style>
+</head>
+<body>
+<div id="test"></div>
+<div id="card"></div>
+
+<script id="card-template" type="text/x-handlebars-template">
+	{{#each this}}
+	<div class="card">
+		<div>{{chinese @index}}</div>
+		<div>name:{{name}}</div>
+		{{#if birth}}
+		<div>birth:{{birth}}</div>
+		{{/if}}
+		<div>home:{{home}}</div>
+		<div>job:{{job}}</div>
+		<ul>
+				{{#each books}}
+				<li {{#isfirst @index}} style="color:red" {{/isfirst}}
+						{{#if ../blue}}style="color:blue"{{/if}}>
+					{{addone @../index}}-{{addone @index}} {{this}}
+				</li>
+				{{/each}}
+		</ul>
+	</div>
+	{{/each}}
+</script>
+<script id="test-template" type="text/c-handlebars-template">
+	<div class="entry">
+		<h1>{{title}}</h1>
+		{{#with author}}
+		<h2>By {{firstName}} {{lastName}}</h2>
+		{{/with}}
+	</div>
+</script>
+<script>
+	var data=[{
+			name:'A',
+			birth:'1988',
+			home:'C',
+			job:'D',
+			books:[
+				'asdsad',
+				'21asd',
+				'c55aw'
+			]
+		},{
+			name:'B',
+			birth:'1999',
+			home:'CD',
+			job:'DSS',
+			books:[
+				'apple'
+			]
+		},{
+			name:'BBBB',
+			home:'CD',
+			job:'DSS'
+		}
+	]
+
+	var data2={
+  title: "My first post!",
+  author: {
+    firstName: "Charles",
+    lastName: "Jolley"
+  }
+}
+	Handlebars.registerHelper('chinese',function(value){
+		var arr=['一','二','三']
+		if(this.books && this.books.length>2){
+			this.blue=1;
+		}
+		return arr[value];
+	})
+
+	Handlebars.registerHelper('addone',function(value){
+		return value+1;
+	})
+
+	Handlebars.registerHelper('isfirst',function(value,options){
+		if(value==0){
+			return options.fn(this)
+		}
+	})
+	Handlebars.registerHelper('isblue',function(value,options){
+		if(value && value.length>2){
+			return options.fn(this)
+		}
+	})
+	var t=$("#card-template").html();
+	var f=Handlebars.compile(t);
+	var h=f(data)
+	$('#card').html(h);
+
+	$('#test').html(Handlebars.compile($("#test-template").html())(data2))
+</script>
+
+</body>
+</html>

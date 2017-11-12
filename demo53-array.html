@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/demo0.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		.box2{
+			color:red;
+		}
+		.box{
+			width: 600px;
+			height: 600px;
+			position: relative;
+			border: 1px solid black;
+		}
+		.thingy{
+			background-color: yellow;
+			display: block;
+			opacity: 1;
+			transition:.8s;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform-origin:50% 50%;
+			transform:translate(-50%,-50%);
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="thingy">Javascript</div>
+	</div>
+	<div class="box2" data-tightbox="sports">box2</div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+	<div class="box" data-tightbox="sports"></div>
+</body>
+<script>
+	var box2=document.querySelector('.box2')
+	var thingy=document.querySelector('.thingy')
+	var a=0;
+	box2.addEventListener('click',()=>{
+		thingy.animate([
+			{
+				transform:'translate(-100px) scaleY(2.5) scaleX(.2)',
+				transformOrigin:'50% 0',
+				filter:'blur(40px)',
+				opacity:0
+			},
+			{
+				transform:'translate(0px) scaleY(1) scaleX(1)',
+				transformOrigin:'50% 50%',
+				filter:'blur(0px)',
+				opacity:1
+			}
+		],2000)
+	})
+
+	// var arr=["chaous","divien","regal"]
+	// for(var value of arr){
+	// 	console.log(value)
+	// }
+	// var map=new Map([[1,'one'],[2,'two']])
+	// var KEY=[]
+	// map.set(KEY,123)
+	// for(var [k,v] of map.entries()){
+	// 	console.log(k,v)
+	// }
+	var divs=document.querySelectorAll('[data-tightbox]');
+	var arr=[3,4,3,1,7,6,5]
+	// var groups=Array.from(divs).reduce((carry,link)=>{
+	// 	var group=link.dataset.tightbox;
+
+	// 	carry[group]=carry[group]||[]
+	// 	carry[group].push(link)
+	// 	return link
+	// },{})
+	function fruits(){}
+	fruits.prototype={
+		color:'red',
+		say:function(){
+			console.log('My color is '+this.color);
+		}
+	}
+
+	banana={
+		color:'yellow'
+	}
+
+	var apple=new fruits;
+	apple.say.call(banana)
+
+	var func=(arg1,arg2)=>{
+		console.log(arg1,arg2)
+	}
+	func.apply(this,[1,2])
+
+	var array1 = [12 , "foo" , {name:"Joe"} , -2458];
+	var array2 = ["Doe" , 555 , 100];
+	var numbers=[5, 458 , 120 , -215]
+	var domNodes=Array.prototype.slice.call(document.querySelectorAll('.box'))
+	var domBox=document.querySelectorAll('.box')
+	function log(){
+		var domBox=document.querySelectorAll('.box');
+		var args=Array.from(domBox);
+		args.unshift('(app)')
+		console.log.apply(console,args)
+	}
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>JQuery</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	 crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<input type="button" value="load">
+	<div class="load"></div>
+	<img src="images/ajax-loader.gif" alt=""c class="img-load d-none">
+	<ul id="ul">
+	</ul>
+	<script>
+		var url="https://randomuser.me/api/?results=20"
+		var ul=$('#ul')
+		$('input[type="button"]').on('click',function(){
+			$.ajax({
+				url:url,
+				type:'get',
+				dataType:'json',
+				statusCode:{
+					200:function(){
+						console.log(200)
+					}
+				},
+				beforeSend:function(){
+					$('.img-load').removeClass('d-none')
+					console.log('ready')
+				},
+				success:function(res){
+					res['results'].forEach(function(v,i){
+						ul.append('<li>'+v.email+'</li>')
+						console.log(v.email)
+					})
+					
+				},
+				error:function(){
+					console.log('err')
+				},
+				complete:function(){
+					$('.img-load').addClass('d-none')
+					console.log('complete')
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>

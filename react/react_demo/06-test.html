@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>組件生命週期Component Circle</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        class LiList extends React.Component{
+            render(){
+                return React.createElement('li',null,'Item'+this.props.list)
+            }
+        }
+        class UlList extends React.Component{
+            constructor(props){
+                super(props)
+                this.state={maxList:5}
+                
+            }
+            componentWillMount(){
+                this.intervalId=window.setInterval(()=>{
+                    this.setState((currentState,currentProps)=>{
+                        if(currentState.maxList > 6){
+                            return currentState
+                        }else{
+                            return { maxList:currentState.maxList+1 }
+                        }
+                    }) 
+                },1000)
+            }
+            componentWillUnmount(){
+                clearInterval(this.intervalId)
+            }
+            render(){
+                var liArray=[];
+                var liElement;
+                for(var i=1;i<this.state.maxList;i++){
+                    liElement=React.createElement(LiList,{list:i})
+                    liArray.push(liElement)
+                }
+                return React.createElement('ul',null,liArray)
+            }
+        }
+        
+        var ulComponent=React.createElement(UlList,null)
+        ReactDOM.render(ulComponent,demo)
+    </script>
+</body>
+</html>

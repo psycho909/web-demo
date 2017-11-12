@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13 Input Handle</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js
+    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+    <style>
+        .txt{
+            color:brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo"></div>
+
+    <script type="text/babel">
+        var Myform=React.createClass({
+            getInitialState:function(){
+                return  {
+                    username:'',
+                    gender:'man',
+                    checked:true
+                }
+            },
+            handleChange:function(event){
+                var newState={}
+                newState[event.target.name]=event.target.name=="checked"?event.target.checked:event.target.value
+                this.setState(newState)
+                console.log(newState)
+            },
+            submitHandle:function(event){
+                event.preventDefault()
+                var is=this.state.checked?' is ':' no '
+                var gender=this.state.gender=='man'?' Man ':" Female "
+                alert(this.state.username+is+gender)
+            },
+            render:function(){
+                return  (
+                    <form onSubmit={this.submitHandle}>
+                        <label htmlFor="username">Name</label>
+                        <input type="text" name="username" id="username" onChange={this.handleChange} value={this.state.username}/>
+                        <br/>
+                        <label htmlFor="checked">Ture or False</label>
+                        <input type="checkbox" name="checked" id="checked" onChange={this.handleChange} checked={this.state.checked}/>
+                        <br/>
+                        <label htmlFor="gender">Select</label>
+                        <select name="gender" onChange={this.handleChange} value={this.state.gender}>
+                            <option value="man">Man</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <br/>
+                        <button type="submit">Submit</button>
+                    </form>
+                )
+            }
+        })
+        ReactDOM.render(
+            <Myform />,
+            document.getElementById('demo')
+        )
+    </script>
+</body>
+</html>

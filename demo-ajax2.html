@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>AJAX</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		.show {
+			width: 625px;
+			margin: 20px auto 0px;
+			position: relative;
+			font-size: 0;
+		}
+
+		.show img {
+			display: block;
+			margin: 0 auto;
+			;
+		}
+
+		#text {
+			width: 500px;
+			height: 35px;
+			text-indent: 10px;
+		}
+
+		.btn {
+			width: 125px;
+			height: 35px;
+			font-size: 16px;
+			background-color: #39f;
+			color: #fff;
+			line-height: 35px;
+			text-align: center;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: top;
+		}
+		.search-box{
+			position: relative;
+		}
+		#search {
+			width: 500px;
+			border: 1px solid #ddd;
+			position: absolute;
+			top: 37px;
+			border-top: none;
+			display: none;
+		}
+
+		#search ul li {
+			list-style: none;
+			width: 502px;
+			height: 30px;
+			text-indent: 10px;
+			line-height: 30px;
+		}
+
+		#search ul li a {
+			color: #000;
+			text-decoration: none;
+			display: block;
+			font-size: 16px;
+		}
+
+		#search ul li a:hover {
+			background-color: #ddd;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="show">
+		<img src="images/baidu.png" alt="" width="350px;">
+		<div class="search-box">
+			<input type="text" id="text">
+			<div class="btn">百度一下</div>
+			<div id="search">
+				<ul>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+	var oText = document.getElementById('text')
+	var oSea = document.getElementById('search');
+	var oUl = document.getElementsByTagName('ul')[0];
+	oText.onkeyup = function () {
+		var val = this.value;
+		val ? oSea.style.display = 'block' : oSea.style.display = 'none'
+		var oS = document.createElement('script');
+		oS.src = `http://suggestion.baidu.com/su?wd=${val}&json=1&p=3&sid=1451_19033_24558_21127_17001_24880_24644_22074&req=2&pbs=%E3%84%85%E3%84%86%E3%84%87%E3%84%88&csor=1&cb=jchen`
+		document.body.appendChild(oS);
+	}
+	function jchen(myjson) {
+		oUl.innerHTML = '';
+		// for (var i = 0; i < myjson.s.length; i++) {
+		// 	var oLi = document.createElement('li');
+		// 	oLi.innerHTML = `<a href="http://www.baidu.com/s?wd=${myjson.s[i]}" target="_blank">${myjson.s[i]}</a>`;
+		// 	oUl.appendChild(oLi);
+		// }
+		myjson['s'].forEach((v,i)=>{
+			var oLi = document.createElement('li');
+			oLi.innerHTML = `<a href="http://www.baidu.com/s?wd=${v}" target="_blank">${v}</a>`;
+			oUl.appendChild(oLi);
+		})
+	}
+</script>
+
+</html>

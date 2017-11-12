@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.min.js"></script>
+	<style>
+		*{
+			position: relative;
+			box-sizing: border-box;
+		}
+		body,html{
+			width: 100%;
+			height: 100%;
+		}
+		.video-wrap{
+			width: 100%;
+			min-width: 1280px;
+			height: 1000px;
+			pointer-events: none;
+		}
+		.video{
+			width: 100%;
+			height: 100%;
+		}
+		#jp_video_0{
+			width: 100%;
+			height: 100%;
+		}
+		.section{
+			width: 100%;
+			height: 400px;
+		}
+		.section1{
+			background-color: silver;
+		}
+		.bounce-box ul li.active{
+			color:red;
+			font-size: 18px;
+		}
+		.section2{
+			background-color: blue;
+		}
+		.section3{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+<div class="video-wrap">
+	<div class="video">
+	</div>
+</div>
+</div>
+<div class="section section1">
+	<div class="num">1200</div>
+	<div class="bounce-box">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</div>
+</div>
+<div class="section section2">2</div>
+<div class="section section3">3</div>
+</body>
+<script>
+ $(document).ready(function(){
+	$(".video").jPlayer({
+	 ready: function () {
+	  $(this).jPlayer("setMedia", {
+		m4v: "./video/loop.mp4"
+	  }).jPlayer('play')
+	 },
+	 size:{
+		width:"100%",
+		height:'100%'
+	 },
+	 sizeFull:{
+		width:"100%",
+		height:'100%'
+	 },
+	 loop:true,
+	 supplied: "m4v",
+	 cssSelectorAncestor:"#video-jp",
+	 cssSelector:{
+		fullScreen: '.jp-full-screen'
+	 }
+	});
+   });
+</script>
+</html>

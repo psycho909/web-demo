@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+</head>
+<body>
+	<div class="banner">
+		<h1>我的筆記本</h1>
+		<h3>你的指尖</h3>
+	</div>
+	<div class="classes" id="classes"></div>
+	<div class="pag" id="pag">
+		<ul>
+			<li class="cur">1</li>
+			<li class="clickable">2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+		</ul>
+	</div>
+
+	<script id="class-template" type="text/x-handlebars-template">
+		<ul>
+			{{#each this}}
+			<li>
+				<div class="innerbox">
+					<img src="{{image}}" alt="{{title}}">
+					<div class="titlediv">
+						<span class="title">{{title}}</span>
+						{{#equal hasnote 1}}<span class="note">(有筆記)</span>{{/equal}}
+					</div>
+					<div class="subtitle">{{subtitle}}</div>
+					<div class="subtitle {{#long timespan}} long {{else}} short {{/long}}">time:{{timespan}}</div>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+	</script>
+
+	<script id="pag-templage"  type="text/x-handlebars-template">
+		{{pag curPage totalCount}}{{/pag}}
+	</script>
+	<script src="js/script.js"></script>
+</body>
+</html>

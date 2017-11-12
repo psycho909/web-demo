@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Fetch 獲取JSON + 時間倒數設置 </title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+      <style>
+            #content1 {
+                  display: block;
+            }
+
+            #content2 {
+                  display: none;
+            }
+
+            #content1:target,
+            #content2:target {
+                  display: block;
+            }
+
+            #content1:target~.nav li:first-child {
+                  background: #ff7300;
+                  color: #fff;
+            }
+
+            #content2:target~.nav li:last-child {
+                  background: #ff7300;
+                  color: #fff;
+            }
+
+            .content {
+                  width: 100px;
+                  height: 200px;
+                  border: 1px solid #000;
+            }
+      </style>
+</head>
+
+<body>
+
+
+      <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                              <li class="nav-item active">
+                                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link" href="#">Link</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link disabled" href="#">Disabled</a>
+                              </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                  </div>
+            </nav>
+      </div>
+      <div class="container">
+            <div class="row my-2">
+                  <div class="col-md-12 col-12">
+                        <div class="card">
+                              <div class="card-body">
+                                    <h4 class="card-title">Time</h4>
+                                    <h6 class="card-subtitle text-muted mb-2" id="gettime"></h6>
+                                    <div class="form-row">
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4">
+                                                <label for="years" class="col-form-label">Years</label>
+                                                <input type="text" class="form-control" id="years" placeholder="2017">
+                                          </div>
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4">
+                                                <label for="months" class="col-form-label">Months</label>
+                                                <input type="text" class="form-control" id="months" placeholder="8">
+                                          </div>
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4">
+                                                <label for="days" class="col-form-label">Days</label>
+                                                <input type="text" class="form-control" id="days" placeholder="18">
+                                          </div>
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4">
+                                                <label for="hours" class="col-form-label">Hours</label>
+                                                <input type="text" class="form-control" id="hours" placeholder="17">
+                                          </div>
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4">
+                                                <label for="minutes" class="col-form-label">Minutes</label>
+                                                <input type="text" class="form-control" id="minutes" placeholder="30">
+                                          </div>
+                                          <div class="form-group col-md-2 col-sm-4 col-xs-4 col-4 align-self-end">
+                                                <button class="btn btn-primary w-100" id="btn">Click</button>
+                                          </div>
+                                    </div>
+                                    <p id="time" class="card-text"></p>
+                                    <p class="card-text">
+                                          <div class="progress">
+                                                <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%">0%</div>
+                                          </div>
+                                    </p>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="col-6">
+
+                  </div>
+            </div>
+            <div class="row">
+                  <table class="table table-responsive">
+                        <thead>
+                              <th>Name</th>
+                              <th>Mail</th>
+                              <th>Phone</th>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                  </table>
+            </div>
+      </div>
+
+      <script>
+            var url = "https://randomuser.me/api/?results=25";
+            var genders = [];
+            var ontBody = document.getElementById('tbody');
+            var onTime = document.getElementById('time');
+            var onProgress=document.getElementById('progress')
+            var onSettime=document.getElementById('settime');
+            var onGettime=document.getElementById('gettime');
+            var onBtn=document.getElementById('btn');
+            var onYears=document.getElementById('years');
+            var onMonths=document.getElementById('months');
+            var onDays=document.getElementById('days');
+            var onHours=document.getElementById('hours');
+            var onMin=document.getElementById('minutes');
+            fetch(url, {
+                  method: 'get',
+                  headers: new Headers({
+                        "Content-Type": 'text/json'
+                  })
+            })
+            .then(function (res) {
+                  //console.log(res)
+                  return res.json();
+            }).then(function (j) {
+                  for (let i = 0; i < j.results.length; i++) {
+                        ontBody.innerHTML +=
+                        `
+                              <tr>
+                                    <td>${j.results[i].name.first} ${j.results[i].name.last}</td>
+                                    <td>${j.results[i].email}</td>
+                                    <td>${j.results[i].phone}</td>
+                              </tr>
+                        `
+                  }
+            }).catch(function (err) {
+                  console.log(err)
+            })
+            fetch('js/page2Data.js',{
+                  method:'get',
+                  headers:new Headers({
+                        'Content-Type':'text/json'
+                  })
+            }).then((res)=>{
+                  return res.json()
+            }).then((j)=>{
+                  console.log(j)
+            }).catch((err)=>{
+                  console.log(err)
+            })
+            var j=0;
+            var endtime=1132;
+            var autotime;
+            function init(time,endtime){
+                  return {
+                        start:+new Date(time+" 9:30:00"),
+                        now:+new Date,
+                        end:+new Date(time+" 18:30:00"),
+                        endtime:+new Date(endtime)
+                  }
+            }
+            onBtn.addEventListener('click',function(){
+                  endtime=`${onYears.value}/${onMonths.value}/${onDays.value} ${onHours.value}:${onMin.value}`
+                  console.log(endtime)
+                  clearInterval(autotime)
+                  autotime=setInterval('goHome(time,endtime)',1000)
+            })
+            function goHome(time,endtime){
+                  var y=new Date().getFullYear();
+                  var month=new Date().getMonth();
+                  var day=new Date().getDate();
+                  var time=`${y} ${month+1} ${day}`
+                  var now_h=new Date().getHours();
+                  var now_m=new Date().getMinutes();
+                  var now_s=new Date().getSeconds();
+
+                  var h = moment.duration(init(time,endtime).endtime - init(time,endtime).now).hours();
+                  var m = moment.duration(init(time,endtime).endtime - init(time,endtime).now).minutes();
+                  var s = moment.duration(init(time,endtime).endtime - init(time,endtime).now).seconds();
+                  onTime.innerHTML =
+                        `
+                        <span>${h}小時${m}分${s}秒</span>
+                  `
+                  j=Math.round(((init(time,endtime).now-init(time,endtime).start)/(init(time,endtime).end-init(time,endtime).start))*100);
+                  onProgress.style.width=`${j}%`;
+                  onProgress.innerHTML=`${j}%`
+                  onGettime.innerHTML=`${y} ${month+1} ${day} ${now_h}:${now_m}:${now_s}`
+                  if(j==100){
+                        clearInterval(autotime)
+                        alert('End')
+                  }
+            }
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>Canvas</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+		:root {
+		  --half: 2;
+		}
+        *{
+            margin: 0;
+            padding: 0;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .btn {
+		  width: 50px;
+		  height: 50px;
+		  background-color: red;
+		  cursor: pointer; }
+
+		.btns {
+		  width: 50px;
+		  height: 50px;
+		  background-color: blue;
+		  cursor: pointer; }
+		.wrap{
+			width: 150px;
+			height: 50px;
+			margin: 0 auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.ulbox {
+		  font-size: 0;
+		  width: 250px;
+		  height: 100%;
+		  background-color: yellow;
+		  position: relative;
+		  transform:translate3d(-50px,0,0);
+		  transition:all .5s;
+		}
+
+		.ulbox div {
+		  width: 50px;
+		  height: 50px;
+		  font-size: 16px;
+		  display: inline-block;
+		  border: 1px solid #000;
+		  box-sizing: border-box; }
+        .prev{
+        	background-color: gold;
+        }
+        .btn{
+        	display: inline-block;
+        }
+        .ulbox div{
+        	font-size: 16px;
+        	display: inline-block;
+
+        }
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="ulbox">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+	</div>
+</div>
+<div class="btn prev">prev</div>
+<div class="btn next">next</div>
+</body>
+<script>
+var arr=[];
+var alast;
+$('.ulbox div').each(function(i,v){
+	arr.push(v);
+})
+alast=arr.pop()
+arr.unshift($(alast))
+$('.ulbox').prepend($(alast))
+console.log($(alast))
+var moveX=-50;
+$('.prev').on('click',function(){
+	moveX-=50;
+	//alast=arr.splice(arr.length-1,1);
+	alast=arr.pop()
+	arr.unshift($(alast))
+	$('.ulbox').prepend($(alast))
+	console.log($(alast))
+	$('.ulbox').css('transform','translate3d('+(moveX)+'px,0,0)')
+
+})
+$('.next').on('click',function(){
+	alast=arr.splice(arr[0],1);
+	arr.push(alast[0])
+	$('.ulbox').append(alast)
+})
+</script>
+</html>

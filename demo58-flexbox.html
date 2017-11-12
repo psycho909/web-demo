@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>flexbox</title>
+	<style>
+		.flex {
+			display: flex;
+			height: 300px;
+			padding: 15px;
+			background-color: #61a;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+
+		.item {
+			width: 60px;
+			height: 60px;
+			display: flex;
+			background-color: #f08bc3;
+			font-size: 24px;
+			color: #fff;
+			justify-content: center;
+			align-items: center;
+			padding: 15px;
+			margin: 5px;
+		}
+
+		.flex-2 {
+			align-self: stretch;
+		}
+		.box-height{
+			height: 1000px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="flex" class="flex">
+		<div class="item" style="margin-right:auto;">1</div>
+		<div class="item flex-2">2</div>
+		<div class="item">3</div>
+	</div>
+	<div class="box-height"></div>
+	<script>
+		var data = [{
+			"CityName": "臺北市",
+			"CityEngName": "Taipei City",
+			"AreaList": [{
+				"ZipCode": "100",
+				"AreaName": "中正區"
+			}, {
+				"ZipCode": "104",
+				"AreaName": "中山區"
+			}]
+		}, {
+			"CityName": "基隆市",
+			"CityEngName": "Keelung City",
+			"AreaList": [{
+				"ZipCode": "200",
+				"AreaName": "仁愛區"
+			}, {
+				"ZipCode": "201",
+				"AreaName": "信義區"
+			}]
+		}]
+
+		var {AreaList}=data.filter(d=>d.CityName=='臺北市')[0]
+		AreaList.forEach((d)=>{
+			console.log(d.AreaName)
+		})
+		AreaList.forEach(({AreaName})=>{
+			console.log({AreaName})
+		})
+		var timer=null;
+		window.onscroll=function(){
+			if(timer){
+				clearTimeout(timer)
+			}
+			timer=setTimeout(function(){
+				console.log(123)
+			},300)
+		}
+	</script>
+
+</html>

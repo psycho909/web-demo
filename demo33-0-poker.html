@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		#poker-box{
+			width: 360px;
+			height: 546px;
+			border:1px solid #000;
+			position: relative;
+			transform-style: preserve-3d;
+		}
+		#poker-box.active .poker-a{
+			transform:rotateY(180deg);
+		}
+		#poker-box.active .poker-b{
+			transform:rotateY(0deg);
+		}
+		.pokers{
+			width: 360px;
+			height: 546px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: transform .3s linear;
+		}
+		.poker-a{
+			background-color: gold;
+			backface-visibility: hidden;
+		}
+		.poker-b{
+			transform:rotateY(180deg);
+			backface-visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+<div id="poker-box" class="poker">
+	<div class="pokers poker-a">poker-a</div>
+	<canvas id="pokerb" class="poker-b pokers" width="360" height="546"></canvas>
+</div>
+</body>
+<script>
+window.onload=function(){
+	var i=false;
+
+	var oPoker=document.getElementById('poker-box');
+	var pokerb=document.getElementById('pokerb');
+	var ctx=pokerb.getContext("2d");
+	var src;
+	var image;
+	src=Math.floor(Math.random()*4)+1;
+	image="images/0"+src+".jpg";
+	var img=new Image();
+	img.onload=function(){
+		ctx.drawImage(img,0,0,360,546);
+	};
+	img.src=image;
+	//pokerb.style.background='url('+image+')';
+
+	oPoker.addEventListener('click',function(){
+		if(!i){
+			i=true;
+			src=Math.floor(Math.random()*4)+1;
+			var img=new Image();
+			img.onload=function(){
+				ctx.drawImage(img,0,0,360,546);
+			};
+			img.src=image;
+			image="images/0"+src+".jpg";
+			//pokerb.style.background='url('+image+')';
+			oPoker.className+=' '+'active';
+		}else{
+			var a=this.className.split(' ');
+			a.splice(a.length-1,1);
+			this.className='';
+			this.className+=a;
+
+			i=false;
+		}
+
+	})
+
+}
+</script>
+</html>

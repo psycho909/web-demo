@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap 4 Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <style>
+        .btn {
+            border-width: 3px;
+        }
+
+        .header-carousel-item {
+            height: 450px;
+        }
+
+        .bg-cover {
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, .6);
+        }
+
+        @media (min-width:768px) {
+            .text-md-dark {
+                color: #333;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-secondary py-1">
+        <div class="container text-right">
+            <a href="#" class="text-white">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            </a>
+            <a href="#" class="text-white">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                <img src="images/logo_w.svg" alt="">
+            </a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">首頁</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">美味菜單</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Active</a>
+                            <a href="#" class="dropdown-item">Active</a>
+                            <a href="#" class="dropdown-item">Active</a>
+                        </div>
+                    </li>
+                </ul>
+                <form action="" class="form-inline my-2 my-lg-0">
+                    <a href="#" class="btn btn-outline-info my-2 my-sn-0 mr-1" data-toggle="modal" data-target="#loginModal">登入</a>
+                    <a href="#" class="btn btn-info my-2 my-sn-0" data-toggle="modal" data-target="#registerModal">註冊</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item header-carousel-item bg-cover active" style="background-image:url(https://images.unsplash.com/photo-1492683513054-55277abccd99?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=)">
+                    <div class="carousel-caption d-none d-md-block px-3">
+                        <p>carouselExampleIndicators</p>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime nam natus ut inventore ullam nulla,
+                            est dignissimos ea illo beatae quisquam voluptates eos error veniam? Reiciendis molestiae odio
+                            vero voluptatem!</p>
+                    </div>
+                </div>
+                <div class="carousel-item header-carousel-item bg-cover px-3" style="background-image:url(https://images.unsplash.com/photo-1497668512640-fcbd959e5338?dpr=2&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=)">
+                    <div class="carousel-caption d-none d-md-block px-3">
+                        <p>carouselExampleIndicators</p>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime nam natus ut inventore ullam nulla,
+                            est dignissimos ea illo beatae quisquam voluptates eos error veniam? Reiciendis molestiae odio
+                            vero voluptatem!</p>
+                    </div>
+                </div>
+                <div class="carousel-item header-carousel-item bg-cover px-3" style="background-image:url(https://images.unsplash.com/photo-1453831362806-3d5577f014a4?dpr=2&auto=format&fit=crop&w=1500&h=1016&q=80&cs=tinysrgb&crop=)">
+                    <div class="carousel-caption d-none d-md-block px-3">
+                        <p>carouselExampleIndicators</p>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime nam natus ut inventore ullam nulla,
+                            est dignissimos ea illo beatae quisquam voluptates eos error veniam? Reiciendis molestiae odio
+                            vero voluptatem!</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+    <section class="bg-info py-5 text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-2">
+                        <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
+                    </div>
+                    <h3>iPhone X本周五官网开启预售 正确抢购姿势看这里</h3>
+                    <p>iPhone X本周五官网开启预售 正确抢购姿势看这里 iPhone X本周五官网开启预售 正确抢购姿势看这里 iPhone X本周五官网开启预售 正确抢购姿势看这里 iPhone X本周五官网开启预售
+                        正确抢购姿势看这里
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2">
+                        <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
+                    </div>
+                    <h3>手游版《动物之森》正式公布 11月底登陆双平台</h3>
+                    <p>手游版《动物之森》正式公布 11月底登陆双平台 手游版《动物之森》正式公布 11月底登陆双平台 手游版《动物之森》正式公布 11月底登陆双平台</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-2">
+                        <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
+                    </div>
+                    <h3>吴宇森经典《英雄本色》登陆内地 小马哥归来</h3>
+                    <p>吴宇森经典《英雄本色》登陆内地 小马哥归来 吴宇森经典《英雄本色》登陆内地 小马哥归来 吴宇森经典《英雄本色》登陆内地 小马哥归来</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid py-5 bg-light text-white" style="position:relative">
+        <div class="row">
+            <div class="col-md-5 bg-cover" style="
+            position:absolute;top:0;bottom:0;
+            background-image:url(https://images.unsplash.com/photo-1481185103603-1dc844ef51db?dpr=2&auto=format&fit=crop&w=1080&h=718&q=80&cs=tinysrgb&crop=)"></div>
+            <div class="container">
+                <div class="row justify-content-end text-md-dark">
+                    <div class="col-md-7">
+                        <h3>Welcome</h3>
+                        <p>吴宇森经典《英雄本色》登陆内地 小马哥归来 吴宇森经典《英雄本色》登陆内地 小马哥归来吴宇森经典《英雄本色》登陆内地 小马哥归来 吴宇森经典《英雄本色》登陆内地 小马哥归来</p>
+                        <a href="#" class="btn btn-outline-info">BTN</a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>手游版《动物之森》正式公布 11月底登陆双平台</h4>
+                                <p>手游版《动物之森》正式公布 11月底登陆双平台 手游版《动物之森》</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>手游版《动物之森》正式公布 11月底登陆双平台</h4>
+                                <p>手游版《动物之森》正式公布 11月底登陆双平台 手游版《动物之森》</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-3">
+        <div class="container">
+            <h2 class="text-center my-3">Hello</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <i class="fa fa-4x fa-microchip" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Food</h3>
+                            <p>Food Food Food Food Food Food ood Food Food Food Food Food ood Food Food Food Food Food</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <i class="fa fa-4x fa-microchip" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Food</h3>
+                            <p>Food Food Food Food Food Food ood Food Food Food Food Food ood Food Food Food Food Food</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <i class="fa fa-4x fa-microchip" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Food</h3>
+                            <p>Food Food Food Food Food Food ood Food Food Food Food Food ood Food Food Food Food Food</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="mr-3">
+                            <i class="fa fa-4x fa-microchip" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3>Food</h3>
+                            <p>Food Food Food Food Food Food ood Food Food Food Food Food ood Food Food Food Food Food</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid py-5 text-white bg-light" style="position:relative">
+        <div class="row">
+            <div class="col-md-5 bg-cover" style="
+                position:absolute;top:0;right:0;bottom:0;
+                background-image:url(https://images.unsplash.com/photo-1504811060900-0d77dc63a136?w=634&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D)"></div>
+            <div class="container">
+                <div class="row text-md-dark">
+                    <div class="col-md-7">
+                        <h3>Welcome</h3>
+                        <dl class="row">
+                            <dt class="col-sm-3">Description lists</dt>
+                            <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+                            <dt class="col-sm-3">Description lists</dt>
+                            <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+                            <dt class="col-sm-3">Description lists</dt>
+                            <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14456.155982574588!2d121.4840189!3d25.0666674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeaba0ccbc0e14c1b!2z5paw5YyX5biC5LiJ6YeN5Y2A6YeN6Zm95ZyL5rCR5bCP5a24!5e0!3m2!1szh-TW!2stw!4v1508976920197"
+                        width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                <div class="col-md-6">
+                    <form action="" id="needs-validation" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input id="name" type="text" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid city.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input id="phone" type="phone" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid city.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input id="email" type="email" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid city.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="people">People:</label>
+                            <input id="people" type="text" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid city.
+                            </div>
+                        </div>
+                        <div class="custom-controls-stacked">
+                            <label class="custom-control custom-radio">
+                                <input id="radioStacked3" name="radio-stacked" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Toggle this custom radio</span>
+                            </label>
+                            <label class="custom-control custom-radio">
+                                <input id="radioStacked4" name="radio-stacked" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Or toggle this other custom radio</span>
+                            </label>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-info">Submit</button>
+                            <button class="btn btn-outline-info">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 p-4 bg-cover text-white" style="background-image:url(https://images.unsplash.com/photo-1498309313100-e308c8946b45?dpr=2&auto=format&fit=crop&w=1500&h=2250&q=80&cs=tinysrgb&crop=)">
+                <div class="row">
+                    <div class="col-md-9">
+                        <small>Welcome</small>
+                        <h3>Hello</h3>
+                        <p>Or toggle this other custom radio Or toggle this other custom radio Or toggle this other custom radio</p>
+                        <a href="#" class="btn btn-outline-info">Join us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 p-4 bg-cover text-white" style="background-image:url(https://images.unsplash.com/photo-1498309313100-e308c8946b45?dpr=2&auto=format&fit=crop&w=1500&h=2250&q=80&cs=tinysrgb&crop=)">
+                <div class="row">
+                    <div class="col-md-9">
+                        <small>Welcome</small>
+                        <h3>Hello</h3>
+                        <p>Or toggle this other custom radio Or toggle this other custom radio Or toggle this other custom radio</p>
+                        <a href="#" class="btn btn-outline-info">Join us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">login Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="mr-auto" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">register</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">register Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="mr-auto" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">register</a>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12"><h3>copyright</h3></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script>
+        (function () {
+            "use strict";
+            window.addEventListener("load", function () {
+                var form = document.getElementById("needs-validation");
+                form.addEventListener("submit", function (event) {
+                    if (form.checkValidity() == false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                }, false);
+            }, false);
+        }());</script>
+</body>
+
+</html>

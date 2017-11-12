@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>AJAX</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	
+</head>
+
+<body>
+	<div id="app">123</div>
+</body>
+
+<script>
+	$(function () {
+		var person = 'https://randomuser.me/api/?results=20'
+		var url = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire"
+		var data = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=35aa3c53-28fb-423c-91b6-2c22432d0d70&limit=20&offset=0"
+		// fetch('http://www.randomtext.me/api/').then(function(res){
+		// 	if(res.ok){
+		// 		console.log(res.status)
+		// 		return res.json()
+		// 	}
+		// 	console.log(res.status)
+		// }).then(function(json){
+		// 	console.log(json)
+		// }).catch(function(){
+		// 	console.log('error')
+		// })
+		// $.ajax({
+		// 	url: url,
+		// 	data:{
+		// 		'rid':'55ec6d6e-dc5c-4268-a725-d04cc262172b',
+		// 		'limit':20
+		// 	},
+		// 	statusCode:{
+		// 		404:function(){
+		// 			console.log(404)
+		// 		}
+		// 	},
+		// 	success: function(data) {
+		// 		console.log(data)
+		// 	},
+		// 	error:function(){
+		// 		console.log('no')
+		// 	}
+		// });
+		$.ajax({
+			url:'http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
+			dataType:'json',
+			data:{
+				tags:'dog',
+				format:'json',
+			},success:function(data){
+				console.log(data)
+			},error:function(){
+				console.log('error')
+			}
+		})
+		// $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?', {
+		// 	tags: "dog",
+		// 	format: "json"
+		// }).done(function(data){
+		// 	$.each(data['items'],function(i,v){
+		// 		$('<img>').attr('src',v.media.m).appendTo('#app')
+		// 	})
+		// 	console.log(data)
+		// })
+	})
+
+</script>
+
+</html>

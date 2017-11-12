@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《jQuery Animate step》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
+	<style>
+		*{
+			position: relative;
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.box{
+			border:1px solid #000;
+		}
+		.cssbox{
+			display: inline-block;
+			position: relative;
+			padding: 20px 60px;
+			background-color: #e45151;
+			color:#fff;
+			text-align: center;
+			text-decoration: none;
+		}
+		.cssbox:before{
+			content:'';
+			position: absolute;
+			top: 0;
+			right: 0;
+			border-top: 56px solid #fff;
+			border-left: 40px solid transparent;
+		}
+		.cssbox:after{
+			content:'';
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-top: 56px solid #fff;
+			border-right: 40px solid transparent;
+		}
+		.counter{
+			display: inline-block;
+			margin:1.5%;
+			font-size:50px;
+			background-color: #FF6F6F;
+			width:200px;
+			border-radius: 50%;
+			height:200px;
+			line-height: 200px;
+			vertical-align: middle;
+			text-align: center;
+			color: #fff;
+		}
+		.radius {
+			display: inline-block;
+			margin:1.5%;
+			font-size:50px;
+			width:200px;
+			border-radius: 50%;
+			height:200px;
+			line-height: 200px;
+			vertical-align: middle;
+			text-align: center;
+			color: #fff;
+		}
+		.user-count{
+			display: inline-block;
+			margin: 1.5%;
+			font-size: 50px;
+			background-color: #2866AB;
+			width:200px;
+			border-radius: 50%;
+			height:200px;
+			line-height: 160px;
+			vertical-align: middle;
+			text-align: center;
+			color: #fff;
+			border: 20px solid green;
+		}
+		.circle {
+		    position: relative;
+		    width: 130px;
+		    height: 130px;
+		    text-align: center;
+		}
+		.circle .track, .circle .mask, .circle .left, .circle .right {
+		    width: 130px;
+		    height: 130px;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    border-radius: 50%;
+		    border: 20px #e7e7e7 solid;
+		    box-sizing: border-box;
+		}
+		.circle .mask, .circle .left, .circle .right {
+		    clip: rect(0 65px 130px 0);
+		}
+		.circle .left, .circle .right {
+		    border-color: #6FEC6F;
+		}
+		.circle .right {
+		    opacity: 0;
+		    transform: rotate(180deg);
+		}
+		/* 进度显示文字样式 */
+		.circle #hour {
+		    color: #666;
+		    font-size: 48px;
+		    line-height: 130px;
+		}
+		.circle .percent {
+		    font-size: 20px;
+		    color: #999;
+		    margin-left: 5px;
+		}
+		.transition-rotate {
+		    transition: transform 1s ease-in-out;
+		}
+		.boxs{
+			height: 600px;
+			border:1px solid #000;
+		}
+		.counters{
+			width: 0px;
+			height: 60px;
+			line-height: 60px;text-align: center;
+			background-color: gold;
+			position: relative;
+		}
+		.counters:before{
+			content:'';
+			width: 300px;
+			height: 60px;
+			border:1px solid green;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<a class="cssbox">box</a>
+	</div>
+	<div class="user-count">0%</div>
+	<div class="counter" data-count="150">0</div>
+	<div class="counter" data-count="85">0</div>
+	<div class="counter" data-count="2200">0</div>
+	<div class="boxs" data-count="20">
+		<div class="counters">0</div>
+	</div>
+	<div class="boxs" data-count="30">
+		<div class="counters">0</div>
+	</div>
+	<div class="boxs" data-count="100">
+		<div class="counters">0</div>
+	</div>
+	<div class="boxs" data-count="50">
+		<div class="counters">0</div>
+	</div>
+	<div class="boxs" data-count="40">
+		<div class="counters">0</div>
+	</div>
+</body>
+<script>
+var boxsArr=[];
+var boxsTop;
+var winTop;
+var count;
+$('.boxs').each(function(i,v){
+	boxsTop=$(v).offset().top;
+	boxsArr.push($(v));
+	console.log(boxsTop)
+})
+$(window).scroll(function(){
+	winTop=$(this).scrollTop();
+	for(var i=0;i<boxsArr.length;i++){
+		if((winTop+120)>=$(boxsArr[i]).offset().top){
+			count=$(boxsArr[i]).data('count');
+			$(boxsArr[i]).find('.counters').animate({
+				user:count
+			},{
+				duration:1000,
+				step:function(n){
+					$(this).text(parseInt(n))
+					$(this).css('width',parseInt(((n/100)*100)*3))
+				}
+			})
+			$('.boxs').not($('.boxs').eq(i)).removeClass('active');
+			$('.boxs').eq(i).addClass('active');
+			var counts=0;
+
+		}
+	}
+})
+
+
+var count=11;
+var total=(count/35)*100;
+$('.user-count').animate({
+	user:total
+},{
+	duration:1000,
+	easing:'linear',
+	step:function(n){
+		$(this).text(parseInt(n)+'%');
+	}
+})
+
+$('.counter').each(function(i,v){
+	var $this=$(this);
+	var countTo=$this.attr('data-count');
+
+	$({countNum:$this.text()}).animate({
+		countNum:countTo
+	},{
+		duration:1000,
+		easing:'linear',
+		step:function(n){
+			$this.text(parseInt(n));
+		}
+	})
+})
+</script>
+</html>
