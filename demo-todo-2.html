@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 mt-5">
+                <div class="to form-group">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+        <button class="d-block mt-2 mx-auto btn btn-primary submit">submit</button>
+        <div class="row justify-content-center">
+            <div class="col-6 do-box">
+                
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        var todolist={};
+        todolist.list=[
+            {todo:'Hello'},
+            {todo:'Morning'}
+        ]
+        var todo_html='<div id={{id}} class="do border d-flex py-2">{{val}}<button id={{del_id}} data-nums={{del_nums_id}} class="btn btn-danger del ml-auto">Del</button></div>'
+        function showlist(){
+            $('.do-box').html('');
+            for(var i=0;i<todolist.list.length;i++){
+                var todo_val=todolist.list[i];
+                var todo_id='todo_'+i;
+                var del_todo_id='del_todo_'+i
+                var del_nums_id=i
+                var current_todo_html=
+                    todo_html.replace('{{val}}',todo_val.todo)
+                            .replace('{{id}}',todo_id)
+                            .replace('{{del_id}}',del_todo_id)
+                            .replace('{{del_nums_id}}',del_nums_id)
+                $('.do-box').append(current_todo_html)
+                $('#'+del_todo_id).on('click',function(){
+                    remove_todo($(this).data('nums'))
+                })
+            }
+        }
+        showlist()
+        $('.submit').on('click',function(){
+            todolist.list.push({
+                todo:$('.to :text').val()
+            })
+            $('.to :text').val('')
+            showlist()
+        })
+        function remove_todo(id){
+            todolist.list.splice(id,1);
+            showlist()
+        }
+    </script>
+</body>
+</html>

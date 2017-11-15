@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 mt-5">
+                <div class="to form-group">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 do-box">
+
+            </div>
+        </div>
+        <button class="d-block mt-5 mx-auto btn btn-primary submit">submit</button>
+    </div>
+    <script>
+        //<span class="mr-auto">'+_val+'</span><button class="btn btn-danger del">del</button>
+        $(function(){
+            $('.submit').on('click',function(){
+                var val=$('.to :text').val();
+                // var button=document.createElement('button');
+                // button.textContent="Del"
+                $('.do-box').append('<div class="do border d-flex py-2">'+val+'<button class="btn btn-danger del ml-auto">Del</div>');
+                $('.del').on('click',function(e){
+                    $(this).closest('.do').remove()
+                    console.log($('.del'))
+                })
+            })
+
+        })
+    </script>
+</body>
+</html>
