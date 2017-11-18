@@ -27,9 +27,10 @@
             background-color: green;
             width: 0;
             transition:all .3s;
+            overflow: hidden;
         }
         .menu.active{
-            width: 30%;
+            width: 10%;
         }
         .center{
             background-color: blue;
@@ -41,7 +42,14 @@
 <body>
     <div class="box w-100 d-flex">
         <div class="right">123</div>
-        <div class="menu">menu</div>
+        <div class="menu">
+            <ul class="list-group">
+                <li class="list-group-item">Menu</li>
+                <li class="list-group-item">Menu</li>
+                <li class="list-group-item">Menu</li>
+                <li class="list-group-item">Menu</li>
+            </ul>
+        </div>
         <div class="center">123</div>
     </div>
     <script>
