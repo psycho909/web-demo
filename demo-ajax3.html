@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>AJAX</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<style>
+	</style>
+</head>
+
+<body>
+
+</body>
+
+<script type="text/javascript">
+	var url="https://quality.data.gov.tw/dq_download_json.php?nid=8984&md5_url=9c18591ce3590b2d97020cf79ced05c9";
+	$.ajax({
+		url:url,
+		dataType:'jsonp',
+		success:function(data){
+			console.log(data)
+		},
+		error:function(textStatus,error){
+			console.log('error',textStatus,error)
+		}
+	})
+</script>
+
+</html>
