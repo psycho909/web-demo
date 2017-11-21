@@ -20,7 +20,7 @@
             background-color: #eee;
         }
         .box {
-            width: 80%;
+            width: 1000px;
             height: 300px;
         }
 
@@ -38,15 +38,17 @@
         }
 
         .menu.active {
-            width: 10%;
+            width: 120px;
         }
 
         .center {
             background-color: blue;
             height: 100%;
             flex: auto;
+            transition: all .3s;
         }
-
+        .center.active{
+        }
         .swiper-slide {
             text-align: center;
             font-size: 18px;
@@ -85,8 +87,6 @@
                     <div class="swiper-slide">Slide 9</div>
                     <div class="swiper-slide">Slide 10</div>
                 </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
             </div>
         </div>
     </div>
@@ -95,33 +95,12 @@
     <script>
         $('.right').on('click', function () {
             $('.menu').toggleClass('active');
+            $('.center').toggleClass('active');
         })
         var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 5,
+            slidesPerView: 3,
             spaceBetween: 50,
             // init: false,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 40,
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                }
-            }
         });
     </script>
 </body>
