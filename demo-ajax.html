@@ -12,10 +12,17 @@
 </head>
 
 <body>
-	<div id="app">321</div>
+	<div id="app">
+		<div class="box">123</div>
+	</div>
 </body>
 
 <script>
+	$('.box').on('click',function(){
+		$(this).addClass('active').animate({
+			opacity:0
+		},300)
+	})
 	var person = 'https://randomuser.me/api/?results=20'
 	var url = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire"
 	var data =
