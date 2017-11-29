@@ -25,6 +25,18 @@
 			bottom: 0;
 			left: 0;
 		}
+		.li-wrap{
+			list-style-type: none;
+		}
+		.li-wrap li{
+			display: inline-block;
+			border:1px solid #000;
+			cursor: pointer;
+			padding: 6px 12px;
+		}
+		.li-wrap li.active{
+			background-color: goldenrod;
+		}
 	</style>
 </head>
 
@@ -33,24 +45,29 @@
 		<div class="content">
 			<div class="box" data-tip="Hello tip">Box</div>
 		</div>
+		<ul class="li-wrap">
+			<li data-num="1">A</li>
+			<li data-num="2">B</li>
+			<li data-num="3">C</li>
+			<li data-num="4">D</li>
+		</ul>
 	</div>
 </body>
 
 <script>
-	var data={}
-	var contentEl=document.querySelector('.content')
-	Object.defineProperty(data,'text',{
-		writable:true,
-		configurable:true,
-		enumerable:true,
-
-		get:function(){
-			return contentEl.innerHTML
-		},
-		set:function(val){
-			contentEl.innerHTML=val
-		}
-	})
+	var ul=document.querySelector('.li-wrap')
+	var li=ul.querySelectorAll('li');
+	for(var i=0;i<li.length;i++){
+		li[i].index=i
+		li[i].addEventListener('click',function(){
+			for(var j=0;j<li.length;j++){
+				if(li[j].classList.contains('active')){
+					li[j].classList.remove('active')
+				}
+			}
+			this.classList.add('active')
+		})
+	}
 </script>
 
 </html>
