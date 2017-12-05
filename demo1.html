@@ -16,10 +16,14 @@
 </head>
 <body>
 <input type="text" class="aaa">
+<div class="box btn btn-primary">btn</div>
 </body>
 <script>
 	$('.aaa').on('change keydown keypress',function(){
-				console.log($(this).val())
-			})
+		console.log($(this).val())
+	})
+	$(".box").text('BTN').on('click',function(){
+		alert("213")
+	})
 </script>
 </html>
