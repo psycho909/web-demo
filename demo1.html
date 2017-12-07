@@ -2,28 +2,34 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
-	<title>《全民打棒球2 Online》</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<style>
-		*{
-			position: relative;
-		}
-
-	</style>
+	<title>Document</title>
 </head>
 <body>
-<input type="text" class="aaa">
-<div class="box btn btn-primary">btn</div>
+  <input id="txt1" type="text" /> 
+  <input id="btn1" type="button" value="创建li" /> 
+  <ul id="ul1"></ul>
+  <script>
+  	var oBtn=document.getElementById('btn1');
+    var oUl=document.getElementById('ul1');
+    var oTxt=document.getElementById('txt1');
+    var oFrag=document.createDocumentFragment();
+    oBtn.onclick=function(){
+    	var oLi=document.createElement('li');
+    	var aLi=oUl.getElementsByTagName('li');
+    	oLi.innerHTML=oTxt.value;
+    	if(aLi.length>0){
+    		oUl.insertBefore(oLi,aLi[0])
+    	}else{
+    		oUl.appendChild(oLi)
+    	}
+    }
+    for(var i=0;i<10;i++){
+    	var oLi=document.createElement('li');
+    	var textnode=document.createTextNode(i);
+    	oLi.appendChild(textnode)
+    	oFrag.appendChild(oLi)
+    }
+    oUl.appendChild(oFrag)
+  </script>  
 </body>
-<script>
-	$('.aaa').on('change keydown keypress',function(){
-		console.log($(this).val())
-	})
-	$(".box").text('BTN').on('click',function(){
-		alert("213")
-	})
-</script>
 </html>
