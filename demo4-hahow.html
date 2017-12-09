@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>Hahow</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+
+</body>
+<script>
+
+$(function () {
+
+	var classTitle=[];
+	$('.curriculum').find('li').each(function(){
+		classTitle.push({
+			title:$(this).find('a .title').text(),
+			time:$(this).find('a .time').text()
+		})
+	})
+	var classTitle=[];
+	$('.panel-group > div').each(function(){
+		classTitle.push({
+			bigTitle:$(this).find('.panel-heading').text(),
+			title:$(this).find('.lecture__item .fx').find('span.lecture__item__link__name').text()+' '+$(this).find('.lecture__item').find('span.lecture__item__link__time').text()
+		})
+		// console.log($(this).find('.lecture__item .fx').find('span').eq(0).find('span').eq(0).text())
+	})
+});
+</script>
+</html>
