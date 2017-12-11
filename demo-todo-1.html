@@ -32,10 +32,10 @@
                 // var button=document.createElement('button');
                 // button.textContent="Del"
                 $('.do-box').append('<div class="do border d-flex py-2">'+val+'<button class="btn btn-danger del ml-auto">Del</div>');
-                $('.del').on('click',function(e){
-                    $(this).closest('.do').remove()
-                    console.log($('.del'))
-                })
+            })
+            $('.do-box').on('click','.del',function(e){
+                $(this).closest('.do').remove()
+                console.log($('.del'))
             })
 
         })
