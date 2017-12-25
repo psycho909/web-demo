@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《JS TAB》</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+		}
+		.wrap{
+			width: 100vw;
+			height: 100vh;
+			background-color: aqua;
+		}
+		.user-tab-control a{
+			padding: .5rem 3rem;
+			background-color: rgba(0,0,0,.8);
+			color:#fff;
+		}
+		.user-modal{
+			display: block;
+			background-color: #fff;
+			width: 100vw;
+			height: 50vh;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			display: none;
+		}
+		.user-modal.show{
+			display: block;
+		}
+		.tab{
+			width: 50vw;
+			background-color: blanchedalmond;
+			height: 50vh;
+			margin: 0 auto;
+			display: none;
+		}
+		.tab.show{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="user-tab-control d-flex fixed-bottom justify-content-around align-items-center">
+			<a href="javascript:;" data-modal="a">AA</a>
+			<a href="javascript:;" data-modal="b">BB</a>
+			<a href="javascript:;" data-modal="c">CC</a>
+			<a href="javascript:;" data-modal="d">DD</a>
+		</div>
+	</div>
+	<div class="user-modal">
+		<div class="tab" data-modal="a">1</div>
+		<div class="tab" data-modal="b">2</div>
+		<div class="tab" data-modal="c">3</div>
+		<div class="tab" data-modal="d">4</div>
+	</div>
+</body>
+<script>
+$('.user-tab-control a').on('click',function(){
+	var _index=$(this).index();
+	var _data=$(this).data();
+	if($('.user-modal .tab').eq(_index).hasClass('show')){
+		$('.user-modal').removeClass('show')
+		$('.user-modal .tab').removeClass('show')
+	}else{
+		$('.user-modal').addClass('show')
+		$('.user-modal .tab').eq(_index).addClass('show')
+		$('.user-modal .tab').not($('.user-modal .tab').eq(_index)).removeClass('show')
+	}
+	
+	
+})
+</script>
+</html>

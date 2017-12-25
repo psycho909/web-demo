@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>Hahow</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+		*{
+			position: relative;
+			box-sizing: border-box;
+		}
+		.todo-box{
+			list-style: none;
+			padding-left: 0;
+		}
+		.todo-box li{
+			background-color: #ddd;
+			padding: .5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 6px;
+		}
+		.todo-box li .delete{
+			background-color: #fff;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div class="todo-wrap">
+	<ul id="todo" class="todo-box">
+		<li>
+			<div class="content">Lorem ipsum</div>
+			<div class="delete">X</div>
+		</li>
+		<li>
+			<div class="content">Lorem ipsum</div>
+			<div class="delete">X</div>
+		</li>
+	</ul>
+	<button id="create" class="submit">todo</button>
+</div>
+</body>
+<script>
+
+$(function () {
+	$('#create').on('click',function(){
+		var todo=$('#todo').find('li').first().clone();
+		$('#todo').append(todo);
+	})
+	$('#todo').on('click','.delete',function(){
+		$(this).parent().remove()
+	})
+});
+</script>
+</html>
