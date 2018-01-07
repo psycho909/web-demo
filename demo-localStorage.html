@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>localStorage</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		.boxs{
+			width: 30px;
+			height: 30px;
+			border:1px solid #000;
+			margin: 2px auto;
+			cursor: pointer;
+		}
+		.boxs.selected{
+			background-color: gold;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="boxs" data-type="pk10"></div>
+		<div class="boxs" data-type="lhc"></div>
+		<div class="boxs" data-type="ssc"></div>
+	</div>
+</body>
+<script>
+	var boxsArr=[],favArr=[];
+	$('.boxs').on('click',function(){
+		var getIndex=-1;
+		var _data=$(this).data('type');
+		$(this).toggleClass('selected')
+		if($(this).hasClass('selected')){
+			boxsArr.push(_data)
+		}else{
+			getIndex=boxsArr.indexOf(_data)
+		}
+		if(getIndex == -1){
+			boxsArr.splice(0,0)
+		}else{
+			boxsArr.splice(getIndex,1)
+		}
+		localStorage.setItem('fav',boxsArr)
+		var storageStr=localStorage.getItem('fav');
+		//localStorage.setItem('favArr',JSON.stringify(storageStr))
+		var storageArr=storageStr.split(',');
+		console.log(storageArr)
+	})
+</script>
+</html>
