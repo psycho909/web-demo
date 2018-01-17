@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/jquery-ui-1.8.23.custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/jquery-ui-1.8.23.custom.min.js"></script>
 </head>
+
 <body>
-    
+    <a href="./demo0.html" target="modal" modal="true">转给上级</a>
+    <div id="wanjinDialog"></div>
+    <script>
+        $('a[target=modal]').on('click', function () {
+            var self = this,
+                $self = $(self),
+                title = $self.attr('title') || '',
+                width = $self.attr('width') || 'auto',
+                heigth = $self.attr('heigth') || 'auto',
+                modal = ($self.attr('modal')),
+                method = $self.attr('method') || 'get',
+                buttons = $self.attr('button') || null;
+            if (buttons) buttons = buttons.split('|').map(function (b) {
+                b = b.split(':');
+                return {
+                    text: b[0],
+                    click: window[b[1]]
+                };
+            });
+            $[method]($self.attr('href'), function (html) {
+                $(html).dialog({
+                    title: title,
+                    width: width,
+                    height: heigth,
+                    modal: modal,
+                    buttons: buttons
+                });
+            });
+
+            return false;
+        });
+    </script>
 </body>
+
 </html>
