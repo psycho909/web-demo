@@ -11,8 +11,18 @@
 	</style>
 </head>
 <body>
+	<button class="btn" onclick="toClick()">click</button>
 </body>
 <script>
+	// $('.btn').on('click',function(){
+	// 	console.log(213)
+	// })
+	function toClick(){
+		console.log(321)
+	}
+	setInterval(function(){
+		$( ".btn" ).click();
+	},1000)
 for(var i=1;i<=5;i++){
 	document.write('<br/>');
 	for(var j=1;j<=5-i;j++){
