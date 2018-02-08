@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+<select name="selectList" id="select-list">
+	<option value="a">a</option>
+	<option value="b">b</option>
+</select>
+</body>
+<script>
+$('#select-list').on('change',function(){
+	console.log($(this).val())
+})
+</script>
+</html>
