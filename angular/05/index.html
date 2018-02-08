@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    <script src="Form.js"></script>
+    <style>
+        .green{
+            background-color: green;
+        }
+        .red{
+            background-color: red;
+        }
+        .box{
+            transition: all linear 0.5s;
+            background-color: lightblue;
+            height: 100px;
+            width: 100%;
+            position: relative;
+        }
+        .ng-hide{
+            background-color: red;
+        }
+    </style>
+</head>
+<body ng-app="UserInfoModule">
+    <div class="card">
+        <div class="card-header">雙向數據綁定</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <form action="javascript:;" ng-controller="UserInfoCtrl">
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">Mail</label>
+                            <div class="col-10">
+                                <input type="email" id="email" name="email" class="form-control" ng-model="userInfo.email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-2 col-form-label">密碼</label>
+                            <div class="col-10">
+                                <input type="password" id="password" name="password" class="form-control" ng-model="userInfo.password">
+                            </div>
+                        </div>
+                        <div class="form-group row" ng-show="menuState.show">
+                            <div class="col-2 offset-md-2">
+                                <div class="form-check" ng-class="{green:isGreen,red:isRed}">
+                                    <input id="checkbox" type="checkbox" class="form-check-input" ng-model="userInfo.autoLogin">
+                                    <label for="checkbox" class="form-check-label">checkbox</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box" ng-hide="menuState.show">123</div>
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-10">
+                                <button class="btn btn-primary" ng-click="getFormData()">getFormData</button>
+                                <button class="btn btn-primary" ng-click="setFormData()">setFormData</button>
+                                <button class="btn btn-primary" ng-click="resultForm()">resultForm</button>
+                                <button class="btn btn-primary" ng-click="setGreen()">setGreen</button>
+                                <button class="btn btn-primary" ng-click="toggleMenu()">toggleMenu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
