@@ -14,10 +14,14 @@
 	<option value="a">a</option>
 	<option value="b">b</option>
 </select>
+<input type="number" id="num">
 </body>
 <script>
 $('#select-list').on('change',function(){
 	console.log($(this).val())
+})
+$('#num').on('change',function(){
+	console.log( parseFloat($(this).val()) >= 100 )
 })
 </script>
 </html>
