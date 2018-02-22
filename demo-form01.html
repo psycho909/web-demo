@@ -14,6 +14,7 @@
         <input type="text" name="sex" value="mal">
         <input type="submit">
     </form>
+    <button class="stp">Click</button>
     <script>
         $(function(){
             var data=[];
@@ -27,6 +28,12 @@
             })
             $('form').submit(function(){
                 alert(123)
+            })
+            setC=setInterval(function(){
+                console.log(1)
+            },500)
+            $('.stp').on('click',function(){
+                clearTimeout(setC)
             })
         })
     </script>
