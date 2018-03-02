@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Person{
+            constructor(name){
+                this.name=name;
+                this.x=3;
+            }
+            sayHi(){
+                console.log(`Hi! This is say `+this.name)
+            }
+            static sayGoodbye(){
+                console.log('goodbye')
+            }
+        }
+        class PersonA extends Person{
+            constructor(name,age){
+                super(name);
+                this.age=age;
+                console.log(this.x)
+            }
+            userInfo(){
+                return `Hello My name is ${this.name} age is ${this.age}`;
+            }
+        }
+        var person=new Person('Chen');
+        var personA=new PersonA('Chen',22);
+        console.log(personA.userInfo())
+    </script>
+</body>
+</html>
