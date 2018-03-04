@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,28 +9,29 @@
 	<style>
 	</style>
 </head>
+
 <body>
 
-<script>
+	<script>
+		function getData() {
+			return new Promise((resolve, reject) => {
+				let req = new XMLHttpRequest();
+				req.open('get', 'https://training.pada-x.com/resources/javascript-es6-react/data.out')
+				req.onload = function () {
+					resolve(this.responseText)
+				}
+				req.onerror = function () {
+					reject("Error")
+				}
+				req.send()
+			})
+		}
+		var dataPromise = getData()
+		dataPromise.then((result) => {
+			console.log(result)
+		}).catch((error) => {
+			console.log(error)
+		})
+	</script>
 
-function getData(){
-	return new Promise((resolve,reject)=>{
-		let req=new XMLHttpRequest();
-		req.open('get','https://training.pada-x.com/resources/javascript-es6-react/data.out')
-		req.onload=function(){
-			resolve(this.responseText)
-		}
-		req.onerror=function(){
-			reject("Error")
-		}
-		req.send()
-	})
-}
-var dataPromise=getData()
-dataPromise.then((result)=>{
-	console.log(result)
-}).catch((error)=>{
-	console.log(error)
-})
-</script>
 </html>

@@ -39,45 +39,6 @@
 	}).catch(function(){
 		console.log('error')
 	})
-	// $.ajax({
-	// 	url: url,
-	// 	data:{
-	// 		'rid':'55ec6d6e-dc5c-4268-a725-d04cc262172b',
-	// 		'limit':20
-	// 	},
-	// 	statusCode:{
-	// 		404:function(){
-	// 			console.log(404)
-	// 		}
-	// 	},
-	// 	success: function(data) {
-	// 		console.log(data)
-	// 	},
-	// 	error:function(){
-	// 		console.log('no')
-	// 	}
-	// });
-	// $.ajax({
-	// 	url:'http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
-	// 	dataType:'json',
-	// 	data:{
-	// 		tags:'dog',
-	// 		format:'json',
-	// 	},success:function(data){
-	// 		console.log(data)
-	// 	},error:function(){
-	// 		console.log('error')
-	// 	}
-	// })
-	// $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?', {
-	// 	tags: "dog",
-	// 	format: "json"
-	// }).done(function(data){
-	// 	$.each(data['items'],function(i,v){
-	// 		$('<img>').attr('src',v.media.m).appendTo('#app')
-	// 	})
-	// 	console.log(data)
-	// })
 </script>
 
 </html>
