@@ -15,10 +15,13 @@
 	</style>
 </head>
 <body>
-
+<button id="btn" onclick="addNotice()">Click</button>
+<button id="btn" onclick="()=>addNotice()">Click</button>
 </body>
 <script>
-
+function addNotice(){
+	console.log(123)
+}
 $(function () {
 
 	var classTitle=[];
