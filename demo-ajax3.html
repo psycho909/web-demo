@@ -8,24 +8,52 @@
 	<title>AJAX</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<style>
+		.btn{
+			display: inline-block;
+			padding: 6px 12px;
+			border:1px solid gray;
+			background-color: gold;
+			color:#000;
+			cursor: pointer;
+		}
 	</style>
 </head>
 
 <body>
-
+<div class="body" data-submit="unlock">123</div>
+<div class="btn">CLICK</div>
 </body>
 
 <script type="text/javascript">
-	var url="https://pool.viabtc.com/user/api/e573c6ac371821077c0fded1cb5d3fdc/";
-	$.ajax({
-		url:url,
-		success:function(data){
-			console.log(data)
-		},
-		error:function(textStatus,error){
-			console.log('error',textStatus,error)
+
+	var url="https://randomuser.me/api/?results=2000";
+	var rpClick=false;
+	$('.btn').on('click',function(){
+		if( !rpClick ){
+			rpClick=true;
+			setTimeout(function(){
+				$.ajax({
+					url:url,
+					beforeSend:function(){
+						console.log('beforeSend')
+					}
+				})
+				.done(function(data){
+					
+					console.log(data)
+					rpClick=false;
+					console.log(rpClick)
+				})
+				.fail(function(){
+					console.log('error')
+				})
+			},1000)
+		}else{
+			console.log(rpClick)
+			return false;
 		}
 	})
+	
 </script>
 
 </html>
