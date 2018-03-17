@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.bg-red{
+			background-color: red;
+			perspective: 500px;
+		}
+		.box{
+			width: 100px;
+			height: 100px;
+			background-color: #000;
+			transition: all .3s;
+			transform-style: preserve-3d;
+
+		}
+		.box:hover{
+			transform: rotateY(360deg);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bg-red header">
+		<div class="box"></div>
+	</div>
+	<div class="bg-red header" style="padding:1px;">
+		<div class="box"></div>
+	</div>
+</body>
+
+</html>

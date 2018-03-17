@@ -18,27 +18,16 @@
 </body>
 
 <script>
-	$('.box').on('click',function(){
-		$(this).addClass('active').animate({
-			opacity:0
-		},300)
-	})
-	var person = 'https://randomuser.me/api/?results=20'
-	var url = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire"
-	var data =
-		"http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=35aa3c53-28fb-423c-91b6-2c22432d0d70&limit=20&offset=0"
-
-	fetch('http://www.randomtext.me/api/').then(function(res){
-		if(res.ok){
-			console.log(res.status)
-			return res.json()
+	var url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1";
+	var xhr=new XMLHttpRequest();
+	xhr.open('GET',url);
+	xhr.onload=function(){
+		if(xhr.readyState == 4){
+			var data=JSON.parse(xhr.responseText)
+			console.log(data)
 		}
-		console.log(res.status)
-	}).then(function(json){
-		console.log(json)
-	}).catch(function(){
-		console.log('error')
-	})
+	}
+	xhr.send();
 </script>
 
 </html>
