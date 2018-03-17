@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>SlideWShow</h1>
+    <div class="slideshow-container">
+        <div class="slides">
+            <img src="./images/poker00.png" alt="">
+            <div>1</div>
+        </div>
+        <div class="slides">
+            <img src="./images/poker00.png" alt="">
+            <div>2</div>
+        </div>
+        <div class="slides">
+            <img src="./images/poker00.png" alt="">
+            <div>3</div>
+        </div>
+    </div>
+    <button id="prev">Prev</button>
+    <button id="next">next</button>
+
+    <script>
+        document.getElementById('prev').addEventListener('click',function(){
+            showSlides(-1)
+        })
+        document.getElementById('next').addEventListener('click',function(){
+            showSlides(1)
+        })
+
+        var slideIndex=0;
+        showSlides(slideIndex);
+
+        function showSlides(index){
+            var slides=document.getElementsByClassName('slides');
+            slideIndex+=index;
+            console.log(slideIndex)
+            if(slideIndex > slides.length-1){
+                slideIndex=0;
+            }
+            if(slideIndex < 0){
+                slideIndex=slides.length-1;
+            }
+            for(var i=0;i<slides.length;i++){
+                slides[i].style.display='none'
+            }
+            slides[slideIndex].style.display='block'
+        }
+        // function nextSlide(num){
+        //     slideIndex+=num;
+        //     showSlides(slideIndex)
+        // }
+    </script>
+</body>
+</html>

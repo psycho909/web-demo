@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TodoJS</h1>
+    <form>
+        <input type="text" id="todo-input" name="todo">
+        <button id="btn" type="button">提交送出</button>
+    </form>
+    <ul id="result">
+    </ul>
+
+    <script>
+        var submitBtn=document.getElementById('btn');
+        var result=document.getElementById('result');
+        submitBtn.addEventListener('click',function(){
+            var todoInput=document.getElementById('todo-input').value;
+            if(todoInput != ''){
+                var todo=document.createElement('li');
+                todo.innerHTML=`${todoInput} <button>X</button>`;
+                result.appendChild(todo)
+                document.getElementById('todo-input').value='';
+            }else{
+                alert('error')
+            }
+        })
+        result.addEventListener('click',function(e){
+            if(e.target.parentNode.parentNode.nodeName != 'UL'){
+                return false;
+            }else{
+                e.target.parentNode.parentNode.removeChild(e.target.parentNode)
+            }
+        })
+    </script>
+</body>
+</html>
