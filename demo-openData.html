@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>AJAX</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<style>
+		*{
+			font-family: '微軟正黑體';
+		}
+		.box{
+			width: 150px;
+			height: 200px;
+			position: relative;
+			overflow: hidden;
+		}
+		.box:before{
+			content: 'new';
+			width: 110px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			color: #fff;
+			background-color: #FF5722;
+			position: absolute;
+			top: 0px;
+			left: 0;
+			transform: translate(-37px,10px) rotate(-45deg);
+		}
+		.box #boxImg{
+			width: 150px;
+			height: 200px;
+			cursor: pointer;
+			display: inline-block;
+			background-image: url('./images/cla.jpg');
+			background-position: 0 0;
+			transition: all .2s linear;
+		}
+		.box #boxImg:hover{
+			background-position: 0 -200px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box">
+		<a id="boxImg" href="javascript:;"></a>
+	</div>
+</body>
+
+<script type="text/javascript">
+var openData=[
+	[1,7,0],
+	[3,8,9],
+	[4,5,8],
+	[6,4,1],
+	[3,6,1]
+]
+// var arr_group=Array.from(new Array(10),(val,index)=>index+1)
+var arr_box=[];
+var arr_group=[];
+var arr_num=Array.from(new Array(11),(v,i)=>i);
+
+openData.forEach(function(item,index){
+	for(var i=0;i<item.length;i++){
+		arr_box.push(item[i])
+	}
+})
+
+var obj = {}, k, arr1 = [];
+for (var i = 0; i < arr_box.length; i++) {
+	k = arr_box[i];
+	if (obj[k])
+		obj[k]++;
+	else 
+		obj[k] = 1;
+}
+console.log(obj)
+//保存结果{el-'元素'，count-出现次数}
+for (var o in obj) {
+	arr1.push({el: o, count: obj[o]});
+}
+
+for(var i=0;i<arr_num.length;i++){
+	if(obj[arr_num[i]] == undefined){
+		obj[arr_num[i]]=0
+	}
+}
+
+</script>
+
+</html>

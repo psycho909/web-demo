@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <button class="btn-lang" data-type="0">taiwan</button>
+    <button class="btn-lang" data-type="1">chain</button>
+    <button class="btn-lang" data-type="2">japan</button>
+    <button class="btn-lang" data-type="3">korean</button>
+    <div id="L0"></div>
+    <div id="L1"></div>
+    <div id="L2"></div>
+    <div id="L3"></div>
+
+    <script>
+        var lang_arr = [];
+        var tc_arr = [];
+        var sc_arr = [];
+        var jp_arr = [];
+        var kr_arr = [];
+        tc_arr[0] = "這是範例網頁，您可以在這裡預覽及測試網站翻譯工具。";
+        tc_arr[1] = "試試看變更以上設定並且按一下[預覽並試用！]按鈕看看效果。";
+        tc_arr[2] = "舉例來說，您選取要翻譯的語言後，下拉式選單中就會反應這個變更。";
+        tc_arr[3] = "好好享受吧！";
+
+        sc_arr[0] = "这是范例网页，您可以在这里预览及测试网站翻译工具。";
+        sc_arr[1] = "试试看变更以上设定并且按一下[预览并试用！ ] 按钮看看效果。";
+        sc_arr[2] = "举例来说，您选取要翻译的语言后，下拉式选单中就会反应这个变更。";
+        sc_arr[3] = "好好享受吧！";
+
+        jp_arr[0] = "これはサンプルページは、プレビューできますし、テストのWeb翻訳ツールです。";
+        jp_arr[1] = " [プレビュー]を上記の設定をクリックして変更して試してみてください！ ]ボタンは、効果を確認する。";
+        jp_arr[2] = " たとえば、あなたは、ドロップダウンメニューがこの変化に対応する翻訳する言語を選択します。";
+        jp_arr[3] = " をお楽しみください！";
+
+        kr_arr[0] = "이것은 샘플 페이지, 당신은 할 수 미리보기 및 테스트 웹 번역 도구입니다.";
+        kr_arr[1] = "[미리보기를 클릭 위의 설정을 변경하고 시도하십시오! ] 버튼을 클릭하면 효과를 볼 수 있습니다.";
+        kr_arr[2] = "예를 들어, 당신은, 드롭 다운 메뉴에서 해당 변경에 응답할 것입니다 번역될 언어를 선택하십시오.";
+        kr_arr[3] = "즐거운 시간 되십시오!";
+        lang_arr=[[...tc_arr],[...sc_arr],[...jp_arr],[...kr_arr]]
+        $(function(){
+            $('.btn-lang').on('click',function(){
+                var _lang=$(this).attr('data-type');
+                $('#L0').text(lang_arr[_lang][0])
+                $('#L1').text(lang_arr[_lang][1])
+                $('#L2').text(lang_arr[_lang][2])
+                $('#L3').text(lang_arr[_lang][3])
+            })
+        })
+    </script>
+
+</body>
+
+</html>
