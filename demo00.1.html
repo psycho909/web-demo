@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #byte_content {
+            margin: 5px 0;
+            max-height: 100px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        #byte_range {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="file" id="files" name="files[]" multiple />
+    <img id="img" src="" alt="">
+
+    <script>
+        $('#files').on('change',function(e){
+            var files=e.target.files[0];
+            var reader = new FileReader();
+            reader.onload=function(){
+                $('#img').attr('src',reader.result)
+            }
+            reader.readAsDataURL(files)
+        })
+        // function handleFileSelect(e) {
+        //     var files = e.target.files[0]; // FileList object
+        //     var imgSrc=document.getElementById('img')
+        //     console.log(files[0])
+        //     // Loop through the FileList and render image files as thumbnails.
+        //     var reader = new FileReader();
+        //     // // Closure to capture the file information.
+        //     reader.onload = function (e) {
+        //         imgSrc.src=reader.result
+        //     }
+
+        //     // // Read in the image file as a data URL.
+        //     reader.readAsDataURL(files)
+        // }
+
+        // document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    </script>
+</body>
+
+</html>
