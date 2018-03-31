@@ -18,39 +18,68 @@
         #byte_range {
             margin-top: 5px;
         }
+        .box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            background-color: red;
+        }
     </style>
 </head>
 
 <body>
-
+    <div class="box"></div>
+    <form action="" method="GET">
+        <input type="text">
+        <input type="submit">
+    </form>
+    <button id="btn">click</button>
+    <input list="Country">
+    <datalist id="Country">
+      <option value="India">
+      <option value="Italy">
+      <option value="Iran">
+      <option value="Israel">
+      <option value="Indonesia">
+    </datalist>
     <input type="file" id="files" name="files[]" multiple />
     <img id="img" src="" alt="">
 
     <script>
+        $('#btn').on('click',function(){
+            $('.box').stop().animate({
+                opacity:1,
+                top:-20+'%'
+            },600)
+        })
         $('#files').on('change',function(e){
             var files=e.target.files[0];
+            if(files.type.indexOf('image') == -1){
+                return;
+            }
             var reader = new FileReader();
             reader.onload=function(){
                 $('#img').attr('src',reader.result)
             }
             reader.readAsDataURL(files)
         })
-        // function handleFileSelect(e) {
-        //     var files = e.target.files[0]; // FileList object
-        //     var imgSrc=document.getElementById('img')
-        //     console.log(files[0])
-        //     // Loop through the FileList and render image files as thumbnails.
-        //     var reader = new FileReader();
-        //     // // Closure to capture the file information.
-        //     reader.onload = function (e) {
-        //         imgSrc.src=reader.result
-        //     }
+        function handleFileSelect(e) {
+            var files = e.target.files[0];
+            var imgSrc=document.getElementById('img')
+            if(files.type.indexOf('image') == -1){
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgSrc.src=reader.result
+            }
 
-        //     // // Read in the image file as a data URL.
-        //     reader.readAsDataURL(files)
-        // }
+            reader.readAsDataURL(files)
+        }
 
-        // document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
     </script>
 </body>
 
