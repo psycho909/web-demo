@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAH7jDIBlph-_6RgCuGVaVOtnx2HIByufM",
+            authDomain: "project-3efe5.firebaseapp.com",
+            databaseURL: "https://project-3efe5.firebaseio.com",
+            projectId: "project-3efe5",
+            storageBucket: "project-3efe5.appspot.com",
+            messagingSenderId: "694575396219"
+        };
+        firebase.initializeApp(config);
+        
+        var database=firebase.database();
+
+        var categoriesPath="/categoriesPath/";
+        var categoriesRef=database.ref(categoriesPath);
+        var articlesPath='/articles/';
+        var articlesRef=database.ref(articlesPath);
+
+        // articlesRef.push({
+        //     id:articlesRef.push().key,
+        //     content:'<p>Hello World</p>',
+        //     status:'draft',
+        //     title:'Sass環境'
+        // })
+        articlesRef.child('-L8roFEphNaWa8LGyu7X').once('value').then((snapshot)=>{
+            console.log(snapshot.val())
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
