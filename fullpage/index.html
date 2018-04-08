@@ -9,12 +9,377 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.6/jquery.fullpage.js"></script>
 	<style>
+		.go{
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			cursor: pointer;
+			position: fixed;
+			right: 30px;
+			top: 30px;
+			background-color: rgba(0, 128, 0, 0.39);
+			z-index: 999;
+		}
+		.more{
+			width: 100px;
+			height: 100px;
+			cursor: pointer;
+			position: fixed;
+			right: 60px;
+			bottom: 80px;
+			background-color: rgba(5, 183, 196, 0.493);
+			z-index: 999;
+			animation: more .4s linear infinite alternate;
+		}
+		.content{
+			width: 900px;
+			height: 600px;
+			background-color: rgba(0,0,0,.1);
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 99;
+		}
+		.screen01{
+			background-repeat: no-repeat;
+			background-position: center bottom;
+		}
+		.screen01 .goods{
+			text-align: center;
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			margin-top: 230px;
+			background-color: darkslategrey;
+		}
+		.screen01 .sofa{
+			width: 60px;
+			height: 60px;
+			position: absolute;
+			left: 200px;
+			top: 150px;
+			background-color: darkslategrey;
+			animation: sofa01 .8s linear infinite alternate;
+		}
+		.screen01 .fly{
+			width: 60px;
+			height: 60px;
+			position: absolute;
+			right: -50px;
+			top: 20px;
+			background-color: darkslategrey;
+			animation: fly01 1s linear infinite alternate;
+		}
+
+		@keyframes fly01 {
+			from{
+				transform: translateY(-50px);
+			}
+			to{
+				transform: translateY(50px);
+			}
+		}
+		@keyframes more {
+			from{
+				transform: translateY(-10px);
+			}
+			to{
+				transform: translateY(10px);
+			}
+		}
+		@keyframes sofa01 {
+			from{
+				transform: translateY(-20px);
+			}
+			to{
+				transform: translateY(20px);
+			}
+		}
+		.screen02{
+			background-repeat: no-repeat;
+			background-position: center bottom;
+		}
+		.screen02 .goods{
+			width: 600px;
+			height:400px;
+			background-color: darkgrey;
+			position: absolute;
+			left: 50%;
+			bottom: 160px;
+			transform: translateX(-50%) scale(0);
+			transform-origin: right bottom;
+		}
+		.screen02 .sofa{
+			width: 100px;
+			height: 80px;
+			background-color: crimson;
+			transform: scale(.5);
+			position: absolute;
+			left: 292px;
+			top: 132px;
+			opacity: 0;
+			z-index: 1001;
+		}
+		.screen02 .input{
+			width: 200px;
+			height: 100px;
+			background-color: blueviolet;
+			position: absolute;
+			right: 171px;
+			top: 121px;
+			/* transform: translate(-180px,130px); */
+			transform-origin: right top;
+			opacity: 0;
+		}
+
+		.screen02 .input .key{
+			position: absolute;
+			left: 100px;
+			top: 4px;
+			opacity: 0;
+		}
+		.screen02 .text{
+			text-align: center;
+		}
+		.screen02 .text .test02{
+			position: absolute;
+			opacity: 0;
+		}
+		.screen02.now .text .test01{
+			position: absolute;
+			opacity: 0;
+		}
+		.screen02.now .text .test02{
+			position: static;
+			opacity: 1;
+			transition: opacity 1s;
+		}
+		.screen02.now .input{
+			animation: input02 3s linear forwards;
+		}
+		.screen02.now .input .key{
+			opacity: 1;
+			transition: all 1s linear 1s;
+		}
+		.screen02.now .goods{
+			transform: translateX(-50%) scale(1);
+			transition: all 1s linear 1s;
+		}
+		@keyframes input02{
+			0%{
+				transform: translate(2000px,130px);
+				opacity: 1;
+			}
+			33.3%{
+				transform: translate(-180px,130px);
+			}
+			67%{
+				transform: translate(-180px,130px);
+			}
+			100%{
+				transform: scale(.7);
+				opacity: 1;
+			}
+		}
+		.screen02.leaved .sofa{
+			opacity: 1;
+			animation: sofa02 1.5s linear forwards;
+		}
+		@keyframes sofa02{
+			from{
+				opacity: 1;
+			}
+			to{
+				opacity: 1;
+				transform: translate(-80px,700px);
+				background-color: rgb(251, 255, 0);
+			}
+		}
+		.screen03{
+			background-repeat: no-repeat;
+			background-position: center bottom;
+		}
+		.screen03 .change{
+			width: 400px;
+			height: 400px;
+			background-color: #fff;
+			position: absolute;
+			right: 100px;
+			bottom: 100px;
+		}
+		.screen03 .cart{
+			width: 200px;
+			height: 100px;
+			background-color: rgb(41, 223, 41);
+			position: absolute;
+			right: 115px;
+		}
+		.screen03 .sofa{
+			width: 100px;
+			height: 80px;
+			background-color: rgb(251, 255, 0);
+			position: absolute;
+			left: 212px;
+			top: 53px;
+			display: none;
+			z-index: 1001;
+		}
+		.screen03.now .sofa{
+			display: block;
+		}
+		.screen03.leaved .sofa{
+			animation: sofa03 1.5s linear ;
+			
+		}
+		@keyframes sofa03{
+			from{
+
+			}
+			to{
+				transform: translate(191px,833px) rotate(45deg);
+			}
+		}
+
+		.screen04 .cloud{
+			width: 100px;
+			height: 50px;
+			background-color: #fff;
+			position: absolute;
+			left: -400px;
+			top: -50px;
+			animation: cloud04 5s linear infinite alternate;
+		}
+		@keyframes cloud04{
+			from{
+
+			}
+			to{
+				transform: translate(1000px);
+			}
+		}
+		.screen04 .cart{
+			width: 400px;
+			height: 400px;
+			text-align: center;
+			background-color: rgba(15, 151, 175, 0.616);
+			position: absolute;
+			bottom: 60px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1002;
+		}
+		.screen04 .sofa{
+			position: absolute;
+			top: 108px;
+    		left: 404px;
+			transform: rotate(45deg);
+			width: 100px;
+			height: 80px;
+			background-color: rgb(251, 255, 0);
+			opacity: 0;
+		}
+		.screen04.now .sofa{
+			opacity: 1;
+			transition: transform 1.5s;
+			transform: translate(1200px) rotate(45deg);
+		}
+		.screen04.now .cart{
+			transition: all 1.5s;
+			transform: translate(1000px);
+		}
+		.screen04 .address{
+			width: 300px;
+			height: 160px;
+			background-color: chartreuse;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			opacity: 0;
+			transition: all .6s;
+		}
+		.screen04 .address.showIn{
+			opacity: 1;
+		}
 	</style>
 </head>
 <body>
+	<div class="go"></div>
+	<div class="more"></div>
+	<div class="container">
+		<div class="section screen01">
+			<div class="content">
+				<div class="goods"></div>
+				<div class="sofa"></div>
+				<div class="fly"></div>
+			</div>
+		</div>
+		<div class="section screen02">
+			<div class="content">
+				<div class="goods"></div>
+				<div class="sofa"></div>
+				<div class="input">
+					<span class="search"></span>
+					<span class="key">搜尋</span>
+				</div>
+				<div class="text">
+					<span class="test01">XXXXXXXX</span>
+					<span class="test02">YYYYYYYYY</span>
+				</div>
+			</div>
+		</div>
+		<div class="section screen03">
+			<div class="content">
+				<div class="sofa"></div>
+				<div class="change"></div>
+				<div class="cart"></div>
+			</div>
+		</div>
+		<div class="section screen04 ">
+			<div class="content">
+				<div class="cloud"></div>
+				<div class="cart"></div>
+				<div class="sofa"></div>
+				<div class="address"></div>
+			</div>
+		</div>
+		<div class="section">5</div>
+		<div class="section">6</div>
+		<div class="section">7</div>
+		<div class="section">8</div>
+	</div>
 
 </body>
 <script>
-
+$('.container').fullpage({
+	sectionsColor:['#fadd67','#84a2d4','#ef674d','#ffeddd','#d04759','red','blue','green'],
+	verticalCentered:false,
+	navigation:true,
+	scrollingSpeed:1500,
+	afterRender:function(){
+		$('.more').on('click',function(){
+			$.fn.fullpage.moveSectionDown();
+		})
+		$('.screen04 .cart').on('transitionend',function(){
+			console.log('end')
+			setTimeout(()=>{
+				$('.screen04 .address').addClass('showIn')
+			},500)
+		})
+	},
+	onLeave:function(index, nextIndex, direction){
+		if(index ==2 && nextIndex == 3){
+			$('.section').eq(index-1).addClass('leaved')
+		}else if(index == 3 && nextIndex == 4){
+			$('.section').eq(index-1).addClass('leaved')
+		}
+		// console.log(index, nextIndex, direction)
+	},
+	afterLoad:function(anchorLink,index){
+		$('.section').eq(index-1).addClass('now')
+		// console.log(anchorLink,index)
+	}
+})
 </script>
 </html>
