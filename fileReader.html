@@ -18,17 +18,47 @@
         #byte_range {
             margin-top: 5px;
         }
+        .box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            background-color: red;
+        }
     </style>
 </head>
 
 <body>
-
+    <div class="box"></div>
+    <form action="" method="GET">
+        <input type="text">
+        <input type="submit">
+    </form>
+    <button id="btn">click</button>
+    <input list="Country">
+    <datalist id="Country">
+      <option value="India">
+      <option value="Italy">
+      <option value="Iran">
+      <option value="Israel">
+      <option value="Indonesia">
+    </datalist>
     <input type="file" id="files" name="files[]" multiple />
     <img id="img" src="" alt="">
 
     <script>
+        $('#btn').on('click',function(){
+            $('.box').stop().animate({
+                opacity:1,
+                top:-20+'%'
+            },600)
+        })
         $('#files').on('change',function(e){
             var files=e.target.files[0];
+            if(files.type.indexOf('image') == -1){
+                return;
+            }
             var reader = new FileReader();
             reader.readAsDataURL(files)
             reader.onload=function(){
@@ -36,6 +66,24 @@
                 $('#img').attr('src',reader.result)
             }
         })
+<<<<<<< HEAD:fileReader.html
+=======
+        function handleFileSelect(e) {
+            var files = e.target.files[0];
+            var imgSrc=document.getElementById('img')
+            if(files.type.indexOf('image') == -1){
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgSrc.src=reader.result
+            }
+
+            reader.readAsDataURL(files)
+        }
+
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+>>>>>>> 4e28f7b2a4c4ed786aee264788e4d05a70900337:demo00.1.html
     </script>
 </body>
 
