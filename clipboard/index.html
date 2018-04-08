@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+
+</head>
+
+<body>
+<!-- Target -->
+<input id="foo" value="https://github.com/zenorocha/clipboard.js.git">
+<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="237px" height="237px" viewBox="0 0 237 237" style="enable-background:new 0 0 237 237;" xml:space="preserve">
+<g>
+	<circle cx="118.5" cy="118.5" r="118.5"/>
+</g>
+</svg>
+<!-- Trigger -->
+<button class="btn" data-clipboard-target="#foo">
+    <img src="assets/clippy.svg" alt="Copy to clipboard">
+</button>
+    <script>
+        var clipboard = new ClipboardJS('.btn');
+        clipboard.on('success', function (e) {
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+
+            e.clearSelection();
+        });
+    </script>
+</body>
+
+</html>

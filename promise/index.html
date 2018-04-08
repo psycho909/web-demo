@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var runPromise=function(someone,timer,success){
+            console.log(someone+' 開始奔跑!')
+            // Promise 從這開始
+            return new Promise(function(resolve,reject){
+                if(success){
+                    setTimeout(function(){
+                        resolve(someone+' '+(timer/1000)+'秒 抵達終點!')
+                    },timer)
+                    
+                }else{
+                    reject(new Error(someone+' 失敗!'))
+                }
+            })
+        }
+        var eatPromise=function(anim,timer,success){
+            console.log(anim)
+            return new Promise((resolve,reject)=>{
+                if(success){
+                    setTimeout(()=>{
+                        resolve(anim+' '+(timer/1000)+'秒 抵達終點!')
+                    },timer)
+                }else{
+                    reject(new Error(anim+' 失敗!'))
+                }
+            })
+        }
+        runPromise('Ming',1000,true).then(function(res){
+            console.log(res)
+            return runPromise('胖虎',1500,true)
+        })
+        .then(function(res){
+            console.log(res)
+            return eatPromise('Dog',1000,true)
+        })
+        .then(function(res){
+            console.log(res)
+        })
+        .catch(function(res){
+            console.log(res)
+        })
+    </script>
+</body>
+</html>
