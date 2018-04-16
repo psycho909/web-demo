@@ -25,6 +25,17 @@
     <div id="output"></div>
 
     <script>
+        var monthArray=[];
+        for(let i=0;i<12;i++){
+            monthArray[i]={m:0,money:0};
+        }
+        var objj=[{m:1,money:10},{m:1,money:20},{m:2,money:13},{m:3,money:14},{m:7,money:22},{m:12,money:32}]
+
+        objj.forEach((item)=>{
+            monthArray[item.m-1].m=item.m
+            monthArray[item.m-1].money+=parseInt(item.money)
+        })
+        console.log(monthArray)
         var buttons = document.querySelectorAll('button')
         var output = document.querySelector('#output')
         var _loop = function (i) {
