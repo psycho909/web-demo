@@ -18,15 +18,16 @@
 	// $('.btn').on('click',function(){
 	// 	console.log(213)
 	// })
-	$('#xxx').on('change',function(){
+	$('#xxx').on('change',function(e){
 		console.log($(this).val())
+		console.log($(this).get(0).files[0].name)
 	})
 	function toClick(){
 		console.log(321)
 	}
-	setInterval(function(){
-		$( ".btn" ).click();
-	},1000)
+	// setInterval(function(){
+	// 	$( ".btn" ).click();
+	// },1000)
 for(var i=1;i<=5;i++){
 	document.write('<br/>');
 	for(var j=1;j<=5-i;j++){
