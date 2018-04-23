@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<div id="load"></div>
 </body>
 
@@ -30,6 +31,24 @@
 	// 		console.log('ERROR');
 	// 	}
 	// })
+=======
+
+</body>
+
+<script type="text/javascript">
+var url="http://data.taipei/opendata/datalist/apiAccess?scope=datasetMetadataSearch&q=id:961ca397-4a59-45e8-b312-697f26b059dc";
+$.ajax({
+	url:url,
+	method:'GET',
+	dataType:'jsonp',
+	success:function(data){
+		console.log(data)
+	},
+	error:function(error){
+		console.log(error)
+	}
+})
+>>>>>>> 572b7ea6e744a1bd0d7ad11bcd4dbe886255b003
 </script>
 
 </html>
