@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // Person.prototype.sayHi=function(){
+        //     console.log(`Hello ${this.name},and i am ${this.age}!`)
+        // }
+        // var d=new Person('Dan',33);
+        // d.sayHi()
+
+        class Person {
+            constructor(name,age){
+                this.name=name;
+                this.age=age
+            }
+            sayHi(){
+                console.log(`ES6 Hello ${this.name},and i am ${this.age}!`)
+            }
+        }
+        class PersonNew extends Person{
+            constructor(name,age,doing){
+                super(name,age);
+                this.doing=doing;
+            }
+            doSomthing(){
+                console.log(`ES6 do ${this.doing} Hello ${this.name},and i am ${this.age}!`)
+            }
+        }
+        var d=new PersonNew('Dan',33,'eat');
+        d.doSomthing()
+    </script>
+</body>
+</html>
