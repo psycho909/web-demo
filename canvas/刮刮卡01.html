@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        let canvas=document.getElementById('canvas')
+        let context=canvas.getContext('2d')
+        /**
+        * 绘制一个矩形
+        * @param {Num} x      矩形的左上角 x 轴的位置
+        * @param {Num} y      矩形的左上角 y 轴的位置
+        * @param {Num} width  矩形的宽度
+        * @param {Num} height 矩形的高度
+        */
+        function drawRect(x,y,width,height){
+            context.beginPath(); // 清空上一次的路径
+            context.rect(x,y,width,height)
+            context.fill()
+        }
+        /**
+        * 绘制一个圆形
+        * @param {Num} centerX  圆心 x 轴坐标
+        * @param {Num} centerY  圆心 y 轴坐标
+        * @param {Num} radius   圆的半径
+        */
+        function drawCircle(centerX,centerY,radius){
+            context.beginPath(); // 清空上一次的路径
+            context.arc(centerX,centerY,radius,0,Math.PI*2,false)
+            context.fill()
+        }
+        drawRect(0,0,100,100)
+
+        context.save();
+
+        drawCircle(0,0,50)
+        context.clip();
+        context.clearRect(0,0,canvas.width,canvas.height)
+
+        context.restore()
+
+        drawRect(110, 0, 100, 100);
+    </script>
+</body>
+</html>

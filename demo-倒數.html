@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        i{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            color:#fff;
+            line-height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <i></i> : <i></i> : <i></i>
+    <script>
+        var aI=document.getElementsByTagName('i');
+        setInterval(()=>{
+            // 倒計時 = end - current
+            var time=new Date();
+            var nowTime=time.getTime();
+
+            time.setMonth(4)
+            time.setDate(19)
+            time.setHours(12)
+            time.setMinutes(0)
+            time.setSeconds(0)
+            var endTime=time.getTime()
+            
+            var offsetTime=(endTime - nowTime) / 1000;
+            var s=parseInt(offsetTime%60)
+            var m=parseInt(offsetTime/60%60)
+            var h=parseInt(offsetTime/60/60)
+            aI[0].innerHTML=h;
+            aI[1].innerHTML=m;
+            aI[2].innerHTML=s;
+        },1000)
+    </script>
+</body>
+</html>

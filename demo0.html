@@ -9,36 +9,38 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="./js//demo0.js"></script>
 	<style>
+		.color{
+			background-color: red;
+			color:#fff;
+		}
 	</style>
 </head>
 <body>
-	<button class="btn" onclick="toClick()">click</button>
-	<input type="file" id="xxx">
+	<button class="btn">button1</button>
+	<button class="btn">button2</button>
+	<button class="btn">button3</button>
 </body>
 <script>
-	// $('.btn').on('click',function(){
-	// 	console.log(213)
-	// })
-	$('#xxx').on('change',function(e){
-		console.log($(this).val())
-		console.log($(this).get(0).files[0].name)
-	})
-	function toClick(){
-		console.log(321)
+	var oBtn=document.getElementsByClassName('btn')
+	for(var i=0;i<oBtn.length;i++){
+		oBtn[i].onclick=function(){
+			
+			for(var j=0;j<oBtn.length;j++){
+				oBtn[j].classList.remove('color')
+			}
+			this.classList.add('color')
+		}
 	}
-	// setInterval(function(){
-	// 	$( ".btn" ).click();
-	// },1000)
-for(var i=1;i<=5;i++){
-	document.write('<br/>');
-	for(var j=1;j<=5-i;j++){
-		document.write('&nbsp;');
+	var arr=[21,12,1,22,24,10,9]
+	var temp=0
+	for(var i=0;i<arr.length-1;i++){
+		for(var j=0;j<arr.length-1-i;j++){
+			if(arr[j] > arr[j+1]){
+				temp=arr[j]
+				arr[j]=arr[j+1]
+				arr[j+1]=temp
+			}
+		}
 	}
-	for(var k=1;k<=2*i-1;k++){
-		document.write('*');
-	}
-}
-console.log(findSolution(24))
-console.log(add(18))
 </script>
 </html>
