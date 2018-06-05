@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grid 2 rows 3 columns</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .container{
+            width: 80%;
+            margin: 0 auto;
+        }
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: 200px minmax(100px,max-content) 200px;
+            /* grid-gap: 20px; */
+        }
+        .grid > div{
+            width: 100%;
+            font-size: 20px;
+            background:#e84393;
+            color:#fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .grid > div.header{
+            background-color: blueviolet;
+            grid-row: 1/2;
+            grid-column: 1/4;
+        }
+        .grid > div.footer{
+            background-color: rgb(226, 43, 58);
+            grid-row: 3/4;
+            grid-column: 1/4;
+        }
+        @media (max-width:600px){
+            .grid{
+                grid-template-columns: repeat(1,1fr);
+                grid-template-rows: repeat(6,minmax(100px,max-content));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container grid">
+        <div class="box1 header">Box Header</div>
+        <div class="box2">Box 2</div>
+        <div class="box3">Box 3</div>
+        <div class="box4">Box 4</div>
+        <div class="box6 footer">Box Footer</div>
+    </div>
+</body>
+</html>

@@ -12,35 +12,16 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-	<div id="load"></div>
-</body>
-
-<script type="text/javascript">
-	var url="https://segmentfault.com/q/1010000000149454";
-	$('#load').load(url,function(data){
-		console.log(data)
-	})
-	// $.ajax({
-	// 	url:url,
-	// 	dataType:'json',
-	// 	success:function(data){
-	// 		res([data,url]);
-	// 	},
-	// 	error:function(){
-	// 		console.log('ERROR');
-	// 	}
-	// })
-=======
 
 </body>
 
 <script type="text/javascript">
-var url="http://data.taipei/opendata/datalist/apiAccess?scope=datasetMetadataSearch&q=id:961ca397-4a59-45e8-b312-697f26b059dc";
+var url="https://www.thef2e.com/api/";
 $.ajax({
-	url:url,
-	method:'GET',
-	dataType:'jsonp',
+	url:url+'isSignUp',
+	method:'post',
+	dataType:'json',
+	data:{"email":"onionegg1379@gmail.com"},
 	success:function(data){
 		console.log(data)
 	},
@@ -48,7 +29,6 @@ $.ajax({
 		console.log(error)
 	}
 })
->>>>>>> 572b7ea6e744a1bd0d7ad11bcd4dbe886255b003
 </script>
 
 </html>

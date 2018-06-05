@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>HaHow 課程 AJAX</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+	<style>
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(item,index) in lecture" :key="index">
+				<div>{{index+1}}. {{item.title}}</div>
+				<div v-if="item.description" v-html="item.description"></div>
+			</li>
+		</ul>
+	</div>
+</body>
+
+<script type="text/javascript">
+var app=new Vue({
+	el:'#app',
+	data:{
+		lecture:[],
+		url:"https://api.hahow.in/api/courses/"
+	},
+	created(){
+		var vm=this;
+		axios.get(`${vm.url}586fae97a8aae907000ce721/curriculums/`)
+			.then((res)=>{
+				vm.lecture=res.data.filter((item)=>{
+					return item.type === 'LECTURE';
+				}).map((item)=>{
+					return (
+						{
+							id:item.lecture._id,
+							description:item.lecture.description,
+							title:item.lecture.title
+						}
+					)
+				})
+				vm.lecture.forEach((item)=>{
+					axios.get(`https://api.hahow.in/api/lectures/${item.id}`)
+					.then((res)=>{
+						var pos=vm.lecture.map((item)=>item.id).indexOf(res.data._id)
+						vm.lecture[pos]['subtitle']=res.data.title
+					})
+				})
+				console.log(vm.lecture)
+			})
+	}
+})
+// $.ajax({
+// 	url:url+'courses/586fae97a8aae907000ce721/curriculums/',
+// 	method:'get',
+// 	dataType:'json',
+// 	success:function(data){
+// 		lecture=data.filter((item)=>{
+// 			return item.type === 'LECTURE';
+// 		}).map((item)=>{
+// 			return (
+// 				{
+// 					id:item.lecture._id,
+// 					description:item.lecture.description,
+// 					title:item.lecture.title
+// 				}
+// 			)
+// 		})
+// 	},
+// 	error:function(error){
+// 		console.log(error)
+// 	}
+// })
+</script>
+
+</html>
