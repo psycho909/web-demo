@@ -11,18 +11,18 @@
 	</style>
 </head>
 <body>
+	<form>
+		<input type="text" name="username">
+		<input type="email" name="email">
+		<input type="hidden" name="json">
+		<button id="btn">Hello</button>
+	</form>
 </body>
 <script>
-var arr=[1,1,2,3,4,5,6,6,6,7,7,7,7]
-var newArr=[]
-arr.forEach(function(v){
-	if(v == 1){
-		newArr.push(v)
-	}else{
-		newArr.push(v)
-	}
-	
+$('#btn').on('click',function(e){
+	e.preventDefault();
+	var datas=$('form').serializeArray()
+	console.log(datas.find((o)=> o.name === 'json').value=true)
 })
-console.log(newArr)
 </script>
 </html>

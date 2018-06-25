@@ -24,3 +24,13 @@ function findSolution(target){
     }
     return find(1,'1')
 }
+$.ajax({
+    url:'../data.json',
+    success:function(data){
+        console.log(data)
+        $('.imgs').attr('src',data.img)
+    },
+    error:function(err){
+        console.log(err)
+    }
+})

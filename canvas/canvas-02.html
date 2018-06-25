@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #canvas{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas=document.getElementById('canvas')
+        var ctx=canvas.getContext('2d')
+        canvas.width=400
+        canvas.height=400
+        var cx=200
+        var cy=200
+        var radius=100
+
+        ctx.save();
+
+        // 绘制第一个圆 
+        ctx.beginPath(); 
+        ctx.fillStyle = 'tomato'; 
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false); 
+        ctx.fill(); 
+        ctx.clip()
+
+        // 绘制第二个圆 
+        ctx.beginPath(); 
+        ctx.fillStyle = '#333'; 
+        ctx.arc(cx + 100, cy, radius, 0, Math.PI * 2, false); 
+        ctx.fill(); 
+        // ctx.clip()
+
+        // 绘制第三个圆 
+        ctx.beginPath(); 
+        ctx.fillStyle = 'cornsilk'; 
+        ctx.arc(cx, cy + 100, radius, 0, Math.PI * 2, false); 
+        ctx.fill(); 
+        // ctx.clip()
+
+        // 绘制第四个圆 
+        ctx.beginPath();
+        ctx.strokeStyle = '#ccc'; 
+        ctx.lineWidth = 10; 
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2, false); 
+        ctx.stroke(); 
+        ctx.restore();
+
+    </script>
+</body>
+</html>
