@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!--需要合成图片，因为没法直接读取本地图片，所以将图片放在这里并隐藏-->
+    <div style="display:none">
+        <img id="starImg" style="height:100%; width:100%;" src="./images/pp.jpg" />
+    </div>
+
+    <!--画布-->
+    <canvas id="main" width="960" height="954" style="border:1px solid #d3d3d3;"></canvas>
+
+    <!--输入框，失去焦点后自动执行hechen()-->
+    <input type="text" id="desc" value="" />
+    <!--saveImageInfo()生成照片并显示到另个网页-->>
+    <button download="dl.png" onclick="location.href=main.toDataURL('image/jpeg')">下載</button>
+    <script>
+        //预加载将图片绘制到画布
+        $(function () {
+            hechen();
+        });
+        $('#desc').on('keyup',function(){
+            hechen()
+        })
+        function hechen() {
+            //获取时间2012-12-12
+            var mydate = new Date();
+            var date = mydate.getFullYear() + '-' + (mydate.getMonth() + 1) + '-' + mydate.getDate();
+            //获取画布对象
+            var mainCtx = document.getElementById('main').getContext("2d");
+            var maxWidth = mainCtx.width;
+            var maxHeight = mainCtx.height;
+            mainCtx.clearRect(0, 0, 1000, 1000);
+            //获取图片的实际路径
+            var starImg = new Image();
+            starImg.src = $('#starImg').attr('src');
+            //合成
+            starImg.onload = function () {
+                //先把图片绘制在这里
+                mainCtx.drawImage(starImg, 0, 0, 960, 954);
+                //读取用户的文本
+                if ($('#desc').val()) {
+                    //设置用户文本的大小字体等属性
+                    mainCtx.font = "small-caps bold 18px STXinwei";
+                    //设置用户文本填充颜色
+                    mainCtx.fillStyle = "white";
+                    //绘制文字
+                    mainCtx.fillText($('#desc').val(), 100, 100);
+                    //设置时间文本的大小字体属性
+                    mainCtx.font = "small-caps bold 16px STXinwei";
+                    //绘制时间
+                    mainCtx.fillText(date, 326, 447);
+                }
+
+            };
+
+        }
+
+        //将画布生成图片
+        // function saveImageInfo() {
+        //     var mycanvas = document.getElementById("main");
+        //     var image = mycanvas.toDataURL("image/jpg");
+        //     var w = window.open('about:blank', 'image from canvas');
+        //     w.document.write("<img src='" + image + "' alt='from canvas'/>");
+        // }
+        // //下载图片
+        // function saveAsLocalImage() {
+        //     var myCanvas = document.getElementById("main");
+        //     var image = myCanvas.toDataURL("image/jpg").replace("image/jpg", "image/octet-stream");
+        //     window.location.href = image;
+        // }
+    </script>
+</body>
+
+</html>

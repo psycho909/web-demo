@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+
+    <script>
+        var ctx=document.getElementById('canvas').getContext('2d')
+        var maxWidth=ctx.width;
+        var maxHeight=ctx.height;
+
+        var starImg=new Image()
+        starImg.src="https://p2.bahamut.com.tw/M/2KU/91/2b2ea8e528b644425b5065c36911koz5.JPG"
+
+        starImg.onload=function(){
+            ctx.drawImage(starImg,0,0,300,300)
+            ctx.fillStyle="#fff";
+            ctx.font = '900 36px sans-serif';
+            ctx.fillText("Hello World",50,50)
+        }
+        
+    </script>
+</body>
+</html>
