@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/wow_book.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/wow_book.min.js"></script>
+    <style>
+        #book{
+            margin: 0 auto;
+        }
+        .control-bar{
+            position: fixed;
+            bottom: 0;
+        }
+        .book-container{
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="book-container">
+        <div id="book">
+            <div><img src="./images/1.jpg" alt=""></div>
+            <div><img src="./images/2.jpg" alt=""></div>
+            <div><img src="./images/3.jpg" alt=""></div>
+            <div><img src="./images/4.jpg" alt=""></div>
+            <div><img src="./images/5.jpg" alt=""></div>
+            <div><img src="./images/6.jpg" alt=""></div>
+            <div><img src="./images/7.jpg" alt=""></div>
+            <div><img src="./images/8.jpg" alt=""></div>
+            <div><img src="./images/9.jpg" alt=""></div>
+        </div>
+    </div>
+    <div class="control-bar">
+        <button id="zoomin">放大</button>
+        <button id="zoomout">縮小</button>
+        <button id="nozoom">還原</button>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#book').wowBook({
+                height: 500,
+                width: 1200
+            });
+            var book=$.wowBook("#book");
+
+            // make the element "zoomin" into a zoom button
+            $("#zoomin").click(function(){ book.zoomIn() });
+            // make the element "zoomout"into a zoom out button
+            $("#zoomout").click(function(){ book.zoomOut() });
+            // make the element "nozoom"  a remove zoom button
+            $("#nozoom").click(function(){ book.zoom(1) });
+        });
+    </script>
+</body>
+
+</html>

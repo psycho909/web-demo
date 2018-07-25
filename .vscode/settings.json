@@ -1,3 +1,4 @@
 {
-    "favorites.resources": []
+    "favorites.resources": [],
+    "previewServer.port": 61234
 }
