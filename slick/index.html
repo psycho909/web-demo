@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/slick.css">
+    <link rel="stylesheet" href="./css/slick-theme.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/slick.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .blue{
+            background-color: blue;
+        }
+        #features{
+            width: 100%;
+        }
+        .content{
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .single-item div>span {
+            background-color: #fff;
+            color: #000;
+            height: 300px;
+            margin: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="features" class="blue">
+        <div class="content">
+            <div class="slick-slider single-item" data-slick='{"initialSlide": 3}'>
+                <div>
+                    <span>1</span>
+                </div>
+                <div>
+                    <span>2</span>
+                </div>
+                <div>
+                    <span>3</span>
+                </div>
+                <div>
+                    <span>4</span>
+                </div>
+                <div>
+                    <span>5</span>
+                </div>
+                <div>
+                    <span>6</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $('.single-item').slick({
+            dots: true,
+            slidesToShow: 4,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
