@@ -27,7 +27,7 @@
 <script id="card-template" type="text/x-handlebars-template">
 	{{#each this}}
 	<div class="card">
-		<div>{{chinese @index}}</div>
+		<div class="index">{{chinese @index}}</div>
 		<div>name:{{name}}</div>
 		{{#if birth}}
 		<div>birth:{{birth}}</div>
@@ -35,12 +35,12 @@
 		<div>home:{{home}}</div>
 		<div>job:{{job}}</div>
 		<ul>
-				{{#each books}}
-				<li {{#isfirst @index}} style="color:red" {{/isfirst}}
-						{{#if ../blue}}style="color:blue"{{/if}}>
-					{{addone @../index}}-{{addone @index}} {{this}}
-				</li>
-				{{/each}}
+			{{#each books}}
+			<li {{#isfirst @index}} style="color:red" {{/isfirst}}
+					{{#if ../blue}}style="color:blue"{{/if}}>
+				{{addone @../index}}-{{addone @index}} {{this}}
+			</li>
+			{{/each}}
 		</ul>
 	</div>
 	{{/each}}
@@ -80,12 +80,12 @@
 	]
 
 	var data2={
-  title: "My first post!",
-  author: {
-    firstName: "Charles",
-    lastName: "Jolley"
-  }
-}
+		title: "My first post!",
+		author: {
+			firstName: "Charles",
+			lastName: "Jolley"
+		}
+	}
 	Handlebars.registerHelper('chinese',function(value){
 		var arr=['一','二','三']
 		if(this.books && this.books.length>2){
@@ -94,7 +94,7 @@
 		return arr[value];
 	})
 
-	Handlebars.registerHelper('addone',function(value){
+	Handlebars.registerHelper('addone',function(value,options){
 		return value+1;
 	})
 

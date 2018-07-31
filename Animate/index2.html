@@ -7,17 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        body{
+            background-color: rgb(240, 166, 6);
+        }
         div {
             position: absolute;
             left: 0;
             width: 10%;
+            height: 50px;
             animation: translate 15s infinite linear;
+            background-color: rgba(0, 0, 0, 0.075);
         }
 
         img {
             position: absolute;
             animation: upDown 1.5s alternate infinite ease-in-out;
-            width: 100%;
         }
 
         @keyframes upDown {
@@ -36,7 +40,7 @@
 
 <body>
     <div>
-        <img src="http://i.imgur.com/QdWJXta.png">
+        <img src="./ball.png">
     </div>
 </body>
 
