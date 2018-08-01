@@ -10,10 +10,6 @@
             padding: 0;
             margin: 0;
         }
-        html{
-            height: 100%;
-            overflow: hidden;
-        }
         body{
             color:#fff;
             perspective: 1px;
@@ -33,7 +29,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            
+            overflow: hidden;
         }
         header:before{
             content:'';
@@ -60,6 +56,14 @@
             margin: 0;
             padding: 1rem 0;
         }
+        section{
+            height: 600px;
+            background-color: blueviolet;
+        }
+        section:nth-child(2){
+            height: 600px;
+            background-color: blue;
+        }
     </style>
 </head>
 <body>
@@ -69,5 +73,9 @@
             <p>Pure CSS // No Javascript !</p>
         </div>
     </header>
+    <section></section>
+    <section></section>
+    <section></section>
+    <section></section>
 </body>
 </html>
