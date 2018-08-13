@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="content3">
+        <div class="time">还剩
+            <span id="LeftTime"></span>
+        </div>
+    </div>
+    <script>
+        function FreshTime() {
+            var endtime = +new Date("2018/8/16,12:00:00"); //结束时间
+            var nowtime = +new Date(); //当前时间
+            var lefttime = parseInt(endtime - nowtime);
+            d = parseInt(lefttime / (24 * 60 * 60 * 1000));
+            h = parseInt(lefttime / (60 * 60 * 1000) % 24);
+            m = parseInt(lefttime / (60 * 1000) % 60);
+            s = parseInt(lefttime / 1000 % 60);
+
+            document.getElementById("LeftTime").innerHTML = d + "天" + h + "小时" + m + "分" + s + "秒";
+            if (lefttime <= 0) {
+                document.getElementById("LeftTime").innerHTML = "团购已结束";
+                clearInterval(sh);
+            }
+        }
+        FreshTime()
+        var sh;
+        sh=setInterval(FreshTime,1000);
+    </script>
+</body>
+
+</html>
