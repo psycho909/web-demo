@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/animate.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/jquery.waypoints.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            height: 600px;
+            background-color: bisque;
+        }
+
+        footer {
+            height: 300px;
+            background-color: #000;
+        }
+
+        .waypoint {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .box-wrap {
+            padding: 1rem;
+            width: 20%;
+            opacity: 0;
+        }
+        .box-wrap.active{
+            opacity: 1;
+        }
+        .box {
+            background-color: aqua;
+            height: 300px;
+        }
+        .waypoint-a .box{
+            background-color: red;
+        }
+        .waypoint-b .box{
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <header></header>
+    <div class="waypoint waypoint-a">
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+    </div>
+    <div class="waypoint waypoint-b">
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+        <div class="box-wrap">
+            <div class="box"></div>
+        </div>
+    </div>
+    <footer></footer>
+
+    <script>
+        var waypoints = $('.waypoint-a').waypoint({
+            handler: function (direction) {
+                if(direction == 'down'){
+                    $(this.element).find('.box-wrap').addClass('active animated flipInX')
+                }
+                if(direction == 'up'){
+                    $(this.element).find('.box-wrap').removeClass('active animated flipInX')
+                }
+            },
+            offset: 100
+        })
+        var waypoints = $('.waypoint-b').waypoint({
+            handler: function (direction) {
+                if(direction == 'down'){
+                    $(this.element).find('.box-wrap').addClass('active animated flipInX')
+                }
+                if(direction == 'up'){
+                    $(this.element).find('.box-wrap').removeClass('active animated flipInX')
+                }
+            },
+            offset: 100
+        })
+    </script>
+</body>
+
+</html>
