@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/html2canvas.min.js"></script>
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        button {
+            min-width: 135px;
+            max-width: 200px;
+            min-height: 50px;
+            border: 0;
+            outline: 0;
+
+            color: white;
+
+            /* pink to orange */
+            background: #ee0979;
+            background: linear-gradient(to right, #ee0979, #ff6a00);
+
+            vertical-align: top;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Button</button>
+
+    <script>
+        var btn = document.querySelector('button')
+        var ctx;
+
+        html2canvas(btn).then(canvas => {
+            ctx = canvas.getContext('2d')
+
+            createParticleCanvas()
+
+            // Get coordinate data
+            btn.addEventListener('click', e => {
+                // get our color data like before
+                let localX = e.offsetX;
+                let localY = e.offsetY;
+                
+                let rgbaColorArr = ctx.getImageData(localX, localY, 1, 1).data
+
+                // get the buttons positioning in terms of the window
+                let brc = btn.getBoundingClientRect();
+                let globalX = brc.left + localX;
+                let globalY = brc.top + localY;
+
+                // create a particle using the color we obtained at the window location
+                // that we calculated
+                createParticleAtPoint(globalX, globalY, rgbaColorArr)
+            })
+        })
+
+        // Create a particle prototype
+        /* An "exploding" particle effect that uses circles */
+        var ExplodingParticle = function () {
+            // Set how long we want out particle to animate for
+            this.animationDuration = 1000; // in ms
+
+            // set the speed for our particle
+            this.speed = {
+                x: -5 + Math.random() * 10,
+                y: -5 + Math.random() * 10,
+            }
+
+            // size our particle
+            this.radius = 5 + Math.random() * 5
+
+            // set a max time to live for our particle
+            this.life = 30 + Math.random() * 10
+            this.remainingLife = this.life
+            
+            // this function will be called by our animation logic later on
+            this.draw = ctx => {
+                let p = this;
+                if (this.remainingLife > 0 && this.radius > 0) {
+                    // Draw a circle at the current location
+                    ctx.beginPath()
+                    ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2)
+                    ctx.fillStyle = "rgba(" + this.rgbArray[0] + ',' + this.rgbArray[1] + ',' + this.rgbArray[2] +", 1)";
+                    ctx.fill()
+
+                    // update the particle location and life
+                    p.remainingLife--;
+                    p.radius -= 0.25
+                    p.startX += p.speed.x;
+                    p.startY += p.speed.y;
+                }
+            }
+        }
+
+        // Create a particle factory
+        var particles = [];
+
+        function createParticleAtPoint(x, y, colorData) {
+            let particle = new ExplodingParticle()
+
+            particle.rgbArray = colorData;
+            particle.startX = x;
+            particle.startY = y;
+            particle.startTime = Date.now()
+
+            particles.push(particle)
+            console.log(particles)
+            console.log(particles.length)
+        }
+
+
+        // Create a canvas for displaying particles
+        var particleCanvas, particleCtx;
+
+        function createParticleCanvas() {
+            // create our canvas
+            particleCanvas = document.createElement('canvas');
+            particleCtx = particleCanvas.getContext('2d')
+
+            // size our canvas
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+
+            // position out canvas
+            particleCanvas.style.position = "absolute";
+            particleCanvas.style.top = "0";
+            particleCanvas.style.left = "0";
+
+            // make sure its on top of other elements
+            particleCanvas.style.zIndex = "1001";
+
+            // make sure other elements under it are clickable
+            particleCanvas.style.pointerEvents = "none";
+
+            // Add our canvas to the page
+            document.body.appendChild(particleCanvas)
+        }
+
+        // Add animation logic
+        function update() {
+            // Clear out the old particles
+            if (typeof particleCtx != 'undefined') {
+                particleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            }
+            // Draw all of our particles in their new location
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].draw(particleCtx)
+
+                // Simple way to clean up if the last particle is done animating
+                if (i === particles.length - 1) {
+                    let percent = (Date.now() - particles[i].startTime) / particles[i].animationDuration
+
+                    if (percent > 1) {
+                        particles = []
+                    }
+                }
+            }
+            // Animate performantly
+            window.requestAnimationFrame(update)
+        }
+        window.requestAnimationFrame(update)
+    </script>
+</body>
+
+</html>
