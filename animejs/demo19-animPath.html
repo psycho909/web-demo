@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+    <title>《全民打棒球2 Online》</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #3596ab;
+            height: 2000px;
+        }
+        #motionPath {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            background-color: #18212D;
+        }
+
+        .square {
+            width: 18px;
+            height: 18px;
+            background-color: red;
+            position: absolute;
+            top: -9px;
+            left: -9px;
+            /*transform:translateX(8px) translateY(56px) rotate(-89.2957deg);*/
+        }
+        .svg-box {
+            background-color: #18212D;
+            position: relative;
+            margin-left: 200px;
+        }
+
+        .green {
+            position: absolute;
+            top: -9px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: green;
+            top: -9px;
+            left: -9px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="motionPath">
+        <div class="motion-path">
+            <div class="small square el follow-path"></div>
+            <svg width="256" height="112" viewBox="0 0 256 112">
+                <path fill="none" stroke="#FFF" stroke-width="1" d="M8,56 C8,33.90861 25.90861,16 48,16 C70.09139,16 88,33.90861 88,56 C88,78.09139 105.90861,92 128,92 C150.09139,92 160,72 160,56 C160,40 148,24 128,24 C108,24 96,40 96,56 C96,72 105.90861,92 128,92 C154,93 168,78 168,56 C168,33.90861 185.90861,16 208,16 C230.09139,16 248,33.90861 248,56 C248,78.09139 230.09139,96 208,96 L48,96 C25.90861,96 8,78.09139 8,56 Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <section class="svg-box">
+        <article>
+            <svg width="250" height="250" version="1.1" id="lines" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 250 250" xml:space="preserve">
+                <g>
+                    <path d="M57,1c30.9,0,56,25.1,56,56c0,3-0.3,6.1-0.7,9.1l-0.2,1.4l1.4-0.2c1.7-0.3,3.4-0.5,5.2-0.6l0.9-0.1l0-0.9
+               c0.6-15.1,6.9-29.3,17.9-39.8c11-10.6,25.4-16.4,40.6-16.4c32.3,0,58.5,26.2,58.5,58.5c0,15.4-5.9,29.9-16.7,40.9
+               c-10.8,11-25.2,17.2-40.5,17.5l-0.9,0l-0.1,0.9c-0.3,3.6-1,7.1-1.9,10.6l-0.5,1.7l1.7-0.5c5-1.4,10.2-2.2,15.4-2.2
+               c30.9,0,56,25.1,56,56s-25.1,56-56,56s-56-25.1-56-56c0-5.2,0.7-10.4,2.2-15.4l0.5-1.7l-1.7,0.5c-5,1.4-10.2,2.2-15.4,2.2
+               c-0.3,0-0.5,0-0.8,0c-0.2,0-0.3,0-0.5,0l-1.1,0l0.1,1.1c0.2,1.9,0.3,3.7,0.3,5.4c0,32.3-26.2,58.5-58.5,58.5S3.5,217.3,3.5,185
+               s26.2-58.5,58.5-58.5c1.1,0,2.2,0,3.5,0.1l1.1,0.1l-0.1-1.1c-0.1-1.1-0.1-2.1-0.1-3.1c0-3,0.3-6.1,0.7-9.1l0.2-1.4l-1.4,0.2
+               c-3,0.5-6.1,0.7-9.1,0.7C26.1,113,1,87.9,1,57S26.1,1,57,1 M57,0C25.5,0,0,25.5,0,57s25.5,57,57,57c3.2,0,6.2-0.3,9.3-0.8
+               c-0.5,3-0.8,6.1-0.8,9.3c0,1,0,2.1,0.1,3.1c-1.2-0.1-2.4-0.1-3.6-0.1c-32.9,0-59.5,26.6-59.5,59.5c0,32.9,26.6,59.5,59.5,59.5
+               s59.5-26.6,59.5-59.5c0-1.9-0.1-3.7-0.3-5.5c0.4,0,0.8,0,1.3,0c5.5,0,10.7-0.8,15.7-2.2c-1.4,5-2.2,10.3-2.2,15.7
+               c0,31.5,25.5,57,57,57s57-25.5,57-57s-25.5-57-57-57c-5.5,0-10.7,0.8-15.7,2.2c1-3.5,1.7-7.1,2-10.7c32.3-0.7,58.2-27,58.2-59.5
+               c0-32.9-26.6-59.5-59.5-59.5c-32.1,0-58.2,25.4-59.4,57.1c-1.8,0.1-3.6,0.3-5.3,0.6c0.5-3,0.8-6.1,0.8-9.3C114,25.5,88.5,0,57,0
+               L57,0z" />
+                </g>
+            </svg>
+            <div class="green"></div>
+        </article>
+    </section>
+</body>
+<script>
+    var path = anime.path('#motionPath path');
+
+    var motionPath = anime({
+        targets: '#motionPath .el',
+        translateX: path('x'),
+        translateY: path('y'),
+        rotate: path('angle'),
+        easing: 'linear',
+        duration: 2000,
+        loop: true
+    });
+
+
+    var patha = anime.path('.svg-box path');
+
+    var svgPath = anime({
+        targets: '.green',
+        translateX: patha('x'),
+        translateY: patha('y'),
+        rotate: patha('angle'),
+        duration: 10000,
+        easing: 'linear',
+        loop: true
+    });
+</script>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 微軟正黑體;
+            }
+            html,body{
+                height: 100%;
+            }
+            a{
+                text-decoration: none;
+            }
+            #img{
+                object-fit: cover;
+            }
+            .box{
+                text-align: center;
+            }
+            .btn{
+                display: inline-block;
+                height: 30px;
+                line-height: 30px;
+                border:1px solid #ccc;
+                background-color: #fff;
+                padding: 0 10px;
+                margin-right: 50px;
+                color:#333;
+            }
+            .btn:hover{
+                background-color: #eee;
+            }
+            .progress{
+                width: 600px;
+                margin:10px auto 0;
+            }
+            .progress-bar{
+                width: 0%;
+                border:1px solid rgb(153, 153, 153);
+                background-color: gray;
+            }
+            .img{
+                opacity: 0;
+                width: 300px;
+            }
+        </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="progress">
+            <div class="progress-bar" style="width: 0%;">0%</div>
+        </div>
+    </div>
+    <div class="box">
+        <img class="img" src="./images/1.jpg" alt="">
+        <img class="img" src="./images/2.jpg" alt="">
+        <img class="img" src="./images/3.jpg" alt="">
+        <img class="img" src="./images/4.jpg" alt="">
+    </div>
+    
+    <script>
+        var count=$('.box').find('.img').length
+        var loadedImageCount=0
+        var progressNum=0
+        $('.box').imagesLoaded()
+        .done(function(i){
+        })
+        .progress(function(i,img){
+            $(img.img).css('opacity',1)
+            loadedImageCount++;
+            progressNum=Math.round(loadedImageCount/count*100)
+            $('.progress-bar').css('width',progressNum+"%")
+            $('.progress-bar').text(progressNum+"%")
+        })
+    </script>
+</body>
+</html>

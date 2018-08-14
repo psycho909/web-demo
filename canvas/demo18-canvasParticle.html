@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.snowflake,.box{
+			width: 800px;
+			height: 800px;
+		}
+		.circlebox{
+			width: 800px;
+			height: 800px;
+			border-radius: 50%;
+			background-color: #333;
+			overflow: hidden;
+		}
+		#circles{
+			overflow: hidden;
+		}
+		.logo {
+		    width: 800px;
+		    height: 600px;
+		    background-color: #333;
+		}
+		.flash{
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body >
+<div class="box">
+	<div class="circlebox">
+		<canvas id="circles" width="800" height="800"></canvas>
+	</div>
+</div>
+</body>
+<script>
+var x=0;
+var y=0;
+var circles=[];
+var max=100;
+var canvas=document.getElementById('circles');
+var ctx=canvas.getContext("2d");
+var canvasWidth=canvas.width;
+var canvasHeight=canvas.height;
+
+function reset(){
+	for(var i=0;i<max;i++){
+		circles[i]={
+			x:Math.random()*canvasWidth,
+			y:Math.random()*canvasHeight,
+			d:Math.random()*max,
+			r: Math.random() * 2+ .75
+		};
+	}
+}
+reset();
+
+function draw(){
+	ctx.clearRect(0,0,canvasWidth,canvasHeight);
+	circles.forEach(function(v,i){
+		ctx.fillStyle = i % 2 ? 'rgba(100%, 20%, 40%, 0.5)' : 'rgba(52%, 212%, 255% 1.0)';
+		ctx.beginPath();
+		ctx.moveTo(0,0);
+		ctx.arc(v.x+Math.random(),v.y+Math.random(),5,0,Math.PI*2,true);
+		ctx.closePath();
+		ctx.fill();
+	})
+	update();
+}
+function update(){
+	circles.forEach(function(v,i){
+		v.y -= Math.sin(1+v.d)+.5+v.r/2;
+		v.x -= Math.cos(1)*2;
+		if(v.x < -5 || v.y<0){
+			if(i%3==1){
+				circles[i]={
+					x:Math.random()*canvasWidth,
+					y:canvasHeight-500,
+					d:v.d,
+					r:v.r
+				}
+			}else if(i%3==0){
+				circles[i]={
+					x:Math.random()*canvasWidth,
+					y:Math.random()*canvasHeight,
+					d:v.d,
+					r:v.r
+				}
+			}
+		}
+	})
+}
+var requestAnimFrame=function(){
+	return setInterval(draw,30)
+}
+window.requestAnimationFrame(requestAnimFrame)
+
+</script>
+</html>
