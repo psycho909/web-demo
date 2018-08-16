@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .g-wrap {
+            perspective: 1px;
+            transform-style: preserve-3d;
+            height: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            transform-origin: center center;
+        }
+
+        .g-container {
+            position: relative;
+            height: 150%;
+        }
+
+        .g-container>div {
+            font-size: 5vw;
+            position: absolute;
+            top: 20%;
+        }
+
+        .g-container .section-one {
+            left: 0%;
+            background: rgba(10, 10, 10, 0.2);
+            -webkit-transform: translateZ(-1px);
+            transform: translateZ(-1px);
+        }
+
+        .g-container .section-two {
+            left: 40%;
+            background: rgba(30, 130, 30, 0.2);
+            -webkit-transform: translateZ(-2px);
+            transform: translateZ(-2px);
+        }
+
+        .g-container .section-three {
+            left: 90%;
+            background: rgba(200, 100, 130, 0.2);
+            -webkit-transform: translateZ(-3px);
+            transform: translateZ(-3px);
+        }
+
+
+        .section {
+            height: 100vh;
+            background: rgba(0, 0, 0, .7);
+            color: #fff;
+            line-height: 100vh;
+            text-align: center;
+            font-size: 20vh;
+        }
+
+        .g-img1 {
+            background-image: url("http://pic7.photophoto.cn/20080407/0034034859692813_b.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="g-wrap">
+        <div class="g-container">
+            <div class="section-one">translateZ(-1)</div>
+            <div class="section-two">translateZ(-2)</div>
+            <div class="section-three">translateZ(-3)</div>
+        </div>
+    </section>
+    <section class="section g-img1">IMG1</section>
+</body>
+
+</html>

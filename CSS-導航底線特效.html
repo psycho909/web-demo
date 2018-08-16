@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        ul {
+            width: 600px;
+            font-size: 0;
+            margin: 1rem;
+        }
+
+        ul li {
+            display: inline-block;
+            font-size: 1rem;
+            padding: .6rem;
+            position: relative;
+        }
+
+        .nav1 li:before {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 100%;
+            top: 0;
+            left: 100%;
+            transition: all .3s;
+            border-bottom: 2px solid #000;
+        }
+
+        .nav1 li:hover:before {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav1 li:hover~li::before {
+            left: 0;
+        }
+
+        .nav2 li:before{
+            content:'';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            transition: transform .3s;
+            transform: scaleX(0);
+            transform-origin: 0% 0;
+        }
+        .nav2 li:hover:before{
+            transform: scaleX(1);
+            transform-origin: 100% 0;
+        }
+        .nav2 li:after{
+            content:'';
+            position: absolute;
+            width: 100%;
+            height: 12px;
+            bottom: 6px;
+            left: 0;
+            background-color: blanchedalmond;
+            z-index: -1;
+            transition: transform .3s;
+            transform: scaleX(0);
+            transform-origin: 100% 0;
+        }
+        .nav2 li:hover:after{
+            transform: scaleX(1);
+            transform-origin: 0% 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav1">
+        <li>不可思议的CSS</li>
+        <li>导航栏</li>
+        <li>光标小下划线跟随</li>
+        <li>PURE CSS</li>
+        <li>Nav Underline</li>
+    </ul>
+    <ul class="nav2">
+        <li>不可思议的CSS</li>
+        <li>导航栏</li>
+        <li>光标小下划线跟随</li>
+        <li>PURE CSS</li>
+        <li>Nav Underline</li>
+    </ul>
+</body>
+
+</html>
