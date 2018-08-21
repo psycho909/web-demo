@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="popping-menu">
+        <input class="checkbox" id="checkbox" type="checkbox" />
+        <button>A</button>
+        <button>B</button>
+        <button>C</button>
+        <button>D</button>
+        <button>E</button>
+        <label class="label" for="checkbox">Click Me</label>
+    </div>
+
+    <script>
+    var toggle=true
+    $('#checkbox').on('click',function(){
+        var d=9*16;
+        var angle,x,y;
+        var per=180/4;
+        if(toggle){
+            toggle=!toggle
+            $('button').addClass('active')
+            $('button').each(function(i,v){
+                angle=(((i*per)/360)*(Math.PI*2));
+                x=(Math.cos(angle)*d)/16*-1;
+                y=(Math.sin(angle)*d)/16*-1;
+                $(v).css({'transform':"translate("+x+"rem,"+y+"rem) rotate(0deg)",'opacity':1})
+            })
+        }else{
+            toggle=!toggle
+            $('button').removeClass('active')
+            $('button').css({'transform':"translate("+0+"rem,"+0+"rem) rotate(0deg)",'opacity':0})
+        }
+        
+    })
+    
+    </script>
+</body>
+
+</html>
