@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        canvas {
+            transform: scaleY(-1);
+        }
+
+        .time {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            color: white;
+            transform: translate(-50%, -50%);
+        }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            background-color: gold;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transform: scaleY(-1)
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div class="time">+00:00:00</div>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var ww = $(window).outerWidth();
+        var wh = $(window).outerHeight();
+
+        var center = {
+            x: ww / 2,
+            y: wh / 2
+        };
+
+        c.width = ww;
+        c.height = wh;
+
+        function getWindowSize() {
+            ww = $(window).outerWidth();
+            wh = $(window).outerHeight();
+            c.width = ww;
+            c.height = wh;
+
+            ctx.restore();
+            ctx.translate(center.x, center.y);
+        }
+        // $(window).resize(getWindowSize);
+        getWindowSize();
+        var time = 0;
+
+        setInterval(draw, 10);
+
+        function draw() {
+            ctx.fillStyle = "#111";
+            ctx.beginPath();
+            ctx.rect(-2000, -2000, 4000, 4000);
+            ctx.fill();
+
+            ctx.strokeStyle = "green";
+            ctx.lineWidth = 1;
+
+            ctx.beginPath();
+            ctx.moveTo(-ww / 2, 0);
+            ctx.lineTo(ww / 2, 0);
+            ctx.moveTo(0, -wh / 2);
+            ctx.lineTo(0, wh / 2);
+            ctx.stroke();
+
+            var r = 200;
+            var deg_to_pi = Math.PI / 180;
+            var count = 200;
+
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+
+            for (var i = 0; i <= count; i++) {
+                // var now_r = r + 2 * Math.sin(Math.PI * 2 * i / 10 + time / 20);
+                // 正弦曲線
+                // now_r=A * Math.sin(degress * B + C ) + D
+                // A:控制 曲線震幅
+                // B:控制週期
+                // C:控制左右方向
+                // D:控制上下
+                var now_r = 5* Math.sin(Math.PI * 2 * i/10 + time/30)+r;
+                var deg = i * (360 / count) * deg_to_pi;
+
+                ctx.lineTo(now_r * Math.cos(deg), now_r * Math.sin(deg));
+            }
+            ctx.strokeStyle = "#dd0000";
+            ctx.stroke();
+
+            //繪製刻度
+            var r = 200;
+            var count = 240;
+
+            ctx.lineWidth = 1;
+            for (var i = 0; i <= count; i++) {
+                var deg = 360 * (i / count) * deg_to_pi;
+
+                var pan = 0;
+
+                var len = 4 + (i % 10 == 0 ? 4 : 0) + (i % 60 == 0 ? 8 : 0);
+
+                var opacity = len > 4 ? 1 : 0.7;
+
+                var start_r = r;
+                var end_r = r + len;
+
+                ctx.beginPath();
+                ctx.moveTo(start_r * Math.cos(deg), start_r * Math.sin(deg));
+                ctx.lineTo(end_r * Math.cos(deg), end_r * Math.sin(deg));
+                ctx.strokeStyle = "rgba(255,255,255,1)";
+                ctx.stroke();
+            }
+
+            //繪製刻度2
+            var r = 300;
+            var count = 60;
+
+            ctx.lineWidth = 1;
+            for (var i = 0; i <= count; i++) {
+                var deg = 360 * (i / count) * deg_to_pi;
+
+                var pan = 0;
+
+                var len = 4 + (i % 10 == 0 ? 4 : 0) + (i % 60 == 0 ? 8 : 0);
+
+                var opacity = len > 4 ? 1 : 0.7;
+
+                var start_r = r;
+                var end_r = r + len;
+
+                ctx.beginPath();
+                ctx.moveTo(start_r * Math.cos(deg), start_r * Math.sin(deg));
+                ctx.lineTo(end_r * Math.cos(deg), end_r * Math.sin(deg));
+                ctx.strokeStyle = "rgba(255,255,255,1)";
+                ctx.stroke();
+            }
+            var now = new Date();
+            var sec = now.getSeconds();
+            var min = now.getMinutes();
+            var hour = now.getHours();
+
+            $(".time").text("+00:" + hour + ":" + min + ":" + sec);
+
+            function drawPointer(r, deg, lineWidth) {
+                ctx.beginPath();
+                ctx.lineWidth = lineWidth;
+
+                var now_deg = deg + 90;
+
+                ctx.moveTo(0, 0);
+                ctx.lineTo(
+                    r * Math.cos(now_deg * deg_to_pi),
+                    r * Math.sin(now_deg * deg_to_pi)
+                );
+                ctx.strokeStyle = "rgba(255,255,255,1)";
+                ctx.stroke();
+            }
+            drawPointer(400, -360 * (sec / 60), 2);
+            drawPointer(210, -360 * (min / 60), 2);
+            drawPointer(100, -360 * ((hour + min / 60) / 12), 3);
+
+            time += 1;
+        }
+    </script>
+</body>
+
+</html>

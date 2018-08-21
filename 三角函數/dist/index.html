@@ -32,7 +32,9 @@
             toggle=!toggle
             $('button').addClass('active')
             $('button').each(function(i,v){
-                angle=(((i*per)/360)*(Math.PI*2));
+                // angle=(((i*per)/360)*(Math.PI*2));
+                angle=(i*per)*(Math.PI/180)
+                console.log(angle)
                 x=(Math.cos(angle)*d)/16*-1;
                 y=(Math.sin(angle)*d)/16*-1;
                 $(v).css({'transform':"translate("+x+"rem,"+y+"rem) rotate(0deg)",'opacity':1})
