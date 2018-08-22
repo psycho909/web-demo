@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            /* background-color: #000; */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+        canvas.width=500;
+        canvas.height=500;
+        var xOffset=0;
+        var speed=0.1;
+        function draw(){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            drawCircle(ctx)
+
+            drawSin(ctx,xOffset);
+            
+            xOffset+=speed;
+            requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
+        function drawSin(ctx,xOffset=0){
+            
+            var points=[];
+            var canvasWidth=canvas.width;
+            var canvasHeight=canvas.height;
+            var startX=0;
+            var waveWidth=0.05; // 波浪寬度,數越小越寬
+            var waveHeight=20; // 波浪高度,數越大越高
+
+            ctx.beginPath()
+            
+            for(var x = startX; x < startX + canvasWidth; x += 20 / canvasWidth){
+                var y = waveHeight*Math.sin((startX+x)*waveWidth+xOffset)
+
+                points.push([x,(canvasHeight/2)+y])
+                ctx.lineTo(x,(canvasHeight/2)+y)
+            }
+            ctx.lineTo(canvasWidth,canvasHeight)
+            ctx.lineTo(startX,canvasHeight)
+            ctx.lineTo(points[0][0],points[0][1])
+            ctx.stroke()
+        }
+        function drawCircle(ctx){
+            var r=canvas.width/2;
+            var lineWidth=5;
+            var cR=r-(lineWidth);
+            ctx.lineWidth=lineWidth;
+            ctx.beginPath()
+            ctx.arc(r,r,cR,0,2*Math.PI)
+            ctx.stroke()
+            ctx.clip()
+
+        }
+    </script>
+</body>
+
+</html>

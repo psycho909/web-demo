@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《全民打棒球2 Online》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		#canvas {
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var circular = {
+		x: 300,
+		y: 300,
+		radius: 150,
+		vx: Math.random() * 5 + 5,
+		vy: Math.random() * 5 + 5
+	};
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	canvas.width = 600;
+	canvas.height = 600;
+	
+
+	setInterval(function(){
+		drawBall(ctx)
+		update(canvas.width, canvas.height)
+	},40)
+
+	function drawBall(ctx) {
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+		ctx.save()
+
+		ctx.beginPath()
+		ctx.fillStyle = "#000";
+		ctx.fillRect(0, 0, canvas.width, canvas.height)
+		ctx.closePath()
+		
+		ctx.beginPath()
+		ctx.arc(circular.x, circular.y, circular.radius, 0, Math.PI * 2)
+		ctx.fillStyle = "#fff"
+		ctx.fill()
+		ctx.closePath()
+		ctx.clip()
+
+		ctx.font = "bold 120px Arial";
+		ctx.textAlign = "center"
+		ctx.textBaseline = "middle"
+		ctx.fillStyle = "#058"
+		ctx.fillText("CANVAS", canvas.width / 2, canvas.height / 4)
+		ctx.fillText("CANVAS", canvas.width / 2, canvas.height / 2)
+		ctx.fillText("CANVAS", canvas.width / 2, canvas.height * 3 / 4)
+
+		ctx.restore()
+	}
+
+	function update(width, height) {
+		circular.x += circular.vx;
+		circular.y += circular.vy;
+
+		if (circular.x - circular.radius <= 0) {
+			circular.vx = -circular.vx;
+			circular.x = circular.radius;
+		}
+		if (circular.x + circular.radius >= width) {
+			circular.vx = -circular.vx;
+			circular.x = width - circular.radius;
+		}
+
+		if (circular.y - circular.radius <= 0) {
+			circular.vy = -circular.vy;
+			circular.y = circular.radius;
+		}
+
+		if (circular.y + circular.radius >= height) {
+			circular.vy = -circular.vy;
+			circular.y = height - circular.radius;
+		}
+	}
+</script>
+
+</html>

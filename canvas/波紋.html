@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var canvas=document.getElementById('canvas');
+        var ww = $(window).outerWidth();
+        var wh = $(window).outerHeight();
+        canvas.width=ww;
+        canvas.height=wh;
+        var ctx=canvas.getContext('2d');
+        ctx.translate(0,500)
+        
+        setInterval(draw,100);
+        
+        var time=0;
+        function draw(){
+            ctx.fillStyle = "#111";
+            ctx.beginPath();
+            ctx.rect(-2000, -2000, 4000, 4000);
+            ctx.fill();
+            ctx.strokeStyle="#fff";
+            ctx.beginPath();
+            var a=0.1;
+            var amplitude=10;
+            for(var x=0;x<ww;x++){
+
+                var y=amplitude*Math.sin(x*0.02+time);
+
+                ctx.lineTo(x,y);
+            }
+            ctx.stroke();
+            time+=1;
+        }
+    </script>
+</body>
+
+</html>
