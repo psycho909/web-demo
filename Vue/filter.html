@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+    <style>
+        .img{
+            width: 100%;
+            height: 200px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" @click="checkBrand()">ALL</button>
+                <button class="btn btn-success" @click="checkBrand('asus')">ASUS</button>
+                <button class="btn btn-danger" @click="checkBrand('acer')">ACER</button>
+                <button class="btn btn-waring" @click="checkBrand('samsung')">SAMSUNG</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3" v-for="list in computedList">
+                <div class="card">
+                    <div class="img"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{list.title}}</h5>
+                        <p class="card-text">{{list.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            created(){
+                
+            },
+            data:{
+                brand:"",
+                lists:[
+                    {
+                        title:"AA",
+                        content:"CONTENT",
+                        brand:"asus",
+                        type:['sele','bele']
+                    },
+                    {
+                        title:"BB",
+                        content:"CONTENT",
+                        brand:"asus",
+                        type:['pc']
+                    },
+                    {
+                        title:"CC",
+                        content:"CONTENT",
+                        brand:"acer",
+                        type:['bele']
+                    },
+                    {
+                        title:"DD",
+                        content:"CONTENT",
+                        brand:"samsung",
+                        type:['pc','bele']
+                    }
+                ]
+            },
+            computed:{
+                computedList(){
+                    var vm=this;
+                    return vm.lists.filter(function(item,i){
+                        return item.brand.indexOf(vm.brand) != -1
+                    })
+                }
+            },
+            methods:{
+                checkBrand(brand=''){
+                    // var lists=this.lists.filter(function(v,i){
+                    //     return v.brand
+                    // })
+                    // this.lists=lists;
+                    this.brand=brand;
+                    console.log(brand)
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>
