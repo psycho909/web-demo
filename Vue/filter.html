@@ -5,90 +5,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/reset.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
     <style>
+        *{
+            box-sizing: border-box;
+            font-family: '微軟正黑體';
+        }
+        #app{
+            width: 100%;
+            margin: 0 auto;
+        }
+        .brand-wrap{
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 1rem;
+        }
+        .brand-box{
+            width: calc(100% / 3);
+            flex-basis: calc(100% / 3);
+            padding: 1rem;
+        }
+        .brand-list{
+            background-color: rgb(238, 238, 238);
+        }
         .img{
             width: 100%;
-            height: 200px;
-            background-color: gray;
+            
+        }
+        .img img{
+            width: 100%;
+            display: block;
+        }
+        .brand-title{
+            padding: .75rem;
+        }
+        .brand-content{
+            font-size: 12px;
+            line-height: 24px;
+            padding:0 .75rem;
+        }
+        .btn-box{
+            display: flex;
+            width: 100%;
+            background-color: rgb(236, 236, 236);
+            padding: 1rem;
+        }
+        .btn{
+            padding: .5rem 1rem;
+            background-color: rgb(235, 235, 235);
+            border:1px solid gray;
+            cursor: pointer;
+        }
+        .btn.active{
+            background-color: red;
+            color:#fff;
+        }
+        .brand-logo{
+            padding: .5rem 1rem;
+            background-color: rgb(235, 235, 235);
+            border:1px solid gray;
+            cursor: pointer;
+        }
+        .brand-logo.active{
+            background-color: red;
+            color:#fff;
+        }
+        @media screen and (max-width:990px){
+            .brand-box{
+                width: 50%;
+                flex-basis: 50%;
+                padding-bottom: 0;
+            }
+            .brand-box:nth-of-type(2n+1){
+                padding-right: 0;
+            }
+        }
+        @media screen and (max-width:576px){
+            .brand-box{
+                width: 100%;
+                flex-basis: 100%;
+                padding-bottom: 0;
+            }
+            .brand-box:nth-of-type(2n+1){
+                padding-right: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div id="app" class="container">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-primary" @click="checkBrand()">ALL</button>
-                <button class="btn btn-success" @click="checkBrand('asus')">ASUS</button>
-                <button class="btn btn-danger" @click="checkBrand('acer')">ACER</button>
-                <button class="btn btn-waring" @click="checkBrand('samsung')">SAMSUNG</button>
+        <div class="brand-wrap">
+            <div class="btn-box">
+                <button class="btn btn-primary" :class="[brandType === ''?'active':'']" @click="checkBrandType()">ALL</button>
+                <button class="btn btn-success" :class="[brandType === 'b'?'active':'']" @click="checkBrandType('b')">大家電</button>
+                <button class="btn btn-danger" :class="[brandType === 's'?'active':'']" @click="checkBrandType('s')">小家電</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3" v-for="list in computedList">
-                <div class="card">
-                    <div class="img"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{list.title}}</h5>
-                        <p class="card-text">{{list.content}}</p>
-                    </div>
-                </div>
+        <div class="brand-wrap">
+            <div class="brand-logo" v-for="brands in computedBrands" :class="[brand === brands.brand ?'active':'']" @click="checkBrand(brands.brand)">{{brands.brand}}</div>
+        </div>
+        <div class="brand-wrap">
+            <div class="brand-box" v-for="list in computedList">
+                <dl class="brand-list">
+                    <dd class="img">
+                        <img :src="list.img" alt="">
+                    </dd>
+                    <dd class="brand-body">
+                        <h5 class="brand-title">{{list.title}} + {{list.brand}} + {{list.type}}</h5>
+                        <p class="brand-content">{{list.content}}</p>
+                    </dd>
+                </dl>
             </div>
         </div>
     </div>
     <script>
         new Vue({
             el:"#app",
-            created(){
-                
-            },
             data:{
+                brandType:"",
                 brand:"",
+                brandlist:[
+                    {
+                        brand:"asus",
+                        type:['b','s']
+                    },
+                    {
+                        brand:"acer",
+                        type:['b']
+                    },
+                    {
+                        brand:"samsung",
+                        type:['s']
+                    },
+                ],
                 lists:[
                     {
                         title:"AA",
-                        content:"CONTENT",
+                        img:"https://via.placeholder.com/360x220", 
+                        content:"凡在活動期間內購買Galaxy Note9，並於預購禮/開賣禮登錄時間內至登錄送活動網站，登錄指定資料並上傳購買憑證，經三星活動小組審查後符合資格者，即可獲得【預購禮：配件購物金2000元+黑色原廠 S Pen 觸控筆乙支】，預購禮顏色為指定黑色，恕不挑色。限時限量，額滿為止。【開賣禮：配件購物金2000元】",
                         brand:"asus",
-                        type:['sele','bele']
+                        type:['s']
                     },
                     {
                         title:"BB",
+                        img:"https://via.placeholder.com/360x220",
                         content:"CONTENT",
                         brand:"asus",
-                        type:['pc']
+                        type:['b']
                     },
                     {
                         title:"CC",
+                        img:"https://via.placeholder.com/360x220",
                         content:"CONTENT",
                         brand:"acer",
-                        type:['bele']
+                        type:['b']
                     },
                     {
                         title:"DD",
+                        img:"https://via.placeholder.com/360x220",
                         content:"CONTENT",
                         brand:"samsung",
-                        type:['pc','bele']
+                        type:['b']
+                    },
+                    {
+                        title:"EE",
+                        img:"https://via.placeholder.com/360x220",
+                        content:"CONTENT",
+                        brand:"samsung",
+                        type:['s']
                     }
                 ]
             },
             computed:{
+                computedBrands(){
+                    var vm=this;
+                    console.log("brandType :"+vm.brandType)
+                    return vm.brandlist.filter(function(item,i){
+                        if(vm.brandType === ''){
+                            return item.type
+                        }else{
+                            return item.type.indexOf(vm.brandType) != -1
+                        }
+                        
+                    })
+                },
                 computedList(){
                     var vm=this;
                     return vm.lists.filter(function(item,i){
-                        return item.brand.indexOf(vm.brand) != -1
+                        if(vm.brand === '' && vm.brandType === ''){
+                            return item.brand
+                        }
+                        if(vm.brandType === ''){
+                            return item.brand.indexOf(vm.brand) != -1
+                        }
+                        
+                        return item.brand.indexOf(vm.brand) != -1 && item.type.indexOf(vm.brandType) != -1
                     })
                 }
             },
             methods:{
-                checkBrand(brand=''){
+                checkBrandType(brandType=''){
                     // var lists=this.lists.filter(function(v,i){
                     //     return v.brand
                     // })
                     // this.lists=lists;
-                    this.brand=brand;
+                    this.brand='';
+                    if(brandType === ''){
+                        this.brandType='';
+                    }else{
+                        this.brandType=brandType;
+                    }
+                    
+                },
+                checkBrand(brand){
                     console.log(brand)
+                    this.brand=brand;
                 }
             }
         })
