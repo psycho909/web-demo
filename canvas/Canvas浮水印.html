@@ -21,7 +21,7 @@
     <!--输入框，失去焦点后自动执行hechen()-->
     <input type="text" id="desc" value="" />
     <!--saveImageInfo()生成照片并显示到另个网页-->
-    <button id="btn-download">下載</button>
+    <a id="btn-download">下載</a>
     <script>
         //预加载将图片绘制到画布
         $(function () {
@@ -38,9 +38,10 @@
             var maxHeight = ctx.height;
             ctx.clearRect(0, 0, 300, 300);
             //获取图片的实际路径
-            var imgurl="http://static1.squarespace.com/static/55a42a3ae4b05487bab1d21b/55a6cf87e4b051671eb1432a/55a6cf95e4b051671eb147e4/1516255594206/?format=1000w"
+            var imgurl="./images/1.jpg"
             var starImg = new Image();
             // starImg.src = $('#starImg').attr('src');
+            starImg.setAttribute("crossOrigin",'anonymous')
             starImg.src = imgurl;
             //合成
             starImg.onload = function () {
@@ -57,13 +58,17 @@
                 }
             };
         }
-        function downloadCanvas(link,canvasId,filename){
-            link.href=document.getElementById(canvasId).toDataURL('image/jpeg')
-            // link.download=filename
-            console.log(link)
-        }
+        // function downloadCanvas(link,canvasId,filename){
+        //     link.href=document.getElementById(canvasId).toDataURL('image/jpeg')
+        //     // link.download=filename
+        //     console.log(link)
+        // }
         document.getElementById('btn-download').addEventListener('click',function(){
-            downloadCanvas(this,'canvas','test.jpg')
+            var canvas=document.getElementById('canvas');
+            var dataURL=canvas.toDataURL('image/jpeg');
+            this.href=dataURL;
+            this.download='123.jpg';
+            console.log(dataURL)
         })
     </script>
 </body>
