@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+        }
+
+        #file_content,
+        #file_name {
+            display: block;
+            background: #777;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            font-family: monospace;
+            margin-bottom: 5px;
+        }
+
+        #create_file,
+        #revoke_file {
+            padding: 10px;
+            border: none;
+            color: #fff;
+            background: #333;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        #create_file:hover,
+        #revoke_file:hover {
+            background: #777;
+        }
+
+        #create_file:active,
+        #revoke_file:active {
+            background: #000;
+        }
+
+        #download_link {
+            padding: 10px;
+        }
+
+        .revoke {
+            text-decoration: line-through;
+            color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="file_content" cols="30" rows="10" placeholder="file content" title="file content"></textarea>
+    <input id="file_name" type="text" placeholder="file name" title="file name">
+    <button id="create_file">Gen File</button>
+    <button id="revoke_file">Revoke File</button>
+    <a id="download_link" title="click to download"></a>
+
+    <script>
+        $('#create_file').on('click',function(){
+            $('#download_link').removeClass('revoke')
+            var blob=new Blob([$('#file_content').val()],{
+                type:"application/octect-stream"
+            })
+            var blobUrl=URL.createObjectURL(blob)
+            var filename=$('#file_name').val()
+            $('#download_link').attr({
+                href:blobUrl,
+                download:filename+'.txt'
+            }).text(filename+'.txt')
+        })
+        $('#revoke_file').on('click',function(){
+            blobUrl=URL.revokeObjectURL($('#download_link')).attr('href')
+            $('#download_link').addClass('revoke')
+        })
+    </script>
+</body>
+
+</html>
