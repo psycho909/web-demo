@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        .pages {
+            width: 800px;
+            height: 543px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        li.paper {
+            position: absolute;
+            width: 400px;
+            height: 543px;
+            transition: all .3s;
+        }
+
+        li.paper[data-left] {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        li.paper[data-right] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform-origin: left center;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .page-1,
+        .page-2 {
+            z-index: 1;
+            transform: translateZ(1px);
+        }
+
+        .page-1-back,
+        .page-2-back {
+            transform: scale(-1, 1);
+        }
+
+        .paper {
+            display: none;
+            position: absolute;
+            right: 0;
+        }
+
+        .paper[data-right],
+        .paper[data-left] {
+            display: block;
+            z-index: 1;
+        }
+
+        .paper[data-left] {
+            right: auto;
+            left: 0;
+        }
+
+        .paper[data-right]+.paper {
+            display: block;
+        }
+
+        .paper[data-right] {
+            /* animation: flip-to-left 2s ease-in-out forwards; */
+        }
+
+        @keyframes flip-to-left {
+            from {
+                transform: perspective(1000px) rotateY(0);
+            }
+            to {
+                transform: perspective(1000px) rotateY(-180deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="pages">
+        <!--一个li.paper包含了正反两页-->
+        <li class="paper" data-left>
+            <!--一个.page就是一页内容-->
+            <div class="page page-1-back">
+                <img src="./images/paper/1.jpg" alt>
+            </div>
+            <div class="page page-1">
+                <img src="./images/paper/2.jpg" alt>
+            </div>
+        </li>
+        <li class="paper" data-right>
+            <div class="page page-2">
+                <img src="./images/paper/3.jpg" alt>
+            </div>
+            <div class="page page-2-back">
+                <img src="./images/paper/4.jpg" alt>
+            </div>
+        </li>
+        <!--其它页内容省略-->
+    </ul>
+    <button id="next-page">下一頁</button>
+    <script>
+        let currentPage = 1;
+        let $ = document.querySelector.bind(document);
+        $('#next-page').addEventListener('click', goToNextPage);
+        const flipAnimateTime = 1000;
+
+        function goToNextPage() {
+            // 触发CSS动画
+            $('.paper[data-right]').setAttribute('data-begin-animate', true);
+            setTimeout(() => {
+                // data-right变成data-left
+                let $rightPaper = $('.paper[data-right]'),
+                    $leftPaper = $('.paper[data-left]');
+                $rightPaper.removeAttribute('data-right');
+                $rightPaper.setAttribute('data-left', true);
+                // data-left没有了
+                $leftPaper.removeAttribute('data-left');
+                $leftPaper.querySelector('.page-1').classList.remove('page-1');
+                $leftPaper.querySelector('.page-1-back').classList.remove('page-1-back');
+                // 重新设置类的关系
+                $leftPaper = $rightPaper;
+                $rightPaper = $leftPaper.nextElementSibling;
+                $leftPaper.querySelector('.page').classList.add('page-1-back');
+                $leftPaper.querySelector('.page + .page').classList.add('page-1');
+                // 如果还有下一页
+                if ($rightPaper) {
+                    $rightPaper.setAttribute('data-right', true);
+                    $rightPaper.querySelector('.page').classList.add('page-2');
+                    $rightPaper.querySelector('.page + .page').classList.add('page-2-back');
+                }
+                currentPage++;
+            }, flipAnimateTime);
+        }
+    </script>
+</body>
+
+</html>

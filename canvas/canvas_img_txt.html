@@ -16,12 +16,12 @@
     </div>
 
     <!--画布-->
-    <canvas id="main" width="300" height="300" style="border:1px solid #d3d3d3;"></canvas>
+    <canvas id="canvas" width="300" height="300" style="border:1px solid #d3d3d3;"></canvas>
 
     <!--输入框，失去焦点后自动执行hechen()-->
     <input type="text" id="desc" value="" />
-    <!--saveImageInfo()生成照片并显示到另个网页-->>
-    <button download="dl.png" onclick="location.href=main.toDataURL('image/jpeg')">下載</button>
+    <!--saveImageInfo()生成照片并显示到另个网页-->
+    <button id="btn-download">下載</button>
     <script>
         //预加载将图片绘制到画布
         $(function () {
@@ -32,7 +32,8 @@
         })
         function hechen() {
             //获取画布对象
-            var ctx = document.getElementById('main').getContext("2d");
+            var canvas=document.getElementById("canvas")
+            var ctx = canvas.getContext("2d");
             var maxWidth = ctx.width;
             var maxHeight = ctx.height;
             ctx.clearRect(0, 0, 300, 300);
@@ -54,10 +55,16 @@
                     //绘制文字
                     ctx.fillText($('#desc').val(), 100, 100);
                 }
-
             };
-
         }
+        function downloadCanvas(link,canvasId,filename){
+            link.href=document.getElementById(canvasId).toDataURL('image/jpeg')
+            // link.download=filename
+            console.log(link)
+        }
+        document.getElementById('btn-download').addEventListener('click',function(){
+            downloadCanvas(this,'canvas','test.jpg')
+        })
     </script>
 </body>
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #btn{
+            padding: 1rem 2rem;
+            background-color: rgb(245, 17, 176);
+            border: 1px solid rgb(155, 10, 90);
+            color:#fff;
+            margin: 2rem auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按鈕</button>
+    <script>
+        var oBtn=document.getElementById('btn');
+        oBtn.addEventListener('click',function(e){
+            console.log(e.clientX)
+            console.log(e.offsetX)
+        })
+    </script>
+</body>
+
+</html>
