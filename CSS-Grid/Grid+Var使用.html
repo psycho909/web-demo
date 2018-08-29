@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #fcf4f4;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.6rem;
+            letter-spacing: -0.04em;
+        }
+
+        p {
+            line-height: 1.4;
+            margin-bottom: 0;
+        }
+
+        .inner {
+            position: relative;
+        }
+
+        .grid {
+            --color: orange;
+            background: linear-gradient(45deg, #5680ad, #f9def3);
+            /* background-color: var(--color, red); */
+            display: grid;
+            /* grid-template-columns: minmax(20px,1fr) repeat(12,minmax(0,100px)) minmax(20px,1fr); */
+            grid-template-columns: [start] minmax(20px, 1fr) [wrapper-start] repeat(12, minmax(0, 100px)) [wrapper-end] minmax(20px, 1fr) [end];
+            grid-column-gap: 20px;
+        }
+
+        .grid__media {
+            grid-column: var(--mediaStart, wrapper-start)/var(--mediaEnd, 8);
+            grid-row: 1;
+        }
+
+        .grid__text {
+            grid-column: var(--textStart, 8) / span var(--textSpan, 6);
+            grid-row: 1;
+        }
+
+        .grid--2 {
+            --mediaEnd: end;
+            --textStart: wrapper-start;
+        }
+
+        .grid--2,
+        .grid--4 {
+            --mediaStart: 8;
+        }
+
+        .grid--3 {
+            --meidaStart: start
+        }
+
+        .grid--4 {
+            --mediaEnd: wrapper-end;
+            --textStart: 3;
+        }
+
+        @media (min-width:960px) {
+            .grid {
+                --mediaStart: wrapper-start;
+                --mediaEnd: 9;
+                --textStart: 10;
+                --textSpan: 4;
+            }
+
+            .grid--2 {
+                --mediaStart: 9;
+                --mediaEnd: end;
+                --textStart: wrapper-start;
+            }
+
+            .grid--2,
+            .grid--4 {
+                --mediaStart: 8;
+            }
+
+            .grid--3 {
+                --mediaStart: start;
+            }
+
+            .grid--4 {
+                --mediaEnd: wrapper-end;
+                --textStart: 3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <article class="grid">
+        <figure class="grid__media">
+            <img src="https://images.unsplash.com/photo-1472491235688-bdc81a63246e?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=17d687b8b0b7e6da5ee22d8f343f09cd"
+                alt="A beautiful siamese cat with blue eyes" width="800px" height="600px" />
+        </figure>
+        <div class="grid__text">
+            <h3>Cats are great</h3>
+            <p>While it is commonly thought that the ancient Egyptians were the first to domesticate cats, the oldest
+                known pet cat was recently found in a 9,500-year-old grave on the Mediterranean island of Cyprus. This
+                grave predates early Egyptian art depicting cats by 4,000 years or more.</p>
+        </div>
+    </article>
+
+    <!--Grid 2-->
+    <article class="grid grid--2">
+        <figure class="grid__media">
+            <img src="https://images.unsplash.com/photo-1455970022149-a8f26b6902dd?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=71ae25c1db2bdf4ece600a85186fb6e5"
+                alt="A fluffy tabby cat with green eyes" width="600px" height="800px" />
+        </figure>
+        <div class="grid__text">
+            <h3>Cat limitations</h3>
+            <p>A cat can’t climb head first down a tree because every claw on a cat’s paw points the same way. To get
+                down from a tree, a cat must back down.</p>
+        </div>
+    </article>
+
+
+    <!--Grid 3-->
+    <article class="grid grid--3">
+        <figure class="grid__media">
+            <img src="https://images.unsplash.com/photo-1511275539165-cc46b1ee89bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=fbdeefbc87de11ffe211f913e6439430"
+                alt="A grey cats lying down licking its paw" width="800px" height="600px" />
+        </figure>
+        <div class="grid__text">
+            <h3>Space cats</h3>
+            <p>The first cat in space was a French cat named Felicette (a.k.a. “Astrocat”) In 1963, France blasted the
+                cat into outer space. Electrodes implanted in her brains sent neurological signals back to Earth. She
+                survived the trip.</p>
+        </div>
+    </article>
+
+    <!--Grid 4-->
+    <article class="grid grid--4">
+        <figure class="grid__media">
+            <img src="https://images.unsplash.com/photo-1518843025960-d60217f226f5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=6d2c2d79afc7d50fe882bdca5e4bbd4a"
+                alt="A tortoiseshell cat looking alert" width="600px" height="800px" />
+        </figure>
+        <div class="grid__text">
+            <h3>Cats are brainy</h3>
+            <p>A cat’s brain is biologically more similar to a human brain than it is to a dog’s. Both humans and cats
+                have identical regions in their brains that are responsible for emotions.</p>
+        </div>
+    </article>
+</body>
+
+</html>
