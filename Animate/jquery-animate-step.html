@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 100px;
+            border:1px solid #000;
+        }
+        .box-inner{
+            width: 0;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="box-inner" class="box-inner" data-num="100">0</div>
+    </div>
+
+    <script>
+        // var i=0;
+        // setInterval(function(){
+        //     i+=1000/100
+        //     document.getElementById('box-inner').innerHTML=i;
+        // },1000)
+        $('.box-inner').animate({
+            width:100
+        },{
+            duration:1000,
+            step:function(now,fn){
+                var nowNum=parseInt(now)
+                $(this).text(nowNum)
+                console.log(now)
+            }
+        })
+    
+    </script>
+</body>
+</html>

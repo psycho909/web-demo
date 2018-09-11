@@ -97,6 +97,13 @@
     </div>
     <script>
         var inputFile=document.querySelector('#input-file')
+
+        $('#input-title').on('change',function(){
+            var file=$('#input-file').get(0).files[0]
+            var src=window.URL.createObjectURL(file)
+            drawImg(src);
+            document.querySelector('#card-image').src=src;
+        })
         inputFile.addEventListener('change',function(event){
             var file=event.target.files[0]
             var src=window.URL.createObjectURL(file)
@@ -119,6 +126,13 @@
             img.src=src;
             img.onload=function(){
                 ctx.drawImage(img,0,0,300,300)
+                
+                if($('#input-title').val().length > 0 ){
+                    ctx.font="bold 18px Arial";
+                    ctx.fillStyle="green";
+                    ctx.fillText($('#input-title').val(),100,100)
+                }
+                
             }
         }
     </script>
