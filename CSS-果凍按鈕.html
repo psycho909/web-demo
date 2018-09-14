@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .blobs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+        .main{
+            cursor: pointer;
+        }
+        .circle {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            transform: translate(0, 0px);
+            background: hsl(337, 70%, 58%);
+            clip-path: circle(42px at center);
+            text-align: center;
+            line-height: 90px;
+            color: #fff;
+            font-family: Arial;
+        }
+
+        .circle.main {
+            z-index: 2;
+        }
+
+        .first {
+            transition: transform 0.5s 100ms ease-out;
+            background: hsl(307, 70%, 58%);
+        }
+
+        .second {
+            transition: transform 0.5s 300ms ease-out;
+            background: hsl(277, 70%, 58%);
+        }
+
+        .last {
+            transition: transform 0.5s 500ms ease-out;
+            background: hsl(247, 70%, 58%);
+        }
+
+        .blobs {
+            filter: url(#goo);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blobs">
+        <div class="circle main">main</div>
+        <div class="circle sub first">1</div>
+        <div class="circle sub second">2</div>
+        <div class="circle sub last">3</div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+        </defs>
+    </svg>
+    <script>
+        $('.main').on('click',function(){
+            var d=9*16;
+            var redians,x,y;
+            var per=180/4
+            $('.sub').each(function(i,v){
+                redians=(i*per)*(Math.PI/180)
+                // console.log(per,redians)
+                // x=(Math.cos(redians)*d)/16*-1
+                // y=(Math.sin(redians)*d)/16*-1
+                x=(Math.cos(redians)*d)*-1
+                y=(Math.sin(redians)*d)*-1
+                console.log(Math.cos(redians),Math.sin(redians))
+                $(v).css({'transform':"translate("+x+"px,"+y+"px) rotate(0deg)",'opacity':1})
+            })
+        })
+    </script>
+</body>
+
+</html>
