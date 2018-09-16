@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/ScrollToPlugin.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            background-color: #ff8f00;
+            display: flex;
+            align-items: center
+        }
+
+        #box {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box {
+            width: 300px;
+            height: 150px;
+            background-color: aqua;
+            margin-bottom: 3rem;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+        <div class="box box4"></div>
+        <div class="box box5"></div>
+        <div class="box box6"></div>
+        <div class="box box7"></div>
+        <div class="box box8"></div>
+        <div class="box box9"></div>
+        <div class="box box10"></div>
+    </div>
+
+    <script>
+        var tl=new TimelineLite();
+
+        tl.to(".box1",1,{opacity:1})
+        tl.to(".box2",1,{opacity:1})
+        tl.to(".box3",1,{opacity:1})
+        tl.to(".box4",1,{opacity:1})
+        tl.to(".box5",1,{opacity:1})
+        tl.to(".box6",1,{opacity:1})
+        tl.to(".box7",1,{opacity:1})
+        tl.to(".box8",1,{opacity:1})
+        tl.to(".box9",1,{opacity:1})
+        tl.to(".box10",1,{opacity:1})
+        tl.pause()
+        $(window).scroll(function(){
+            var scrollTop=$(window).scrollTop()
+            var docHeight=$(document).height()
+            var winHeight=$(window).height();
+            var progress=scrollTop/(docHeight-winHeight)
+            
+            tl.progress(progress)
+            console.log(progress,scrollTop,docHeight,winHeight)
+        })
+    </script>
+</body>
+
+</html>

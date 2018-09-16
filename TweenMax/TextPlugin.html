@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/TextPlugin.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            background-color: #ff8f00;
+        }
+
+        #content{
+            height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            background-color:#313131;
+            color:#fff;
+            text-align: center;
+            font-size: 6rem;
+        }
+        #title{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="title">(^&(%^))</div>
+        <div id="txt">()&*(&*(YL:JLJKLL)))</div>
+    </div>
+    <script>
+        TweenMax.to('#title',5,{text:"Hello World"})
+        TweenMax.to('#txt',5,{text:"Hello World",delay:2})
+    </script>
+</body>
+
+</html>

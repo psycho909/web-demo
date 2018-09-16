@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/ScrollToPlugin.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #ff8f00;
+            display: flex;
+            align-items: center
+        }
+
+        #bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 400px;
+            background-image: url('./images/a.png');
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="bg"></div>
+    <script>
+        $(function(){
+            $('#bg').on('mousemove',function(e){
+                var posX=e.pageX;
+                var posY=e.pageY;
+                TweenMax.to("#bg",.3,{
+                    top:posY-150,
+                    left:posX-200
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

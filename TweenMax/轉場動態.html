@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/ScrollToPlugin.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #pagetransition{
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            transform: rotate(15deg);
+        }
+        .square{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .square.black{
+            top: -50%;
+            left: -20%;
+            z-index: 3;
+            background-image: url('./images/1.jpg');
+        }
+        .square.white{
+            height: 200%;
+            right: -50%;
+            top: -100%;
+            z-index: 5;
+            background-image: url('./images/2.jpg');
+        }
+        .square.gold{
+            right: -20%;
+            bottom: -50%;
+            z-index: 4;
+            background-image: url('./images/3.jpg');
+        }
+        .square.grey{
+            height: 200%;
+            left: -50%;
+            bottom: -130%;
+            z-index: 4;
+            background-image: url('./images/4.jpg');
+        }
+        .logo{
+            transform: rotate(-15deg);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -147.5px;
+            margin-left: -147.5px;
+            z-index: 999;
+            width: 295px;
+            height: 295px;
+            background-image: url('./images/a.png');
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pagetransition">
+        <div class="square black"></div>
+        <div class="square white"></div>
+        <div class="square gold"></div>
+        <div class="square grey"></div>
+        <div class="logo"></div>
+    </div>
+    <script>
+        var ww=$(window).width()
+        var wh=$(window).height()
+        TweenMax.staggerFrom('#pagetransition',2,{rotation:0})
+        TweenMax.staggerFrom('.logo',0.5,{scaleX:0,scaleY:0,delay:1,ease:Back.easeOut.config(1.7)})
+
+        TweenMax.staggerFrom('.grey',1,{x:-ww/2,
+            onComplete:function(){
+                TweenMax.to(".grey",1,{y:-wh/2})
+            }
+        })
+        TweenMax.staggerFrom('.white',1,{x:ww/2,
+            onComplete:function(){
+                TweenMax.to(".white",1,{y:wh/2})
+            }})
+        TweenMax.staggerFrom('.gold',1,{y:-wh/2})
+        TweenMax.staggerFrom('.black',1,{y:wh/2})
+    </script>
+</body>
+
+</html>

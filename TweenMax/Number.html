@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/ScrollToPlugin.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width: 100%;
+            background-color: #ff8f00;
+            display: flex;
+            align-items: center
+        }
+        #box{
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 30rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="box"></div>
+    </div>
+
+    <script>
+        $(function(){
+            var demo={
+                int:20
+            }
+            $('.box').html(demo.int)
+            TweenMax.to(demo,8,{
+                int:0,
+                onUpdate:function(){
+                    $('.box').html(Math.ceil(demo.int))
+                },
+                onComplete:function(){
+                    $('.box').html("Done")
+                },
+                ease:Power4.easeOut
+            })
+        })
+    </script>
+</body>
+</html>
