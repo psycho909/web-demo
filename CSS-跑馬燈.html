@@ -39,8 +39,11 @@
             <div class="item">1- 121233fffffr国家认可更健康进口价格困扰</div>
         </div>
     </div>
-
+    <button id="btn" data-type="button">BTN</button>
     <script>
+            document.getElementById('btn').addEventListener('click',(e)=>{
+                console.log(this)
+            })
     // 设置keyframes属性
 function addKeyFrames(y){
     var style = document.createElement('style');
