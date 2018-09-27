@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    body {
+    align-items: center;
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    height: 100vh;
+    justify-content: center;
+    }
+
+    a {
+    background: linear-gradient(to bottom, #ff9800 0%, #ff9800 100%);
+        background-position: 0 100%;
+        background-repeat: repeat-x;
+        background-size: 3px 3px;
+    color: #000;
+    text-decoration: none;
+    }
+
+    a:hover {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23ff9800' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+    background-position: 0 100%;
+    background-size: auto 6px;
+    background-repeat: repeat-x;
+    text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+    <p>Flapjacks on a <a href="#">sunny warm</a> afternoon.</p>
+    <script>
+        const makeResult=(total,cur,around=2)=>{
+            let result=[]
+            let baseCount=(around * 2)+1+2+2 // 總共元素個數 9
+            let surplus=baseCount-2 // 只出現一個省略號 剩餘元素個數
+            let startPosition=1+2+around;
+            let endPosition=total-2-around;
+
+            if(total <= baseCount){ //全部顯示 不出現省略號
+                result =  Array.from({length: total}, (v, i) => i + 1);
+            }else{
+                if( cur <= startPosition){
+                    result=[...Array.from({length:surplus},(v,i)=>i+1),'...',total]
+                }else if( cur >= endPosition){
+                    result=[1,'...',...Array.from({length:surplus},(v,i)=> total-surplus+i+1 )]
+                }else{
+                    result=[1,'...',...Array.from({length:around*2+1},(v,i)=> cur-around+i ),'...',total]
+                }
+            }
+            return result;
+        }
+        console.log(makeResult(112,108))
+    </script>
+</body>
+</html>
