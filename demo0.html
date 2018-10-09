@@ -19,8 +19,31 @@
 	<button class="btn">button1</button>
 	<button class="btn">button2</button>
 	<button class="btn">button3</button>
+	<select name="" id="city">
+		<option value="">請選擇區域</option>
+		<option value="us">美國</option>
+		<option value="china">中國</option>
+	</select>
+	<div class="input-group">
+		<input type="radio" class="sex" value="male" name="sex">
+		<input type="radio" class="sex" value="fmale" name="sex">
+	</div>
+	<div class="input-group">
+		<input type="checkbox" class="hobby" value="sleep" name="hobby">
+		<input type="checkbox" class="hobby" value="run" name="hobby">
+	</div>
 </body>
 <script>
+	$('#city').on('change',function(){
+		var cityValue=$(this).val()
+		console.log(cityValue)
+	})
+	$('.sex').on('click',function(){
+		console.log($(this).val())
+	})
+	$('.hobby').on('click',function(){
+		console.log($(this).val())
+	})
 	var oBtn=document.getElementsByClassName('btn')
 	for(var i=0;i<oBtn.length;i++){
 		oBtn[i].onclick=function(){
