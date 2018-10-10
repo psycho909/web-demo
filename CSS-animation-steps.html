@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            background-color: rgb(255, 166, 0);
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .box{
+            position: relative;
+            width: 132px;
+            height: 62px;
+            overflow: hidden;
+        }
+        .box-wrap{
+            width: 132px;
+            height: 62px;
+            overflow: hidden;
+            transform: translateY(0px);
+            
+        }
+        .box-wrap .box-wrap-img{
+            width: 132px;
+            animation: moveImg 3s steps(3) infinite both;
+            transform: translateY(0px);
+        }
+        .box-wrap .box-wrap-img img{
+            display: block;
+        }
+        @keyframes moveImg{
+            to{
+                transform: translateY(-186px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box-wrap">
+            <div class="box-wrap-img">
+                <img src="./images/1.png" alt="" class="">
+                <img src="./images/2.png" alt="" class="">
+                <img src="./images/3.png" alt="" class="">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .wrapper{
+            width: 600px;
+        }
+        #btn{
+            width: 150px;
+            background-color: #ddd;
+            cursor: pointer;
+            text-align: center;
+            padding: .5rem;
+            margin:  1rem auto;
+        }
+        .box-wrapper{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box{
+            border:1px solid #eee;
+            width: 33.3333%;
+            padding: .25rem;
+        }
+        .box .img{
+            width: 100%;
+        }
+        .box .load{
+            width: 100%;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+        }
+        .box .load img{
+            height: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+        #btn img{
+            width: 50px;
+            height: 50px;
+        }
+        .lds-rolling{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="btn">
+            更多
+            <svg width="20px"  height="20px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;"><circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#3be8b0" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(348 50.0001 50.0001)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>
+        </div>
+        <div class="box-wrapper">
+            
+        </div>
+    </div>
+    <script>
+        var imgs=[
+            'https://images.unsplash.com/photo-1539015387781-bc317868733c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=519366474e490047849cac8a12cecd84&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539068885179-c05359aea4b8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aac7bd099a6cb3e9c12c6cfc6ccef6f2&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5729f18a6a6b8ab1b2e2108964227ae5&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539035992980-e41ff3f540ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9588b1964a617c7d87d4354de301ee80&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539025470716-d4e1dce13c9f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=01b47a45a16e5a8ea75b558a844c1c44&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539083943273-138a8ba5486d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=10a8f08144e4949d43b76513671ea191&auto=format&fit=crop&w=500&q=60'
+        ];
+        
+        $('#btn').on('click',function(){
+            var index=0;
+            var imgLength=imgs.length;
+            $('.lds-rolling').show()
+            var count=0
+            var boxHTML='';
+            $.each(imgs,function(i,src){
+                var imgObj=new Image()
+                imgObj.src=src;
+                
+                $(imgObj).on('load error',function(){
+                    var HTML=`
+                        <div class="box">
+                            <img src="{{src}}" alt="" class="img"/>
+                        </div>
+                    `
+                    
+                    boxHTML+=HTML.replace('{{src}}',src)
+                    count++;
+                    if(count === imgLength){
+                        // $('#btn').remove()
+                        $('.box-wrapper').append(boxHTML)
+                    }
+                    //$('.box').eq(i).remove('.load').html('<img class="img" src="'+src+'" alt="">')
+                })
+            })
+        })
+    </script>
+</body>
+</html>
