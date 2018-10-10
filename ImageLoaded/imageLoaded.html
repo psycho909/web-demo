@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #image-container {
+            width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #image-container img {
+            max-height: 140px;
+        }
+        .box {
+            border: 1px solid #eee;
+            width: 33.3333%;
+            padding: .25rem;
+        }
+
+        .box .img {
+            width: 100%;
+        }
+        .is-loading {
+            height: 140px;
+            min-width: 100px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: black;
+            background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif');
+        }
+        .is-loading img{
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="buttons">
+        <button id="add">More</button>
+    </div>
+    <div id="image-container"></div>
+
+    <script>
+        var imgs=[
+            'https://images.unsplash.com/photo-1539015387781-bc317868733c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=519366474e490047849cac8a12cecd84&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539068885179-c05359aea4b8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aac7bd099a6cb3e9c12c6cfc6ccef6f2&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5729f18a6a6b8ab1b2e2108964227ae5&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539035992980-e41ff3f540ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9588b1964a617c7d87d4354de301ee80&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539025470716-d4e1dce13c9f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=01b47a45a16e5a8ea75b558a844c1c44&auto=format&fit=crop&w=500&q=60',
+            'https://images.unsplash.com/photo-1539083943273-138a8ba5486d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=10a8f08144e4949d43b76513671ea191&auto=format&fit=crop&w=500&q=60'
+        ];
+        $('#add').on('click',function(){
+            var items=getItems();
+
+            $('#image-container').append($(items))
+            $('#image-container').imagesLoaded()
+            .progress(function(imgLoad,image){
+                var $item=$(image.img).parent()
+                $item.removeClass('is-loading')
+            })
+        })
+        function getItems(){
+            var items=''
+            for(var i=0;i<imgs.length;i++){
+                items+=getImageItem(i)
+            }
+            return items;
+        }
+        function getImageItem(i){
+            var item='<div class="is-loading box">'
+            var src=imgs[i]
+            item+='<img src="' + src + '" /></div>';
+            return item;
+        }
+    </script>
+</body>
+
+</html>
