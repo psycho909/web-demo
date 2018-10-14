@@ -73,7 +73,7 @@
 				<div class="step-nav" data-type="b">Step2</div>
 			</div>
 			<div class="step-wrapper">
-				<div class="step step-a" data-type="a">
+				<div class="step step-a show" data-type="a">
 					<h1>選單一</h1>
 					<div class="input-group">
 						<label for="male">Male</label>
@@ -100,7 +100,6 @@
 	</div>
 	<script>
 		$('.step-a .input-group .radio-sex').on('click',function(){
-			console.log($(this).val())
 			$(this).closest('.step').animate({
 				opacity:0
 			},500,function(){
