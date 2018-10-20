@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09 Transitions</title>
+    <link rel="stylesheet" href="./css/09.css">
+</head>
+<body>
+    <div id="pagetransition">
+        <div class="square black"></div>
+        <div class="square white"></div>
+        <div class="square gold"></div>
+        <div class="square grey"></div>
+        <div class="logo"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        var wW = $(window).width();
+        var wH = $(window).height();
+        TweenMax.staggerFrom("#pagetransition", 2.5, {rotation: 0, ease:Power2.easeOut});
+        TweenMax.staggerFrom('.logo', .8,{ rotation: 0, scale: 0, delay: 1, ease: Back.easeOut});
+        TweenMax.staggerFrom(".white", 1, { x: wW / 2, ease:Power2.easeOut});
+        TweenMax.staggerFrom(".grey", 1, { x: -wW / 2, ease:Power2.easeOut});
+        TweenMax.staggerFrom(".black", 1, { y: -wH, ease:Power2.easeOut,
+            onComplete: function() {
+                TweenMax.to(".grey", 1,{ y: -wH / 2, ease: Back.easeOut});
+            }
+        });
+        TweenMax.staggerFrom(".gold", 1, { y: wH, ease:Power2.easeOut,
+            onComplete: function() {
+                TweenMax.to(".white", 1,{ y: wH / 2, ease: Back.easeOut});
+            }
+        });
+    </script>
+</body>
+</html>

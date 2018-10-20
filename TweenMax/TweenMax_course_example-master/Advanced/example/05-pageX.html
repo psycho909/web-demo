@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05 pageX </title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #bg{
+        width: 100%;
+        height: 80%;
+        background:url("./images/05/001.jpg");    
+        background-size: 100% auto;
+        background-position-y: bottom;
+    }
+    #content{
+        position: fixed;
+        top: 0%;
+        left: 0;
+        width:100%;
+        height:auto;
+        overflow: hidden;
+        font-size:36px;
+        line-height:100px;
+        text-align:center;
+        color: #000;
+    }
+</style>
+<body>
+    <h1 id="content">YOTTA 你最專業的學習夥伴</h1>
+    <div id="bg"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        $("#bg").on("mousemove",function(e) {
+            var xPos = e.pageX;
+            TweenMax.to("#bg", 0.5, {"background-position-x": xPos + "px"});
+        });
+    </script>
+</body>
+</html>

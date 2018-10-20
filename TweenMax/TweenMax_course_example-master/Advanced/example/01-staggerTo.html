@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01 staggerTo 依序處理 </title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #box{
+        width: 520px;
+        height: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+        flex-wrap: wrap;
+    }
+    #box > .pic{
+        width: 240px;
+        height: 240px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    #box > .pic > img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+<body>
+    <div id="box">
+        <div class="pic"><img src="./images/01/THUMBNAIL_43FD93C5-44EA-493F-BDCC-2354E1CA0DCF.jpg" alt=""></div>
+        <div class="pic"><img src="./images/01/THUMBNAIL_4F071F00-55D5-467F-B68C-C9FC3AD92571.jpg" alt=""></div>
+        <div class="pic"><img src="./images/01/THUMBNAIL_6625C939-C35C-47BF-AAEC-3A7C34848396.jpg" alt=""></div>
+        <div class="pic"><img src="./images/01/THUMBNAIL_6F12B376-A2D9-4000-A144-5D5E8E97430D.jpg" alt=""></div>
+        <div class="pic"><img src="./images/01/THUMBNAIL_99F08DC7-5951-4620-A0A7-361CF72DBDDC.jpg" alt=""></div>
+        <div class="pic"><img src="./images/01/THUMBNAIL_A4E1C872-6C52-4115-A356-0FFE353FB3EA.jpg" alt=""></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        //staggerTo() 會抓取所有的目標，並為每個目標創建一個to()補間，然後回傳一個包含所有動畫補間的內容。
+        TweenMax.staggerTo(".pic", 0.5, {transform: "translateY(0px)", opacity:1}, 0.2);
+    </script>
+</body>
+</html>

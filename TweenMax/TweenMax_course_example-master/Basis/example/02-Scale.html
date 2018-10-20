@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02 Scale 比例的縮放</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #steveJobs{
+        position: relative;
+        width: 450px;
+        height: 310px;
+        overflow: hidden;
+        background-image: url("images/SteveJobs.jpg");
+        border: 6px solid #000;
+    }
+    #dialogBox{
+        position: absolute;
+        top: -20px;
+        left: -30px;
+        width: 259px;
+        height: 196px;
+        transform: scale(0, 0);
+        background-image: url("images/dialogBox.png");
+    }
+</style>
+<body>
+    <div id="steveJobs">
+        <div id="dialogBox"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        TweenMax.to("#dialogBox", 1, 
+            {
+                scaleX:"1",
+                scaleY:"1",
+                transformOrigin: "100% 100%",
+                ease: Bounce.easeOut
+            }
+        );
+    </script>
+</body>
+</html>
