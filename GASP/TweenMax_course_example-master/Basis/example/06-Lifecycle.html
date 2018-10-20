@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06 TweenMax 生命週期 </title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        background-color: #FFBF00;
+        display: flex;
+        align-items: center;
+    }
+    #box{
+        width: 471px;
+        height: 228px;
+        background-image: url("./images/car.png");
+    }
+</style>
+<body>
+    <div id="box"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        TweenMax.to("#box", 1, 
+            {
+                x:"700px",
+                onStart: function() {
+                    console.log('動畫開始');
+                },
+                onUpdate: function(){
+                    console.log('動畫進行中');
+                },
+                onComplete: function() {
+                    console.log('動畫結束');
+                }
+            }
+        );
+    </script>
+</body>
+</html>

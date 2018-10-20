@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05 旋轉</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    #box{
+        position: relative;
+        width: 0px;
+        height: 0px;
+        background-image: url("./images/5840ce7a474df.jpg");
+    }
+    .message{
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 141px;
+        height: 256px;
+        background-image: url("./images/message.jpg");
+        opacity: 0;
+    }
+</style>
+<body>
+    <div id="box">
+        <div class="message"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        TweenMax.to("#box", 1, 
+            {
+                width: "424px",
+                height: "424px",
+                rotation: 360,
+                y: window.innerHeight - 424,
+                onComplete: BackAminFn
+            }
+        );
+        function BackAminFn(){
+            TweenMax.to(".message", 1.5, { opacity: "1"});
+        }
+    </script>
+</body>
+</html>
