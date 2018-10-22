@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 微軟正黑體;
+            }
+            html,body{
+                width: 100%;
+                height: 100%;
+            }
+            a{
+                text-decoration: none;
+            }
+            .loading{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left:0;
+                z-index: 999;
+                background-color: rgb(161, 161, 161);
+                color:#fff;
+                text-align: center;
+            }
+            .box{
+                display: flex;
+            }
+            .box-img.isLoaded{
+                background-color: rgb(95, 95, 95);
+                width: 300px;
+                height: 100%;
+            }
+            .box-img.isBroken{
+                background-color: rgb(95, 95, 95);
+                width: 300px;
+                height: 100%;
+            }
+            .box-img.isLoaded {
+                opacity: 1;
+            }
+            .box-img.isLoaded .img{
+                opacity: 0;
+            }
+            .img{
+                transition: all .3s;
+                width: 300px;
+                display: block;
+            }
+        </style>
+</head>
+<body>
+    <div class="loading">Loading</div>
+    <div class="box">
+        <div class="box-img isLoaded"><img class="img" src="./images/1.jpg" alt=""></div>
+        <div class="box-img isLoaded"><img class="img" src="./images/2.jpg" alt=""></div>
+        <div class="box-img isLoaded"><img class="img" src="./images/3.jpg" alt=""></div>
+        <div class="box-img isLoaded"><img class="img" src="./images/.jpg" alt=""></div>
+    </div>
+    
+    <script>
+        var count=$('.box').find('.img').length
+        var loadedImageCount=0
+        var progressNum=0
+        $('.box').imagesLoaded()
+        .done(function(i){
+        })
+        .always(function(){
+            $('.loading').remove()
+            console.log('always')
+        })
+        .progress(function(imgLoad,img){
+            console.log(imgLoad,img)
+            if(img.isLoaded){
+                $(img.img).parent().removeClass('isLoaded')
+            }else{
+                $(img.img).parent().removeClass('isLoaded')
+                $(img.img).attr('src','./images/is-borken.jpg')
+            }
+        })
+    </script>
+</body>
+</html>
