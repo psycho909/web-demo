@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    background-color: #001a47;
+}
+#box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#box > .bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    z-index: 1;
+}
+#box > .bg > img{
+    width: 100%;
+    height: auto;
+}
+.txt{
+    text-align: center;
+    z-index: 2;
+}
+h1{
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+}
+h3{
+    font-size: 20px;
+    color: #fff;
+}

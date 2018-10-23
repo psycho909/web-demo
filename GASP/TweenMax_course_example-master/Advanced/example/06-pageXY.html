@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06 pageXY </title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+        background-color: #FFBF00;
+    }
+    #Beebg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 232px;
+        height: 197px;
+        background-image: url("./images/06/BEE.png");
+    }
+</style>
+<body>
+    <div id="Beebg"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        $(window).on('mousemove', function(e) {
+            TweenMax.to("#Beebg", 0.3, 
+                { 
+                    left: e.pageX - ($("#Beebg").width()/2 ), 
+                    top: e.pageY - ($("#Beebg").height()/2 )
+                }
+            );
+        });
+    </script>
+</body>
+</html>

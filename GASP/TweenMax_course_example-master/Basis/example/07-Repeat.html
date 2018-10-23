@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07 Repeat</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #001a47;
+        }
+        #box{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #box > .bg{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            z-index: 1;
+        }
+        #box > .bg > img{
+            width: 100%;
+            height: auto;
+        }
+        .txt{
+            text-align: center;
+            z-index: 2;
+        }
+        h1{
+            font-size: 120px;
+            color: #fff;
+            text-align: center;
+        }
+        h3{
+            font-size: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="bg"><img src="./images/ftt.jpg" alt=""></div>
+        <div class="txt">
+            <h1>Yottau</h1>
+            <h3>https://www.yottau.com.tw/</h3>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <script>
+        TweenMax.to(".bg", 60, {rotation:360, repeat:-1, ease:Linear.easeInOut})
+    </script>
+</body>
+</html>
