@@ -15,6 +15,7 @@ $(function(){
 
 	$main_visual.mousemove(function(e){
 		if(flag_pc){
+			
 			var cursorX = e.clientX - $main_visual.offset().left;
 			var cursorY = e.clientY - $main_visual.offset().top;
 			var i=0.5;

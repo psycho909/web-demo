@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,210 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="./roll.js"></script>
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
+        .w1200,
+        .w1201 {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .lottery {
+            height: 1196px;
+            background: url(http://static.588ku.com/imgPath/public/images/bg.jpg) no-repeat center;
+        }
+
+        .lottery .main-con {
+            margin: 56px auto 20px;
+            width: 750px;
+            height: 528px;
+            background: #fce483;
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding-top: 7px;
+            padding-left: 11px;
+        }
+
+        .main-con .points {
+            width: 728px;
+            height: 517px;
+            background: url(http://static.588ku.com/imgPath/public/images/points.png) no-repeat center;
+            box-sizing: border-box;
+            padding: 15px 19px;
+        }
+
+        .main-con #lottery {
+            width: 691px;
+            height: 486px;
+            background: #fef3c1;
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding: 13px;
+            z-index: 3;
+        }
+
+        .main-con .lottery-unit {
+            width: 154px;
+            height: 105px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #ffd329;
+            position: relative;
+            float: left;
+            margin: 0 0px 13px 16px;
+        }
+
+        .main-con .lottery-unit.er {
+            background: #ff9600;
+        }
+
+        .main-con .lottery-unit-1,
+        .main-con .lottery-unit-12,
+        .main-con .lottery-unit-11,
+        .main-con .lottery-unit-10 {
+            margin-left: 0px;
+        }
+
+        .lottery-unit .lu-con {
+            width: 128px;
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        .lottery-unit .lu-con img {
+            width: 47px;
+            height: 44px;
+            margin-top: 20px;
+        }
+
+        .lottery-unit span {
+            display: block;
+            font-size: 16px;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .lottery-unit .lit {
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 155px;
+            height: 105px;
+            background: url(http://static.588ku.com/imgPath/public/images/check.png) no-repeat;
+        }
+
+        .lottery-unit.active .lit {
+            display: block;
+        }
+
+        .main-con .button {
+            float: left;
+            width: 325px;
+            height: 223px;
+            background: transparent;
+            margin: 0 0 13px 16px;
+        }
+
+        .button .btn-go {
+            display: block;
+            width: 165px;
+            height: 165px;
+            margin: 30px auto;
+            background: url(http://static.588ku.com/imgPath/public/images/btn-go.png) no-repeat;
+            line-height: 165px;
+            text-align: center;
+            font-size: 58px;
+            color: #fff;
+            font-weight: bold;
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .main-con .lottery-unit-11 {
+            margin-top: -236px;
+        }
+
+        .button .btn-go.click {
+            transform: scale(1.2);
+        }
     </style>
 </head>
-<body>
-    <div id="app">
 
+<body>
+    <div class="w1200 lottery">
+        <span>
+            我的积分：<span class="user-score">19</span></span>
+        <div class="main-con">
+
+            <div class="points">
+                <ul id="lottery">
+                    <li class="lottery-unit lottery-unit-1 active">
+                        <div class="lu-con"><img src="http://static.588ku.com/imgPath/public/images/coin.png"><span>5积分</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-2 er">
+                        <div class="lu-con"><img src="http://static.588ku.com/imgPath/public/images/coin.png"><span>10积分</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-3">
+                        <div class="lu-con"><img src="http://static.588ku.com/imgPath/public/images/coin.png"><span>50积分</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-4 er">
+                        <div class="lu-con"><b><i class="iconfont icon-zuanshi"></i></b><span>元素VIP1天</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-12 er">
+                        <div class="lu-con">
+                            <p><img src="http://static.588ku.com/imgPath/public/images/sorry.png" class="sorry"></p><span>很遗憾</span>
+                        </div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="button"><a class="btn-go lottery-btn">GO</a></li>
+                    <li class="lottery-unit lottery-unit-5">
+                        <div class="lu-con"><b><i class="iconfont icon-zuanshi bg"></i></b><span>背景VIP1天</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-6 er">
+                        <div class="lu-con"><b><i class="iconfont icon-zuanshi tp"></i></b><span>模板VIP1天</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-10 er">
+                        <div class="lu-con">
+                            <p><img src="http://static.588ku.com/imgPath/public/images/mousePad.png" class="mousePad"></p><span>鼠标垫</span>
+                        </div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-9">
+                        <div class="lu-con"><img src="http://static.588ku.com/imgPath/public/images/redgift.png" class="gift"><span>88元现金红包</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-8 er">
+                        <div class="lu-con"><b><i class="iconfont icon-zuanshi vh"></i></b><span>视听VIP1天</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-7">
+                        <div class="lu-con"><b><i class="iconfont icon-zuanshi of"></i></b><span>办公VIP1天</span></div>
+                        <div class="lit"></div>
+                    </li>
+                    <li class="lottery-unit lottery-unit-11">
+                        <div class="lu-con">
+                            <p><img src="http://static.588ku.com/imgPath/public/images/bolster.png" class="bolster"></p><span>抱枕</span>
+                        </div>
+                        <div class="lit"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script>
 
     </script>
 </body>
+
 </html>
