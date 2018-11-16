@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(190, 190, 190);
+        }
+        .box{
+            width: 100vw;
+            height: 600px;
+            position: relative;
+        }
+        .foreground--star, .foreground--light, .product__wrap{
+            position: absolute;
+        }
+        .light-1{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            transform-origin: right bottom;
+            transform: rotate(30deg);
+            /* animation: 1s 1.5s super-flash3 backwards, 7s 1s rotate-self infinite alternate ease-out; */
+        }
+        .light-1 div, .light-2 div{
+            width: 100px;
+            height: 92px;
+            background-image: url('./images/foreground-light.png');
+            background-position: center center;
+            background-size: cover;
+        }
+        @keyframes super-flash3 {
+			from, 10%, 20%{
+				opacity: 0;
+			}
+			5%, 15% {
+				opacity: 0.1;
+				
+			}
+			40% {
+				opacity: 0.3;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+		@keyframes rotate-self {
+			from {
+				transform: rotate(-40deg);
+			}
+			to {
+				transform: rotate(30deg);
+			}
+		}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="light-1">
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>
