@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+</head>
+<body>
+    <img data-src="./images/1.jpg" alt="" class="item-img">
+    <img data-src="./images/2.jpg" alt="" class="item-img">
+    <img data-src="./images/3.jpg" alt="" class="item-img">
+    <img data-src="./images/4.jpg" alt="" class="item-img">
+
+    <script>
+        $('.item-img').lazy({
+            scrollDirection: 'vertical',
+            effect: 'fadeIn',
+            visibleOnly: true,
+            beforeLoad:function(element){
+                console.log("beforeLoad")
+            },
+            afterLoad:function(element){
+                
+            },
+            onError: function(element) {
+
+            }
+        });    
+    </script>
+</body>
+</html>

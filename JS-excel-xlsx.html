@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.0/xlsx.full.min.js"></script>
+        <script type="text/javascript" src="//unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
+    </head>
+    <body>
+        <input type="file" id="file" />
+        <div id="container">
+            <table id="data-table">
+                <thead id="data-table-thead"></thead>
+                <tbody id="data-table-tobdy"></tbody>
+            </table>
+        </div>
+        <p id="xportxlsb" class="xport"><input type="submit" value="Export to XLSX!" onclick="doit('xlsx');"></p>
+        <script>
+            $('#file').change(function(e) {
+                var files = e.target.files
+                console.log(files)
+                var fileReader = new FileReader()
+                fileReader.onload = function(ev) {
+                    try {
+                        var data = ev.target.result;
+                        var workbook = XLSX.read(data, {
+                                type: 'binary'
+                            }); // 以二进制流方式读取得到整份excel表格对象
+                        var persons = [] // 存储获取到的数据
+                    } catch (e) {
+                        console.log('文件类型不正确')
+                        return
+                    }
+
+                    // 表格的表格范围，可用于判断表头数量是否正确
+                    var fromTo = ''
+                    // 遍历每张表读取
+                    for (var sheet in workbook.Sheets) {
+                        if (workbook.Sheets.hasOwnProperty(sheet)) {
+                            fromTo = workbook.Sheets[sheet]['!ref']
+                            console.log(fromTo) //打印表格范围
+                            persons = persons.concat(
+                                XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
+                            )
+                            /*使用XLSX.utils.sheet_to_json方法解析表格对象返回相应的JSON数据 */
+
+                            // break; // 如果只取第一张表，就取消注释这行
+                        }
+                    }
+
+                    console.log(persons) //打印获取的数据
+
+                    var fragment1=document.createDocumentFragment()
+                    var tableTr1=document.createElement('tr')
+                    var tableHeadArr=[];
+                    var tableBodyTr=[];
+                    for(var key in persons[0]){
+                        tableHeadArr.push(key)
+                    }
+                    for(var i=0;i<tableHeadArr.length;i++){
+                        var tableTh=document.createElement('th')
+                        tableTh.innerHTML=tableHeadArr[i];
+                        tableTr1.appendChild(tableTh)
+                        fragment1.appendChild(tableTr1)
+                    }
+                    
+                    document.getElementById('data-table-thead').appendChild(fragment1)
+
+                    for(var i=0;i<persons.length;i++){
+                        var tr=document.createElement('tr')
+                        tr.innerHTML='';
+                        // $('#data-table-tobdy').append('<tr></tr>')
+                        for(var key in persons[i]){
+                            var td=document.createElement('td')
+                            td.innerHTML=persons[i][key];
+                            tr.appendChild(td)
+                            // $('#data-table-tobdy tr').eq(i).append('<td>'+persons[i][key]+'</td>')
+                        }
+                        console.log(tr)
+                        document.getElementById('data-table-tobdy').appendChild(tr)
+                    }
+                }
+
+                // 以二进制方式打开文件
+                fileReader.readAsBinaryString(files[0])
+            })
+
+            function doit(type, fn, dl) {
+                var elt = document.getElementById('data-table');
+                var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+                return dl ?
+                    XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+                    XLSX.writeFile(wb, fn || ('test.' + (type || 'xlsx')));
+            }
+            
+        </script>
+    </body>
+</html>
