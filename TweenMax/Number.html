@@ -30,21 +30,32 @@
 <body>
     <div id="box">
         <div class="box"></div>
+        <div class="box2"></div>
     </div>
 
     <script>
         $(function(){
             var demo={
-                int:20
+                int:100
             }
-            $('.box').html(demo.int)
+            // $('.box').html(demo.int)
+            // TweenMax.to(demo,8,{
+            //     int:0,
+            //     onUpdate:function(){
+            //         $('.box').html(Math.ceil(demo.int))
+            //     },
+            //     onComplete:function(){
+            //         $('.box').html("Done")
+            //     },
+            //     ease:Power4.easeOut
+            // })
             TweenMax.to(demo,8,{
                 int:0,
                 onUpdate:function(){
-                    $('.box').html(Math.ceil(demo.int))
+                    $('.box2').html(Math.ceil(demo.int))
                 },
                 onComplete:function(){
-                    $('.box').html("Done")
+                    console.log("done")
                 },
                 ease:Power4.easeOut
             })
