@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvasBtn={
+            canvas:document.getElementById('canvas'),
+            ctx:this.canvas.getContext('2d'),
+            x:100,
+            y:100,
+            fontColor:"#fff",
+            text:"Buttuon",
+            createPath:function(x,y,width,height,radius){
+                this.ctx.moveTo(x, y + radius);
+                this.ctx.lineTo(x, y + height - radius);
+                this.ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
+                this.ctx.lineTo(x + width - radius, y + height);
+                this.ctx.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
+                this.ctx.lineTo(x + width, y + radius);
+                this.ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
+                this.ctx.lineTo(x + radius, y);
+                this.ctx.quadraticCurveTo(x, y, x, y + radius);
+            },
+            setShadow:function(xoffset,yoffset){
+                var style=this.style;
+                this.ctx.shadowOffsetX=xoffset || 0;
+                this.ctx.shadowOffsetY=yoffset || 5;
+                this.ctx.shadowBlur=0;
+                this.ctx.shadowColor="black"
+            },
+            drawText:function(){
+                var xoffset=this.ctx.measureText(this.text).width;
+                var x=this.x;
+                var y=this.y;
+                if(this.state === 'active'){
+                    y=y+5;
+                }
+                this.ctx.save()
+                this.ctx.beginPath()
+                this.ctx.font="30px Microsoft JhengHei";
+                this.ctx.fillStyle=this.fontColor;
+                this.ctx.textBaseline="middle";
+                this.ctx.fillText(this.text, x + (this.width - xoffset) / 2 + 10, y + (this.height - 22) / 2 + 5, this.width);
+                this.ctx.closePath()
+                this.ctx.restore()
+            }
+        }
+        canvasBtn.canvas;
+        canvasBtn.ctx;
+        canvasBtn.createPath(0,0,100,100,30)
+        canvasBtn.setShadow(10,10)
+        canvasBtn.drawText()
+    </script>
+</body>
+</html>
