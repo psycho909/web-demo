@@ -9,7 +9,6 @@
         *{
             padding: 0;
             margin: 0;
-            background-color: rgb(255, 166, 0);
         }
         html,body{
             width: 100%;
@@ -41,6 +40,23 @@
                 transform: translateY(-186px);
             }
         }
+        .text-color{
+            font-size: 2rem;
+            font-family: Arial;
+            color:red;
+            animation: colorShow 1s steps(1,start) infinite;
+        }
+        @keyframes colorShow{
+            0%{
+                color:red;
+            }
+            50%{
+                color:#009ee6;
+            }
+            100%{
+                color:red;
+            }
+        }
     </style>
 </head>
 <body>
@@ -53,5 +69,6 @@
             </div>
         </div>
     </div>
+    <div class="text-color">NEW</div>
 </body>
 </html>
