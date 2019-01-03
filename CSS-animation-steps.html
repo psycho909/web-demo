@@ -1,74 +1,70 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-        html,body{
-            width: 100%;
-            height: 100%;
-        }
-        .box{
-            position: relative;
-            width: 132px;
-            height: 62px;
-            overflow: hidden;
-        }
-        .box-wrap{
-            width: 132px;
-            height: 62px;
-            overflow: hidden;
-            transform: translateY(0px);
-            
-        }
-        .box-wrap .box-wrap-img{
-            width: 132px;
-            animation: moveImg 3s steps(3) infinite both;
-            transform: translateY(0px);
-        }
-        .box-wrap .box-wrap-img img{
-            display: block;
-        }
-        @keyframes moveImg{
-            to{
-                transform: translateY(-186px);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
             }
-        }
-        .text-color{
-            font-size: 2rem;
-            font-family: Arial;
-            color:red;
-            animation: colorShow 1s steps(1,start) infinite;
-        }
-        @keyframes colorShow{
-            0%{
-                color:red;
+            html,
+            body {
+                width: 100%;
+                height: 100%;
             }
-            50%{
-                color:#009ee6;
+            body {
+                background-color: rgb(48, 48, 48);
             }
-            100%{
-                color:red;
+            .fire {
+                position: fixed;
+                bottom: 25%;
+                left: 3%;
+                width: 110px;
+                height: 151px;
+                background: url(./images/fw1.png);
+                animation: play 2.5s steps(10) infinite;
+                z-index: -1;
             }
-        }
-    </style>
-</head>
-<body>
-    <div class="box">
-        <div class="box-wrap">
-            <div class="box-wrap-img">
-                <img src="./images/1.png" alt="" class="">
-                <img src="./images/2.png" alt="" class="">
-                <img src="./images/3.png" alt="" class="">
-            </div>
-        </div>
-    </div>
-    <div class="text-color">NEW</div>
-</body>
+            @keyframes play {
+                0% {
+                    background-position: 0px;
+                }
+                50% {
+                    background-position: -1100px;
+                }
+                100% {
+                    background-position: -1100px;
+                }
+            }
+            .fire2{
+                position: fixed;
+                bottom: 25%;
+                left: 30%;
+                width: 100px;
+                height: 100px;
+                background: url(./images/fw.png);
+                /* background-position: 0 0; */
+                animation: play2 2.5s steps(10) infinite;
+                z-index: -1;
+            }
+            @keyframes play2 {
+                0% {
+                    background-position: 0px;
+                }
+                50% {
+                    background-position: -1000px;
+                }
+                100% {
+                    background-position: -1000px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="fire"></div>
+        <div class="fire2"></div>
+    </body>
 </html>
