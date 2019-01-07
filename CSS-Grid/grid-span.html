@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .grid-box{
+            width: 300px;
+            height: 300px;
+            background-color: #eee;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(2,1fr);
+            grid-gap: 10px;
+        }
+        .grid{
+            background-color: #444;
+            color:#fff;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+        .grid-a{
+            grid-column: 1 / span 2;
+            grid-row:1/2;
+        }
+        .grid-b{
+            grid-column: 3/span 1;
+            grid-row:1/span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-box">
+        <div class="grid grid-a">A</div>
+        <div class="grid grid-b">B</div>
+        <div class="grid grid-c">C</div>
+        <div class="grid grid-d">D</div>
+    </div>
+</body>
+</html>
