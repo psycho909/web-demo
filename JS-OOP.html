@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //superclass
+            function People(name){
+                this.name=name
+            }
+            People.prototype.sayHi=function(){
+                console.log(`${this.name} Say Hi!`)
+            }
+            // 1. 呼叫上層的建構式
+            function SuperPeople(name,power){
+                People.call(this,name)
+                this.power=power
+            }
+            // 2. 使用Object.create建立prototype物件。
+            //    SuperPeople建構式的prototype.constructor為自己。
+            SuperPeople.prototype=Object.create(People.prototype)
+            SuperPeople.prototype.constructor=SuperPeople;
+            SuperPeople.prototype.doPower=function(){
+                console.log(`${this.name} can do ${this.power}`)
+            }
+            var sp=new SuperPeople("SUPERMAN","FLY")
+            sp.sayHi()
+            sp.doPower()
+
+            class Man{
+                constructor(name,age){
+                    this.name=name;
+                    this.age=age
+                }
+                sayHi(){
+                    console.log(`${this.name} Say Hi!`)
+                }
+            }
+            class SuperMan extends Man{
+                constructor(name,age,power){
+                    super(name,age)
+                    this.power=power
+                }
+                doPower(){
+                    console.log(`${this.name} can do ${this.power}`)
+                }
+            }
+            var spm=new SuperMan("Batman",100,"FLY");
+            spm.sayHi()
+            spm.doPower()
+        </script>
+    </body>
+</html>
