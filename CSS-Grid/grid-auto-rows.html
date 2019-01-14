@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            div {
+                border: 1px dotted black;
+            }
+            .grid-2 {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 10px 40px 80px;
+            }
+
+            .grid-3 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-auto-rows: minmax(min-content, max-content);
+            }
+
+            .left {
+                background-color: red;
+            }
+
+            .right {
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid-2">
+            <div class="grid-2">
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+                <div class="left">L</div>
+            </div>
+            <div class="grid-3">
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+                <div class="right">R</div>
+            </div>
+        </div>
+    </body>
+</html>

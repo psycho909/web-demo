@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>漸層動畫</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: rgb(15, 15, 15);
+        }
+        .box{
+            width: 300px;
+            height: 50px;
+            position: relative;
+            color:#fff;
+            margin: 1rem;
+            text-align: center;
+            line-height: 50px;
+        }
+        .box:hover:before{
+            animation: rainbow-border 1.5s linear infinite;
+        }
+        .box:before{
+            content:"";
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: auto;
+            width: auto;
+            z-index: -1;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #0ebeff, #ffdd40, #ae63e4, #47cf73, #0ebeff, #ffdd40, #ae63e4, #47cf73);
+            transition: background-color .3s linear;
+            background-size: 200%;
+            z-index: -2;
+        }
+        .box:after{
+            content:"";
+            background-color: #000;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            margin: 6px;
+            border-radius: 4px;
+        }
+        @keyframes rainbow-border {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 200% 50%
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">BTN</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <ul id="ul-box"></ul>
+        </div>
+        <script>
+            var obj = [
+                {
+                    name: 'Pixel 3',
+                    price: 27700,
+                    description: '最新的 Google 手機。'
+                },
+                {
+                    name: 'Chromecast',
+                    price: 1500,
+                    description: '在大螢幕上播放喜歡的影片。'
+                },
+                {
+                    name: 'Pixel Book',
+                    price: 12000,
+                    description: '最新的 Chromebook 產品。'
+                }
+            ]
+            var _ul=document.querySelector("#ul-box")
+            var r=[];
+            obj.forEach((v)=>{
+                r.push(`<li><em>${v.name}</em><em>${v.description}</em><em>售價:${v.price}</em></li>`)
+            })
+            r.forEach((v)=>{
+                _ul.innerHTML+=v;
+            })
+        </script>
+    </body>
+</html>
