@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            margin: 12px auto;
+            padding: 12px;
+            width: 300px;
+            height: 300px;
+            border:3px solid #000;
+            background-color: rgb(112, 112, 112);
+            position: relative;
+        }
+        .box-inner{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border:3px solid rgb(39, 39, 39);
+            background-color: rgb(173, 173, 173);
+            margin: 12px auto;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box a">
+        <div class="box-inner"></div>
+    </div>
+    <div class="box b"></div>
+    <script>
+        var a=document.getElementsByClassName('a')[0]
+        var boxInner=document.getElementsByClassName('boxInner')[0]
+        a.addEventListener('click',function(e){
+            console.log(`e.clientX : ${e.clientX}`)
+            console.log(`e.offsetX : ${e.offsetX}`)
+            console.log(`e.pageX : ${e.pageX}`)
+        })
+        console.log(`clientHeight : ${a.clientHeight}`)
+        console.log(`offsetHeight : ${a.offsetHeight}`)
+        console.log(`offsetTop : ${a.offsetTop}`)
+        console.log(`getBoundingClientRect() :`)
+        console.log(a.getBoundingClientRect())
+        console.log(`jQuery innerHeight : ${$('.a').innerHeight()}`)
+        console.log(`jQuery outerHeight 1 : ${$('.a').outerHeight()}`)
+        console.log(`jQuery outerHeight 2 : ${$('.a').outerHeight(true)}`)
+    </script>
+</body>
+</html>
