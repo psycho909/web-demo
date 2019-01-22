@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>animation</title>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
+            html,
+            body,
+            #app {
+                height: 100%;
+            }
+
+            #app {
+                overflow: hidden;
+            }
+
+            .page {
+                height: 100%;
+                background: #000;
+                position: relative;
+                color: #fff;
+            }
+            .page .span {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: inline-block;
+                background-image: linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0) 40%,
+                        #fff 40%,
+                        #fff 60%,
+                        rgba(255, 255, 255, 0) 60%
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 40%,
+                        #fff 40%,
+                        #fff 60%,
+                        rgba(255, 255, 255, 0) 60%
+                    ),
+                    linear-gradient(
+                        45deg,
+                        rgba(255, 255, 255, 0) 43%,
+                        #fff 43%,
+                        #fff 57%,
+                        rgba(255, 255, 255, 0) 57%
+                    ),
+                    linear-gradient(
+                        135deg,
+                        rgba(255, 255, 255, 0) 43%,
+                        #fff 43%,
+                        #fff 57%,
+                        rgba(255, 255, 255, 0) 57%
+                    );
+                position: absolute;
+                top: -30px;
+                animation-iteration-count: infinite;
+                transform-origin: center -30px;
+                transform: translate3d(0, 0, 0);
+            }
+
+            .animation[data-animation-position='1'] {
+                left: 1vw;
+            }
+
+            .animation[data-animation-position='2'] {
+                left: 2vw;
+            }
+
+            .animation[data-animation-position='3'] {
+                left: 3vw;
+            }
+
+            .animation[data-animation-position='4'] {
+                left: 4vw;
+            }
+
+            .animation[data-animation-position='5'] {
+                left: 5vw;
+            }
+
+            .animation[data-animation-position='6'] {
+                left: 6vw;
+            }
+
+            .animation[data-animation-position='7'] {
+                left: 7vw;
+            }
+
+            .animation[data-animation-position='8'] {
+                left: 8vw;
+            }
+
+            .animation[data-animation-position='9'] {
+                left: 9vw;
+            }
+
+            .animation[data-animation-position='10'] {
+                left: 10vw;
+            }
+
+            .animation[data-animation-position='11'] {
+                left: 11vw;
+            }
+
+            .animation[data-animation-position='12'] {
+                left: 12vw;
+            }
+
+            .animation[data-animation-position='13'] {
+                left: 13vw;
+            }
+
+            .animation[data-animation-position='14'] {
+                left: 14vw;
+            }
+
+            .animation[data-animation-position='15'] {
+                left: 15vw;
+            }
+
+            .animation[data-animation-timing='linear'] {
+                transition-timing-function: linear;
+            }
+
+            .animation[data-animation-timing='ease'] {
+                transition-timing-function: ease;
+            }
+
+            .animation[data-animation-timing='ease-in'] {
+                transition-timing-function: ease-in;
+            }
+
+            .animation[data-animation-timing='ease-out'] {
+                transition-timing-function: ease-out;
+            }
+
+            .animation[data-animation-timing='ease-in-out'] {
+                transition-timing-function: ease-in-out;
+            }
+
+            .animation[data-animation-delay='1'] {
+                animation-delay: 1s;
+            }
+
+            .animation[data-animation-delay='2'] {
+                animation-delay: 2s;
+            }
+
+            .animation[data-animation-delay='3'] {
+                animation-delay: 3s;
+            }
+
+            .animation[data-animation-delay='4'] {
+                animation-delay: 4s;
+            }
+
+            .animation[data-animation-duration='4'] {
+                animation-duration: 4s;
+            }
+
+            .animation[data-animation-duration='5'] {
+                animation-duration: 5s;
+            }
+
+            .animation[data-animation-duration='6'] {
+                animation-duration: 6s;
+            }
+
+            .animation[data-animation-duration='7'] {
+                animation-duration: 7s;
+            }
+
+            .animation[data-animation-duration='8'] {
+                animation-duration: 8s;
+            }
+
+            @keyframes fall {
+                0% {
+                    top: -40px;
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+                100% {
+                    top: 100vh;
+                    opacity: 1;
+                }
+            }
+            .animation[data-animation-name='1'] {
+                animation-name: fall, swing1;
+            }
+
+            .animation[data-animation-name='2'] {
+                animation-name: fall, swing2;
+            }
+
+            .animation[data-animation-name='3'] {
+                animation-name: fall, swing3;
+            }
+
+            .animation[data-animation-name='4'] {
+                animation-name: fall, swing4;
+            }
+
+            @keyframes swing1 {
+                25% {
+                    transform: translateX(-10px);
+                }
+                50% {
+                    transform: translateX(10px);
+                }
+                75% {
+                    transform: translateX(-10px);
+                }
+                100% {
+                    transform: translateX(10px);
+                }
+            }
+            @keyframes swing2 {
+                25% {
+                    transform: translateX(-20px);
+                }
+                50% {
+                    transform: translateX(20px);
+                }
+                75% {
+                    transform: translateX(-20px);
+                }
+                100% {
+                    transform: translateX(20px);
+                }
+            }
+
+            @keyframes swing3 {
+                25% {
+                    transform: translateX(-30px);
+                }
+                50% {
+                    transform: translateX(30px);
+                }
+                75% {
+                    transform: translateX(-30px);
+                }
+                100% {
+                    transform: translateX(30px);
+                }
+            }
+
+            @keyframes swing4 {
+                25% {
+                    transform: translateX(-40px);
+                }
+                50% {
+                    transform: translateX(40px);
+                }
+                75% {
+                    transform: translateX(-40px);
+                }
+                100% {
+                    transform: translateX(40px);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="page"></div>
+        </div>
+    </body>
+
+
+    <script>
+        var Application={
+            count:10,
+            time:['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out'],
+            random(min,max){
+                return Math.floor(Math.random()*(max-min+1)+min)
+            },
+            position(){
+                return this.random(1,100)
+            },
+            delay(){
+                return this.random(1,3)
+            },
+            duration(){
+                return this.random(4,8)
+            },
+            name(){
+                return this.random(1,4)
+            },
+            timing(){
+                return this.time[this.random(0,4)]
+            }
+        }
+        var HTML_STR=`
+            <span class="animation span" 
+                data-animation-postion="{{position}}" 
+                data-animation-delay="{{delay}}"
+                data-animation-timing="{{timing}}"
+                data-animation-duration="{{duration}}"
+                data-animation-name="{{name}}">{{i}}
+            </span>
+        `;
+        var HTML="";
+        for(var i=0;i<Application.count;i++){
+            HTML+=HTML_STR.replace("{{position}}",Application.position())
+                        .replace("{{delay}}",Application.delay())
+                        .replace("{{timing}}",Application.timing())
+                        .replace("{{duration}}",Application.duration())
+                        .replace("{{name}}",Application.name())
+                        .replace("{{i}}",i)
+        }
+        document.getElementsByClassName('page')[0].innerHTML=HTML;
+    </script>
+</html>

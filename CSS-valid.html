@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新CSS 4 From表單驗證</title>
+    <style>
+        .email:valid ~ .email-valid{
+            display: block;
+            color:blue;
+        }
+        .email:invalid ~ .email-invalid{
+            display: block;
+            color:red;
+        }
+        .email:required:hover{
+            border-bottom:4px solid orange;
+        }
+        .email:optional:hover{
+            border-bottom:4px solid yellow;
+        }
+        .span-valid{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-group">
+        <input class="email" name="email" type="email" required>
+        <input class="email" name="email" type="email">
+        <span class="span-valid email-invalid">請輸入正確EMAIL~~</span>
+        <span class="span-valid email-valid">正確EMAIL!!</span>
+    </div>
+</body>
+</html>
