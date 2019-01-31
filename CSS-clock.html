@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #1f1f1f;
+        }
+        .clock{
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+        .clock-item{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0% 50%;
+        }
+        .clock__bg{
+            transform: translate(-50%,-50%);
+        }
+        .clock__hour{
+            transform: rotate(-90deg);
+        }
+        .clock__min{
+            transform-origin: 25% 4%;
+            transform: rotate(-180deg);
+        }
+        .clock__sec{
+            transform: rotate(-180deg);
+            transform-origin: 25% 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <img id="bg" class="clock-item clock__bg" src="./images/clock-bg.svg" alt="">
+        <img id="hour" class="clock-item clock__hour" src="./images/hour-hand.svg" alt="">
+        <img id="min" class="clock-item clock__min" src="./images/minute-hand.svg" alt="">
+        <img id="sec" class="clock-item clock__sec" src="./images/second-hand.svg" alt="">
+    </div>
+
+    <script>
+        var timer=setInterval(function(){
+            var now=new Date();
+            var hour=now.getHours()
+            var min=now.getMinutes()
+            var sec=now.getSeconds()
+
+            var hourDeg=hour*30+min*0.5
+            var minDeg=min*6+sec*0.1
+            var secDeg=sec*6
+            document.getElementById("hour").style.transform=`rotate(${-90+hourDeg}deg)`
+            document.getElementById("min").style.transform=`rotate(${-180+minDeg}deg)`
+            document.getElementById("sec").style.transform=`rotate(${-180+secDeg}deg)`
+
+        },1000)
+    </script>
+</body>
+</html>
