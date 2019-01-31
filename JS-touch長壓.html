@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            #button {
+                width: 300px;
+                height: 100px;
+                margin: 0 auto 20px;
+                background: #a00;
+            }
+            #button.active {
+                background: #f00;
+            }
+            #r {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="button"></div> 
+        <p id="r">赤い部分をマウスかタップで長押し</p>
+    </body>
+
+    <script>
+        let count=0;
+        let timer;
+        const ua=navigator.userAgent.toLowerCase()
+        const isSP=/iphone|ipod|ipad|android/.test(ua)
+        const b=document.getElementById('button')
+        const r=document.getElementById('r')
+        const eventStart=isSP?"touchstart":"mousedown";
+        const eventEnd=isSP?"touchend":"mouseup";
+        const eventLeave=isSP?"touchmove":"mouseleave";
+
+        b.addEventListener(eventStart,e=>{
+            e.preventDefault();
+            b.classList.add('active')
+            timer=setInterval(()=>{
+                count++
+                r.textContent=(count/100)+"s"
+            },10)
+        })
+
+        b.addEventListener(eventEnd,e=>{
+            e.preventDefault();
+            if(count){
+                b.classList.remove('active')
+                clearInterval(timer)
+                r.textContent=`count ${count/100}s`;
+                count=0;
+            }
+        })
+
+        b.addEventListener(eventLeave,e=>{
+            e.preventDefault();
+            let el;
+            el=isSP?document.elementFromPoint(e.touches[0].clientX,e.touches[0].clientY):b;
+            if(!isSP || el !== b){
+                b.classList.remove('active')
+                clearInterval(timer)
+                r.textContent="STOP"
+                count=0
+            }
+        })
+    </script>
+</html>
