@@ -1,0 +1,18 @@
+input#normal-mode(type="radio",name="mode",checked)
+input#flag-mode(type="radio",name="mode")
+p.mode_control
+    label.normal_mode(for="normal-mode")
+        span Normal
+    label.flag_mode(for="flag-mode")
+        span Flag
+    
+    - for(let i=0;i<64;i++)
+        input(id=`input-${i}-open`,type="checkbox")
+    - for(let i=0;i<64;i++)
+        input.flag_check(id=`input-${i}-flag`,type="checkbox")
+    
+    .field
+        - for(let i=0;i<64;i++)
+            .cell
+                label.mark_as_opened(for = `input-${i}-open`)
+                label.mark_as_flag(for = `input-${i}-flag`)
