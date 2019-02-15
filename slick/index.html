@@ -39,23 +39,23 @@
 <body>
     <section id="features" class="blue">
         <div class="content">
-            <div class="slick-slider single-item" data-slick='{"initialSlide": 3}'>
-                <div>
+            <div class="slick-slider single-item">
+                <div class="col-slide">
                     <span>1</span>
                 </div>
-                <div>
+                <div class="col-slide">
                     <span>2</span>
                 </div>
-                <div>
+                <div class="col-slide">
                     <span>3</span>
                 </div>
-                <div>
+                <div class="col-slide">
                     <span>4</span>
                 </div>
-                <div>
+                <div class="col-slide">
                     <span>5</span>
                 </div>
-                <div>
+                <div class="col-slide">
                     <span>6</span>
                 </div>
             </div>
@@ -63,26 +63,35 @@
     </section>
     <script>
         $('.single-item').slick({
-            dots: true,
+            dots: false,
+            arrows:false,
             slidesToShow: 4,
+            infinite:true,
+            // mobileFirst:true,
+            responsive:true,
             responsive: [{
-                    breakpoint: 1024,
+                    breakpoint: 1000,
                     settings: {
                         slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
+                        slidesToScroll: 3
                     }
                 },
                 {
-                    breakpoint: 600,
+                    breakpoint: 768,
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 2
                     }
                 },
                 {
-                    breakpoint: 480,
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 424,
                     settings: {
                         slidesToShow: 1,
                         slidesToScroll: 1
