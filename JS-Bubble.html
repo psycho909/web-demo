@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>泡泡移動</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+</head>
+<body>
+    
+    <script>
+    var bubbleArray = [];
+var c1, c2;
+
+function Bubble(xloc, yloc, zloc, rise, rad) {
+    this.xloc = xloc;
+    this.yloc = yloc;
+    this.zloc = zloc;
+    this.rad = rad;
+    this.rise = rise;
+}
+
+function CreateBubbles(howManyBubbles) {
+    var count = howManyBubbles;
+    for (i = 0; i < count; i++) {
+        var x = random(0, 640);
+        var y = random(0, 480);
+        var z = random(0.3, 0.7);
+        var r = map(z, 0.3, 0.7, 7, 25);
+        var rise = map(z, 0.3, 0.7, 0.7, 1.7);
+        var b = new Bubble(x, y, z, rise, r);
+        bubbleArray.push(b);
+    }
+}
+
+function Show() {
+    for (i = 0; i < bubbleArray.length; i++) {
+        var x = bubbleArray[i].xloc;
+        var y = bubbleArray[i].yloc;
+        var z = bubbleArray[i].zloc;
+        var r = bubbleArray[i].rad;
+        fill(255, 255, 255, z);
+        ellipse(x, y, r, r);
+    }
+}
+
+function Rise() {
+    for (i = 0; i < bubbleArray.length; i++) {
+        var x = bubbleArray[i].rise;
+        bubbleArray[i].yloc -= x;
+        var zmin = bubbleArray[i].zloc * -1.5;
+        var zmax = bubbleArray[i].zloc * 1.5;
+        var slowy = bubbleArray[i].yloc * .08;
+        bubbleArray[i].xloc += map(cos(slowy), -1, 1, zmin, zmax)
+    }
+}
+
+function Edges() {
+    for (i = 0; i < bubbleArray.length; i++) {
+        if (bubbleArray[i].yloc < -10) {
+            bubbleArray[i].yloc = 480 + 20;
+            bubbleArray[i].xloc = random(0, 640);
+        }
+    }
+}
+
+function setGradient(x, y, w, h, c1, c2) {
+    noFill();
+    for (var i = y; i <= y + 480; i++) {
+        var inter = map(i, y, y + 480, 0, 1);
+        var c = lerpColor(c1, c2, inter - 0.35);
+        stroke(c);
+        line(x, i, x + 640, i);
+    }
+}
+
+function setup() {
+
+    createCanvas(640, 480);
+    noStroke();
+    CreateBubbles(200);
+}
+
+function back() {
+    c1 = color(171, 252, 171, 1);
+    c2 = color(3, 97, 176, .2);
+    colorMode(RGB, 255, 255, 255, 1);
+    setGradient(0, 0, 640, 480, c1, c2);
+    stroke(158, 219, 155);
+    strokeWeight(1);
+    noFill();
+    Show();
+    Rise();
+    Edges();
+}
+var j = 0;
+
+function draw() {
+    var i = 0;
+    var m = millis();
+    var s1 = millis() / 1000;
+    back();
+    if (s1 > 2.5)
+        i = (parseInt)(s1 / 2.5);
+    s = s1 - 2.5 * i;
+
+    if (640 - s * 1000 >= 260) //0.38
+    {
+        back();
+    } else if (s < 0.4) {
+        back();
+    } else if (240 + s * 50 <= 330) //1.8
+    {
+        back();
+    } else if (s <= 1.9) {
+        back();
+    } else if (5080 - s * 2500 >= 0) //2.165
+    {
+        back();
+    } else if (s <= 2.5) {
+        back();
+    }
+}
+
+function drawwing1() {
+}
+
+function drawwing2(x) {
+}
+
+function drawwing3(x) {
+
+}
+
+function drawbow() {
+}
+
+function drawarrow(x) {
+}    
+    </script>
+</body>
+</html>
