@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/css/swiper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./js/swiper.min.js"></script>
     <style>
-        <style>html,
+        html,
         body {
             position: relative;
             height: 100%;
@@ -24,38 +23,56 @@
             margin: 0;
             padding: 0;
         }
-
-        .swiper-container {
+        .swiper-container{
             width: 100%;
-            height: 100%;
         }
-
-        .swiper-slide {
+        #swiper-a,#swiper-b{
+            margin-bottom: 1rem;
+        }
+        #swiper-a .swiper-slide,
+        #swiper-b .swiper-slide {
+            height: 300px;
             text-align: center;
             font-size: 18px;
             background: #fff;
-
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
         }
-    </style>
+        .gallery-top{
+            height: 300px;
+        }
+        .gallery-top .swiper-slide{
+            background-size: cover;
+            background-position: center center;
+        }
+        .gallery-thumbs .swiper-slide{
+            width: 25%;
+            height: 100%;
+            background: #fff;
+            text-align: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        .gallery-thumbs {
+            padding: 1rem;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+        
+        @media screen and (max-width:1024px){
+            .gallery-thumbs .swiper-slide{
+                width: 33.333%;
+            }
+        }
+        @media screen and (max-width:768px){
+            .gallery-thumbs .swiper-slide{
+                width: 50%;
+            }
+        }
     </style>
 </head>
 
 <body>
     <!-- Swiper -->
-    <div class="swiper-container">
+    <div id="swiper-a" class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide">Slide 1</div>
             <div class="swiper-slide">Slide 2</div>
@@ -68,23 +85,114 @@
             <div class="swiper-slide">Slide 9</div>
             <div class="swiper-slide">Slide 10</div>
         </div>
-        <!-- Add Arrows -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
+    <div id="swiper-b" class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            <div class="swiper-slide">Slide 10</div>
+        </div>
+    </div>
 
+    <div id="swiper-c" class="swiper-container gallery-top">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1529429617124-95b109e86bb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1537151672256-6caf2e9f8c95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+            <div class="swiper-slide" style="background-image:url(https://images.unsplash.com/photo-1521673461164-de300ebcfb17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"></div>
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+    <div class="swiper-container gallery-thumbs">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Dog1</div>
+            <div class="swiper-slide">Dog2</div>
+            <div class="swiper-slide">Dog3</div>
+            <div class="swiper-slide">Dog4</div>
+            <div class="swiper-slide">Dog5</div>
+            <div class="swiper-slide">Dog6</div>
+        </div>
+    </div>
+        
     <!-- Swiper JS -->
-    <script src="../dist/js/swiper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/js/swiper.min.js"></script>
 
     <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            initialSlide :2,
+        var swipera = new Swiper('#swiper-a', {
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
         });
+
+        var swiperb = new Swiper('#swiper-b', {
+            slidesPerView: 4,
+            spaceBetween: 50,
+            // init: false,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                }
+            }
+        });
+
+        var galleryThumbs = new Swiper('.gallery-thumbs', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+            breakpoints:{
+                1024: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+            }
+        });
+        var galleryTop = new Swiper('.gallery-top', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+                swiper: galleryThumbs
+            }
+        });
+
     </script>
 </body>
 

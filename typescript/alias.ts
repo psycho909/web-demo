@@ -16,3 +16,4 @@ interface iUser{
     name:string;
     age:number
 }
+console.log(123)
