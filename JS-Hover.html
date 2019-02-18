@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "微軟正黑體";
+        }
+        header{
+            width: 100%;
+            height: 150px;
+            background-color: #e8e8e8;
+        }
+        nav{
+            background-color: #000;
+            width: 100%;
+            height: 36px;
+            position: relative;
+        }
+        .menu-box{
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            list-style: none;
+            position: relative;
+        }
+        .menu{
+            color:#fff;
+            padding:0 1rem;
+            height: 36px;
+            line-height: 36px;
+            cursor: pointer;
+        }
+        .menu.hover{
+            background-color: rgb(177, 28, 28);
+        }
+        .menu-content{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 300px;
+            box-sizing: border-box;
+            border:2px solid #000;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header></header>
+        <nav class="menu-wrap">
+            <ul class="menu-box">
+                <li id="menu1" class="menu" data-type="menu1">標籤1</li>
+                <li id="menu2" class="menu" data-type="menu2">標籤2</li>
+                <li id="menu3" class="menu" data-type="menu3">標籤3</li>
+                <li id="menu4" class="menu" data-type="menu4">標籤4</li>
+                <li id="menu5" class="menu" data-type="menu5">標籤5</li>
+                <li id="menu6" class="menu" data-type="menu6">標籤6</li>
+            </ul>
+            <div class="menu-content" data-type="menu1">
+                <div class="menu-content__inner">標籤1</div>
+            </div>
+            <div class="menu-content" data-type="menu2">
+                <div class="menu-content__inner">標籤2</div>
+            </div>
+            <div class="menu-content" data-type="menu3">
+                <div class="menu-content__inner">標籤3</div>
+            </div>
+            <div class="menu-content" data-type="menu4">
+                <div class="menu-content__inner">標籤4</div>
+            </div>
+            <div class="menu-content" data-type="menu5">
+                <div class="menu-content__inner">標籤5</div>
+            </div>
+            <div class="menu-content" data-type="menu6">
+                <div class="menu-content__inner">標籤6</div>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        var sub_menu_show=false;
+
+        $('.menu').mouseenter(function(){
+            var mLeft=$(this).offset().left;
+            var mTop=$(this).offset().top;
+            var dType=$(this).data('type');
+            sub_menu_show=true;
+            $(this).addClass("hover")
+            $('.menu-content').each(function(){
+                if($(this).data('type') == dType){
+                    $(this).css("visibility",'visible');
+                    $(this).css({top:36+"px",left:mLeft+'px'})
+                    $('.menu-content').not($(this)).css("visibility",'hidden')
+                }
+            })
+        }).mouseleave(function(){
+            $(this).removeClass("hover")
+            sub_menu_show=false;
+            setTimeout(() => {
+                if(!sub_menu_show){
+                    $('.menu-content').css("visibility",'hidden')
+                }
+            }, 300);
+        })
+
+        $('.menu-content').mouseenter(function(){
+            sub_menu_show=true;
+            var subType=$(this).data('type')
+            $('.menu').each(function(){
+                if($(this).data('type') == subType){
+                    $(this).addClass('hover')
+                    $('.menu').not($(this)).removeClass("hover")
+                }
+            })
+        }).mouseleave(function(){
+            sub_menu_show=false;
+            $('.menu').removeClass("hover")
+            setTimeout(()=>{
+                if(!sub_menu_show){
+                    $('.menu-content').css("visibility",'hidden')
+                }
+            },300)
+        })
+    </script>
+</body>
+</html>
