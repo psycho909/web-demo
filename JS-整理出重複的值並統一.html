@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var newTemp1=[];
+        var temp1=[
+            {lottery_name: "測試1",prize_nm: "獎品1",prize_num: "2",sendemail: "Y0",status: "Y"},
+            {lottery_name: "測試1",prize_nm: "獎品2",prize_num: "2",sendemail: "Y0",status: "N"},
+            {lottery_name: "測試2",prize_nm: "獎品2",prize_num: "2",sendemail: "Y0",status: "N"},
+            {lottery_name: "測試2",prize_nm: "獎品2",prize_num: "2",sendemail: "Y0",status: "N"},
+        ];
+        
+        var keys=[]
+
+        temp1.forEach((v,i)=>{
+            keys.push(v.lottery_name)
+        })
+
+        keys=[...new Set(keys)]
+
+        keys.forEach((v,i)=>{
+            var obj={}
+            obj[v]=[];
+            newTemp1.push(obj)
+        })
+
+        newTemp1.forEach((v,i)=>{
+            for(var i=0;i<temp1.length;i++){
+                if(Object.keys(v)[0] == temp1[i].lottery_name){
+                    v[Object.keys(v)[0]].push(temp1[i])
+                }
+            }
+        })
+
+        function checkItem(item){
+            return item.map(v=>{
+                console.log(v)
+            })
+        }
+        var m=new Map();
+        
+        for(var i=0;i<keys.length;i++){
+            for(var j=0;j<newTemp1.length;j++){
+                
+                if(newTemp1[j][keys[i]] != undefined){
+                    var obj={Y:0,N:0}
+                    newTemp1[j][keys[i]].forEach((v,i)=>{
+                        if(v.status === 'Y'){
+                            obj.Y++
+                        }
+                        if(v.status === 'N'){
+                            obj.N++
+                        }
+                    })
+                    m.set(keys[i],obj)
+                }
+            }
+        }
+        
+        var checkList=[];
+
+        for(var [key,value] of m.entries()){
+            if(value.N > 1){
+                checkList.push(key)
+            }
+        }
+        console.log(checkList)
+    </script>
+</body>
+</html>
