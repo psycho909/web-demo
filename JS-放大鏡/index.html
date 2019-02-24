@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./css/jqzoom.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./js/jquery.jqzoom-min.js"></script>
+        <style>
+            .jqzoom img { 
+                border: 3px solid #888; 
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <a href="https://p2.bahamut.com.tw/M/2KU/25/10ef3e99292630b7adf4925a6d142j95.JPG" class="jqzoom" title="放大鏡">
+                <img src="https://p2.bahamut.com.tw/S/2KU/29/c90350e141b3530667d33faaf2142jd5.JPG" title="image" alt="image" />
+            </a>
+        </div>
+
+        <script>
+            $(function() {
+                $('.jqzoom').jqzoom({
+                    zoomType: 'standard',
+                    preloadImages: false
+                })
+            })
+        </script>
+    </body>
+</html>
