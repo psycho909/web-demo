@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .main{
+            width: 1200px;
+            height: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-gap: 12px;
+            grid-template-columns: repeat(14,1fr);
+            grid-template-rows: [header] 100px [body] auto;
+        }
+        .header{
+            grid-row: header;
+            grid-column: 2/span 12;
+            background-color: rgba(0,0,0,.5);
+        }
+        .sidebar{
+            grid-row: body;
+            grid-column: 2/span 4;
+            background-color: rgba(0,0,0,.5);
+        }
+        .content{
+            grid-row: body;
+            grid-column: 6/ span 8;
+            background-color: rgba(0,0,0,.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="header">Header</div>
+        <div class="sidebar">sidebar</div>
+        <div class="content">content</div>
+    </div>
+</body>
+</html>

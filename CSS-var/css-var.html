@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            :root {
+                --responsive-font-size: 2rem;
+            }
+            body {
+                background-color: LavenderBlush;
+                color: Teal;
+                font-size: 100%;
+            }
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+            :root {
+                --small-spacing: 0.5rem;
+                --large-spacing: 1rem;
+                --large-font-size: 2rem;
+            }
+
+            @media (min-width: 576px) {
+                :root {
+                    --small-spacing: 1rem;
+                    --large-spacing: 2rem;
+                    --large-font-size: 3rem;
+                }
+            }
+            /* component styles */
+
+            .post {
+                background-color: white;
+                max-width: 480px;
+                border-radius: 16px;
+                padding: var(--small-spacing) var(--large-spacing);
+                margin: var(--small-spacing) auto var(--large-spacing);
+            }
+
+            .heading {
+                font-size: var(--large-font-size);
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <article class="post">
+            <h2 class="heading">Post’s heading</h2>
+            <p class="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Laudantium numquam adipisci recusandae officiis dolore tenetur,
+                nisi, beatae praesentium, soluta ullam suscipit quas?
+            </p>
+        </article>
+
+        <article class="post">
+            <h2 class="heading">Post’s heading</h2>
+            <p class="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Laudantium numquam adipisci recusandae officiis dolore tenetur,
+                nisi, beatae praesentium, soluta ullam suscipit quas?
+            </p>
+        </article>
+    </body>
+</html>

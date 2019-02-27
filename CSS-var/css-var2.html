@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            :root {
+                --responsive-font-size: 2rem;
+            }
+            body {
+                background-color: LavenderBlush;
+                color: Teal;
+                font-size: 100%;
+            }
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+            /* component variables */
+
+            :root {
+                --spacing-multiplier: 1;
+                --headings-multiplier: 1;
+            }
+
+            /* component variables on larger screens */
+
+            @media (min-width: 576px) {
+                :root {
+                    --spacing-multiplier: 2;
+                    --headings-multiplier: 3 / 2;
+                }
+            }
+            /* components styles */
+
+            .container {
+                max-width: 480px;
+                margin: 0 auto;
+            }
+
+            .post {
+                background-color: white;
+                border-radius: 16px;
+                padding: calc(0.5rem * var(--spacing-multiplier)) calc(1rem * var(--spacing-multiplier));
+                margin: calc(0.5rem * var(--spacing-multiplier)) 0 calc(1rem * var(--spacing-multiplier));
+            }
+
+            .heading-medium,
+            .heading-large {
+                margin: 0;
+            }
+
+            .heading-medium {
+                font-size: calc(2rem * var(--headings-multiplier));
+            }
+
+            .heading-large {
+                font-size: calc(3rem * var(--headings-multiplier));
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="heading-large">My Blog</h1>
+            <article class="post">
+                <h2 class="heading-medium">Post’s heading</h2>
+                <p class="paragraph">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Laudantium numquam adipisci recusandae officiis dolore
+                    tenetur, nisi, beatae praesentium, soluta ullam suscipit
+                    quas?
+                </p>
+            </article>
+
+            <article class="post">
+                <h2 class="heading-medium">Post’s heading</h2>
+                <p class="paragraph">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Laudantium numquam adipisci recusandae officiis dolore
+                    tenetur, nisi, beatae praesentium, soluta ullam suscipit
+                    quas?
+                </p>
+            </article>
+        </div>
+    </body>
+</html>
