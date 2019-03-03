@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            #div-03{
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <article>
+            <div id="div-01">
+                Here is div-01
+                <div id="div-02">
+                    Here is div-02
+                    <div id="div-03">
+                        <h2>Here is div-03</h2>
+                        <div class="box">1</div>
+                        <div class="box">2</div>
+                        <div class="box">3</div>
+                        <div class="box">4</div>
+                        <div class="box">5</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <script>
+        
+            var div03=document.getElementById("div-03")
+
+            console.log(div03.closest("#div-02").textContent)
+
+
+        </script>
+    </body>
+</html>

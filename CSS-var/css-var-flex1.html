@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            /* global styles */
+
+            body {
+                background-color: LavenderBlush;
+                color: Teal;
+                font-size: 100%;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+                    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+                    'Noto Color Emoji';
+                line-height: 1.5;
+                margin: 0;
+                padding: 1rem;
+            }
+
+            *,
+            ::after,
+            ::before {
+                box-sizing: border-box;
+            }
+
+            /* grid styles */
+
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .column {
+                --columns: 12; /* number of columns in the grid system */
+                --width-default: 0; /* default width, makes it flexible */
+                --width: var(
+                    --width-mobile,
+                    var(--width-default)
+                ); /* width of the element */
+
+                background-color: pink;
+                border: LavenderBlush 2px solid;
+                border-radius: 8px;
+                padding: 16px;
+                flex-basis: calc(var(--width) / var(--columns) * 100%);
+            }
+
+            @media (min-width: 576px) {
+                .column {
+                    --width: var(
+                        --width-desktop,
+                        var(--width-mobile, var(--width-default))
+                    );
+                }
+            }
+
+            /* sections */
+
+            .header {
+                --width-mobile: 12;
+                height: 8rem;
+            }
+
+            .content {
+                --width-mobile: 12;
+                --width-desktop: 8;
+                height: 64rem;
+            }
+
+            .sidebar {
+                --width-mobile: 12;
+                --width-desktop: 4;
+                height: 64rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header column">
+                .header
+            </header>
+            <main class="content column">
+                .content
+            </main>
+            <aside class="sidebar column">
+                .sidebar
+            </aside>
+        </div>
+    </body>
+</html>

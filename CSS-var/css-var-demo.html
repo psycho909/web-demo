@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: rgb(255, 247, 200);
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            --width:80%;
+            --bdColor:yellow;
+            --bg:orange;
+            width: var(--width);
+            height: 60px;
+            border:1px solid var(--bdColor);
+            background-color: var(--bg);
+            color:#fff;
+            text-align: center;
+            line-height: 60px;
+        }
+        @media screen and (max-width:768px){
+            .box{
+                --width:70%;
+                --bdColor:rgb(0, 255, 64);
+                --bg:rgb(240, 9, 9);
+            }
+        }
+        @media screen and (max-width:576px){
+            .box{
+                --width:60%;
+                --bdColor:rgb(255, 0, 191);
+                --bg:rgb(2, 102, 60);
+            }
+        }
+        @media screen and (max-width:424px){
+            .box{
+                --width:50%;
+                --bdColor:rgb(255, 102, 0);
+                --bg:rgb(228, 1, 179);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            VAR
+        </div>
+    </div>
+</body>
+</html>
