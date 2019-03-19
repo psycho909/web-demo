@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .wrap{
+            position: relative;
+            padding: 1rem;
+        }
+        .find-img{
+            cursor: pointer;
+            width: 800px;
+            position: relative;
+        }
+        .find-img > img{
+            width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+        .input-group{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .input-group > input{
+            display: none;
+            opacity: 0;
+        }
+        .input-group > label{
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            font-size: 0;
+            display: block;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .input-group > input:checked + label{
+            border-color: red;
+        }
+        .checkbox1-input{
+            top: 100px;
+            left: 200px;
+        }
+        .checkbox2-input{
+            top: 230px;
+            left:30px;
+        }
+        .checkbox3-input{
+            top: 400px;
+            left: 300px;
+        }
+        .checkbox4-input{
+            top: 230px;
+            left: 601px;
+        }
+        .len{
+            display: inline-block;
+        }
+        #submit{
+            border: none;
+            padding: 1rem 3rem;
+            display: inline-block;
+            background-color: green;
+            color:#fff;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        #submit:disabled{
+            background-color: rgb(175, 175, 175);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="len">4</div>
+        <button id="submit" disabled>送出</button>
+        <div class="find-img">
+            <img src="./images/cover.jpeg" alt="">
+        </div>
+        <div class="input-group checkbox1-input">
+            <input id="checkbox1" class="checkboxs" type="checkbox" value="checkbox1" name="checkboxs[]">
+            <label for="checkbox1"></label>
+        </div>
+        <div class="input-group checkbox2-input">
+            <input id="checkbox2" class="checkboxs" type="checkbox" value="checkbox2" name="checkboxs[]">
+            <label for="checkbox2"></label>
+        </div>
+        <div class="input-group checkbox3-input">
+            <input id="checkbox3" class="checkboxs" type="checkbox" value="checkbox3" name="checkboxs[]">
+            <label for="checkbox3"></label>
+        </div>
+        <div class="input-group checkbox4-input">
+            <input id="checkbox4" class="checkboxs" type="checkbox" value="checkbox4" name="checkboxs[]">
+            <label for="checkbox4"></label>
+        </div>
+    </div>
+
+    <script>
+        var len;
+        $('.checkboxs').on('click',function(){
+            len=parseInt($(".len").text())
+            if($(this).prop("checked")){
+                $(this).prop("disabled",true)
+                $(".len").text(len-1)
+                if($(".len").text() == 0){
+                    $('#submit').prop('disabled',false)
+                    
+                }
+            }else{
+                $(".len").text(len+1)
+            }
+        })
+    </script>
+</body>
+</html>
