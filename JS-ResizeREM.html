@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html{
+            font-size: 20px;
+        }
+        .box{
+            width: 15.625rem;
+            height: 15.625rem;
+            background-color: rgb(255, 0, 0);
+        }
+    </style>
+    <script>
+        window.addEventListener('resize',function(){
+            let htmlDom = document.getElementsByTagName('html')[0];
+            if(document.documentElement.clientWidth < 640){
+                htmlDom.style.fontSize=20*(document.documentElement.clientWidth/320)+'px';
+            }else{
+                htmlDom.style.fontSize=20+'px'
+            }
+            
+        })
+    </script>
+</head>
+<body>
+        <noscript>开启JavaScript，获得更好的体验</noscript>
+    <div class="box">這是P</div>
+</body>
+</html>

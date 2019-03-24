@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .box{
+            position: relative;
+            display: block;
+            width: 244px;
+            height: 200px;
+            overflow: hidden;
+        }
+        .box .text{
+            color:#333;
+            padding: 20px;
+            width: 204px;
+            overflow: hidden;
+            background-color: #e0e0e0;
+        }
+        .box .text:after{
+            content:'';
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 1em;
+            bottom: 0;
+            left: 0;
+            background-color: #e0e0e0;
+        }
+        .box .text:before{
+            content:'...';
+            position: absolute;
+            text-align: right;
+            display: block;
+            width: 2em;
+            height: 1em;
+            bottom: 1em;
+            right: 20px;
+            background: -webkit-linear-gradient(left,rgba(224,224,224,0) 0%,rgba(224,224,224,1) 38%,rgba(224,224,224,1) 99%);
+        }
+        .res-text{
+            overflow: hidden;
+            height: 100px;
+            margin: 20px;
+            border: 5px solid #AAA;
+        }
+        .res-text:before{
+            content:'';
+            float: left;
+            width:5px;
+            height: 100px;
+        }
+        .res-text > .text{
+            float: right;
+            width: 100%;
+            margin-left: -5px;
+        }
+        .res-text:after{
+            content:"\02026";
+            float: right;
+            position: relative;
+            top: -18px;
+            left: 100%;
+            width: 3em;
+            margin-left: -3em;
+            padding-right: 5px;
+            text-align: right;
+            background: -webkit-gradient(linear, left top, right top,
+		from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+        }
+        .res-box{
+            width: 100%;
+            border: 1px solid #000;
+        }
+        .wrapper{
+            position: relative;
+            padding-top: 25px;
+            padding-bottom: 56.25%;
+            height: 0;
+            border:1px solid red;
+        }
+        .content{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: gray;
+        }
+        .boxs{
+            width: 100px;
+            height: 100px;
+            border:1px solid #000;
+        }
+        .height-box{
+        	width: 100%;
+        	height: 2500px;
+        }
+        .scrollbar{
+        	position: fixed;
+        	top: 0;
+        	left: 0;
+        	width: 0px;
+        	height: 6px;
+        	background-color: red;
+        	z-index: 9;
+        }
+    </style>
+</head>
+<body>
+	<div class="scrollbar"></div>
+    <div class="boxs">
+        <div class="boxss">DIV</div>
+    </div>
+    <div class="box">
+        <div class="text">
+            <div>泰利颱風持續北轉，中央氣象局不發布陸上颱風警報，氣象局防災科長謝明昌表示，泰利會先向西北方向來到台灣東北方海面，明天白天再逐漸向偏北移動遠離台灣，依目前的路徑未符合發布陸上颱風警報的條件。</div>
+            <div>根據中央氣象局最新資料，今年第18號颱風泰利位在台北東方約510公里海面上，正以每小時17轉13公里速度往西北移動，近中心最大風速38公尺，相當於13級風，7級風暴風半徑200公里，強度為中度颱風，預計此颱風強度仍有增強且暴風半徑有擴大的趨勢。</div>
+            <div>謝明昌表示，颱風未來會向西北方向移到台灣東北方海面上，明天白天開始再偏北逐漸遠離台灣地區，路徑未符合陸上颱風警報發布的條件。</div>
+            <div>他說，今天傍晚暴風圈就會觸及台灣東北方的近海，今天晚上開始到明天白天颱風相對離台灣比較近，所以北台灣地區會有比較大的風浪，東北角地區可能出現有4米以上的浪高。</div>
+        </div>
+    </div>
+    <div class="res-text">
+        <div class="text">
+            <div>泰利颱風持續北轉，中央氣象局不發布陸上颱風警報，氣象局防災科長謝明昌表示，泰利會先向西北方向來到台灣東北方海面，明天白天再逐漸向偏北移動遠離台灣，依目前的路徑未符合發布陸上颱風警報的條件。</div>
+            <div>根據中央氣象局最新資料，今年第18號颱風泰利位在台北東方約510公里海面上，正以每小時17轉13公里速度往西北移動，近中心最大風速38公尺，相當於13級風，7級風暴風半徑200公里，強度為中度颱風，預計此颱風強度仍有增強且暴風半徑有擴大的趨勢。</div>
+            <div>謝明昌表示，颱風未來會向西北方向移到台灣東北方海面上，明天白天開始再偏北逐漸遠離台灣地區，路徑未符合陸上颱風警報發布的條件。</div>
+            <div>他說，今天傍晚暴風圈就會觸及台灣東北方的近海，今天晚上開始到明天白天颱風相對離台灣比較近，所以北台灣地區會有比較大的風浪，東北角地區可能出現有4米以上的浪高。</div>
+        </div>
+    </div>
+    <div class="res-box">
+        <div class="wrapper">
+            <div class="content">content</div>
+        </div>
+    </div>
+    <div class="height-box"></div>
+    <script>
+    	$(function(){
+    		var dh=$(document).height();
+    		var vh=$(window).height();
+    		var th=dh-vh
+    		$(window).on('scroll',function(){
+    			var perc=($(window).scrollTop() / (th))
+    			$('.scrollbar').css({width:perc * 100+'%'})
+    		})
+    	})
+    </script>
+</body>
+</html>

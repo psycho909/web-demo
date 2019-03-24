@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #btn{
+            width: 100px;
+            height: 300px;
+            padding: 1rem 2rem;
+            background-color: rgb(245, 17, 176);
+            border: 1px solid rgb(155, 10, 90);
+            color:#fff;
+            margin: 2rem auto;
+            display: block;
+            overflow: scroll;
+        }
+        .height{
+            height: 4000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="btnpx">
+        <span class="clientx">clientx:0</span>
+        <span class="pagex">pagex:0</span>
+        <span class="offsetx">offsetx:0</span>
+    </div>
+    <div id="btn">
+        <span>按鈕</span>
+        <div class="height"></div>
+    </div>
+    <script>
+        var oBtn=document.getElementById('btn');
+        oBtn.addEventListener('click',function(e){
+            document.querySelector('.clientx').innerText="clientx: "+e.clientX
+            document.querySelector('.offsetx').innerText="offsetx: "+e.offsetX
+            document.querySelector('.pagex').innerText="pagex: "+e.pageX
+        })
+    </script>
+</body>
+
+</html>

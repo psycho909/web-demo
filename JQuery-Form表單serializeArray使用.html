@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>serializeArray</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<form>
+		<input type="text" name="username">
+		<input type="email" name="email">
+		<input type="hidden" name="json">
+		<button id="btn">Hello</button>
+	</form>
+</body>
+<script>
+$('#btn').on('click',function(e){
+	e.preventDefault();
+	var datas=$('form').serializeArray()
+	console.log(datas)
+	console.log(datas.find((o)=> o.name === 'json'))
+})
+</script>
+</html>

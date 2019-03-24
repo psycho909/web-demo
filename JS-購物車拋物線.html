@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/amibug/fly/master/src/requestAnimationFrame.js"></script>
+    <script src="https://rawgit.com/amibug/fly/master/dist/jquery.fly.js"></script>
+    <style>
+        html,
+        body {
+            cursor: pointer;
+        }
+
+        .m-top {
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+            border-left-color: #f0ad4e;
+        }
+
+        .m-tip {
+            user-select: none;
+            border: 4px solid #ccc;
+            color: #999;
+            opacity: 0.8;
+            margin: 160px auto;
+            ;
+            border-radius: 4px;
+            width: 60%;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+
+        .u-flyer {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            position: fixed;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <p class="m-top">code repositoy：
+                <a href="https://github.com/amibug/fly" target="_blank">https://github.com/amibug/fly</a>
+                <span>喜欢就在github上star一个吧</span>
+            </p>
+            <section class="m-tip">
+                click at the blank! click here</br>
+                在空白处点击鼠标实现放入购物车效果
+            </section>
+        </div>
+    </div>
+
+    <div class="m-sidebar">
+        <div class="cart">
+            <i id="end"></i>
+            <span>购物车</span>
+        </div>
+    </div>
+    <script>
+        $('html,body').on('click', addProduct);
+
+        function addProduct(event) {
+            var offset = $("#end").offset(),
+                flyer = $(
+                    '<img class="u-flyer" src="https://i2.bahamut.com.tw/baha_logo5.png"/>'
+                );
+            flyer.fly({
+                start: {
+                    left: event.pageX,
+                    top: event.pageY
+                },
+                end: {
+                    left: offset.left,
+                    top: offset.top,
+                    width: 20,
+                    height: 20
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
