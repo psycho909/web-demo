@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>取出對象數組中唯一的數據集</title>
+</head>
+<body>
+	<script>
+		// 查询到参加 2019厦门马拉松的数据
+		var join2019 = [
+		    { id: 1, name: 'xiaoer', join: ['2019厦门马拉松', '2018厦门马拉松'] },
+		    { id: 2, name: 'xiaosi', join: ['2019厦门马拉松'] },
+		]
+
+		// 查询到参加 2018年马拉松的数据
+		var join2018 = [
+		    { id: 1, name: 'xiaoer', join: ['2019厦门马拉松', '2018厦门马拉松'] },
+		    { id: 3, name: 'menty', join: ['2018厦门马拉松'] },
+		]
+
+		// 合并数据
+		var users = [...join2019, ...join2018]
+
+		// 取出只參加過一次的名單
+		var joinOnce = users.filter((v,i)=> users.every((x,j)=>(i===j) === (v.id === x.id)))
+
+		console.log(joinOnce)
+	</script>
+</body>
+</html>

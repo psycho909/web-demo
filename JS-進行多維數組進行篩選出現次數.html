@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
-	<title>AJAX</title>
+	<title>進行多維數組進行篩選出現次數</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<style>
 		*{
@@ -71,6 +71,8 @@ openData.forEach(function(item,index){
 })
 
 var obj = {}, k, arr1 = [];
+
+// 進行多維數組進行篩選出現次數
 for (var i = 0; i < arr_box.length; i++) {
 	k = arr_box[i];
 	if (obj[k])
@@ -84,12 +86,14 @@ for (var o in obj) {
 	arr1.push({el: o, count: obj[o]});
 }
 
+
+// 如果在預設的數字範圍內有空值 預設為0
 for(var i=0;i<arr_num.length;i++){
 	if(obj[arr_num[i]] == undefined){
 		obj[arr_num[i]]=0
 	}
 }
-
+console.log(obj)
 </script>
 
 </html>

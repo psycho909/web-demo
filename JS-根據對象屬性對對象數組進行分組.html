@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>根據對象屬性對對象數組進行分組</title>
+</head>
+<body>
+	
+	<script>
+		// 原始数据
+		var items = [
+		    { name: 'Apple iPhone X', category: '手机数码' },
+		    { name: '索尼 NW-A55 音乐播放器', category: '手机数码' },
+		    { name: '舒克 海洋之风牙膏', category: '日常用品' },
+		    { name: '洁丽雅 纯棉强吸水毛巾', category: '日常用品' },
+		]
+
+		// 分类后的商品数据
+		var categoryItems = items.reduce((acc,val,i)=>{
+			acc[val.category]=(acc[val.category] || []).concat(items[i])
+			return acc
+		},{})
+		console.log(categoryItems)
+		// 分类种类
+		var categoryKeys = Object.keys(categoryItems)
+		console.log(categoryKeys)
+	</script>
+</body>
+</html>

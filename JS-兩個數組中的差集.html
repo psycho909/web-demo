@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>兩個數組中的差集</title>
+</head>
+<body>
+	<script>
+		var superHeroCompany = [
+		    { name: 'xiaoer', job: '程序员' },
+		    { name: 'xiaosi', job: '图书管理员', },
+		    { name: 'menty', job: '会计' },
+		]
+
+		var happyCompany = [
+		    { name: 'xiaofu', job: '程序员' },
+		    { name: 'panghu', job: '会计' },
+		]
+
+		var s = new Set(happyCompany.map(v=>v.job))
+
+		var diffUsers = superHeroCompany.filter(el=>!s.has(el.job))
+
+		console.log(diffUsers)
+	</script>
+</body>
+</html>

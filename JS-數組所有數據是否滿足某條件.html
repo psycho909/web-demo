@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+		var MIN_SALES = 100000 // 100000 分钱
+
+		// 抽取
+		var disciples = [
+		    { name: 'xiaoer', sales: 100000 },
+		    { name: 'xiaosi', sales: 50000 },
+		    { name: 'menty', sales: 150000 },
+		]
+
+		var canAward=disciples.every((item,idnex)=> item > MIN_SALES) // false
+		console.log(canAward);
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>對數組項目進行統計</title>
+</head>
+<body>
+	
+	<script>
+		var students = [
+		    { name: 'xiaoer', score: 80 },
+		    { name: 'xiaosi', score: 90 },
+		    { name: 'menty', score: 50 },
+		]
+		var scoreStat = students.reduce((acc,val)=>{
+		    acc[val.score]=(acc[val.score] || 0)+1;
+		    return acc
+		},{})
+
+		console.log(scoreStat)
+
+		var costStat = users.reduce((acc,val)=>{
+		    acc[val.cost > 10000 ? 'height':(val.cost > 5000 ? 'mid':'low')]=(acc[val.cost > 10000 ? 'height':(val.cost > 5000 ? 'mid':'low')] || 0)+1;
+		    return acc
+		},{})
+
+		console.log(costStat)
+		// {height: 1, mid: 1, low: 1}
+	</script>
+</body>
+</html>

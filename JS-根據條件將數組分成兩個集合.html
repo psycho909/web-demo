@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>根據條件將數組分成兩個集合</title>
+</head>
+<body>
+	
+	<script>
+		var CUT_OFF_SCORES = 60
+		var students = [
+		    { name: 'xiaoer', score: 80 },
+		    { name: 'xiaosi', score: 90 },
+		    { name: 'menty', score: 50 },
+		]
+		var group=students.reduce((student,val,i)=> (student[val.score > CUT_OFF_SCORES ? 0 : 1].push(val),student) ,[[],[]])
+
+		console.log(group)
+	</script>
+</body>
+</html>
