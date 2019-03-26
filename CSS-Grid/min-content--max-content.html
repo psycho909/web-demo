@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>min-content max-content fit-content</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .container{
+            width: 80%;
+            margin: 0 auto;
+        }
+        .grid{
+            display: grid;
+            grid-template-columns: min-content minmax(100px,1fr) min-content;
+            grid-template-rows: auto auto auto;
+            grid-gap: 10px;
+        }
+        .grid > div{
+            width: 100%;
+            font-size: 20px;
+            background:#e84393;
+            color:#fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container grid">
+        <div class="box1">知名 IP 題材冒險遊戲《陰屍路：最終章（The Walking Dead: The Final Season）》開發商 Telltale Games 大幅裁員後，《陰屍路：最終章》由 Skybound Games 接手，今日最後一章《帶我們回去（Take Us Back）》正式登場。
+ 
+            　　《陰屍路：最終章》在經歷前三個章節後，如今到了最後一章《帶我們回去》，進入系列最高潮，玩家在遊戲中將看到主角克萊門汀從原本飽受經嚇的孩子，成長成為一個堅強、自信的倖存者，她成為 A.J. 的保護者，而她這段過程中所學習到的教訓將塑造她對於這個可怕世界的最後立場。</div>
+        <div class="box2">Box 2</div>
+        <div class="box3">知名 IP 題材冒險遊戲《陰屍路：最終章（The Walking Dead: The Final Season）》開發商 Telltale Games 大幅裁員後，《陰屍路：最終章》由 Skybound Games 接手，今日最後一章《帶我們回去（Take Us Back）》正式登場。
+ 
+            　　《陰屍路：最終章》在經歷前三個章節後，如今到了最後一章《帶我們回去》，進入系列最高潮，玩家在遊戲中將看到主角克萊門汀從原本飽受經嚇的孩子，成長成為一個堅強、自信的倖存者，她成為 A.J. 的保護者，而她這段過程中所學習到的教訓將塑造她對於這個可怕世界的最後立場。</div>
+        <div class="box4">Box 4</div>
+        <div class="box5">Box 5</div>
+        <div class="box6">Box 6</div>
+        <div class="box7">Box 7</div>
+        <div class="box8">Box 8</div>
+        <div class="box9">Box 9</div>
+    </div>
+</body>
+</html>
