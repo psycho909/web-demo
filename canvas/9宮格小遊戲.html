@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>9宮格小遊戲</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         * {
@@ -50,7 +50,9 @@
 
     <script>
         $('#btn').on('click', function(){
+            // 旋轉圈數
             var randomNum = Math.ceil(Math.random() * 8) + 16+3
+
             timeout(1,randomNum,80,0,0)
         })
 
@@ -58,13 +60,15 @@
             if(num > randomNum){
                 return false;
             }else if(num > 16 ){
-                speed=speed+100
+                // 速度調整
+                speed=speed+50
             }
 
             if (i > 8){
                 i=1;
                 loop++
             }
+            console.log("loop : "+loop)
             setTimeout(function () {
                 $('.game').removeClass('active')
                 $('.game-' + i).addClass('active')
@@ -72,7 +76,6 @@
                 num++
                 timeout(i,randomNum,speed,loop,num);
             }, speed);
-            console.log(speed)
         }
 
         
