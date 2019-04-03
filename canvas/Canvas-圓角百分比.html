@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        function getRads(degrees){
+            return (Math.PI*degrees)/180;
+        }
+
+        function getDegrees(rads){
+            return (rads*180)/Math.PI;
+        }
+
+        let canvas=document.getElementById("canvas");
+        let ctx=canvas.getContext("2d");
+
+        ctx.arc(60,60,50,Math.PI,2*Math.PI);
+        
+        ctx.strokeStyle="#ffb9d7";
+        ctx.lineWidth=10;
+        ctx.lineCap="round";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(60,60,50,getRads(-180),getRads(108));
+        ctx.strokeStyle="#e4508f";
+        ctx.lineWidth=10;
+        ctx.lineCap="round";
+        ctx.stroke();
+    </script>
+</body>
+</html>
