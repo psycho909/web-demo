@@ -7,6 +7,7 @@
         <title>Document</title>
     </head>
     <body>
+        <pre id="pre"></pre>
         <script>
             var obj = [
                 {id: 1, content: 'hello', category: 'HTML'},
@@ -15,25 +16,15 @@
                 {id: 2, content: 'hi', category: 'CSS'}
             ]
 
-            var obj_reducer = obj.reduce((acc,v,i)=>{
-                acc[v.id+"_"+v.content]=(acc[v.id+"_"+v.content] || []).concat(v)
+            var json2arr=obj.reduce((acc,v)=>{
+                if(acc[v.id]){
+                    acc[v.id]['category']=[acc[v.id]['category'],v.category].join(',')
+                }else{
+                    acc[v.id]=JSON.parse(JSON.stringify(v))
+                }
                 return acc
             },{})
-            console.log(obj_reducer)
-
-            var obj_total=Object.keys(obj_reducer).reduce((acc,v,i)=>{
-                var o_id=v.split('_')
-                var objj=obj_reducer[v].map((value,index)=>{
-                    return value.category
-                })
-                acc.push({
-                    id:o_id[0],
-                    content:o_id[1],
-                    category:objj
-                })
-                return acc
-            },[])
-            console.log(obj_total)
+            document.getElementById('pre').innerHTML=JSON.stringify(json2arr,null,2)
         </script>
     </body>
 </html>
