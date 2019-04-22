@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        let canvas=document.getElementById('myCanvas');
+
+        let ctx=canvas.getContext('2d')
+        let mouse={
+            x:0,
+            y:0
+        }
+
+        window.addEventListener("mousemove",(e)=>{
+            mouse.x=e.pageX;
+            mouse.y=e.pageY
+        })
+
+        const draw=()=>{
+            canvas.height=window.innerHeight;
+            canvas.width=window.innerWidth;
+
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+
+            ctx.beginPath();
+            ctx.arc(mouse.x,mouse.y,30,0,Math.PI*2)
+            ctx.strokeStyle="FF5511";
+            ctx.stroke();
+            ctx.fillStyle="#FFFF00";
+            ctx.fill();
+
+            lightLine();
+        }
+
+        const lightLine=()=>{
+            ctx.beginPath();
+            
+            for(let t=0;t<360;t+=20){
+                let cosT=Math.cos((t/360) * (Math.PI*2));
+                let sinT=Math.sin((t/360) * (Math.PI*2));
+
+                let X=cosT*40;
+                let Y=sinT*40;
+                ctx.moveTo(mouse.x+X,mouse.y+Y);
+
+                
+                X=cosT*60;
+                Y=sinT*60;
+                ctx.lineTo(mouse.x+X,mouse.y+Y)
+                ctx.stroke()
+            }
+        }
+
+        setInterval('draw()',50);
+    </script>
+</body>
+</html>

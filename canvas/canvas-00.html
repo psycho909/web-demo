@@ -19,23 +19,6 @@
         var rectWidth=100,rectHeight=100
         canvas.width=400
         canvas.height=400
-        // let i=0;
-        // function rotate(){
-        //     i++
-        //     ctx.clearRect(0,0,canvas.width,canvas.height)
-        //     ctx.save()
-        //     ctx.translate(rectWidth/2+100,rectHeight/2+100)
-        //     ctx.rotate(Math.PI*(i/100))
-        //     ctx.fillStyle="blue"
-        //     ctx.fillRect(-rectWidth/2, -rectHeight/2, rectWidth, rectHeight);
-        //     ctx.restore()
-
-        //     requestAnimationFrame(rotate)
-        //     if(i>360){
-        //         i=0
-        //     }
-        // }
-        // requestAnimationFrame(rotate)
 
         // 椭圆
         function ellipse(cxt, centerX, centerY, radiusX, radiusY) {
@@ -52,16 +35,12 @@
         }
 
         // 带渐变色的圆球
-        function drawBall(ctx,x,y,radius) {
+        function drawBall(ctx,x,y,radius,color) {
             ctx.save();
             ctx.beginPath();
             ctx.arc(x,y,radius,0, 360*Math.PI/180, false);
-            ctx.closePath(); 
-            let gnt = ctx.createRadialGradient(x,y,10,x,y,50);
-            gnt.addColorStop(0,'white');
-            gnt.addColorStop(0.9, 'orange');
-            gnt.addColorStop(1, 'rgba(0,0,0,0)');  
-            ctx.fillStyle=gnt;
+            ctx.closePath();  
+            ctx.fillStyle=color;
             ctx.fill();
             ctx.restore();
         }
@@ -71,14 +50,14 @@
             requestAnimationFrame(drawFrame);
             ctx.clearRect(0,0, canvas.width, canvas.height);
             // 太阳
-            drawBall(ctx, canvas.width/2, canvas.height/2, 30 );
+            drawBall(ctx, canvas.width/2, canvas.height/2, 30,"yellow");
             // 椭圆轨迹
             ellipse(ctx, canvas.width/2, canvas.height/2, 200, 100);
             // 椭圆标准方程
             let circlePointX1 = canvas.width/2 + Math.cos(angle) * 200;
             let circlePointY1 = canvas.height/2 + Math.sin(angle) * 100;
             //绕太阳运行的圆球
-            drawBall(ctx,circlePointX1, circlePointY1, 30 );
+            drawBall(ctx,circlePointX1, circlePointY1, 30 ,"blue");
             angle += 0.02;
             if(angle >= 360) {
                 angle = 0;
