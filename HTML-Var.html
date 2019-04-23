@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            :root {
+                /*--primary-color: #fff; a fallback value is used instead of this variable*/
+                --primary-padding: 1rem;
+                --font-color:#fff;
+            }
+
+            .card-wrapper {
+                padding: var(--primary-padding, 1rem);
+                display: flex;
+                flex-direction: column;
+            }
+            .card {
+                border: 1px solid #0068d8;
+                margin-bottom: 0.5rem;
+            }
+            .card-title {
+                --primary-padding: 1.5rem;
+                --primary-color: red;
+                padding: var(--primary-padding, 1rem);
+                background-color: #007bff;
+                color: var(--primary-color, #fff);
+            }
+            .card-body {
+                padding: var(--primary-padding, 1rem);
+                background-color: #76b8ff;
+                color: var(--font-color, rgb(255, 0, 0));
+            }
+        </style>
+    </head>
+    <body>
+        <section class="card-wrapper">
+            <article class="card">
+                <header class="card-title">
+                    Card 1
+                </header>
+                <main class="card-body">
+                    Lorem ipsum dolor sit amet...
+                </main>
+            </article>
+            <article class="card">
+                <header class="card-title">
+                    Card 2
+                </header>
+                <main class="card-body">
+                    Lorem ipsum dolor sit amet...
+                </main>
+            </article>
+            <article class="card">
+                <header class="card-title">
+                    Card 3
+                </header>
+                <main class="card-body">
+                    Lorem ipsum dolor sit amet...
+                </main>
+            </article>
+        </section>
+        <script>
+            const el=document.querySelector(":root");
+
+            const color=el.style.getPropertyValue('--font-color');
+
+            el.style.setProperty("--font-color","green")
+        </script>
+    </body>
+</html>
