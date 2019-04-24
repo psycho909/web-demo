@@ -6,10 +6,18 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Document</title>
         <style>
+            *{
+                padding: 0;
+                margin: 0;
+                font-family: "微軟正黑體";
+            }
             #drag-container {
                 width: 600px;
+                height: 600px;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-between;
+                align-content: space-between;
             }
 
             #drag-container > .dropzone {
@@ -38,10 +46,20 @@
                 background: #fff900 !important;
                 border-color:#000 !important;
             }
+            #answer{
+                width: 100%;
+                height: 60px;
+                text-align: center;
+                font-size: 20px;
+                line-height: 60px;
+                color: red;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
         <div id="drag-container">
+            <div id="answer"></div>
             <div class="dropzone dropzone1" data-type="1">
                 <div id="draggable" draggable="true" data-drag="3">
                     Drag Me
@@ -49,6 +67,12 @@
             </div>
             <div class="dropzone dropzone2" data-type="2"></div>
             <div class="dropzone dropzone3" data-type="3"></div>
+            <div class="dropzone dropzone4" data-type="4"></div>
+            <div class="dropzone dropzone5" data-type="5"></div>
+            <div class="dropzone dropzone6" data-type="6"></div>
+            <div class="dropzone dropzone7" data-type="7"></div>
+            <div class="dropzone dropzone8" data-type="8"></div>
+            <div class="dropzone dropzone9" data-type="9"></div>
         </div>
 
         <script>
@@ -68,7 +92,7 @@
                 if(dropType === dragType){
                     ev.target.setAttribute("draggable",false)
                     ev.target.classList.add("stop-drag")
-                    console.log("正確")
+                    document.getElementById('answer').textContent="找到正確位置了"
                 }
                 ev.target.style.opacity="1"
             })
