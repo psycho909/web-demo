@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #canvas{
+            background-color: rgb(188, 211, 255);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var i = 1
+        var x = 0
+        var y = 100
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        canvas.width=400
+        canvas.height=400
+
+        function draw(){
+            ctx.clearRect(0,0,400,400)
+            ctx.beginPath();
+            // ctx.moveTo(x,y);
+
+            i+=0.1
+            if(x >= 400){
+                i=1;
+                x=0;
+            }else{
+                x=i*10
+            }
+            
+            y=Math.sin(i)*10+100
+            // ctx.lineTo(x,y)
+            ctx.arc(x,y,10,0,2*Math.PI)
+            ctx.stroke();
+            ctx.closePath()
+        }
+        setInterval(draw, 10)
+    </script>
+</body>
+</html>

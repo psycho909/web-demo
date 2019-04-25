@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #canvas{
+            background-color: rgb(188, 211, 255);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var i = 1
+        var x = 0
+        var y = 100
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        var ww=window.innerWidth
+        var wh=window.innerHeight
+
+        canvas.width=ww;
+        canvas.height=wh;
+
+        var center={
+            x:ww/2,
+            y:wh/2
+        }
+        // ctx.translate(center.x,center.y)
+        
+        var angle=0;
+        setInterval(draw,10)
+        function drawLine(){
+            ctx.strokeStyle="#000";
+            ctx.lineWidth=1;
+            ctx.beginPath();
+            ctx.moveTo(0, wh/2);
+            ctx.lineTo(ww, wh/2);
+            ctx.moveTo(ww/2, 0);
+            ctx.lineTo(ww/2, wh);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        function drawBall(x,y,radius) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(x,y,radius,0, 2*Math.PI, false);
+            ctx.closePath();  
+            ctx.fillStyle="blue";
+            ctx.fill();
+            ctx.restore();
+        }
+        function draw(){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ctx.beginPath();
+            drawLine()
+            let x=canvas.width/2+Math.cos(angle)*200;
+            let y=canvas.height/2+Math.sin(angle)*200;
+            drawBall(x,y,30)
+            
+            angle+=0.01;
+            if(angle >= 360){
+                angle=0
+            }
+        }
+    </script>
+</body>
+</html>

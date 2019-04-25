@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                font-family: "微軟正黑體";
+                box-sizing: border-box;
+            }
+            .container{
+                display: flex;
+            }
+            #drop-container {
+                width: 600px;
+                height: 660px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-content: space-between;
+            }
+
+            #drop-container > .dropzone {
+                width: 200px;
+                height: 200px;
+                background: #dae8fc;
+                border: 1px solid #6c8ebf;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            #draggable {
+                width: 90px;
+                height: 90px;
+                line-height: 90px;
+                text-align: center;
+                background: #f8cecc;
+                border: 1px solid #b85450;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+            .stop-drag{
+                pointer-events: none;
+                background: #fff900 !important;
+                border-color:#000 !important;
+            }
+            #answer{
+                width: 100%;
+                height: 60px;
+                text-align: center;
+                font-size: 20px;
+                line-height: 60px;
+                color: red;
+                font-weight: bold;
+            }
+            #drag-contaianer{
+                position: relative;
+                width: 600px;
+                height: 600px;
+                background-color: #eee;
+                margin-top: 60px;
+            }
+            .draggables{
+                width: 200px;
+                height: 200px;
+                display: block;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%) rotate(0);
+                position: absolute;
+                transition: all .3s;
+                transform-origin: center center;
+            }
+            .draggables.roll{
+                animation: roll 1s infinite linear;
+            }
+            @keyframes roll{
+                to{
+                    transform: translate(-50%,-50%) rotate(360deg);
+                }
+            }
+            .drop{
+                left: 0;
+                top: 0;
+                position: relative;
+                transition: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="drop-container">
+                <div id="answer"></div>
+                <div class="dropzone dropzone1" data-drop="1"></div>
+                <div class="dropzone dropzone2" data-drop="2"></div>
+                <div class="dropzone dropzone3" data-drop="3"></div>
+                <div class="dropzone dropzone4" data-drop="4"></div>
+                <div class="dropzone dropzone5" data-drop="5"></div>
+                <div class="dropzone dropzone6" data-drop="6"></div>
+                <div class="dropzone dropzone7" data-drop="7"></div>
+                <div class="dropzone dropzone8" data-drop="8"></div>
+                <div class="dropzone dropzone9" data-drop="9"></div>
+            </div>
+            <div id="drag-contaianer">
+                <img id="draggable1" class="draggables roll" draggable="true" src="./images/puzzle_01.jpg" alt="" data-drag="1">
+                <img id="draggable2" class="draggables roll" draggable="true" src="./images/puzzle_02.jpg" alt="" data-drag="2">
+                <img id="draggable3" class="draggables roll" draggable="true" src="./images/puzzle_03.jpg" alt="" data-drag="3">
+                <img id="draggable4" class="draggables roll" draggable="true" src="./images/puzzle_04.jpg" alt="" data-drag="4">
+                <img id="draggable5" class="draggables roll" draggable="true" src="./images/puzzle_05.jpg" alt="" data-drag="5">
+                <img id="draggable6" class="draggables roll" draggable="true" src="./images/puzzle_06.jpg" alt="" data-drag="6">
+                <img id="draggable7" class="draggables roll" draggable="true" src="./images/puzzle_07.jpg" alt="" data-drag="7">
+                <img id="draggable8" class="draggables roll" draggable="true" src="./images/puzzle_08.jpg" alt="" data-drag="8">
+                <img id="draggable9" class="draggables roll" draggable="true" src="./images/puzzle_09.jpg" alt="" data-drag="9">
+            </div>
+        </div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded',function(){
+                let draggables=document.querySelectorAll(".draggables");
+                let dropzones=document.querySelectorAll('.dropzone');
+                let arr=Array(9).fill(false)
+                draggables.forEach((draggable)=>{
+                    var x=Math.random()*600;
+                    var y=Math.random()*600;
+                    if(x > (600-draggable.width)){
+                        x=x-draggable.width
+                    }
+                    if( x < draggable.width/2){
+                        x=0
+                    }
+                    if(y > (600-draggable.width)){
+                        y=y-draggable.width
+                    }
+                    if( y < draggable.width/2){
+                        y=0
+                    }
+                    draggable.classList.remove('roll')
+                    draggable.style.left=x+"px";
+                    draggable.style.top=y+"px";
+                    draggable.style.transform='translate(0,0)';
+
+                    draggable.addEventListener('dragstart',(ev)=>{
+                        console.log("dragstart")
+                        ev.target.style.opacity=".5";
+                        
+                        ev.dataTransfer.setData("text/plain",ev.target.id)
+                    })
+                    draggable.addEventListener("dragend",(ev)=>{
+                        ev.target.classList.add('drop');
+                        ev.target.style.left=0;
+                        ev.target.style.top=0;
+                        ev.target.style.opacity="1"
+                        dropzones.forEach((dropzone,index)=>{
+                            let dropType=dropzone.dataset.drop
+                            let dragType=0
+                            if(!dropzone.hasChildNodes()){
+                                dragType=0
+                            }else{
+                                dragType=dropzone.children[0].dataset.drag;
+                            }
+                            
+                            if(dropType === dragType){
+                                arr[index]=true
+                                return false
+                            }
+                        })
+                        var everyTrue=arr.every((v)=> v === true);
+                        if(everyTrue){
+                            document.getElementById("answer").textContent="全部正確"
+                        }
+                    })
+                })
+
+                dropzones.forEach((dropzone)=>{
+                    dropzone.addEventListener("dragenter",(ev)=>{
+                        // console.log("dragenter")
+                        ev.preventDefault();
+                        dropzone.style.borderStyle="dashed";
+                        return false;
+                    })
+                    dropzone.addEventListener("dragover",(ev)=>{
+                        ev.preventDefault();
+                        return false;
+                    })
+                    dropzone.addEventListener("dragleave",(ev)=>{
+                        dropzone.style.borderStyle="solid";
+                    })
+                    dropzone.addEventListener('drop',(ev)=>{
+                        ev.preventDefault()
+                        ev.target.style.borderStyle="dashed"
+                        
+                        // get id
+                        const sourceId=ev.dataTransfer.getData("text/plain");
+                        ev.target.appendChild(document.getElementById(sourceId))
+
+                        return false
+                    })
+                })
+            })
+            
+        </script>
+    </body>
+</html>
