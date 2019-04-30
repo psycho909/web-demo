@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        canvas.width=600;
+        canvas.height=600;
+
+        var center=[200,200];
+        var r=100;
+        var angle=0;
+
+        function draw(){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ctx.beginPath();
+            let x=canvas.width/2+Math.cos(angle)*200;
+            let y=canvas.height/2+Math.sin(angle)*200;
+
+            ctx.beginPath();
+            ctx.arc(x,y,30,0, 2*Math.PI, false);
+            ctx.closePath();  
+            ctx.fillStyle="blue";
+            ctx.fill();
+            angle+=0.01;
+            if(angle >= 360){
+                angle=0
+            }
+        }
+        setInterval(function(){
+            draw()
+        },10)
+        ctx.stroke()
+        // var center=[200,200];
+        // var r=100;
+
+        // ctx.moveTo(center[0]+r,center[1]);
+        // for(var i=0;i<360;i++){
+        //     var ii=i*Math.PI/180;
+        //     ctx.lineWidth=2;
+        //     var x=r+r*Math.cos(ii);
+        //     var y=r-r*Math.sin(ii);
+        //     ctx.lineTo(x,y)
+        // }
+        // ctx.stroke()
+    </script>
+</body>
+</html>

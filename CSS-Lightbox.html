@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Pure CSS Lightbox</title>
+        <style>
+            html,
+            body {
+                font-family: arial;
+                padding: 0 2em;
+                font-size: 18px;
+                background: #111;
+                color: #aaa;
+                text-align: center;
+                margin-top: 50px;
+            }
+            h1 {
+                font-size: 3em;
+                font-weight: 100;
+                color: white;
+            }
+            p {
+                font-weight: 100;
+                color: #888;
+                margin-bottom: 45px;
+            }
+            a {
+                text-decoration: none;
+            }
+            .thumb {
+                max-height: 171px;
+                border: 6px solid white;
+            }
+            .lightbox {
+                position: fixed;
+                z-index: 999;
+                height: 0;
+                width: 0;
+                text-align: center;
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.8);
+                opacity: 0;
+            }
+            .lightbox img {
+                max-width: 90%;
+                max-height: 80%;
+                margin-top: 2%;
+                opacity: 0;
+            }
+            .lightbox:target {
+                outline: none;
+                width: 100%;
+                height: 100%;
+                opacity: 1 !important;
+            }
+            .lightbox:target img {
+                border: solid 17px #fff;
+                opacity: 1;
+                transition: opacity 0.6s;
+            }
+            .light-btn {
+                color: #fafafa;
+                background-color: #333;
+                border: 3px solid #fff;
+                padding: 5px 15px;
+                border-radius: 1px;
+                text-decoration: none;
+                cursor: pointer;
+                vertical-align: middle;
+                position: absolute;
+                top: 45%;
+                z-index: 99;
+            }
+            .btn-prev {
+                left: 7%;
+            }
+            .btn-next {
+                right: 7%;
+            }
+            .btn-close {
+                position: absolute;
+                right: 2%;
+                top: 2%;
+                color: #fafafa;
+                background-color: red;
+                border: solid 5px white;
+                padding: 10px 15px;
+                border-radius: 1px;
+                text-decoration: none;
+            }
+            .btn-close:hover {
+                background-color: #740404;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pure CSS Light-Box</h1>
+        <p id="prova">Click on any image to display the lightbox</p>
+
+        <a href="#img1">
+            <img
+                class="thumb"
+                src="https://webdevtrick.com/wp-content/uploads/b47sample1.jpg"
+            />
+        </a>
+        <!-- first image box webdevtrick.com -->
+        <div class="lightbox" id="img1">
+            <a href="#img3" class="light-btn btn-prev">prev</a>
+            <a href="#" class="btn-close">X</a>
+            <img
+                src="https://webdevtrick.com/wp-content/uploads/b47sample1.jpg"
+            />
+            <a href="#img2" class="light-btn btn-next">next</a>
+        </div>
+
+        <a href="#img2">
+            <img
+                class="thumb"
+                src="https://webdevtrick.com/wp-content/uploads/b47sample2.jpg"
+            />
+        </a>
+        <!-- second image box webdevtrick.com -->
+        <div class="lightbox" id="img2">
+            <a href="#img1" class="light-btn btn-prev">prev</a>
+            <a href="#" class="btn-close">X</a>
+            <img
+                src="https://webdevtrick.com/wp-content/uploads/b47sample2.jpg"
+            />
+            <a href="#img3" class="light-btn btn-next">next</a>
+        </div>
+
+        <a href="#img3">
+            <img
+                class="thumb"
+                src="https://webdevtrick.com/wp-content/uploads/b47sample3.jpg"
+            />
+        </a>
+        <!-- third image box webdevtrick.com -->
+        <div class="lightbox" id="img3">
+            <a href="#img2" class="light-btn btn-prev">prev</a>
+            <a href="#" class="btn-close">X</a>
+            <img
+                src="https://webdevtrick.com/wp-content/uploads/b47sample3.jpg"
+            />
+            <a href="#img1" class="light-btn btn-next">next</a>
+        </div>
+    </body>
+</html>

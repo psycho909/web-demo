@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        />
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+            body {
+                font-family: 'Titillium Web', sans-serif;
+                color: white;
+                background: linear-gradient(
+                    to left,
+                    #ffc3a0,
+                    #ffafbd
+                ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            }
+            h1 {
+                text-transform: uppercase;
+                font-size: 4rem;
+            }
+            img {
+                height: 300px;
+            }
+            .cardholder {
+                margin-top: 150px;
+                perspective: 600px;
+            }
+            .card {
+                width: 300px;
+                height: 300px;
+                background-color: transparent;
+                transform: rotateY(50deg);
+                box-shadow: -6px 5px 13px 2px rgba(0, 0, 0, 0.25);
+                transition: all 1s ease;
+                color: transparent;
+            }
+            .card:hover {
+                width: 300px;
+                height: 300px;
+                background-color: transparent;
+                transform: rotateY(0deg);
+                box-shadow: 0px 0px 36px 2px rgba(0, 0, 0, 0.25);
+                color: black;
+            }
+            .card:hover p {
+                background-color: white;
+            }
+            p.desc {
+                z-index: 999;
+                position: absolute;
+                top: 10px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="cardholder">
+                        <div class="card">
+                            <img
+                                src="https://webdevtrick.com/wp-content/uploads/image-slider1.jpg"
+                            />
+                            <p class="desc">WebDevTrick.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="cardholder">
+                        <div class="card">
+                            <img
+                                src="https://webdevtrick.com/wp-content/uploads/image-slider2.jpg"
+                            />
+                            <p class="desc">WebDevTrick.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="cardholder">
+                        <div class="card">
+                            <img
+                                src="https://webdevtrick.com/wp-content/uploads/image-slider3.jpg"
+                            />
+                            <p class="desc">WebDevTrick.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="cardholder">
+                        <div class="card">
+                            <img
+                                src="https://webdevtrick.com/wp-content/uploads/image-slider4.jpg"
+                            />
+                            <p class="desc">WebDevTrick.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    </body>
+</html>
