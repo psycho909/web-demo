@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        var data=[{
+            id:1,
+            name:"Tom",
+            age:"18"
+        }]
+
+        var request=window.indexedDB.open("myDatabase",1);
+
+        request.onerror=(e)=>{
+            console.log(e)
+        }
+
+        request.onsuccess=(e)=>{
+            var db=e.target.result
+
+            var usersObjectStore=db.transaction("users").objectStore('users');
+            var userRequest=usersObjectStore.get(1);
+            userRequest.onsuccess=(e)=>{
+                console.log(e.target.result);
+            }
+        }
+
+        request.onupgradeneeded=(e)=>{
+            var db=e.target.result;
+
+            var objectStore=db.createObjectStore('users',{keyPath:"id"});
+            objectStore.createIndex("name",'name',{unique:false});
+            objectStore.createIndex("age",'age',{unique:false});
+
+            objectStore.transaction.oncomplete=()=>{
+                var usersObjectStore=db.transaction("users","readwrite").objectStore("users");
+                data.forEach(data=>{
+                    usersObjectStore.add(data)
+                })
+            }
+        }
+    </script>
+</body>
+</html>
