@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    </head>
+    <body>
+        <div class="chart" style="position: relative; height:80vh; width:100vw">
+            <canvas id="myChart"></canvas>
+        </div>
+        <script>
+            function BuildChart(labels, values, chartTitle) {
+                var data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: chartTitle, // Name the series
+                            data: values,
+                            backgroundColor: [
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)'
+                            ]
+                        }
+                    ]
+                }
+                var ctx = document.getElementById('myChart').getContext('2d')
+                var myChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: data,
+                    options: {
+                        responsive: true, // Instruct chart JS to respond nicely.
+                        maintainAspectRatio: false, // Add to prevent default behavior of full-width/height
+                        scales: {
+                            xAxes: [
+                                {
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '$ Billion'
+                                    }
+                                }
+                            ],
+                            yAxes: [
+                                {
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Name'
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                })
+                return myChart
+            }
+
+            fetch("https://forbes400.herokuapp.com/api/forbes400?limit=10")
+            .then((res)=>res.json())
+            .then((data)=>{
+                var labels=data.map((e)=>e.name);
+                var values=data.map((e)=>{
+                    return (e.realTimeWorth/1000);
+                })
+                BuildChart(labels, values, "Real Time Net Worth");
+            })
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    </head>
+    <body>
+        <div class="chart" style="position: relative; height:80vh; width:100vw">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script>
+            function BuildChart(labels, values, chartTitle) {
+                var data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: chartTitle, // Name the series
+                            data: values,
+                            backgroundColor: [
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)',
+                                'rgb(54, 162, 235)'
+                            ]
+                        }
+                    ]
+                }
+
+                var ctx = document.getElementById('myChart').getContext('2d')
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        responsive: true, // Instruct chart js to respond nicely.
+                        maintainAspectRatio: false, // Add to prevent default behavior of full-width/height
+                        scales: {
+                            xAxes: [
+                                {
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Date'
+                                    }
+                                }
+                            ],
+                            yAxes: [
+                                {
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Produced Count'
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                })
+
+                return myChart
+            }
+            var ID_TOKEN = '1SOZOLnnAI6__fKXZVCjxAA3ZQQfBmSaX4JXPGuLysdI'
+            fetch(
+                `https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/od6/public/full?alt=json`
+            )
+                .then(res => res.json())
+                .then(data => {
+                    var labels=data.feed.entry.map(e=>{
+                        return e.gsx$date.$t;
+                    })
+                    var values=data.feed.entry.map(e=>{
+                        return e.gsx$productsproduced.$t
+                    })
+                    BuildChart(labels, values, "Production Data");
+                })
+        </script>
+    </body>
+</html>

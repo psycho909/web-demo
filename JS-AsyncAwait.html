@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var api="https://randomuser.me/api";
+        var getData=()=>{
+            var data=fetch(api).then(res=>res.json())
+            return data
+        }
+        // var getData=async ()=>{
+        //     var res=await fetch(api)
+        //     var data=await res.json()
+        //     return data
+        // }
+        // var getData=()=>{
+        //     return new Promise((resolve,reject)=>{
+        //         var data=fetch(api).then(res=>res.json())
+        //         resolve(data)
+        //     })
+        // }
+        var start=()=>{
+            var data=getData();
+            data.then(user=>{
+                console.log(user)
+            })
+        }
+        start()
+
+        // async function fn(){
+        //     return "hello";
+        // }
+        // fn().then((data)=>console.log(data))
+
+        const delayAndGetRandom=(ms)=>{
+            return new Promise(resolve=>setTimeout(
+                ()=>{
+                    const val=Math.trunc(Math.random()*100)
+                    resolve(val)
+                },ms
+            ))
+        };
+
+        async function fn(){
+            const a=await 9;
+            const b=await delayAndGetRandom(500);
+            const c=await 5;
+            await delayAndGetRandom(500);
+
+            return a+b*c;
+        }
+
+        fn().then((data)=>console.log(data))
+
+        const wait=(i,ms)=>new Promise((resolve)=>{
+            setTimeout(()=>{
+                resolve(i)
+            },ms)
+        })
+        async function printNumbersUsingAsync() {
+            for (let i = 0; i < 10; i++) {
+                await wait(i, Math.random() * 1000);
+                console.log(i);
+            }
+        }
+        printNumbersUsingAsync().then(console.log)
+    </script>
+</body>
+</html>
