@@ -5,27 +5,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: Arial;
+        }
+        .container{
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header{
+            width: 100%;
+        }
+        .header__base{
+            display: flex;
+        }
+        .header__base-li{
+            list-style: none;
+            width: 33%;
+            text-align: center;
+            padding: 16px;
+        }
+        .header__base-li h3{
+            font-size: 24px;
+        }
+        .header__base-li span{
+            display: block;
+            padding: 16px;
+        }
+        .content{
+            width: 100%;
+        }
+        .content__price{
+            display: flex;
+            list-style: none;
+        }
+        .content__price-li{
+            list-style: none;
+            width: 33%;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .content__price-li div{
+            padding: 12px 0;
+            font-size: 18px;
+        }
+        .content__price-li__total{
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .content__total{
+            margin-top: 12px;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="header">
+            <ul class="header__base">
+                <li id="btc" class="header__base-li">
+                    <h3>BTC</h3>
+                    <span></span>
+                </li>
+                <li id="eth" class="header__base-li">
+                    <h3>ETH</h3>
+                    <span></span>
+                </li>
+                <li id="ltc" class="header__base-li">
+                    <h3>LTC</h3>
+                    <span></span>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <ul class="content__price">
+                <li data-base="BTC" class="content__price-li">
+                    <div class="content__price-li__total"></div>
+                    <div class="content__price-li__convert"></div>
+                </li>
+                <li data-base="ETH" class="content__price-li">
+                    <div class="content__price-li__total"></div>
+                    <div class="content__price-li__convert"></div>
+                </li>
+                <li data-base="LTC" class="content__price-li">
+                    <div class="content__price-li__total"></div>
+                    <div class="content__price-li__convert"></div>
+                </li>
+            </ul>
+            <div class="content__total"></div>
+        </div>
+    </div>
     <script>
-        
+        var wallet=[
+            {"base":"BTC","target":"MegaDice","price":0.79364247},
+            {"base":"BTC","target":"牛比特","price":0.11284331},
+            {"base":"BTC","target":"CYG","price":0.03963357},
+            {"base":"BTC","target":"Kryptex","price":0.00177564},
+            {"base":"LTC","target":"CYG","price":4.7721936},
+            {"base":"ETH","target":"牛比特","price":3.59516167},
+            {"base":"ETH","target":"viabtc","price":0.08190346}
+        ]
+        var ww=wallet.reduce((acc,val,i)=>{
+            acc[val.base]=(acc[val.base] || 0)+val.price
+            return acc
+        },{})
+
+        var headerLi=document.querySelectorAll(".header__base-li");
+        var contentLi=document.querySelectorAll(".content__price-li");
+
         let coins=["btc","eth","ltc"]
         const getPrice=(coin)=>{
             fetch(`https://api.cryptonator.com/api/ticker/${coin}-usd`)
         }
 
+        var promises=[];
+
+        const getCoins=(coin)=>{
+            return new Promise((resolve)=>{
+                fetch(`https://api.cryptonator.com/api/ticker/${coin}-usd`)
+                .then(res=>res.json())
+                .then(data=>{
+                    resolve(data.ticker)
+                })
+            })
+        }
+
         async function fn(){
-            let json=[]
             for(let i=0;i<coins.length;i++){
-                var res=await fetch(`https://api.cryptonator.com/api/ticker/${coins[i]}-usd`)
-                var data=await res.json()
-                json.push(data.ticker)
+                promises=promises.concat(getCoins(coins[i]))
             }
-            return json
+            return await Promise.all(promises)
         }
         fn().then((data)=>{
-            console.log(data)
+            headerLi.forEach((v,i)=>{
+                v.querySelector("span").innerHTML=data[i].price;
+            })
+            data.forEach((v,i)=>{
+                contentLi.forEach((vv,ii)=>{
+                    if(vv.dataset.base == v.base){
+                        var price=v.price*ww[v.base];
+                        var pp=price.toString()
+                        var re=pp.match(/^[0-9]+(\.[0-9]{2})/g)[0]*30
+                        re=Math.round(re);
+                        re=re.toString()
+                        var reConvert=re.replace(/(\d)(?=(\d{3})+$)/g,"$1,");
+                        vv.querySelector('.content__price-li__total').innerHTML=`${v.base} ${ww[v.base]}`
+                        vv.querySelector('.content__price-li__convert').innerHTML=`NT ${reConvert}`
+                        vv.querySelector('.content__price-li__convert').dataset.price=re
+                    }
+                })
+            })
+            contentLi=Array.from(contentLi)
+            var total=contentLi.reduce((acc,v)=>{
+                var num=v.querySelector('.content__price-li__convert').dataset.price.replace("NT ",'');
+                return acc+=parseInt(num)
+            },0)
+            total=total.toString();
+            total=total.replace(/(\d)(?=(\d{3})+$)/g,"$1,");
+            document.querySelector(".content__total").innerHTML=`NT ${total}`
         })
     </script>
 </body>
