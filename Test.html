@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            .box {
+                width: 300px;
+                height: 200px;
+                background: green;
+                background: linear-gradient( to left bottom,transparent 50%,rgba(0, 0, 0, 0.4) 0) no-repeat 100% 0 / 36px 36px,
+                    linear-gradient(-135deg, transparent 24px, green 0);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+
+        <script>
+            var arr = [1, 2, 3]
+
+            console.log(isArray(arr))
+
+            function SuperType(name, hobby) {
+                this.name = name
+                this.hobby = hobby
+                this.colors = ['red', 'blue', 'green']
+            }
+
+            SuperType.prototype.sayName = function() {
+                console.log(this.name)
+            }
+            SuperType.prototype.sayHobby = function() {
+                console.log(this.hobby)
+            }
+
+            var superType = new SuperType()
+            superType.name = 'Chen'
+
+            superType.sayName()
+
+            function SubType(name, hobby, age) {
+                SuperType.call(this, name, hobby)
+                this.age = age
+            }
+            SubType.prototype = new SuperType()
+            SubType.prototype.constructor = SubType
+
+            SubType.prototype.sayAge = function() {
+                console.log(this.age)
+            }
+
+            var subType = new SubType()
+            subType.name = 'Lin'
+            subType.hobby = 'Play'
+            subType.age = 32
+
+            subType.sayAge()
+            subType.sayName()
+            subType.sayHobby()
+        </script>
+    </body>
+</html>
