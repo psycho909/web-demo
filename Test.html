@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2016%2Ces2017%2Ces5%2Ces7%2Ces6%2Ces2015%2Cblissfuljs"></script>
         <title>Document</title>
         <style>
             * {
@@ -33,8 +34,7 @@
 
         <script>
             var arr = [1, 2, 3]
-
-            console.log(isArray(arr))
+            console.log(Array.isArray(arr))
 
             function SuperType(name, hobby) {
                 this.name = name
@@ -43,10 +43,10 @@
             }
 
             SuperType.prototype.sayName = function() {
-                console.log(this.name)
+                return this.name
             }
             SuperType.prototype.sayHobby = function() {
-                console.log(this.hobby)
+                return this.hobby
             }
 
             var superType = new SuperType()
@@ -62,7 +62,7 @@
             SubType.prototype.constructor = SubType
 
             SubType.prototype.sayAge = function() {
-                console.log(this.age)
+                return this.age
             }
 
             var subType = new SubType()
@@ -70,9 +70,7 @@
             subType.hobby = 'Play'
             subType.age = 32
 
-            subType.sayAge()
-            subType.sayName()
-            subType.sayHobby()
+            document.querySelector(".box").innerHTML=`${subType.sayAge()} ${subType.sayName()} ${subType.sayHobby()}`
         </script>
     </body>
 </html>
