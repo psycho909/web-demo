@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Lazy Image</title>
+        <style>
+            body {
+                font-family: 'Averia serif libre';
+                text-align: center;
+                color: aliceblue;
+                background-color: crimson;
+            }
+            img {
+                width: 600px;
+                height: 420px;
+                display: block;
+                margin: 50px auto;
+                box-shadow: 0 0 20px #333;
+            }
+            @media (max-width: 620px) {
+                img {
+                    width: 90vw;
+                    height: 55vw;
+                    margin: 50px 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <img
+            class="lazy"
+            src="https://via.placeholder.com/600"
+            data-src="https://images.unsplash.com/photo-1504272017915-32d1bd315a59?fit=crop&w=600&q=80"
+        />
+        <img
+            class="lazy"
+            src="https://via.placeholder.com/600"
+            data-src="https://images.unsplash.com/photo-1502716643504-c4ea7b357d91?fit=crop&w=600&q=80"
+        />
+        <img
+            class="lazy"
+            src="https://via.placeholder.com/600"
+            data-src="https://images.unsplash.com/photo-1502716716838-6ad177344906?fit=crop&w=600&q=80"
+        />
+        <img
+            class="lazy"
+            src="https://via.placeholder.com/600"
+            data-src="https://images.unsplash.com/photo-1504271933050-2cf260bbec95?fit=crop&w=600&q=80"
+        />
+        <img
+            class="lazy"
+            src="https://via.placeholder.com/600"
+            data-src="https://images.unsplash.com/photo-1502716197620-bf14ce1651b3?fit=crop&w=600&q=80"
+        />
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded",()=>{
+                let lazyImages=Array.from(document.querySelectorAll('.lazy'))
+                let active=false;
+                
+                const lazyLoad=()=>{
+                    if(!active){
+                        active=true
+
+                        setTimeout(()=>{
+                            lazyImages.forEach(lazyImage=>{
+                                var bound=lazyImage.getBoundingClientRect();
+                                var scrollTop=window.pageYOffset;
+                                // bound.top <= window.innerHeight && bound.bottom >= 0
+                                // lazyImage.offsetTop <= window.innerHeight+scrollTop
+                                if((bound.top <= window.innerHeight && bound.bottom >= 0) && getComputedStyle(lazyImage).display !== 'none'){
+                                    lazyImage.src=lazyImage.dataset.src;
+                                    lazyImage.classList.remove('lazy');
+
+                                    lazyImages=lazyImages.filter(image=>{
+                                        return image !== lazyImage
+                                    })
+                                    
+                                    if(lazyImages.length === 0){
+                                        document.removeEventListener("scroll",lazyLoad);
+                                        window.removeEventListener('resize',lazyLoad)
+                                        window.removeEventListener('orientationchange',lazyLoad)
+                                    }
+
+                                }
+                            })
+
+                            active=false;
+                        },200)
+                    }
+                }
+
+                document.addEventListener("scroll", lazyLoad);
+                window.addEventListener("resize", lazyLoad);
+                window.addEventListener("orientationchange", lazyLoad);
+            })
+
+        </script>
+    </body>
+</html>

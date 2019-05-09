@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>??????</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: 'Averia serif libre';
+                background-color: crimson;
+                color: aliceblue;
+                height: 2000px;
+            }
+            video {
+                width: 600px;
+                margin-top: 50px;
+            }
+            h1 {
+                margin-top: 50px;
+                font-size: 14pt;
+                text-transform: uppercase;
+            }
+            a {
+                color: skyblue;
+            }
+            #warning {
+                padding: 10px;
+                color: beige;
+                background: red;
+            }
+            @media (max-width: 620px) {
+                video {
+                    width: 90vw;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- some warnings, for demo purposes -->
+        <strong id="warning" hidden
+            >IntersectionObserver is not supported by your browser, so you can't
+            see the effect. Check its browser support
+            <a
+                href="https://caniuse.com/#feat=intersectionobserver"
+                target="_blank"
+                >here</a
+            >.</strong
+        >
+        <noscript>⚠️ JAVASCRIPT IS DISABLED IN YOUR BROWSER!</noscript>
+
+        <h1>When the video is not fully visible on page, it pauses</h1>
+        <video src="https://raw.githubusercontent.com/rpsthecoder/h/gh-pages/OSRO-animation.mp4" controls=""></video>
+        <p>
+            Animation by Seoro Oh (via
+            <a href="https://www.youtube.com/user/osro1113" target="_blank">Osro's YouTube Channel</a>
+            )
+        </p>
+
+        <script>
+        if(!!window.IntersectionObserver){
+            let video = document.querySelector('video');
+            let isPaused = false; /* flag for auto-pausing of the video */
+            let observer = new IntersectionObserver((entries, observer) => { 
+                entries.forEach(entry => {
+                    console.log(entry.intersectionRatio)
+                    if(entry.intersectionRatio!=1  && !video.paused){
+                        video.pause(); isPaused = true;
+                    }
+                    else if(isPaused) {video.play(); isPaused=false}
+
+                });
+            }, {threshold: 1});
+            observer.observe(video) ;
+        }
+
+        else document.querySelector('#warning').style.display = 'block';
+        
+        </script>
+    </body>
+</html>

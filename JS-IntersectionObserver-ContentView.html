@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>計算閱讀</title>
+    <style>
+    body{
+        font-family: 'Averia serif libre';
+        background-color: crimson;
+        color: aliceblue;
+    }
+    #warning{
+        color: beige;
+        background: red;
+        padding: 10px;
+    }
+    article{
+        width: 600px;
+        margin: auto;
+        margin-top: 50px;
+    }
+    h2{
+        margin-top: 50px;
+        text-transform: uppercase;
+        font-size: 18pt;
+        text-align: center;
+    }
+    a{ color: skyblue; }
+    @media(max-width:620px){ article { width: 90vw; } }
+    #count{
+        text-align: center;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        color: black;
+        background-color: beige;
+        z-index: 1;
+        left: 0;
+    }
+    hr{
+        border: none;
+        border-top: 2px dashed ;
+        text-align: center;
+        margin-top: 50px;
+    }
+    hr:after {
+        background: crimson;
+        content: 'end of article';
+        padding: 0 10px;
+        position: relative;
+        top: -.6em;
+    }
+    </style>
+</head>
+<body>
+    <!-- some warnings, for demo purposes -->
+    <strong id="warning" hidden>IntersectionObserver is not supported by your browser, so you can't see the effect. Check its browser support <a href="https://caniuse.com/#feat=intersectionobserver" target="_blank">here</a>.</strong>
+    <noscript>⚠️ JAVASCRIPT IS DISABLED IN YOUR BROWSER!</noscript>
+
+
+    <div id="count"></div>
+    <h2>Mango</h2>
+    <article>
+        <p>Mangoes are juicy stone fruit (drupe) from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.</p>
+        <p>The majority of these species are found in nature as wild mangoes. The genus belongs to the cashew family Anacardiaceae. Mangoes are native to South Asia, from where the "common mango" or "Indian mango", Mangifera indica, has been distributed worldwide to become one of the most widely cultivated fruits in the tropics. Other Mangifera species (e.g. horse mango, Mangifera foetida) are grown on a more localized basis.</p>
+        <p>It is the national fruit of India and Pakistan, and the national tree of Bangladesh. It is the unofficial national fruit of the Philippines.</p>
+        <h3>Etymology and history</h3>
+        <p>The English word "mango" (plural "mangoes" or "mangos") originated from the Malayalam word māṅṅa (or mangga) via Dravidian mankay and Portuguese manga during the spice trade period with South India in the 15th and 16th centuries.</p>
+        <p>Mango is mentioned by Hendrik van Rheede, the Dutch commander of the Malabar region in his 1678 book, Hortus Malabaricus, about plants having economic value. When mangoes were first imported to the American colonies in the 17th century, they had to be pickled because of lack of refrigeration. Other fruits were also pickled and came to be called "mangoes", especially bell peppers, and in the 18th century, the word "mango" became a verb meaning "to pickle".</p>
+        <p>Mango trees grow to 35–40 m (115–131 ft) tall, with a crown radius of 10 m (33 ft). The trees are long-lived, as some specimens still fruit after 300 years. In deep soil, the taproot descends to a depth of 6 m (20 ft), with profuse, wide-spreading feeder roots and anchor roots penetrating deeply into the soil. The leaves are evergreen, alternate, simple, 15–35 cm (5.9–13.8 in) long, and 6–16 cm (2.4–6.3 in) broad; when the leaves are young they are orange-pink, rapidly changing to a dark, glossy red, then dark green as they mature. The flowers are produced in terminal panicles 10–40 cm (3.9–15.7 in) long; each flower is small and white with five petals 5–10 mm (0.20–0.39 in) long, with a mild, sweet fragrance. Over 500 varieties of mangoes are known, many of which ripen in summer, while some give a double crop. The fruit takes four to five months from flowering to ripen.</p>
+        <p>The ripe fruit varies in size, shape, color, sweetness, and eating quality. Cultivars are variously yellow, orange, red, or green, and carry a single flat, oblong pit that can be fibrous or hairy on the surface, and which does not separate easily from the pulp. The fruits may be somewhat round, oval, or kidney-shaped, ranging from 5–25 centimetres (2–10 in) in length and from 140 grams (5 oz) to 2 kilograms (5 lb) in weight per individual fruit. The skin is leather-like, waxy, smooth, and fragrant, with color ranging from green to yellow, yellow-orange, yellow-red, or blushed with various shades of red, purple, pink or yellow when fully ripe.</p>
+        <p>Ripe intact mangoes give off a distinctive resinous, sweet smell. Inside the pit 1–2 mm (0.039–0.079 in) thick is a thin lining covering a single seed, 4–7 cm (1.6–2.8 in) long. Mangoes have recalcitrant seeds which do not survive freezing and drying. Mango trees grow readily from seeds, with germination success highest when seeds are obtained from mature fruits.</p>
+    </article>
+    <hr>
+    <article>
+        <h2>Watermelon</h2>
+        <p>Citrullus lanatus is a plant species in the family Cucurbitaceae, a vine-like (scrambler and trailer) flowering plant originating in West Africa. It is cultivated for its fruit. The subdivision of this species into two varieties, watermelons (Citrullus lanatus (Thunb.) var. lanatus) and citron melons (Citrullus lanatus var. citroides (L. H. Bailey) Mansf.), originated with the erroneous synonymization of Citrullus lanatus (Thunb.) Matsum. & Nakai and Citrullus vulgaris Schrad. by L.H. Bailey in 1930. Molecular data including sequences from the original collection of Thunberg and other relevant type material, show that the sweet watermelon (Citrullus vulgaris Schrad.) and the bitter wooly melon Citrullus lanatus (Thunb.) Matsum. & Nakai are not closely related to each other. Since 1930, thousands of papers have misapplied the name Citrullus lanatus (Thunb.) Matsum. & Nakai for the watermelon, and a proposal to conserve the name with this meaning was accepted by the relevant nomenclatural committee and confirmed at the International Botanical Congress in Shenzhen in China in 2017.</p>
+        <p>The bitter South African melon first collected by Thunberg has become naturalized in semiarid regions of several continents, and is designated as a "pest plant" in parts of Western Australia where they are called pig melon.</p>
+        <p>Watermelon (Citrullus lanatus) is a scrambling and trailing vine in the flowering plant family Cucurbitaceae. The species was long thought to have originated in southern Africa, but this was based on the erroneous synonymization by L. H. Bailey (1930) of a South African species with the cultivated watermelon. The error became apparent with DNA comparison of material of the cultivated watermelon seen and named by Linnaeus and the holotype of the South African species. There is evidence from seeds in Pharaoh tombs of watermelon cultivation in Ancient Egypt. Watermelon is grown in tropical and subtropical areas worldwide for its large edible fruit, also known as a watermelon, which is a special kind of berry with a hard rind and no internal division, botanically called a pepo. The sweet, juicy flesh is usually deep red to pink, with many black seeds, although seedless varieties have been cultivated. The fruit can be eaten raw or pickled and the rind is edible after cooking.</p>
+        <p>Considerable breeding effort has been put into disease-resistant varieties. Many cultivars are available that produce mature fruit within 100 days of planting the crop.</p>
+        <p>The watermelon is an annual that has a prostrate or climbing habit. Stems are up to 3 m long and new growth has yellow or brown hairs. Leaves are 60 to 200 mm long and 40 to 150 mm wide. These usually have three lobes which are themselves lobed or doubly lobed. Plants have both male and female flowers on 40-mm-long hairy stalks. These are yellow, and greenish on the back.</p>
+        <p>This plant is listed on the Threatened Species Programme of the South African National Biodiversity Institute.</p>
+        <p>The watermelon is a large annual plant with long, weak, trailing or climbing stems which are five-angled (five-sided) and up to 3 m (10 ft) long. Young growth is densely woolly with yellowish-brown hairs which disappear as the plant ages. The leaves are large, coarse, hairy pinnately-lobed and alternate; they get stiff and rough when old. The plant has branching tendrils. The white to yellow flowers grow singly in the leaf axils and the corolla is white or yellow inside and greenish-yellow on the outside. The flowers are unisexual, with male and female flowers occurring on the same plant (monoecious). The male flowers predominate at the beginning of the season; the female flowers, which develop later, have inferior ovaries. The styles are united into a single column. The large fruit is a kind of modified berry called a pepo with a thick rind (exocarp) and fleshy center (mesocarp and endocarp). Wild plants have fruits up to 20 cm (8 in) in diameter, while cultivated varieties may exceed 60 cm (24 in).</p> <p>The rind of the fruit is mid- to dark green and usually mottled or striped, and the flesh, containing numerous pips spread throughout the inside, can be red or pink (most commonly), orange, yellow, green or white.</p>
+    </article>
+    <hr>
+
+    <script>
+    if(!!window.IntersectionObserver){
+        let n=0; /* total no. of articles viewed */
+        let count = document.querySelector('#count');
+        let observer = new IntersectionObserver((entries, observer) => { 
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    console.log(entry)
+                    count.textContent= `articles fully viewed - ${++n}`; 
+                    observer.unobserve(entry.target);
+                }
+
+            });
+        }, {threshold: 1});
+        document.querySelectorAll('article > p:last-child').forEach(p => { observer.observe(p) });
+    }
+
+    else document.querySelector('#warning').style.display = 'block';
+    </script>
+</body>
+</html>

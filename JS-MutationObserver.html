@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="btn">add</button>
+        <input id="input" type="text">
+        <p id="field" contenteditable="true" tabindex="0" class="f">Edit this text!1</p>
+        <ul id="myList" class="list">
+            <li>Apples</li>
+            <li>Oranges</li>
+            <li>Bananas</li>
+            <li class="child">Peaches</li>
+        </ul>
+
+        <script>
+            let mList=document.querySelector("#myList");
+            let field=document.querySelector("#field");
+            let input=document.querySelector("#input");
+            let options = {
+                childList: true,
+                attributes: true,
+                characterData: true,
+                subtree: false,
+                attributeFilter: ['one', 'two'],
+                attributeOldValue: false,
+                characterDataOldValue: false
+            };
+            let observer=new MutationObserver(mCallback);
+
+            function mCallback(mutations){
+                console.log(mutations)
+                for(let mutation of mutations){
+                    console.log(mutation)
+                    if(mutation.type === 'childList'){
+                        console.log('Mutation Detected: A child node has been added or removed.');
+                    }
+                }
+            }
+            observer.observe(input.value,options)
+
+            document.querySelector("#btn").addEventListener("click",()=>{
+                mList.insertAdjacentHTML("beforeend","<li>Hello</li>")
+            })
+        </script>
+    </body>
+</html>
