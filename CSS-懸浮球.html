@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            .container {
+                width: 116px;
+                height: 116px;
+                border-radius: 50%;
+                border: 3px solid #67c23a;
+                background: #ffffff;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 5px;
+                transition: all .3s;
+            }
+            .wave {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                background-image: linear-gradient(
+                    -180deg,
+                    #aaff80 13%,
+                    #67c23a 91%
+                );
+                border-radius: 50%;
+                transition: all .3s;
+            }
+            .wave-mask {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                top: 0;
+                left: 50%;
+                border-radius: 40%;
+                background-color: rgba(212, 24, 24, 0.9);
+                transform: translate(-50%, -70%) rotate(0);
+                animation: toRotate 10s linear -5s infinite;
+                z-index: 20;
+            }
+            @keyframes toRotate {
+                50% {
+                    transform: translate(-50%, -70%) rotate(180deg);
+                }
+                100% {
+                    transform: translate(-50%, -70%) rotate(360deg);
+                }
+            }
+
+            /* 裁減 */
+            .container {
+                overflow: hidden;
+            }
+            .wave-mask {
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+
+            .container.waring{
+                border: 3px solid #e6a23c;
+            }
+            .container.waring .wave{
+                background-image: linear-gradient(-180deg, #f0c78a 13%, #e6a23c 91%);
+            }
+            .container.danger{
+                border: 3px solid #f56c6c;
+            }
+            .container.danger .wave{
+                background-image: linear-gradient(-180deg, #f78989 13%, #f56c6c 91%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container" :class="{waring:parseInt(usingRate)>60,danger:parseInt(usingRate) > 80}">
+                <div class="wave"></div>
+                <!-- 波浪的高度完全是受wave-mask的top屬性影響的，所以要動態變更懸浮球狀態只需要計算然後相應的改變top的值就可以了 -->
+                <div class="wave-mask" :style="`top:${40-parseInt(usingRate)}px`"></div>
+            </div>
+            <input type="range" v-model="usingRate" name="points" min="0" max="100" step="0" />
+            <span>{{usingRate}}</span>
+        </div>
+
+        <script>
+            var vm=new Vue({
+                el:"#app",
+                data:{
+                    usingRate:0,
+                    range:0
+                }
+            })
+        </script>
+    </body>
+</html>
