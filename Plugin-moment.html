@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>moment 插件使用</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-tw.js"></script>
+</head>
+<body>
+    <script>
+
+        let timestamp=moment().valueOf();
+        var now=moment(timestamp).format('YYYY-MM-DD');
+        let day7=moment().add(7,'days').valueOf();
+        console.log(moment(day7).format('YYYY-MM-DD'))
+        console.log(moment("20111031").fromNow())
+        console.log(moment("2019-05-13").to(moment("2019-07-28")))
+        console.log(moment("2019-06-20").isBefore('2019-05-13'))
+        console.log(moment("2019-06-20").isAfter('2019-05-13'))
+        console.log(moment("2019-06-20").isSame('2019-05-13'))
+        console.log(moment("2019-06-20").isBetween('2019-05-13','2019-07-28'))
+    </script>
+</body>
+</html>
