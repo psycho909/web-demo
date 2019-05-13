@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                height: 300vh;
+                background: #333;
+                font-family: 'Anton', sans-serif;
+
+                overflow-x: hidden;
+            }
+
+            .letters {
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: crimson;
+                font-size: 3.5rem;
+                text-transform: uppercase;
+                perspective: 1200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="letters">
+            <span class="sc">web</span>
+            <span class="r">dev</span>
+            <span class="o">trick</span>
+            <span class="ll">.com</span>
+        </div>
+
+        <script>
+            var $=document.querySelector.bind(document)
+            var sc=$('.sc');
+            var r=$('.r');
+            var o=$('.o');
+            var ll=$('.ll');
+
+            function transforrmLetters(){
+                const scroll=window.pageYOffset;
+
+                sc.style.transform=`translate3d(0,${scroll*1.4}px,0) rotateY(${-scroll*0.03}deg)`;
+                r.style.transform=`translate3d(${-scroll*0.45}px,${scroll*0.95}px,0) rotateY(${scroll*0.1}deg)`;
+                o.style.transform=`translate3d(${scroll*0.65}px,${scroll*1.05}px,0) rotateY(${-scroll*0.2}deg)`;
+                ll.style.transform=`translate3d(0,${scroll*0.5}px,0) rotateY(${scroll*0.04}deg)`;
+            }
+
+            window.addEventListener("scroll",transforrmLetters);
+        </script>
+    </body>
+</html>

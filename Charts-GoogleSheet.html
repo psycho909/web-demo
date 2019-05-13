@@ -66,20 +66,65 @@
 
                 return myChart
             }
+            //https://spreadsheets.google.com/feeds/cells/1SOZOLnnAI6__fKXZVCjxAA3ZQQfBmSaX4JXPGuLysdI/1/public/values?alt=json
+
+            // https://docs.google.com/spreadsheets/d/e/2PACX-1vTawDUrYUQ43ygwilz-vAkUnguBibvcXNc1beWUhgUq5bA0gC4Xf4x3s4hIVT5VoSKzv_IMnMg1VrFk/pubhtml
             var ID_TOKEN = '1SOZOLnnAI6__fKXZVCjxAA3ZQQfBmSaX4JXPGuLysdI'
-            fetch(
-                `https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/od6/public/full?alt=json`
-            )
-                .then(res => res.json())
-                .then(data => {
-                    var labels=data.feed.entry.map(e=>{
-                        return e.gsx$date.$t;
-                    })
-                    var values=data.feed.entry.map(e=>{
-                        return e.gsx$productsproduced.$t
-                    })
-                    BuildChart(labels, values, "Production Data");
+            var API=`https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/od6/public/full?alt=json`;
+            fetch(API)
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                var labels=data.feed.entry.map(e=>{
+                    return e.gsx$date.$t;
                 })
+                var values=data.feed.entry.map(e=>{
+                    return e.gsx$productsproduced.$t
+                })
+                BuildChart(labels, values, "Production Data");
+            })
+            var SHEET=2;
+            var API2=`https://spreadsheets.google.com/feeds/cells/${ID_TOKEN}/${SHEET}/public/values?alt=json`;
+            fetch(API2)
+            .then((res)=>res.json())
+            .then(data=>{
+                var labels=data.feed.entry.filter(e=>{
+                    return e.gs$cell.row == 1
+                }).map(e=>{
+                    return e.gs$cell.$t;
+                })
+                var values=data.feed.entry.filter(e=>{
+                    return e.gs$cell.row != 1;
+                })
+                var obj=values.reduce((acc,val,i)=>{
+                    acc[val.gs$cell.row]=(acc[val.gs$cell.row] || []).concat(values[i]);
+                    return acc;
+                },{})
+                
+                var result={};
+                var results=[];
+                for([key,value] of Object.entries(obj)){
+                    result={name:"",number:"",age:"",bg:""};
+                    for(var i=0;i<value.length;i++){
+                        if(i == 0){
+                            result.name=value[i].gs$cell.$t
+                        }
+                        if(i == 1){
+                            result.number=value[i].gs$cell.$t
+                        }
+                        if(i == 2){
+                            result.age=value[i].gs$cell.$t
+                        }
+                        if(i == 3){
+                            result.bg=value[i].gs$cell.$t
+                        }
+                    }
+                    results=[...results,result]
+                }
+
+                // console.log(values)
+                console.log(results)
+            })
         </script>
     </body>
 </html>
