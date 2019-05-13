@@ -1,302 +1,279 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>SVG 圓形讀取動畫</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css?family=Nixie+One|Raleway:200');
 
-            * {
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
-            }
-            body {
-                height: 100vh;
-                color: #fff;
-                display: flex;
-                background: #3e423a;
-                font-family: 'Nixie One', cursive;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SVG 圓形讀取動畫</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Nixie+One|Raleway:200');
 
-            .display-container {
-                margin: auto;
-                display: flex;
-            }
-            .note-display {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 0 25px;
-            }
-            .circle__progress {
-                fill: none;
-                stroke-width: 3;
-                stroke-opacity: 0.3;
-                stroke-linecap: round;
-            }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
-            .note-display:nth-child(1) .circle__progress {
-                stroke: #aaff00;
-            }
-            .note-display:nth-child(2) .circle__progress {
-                stroke: #ff00aa;
-            }
-            .note-display:nth-child(3) .circle__progress {
-                stroke: #aa00ff;
-            }
-            .note-display:nth-child(4) .circle__progress {
-                stroke: #00aaff;
-            }
-            .circle {
-                position: relative;
-            }
+        body {
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            background: #3e423a;
+            font-family: 'Nixie One', cursive;
+        }
 
-            .percent {
-                width: 100%;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                font-weight: bold;
-                text-align: center;
-                line-height: 28px;
-                transform: translate(-50%, -50%);
-            }
+        .display-container {
+            margin: auto;
+            display: flex;
+        }
 
-            .percent__int {
-                font-size: 28px;
-            }
-            .percent__dec {
-                font-size: 12px;
-            }
+        .note-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 25px;
+        }
 
-            .label {
-                font-family: 'Raleway', serif;
-                font-size: 14px;
-                text-transform: uppercase;
-                margin-top: 15px;
-            }
-            .circle {
-                position: relative;
-            }
+        .circle__progress {
+            fill: none;
+            stroke-width: 3;
+            stroke-opacity: 0.3;
+            stroke-linecap: round;
+        }
 
-            .percent {
-                width: 100%;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                font-weight: bold;
-                text-align: center;
-                line-height: 28px;
-                transform: translate(-50%, -50%);
-            }
+        .note-display:nth-child(1) .circle__progress {
+            stroke: #aaff00;
+        }
 
-            .percent__int {
-                font-size: 28px;
-            }
-            .percent__dec {
-                font-size: 12px;
-            }
+        .note-display:nth-child(2) .circle__progress {
+            stroke: #ff00aa;
+        }
 
-            .label {
-                font-family: 'Raleway', serif;
-                font-size: 14px;
-                text-transform: uppercase;
-                margin-top: 15px;
-            }
-            .circle {
-                position: relative;
-            }
+        .note-display:nth-child(3) .circle__progress {
+            stroke: #aa00ff;
+        }
 
-            .percent {
-                width: 100%;
-                top: 50%;
-                left: 50%;
-                position: absolute;
-                font-weight: bold;
-                text-align: center;
-                line-height: 28px;
-                transform: translate(-50%, -50%);
-            }
+        .note-display:nth-child(4) .circle__progress {
+            stroke: #00aaff;
+        }
 
-            .percent__int {
-                font-size: 28px;
-            }
-            .percent__dec {
-                font-size: 12px;
-            }
+        .circle {
+            position: relative;
+        }
 
-            .label {
-                font-family: 'Raleway', serif;
-                font-size: 14px;
-                text-transform: uppercase;
-                margin-top: 15px;
-            }
-            .circle__progress--fill {
-                --initialStroke: 0;
-                --transitionDuration: 0;
-                stroke-opacity: 1;
-                stroke-dasharray: var(--initialStroke);
-                stroke-dashoffset: var(--initialStroke);
-                transition: stroke-dashoffset var(--transitionDuration) ease;
-            }
-            .circle__svg {
-                transform: rotate(-90deg);
-            }
-        </style>
-    </head>
-    <body>
-        <ul class="display-container">
-            <li class="note-display" data-note="7.50">
-                <div class="circle">
-                    <svg width="84" height="84" class="circle__svg">
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--path"
-                        ></circle>
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--fill"
-                        ></circle>
-                    </svg>
+        .percent {
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            font-weight: bold;
+            text-align: center;
+            line-height: 28px;
+            transform: translate(-50%, -50%);
+        }
 
-                    <div class="percent">
-                        <span class="percent__int">0.</span>
-                        <span class="percent__dec">00</span>
-                    </div>
+        .percent__int {
+            font-size: 28px;
+        }
+
+        .percent__dec {
+            font-size: 12px;
+        }
+
+        .label {
+            font-family: 'Raleway', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .circle {
+            position: relative;
+        }
+
+        .percent {
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            font-weight: bold;
+            text-align: center;
+            line-height: 28px;
+            transform: translate(-50%, -50%);
+        }
+
+        .percent__int {
+            font-size: 28px;
+        }
+
+        .percent__dec {
+            font-size: 12px;
+        }
+
+        .label {
+            font-family: 'Raleway', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .circle {
+            position: relative;
+        }
+
+        .percent {
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            font-weight: bold;
+            text-align: center;
+            line-height: 28px;
+            transform: translate(-50%, -50%);
+        }
+
+        .percent__int {
+            font-size: 28px;
+        }
+
+        .percent__dec {
+            font-size: 12px;
+        }
+
+        .label {
+            font-family: 'Raleway', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .circle__progress--fill {
+            --initialStroke: 0;
+            --transitionDuration: 0;
+            stroke-opacity: 1;
+            stroke-dasharray: var(--initialStroke);
+            stroke-dashoffset: var(--initialStroke);
+            transition: stroke-dashoffset var(--transitionDuration) ease;
+        }
+
+        .circle__svg {
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="display-container">
+        <li class="note-display" data-note="7.50">
+            <div class="circle">
+                <svg width="84" height="84" class="circle__svg">
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--path"></circle>
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--fill"></circle>
+                </svg>
+
+                <div class="percent">
+                    <span class="percent__int">0.</span>
+                    <span class="percent__dec">00</span>
                 </div>
+            </div>
 
-                <span class="label">Transparent</span>
-            </li>
+            <span class="label">Transparent</span>
+        </li>
 
-            <li class="note-display" data-note="9.27">
-                <div class="circle">
-                    <svg width="84" height="84" class="circle__svg">
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--path"
-                        ></circle>
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--fill"
-                        ></circle>
-                    </svg>
+        <li class="note-display" data-note="9.27">
+            <div class="circle">
+                <svg width="84" height="84" class="circle__svg">
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--path"></circle>
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--fill"></circle>
+                </svg>
 
-                    <div class="percent">
-                        <span class="percent__int">0.</span>
-                        <span class="percent__dec">00</span>
-                    </div>
+                <div class="percent">
+                    <span class="percent__int">0.</span>
+                    <span class="percent__dec">00</span>
                 </div>
+            </div>
 
-                <span class="label">Reasonable</span>
-            </li>
+            <span class="label">Reasonable</span>
+        </li>
 
-            <li class="note-display" data-note="6.93">
-                <div class="circle">
-                    <svg width="84" height="84" class="circle__svg">
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--path"
-                        ></circle>
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--fill"
-                        ></circle>
-                    </svg>
+        <li class="note-display" data-note="6.93">
+            <div class="circle">
+                <svg width="84" height="84" class="circle__svg">
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--path"></circle>
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--fill"></circle>
+                </svg>
 
-                    <div class="percent">
-                        <span class="percent__int">0.</span>
-                        <span class="percent__dec">00</span>
-                    </div>
+                <div class="percent">
+                    <span class="percent__int">0.</span>
+                    <span class="percent__dec">00</span>
                 </div>
+            </div>
 
-                <span class="label">Usable</span>
-            </li>
+            <span class="label">Usable</span>
+        </li>
 
-            <li class="note-display" data-note="8.72">
-                <div class="circle">
-                    <svg width="84" height="84" class="circle__svg">
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--path"
-                        ></circle>
-                        <circle
-                            cx="41"
-                            cy="41"
-                            r="38"
-                            class="circle__progress circle__progress--fill"
-                        ></circle>
-                    </svg>
+        <li class="note-display" data-note="8.72">
+            <div class="circle">
+                <svg width="84" height="84" class="circle__svg">
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--path"></circle>
+                    <circle cx="41" cy="41" r="38" class="circle__progress circle__progress--fill"></circle>
+                </svg>
 
-                    <div class="percent">
-                        <span class="percent__int">0.</span>
-                        <span class="percent__dec">00</span>
-                    </div>
+                <div class="percent">
+                    <span class="percent__int">0.</span>
+                    <span class="percent__dec">00</span>
                 </div>
+            </div>
 
-                <span class="label">Exemplary</span>
-            </li>
-        </ul>
+            <span class="label">Exemplary</span>
+        </li>
+    </ul>
 
-        <script>
-            const displays = document.querySelectorAll('.note-display')
-            const transitionDuration = 900
+    <script>
+        const displays = document.querySelectorAll('.note-display')
+        const transitionDuration = 900
 
-            displays.forEach(display => {
-                let note = parseFloat(display.dataset.note)
-                let [int, dec] = display.dataset.note.split('.');
-                [int, dec] = [Number(int), Number(dec)]
-                console.log(int, dec)
-                strokeTransition(display, note)
-                increaseNumber(display, int, 'int')
-                increaseNumber(display, dec, 'dec')
-            })
+        displays.forEach(display => {
+            let note = parseFloat(display.dataset.note)
+            let [int, dec] = display.dataset.note.split('.');
+            [int, dec] = [Number(int), Number(dec)]
+            console.log(int, dec)
+            strokeTransition(display, note)
+            increaseNumber(display, int, 'int')
+            increaseNumber(display, dec, 'dec')
+        })
 
-            function strokeTransition(display, note) {
-                let progress = display.querySelector('.circle__progress--fill')
-                // 獲取r半徑
-                let radius = progress.r.baseVal.value
-                // 獲取圓周長 2*Math.PI*半徑
-                let circumference = 2 * Math.PI * radius
-                // offset 表示達到最高值時缺失的百分比。
-                // 因此，對於 7.50 note，我們將得到 (10 - 7.50) / 10 = 0.25，這意味著 circumference 長度應該偏移其值的25％
-                let offset = (circumference * (10 - note)) / 10
-                progress.style.setProperty('--transitionDuration', `${transitionDuration}ms`)
-                progress.style.setProperty('--initialStroke', circumference)
+        function strokeTransition(display, note) {
+            let progress = display.querySelector('.circle__progress--fill')
+            // 獲取r半徑
+            let radius = progress.r.baseVal.value
+            // 獲取圓周長 2*Math.PI*半徑
+            let circumference = 2 * Math.PI * radius
+            // offset 表示達到最高值時缺失的百分比。
+            // 因此，對於 7.50 note，我們將得到 (10 - 7.50) / 10 = 0.25，這意味著 circumference 長度應該偏移其值的25％
+            let offset = (circumference * (10 - note)) / 10
+            progress.style.setProperty('--transitionDuration', `${transitionDuration}ms`)
+            progress.style.setProperty('--initialStroke', circumference)
 
-                setTimeout(() => (progress.style.strokeDashoffset = offset))
-            }
+            setTimeout(() => (progress.style.strokeDashoffset = offset))
+        }
 
-            function increaseNumber(display, number, className) {
-                let element = display.querySelector(`.percent__${className}`),
-                    decPoint = className === 'int' ? '.' : '',
-                    interval = transitionDuration / number,
-                    counter = 0
+        function increaseNumber(display, number, className) {
+            let element = display.querySelector(`.percent__${className}`),
+                decPoint = className === 'int' ? '.' : '',
+                interval = transitionDuration / number,
+                counter = 0
 
-                let increaseInterval = setInterval(() => {
-                    if (counter === number) {
-                        window.clearInterval(increaseInterval)
-                    }
-                    element.textContent = counter + decPoint
-                    counter++
-                }, interval)
-            }
-        </script>
-    </body>
+            let increaseInterval = setInterval(() => {
+                if (counter === number) {
+                    window.clearInterval(increaseInterval)
+                }
+                element.textContent = counter + decPoint
+                counter++
+            }, interval)
+        }
+    </script>
+</body>
+
 </html>
