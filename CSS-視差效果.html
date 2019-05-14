@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 1080px;
+            height: 600px;
+            background: url(./images/cover.jpeg) 100% no-repeat;
+            margin: 0 auto;
+            background-size: cover;
+        }
+
+        .pig1 {
+            position: absolute;
+            right: 600px;
+        }
+
+        .pig1 img {
+            display: block;
+        }
+
+        .pig2 {
+            position: absolute;
+            left: 600px;
+        }
+        .pig2 img {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="pig1">
+            <img src="./images/05.png" alt="">
+        </div>
+        <div class="pig2">
+            <img src="./images/05.png" alt="">
+        </div>
+    </div>
+
+    <script>
+        let mousex, mousey, changex, changey;
+        let mv = 500;
+        // $(".container").mousemove(function(e){
+        //     mousex=event.clientX-($('.pig1').offset().left+$('.pig1').width()/2);
+        //     mousey=event.clientY-($('.pig1').offset().top+$('.pig1').height()/2);
+        //     mousex=mousex/-20;
+        //     mousey=mousey/-20;
+        //     // mousex = event.clientX - $('.container').offset().left - $('.container').width() / 2;
+        //     // mousey = event.clientY - $('.container').offset().top - $('.container').height() / 2;
+        //     console.log(mousex,mousey)
+        //     $('.pig1').css('transform', 'matrix(1,0,0,1,' + mousex+ ',' + mousey + ')')
+        // })
+
+        $('.container').mousemove(function (e) {
+            //相对图片中心为坐标轴，鼠标移动的位置
+            mousex = e.clientX - $('.container').offset().left - $('.container').width() / 2;
+            mousey = e.clientY - $('.container').offset().top - $('.container').height() / 2;
+            changex = mousey / mv;
+            changey = mousex / mv;
+
+            //根据鼠标移动的相对坐标进行背景图片翻转
+            $('.container').css('transform', 'perspective(400px) rotatex(' + changex + 'deg) rotateY(' + changey + 'deg)')
+
+            //根据鼠标移动的对相对坐标调整两只猪对距离
+            $('.pig2').css('transform', 'matrix(1,0,0,1,' + mousex / -30 + ',' + mousey / -30 + ')')
+            $('.pig1').css('transform', 'matrix(1,0,0,1,' + mousex / 20 + ',' + mousey / 20 + ')')
+        })
+
+        $('.container').mouseout(function () {
+            $('.container').css('transform', 'perspective(400px) rotatex(0deg) rotateY(0deg)')
+            $('.pig2').css('transform', 'matrix(1,0,0,1,0,0)')
+            $('.pig1').css('transform', 'matrix(1,0,0,1,0,0)')
+        })
+
+    </script>
+</body>
+
+</html>

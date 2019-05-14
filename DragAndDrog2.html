@@ -195,14 +195,14 @@
                     })
                     dropzone.addEventListener('drop',(ev)=>{
                         ev.preventDefault()
-                        ev.target.style.borderStyle="dashed"
-                        
-                        // get id
-                        const sourceId=ev.dataTransfer.getData("text/plain");
-                        ev.target.appendChild(document.getElementById(sourceId))
-
-                        console.log('drop',sourceId)
-
+                        if(!ev.target.parentElement.children[0].classList.contains('draggables')){
+                            ev.target.style.borderStyle="dashed"
+                            // get id
+                            const sourceId=ev.dataTransfer.getData("text/plain");
+                            ev.target.appendChild(document.getElementById(sourceId))
+                            
+                            console.log('drop',sourceId)
+                        }
                         return false
                     })
                 })
