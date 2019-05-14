@@ -146,11 +146,14 @@
 
                     draggable.addEventListener('dragstart',(ev)=>{
                         console.log("dragstart")
+                        
                         ev.target.style.opacity=".5";
                         
                         ev.dataTransfer.setData("text/plain",ev.target.id)
                     })
                     draggable.addEventListener("dragend",(ev)=>{
+                    	console.log("dragend")
+
                         ev.target.classList.add('drop');
                         ev.target.style.left=0;
                         ev.target.style.top=0;
@@ -197,6 +200,8 @@
                         // get id
                         const sourceId=ev.dataTransfer.getData("text/plain");
                         ev.target.appendChild(document.getElementById(sourceId))
+
+                        console.log('drop',sourceId)
 
                         return false
                     })

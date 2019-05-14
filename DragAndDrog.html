@@ -1,128 +1,134 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <style>
-            *{
-                padding: 0;
-                margin: 0;
-                font-family: "微軟正黑體";
-                box-sizing: border-box;
-            }
-            #drag-container {
-                width: 600px;
-                height: 600px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                align-content: space-between;
-            }
 
-            #drag-container > .dropzone {
-                width: 200px;
-                height: 200px;
-                background: #dae8fc;
-                padding: 10px;
-                border: 1px solid #6c8ebf;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "微軟正黑體";
+            box-sizing: border-box;
+        }
 
-            #draggable {
-                width: 90px;
-                height: 90px;
-                line-height: 90px;
-                text-align: center;
-                background: #f8cecc;
-                border: 1px solid #b85450;
-                margin: 0 auto;
-                cursor: pointer;
-            }
-            .stop-drag{
-                pointer-events: none;
-                background: #fff900 !important;
-                border-color:#000 !important;
-            }
-            #answer{
-                width: 100%;
-                height: 60px;
-                text-align: center;
-                font-size: 20px;
-                line-height: 60px;
-                color: red;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="drag-container">
-            <div id="answer"></div>
-            <div class="dropzone dropzone1" data-type="1">
-                <div id="draggable" draggable="true" data-drag="3">
-                    Drag Me
-                </div>
+        #drag-container {
+            width: 600px;
+            height: 600px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-between;
+        }
+
+        #drag-container>.dropzone {
+            width: 200px;
+            height: 200px;
+            background: #dae8fc;
+            padding: 10px;
+            border: 1px solid #6c8ebf;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #draggable {
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            text-align: center;
+            background: #f8cecc;
+            border: 1px solid #b85450;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .stop-drag {
+            pointer-events: none;
+            background: #fff900 !important;
+            border-color: #000 !important;
+        }
+
+        #answer {
+            width: 100%;
+            height: 60px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 60px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drag-container">
+        <div id="answer"></div>
+        <div class="dropzone dropzone1" data-type="1">
+            <div id="draggable" draggable="true" data-drag="3">
+                Drag Me
             </div>
-            <div class="dropzone dropzone2" data-type="2"></div>
-            <div class="dropzone dropzone3" data-type="3"></div>
-            <div class="dropzone dropzone4" data-type="4"></div>
-            <div class="dropzone dropzone5" data-type="5"></div>
-            <div class="dropzone dropzone6" data-type="6"></div>
-            <div class="dropzone dropzone7" data-type="7"></div>
-            <div class="dropzone dropzone8" data-type="8"></div>
-            <div class="dropzone dropzone9" data-type="9"></div>
         </div>
+        <div class="dropzone dropzone2" data-type="2"></div>
+        <div class="dropzone dropzone3" data-type="3"></div>
+        <div class="dropzone dropzone4" data-type="4"></div>
+        <div class="dropzone dropzone5" data-type="5"></div>
+        <div class="dropzone dropzone6" data-type="6"></div>
+        <div class="dropzone dropzone7" data-type="7"></div>
+        <div class="dropzone dropzone8" data-type="8"></div>
+        <div class="dropzone dropzone9" data-type="9"></div>
+    </div>
 
-        <script>
-            let draggable=document.getElementById("draggable");
-            let dropzones=document.querySelectorAll('.dropzone');
-            let dragType=draggable.dataset.drag;
-            draggable.addEventListener('dragstart',(ev)=>{
-                console.log('dragstart')
-                ev.target.style.opacity=".5"
-                ev.dataTransfer.setData("text/plain",ev.target.id)
+    <script>
+        let draggable = document.getElementById("draggable");
+        let dropzones = document.querySelectorAll('.dropzone');
+        let dragType = draggable.dataset.drag;
+        draggable.addEventListener('dragstart', (ev) => {
+            console.log('dragstart')
+            ev.target.style.opacity = ".5"
+            ev.dataTransfer.setData("text/plain", ev.target.id)
+        })
+
+        draggable.addEventListener("dragend", (ev) => {
+            console.log("dragend")
+            var dropType = ev.target.parentNode.dataset.type;
+            var dragType = ev.target.dataset.drag;
+            if (dropType === dragType) {
+                ev.target.setAttribute("draggable", false)
+                ev.target.classList.add("stop-drag")
+                document.getElementById('answer').textContent = "找到正確位置了"
+            }
+            ev.target.style.opacity = "1"
+        })
+
+        dropzones.forEach((dropzone) => {
+            dropzone.addEventListener("dragenter", (ev) => {
+                console.log("dragenter")
+                ev.preventDefault();
+                dropzone.style.borderStyle = "dashed";
+                return false;
             })
-
-            draggable.addEventListener("dragend",(ev)=>{
-                console.log("dragend")
-                var dropType=ev.target.parentNode.dataset.type;
-                var dragType=ev.target.dataset.drag;
-                if(dropType === dragType){
-                    ev.target.setAttribute("draggable",false)
-                    ev.target.classList.add("stop-drag")
-                    document.getElementById('answer').textContent="找到正確位置了"
-                }
-                ev.target.style.opacity="1"
+            dropzone.addEventListener("dragover", (ev) => {
+                ev.preventDefault();
+                return false;
             })
-
-            dropzones.forEach((dropzone)=>{
-                dropzone.addEventListener("dragenter",(ev)=>{
-                    console.log("dragenter")
-                    ev.preventDefault();
-                    dropzone.style.borderStyle="dashed";
-                    return false;
-                })
-                dropzone.addEventListener("dragover",(ev)=>{
-                    ev.preventDefault();
-                    return false;
-                })
-                dropzone.addEventListener("dragleave",(ev)=>{
-                    dropzone.style.borderStyle="solid";
-                })
-                dropzone.addEventListener('drop',(ev)=>{
-                    ev.preventDefault()
-                    ev.target.style.borderStyle="dashed"
-                    
-                    // get id
-                    const sourceId=ev.dataTransfer.getData("text/plain");
-                    ev.target.appendChild(document.getElementById(sourceId))
-
-                    return false
-                })
+            dropzone.addEventListener("dragleave", (ev) => {
+                dropzone.style.borderStyle = "solid";
             })
-        </script>
-    </body>
+            dropzone.addEventListener('drop', (ev) => {
+                ev.preventDefault()
+                ev.target.style.borderStyle = "dashed"
+
+                // get id
+                const sourceId = ev.dataTransfer.getData("text/plain");
+                ev.target.appendChild(document.getElementById(sourceId))
+
+                return false
+            })
+        })
+    </script>
+</body>
+
 </html>
