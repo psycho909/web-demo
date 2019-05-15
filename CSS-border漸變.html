@@ -1,167 +1,203 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <style>
-            body {
-                width: 100vw;
-                height: 100vh;
-                padding: 2vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-            }
 
-            .btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 290px;
-                height: 90px;
-                position: relative;
-                border-radius: 50px;
-                font-weight: 500;
-                border: solid 5px transparent;
-                color: #5e3700;
-                font-size: 32px;
-                margin: 20px;
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            padding: 2vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 290px;
+            height: 90px;
+            position: relative;
+            border-radius: 50px;
+            font-weight: 500;
+            border: solid 5px transparent;
+            color: #5e3700;
+            font-size: 32px;
+            margin: 20px;
+        }
+
+        .btn.btn-primary {
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.61);
+            box-shadow: inset 0 5px 15px 0 rgba(255, 255, 255, 0.4),
+                inset 0 10px 15px 0 rgba(255, 255, 255, 0.6),
+                0 2px 12px rgba(0, 0, 0, 0.35);
+            background-image: radial-gradient(circle at 50% 0%,
+                #fff000 50%,
+                #ffcd00 100%),
+                linear-gradient(101deg, #ffc46d, #fa0055);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-outline {
+            color: #fff;
+            border: 5px solid #ffffff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn.btn-default {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #ff7c2d 3%,
+                #ff016e 97%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-secondary {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #ff005d 5%,
+                #0066ff 98%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-disabled {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #d0d0d0 5%,
+                #bbbbbb 98%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-success {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #ffc600 6%,
+                #04e199 94%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-info {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #32a8ff 6%,
+                #00ccb4 94%),
+                linear-gradient(to bottom, #d696bc, #cd4f5d);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-circle {
+            min-width: 90px;
+            max-width: 90px;
+            height: 90px;
+            font-size: 24px;
+            color: #fff;
+            border-radius: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(-151deg,
+                #17fef6 0%,
+                #8417f9 100%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-circle span {
+            display: block;
+            text-align: center;
+        }
+
+        .btn.btn-group {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(to right,
+                #17edfe 6%,
+                #8417f9 94%),
+                linear-gradient(to bottom, #fff3b6, #e27d2c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .btn.btn-repeat {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background-image: repeating-linear-gradient(-45deg, red 0px, red 10px, #fff 10px, #fff 20px), url('https://webdevtrick.com/wp-content/uploads/b47sample2.jpg');
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            border-radius: 100% 0 0 100% / 50% 0 0 50%;
+        }
+        .btn-anim{
+            display: inline-flex;
+            width: 290px;
+            height: 90px;
+            padding: 6px;
+            position: relative;
+        }
+        .btn-anim:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: linear-gradient(45deg, #0ebeff, #ffdd40, #ae63e4, #47cf73, #0ebeff, #ffdd40, #ae63e4, #47cf73); */
+            background: repeating-linear-gradient(-45deg,red 0px,red 10px,#fff 10px,#fff 20px);
+            border-radius: 50px;
+            background-size: 200%;
+            transition: background-color .3s linear;
+            animation: rainbow-border 10s linear infinite;
+        }
+        .btn-box{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            position: relative;
+            border-radius: 50px;
+        }
+        @keyframes rainbow-border{
+            0%{
+                background-position: 0% 0%;
             }
-            .btn.btn-primary {
-                text-shadow: 0 1px 1px rgba(255, 255, 255, 0.61);
-                box-shadow: inset 0 5px 15px 0 rgba(255, 255, 255, 0.4),
-                    inset 0 10px 15px 0 rgba(255, 255, 255, 0.6),
-                    0 2px 12px rgba(0, 0, 0, 0.35);
-                background-image: radial-gradient(
-                        circle at 50% 0%,
-                        #fff000 50%,
-                        #ffcd00 100%
-                    ),
-                    linear-gradient(101deg, #ffc46d, #fa0055);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
+            100%{
+                background-position: 200% 50%;
             }
-            .btn.btn-outline {
-                color: #fff;
-                border: 5px solid #ffffff;
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-            }
-            .btn.btn-default {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #ff7c2d 3%,
-                        #ff016e 97%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-secondary {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #ff005d 5%,
-                        #0066ff 98%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-disabled {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #d0d0d0 5%,
-                        #bbbbbb 98%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-success {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #ffc600 6%,
-                        #04e199 94%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-info {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #32a8ff 6%,
-                        #00ccb4 94%
-                    ),
-                    linear-gradient(to bottom, #d696bc, #cd4f5d);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-circle {
-                min-width: 90px;
-                max-width: 90px;
-                height: 90px;
-                font-size: 24px;
-                color: #fff;
-                border-radius: 100%;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                background-image: linear-gradient(
-                        -151deg,
-                        #17fef6 0%,
-                        #8417f9 100%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-circle span {
-                display: block;
-                text-align: center;
-            }
-            .btn.btn-group {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: linear-gradient(
-                        to right,
-                        #17edfe 6%,
-                        #8417f9 94%
-                    ),
-                    linear-gradient(to bottom, #fff3b6, #e27d2c);
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-            }
-            .btn.btn-repeat {
-                color: #fff;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-                background-image: repeating-linear-gradient(-45deg,red 0px,red 10px,#fff 10px,#fff 20px),url('https://webdevtrick.com/wp-content/uploads/b47sample2.jpg');
-                background-origin: border-box;
-                background-clip: padding-box, border-box;
-                border-radius: 100% 0 0 100% / 50% 0 0 50%;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="btn btn-default"></div>
-        <div class="btn btn-default"></div>
-        <div class="btn btn-circle"></div>
-        <div class="btn btn-success"></div>
-        <div class="btn btn-info"></div>
-        <div class="btn btn-group"></div>
-        <div class="btn btn-repeat"></div>
-    </body>
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btn btn-default"></div>
+    <div class="btn-anim">
+        <div class="btn-box"></div>
+    </div>
+    <div class="btn btn-circle"></div>
+    <div class="btn btn-success"></div>
+    <div class="btn btn-info"></div>
+    <div class="btn btn-group"></div>
+    <div class="btn btn-repeat"></div>
+</body>
+
 </html>
