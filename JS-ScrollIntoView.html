@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生JS ScrollIntoView</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            width: 100%;
+            height: 300px;
+            background-color: rgb(219, 219, 219);
+            margin-bottom: 24px;
+            font-size: 24px;
+            color:#fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            width: 600px;
+            height: 300px;
+            margin: 0 auto;
+            background-color: rgb(192, 192, 192);
+            margin-bottom: 24px;
+            font-size: 24px;
+            color:#fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box:nth-of-type(odd){
+            background-color: rgb(136, 136, 136);
+        }
+        nav{
+            display: flex;
+            justify-content: center;
+            background-color: rgb(54, 54, 54);
+        }
+        .nav__btn{
+            padding: 12px 24px;
+            color:#fff;
+            cursor: pointer;
+            background-color: rgb(167, 167, 167);
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div data-box="BOX1" class="nav__btn">box1</div>
+        <div data-box="BOX2" class="nav__btn">box2</div>
+        <div data-box="BOX3" class="nav__btn">box3</div>
+        <div data-box="BOX4" class="nav__btn">box4</div>
+        <div data-box="BOX5" class="nav__btn">box5</div>
+    </nav>
+    <header class="header">HEADER</header>
+    <div class="container">
+        <div id="BOX1" class="box">BOX1</div>
+        <div id="BOX2" class="box">BOX2</div>
+        <div id="BOX3" class="box">BOX3</div>
+        <div id="BOX4" class="box">BOX4</div>
+        <div id="BOX5" class="box">BOX5</div>
+    </div>
+
+    <script>
+        var navBtn=document.querySelectorAll(".nav__btn");
+        navBtn.forEach((v)=>{
+            v.addEventListener("click",()=>{
+                var dataId=v.dataset.box;
+                var getId=document.querySelector(`#${dataId}`);
+                getId.scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                })
+            })
+        })
+    </script>
+</body>
+</html>
