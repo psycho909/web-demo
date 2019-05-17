@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+            gap: 10px;
+        }
+        img{
+            display: block;
+            max-width: 100%;
+        }
+        div{
+            background: url('https://bennettfeely.com/clippy/pics/pittsburgh.jpg'), linear-gradient(45deg, #3023AE 0%, #FF0099 100%);
+            background-blend-mode: overlay,luminosity,screen,luminosity;
+            background-size: cover;
+            /* clip-path: circle(40%); */
+        }
+        div:nth-of-type(1) img{
+            clip-path: circle(40%);
+        }
+        div:nth-of-type(2) img{
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+    </style>
+</head>
+<body>
+    <div><img src="https://bennettfeely.com/clippy/pics/pittsburgh.jpg" alt=""></div>
+    <div><img src="https://bennettfeely.com/clippy/pics/pittsburgh.jpg" alt=""></div>
+</body>
+</html>
