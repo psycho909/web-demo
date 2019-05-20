@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <style>
+        *,*:before,*:after {
+            box-sizing: border-box;
+        }
+        html,body {
+            height: 100%;
+            overflow: hidden;
+            background: #ECECEC;
+        }
+        .split {
+            width: 850px;
+            height: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 400px;
+            cursor: pointer;
+        }
+        .split:before {
+            content: 'CLICK OVER IMAGE';
+            color: #777;
+            letter-spacing: 1px;
+            font-size: 20px;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        .split img {
+            height: auto;
+            width: 100%;
+            opacity: 0;
+        }
+        .split div {
+            position: absolute;
+            z-index: 1;
+            background-repeat: no-repeat;
+            transform: rotateY(-50deg) scale(0.5);
+            opacity: 0;
+            transform-origin: bottom;
+            transition: all 0.6s cubic-bezier(0.71, 0.05, 0.09, 0.91);
+        }
+        .split.active div {
+            opacity: 1;
+            transform: rotate(0deg) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="split">
+        <img src="https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg" />
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var Split=function(){
+            this.$t=$(".split");
+            this.gridX=6;
+            this.gridY=4;
+            this.w=this.$t.width();
+            this.h=this.$t.height();
+            this.img=$("img",this.$t).attr("src");
+            this.delay=0.05;
+
+            this.create=function(){
+                for(var x=0;x<this.gridX;x++){
+                    for(var y=0;y<this.gridY;y++){
+                        // var width=this.w/this.gridX*101/this.w;
+                        // var height=this.h/this.gridY*101/this.h;
+                        // var top=this.h/this.gridY*y*100/this.h;
+                        // var left=this.w/this.gridX*x*100/this.w;
+                        // var bgPosX=-(this.w / this.gridX * x) + "px";
+                        // var bgPosY=-(this.h / this.gridY * y) + "px";
+
+                        var width=100/this.gridX;
+                        var height=100/this.gridY;
+                        var top=height*y;
+                        var left=width*x;
+                        var bgPosX=-(this.w / this.gridX * x) + "px";
+                        var bgPosY=-(this.h / this.gridY * y) + "px";
+
+                        $("<div />")
+                        .css({
+                            top:top+"%",
+                            left:left+"%",
+                            width:width+"%",
+                            height:height+"%",
+                            background:`url(${this.img})`,
+                            backgroundPosition:bgPosX+" "+bgPosY,
+                            backgroundSize:this.w+"px",
+                            transitionDelay:x * this.delay + y * this.delay + "s"
+                        }).appendTo(this.$t)
+                    }
+                }
+            }
+
+            this.create();
+
+            this.$t.on("click",function(){
+                $(this).toggleClass("active")
+            }).click()
+        }
+        
+        window.onload=function(){
+            var split=new Split();
+        }
+    </script>
+</body>
+</html>
