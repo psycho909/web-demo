@@ -6,11 +6,24 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Lazy Image</title>
         <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
             body {
                 font-family: 'Averia serif libre';
                 text-align: center;
                 color: aliceblue;
                 background-color: crimson;
+            }
+            .header{
+                background-color: rgb(0, 132, 255);
+                padding: 1rem;
+                font-size: 26px;
+            }
+            .header.sticky{
+                position: sticky;
+                top: 0;
             }
             img {
                 width: 600px;
@@ -29,7 +42,7 @@
         </style>
     </head>
     <body>
-
+        <header class="header">STICKY HEADER</header>
         <img
             class="lazy"
             src="https://via.placeholder.com/600"
@@ -62,7 +75,13 @@
                 let lazyImages=Array.from(document.querySelectorAll('.lazy'))
                 let active=false;
                 
+                var header=document.querySelector('.header');
                 const lazyLoad=()=>{
+                    var h=header.getBoundingClientRect().top
+                    if( h <= 0){
+                        header.classList.add('sticky')
+                    }
+
                     if(!active){
                         active=true
 

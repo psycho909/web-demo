@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .valid{
+            color:red;
+            display: none;
+        }
+        #username:not(:placeholder-shown) + span{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <from id="from">
+        <input type="text" id="username" placeholder="請輸入帳號...">
+        <span class="valid username-valid">請輸入帳號</spa>
+    </from>
+</body>
+</html>
