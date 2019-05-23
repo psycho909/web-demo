@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const trackW = 6
+        const rx = 300
+        const ry = 300
+        const radius = 150
+        const innerLineW = 10
+        const canvas = document.getElementById('canvas')
+        canvas.width=600;
+        canvas.height=600;
+        const ctx = canvas.getContext('2d')
+        function draw(toAngle, currentAngle = Math.PI) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            // 半圆轨道
+            ctx.beginPath()
+            ctx.strokeStyle = '#ad80fc'
+            ctx.lineWidth = trackW
+            ctx.arc(rx, ry, radius, Math.PI, 0, false)
+            ctx.stroke()
+            // 圆弧
+            ctx.beginPath()
+            ctx.lineCap = 'round'
+            ctx.strokeStyle = '#fe4d55'
+            ctx.lineWidth = innerLineW
+            ctx.arc(rx, ry, radius, Math.PI, currentAngle, false)
+            ctx.stroke()
+            if (currentAngle < toAngle) {
+                currentAngle += 0.02
+                if (currentAngle > toAngle) currentAngle = toAngle
+                requestAnimationFrame(() => {
+                    draw(toAngle, currentAngle)
+                })
+            }
+        }
+
+        var redians=(deg)=>{
+            deg=(deg/100)+1
+            return deg*Math.PI
+        }
+        draw(redians(70))
+
+
+    </script>
+</body>
+
+</html>
