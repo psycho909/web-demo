@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .nav{
+            background-color: #262626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-box{
+            position: relative;
+            padding:12px 12px;
+        }
+        .nav-box span{
+            color:#fff;
+        }
+        .nav-box span:not(:only-child):after{
+            padding-left: 4px;
+            content: ' ▾';
+        }
+        .nav-box__inner{
+            position: absolute;
+            display: none;
+        }
+        .nav-box__inner span{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-box">
+            <span>BOX1</span>
+        </div>
+        <div class="nav-box">
+            <span>BOX2</span>
+        </div>
+        <div class="nav-box">
+            <span>BOX3</span>
+            <div class="nav-box__inner">
+                <span>BOX3-1</span>
+                <span>BOX3-2</span>
+                <span>BOX3-3</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
