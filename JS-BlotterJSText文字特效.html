@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/blotter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/channelSplitMaterial.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,
+        body{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        var text=new Blotter.Text("Bro",{
+            family:"Montserrat",
+            size:300,
+            fill:"#000",
+            paddingLeft:80,
+            paddingRight:80,
+            paddingTop:80,
+            paddingBottom:80
+        })    
+        
+        // var material=new Blotter.LiquidDistortMaterial();
+        // material.uniforms.uVolatility.value=0.03;
+        // material.uniforms.uSeed.value=0;
+        // material.uniforms.uSpeed.value=0.9;
+
+        var material=new Blotter.ChannelSplitMaterial();
+        material.uniforms.uOffset.value=0.03;
+        material.uniforms.uRotation.value=50;
+        material.uniforms.uApplyBlur.value=1; // 0 false 1 true
+        material.uniforms.uAnimateNoise.value=0.9;
+
+        // var material=new Blotter.RollingDistortMaterial();
+        // material.uniforms.uSineDistortSpread.value=1;
+        // material.uniforms.uSineDistortCycleCount.value=1;
+        // material.uniforms.uSineDistortAmplitude.value=.4;
+        // material.uniforms.uNoiseDistortVolatility.value=.1;
+        // material.uniforms.uNoiseDistortAmplitude.value=.3;
+        // material.uniforms.uDistortPosition.value=.3;
+        // material.uniforms.uRotation.value=90;
+        // material.uniforms.uSpeed.value=.3;
+
+        var blotter=new Blotter(material,{
+            texts:text
+        })
+
+        var scope=blotter.forText(text);
+
+        scope.appendTo(document.body)
+
+        document.onmousemove=moveIt;
+        function moveIt(event){
+            console.log(event.clientX*.1)
+            material.uniforms.uRotation.value=(event.clientX*.1);
+            material.uniforms.uOffset.value=(event.clientX*.0001);
+        }
+
+    </script>
+</body>
+</html>

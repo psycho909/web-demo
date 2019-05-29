@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #grid{
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            grid-template-rows: 30px 1fr 30px;
+            grid-template-areas: 
+                "title board"
+                "stats board"
+                "score controls";
+            width: 300px;
+            height: 300px;
+        }
+        #title{
+            grid-column: 1;
+            grid-row: 1;
+            background-color: rgb(249, 253, 190);
+        }
+        #score{
+            grid-area:score;
+            background-color: rgb(233, 233, 233);
+        }
+        #stats{
+            grid-column: 1;
+            grid-row:2;
+            align-self: start;
+            background-color: rgb(199, 199, 199);
+        }
+        #board{
+            grid-column: 2;
+            grid-row:1/span 2;
+            background-color: rgb(255, 202, 202);
+        }
+        #controls{
+            grid-column: 2;
+            grid-row:3;
+            justify-self: center;
+            background-color: rgb(182, 255, 251);
+        }
+    </style>
+</head>
+<body>
+    <div id="grid">
+        <div id="title">Game Title</div>
+        <div id="score">Score</div>
+        <div id="stats">Stats</div>
+        <div id="board">Board</div>
+        <div id="controls">Controls</div>
+    </div> 
+</body>
+</html>
