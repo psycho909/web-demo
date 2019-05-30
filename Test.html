@@ -1,76 +1,154 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <title>Document</title>
-        <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            .box {
-                width: 300px;
-                height: 200px;
-                background: green;
-                background: linear-gradient( to left bottom,transparent 50%,rgba(0, 0, 0, 0.4) 0) no-repeat 100% 0 / 36px 36px,
-                    linear-gradient(-135deg, transparent 24px, green 0);
-            }
-        </style>
-    </head>
-    <body>
-        <div class="box"></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
 
-        <script>
-            var arr = [1, 2, 3]
-            console.log(Array.isArray(arr))
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "微軟正黑體";
+        }
 
-            function SuperType(name, hobby) {
-                this.name = name
-                this.hobby = hobby
-                this.colors = ['red', 'blue', 'green']
-            }
+        .box {
+            width: 300px;
+            height: 200px;
+            background: green;
+            background: linear-gradient(to left bottom, transparent 50%, rgba(0, 0, 0, 0.4) 0) no-repeat 100% 0 / 36px 36px,
+                linear-gradient(-135deg, transparent 24px, green 0);
+        }
 
-            SuperType.prototype.sayName = function() {
-                return this.name
-            }
-            SuperType.prototype.sayHobby = function() {
-                return this.hobby
-            }
+        nav {
+            background-color: #eee;
+            margin-bottom: 12px;
+        }
 
-            var superType = new SuperType()
-            superType.name = 'Chen'
+        .nav-ul {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
 
-            superType.sayName()
+        .menu-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:0 12px;
+            position: relative;
+        }
+        .menu-icon:before{
+            content:"";
+            width: 1px;
+            height: 50%;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ddd;
+        }
 
-            function SubType(name, hobby, age) {
-                SuperType.call(this, name, hobby)
-                this.age = age
-            }
-            SubType.prototype = new SuperType()
-            SubType.prototype.constructor = SubType
+        .menu-icon img {
+            display: block;
+            width: 45px;
+            height: 45px;
+        }
+    </style>
+</head>
 
-            SubType.prototype.sayAge = function() {
-                return this.age
-            }
+<body>
+    <nav>
+        <ul class="nav-ul">
+            <li class="menu-icon">
+                <img src="./images/svg/1.svg" alt="">
+                <span>行動通訊</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/2.svg" alt="">
+                <span>電腦資訊</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/3.svg" alt="">
+                <span>廚房家電</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/4.svg" alt="">
+                <span>生活家電</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/5.svg" alt="">
+                <span>健康美容</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/6.svg" alt="">
+                <span>電視影音</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/7.svg" alt="">
+                <span>大型家電</span>
+            </li>
+            <li class="menu-icon">
+                <img src="./images/svg/8.svg" alt="">
+                <span>冷氣</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="box"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
 
-            var subType = new SubType()
-            subType.name = 'Lin'
-            subType.hobby = 'Play'
-            subType.age = 32
+    <script>
+        var arr = [1, 2, 3]
+        console.log(Array.isArray(arr))
 
-            document.querySelector(".box").innerHTML=`${subType.sayAge()} ${subType.sayName()} ${subType.sayHobby()}`
-        </script>
-    </body>
+        function SuperType(name, hobby) {
+            this.name = name
+            this.hobby = hobby
+            this.colors = ['red', 'blue', 'green']
+        }
+
+        SuperType.prototype.sayName = function () {
+            return this.name
+        }
+        SuperType.prototype.sayHobby = function () {
+            return this.hobby
+        }
+
+        var superType = new SuperType()
+        superType.name = 'Chen'
+
+        superType.sayName()
+
+        function SubType(name, hobby, age) {
+            SuperType.call(this, name, hobby)
+            this.age = age
+        }
+        SubType.prototype = new SuperType()
+        SubType.prototype.constructor = SubType
+
+        SubType.prototype.sayAge = function () {
+            return this.age
+        }
+
+        var subType = new SubType()
+        subType.name = 'Lin'
+        subType.hobby = 'Play'
+        subType.age = 32
+
+        document.querySelector(".box").innerHTML = `${subType.sayAge()} ${subType.sayName()} ${subType.sayHobby()}`
+    </script>
+</body>
+
 </html>
