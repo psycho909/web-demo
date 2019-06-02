@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        span:nth-last-of-type(n+10),
+        span:nth-last-of-type(n+10)~span {
+            background-color: rgb(250, 225, 223);
+        }
+
+        body {
+            padding: 3rem;
+            background-color: #eee6da;
+        }
+
+        .cow {
+            background-color: #0b4d79;
+        }
+
+        .sheep {
+            background-color: #39691e;
+        }
+
+        main {
+            font-family: Arial, sans-serif;
+            color: #2c3e50;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 0.5rem;
+            margin: 0.5rem;
+            grid-auto-flow:dense;
+        }
+
+        main .sheep,
+        main .cow {
+            border-radius: 3px;
+            min-width: 150px;
+            padding: 0.4rem;
+            text-align: center;
+            color: white;
+            filter: drop-shadow(0 1px 1.5px #00000044);
+        }
+        main{
+            counter-reset:countsheep countcow;
+        }
+        .sheep {
+            grid-column: 1;
+        }
+        .sheep:before{
+            counter-increment: countsheep;
+            content:counter(countsheep);
+        }
+        .cow {
+            grid-column: 2;
+        }
+        .cow:before{
+            counter-increment: countcow;
+            content:counter(countcow);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="sheep">🐑 Lisa</div>
+        <div class="sheep">🐑 Bonnie</div>
+        <div class="cow">🐄 Olaf</div>
+        <div class="sheep">🐑 Jenn</div>
+        <div class="cow">🐄 Debra</div>
+        <div class="sheep">🐑 Christoph</div>
+        <div class="cow">🐄 Tristan</div>
+        <div class="sheep">🐑 Alfonso</div>
+        <div class="sheep">🐑 Romaine</div>
+        <div class="sheep">🐑 Greta</div>
+        <div class="cow">🐄 Kenny</div>
+        <div class="sheep">🐑 Max</div>
+        <div class="sheep">🐑 Joseph</div>
+        <div class="sheep">🐑 Juan</div>
+        <div class="cow">🐄 Ben</div>
+        <div class="sheep">🐑 Brown</div>
+        <div class="sheep">🐑 Ali</div>
+        <div class="cow">🐄 Bob</div>
+        <div class="cow">🐄 Tristan</div>
+        <div class="cow">🐄 Sarah</div>
+    </main>
+    <script>
+        let animals = [
+            { name: 'Edna', animal: 'cow' },
+            { name: 'Liam', animal: 'sheep' },
+            { name: 'Fink', animal: 'sheep' },
+            { name: 'Olga', animal: 'cow' },
+        ]
+
+        let sortedAnimals = animals.sort((a, b) => {
+            if (a.animal < b.animal) return -1
+            if (a.animal > b.animal) return 1
+            return 0
+        })
+
+        console.log(sortedAnimals)
+    </script>
+</body>
+
+</html>
