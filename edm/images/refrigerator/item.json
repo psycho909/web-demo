@@ -1,0 +1,91 @@
+[
+	{
+		"sku":"2099588",
+		"name":"610L四門無框玻璃變頻冰箱",
+		"orign":"43900",
+		"price":"41900",
+		"url":"#",
+		"discount":"好禮雙重送 透氣玻璃保鮮罐2入組+7-11商品卡1000元",
+		"del":false
+	},{
+		"sku":"2098251",
+		"name":"250L直立式冷凍櫃",
+		"orign":"0",
+		"price":"17900",
+		"url":"#",
+		"discount":"獨家好禮送 不沾雙耳湯鍋24cm",
+		"del":false
+	},{
+		"sku":"2097233",
+		"name":"543L三門冰箱",
+		"orign":"0",
+		"price":"30900",
+		"url":"#",
+		"discount":"獨家好禮送 不沾雙耳湯鍋24cm",
+		"del":true
+	},{
+		"sku":"2095723",
+		"name":"170L直立式無霜冷凍櫃",
+		"orign":"0",
+		"price":"12900",
+		"url":"#",
+		"discount":"",
+		"del":false
+	},{
+		"sku":"2098866",
+		"name":"761L敲敲門門中門製冰對開冰箱",
+		"orign":"84900",
+		"price":"76900",
+		"url":"#",
+		"discount":"獨家好禮送 Lock&Lock保溫瓶",
+		"del":false
+	},{
+		"sku":"2096063",
+		"name":"455L三門變頻玻璃冰箱",
+		"orign":"29488",
+		"price":"45900",
+		"url":"#",
+		"discount":"原廠好禮送 手持攪拌器",
+		"del":true
+	},{
+		"sku":"2098193",
+		"name":"483L五門日製冰箱",
+		"orign":"54900",
+		"price":"49900",
+		"url":"#",
+		"discount":"獨家好禮送 不沾雙耳湯鍋24cm",
+		"del":false
+	},{
+		"sku":"2101498",
+		"name":"411L五門日製變頻冰箱",
+		"orign":0,
+		"price":45900,
+		"url":"#",
+		"discount":"好禮雙重送 仿羊毛絨毯+7-11商品卡2000元",
+		"del":true
+	},{
+		"sku":"2096418",
+		"name":"605L極纖日製冰箱",
+		"orign":0,
+		"price":74900,
+		"url":"#",
+		"discount":"獨家好禮送 束口背包",
+		"del":true
+	},{
+		"sku":2095300,
+		"name":"525L五門變頻日製冰箱",
+		"orign":0,
+		"price":59900,
+		"url":"#",
+		"discount":"獨家好禮送 束口背包",
+		"del":true
+	},{
+		"sku":2100379,
+		"name":"六門琉璃觸控門日製冰箱",
+		"orign":0,
+		"price":77990,
+		"url":"#",
+		"discount":"",
+		"del":false
+	}
+]

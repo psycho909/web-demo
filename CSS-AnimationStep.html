@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hi {
+            width: 50px;
+            /*  矩形的宽高 */
+            height: 72px;
+            background-image: url("http://s.cdpn.io/79/sprite-steps.png");
+            /* 分10步完成0到-500px完成并无限重复 */
+            animation: play .8s steps(10) infinite;
+        }
+
+        @keyframes play {
+            from {
+                background-position: 0px;
+            }
+
+            to {
+                background-position: -500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hi"></div>
+</body>
+
+</html>
