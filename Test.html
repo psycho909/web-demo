@@ -101,6 +101,17 @@
             </li>
         </ul>
     </nav>
+    <form name="form" id="form">
+        <div>
+            <label for="male">Male</label>
+            <input type="radio" id="male" name="gender" value="male">
+        </div>
+        <div>
+                <label for="female">Female</label>
+                <input type="radio" id="female" name="gender" value="female">
+            </div>
+        <button>send</button>
+    </form>
     <div class="box"></div>
     <div></div>
     <div></div>
@@ -113,6 +124,13 @@
     <div></div>
 
     <script>
+        var form=document.querySelector('#form');
+        form.addEventListener("submit",function(e){
+            e.preventDefault();
+            let forms=document.forms['form'];
+            console.log(forms.elements['gender'].value)
+        })
+
         var arr = [1, 2, 3]
         console.log(Array.isArray(arr))
 
@@ -150,7 +168,88 @@
         subType.hobby = 'Play'
         subType.age = 32
 
-        document.querySelector(".box").innerHTML = `${subType.sayAge()} ${subType.sayName()} ${subType.sayHobby()}`
+        document.querySelector(".box").innerHTML = `${subType.sayAge()} ${subType.sayName()} ${subType.sayHobby()}`;
+
+        var state=[
+        {   
+            "id":0,
+            "username":"lenoard",
+            "gender":"male",
+            "age":27,
+            "device":"IOS"
+        },{
+            "id":1,
+            "username":"siakam",
+            "gender":"male",
+            "age":25,
+            "device":"Android"
+        },{
+            "id":2,
+            "username":"lowry",
+            "gender":"male",
+            "age":33,
+            "device":"Android"
+        },{
+            "id":3,
+            "username":"gasol",
+            "gender":"male",
+            "age":34,
+            "device":"IOS"
+        },{
+            "id":4,
+            "username":"ibaka",
+            "gender":"male",
+            "age":29,
+            "device":"IOS"
+        },{
+            "id":5,
+            "username":"barrett96",
+            "gender":"female",
+            "age":35,
+            "device":"IOS"
+        },{
+            "id":6,
+            "username":"russell52",
+            "gender":"female",
+            "age":42,
+            "device":"IOS"
+        },{
+            "id":7,
+            "username":"long80",
+            "gender":"female",
+            "age":48,
+            "device":"Android"
+        },{
+            "id":8,
+            "username":"price21",
+            "gender":"female",
+            "age":38,
+            "device":"Android"
+        },{
+            "id":9,
+            "username":"johnston10",
+            "gender":"female",
+            "age":46,
+            "device":"Android"
+        }
+    ];
+    var newUser={
+        "id":0,
+        "username":"Chen",
+        "gender":"female",
+        "age":100,
+        "device":"Android"
+    }
+    
+    state=state.map(user=>{
+        if(user.id === newUser.id){
+            user=newUser
+            console.log(123)
+        }
+        return user
+    })
+
+    console.log(state)
     </script>
 </body>
 
