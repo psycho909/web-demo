@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .menu {
+            --menu-height: 40px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 16px;
+            margin: 0;
+        }
+
+        .menu ul li,
+        .menu ul li a {
+            opacity: .8;
+            color: #fff;
+            cursor: pointer;
+            transform: .2s;
+            text-decoration: none;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        .menu ul li:hover,
+        .menu ul li a:hover {
+            opacity: 1;
+        }
+
+        .menu ul li a,
+        .menu ul li a a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .menu ul li {
+            padding-right: 36px;
+        }
+
+        .menu ul li::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #FFA500;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .menu ul li.link:before {
+            padding-left: 0;
+            display: none;
+        }
+
+        .menu>ul {
+            display: flex;
+            height: var(--menu-height);
+            align-items: center;
+            background-color: #000000;
+        }
+
+        .menu>ul li {
+            position: relative;
+            margin: 0 8px;
+        }
+
+        .menu>ul li ul {
+            visibility: hidden;
+            opacity: 0;
+            padding: 0;
+            min-width: 160px;
+            background-color: #333;
+            position: absolute;
+            top: calc(var(--menu-height) + 0px);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: .2s;
+            transition-delay: .2s;
+        }
+
+        .menu>ul li ul li {
+            margin: 0;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 30px;
+            padding-right: 40px;
+        }
+
+        .menu>ul li ul li:before {
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid #FFA500;
+        }
+
+        .menu>ul li ul li ul {
+            top: -2%;
+            left: 100%;
+            transform: translate(0);
+        }
+
+        .menu>ul li ul li:hover {
+            background-color: #000000;
+        }
+
+        .menu>ul li:hover>ul {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0ms;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <ul>
+            <li>
+                Dropdown A
+                <ul>
+                    <li class="link">
+                        <a href="">Im a link</a>
+                    </li>
+                    <li class="link">
+                        <a href="">Im a link</a>
+                    </li>
+                    <li>
+                        Nested dropdown
+                        <ul>
+                            <li class="link">
+                                <a href="">Im a link</a>
+                            </li>
+                            <li class="link">
+                                <a href="">Im a link</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Dropdown B
+                <ul>
+                    <li class="link">
+                        <a href="">Im a link</a>
+                    </li>
+                    <li class="link">
+                        <a href="">Im a link</a>
+                    </li>
+                    <li>
+                        Nested dropdown
+                        <ul>
+                            <li class="link">
+                                <a href="">Im a link</a>
+                            </li>
+                            <li class="link">
+                                <a href="">Im a link</a>
+                            </li>
+                            <li>
+                                Nested dropdown B
+                                <ul>
+                                    <li class="link">
+                                        <a href="">Im a link</a>
+                                    </li>
+                                    <li class="link">
+                                        <a href="">Im a link</a>
+                                    </li>
+                                    <li>
+                                        Nested dropdown C
+                                        <ul>
+                                            <li class="link">
+                                                <a href="">Im a link</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="">Im a link</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="link">Simple Link</li>
+            <li class="link">Another Link</li>
+        </ul>
+    </div>
+</body>
+
+</html>

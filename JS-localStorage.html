@@ -49,5 +49,23 @@
 		var storageArr=storageStr.split(',');
 		console.log(storageArr)
 	})
+
+	const notes = [
+        {  
+            title: 'A note',
+            text: 'First Note'
+        },
+        {
+            title: 'Another note',
+            text: 'Second Note'
+        }
+	]
+	
+	localStorage.setItem("notes",JSON.stringify(notes))
+
+	window.addEventListener("storage",doSomthing())
+	function doSomthing(){
+		console.log("Storage")
+	}
 </script>
 </html>
