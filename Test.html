@@ -124,6 +124,9 @@
     <div></div>
 
     <script>
+        window.addEventListener('unload',function(){
+            console.log('I am the 3rd one.');
+        })
         var form=document.querySelector('#form');
         form.addEventListener("submit",function(e){
             e.preventDefault();
