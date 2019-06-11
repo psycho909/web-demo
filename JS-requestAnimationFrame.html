@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 50px;
+            background-color: #D3D3D3;
+        }
+        #SomeElementYouWantToAnimate{
+            position: relative;
+            width: 0%;
+            height: 50px;
+            background-color: #90EE90;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="SomeElementYouWantToAnimate"></div>
+    </div>
+    <script>
+        var start=null;
+        var d = document.getElementById("SomeElementYouWantToAnimate");
+
+        function step(timestamp){
+            var progress;
+            if(start === null) start = timestamp;
+            var runtime=timestamp-start;
+            progress=Math.min(runtime/10,300)
+            d.style.width=`${progress/3}`+"%";
+
+            if(runtime < 3000){
+                requestAnimationFrame(step)
+            }
+        }
+        
+        requestAnimationFrame(step)
+    </script>
+</body>
+</html>
