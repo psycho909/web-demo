@@ -29,14 +29,22 @@
         }
 
         .imagea.secondimg {
-            transform: skew(0deg);
-            margin-left: -900px;
-            width: calc(50vw + 900px);
+            /* margin-left: -900px;
+            width: calc(50vw + 900px); */
+            width: 50%;
+            position: relative;
         }
-
+        .imagea.secondimg:before{
+            content:"";
+            width: 3px;
+            height: 100%;
+            background-color: #fff;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
         .imagea.secondimg .final-image {
-            transform: skew(0deg);
-            margin-left: 900px;
+            /* margin-left: 900px; */
         }
 
         .imagea .final-image {
@@ -54,12 +62,12 @@
         <div class="imagesection" id="imagesection">
             <div class="imagea firstimg">
                 <div class="final-image">
-                    <img src="https://images.pexels.com/photos/672142/pexels-photo-672142.jpeg">
+                    <img src="./images/pexels-photo-672142.jpeg">
                 </div>
             </div>
             <div class="imagea secondimg">
                 <div class="final-image">
-                    <img src="https://images.pexels.com/photos/219938/pexels-photo-219938.jpeg">
+                    <img src="./images/pexels-photo-6721422.jpg">
                 </div>
             </div>
         </div>
@@ -69,11 +77,18 @@
             let banner=document.getElementById("imagesection");
             let devLayer=banner.querySelector(".secondimg");
             let delta=0;
-
+            let display;
             banner.addEventListener('mousemove',function(e){
-                delta=(e.clientX-window.innerWidth/2)*0.5;
-                devLayer.style.width=e.clientX+1000+delta+'px'
-                
+                // delta=(e.clientX-window.innerWidth/2)*0.5;
+                // devLayer.style.width=e.clientX+1000+delta+'px';
+                if(e.clientX < 50){
+                    display=5
+                }else if(e.clientX > 850){
+                    display=95
+                }else{
+                    display=Math.floor((e.clientX/900)*100);
+                }
+                devLayer.style.width=display+"%"
                 // delta=900-e.clientX;
                 // devLayer.style.width=900-delta+'px';
 
