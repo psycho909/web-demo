@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet"> -->
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            box-sizing: border-box;
+            background-color: #F0F0F0;
+            height: 100vh;
+            overflow: hidden;
+            padding-top: 100px;
+            text-rendering: optimizeLegibility;
+            font-smoothing: antialiased;
+            font-family: 'Righteous', cursive;
+        }
+        .main-section {
+            width: 100%;
+            text-align: center;
+        }
+        .menus {
+            position: relative;
+            border-bottom: 1px solid #555;
+        }
+        .menus .menus-link {
+            display: inline-block;
+            margin: 0 16px;
+            text-decoration: none;
+            font-size: 20px;
+            line-height: calc(11px * 4);
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .menus .menus-link span {
+            font-size: inherit;
+            line-height: inherit;
+            letter-spacing: 1px;
+        }
+
+        .menus .undr-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 5px;
+            background-color: #FF4245;
+            transition-property: transform, left, background-color;
+            transition-duration: .2s;
+            transform-origin: 0;
+            transform: translate3d(0, 0, 0) scaleX(0);
+            opacity: 0;
+            animation: myanim .2s forwards;
+            animation-delay: .2s;
+        }
+
+        .sections {
+            padding: 40px;
+            font-size: 26px;
+            color: #545454;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none;
+        }
+
+        .main-options {
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        .main-options::-webkit-scrollbar {
+            display: none;
+            height: 0;
+            background-color: transparent;
+        }
+
+        @keyframes myanim {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="main-section" data-active-tab="A">
+        <div class="main-options">
+            <nav class="menus">
+                <a href="#home" class="menus-link" data-tab="A"><span>Home</span></a>
+                <a href="#about" class="menus-link" data-tab="B"><span>About</span></a>
+                <a href="#services" class="menus-link" data-tab="C"><span>Services</span></a>
+                <a href="#portfolio" class="menus-link" data-tab="D"><span>Portfolio</span></a>
+                <a href="#contact" class="menus-link" data-tab="E"><span>Contact</span></a>
+                <a href="#faq" class="menus-link" data-tab="F"><span>FAQ</span></a>
+                <a href="#donate" class="menus-link" data-tab="G"><span>Donate</span></a>
+                <span class="undr-line"></span>
+            </nav>
+        </div>
+        <div class="section-list">
+            <div class="sections" id="home" data-tab-panel="A">Home Section</div>
+            <div class="sections" id="about" data-tab-panel="B">About Section</div>
+            <div class="sections" id="services" data-tab-panel="C">Services Section</div>
+            <div class="sections" id="portfolio" data-tab-panel="D">Portfolio Section</div>
+            <div class="sections" id="contact" data-tab-panel="E">Contact Section</div>
+            <div class="sections" id="faq" data-tab-panel="F">FAQ Section</div>
+            <div class="sections" id="donate" data-tab-panel="G">Donate Section</div>
+        </div>
+    </section>
+
+    <script>
+        var tabsModule = document.body.querySelector(".main-section");
+        var tabNavList = document.body.querySelector(".menus");
+        var tabNavLinks = document.querySelectorAll(".menus-link");
+        var tabNavCurrentLinkindicator = tabNavList.querySelector(".undr-line");
+        var tabPanels = document.querySelectorAll(".sections");
+
+        document.getElementById("home").style.display = "block";
+
+        function positionIndicator(){
+            var tabNavListLeftPosition = tabNavList.getBoundingClientRect().left;
+            var tabsModuleSectionDataValue = tabsModule.getAttribute("data-active-tab") || "A";
+            var tabNavCurrentLinkText = tabNavList.querySelector("[data-tab='" + tabsModuleSectionDataValue + "'] span");
+            var tabNavCurrentLinkTextPosition = tabNavCurrentLinkText.getBoundingClientRect();
+            tabNavCurrentLinkindicator.style.transform  =`
+                translate3d(${tabNavCurrentLinkTextPosition.left-tabNavListLeftPosition}px,0,0) 
+                scaleX(${tabNavCurrentLinkTextPosition.width * 0.01})
+            `
+            console.log(tabNavCurrentLinkTextPosition.left)
+        }
+        positionIndicator()
+
+        function hideAllTabPanels() {
+            for (i = 0; i < tabPanels.length; i++) {
+                tabPanels[i].removeAttribute("style");
+            }
+        };
+        var tabNavLinkEvent = function() {
+            var thisLink = this.getAttribute("data-tab");
+            var thisHref = this.getAttribute("href");
+            var thisTabPanel = document.querySelector(thisHref);
+            tabsModule.setAttribute("data-active-tab", thisLink);
+            hideAllTabPanels();
+            thisTabPanel.style.display = "block";
+            positionIndicator();
+        };
+        for (var i = 0; i < tabNavLinks.length; i++) {
+            tabNavLinks[i].addEventListener("click", tabNavLinkEvent, false);
+        }
+        (function() {
+            window.addEventListener("resize", resizeThrottler, false);
+            var resizeTimeout;
+            function resizeThrottler() {
+                if (!resizeTimeout) {
+                resizeTimeout = setTimeout(function() {
+                    resizeTimeout = null;
+                    actualResizeHandler();
+                }, 66);
+                }
+            }
+            function actualResizeHandler() {
+                positionIndicator();
+            }
+        })();
+    </script>
+</body>
+
+</html>

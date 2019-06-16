@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #E8E4E4;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        #scroll-percent {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        [data-scrollPercentage] .percentage {
+            display: inline-block;
+            background-color: #FB3C3F;
+            height: 6px;
+            width: 0;
+        }
+        #percentage-value {
+            position: fixed;
+            top: 75%;
+            left: 95%;
+            transform: translateX(-50%);
+            height: 150px;
+            width: 150px;
+            color: #FB3C3F;
+            background-color: white;
+            text-align: center;
+            line-height: 150px;
+            border-radius: 50%;
+            box-shadow: 1px 1px 8px 2px #FB3C3F, -1px -1px 8px 2px #FB3C3F;
+            font-size: 3em;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll-percent" data-scrollPercentage>
+        <div class="percentage"></div>
+    </div>
+    <div id="percentage-value">0%</div>
+    <div style="height: 4000px;">
+    </div>
+
+    <script>
+        function updateScrollPercentage(){
+            const heightOfWindow=window.innerHeight;
+            const contentScrolled=window.pageYOffset;
+            const bodyHeight=document.body.offsetHeight;
+            const percentage=document.querySelector("[data-scrollPercentage] .percentage");
+            const percentageVal=document.querySelector("#percentage-value");
+
+            if(bodyHeight-contentScrolled <= heightOfWindow){
+                percentageVal.textContent=percentage.style.width="100%"
+            }else{
+                const total=bodyHeight-heightOfWindow;
+                const percent=parseInt((contentScrolled/total)*100);
+                percentageVal.textContent=percentage.style.width=percent+"%"
+            }
+        }
+        window.addEventListener("scroll",updateScrollPercentage);
+    </script>
+</body>
+
+</html>
