@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .left-circle{
+            width: 100px;
+            height: 100px;
+            position: relative;
+            background: radial-gradient(circle at 0 50px,transparent 10px,#00adb5 0) top left/100px 100px no-repeat;
+        }
+        .hollow-circle{
+            width: 300px;
+            height: 100px;
+            position: relative;
+            background-color: #00adb5;
+            margin-bottom: 10px;
+        }
+        .hollow-circle:after{
+            content:"";
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            left: 0;
+            bottom: -5px;
+            background-image: linear-gradient(to right,#00abd5 5px,transparent 5px,transparent),
+            radial-gradient(circle at 10px 5px,transparent 5px,#00abd5 5px);
+            background-size: 15px 5px;
+        }
+        .two-circle{
+            width: 300px;
+            height: 100px;
+            background: radial-gradient(circle at right top,transparent 10px,#00adb5 0) top left/60px 50% no-repeat,
+            radial-gradient(circle at right bottom,transparent 10px,#00adb5 0) bottom left/60px 50% no-repeat,
+            radial-gradient(circle at left top,transparent 10px,#eee 0) top right/240px 50% no-repeat,
+            radial-gradient(circle at left bottom,transparent 10px,#eee 0) bottom right/240px 50% no-repeat;
+        }
+        .boxs{
+            width: 60px;
+            height: 10px;
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-circle"></div>
+    <div class="hollow-circle"></div>
+    <div class="boxs"></div>
+    <div class="two-circle"></div>
+</body>
+</html>
