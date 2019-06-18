@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F1F1F1;
+            font-family: sans-serif;
+            padding: 40px;
+            margin-left: 35%;
+            margin-top: 20%;
+        }
+
+        h1 {
+            font-family: 'Anton', sans-serif;
+            letter-spacing: 2px;
+            color: #27C6FF;
+        }
+
+        .range-slider .input-range {
+            -webkit-appearance: none;
+            width: 300px;
+            height: 10px;
+            border-radius: 5px;
+            background: #B7B6B6;
+            outline: none;
+        }
+
+        .range-slider .input-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #666;
+            cursor: pointer;
+            transition: background .15s ease-in-out;
+        }
+
+        .range-slider .input-range::-webkit-slider-thumb:hover {
+            background: #27C6FF;
+        }
+
+        .range-slider .input-range:active::-webkit-slider-thumb {
+            background: #27C6FF;
+        }
+
+        .range-slider .range-value {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 3px;
+            background: #27C6FF;
+            padding: 5px 10px;
+            margin-left: 7px;
+        }
+
+        .range-slider .range-value:after {
+            position: absolute;
+            top: 8px;
+            left: -7px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-right: 7px solid #27C6FF;
+            border-bottom: 7px solid transparent;
+            content: '';
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Custom Range Slider</h1>
+    <div class="range-slider">
+        <input class="input-range" type="range" value="1" min="1" max="100">
+        <span class="range-value">1</span>
+    </div>
+
+    <script>
+        var range=$(".input-range");
+        var value=$(".range-value");
+
+        range.on("input",function(){
+            value.html(this.value)
+        })
+    </script>
+</body>
+
+</html>

@@ -16,6 +16,7 @@
             grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
             grid-template-rows: repeat(2,200px);
             grid-gap: 5px;
+            filter:sepia(1);
         }
         .container div:nth-of-type(1){
             background-color: rgb(181, 255, 174);
@@ -52,6 +53,22 @@
         <div><img src="./images/5.jpg" alt=""></div>
         <div><img src="./images/3.jpg" alt=""></div>
     </div>
+    <button id="root">
+        <span>👍</span>
+        <span>按鈕</span>
+    </button>
+    <script>
+        var root=document.querySelector("#root")
+        root.addEventListener("click",function(e){
+            var button=e.target.closest("button")
+            if(button){
+                console.log(button.textContent)
+            }else{
+                return
+            }
+            
+        })
+    </script>
 </body>
 
 </html>
