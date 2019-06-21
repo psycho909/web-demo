@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .modal-btn {
+            margin: 10px auto;
+            width: 200px;
+            color: #fff;
+            text-align: center;
+            background: #ffaf40;
+            padding: 30px;
+            display: block;
+            text-decoration: none
+        }
+        .modal-box{
+            visibility: hidden;
+            background-color: rgba(48, 48, 48,.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-body{
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-close{
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            text-decoration: none;
+            color:#000;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        #modal:target{
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#modal" class="modal-btn">Click Me</a>
+    <div class="modal-box" id="modal">
+        <div class="modal-body">
+            <a href="#" class="modal-close">x</a>
+            <div class="modal-content">Content</div>
+        </div>
+    </div>
+</body>
+
+</html>
