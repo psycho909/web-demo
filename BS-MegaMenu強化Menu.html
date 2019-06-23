@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Metrophobic">
+    <style>
+        /** code by webdevtrick ( https://webdevtrick.com ) **/
+        body {
+            font-family: 'Metrophobic', sans-serif;
+            font-weight: bold;
+            margin-top: 1rem;
+            background: #fff;
+        }
+
+        #toggle-button {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .menu-dropdown {
+                margin-top: 4rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .menu-dropdown {
+                margin-top: inherit;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #toggle-button {
+                display: block;
+            }
+
+            .nav.nav-pills.pull-right {
+                display: none;
+            }
+
+            a:first-child {
+                color: #fbb016 !important;
+            }
+
+            a:first-child:hover {
+                background-color: #222 !important;
+                color: #fbb016 !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #toggle-button {
+                display: none;
+            }
+
+            .nav.nav-pills.pull-right {
+                display: block;
+            }
+        }
+
+        .nav {
+            display: block;
+        }
+
+        .mega-menu {
+            border: 3px solid #333;
+        }
+
+        .menu-dropdown {
+            left: 0;
+            right: 0;
+            padding: 0;
+        }
+
+        .inside-menu {
+            position: static !important;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-head {
+            color: #fbb016;
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+            font-size: 20px;
+        }
+
+        .menu-head:first-child {
+            margin-top: 15px;
+        }
+
+        .menu-head-icon-1 {
+            height: 35px;
+            float: left;
+            font-size: 40px;
+            margin-right: 10px;
+        }
+
+        .menu-head-icon-1 i {
+            display: block;
+        }
+
+        .menu-head-icon-2 {
+            margin-top: 6px;
+            float: right;
+        }
+
+        .menu-head-title {
+            margin-top: 6px;
+            font-weight: inherit;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .menu-items {
+            display: block;
+            font-size: 17px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+            color: red;
+            transition: all .3s ease;
+        }
+
+        .menu-items:link {
+            text-decoration: none;
+            color: #444;
+        }
+
+        .menu-items:visited {
+            text-decoration: none;
+            color: #444;
+        }
+
+        .menu-items:hover {
+            text-decoration: none;
+            background: #f2f2f2;
+            color: #444;
+            padding-left: 10px;
+        }
+
+        .menu-items:active {
+            text-decoration: none;
+            color: #444;
+        }
+
+        .menu-items-icon-a {
+            float: right;
+            color: #fbb016;
+        }
+
+        .items-title {
+            font-weight: inherit;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 767px) {
+            .mega-menu {
+                border: 0;
+            }
+
+            .menu-section {
+                margin-bottom: 10px;
+            }
+
+            .menu-head {
+                display: none;
+            }
+
+            .menu-items-icon-a {
+                display: none;
+            }
+
+            .items-title {
+                font-size: 14px;
+                padding-left: 15px;
+            }
+
+            .mega-menu .main-container+* {
+                display: block !important;
+            }
+
+            .inside-menu {
+                position: relative !important;
+                width: 100%;
+            }
+
+            .inside-menu .caret {
+                display: none;
+            }
+
+            .menu-dropdown {
+                display: block !important;
+                position: relative !important;
+                width: 100% !important;
+                border: none !important;
+                box-shadow: none;
+            }
+        }
+
+        a {
+            color: #333 !important;
+            margin-top: 2px;
+        }
+
+        a:hover,
+        .nav .open>a,
+        .nav .open>a:focus,
+        .nav .open>a:hover {
+            color: #fbb016 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <button id="toggle-button">Open Menu</button>
+
+        <div class="row main-container">
+            <div class="col-md-12">
+
+                <ul class="nav nav-pills pull-right">
+                    <li class="inside-menu">
+                        <a href="" data-toggle="dropdown"> Web Design <b class="caret"></b> </a>
+                        <ul class="dropdown-menu menu-dropdown">
+                            <li>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="mega-menu clearfix">
+                                            <div class="col-md-4">
+
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-battery-half"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title">
+                                                            Basic
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            HTML
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            CSS
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            JavaScript
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-rocket"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title">
+                                                            Softwares
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Adobe Photoshop
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Adobe Illustrator
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Adove XD
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-battery-full"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title">
+                                                            Advance
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            jQuery
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Bootstrap
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            jQuery UI
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="inside-menu">
+                        <a href="" data-toggle="dropdown"> Web Development <b class="caret"></b></a>
+                        <ul class="dropdown-menu menu-dropdown">
+                            <li>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="mega-menu clearfix">
+
+                                            <div class="col-md-4">
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-terminal"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title" title="Web Development">
+                                                            Frontent
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            React
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Vue
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Angular
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-code"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title" title="Web Development">
+                                                            Backend
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            PHP
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Node JS
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Python
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="menu-section">
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-database"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title" title="Web Development">
+                                                            Database
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            MySQL
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            SQLite
+                                                        </div>
+                                                    </a>
+
+                                                    <a href="#" class="menu-items">
+                                                        <div class="menu-items-icon-a">
+                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                        </div>
+                                                        <div class="items-title">
+                                                            Mongo DB
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="inside-menu">
+                        <a class="" href="" data-toggle="dropdown">SEO <b class="caret"></b></a>
+                        <ul class="dropdown-menu menu-dropdown">
+                            <li>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="mega-menu clearfix">
+
+
+                                            <div class="col-md-12">
+                                                <div class="menu-section">
+
+                                                    <div class="menu-head">
+                                                        <div class="menu-head-icon-1">
+                                                            <i class="fa fa-search-plus"></i>
+                                                        </div>
+
+                                                        <div class="menu-head-title">
+                                                            Search Engine Optimization
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    Content Creation
+                                                                </div>
+                                                            </a>
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    On Page
+                                                                </div>
+                                                            </a>
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    Off Page
+                                                                </div>
+                                                            </a>
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    Link Building
+                                                                </div>
+                                                            </a>
+
+                                                        </div>
+
+                                                        <div class="col-md-6">
+
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    White Hat
+                                                                </div>
+                                                            </a>
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    Black Hat
+                                                                </div>
+                                                            </a>
+                                                            <a href="#" class="menu-items">
+                                                                <div class="menu-items-icon-a">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </div>
+                                                                <div class="items-title">
+                                                                    Grey Hat
+                                                                </div>
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $(document).on('click', '.dropdown-menu', function (e) {
+                e.stopPropagation()
+            })
+        })
+        $("#toggle-button").click(function () {
+            $(".nav.nav-pills.pull-right").slideToggle("slow");
+        });
+    </script>
+</body>
+
+</html>
