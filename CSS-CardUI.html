@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Rubik+Mono+One&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            font-size: 1.36rem;
+            font-family: 'Josefin Sans', sans-serif;
+
+        }
+
+        h4 {
+            margin-top: 0px;
+            font-size: 2.8rem;
+            letter-spacing: -.1em;
+            margin-bottom: 1em;
+        }
+
+        .main {
+            background: linear-gradient(135deg, #185a9d, #43cea2);
+            width: 100%;
+            min-height: 980px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+            justify-items: center;
+            align-items: flex-start;
+            /* display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start; */
+        }
+
+        .bg-text {
+            position: absolute;
+            opacity: 0.2;
+            letter-spacing: -.5rem;
+            font-size: 10rem;
+            font-weight: 700;
+            top: -10px;
+            font-family: 'Rubik Mono One', sans-serif;
+        }
+
+        .g-card p,
+        h4,
+        span {
+            color: #fafafa;
+        }
+
+        .seprate-line {
+            width: 20px;
+            height: 3px;
+            background: white;
+        }
+
+        .g-card {
+            position: relative;
+            width: 320px;
+            min-height: 400px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #02aab0, #00cdac);
+            padding: 60px 30px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            box-shadow: 20px 30px 50px 1px rgba(0, 0, 0, .3);
+        }
+
+        .publisher {
+            font-family: 'Josefin Sans', sans-serif;
+            color: #fafafa;
+            opacity: .8;
+            font-size: 1.3rem;
+        }
+
+        .date {
+            font-family: 'Josefin Sans', sans-serif;
+            opacity: .8;
+            font-size: 1.3rem;
+            width: 100%;
+            position: relative;
+        }
+
+        .date span {
+            color: #333;
+            position: absolute;
+            right: 0px;
+            top: 1.5em;
+        }
+
+        .hover-btn {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            line-height: 1;
+            padding-left: 26px;
+            text-transform: uppercase;
+            padding-bottom: 4px;
+            font-size: 13px
+        }
+
+        .hover-btn::before {
+            content: '';
+            display: block;
+            position: absolute;
+            height: 1px;
+            background: currentColor;
+            left: 0;
+            width: 20px;
+            top: 50%;
+            margin-top: -1px;
+            transition: transform .3s cubic-bezier(.42, .01, .23, 1);
+            transform-origin: left
+        }
+
+        .hover-btn:hover::before {
+            transform: scaleX(1.333)
+        }
+
+        @media (min-width: 800px) {
+            .hover-btn::before {
+                width: 30px
+            }
+        }
+
+        .hover-btn span {
+            display: inline-block;
+            transition: transform .3s cubic-bezier(.42, .01, .23, 1)
+        }
+
+        .hover-btn:hover span {
+            transform: translateX(12px)
+        }
+
+        @media (min-width: 800px) {
+            .hover-btn:hover span {
+                transform: translateX(18px)
+            }
+        }
+
+        @media (max-width: 765px) {
+            .g-card {
+                margin-left: 0;
+                top: 0;
+                margin-top: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="g-card">
+            <div class="bg-text"><span>Webdev</span></div>
+            <div class="seprate-line"></div>
+            <h4 class="title">Gradient UI Cards</h4>
+            <span class="publisher">Author: Shaan</span>
+            <p>This is an example of pure CSS gradient UI Card, This one also has hover effect. If you want to check
+                hover effect mouse over on read more button. For more programs like this
+                visit my website webdevtrick.com. I post daily this kinds of program.</p>
+            <a class="hover-btn" href="#"><span>Read More</span></a>
+            <div class="date">
+                <span>24 June, 2019</span>
+            </div>
+        </div>
+
+        <div class="g-card">
+            <div class="bg-text"><span>Webdev</span></div>
+            <div class="seprate-line"></div>
+            <h4 class="title">Gradient UI Cards</h4>
+            <span class="publisher">Author: Shaan</span>
+            <p>This is an example of pure CSS gradient UI Card, This one also has hover effect. If you want to check
+                hover effect mouse over on read more button. For more programs like this
+                visit my website webdevtrick.com. I post daily this kinds of program.</p>
+            <a class="hover-btn" href="#"><span>Read More</span></a>
+            <div class="date">
+                <span>24 June, 2019</span>
+            </div>
+        </div>
+
+        <div class="g-card">
+            <div class="bg-text"><span>Webdev</span></div>
+            <div class="seprate-line"></div>
+            <h4 class="title">Gradient UI Cards</h4>
+            <span class="publisher">Author: Shaan</span>
+            <p>This is an example of pure CSS gradient UI Card, This one also has hover effect. If you want to check
+                hover effect mouse over on read more button. For more programs like this
+                visit my website webdevtrick.com. I post daily this kinds of program.</p>
+            <a class="hover-btn" href="#"><span>Read More</span></a>
+            <div class="date">
+                <span>24 June, 2019</span>
+            </div>
+        </div>
+
+        <div class="g-card">
+            <div class="bg-text"><span>Webdev</span></div>
+            <div class="seprate-line"></div>
+            <h4 class="title">Gradient UI Cards</h4>
+            <span class="publisher">Author: Shaan</span>
+            <p>This is an example of pure CSS gradient UI Card, This one also has hover effect. If you want to check
+                hover effect mouse over on read more button. For more programs like this
+                visit my website webdevtrick.com. I post daily this kinds of program.</p>
+            <a class="hover-btn" href="#"><span>Read More</span></a>
+            <div class="date">
+                <span>24 June, 2019</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
