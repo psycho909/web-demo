@@ -79,6 +79,34 @@
             height: 300px;
             margin-bottom: 16px;
         }
+        .box2{
+            width: 300px;
+            height: 200px;
+            background-color: #eee;
+            position: relative;
+        }
+        .box2__inner{
+            padding: 12px 36px 12px 6px;
+            background-color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .box2__inner:before{
+            content:attr(data-num);
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            text-align: center;
+            line-height: 20px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background-color:blue;
+            color:#fff;
+        }
     </style>
 </head>
 
@@ -137,6 +165,9 @@
         <div class="boxs"></div>
     </div>
     <div class="box"></div>
+    <div class="box2">
+        <div class="box2__inner" data-num="0">BOX2 INNER</div>
+    </div>
     <div class="block"></div>
     <div class="block"></div>
     <div class="block"></div>
