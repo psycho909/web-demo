@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #202020;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            overflow: hidden;
+        }
+
+        table td,
+        table th {
+            border-top: 1px solid #ECF0F1;
+            padding: 10px;
+        }
+
+        table td {
+            border-left: 1px solid #ECF0F1;
+            border-right: 1px solid #ECF0F1;
+        }
+
+        table th {
+            background-color: #FF6B6D;
+        }
+
+        table tr:nth-of-type(even) td {
+            background-color: #FFB2B3;
+        }
+
+        table .total th {
+            background-color: white;
+        }
+
+        table .total td {
+            text-align: right;
+            font-weight: 700;
+        }
+
+        .responsive-toggle {
+            display: none;
+        }
+
+        @media only screen and (max-width: 765px) {
+            p {
+                display: block;
+                font-weight: bold;
+            }
+
+            table tr td:not(:first-child),
+            table tr th:not(:first-child),
+            table tr td:not(.total-budget) {
+                display: none;
+            }
+
+            table tr:nth-of-type(even) td:first-child {
+                background-color: #FFB2B3;
+            }
+
+            table tr:nth-of-type(odd) td:first-child {
+                background-color: white;
+            }
+
+            table tr:nth-of-type(even) td:not(:first-child) {
+                background-color: white;
+            }
+
+            table tr th:first-child {
+                width: 100%;
+                display: block;
+            }
+
+            table tr th:not(:first-child) {
+                width: 40%;
+                transition: transform 0.4s ease-out;
+                transform: translateY(-9999px);
+                position: relative;
+                z-index: -1;
+            }
+
+            table tr td:not(:first-child) {
+                transition: transform 0.4s ease-out;
+                transform: translateY(-9999px);
+                width: 60%;
+                position: relative;
+                z-index: -1;
+            }
+
+            table tr td:first-child {
+                display: block;
+                cursor: pointer;
+            }
+
+            table tr.total th {
+                width: 25%;
+                display: inline-block;
+            }
+
+            table tr td.total-budget {
+                display: inline-block;
+                transform: translateY(0);
+                width: 75%;
+            }
+        }
+
+        @media only screen and (max-width: 300px) {
+            table tr th:not(:first-child) {
+                width: 50%;
+                font-size: 14px;
+            }
+
+            table tr td:not(:first-child) {
+                width: 50%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr class="headings">
+                <th>Keywords</th>
+                <th>Volume</th>
+                <th>Competition</th>
+                <th>Posibility</th>
+                <th>Budget</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Website Design</td>
+                <th class="responsive-toggle">volume</th>
+                <td>2,22,489</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>78</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>15%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 1,500</td>
+            </tr>
+            <tr>
+                <td>Digital Marketing Services</td>
+                <th class="responsive-toggle">volume</th>
+                <td>1,54,728</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>87</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>12%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 10,000</td>
+            </tr>
+            <tr>
+                <td>Online Hotel Booking</td>
+                <th class="responsive-toggle">volume</th>
+                <td>11,12,323</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>70</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>5%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 60,000</td>
+            </tr>
+            <tr>
+                <td>Online Dating</td>
+                <th class="responsive-toggle">volume</th>
+                <td>55,477</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>45</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>60%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 25,000</td>
+            </tr>
+            <tr>
+                <td>Search Engine Optimization</td>
+                <th class="responsive-toggle">volume</th>
+                <td>35,85,882</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>97</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>2%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 67,650</td>
+            </tr>
+            <tr>
+                <td>Learn HTML</td>
+                <th class="responsive-toggle">volume</th>
+                <td>5,11,477</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>72</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>45%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 50,000</td>
+            </tr>
+            <tr>
+                <td>Book Movie Ticket</td>
+                <th class="responsive-toggle">volume</th>
+                <td>14,44,555</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>91</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>10%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 70,500</td>
+            </tr>
+            <tr>
+                <td>Casion Online</td>
+                <th class="responsive-toggle">volume</th>
+                <td>4,24,455</td>
+                <th class="responsive-toggle">Competition</th>
+                <td>41</td>
+                <th class="responsive-toggle">Posibility</th>
+                <td>40%</td>
+                <th class="responsive-toggle">Budget</th>
+                <td>$ 1,000</td>
+            </tr>
+
+            <tr class="total">
+                <th>Total Budget</th>
+                <td class="total-budget" colspan="4">$ 2,85,650</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(window).on('resize',function(){
+            if($(this).width() < 765){
+                $("tr td:first-child").on("click",function(){
+                    $(this).siblings().css({
+                        "display":"inline-block"
+                    });
+                    var $this=$(this);
+                    setTimeout(() => {
+                        $this.siblings().css( "transform","translateY(0)")
+                    }, 0);
+                    $("tr td:first-child").not($(this)).siblings().css({
+                        "display":"none",
+                        "transform":"translateY(-9999px)"
+                    })
+                })
+            }else if($(this).width() > 760){
+                $("tr td:first-child").unbind('click');
+                $("tr td:first-child").siblings().css({
+                    "display":"",
+                    "transform":""
+                })
+            }
+        }).resize()
+
+    </script>
+</body>
+
+</html>
