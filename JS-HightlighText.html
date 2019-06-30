@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            color: #333;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        header h1 {
+            text-align: center;
+            font-weight: normal;
+            margin-top: 50px;
+        }
+
+        main {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        main input[type="text"] {
+            color: #FBC300;
+            background-color: #333;
+            font-family: 'Quicksand', sans-serif;
+            display: block;
+            margin: 0 auto;
+            padding: 5px;
+        }
+
+        main p {
+            margin: 10px 0;
+            letter-spacing: 1px;
+            text-align: justify;
+        }
+
+        .highlight {
+            background-color: #FBC300;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Search Any Text To Highlight</h1>
+    </header>
+    <main>
+        <input id="input-text" type="text" placeholder="Type Here" />
+        <p id="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse porta ante et enim molestie porta.
+            Aenean sit amet justo turpis. Nam sed porta augue, quis ullamcorper ligula. Nam ornare, nisi sed dignissim
+            euismod, mi ante dictum tortor, ut ornare orci risus at sem. Nullam a ullamcorper nisl. Pellentesque
+            placerat libero eget lacinia porta. Vestibulum nec suscipit odio. Donec lacinia elit quis est dignissim
+            viverra. Donec feugiat est eu orci pellentesque, a porttitor magna scelerisque. Morbi ullamcorper ultricies
+            luctus.
+
+            Vivamus non mi leo. Ut placerat, ex nec suscipit rutrum, nisi lectus vestibulum nulla, in fringilla tellus
+            nulla ac nulla. Vestibulum sem ipsum, sollicitudin non sagittis ut, posuere eu urna. Maecenas at euismod
+            elit, ac interdum nisi. Quisque rutrum magna eu ante viverra, eget laoreet lorem eleifend. Donec at odio
+            odio. Donec euismod velit nisi, ut hendrerit ex feugiat sed. Etiam varius, lacus vitae blandit bibendum,
+            nulla libero semper purus, in rutrum augue nulla vitae ligula. Donec quis gravida felis, a malesuada nunc.
+            Ut sit amet placerat ante. In nunc felis, pellentesque at euismod sed, volutpat quis magna. Maecenas aliquam
+            malesuada eros, placerat ultricies tellus semper nec. In neque ante, varius a accumsan sit amet, rutrum non
+            neque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris felis
+            mi, rutrum nec lorem non, lacinia hendrerit metus. Donec posuere feugiat ex eget rutrum.
+
+            Curabitur pretium tincidunt elementum. Fusce euismod imperdiet libero, a tempor orci gravida ac.
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas
+            finibus, eros a vestibulum volutpat, diam ligula bibendum ante, ut rhoncus eros risus id est. Aenean
+            placerat nibh quam, in tempor ipsum lacinia nec. Sed maximus eleifend nibh, interdum consequat orci dapibus
+            ullamcorper. In facilisis finibus dolor, varius pulvinar erat interdum tempus.
+        </p>
+    </main>
+    <script>
+        function toRegExp(text) {
+            return new RegExp(text, "g");
+        }
+        function toSpan(text, className) {
+            return `<span class="${className}">${text}</span>`
+        }
+        const input = document.querySelector('#input-text');
+        const text = document.querySelector('#text');
+        const content = text.textContent;
+
+        input.addEventListener('input',function(e){
+            text.textContent=content;
+            let string=e.target.value;
+
+            if(string.length > 0){
+                text.innerHTML=text.textContent.replace(toRegExp(string),toSpan(string,'highlight'))
+            }
+        })
+    </script>
+</body>
+
+</html>

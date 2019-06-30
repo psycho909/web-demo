@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 80px 0
+        }
+
+        .btn {
+            background: #e60023;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+            font-size: 14px;
+            padding: 8px 15px;
+            text-decoration: none;
+            text-align: center;
+            min-width: 60px;
+            position: relative;
+            transition: color .1s ease;
+        }
+
+        .btn:hover {
+            background: #c72339;
+        }
+
+        .btn.btn-big {
+            font-size: 18px;
+            padding: 15px 20px;
+            min-width: 100px;
+        }
+
+        .btn-close {
+            color: #e60023;
+            font-size: 30px;
+            text-decoration: none;
+            padding: 10px;
+            position: absolute;
+            right: 7px;
+            top: 0;
+        }
+
+        .btn-close:hover {
+            color: #333;
+        }
+
+        .modal:before {
+            content: "";
+            display: none;
+            background: rgb(230, 0, 35, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .opened:before {
+            display: block;
+        }
+
+        .opened .modal-dialog {
+            transform: translate(0, 0);
+            top: 20%;
+        }
+
+        .modal-dialog {
+            background: #fefefe;
+            border: #333333 solid 0px;
+            border-radius: 5px;
+            margin-left: -200px;
+            text-align: center;
+            position: fixed;
+            left: 50%;
+            top: -100%;
+            z-index: 11;
+            width: 450px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transform: translate(0, -500%);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-body input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            color: #888;
+            outline: 0;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .modal-header,
+        .modal-footer {
+            padding: 10px 20px;
+        }
+
+        .modal-header {
+            border-bottom: #eeeeee solid 1px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h2>Login Your Account</h2>
+                <a href="#" class="btn-close closemodal" aria-hidden="true">&times;</a>
+            </div>
+            <div class="modal-body">
+                <input type="text" name="user" placeholder="Username" size="20" /><br>
+                <input type="text" name="pass" placeholder="Password" size="20" /></div>
+            <div class="modal-footer">
+
+                <a href="#" class="btn">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <h1>Modal Box With Overlay</h1>
+    <p><a href="#" class="btn btn-big openmodal">Open Modal Box</a></p>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(".openmodal").on('click',function(e){
+            e.preventDefault();
+            $(".modal").addClass("opened")
+        })
+        $(".closemodal").on('click',function(e){
+            e.preventDefault();
+            $(".modal").removeClass("opened")
+        })
+    </script>
+</body>
+
+</html>
