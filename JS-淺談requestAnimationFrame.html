@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            margin: 200px;
+            width: 200px;
+            height: 200px;
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        var element = document.getElementById('box');
+        var left = 0;
+
+        var start=null;
+        var raf_id=null;
+
+        var animateCallback = function () {
+            element.style.marginLeft = (++left) + 'px';
+            if (left === 100) {
+                clearInterval(interval);
+            }
+        }
+        // var interval = setInterval(animateCallback, (1000 / 60));
+        function animateCallback2(){
+            element.style.marginLeft=(++left)+'px';
+            if(left === 100){
+                cancelAnimationFrame(raf_id);
+            }else{
+                raf_id=requestAnimationFrame(animateCallback2)
+            }
+        }
+        raf_id=requestAnimationFrame(animateCallback2)
+
+    </script>
+</body>
+
+</html>

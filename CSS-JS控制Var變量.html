@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .boxs{
+            width: 330px;
+            height: 330px;
+            --bg-color:blue;
+            background-color: var(--bg-color,red);
+        }
+    </style>
+</head>
+<body>
+    <div class="boxs"></div>
+
+    <script>
+        var getVar=getComputedStyle(document.querySelector('.boxs')).getPropertyValue('--bg-color');
+        console.log(getVar)
+        document.querySelector(".boxs").style.setProperty('--bg-color',"green");
+    </script>
+</body>
+</html>
