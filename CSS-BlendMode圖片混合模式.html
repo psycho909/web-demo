@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('https://picsum.photos/id/1040/4496/3000') no-repeat, linear-gradient(to left, #FF8251, #FF731F);
+            background-blend-mode: normal;
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 7rem;
+            letter-spacing: -0.5rem;
+            color: #FF731F;
+            position: relative;
+        }
+
+        h1 span:nth-child(odd) {
+            color: #FF8251;
+        }
+
+        select {
+            display: block;
+            width: 170px;
+            border-radius: 20px;
+            height: 50px;
+            font-size: 1.5rem;
+            color: white;
+            position: absolute;
+            margin-left: 15%;
+            margin-top: -3%;
+            background: #FF731F;
+        }
+
+        select option {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="container">
+            <h1><span>B</span><span>L</span><span>E</span><span>N</span><span>D</span>
+                <span>M</span><span>O</span><span>D</span><span>E</span></h1>
+            <form>
+                <select id="color" class="blends">
+                    <option value="normal">Normal</option>
+                    <option value="darken">Darken</option>
+                    <option value="multiply">Multiply</option>
+                    <option value="screen">Screen</option>
+                    <option value="color">Color</option>
+                    <option value="color-burn">Color Burn</option>
+                    <option value="color-dodge">Color Dodge</option>
+                    <option value="overlay">Overlay</option>
+                    <option value="soft-light">Soft Light</option>
+                    <option value="hard-light">Dard Light</option>
+                    <option value="difference">Difference</option>
+                    <option value="exclusion">Exclusion</option>
+                    <option value="hue">Hue</option>
+                    <option value="saturation">Saturation</option>
+                    <option value="lighten">Lighten</option>
+                    <option value="luminosity">Luminosity</option>
+
+
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const background = document.querySelector('.main');
+        const updateBlendMode=()=>{
+            const selection=document.querySelector('.blends');
+            background.style.backgroundBlendMode=selection.value;
+        }
+        form.addEventListener("submit",function(e){
+            e.preventDefault();
+        })
+
+        background.addEventListener("change",function(e){
+            updateBlendMode();
+        })
+
+        updateBlendMode();
+    </script>
+</body>
+
+</html>
