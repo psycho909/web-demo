@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        article{
+            display: grid;
+            grid-template-columns: 1fr 1fr 10px 740px 10px 1fr 1fr;
+        }
+        article * {
+            grid-column: 4;
+        }
+        article > figure{
+            grid-column: 2 / -2;
+            margin: 20px 0;
+        }
+        figure img{
+            display: block;
+            width: 100%;
+        }
+        article > blockquote{
+            grid-column: 3/5;
+            padding-left: 10px;
+            color: #666;
+            border-left: 3px solid #000;
+        }
+
+        .aside{
+            grid-column: 5;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <h1>Running any NPM package in the browser locally</h1>
+        <p>JavaScript has never had any official solution for distributing packages, and every web platform (Rails,
+            Django etc) has their own idea of how to structure and package JavaScript. In the last few years, NPM has
+            started becoming the canonical way of distribution, with Webpack as the build system, but there’s no way to
+            load NPM packages in the browser without a server-side component.</p>
+        <div class="aside">Here’s how that looks with the Chrome inspector activated</div>
+        <blockquote>
+            <p>Scrimba is a platform for interactive coding screencast where
+                you can run the code at any moment in time.</p>
+        </blockquote>
+
+        <figure>
+            <img src="http://www.elifemall.com.tw/newweb/banner/P20190705164816tu.jpg?v=190705">
+        </figure>
+    </article>
+</body>
+
+</html>
