@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .boxs1{
+            width: 300px;
+            display: flex;
+            margin: 0 auto;
+            margin-bottom: 12px;
+            direction: rtl;
+            justify-content: space-around;
+        }
+        .boxs1 .box{
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+        .boxs1 .box:hover,
+        .boxs1 .box:hover ~ .box{
+            background-color: yellow;
+        }
+        .boxs2{
+            width: 300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .boxs2 .box{
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+        .boxs2 .box.hover{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="boxs1">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <div class="boxs2">
+        <div class="box" data-num="1"></div>
+        <div class="box" data-num="2"></div>
+        <div class="box" data-num="3"></div>
+        <div class="box" data-num="4"></div>
+        <div class="box" data-num="5"></div>
+    </div>
+
+    <script>
+        var boxList=document.querySelectorAll(".boxs2 .box");
+        var boxListLength=boxList.length;
+        for(let i=0;i<boxListLength;i++){
+            boxList[i].index=i;
+            boxList[i].addEventListener("click",function(){
+                boxList.forEach(box=>{
+                    box.classList.remove("hover")
+                })
+                for(let j=0;j<boxList[i].index+1;j++){
+                    boxList[j].classList.add("hover")
+                }
+            })
+        }
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Rubik+Mono+One&display=swap" rel="stylesheet">
+    <style>
+        html {
+            display: grid;
+            min-height: 100%;
+        }
+
+        body {
+            display: grid;
+            background: #333;
+        }
+
+        .main {
+            position: relative;
+            margin: auto;
+            overflow: hidden;
+            width: 850px;
+            height: 480px;
+        }
+
+        h1 {
+            font-family: "Montserrat", sans-serif;
+            text-align: center;
+            margin-top: 2em;
+            font-size: 2em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #F6F4F3;
+        }
+
+        h1 sup {
+            text-transform: lowercase;
+            color: #FF3E41;
+        }
+
+        #countdown {
+            color: #F6F4F3;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: "Lato", sans-serif;
+            font-size: 1em;
+            letter-spacing: 5px;
+            margin-top: 5%;
+        }
+
+        .days,
+        .hours,
+        .minutes,
+        .seconds,
+        .left {
+            display: inline-block;
+            padding: 20px;
+            width: 120px;
+            border-radius: 10px;
+        }
+
+        .days {
+            background: #D87200;
+        }
+
+        .hours {
+            background: #FF3E41;
+        }
+
+        .minutes {
+            background: #FFB20C;
+        }
+
+        .seconds {
+            background: #2186FF;
+        }
+
+        .left {
+            background: #E10A0A;
+        }
+
+        .c-number {
+            font-family: "Montserrat", sans-serif;
+            color: #333;
+            font-size: 5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <h1>Selected Date Is 7<sup>th</sup> Of August</h1>
+
+        <div id="countdown"></div>
+    </div>
+    <script>
+        const choosenDate = new Date("2019-07-08 12:00:00").getTime();
+        let countdown = setInterval(() => {
+            const today = new Date().getTime();
+            const diff = choosenDate - today;
+
+            let days = Math.floor(diff / (24 * 60 * 60 * 1000));
+            let hours = Math.floor(diff % (24 * 60 * 60 * 1000) / (60 * 60 * 1000));
+            let minutes = Math.floor(diff % (60 * 60 * 1000) / (60 * 1000));
+            let seconds = Math.floor(diff % (60 * 1000) / 1000);
+
+            document.getElementById("countdown").innerHTML =`
+                <div class="days">
+                    <div class="c-number">${days}</div>days
+                </div>
+                <div class="hours">
+                    <div class="c-number">${hours}</div>hours
+                </div>
+                <div class="minutes">
+                    <div class="c-number">${minutes}</div>minutes
+                </div>
+                <div class="seconds">
+                    <div class="c-number">${seconds}</div>seconds
+                </div>
+                <div class="left">LEFT</div>
+            `;
+        }, 1000)
+    </script>
+</body>
+
+</html>
