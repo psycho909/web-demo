@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Button Hover Effects | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <style>
+        html *,
+        html *:before,
+        html *:after {
+            transition: 0.5s ease-in-out;
+        }
+
+        html i,
+        html em,
+        html b,
+        html strong,
+        html span {
+            transition: none;
+        }
+
+        *:before,
+        *:after {
+            z-index: -1;
+        }
+
+        body {
+            padding-top: 30px;
+            font-family: 'Rubik', sans-serif;
+            text-align: center;
+            background-color: #e8eaed;
+        }
+
+        a {
+            text-decoration: none;
+            line-height: 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .container .wrap a {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 80px;
+            max-width: 250px;
+            margin: 1rem auto;
+            text-transform: uppercase;
+            border: 1px solid #212121;
+            color: #212121;
+            float: left;
+            margin-left: 30px;
+        }
+
+        .container .wrap a:hover {
+            color: white;
+        }
+
+        .swipe:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #f82d2d;
+            transform: translateX(-100%);
+        }
+
+        .swipe:hover:before {
+            transform: translateX(0);
+        }
+
+        .dia-swipe:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50px;
+            bottom: 0;
+            left: 0;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid #f82d2d;
+            transform: translateX(-100%);
+        }
+
+        .dia-swipe:hover:before {
+            transform: translateX(0);
+        }
+
+        .dou-close:before,
+        .dou-close:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-bottom: 80px solid #f82d2d;
+        }
+
+        .dou-close:before {
+            right: -50px;
+            border-right: 50px solid transparent;
+            transform: translateX(-100%);
+        }
+
+        .dou-close:after {
+            left: -50px;
+            border-left: 50px solid transparent;
+            transform: translateX(100%);
+        }
+
+        .dou-close:hover:before {
+            transform: translateX(-40%);
+        }
+
+        .dou-close:hover:after {
+            transform: translateX(40%);
+        }
+
+        .dia-close:before,
+        .dia-close:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .dia-close:before {
+            right: -50px;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid#f82d2d;
+            transform: translateX(-100%);
+        }
+
+        .dia-close:after {
+            left: -50px;
+            border-left: 50px solid transparent;
+            border-top: 80px solid #f82d2d;
+            transform: translateX(100%);
+        }
+
+        .dia-close:hover:before {
+            transform: translateX(-49%);
+        }
+
+        .dia-close:hover:after {
+            transform: translateX(49%);
+        }
+
+        .zoning-in:before,
+        .zoning-in:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-top: 40px solid #f82d2d;
+            border-bottom: 40px solid #f82d2d;
+        }
+
+        .zoning-in:before {
+            border-right: 40px solid transparent;
+            transform: translateX(-100%);
+        }
+
+        .zoning-in:after {
+            border-left: 40px solid transparent;
+            transform: translateX(100%);
+        }
+
+        .zoning-in:hover:before {
+            transform: translateX(-30%);
+        }
+
+        .zoning-in:hover:after {
+            transform: translateX(30%);
+        }
+
+        .corners:before,
+        .corners:after,
+        .corners span:before,
+        .corners span:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #f82d2d;
+        }
+
+        .corners:before {
+            transform: translate(-100%, -100%);
+        }
+
+        .corners:after {
+            transform: translate(-100%, 100%);
+        }
+
+        .corners span:before {
+            transform: translate(100%, -100%);
+        }
+
+        .corners span:after {
+            transform: translate(100%, 100%);
+        }
+
+        .corners:hover:before {
+            transform: translate(-50%, -50%);
+        }
+
+        .corners:hover:after {
+            transform: translate(-50%, 50%);
+        }
+
+        .corners:hover span:before {
+            transform: translate(50%, -50%);
+        }
+
+        .corners:hover span:after {
+            transform: translate(50%, 50%);
+        }
+
+        .slice:before,
+        .slice:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 0 solid;
+            transform: rotate(360deg);
+        }
+
+        .slice:after {
+            content: '';
+            border-color: transparent #f82d2d transparent transparent;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .slice:before {
+            content: '';
+            border-color: transparent transparent transparent #f82d2d;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .slice:hover:before,
+        .slice:hover:after {
+            border-width: 80px 262.5px;
+        }
+
+        .positn span {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: #f82d2d;
+            transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .positn:hover span {
+            width: 225%;
+            height: 562.5px;
+        }
+
+        .alternate:before,
+        .alternate:after,
+        .alternate span:before,
+        .alternate span:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 25.25%;
+            height: 0;
+            background-color: #f82d2d;
+        }
+
+        .alternate:before {
+            left: 0;
+        }
+
+        .alternate:after {
+            left: 50%;
+        }
+
+        .alternate span:before,
+        .alternate span:after {
+            top: auto;
+            bottom: 0;
+        }
+
+        .alternate span:before {
+            left: 25%;
+        }
+
+        .alternate span:after {
+            left: 75%;
+        }
+
+        .alternate:hover:before,
+        .alternate:hover:after,
+        .alternate:hover span:before,
+        .alternate:hover span:after {
+            height: 80px;
+        }
+
+        .smoosh:before,
+        .smoosh:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #f82d2d;
+        }
+
+        .smoosh:before {
+            transform: translateY(-100%);
+        }
+
+        .smoosh:after {
+            transform: translateY(100%);
+        }
+
+        .smoosh:hover:before {
+            transform: translateY(-50%);
+        }
+
+        .smoosh:hover:after {
+            transform: translateY(50%);
+        }
+
+        .ver-overlap:before,
+        .ver-overlap:after,
+        .ver-overlap span:before,
+        .ver-overlap span:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: #f82d2d;
+            transition: 0.4s ease-in-out;
+        }
+
+        .ver-overlap:after,
+        .ver-overlap span:before {
+            top: auto;
+            bottom: 0;
+        }
+
+        .ver-overlap span:before,
+        .ver-overlap span:after {
+            transition-delay: 0.4s;
+        }
+
+        .ver-overlap:hover:before,
+        .ver-overlap:hover:after,
+        .ver-overlap:hover span:before,
+        .ver-overlap:hover span:after {
+            height: 80px;
+        }
+
+        .hor-overlap:before,
+        .hor-overlap:after,
+        .hor-overlap span:before,
+        .hor-overlap span:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 80px;
+            background-color: #f82d2d;
+            transition: 0.4s;
+        }
+
+        .hor-overlap:after,
+        .hor-overlap span:before {
+            left: auto;
+            right: 0;
+        }
+
+        .hor-overlap span:before,
+        .hor-overlap span:after {
+            transition-delay: 0.4s;
+        }
+
+        .hor-overlap:hover:before,
+        .hor-overlap:hover:after,
+        .hor-overlap:hover span:before,
+        .hor-overlap:hover span:after {
+            width: 250px;
+        }
+
+        .hor-overlap:active {
+            background-color: #f82d2d;
+        }
+        .coolis:before,
+        .coolis:after {
+            position: absolute;
+            top: 50%;
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #f82d2d;
+            border-radius: 50%;
+        }
+
+        .coolis:before {
+            left: -20px;
+            transform: translate(-50%, -50%);
+        }
+
+        .coolis:after {
+            right: -20px;
+            transform: translate(50%, -50%);
+        }
+
+        .coolis:hover:before {
+            animation: clsois-left 0.8s both;
+            animation-direction: alternate;
+        }
+
+        .coolis:hover:after {
+            animation: clsois-right 0.8s both;
+            animation-direction: alternate;
+        }
+
+        @keyframes clsois-left {
+            0% {
+                left: -20px;
+            }
+
+            50% {
+                left: 50%;
+                width: 20px;
+                height: 20px;
+            }
+
+            100% {
+                left: 50%;
+                width: 375px;
+                height: 375px;
+            }
+        }
+
+        @keyframes clsois-right {
+            0% {
+                right: -20px;
+            }
+
+            50% {
+                right: 50%;
+                width: 20px;
+                height: 20px;
+            }
+
+            100% {
+                right: 50%;
+                width: 375px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <a class="swipe" href="#">Swipe</a>
+            <a class="dia-swipe" href="#">Diagonal Swipe</a>
+            <a class="dou-close" href="#">Double Swipe</a>
+            <a class="dia-close" href="#">Diagonal Close</a>
+            <a class="positn" href="#">Position Aware<span></span></a>
+            <a class="alternate" href="#"><span>Alternate</span></a>
+            <a class="smoosh" href="#">Smoosh</a>
+            <a class="zoning-in" href="#"><span>Zoning In</span></a>
+            <a class="corners" href="#"><span>4 Corners</span></a>
+            <a class="slice" href="#">Slice</a>
+            <a class="ver-overlap" href="#"><span>Vertical Overlap</span></a>
+            <a class="hor-overlap" href="#"><span>Horizontal Overlap</span></a>
+            <a class="coolis" href="#">Collision</a>
+        </div>
+    </div>
+</body>
+
+</html>
