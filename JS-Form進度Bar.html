@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #ff8181;
+            font-family: 'Lato', sans-serif;
+        }
+
+        #progressb {
+            top: 0;
+            position: fixed;
+            background: #ff3d3d;
+            height: 20px;
+            width: 0;
+            transition: width 0.2s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .center {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #form {
+            background: #fff;
+            color: #333;
+            position: relative;
+            width: 410px;
+            padding: 2px 15px 20px 15px;
+            box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+            transition: transform .1s ease-in-out;
+            border-radius: 30px;
+        }
+
+        #form.close {
+            width: 0;
+            padding: 0;
+            overflow: hidden;
+            transition: .8s ease-in-out;
+            box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0);
+        }
+
+        .next {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+            font-size: 40px;
+            color: #ff3d3d;
+            float: right;
+            cursor: pointer;
+        }
+
+        .next:hover {
+            color: #333;
+        }
+
+        .next:hover {
+            color: #333;
+        }
+
+        .wrong .next {
+            color: #ff2d26;
+        }
+
+        .close .next {
+            color: #fff;
+        }
+
+        #container {
+            position: relative;
+            opacity: 0;
+            width: 350px;
+            margin-top: 25px;
+            transition: opacity .3s ease-in-out;
+        }
+
+        #container input {
+            width: 100%;
+            padding: 0 5px;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            outline: 0;
+            background: transparent;
+            box-shadow: none;
+
+        }
+
+        #placeholder {
+            position: absolute;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 5px;
+            transition: .2s ease-in-out;
+        }
+
+        #container input:valid+#placeholder {
+            top: -15px;
+            font-size: 11px;
+            font-weight: normal;
+            color: #333;
+        }
+
+        #bottomline {
+            position: absolute;
+            border-bottom: 2px solid #ff3d3d;
+            padding: 3px 0;
+            width: 0;
+            left: 5px;
+            transition: width .6s ease-in-out;
+        }
+
+        .wrong #bottomline {
+            border-color: #ff2d26;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="progressb"></div>
+    <div class="center">
+        <div id="form">
+
+            <i id="bttn" class="ion-android-arrow-forward next"></i>
+
+            <div id="container">
+                <input id="txtfield" required autofocus />
+                <label id="placeholder"></label>
+                <div id="bottomline"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var questions = [
+            { question: "Your first name?" },
+            { question: "Your last name?" },
+            { question: "Your email ID?", pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+            { question: "Create a password", type: "password" }
+        ];
+        var tTime = 100
+        var wTime = 200
+        var eTime = 800
+        var position = 0
+        putQuestion()
+
+        bttn.addEventListener('click', validate)
+        txtfield.addEventListener('keyup', function (e) {
+            transform(0, 0)
+            if (e.keyCode == 13){
+                validate()
+            }
+        })
+
+        function putQuestion() {
+            placeholder.innerHTML = questions[position].question
+            txtfield.value = ''
+            txtfield.type = questions[position].type || 'text'
+            txtfield.focus()
+            showCurrent()
+        }
+
+        function done() {
+            form.className = 'close'
+            var h1 = document.createElement('h1')
+            h1.appendChild(document.createTextNode('Welcome ' + questions[0].value + '!'))
+            setTimeout(function () {
+                form.parentElement.appendChild(h1)
+                setTimeout(function () { h1.style.opacity = 1 }, 50)
+            }, eTime)
+        }
+
+        function validate() {
+            questions[position].value = txtfield.value
+            if (!txtfield.value.match(questions[position].pattern || /.+/)){
+                wrong()
+            }else{
+                ok(function () {
+                    progressb.style.width = ++position * 100 / questions.length + 'vw'
+                    if (questions[position]){
+                        hideCurrent(putQuestion)
+                    }else{
+                        hideCurrent(done)
+                    }
+                })
+            }
+        }
+
+        function hideCurrent(callback) {
+            container.style.opacity = 0
+            bottomline.style.transition = 'none'
+            bottomline.style.width = 0
+            setTimeout(callback, wTime)
+        }
+
+        function showCurrent(callback) {
+            container.style.opacity = 1
+            bottomline.style.transition = ''
+            bottomline.style.width = '100%'
+            setTimeout(callback, wTime)
+        }
+
+        function transform(x, y) {
+            form.style.transform = 'translate(' + x + 'px ,  ' + y + 'px)'
+        }
+
+        function ok(callback) {
+            form.className = ''
+            setTimeout(transform, tTime * 0, 0, 10)
+            setTimeout(transform, tTime * 1, 0, 0)
+            setTimeout(callback, tTime * 2)
+        }
+
+        function wrong(callback) {
+            form.className = 'wrong'
+            for (var i = 0; i < 6; i++)
+                setTimeout(transform, tTime * i, (i % 2 * 2 - 1) * 20, 0)
+            setTimeout(transform, tTime * 6, 0, 0)
+            setTimeout(callback, tTime * 7)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body,ul,li {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            margin: 20px;
+        }
+        .list {
+            display: inline-block;
+            height: 200px;
+            border: 1px solid #f5222d;
+            font-size: 0;
+            writing-mode: vertical-lr;
+        }
+        .item {
+            display: inline-block;
+            margin: 5px 5px;
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            color: #fff;
+            background: #00a0e9;
+            list-style: none;
+            writing-mode: horizontal-tb;
+        }
+        .item:nth-child(2),
+        .item:nth-child(10) {
+            height: 90px;
+            line-height: 90px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li class="item">1</li>
+        <li class="item">2</li>
+        <li class="item">3</li>
+        <li class="item">4</li>
+        <li class="item">5</li>
+        <li class="item">6</li>
+        <li class="item">7</li>
+        <li class="item">8</li>
+        <li class="item">9</li>
+        <li class="item">10</li>
+        <li class="item">11</li>
+        <li class="item">12</li>
+    </ul>
+</body>
+
+</html>
