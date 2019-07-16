@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            overflow: hidden;
+        }
+        #fullpage, .section, body, html {
+            height: 100%;
+        }
+        #nav{
+            position: fixed;
+            top: 20px;
+            right: 20px
+        }
+        #nav ul{
+            display: flex;
+        }
+        #nav ul li{
+            list-style: none;
+            padding: 1rem 2rem;
+            background-color: pink;
+            margin-right: 10px;
+            cursor: pointer;
+            color:#fff;
+        }
+        .container{
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            /* overflow: hidden; */
+        }
+        .section .section__inner{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.6);
+        }
+        .section .section__inner img{
+            opacity: 0;
+            transition: all .6s .48s;
+        }
+        .section.action .section__inner  img{
+            opacity: 1;
+        }
+        .section.action .section__inner{
+            opacity: 1;
+            transform: scale(1);
+        }
+        .section.arrive .section__inner{
+            opacity: 1;
+            transition: all .48s .68s;
+        }
+        .section.leave .section__inner{
+            opacity: 0;
+            transform: scale(1.4);
+            transition: all .48s ;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="fullpage">
+        <section id="section0" class="section action">
+            <div class="section__inner">
+                <img src="./images/puzzle_01.jpg" alt="">
+            </div>
+        </section>
+        <section id="section1" class="section">
+            <div class="section__inner">
+                <img src="./images/puzzle_02.jpg" alt="">
+            </div>
+        </section>
+    </div>
+    <nav id="nav">
+        <ul>
+            <li data-section="0">page1</li>
+            <li data-section="1">page2</li>
+        </ul>
+    </nav>
+
+    <script>
+        var _prev=0;
+        var _next=0;
+        $("#nav ul li").on('click',function(){
+            var _section=$(this).data("section");
+            var _index=$(this).index()
+            var _wHeight=window.innerHeight;
+            _prev=_next;
+            _next=_index;
+            
+            $("#section"+_prev).removeClass("action").addClass('leave');
+            $("#section"+_next).removeClass("leave").addClass('arrive')
+            setTimeout(() => {
+                $("#fullpage").css("transform","translateY(-"+(_index*_wHeight)+"px)")
+                $("#section"+_next).removeClass("arrive").addClass('action');
+            }, 480);
+        })
+    </script>
+</body>
+</html>
