@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Light Javascript Table Filter</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 150px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        input {
+            width: 200px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #212121;
+            height: 40px;
+        }
+
+        table {
+            margin-top: 30px;
+        }
+
+        tr:nth-of-type(even) {
+            background: #ffd98b;
+        }
+
+        thead {
+            background: #fbb016;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="container">
+
+        <h1>Table Filter JavaScript</h2>
+
+            <input type="search" class="light-table-filter" data-table="table-info" placeholder="Filter/Search">
+
+            <table class="table-info table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>john.doe@gmail.com</td>
+                        <td>0123456789</td>
+                        <td>01</td>
+                    </tr>
+                    <tr>
+                        <td>Alen Fox</td>
+                        <td>Alen.fox@gmail.com</td>
+                        <td>0155456789</td>
+                        <td>02</td>
+                    </tr>
+                    <tr>
+                        <td>Rakesh Sharma</td>
+                        <td>rakesh.sharma@gmail.com</td>
+                        <td>6754328901</td>
+                        <td>03</td>
+                    </tr>
+                    <tr>
+                        <td>Bunty Singh</td>
+                        <td>Bunty.singh@gmail.com</td>
+                        <td>5678241598</td>
+                        <td>04</td>
+                    </tr>
+                    <tr>
+                        <td>Sushant Rajput</td>
+                        <td>sushant.rajput@gmail.com</td>
+                        <td>675457801</td>
+                        <td>05</td>
+                    </tr>
+                    <tr>
+                        <td>Sunny Sharma</td>
+                        <td>sunnysharma@gmail.com</td>
+                        <td>675123451</td>
+                        <td>06</td>
+                    </tr>
+                    <tr>
+                        <td>Saurav Gupta</td>
+                        <td>saurav.gupta@gmail.com</td>
+                        <td>61234801</td>
+                        <td>07</td>
+                    </tr>
+                    <tr>
+                        <td>Appu Khote</td>
+                        <td>appu.khote@gmail.com</td>
+                        <td>67894561</td>
+                        <td>08</td>
+                    </tr>
+                    <tr>
+                        <td>Sandeep Arya</td>
+                        <td>sandeep.arya@gmail.com</td>
+                        <td>741852963</td>
+                        <td>09</td>
+                    </tr>
+                    <tr>
+                        <td>Vijay Mehra</td>
+                        <td>vijay.mehra@gmail.com</td>
+                        <td>456851982</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+    </section>
+
+    <script>
+        (function (document) {
+            'use strict';
+            var TableFilter = (function (Arr) {
+
+                var _input;
+
+                function _onInputEvent(e) {
+                    _input = e.target;
+                    var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                    Arr.forEach.call(tables, function (table) {
+                        Arr.forEach.call(table.tBodies, function (tbody) {
+                            Arr.forEach.call(tbody.rows, _filter);
+                        });
+                    });
+                }
+
+                function _filter(row) {
+                    var text = row.textContent.toLowerCase();
+                    var val = _input.value.toLowerCase();
+                    row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+                }
+
+                return {
+                    init: function () {
+                        var inputs = document.querySelector('.light-table-filter');
+                        inputs.addEventListener("input", function(e){
+                            var _input=e.target;
+                            var tables=document.querySelectorAll(`.${_input.dataset.table}`)
+                            Array.prototype.forEach.call(tables,function(table){
+                                Array.prototype.forEach.call(table.tBodies,function(tbody){
+                                    Array.prototype.forEach.call(tbody.rows,function(row){
+                                        var text=row.textContent.toLowerCase();
+                                        var val=_input.value.toLowerCase();
+                                        row.style.display=text.indexOf(val) === -1?"none":"table-row";
+                                    })
+                                })
+                            })
+                        })
+                    }
+                };
+            })(Array.prototype);
+
+            document.addEventListener('readystatechange', function () {
+                if (document.readyState === 'complete') {
+                    TableFilter.init();
+                }
+            });
+
+        })(document);
+
+    </script>
+</body>
+
+</html>

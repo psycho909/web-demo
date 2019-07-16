@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .grid{
+            display: grid;
+            grid-gap: 6px;
+            margin-bottom: 20px;
+        }
+        .auto-fill{
+            grid-template-columns: repeat(auto-fill,minmax(100px,1fr));
+        }
+        .auto-fit{
+            grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+        }
+        .grid div{
+            background-color: deepPink;
+            padding: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid auto-fill">
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+    </div>
+    <div class="grid auto-fit">
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+    </div>
+</body>
+</html>

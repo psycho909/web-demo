@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img src="./images/1.jpg" alt="">
+    <img src="./images/12.jpg" alt="">
+    <img src="./images/13.jpg" alt="">
+
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+            const images=[].slice.call(document.querySelectorAll("img"))
+            images.forEach(el=>{
+                el.addEventListener("error",()=>{
+                    // el.remove()
+                    el.src="./images/puzzle_01.jpg";
+                })
+            })
+        })
+    </script>
+</body>
+</html>
