@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grid Calender with Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        :root{
+            --blue-grey-700: #334e68;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .month-indicator{
+            color:var(--blue-gray-700);
+            text-align: center;
+            font-weight: 500;
+        }
+        .day-of-week,
+        .date-grid{
+            display: grid;
+            grid-template-columns: repeat(7,1fr);
+        }
+        .day-of-week div{
+            text-align: center;
+        }
+        .date-grid button.day1{
+            grid-column: 1;
+        }
+        .date-grid button.day2{
+            grid-column: 2;
+        }
+        .date-grid button.day3{
+            grid-column: 3;
+        }
+        .date-grid button.day4{
+            grid-column: 4;
+        }
+        .date-grid button.day5{
+            grid-column: 5;
+        }
+        .date-grid button.day6{
+            grid-column: 6;
+        }
+        .date-grid button.day7{
+            grid-column: 7;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="month-indicator">
+            <button @click="prevMonth()" ><</button>
+            <span>{{year}} {{getMonth}}月</span>
+            <button @click="nextMonth()" >></button>
+        </div>
+        <div class="day-of-week">
+            <div v-for="w in weeks">星期{{w}}</div>
+        </div>
+
+        <div class="date-grid">
+            <button :class="getFirstDay"><time :datetime=`${year}-${month+1}-1`>1</time></button>
+            <button v-for="d in getDays">
+                <time :datetime=`${year}-${month+1}-${d}`>{{d}}</time>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                months:["1", "2", "3", "4", "5", "6", "7", "8", "9", "10","11", "12"],
+                weeks:["一","二","三","四","五","六","日"],
+                month_normal:[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+                month:new Date().getMonth(),
+                year:new Date().getFullYear()
+            },
+            computed:{
+                getMonth(){
+                    return this.months[this.month]
+                },
+                getFirstDay(){
+                    var firstDay=new Date(this.year,this.month,1).getDay();
+                    return "day"+firstDay
+                },
+                getDays(){
+                    let days=[];
+                    for(var i=2;i<=this.month_normal[this.month];i++){
+                        days.push(i)
+                    }
+                    return days
+                }
+            },
+            methods:{
+                nextMonth(){
+                    let month=this.month+1;
+                    if(month > 11){
+                        this.month=0
+                        this.year=this.year+1
+                    }else{
+                        this.month=month
+                    }
+                },
+                prevMonth(){
+                    let month=this.month-1;
+                    if(month < 0){
+                        this.month=11
+                        this.year=this.year-1
+                    }else{
+                        this.month=month
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

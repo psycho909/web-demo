@@ -45,7 +45,6 @@
                 top: 0;
                 left: 50%;
                 border-radius: 40%;
-                background-color: rgba(212, 24, 24, 0.9);
                 transform: translate(-50%, -70%) rotate(0);
                 animation: toRotate 10s linear -5s infinite;
                 z-index: 20;
@@ -88,6 +87,9 @@
                 <!-- 波浪的高度完全是受wave-mask的top屬性影響的，所以要動態變更懸浮球狀態只需要計算然後相應的改變top的值就可以了 -->
                 <div class="wave-mask" :style="`top:${40-parseInt(usingRate)}px`"></div>
             </div>
+            <div class="container2">
+
+            </div>
             <input type="range" v-model="usingRate" name="points" min="0" max="100" step="0" />
             <span>{{usingRate}}</span>
         </div>
@@ -96,8 +98,7 @@
             var vm=new Vue({
                 el:"#app",
                 data:{
-                    usingRate:0,
-                    range:0
+                    usingRate:0
                 }
             })
         </script>

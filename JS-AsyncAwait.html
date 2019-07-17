@@ -39,12 +39,11 @@
         // fn().then((data)=>console.log(data))
 
         const delayAndGetRandom=(ms)=>{
-            return new Promise(resolve=>setTimeout(
-                ()=>{
+            return new Promise(resolve=>setTimeout(()=>{
                     const val=Math.trunc(Math.random()*100)
                     resolve(val)
-                },ms
-            ))
+                },ms)
+            )
         };
 
         async function fn(){
@@ -56,17 +55,19 @@
             return a+b*c;
         }
 
-        fn().then((data)=>console.log(data))
+        fn().then((data)=>console.log("delayAndGetRandom: "+data))
 
-        const wait=(i,ms)=>new Promise((resolve)=>{
-            setTimeout(()=>{
-                resolve(i)
-            },ms)
-        })
+        const wait=(i,ms)=>{
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    resolve(i)
+                },ms)
+            })
+        }
         async function printNumbersUsingAsync() {
             for (let i = 0; i < 10; i++) {
                 await wait(i, Math.random() * 1000);
-                console.log(i);
+                console.log("printNumbersUsingAsync : "+i);
             }
         }
         printNumbersUsingAsync().then(console.log)

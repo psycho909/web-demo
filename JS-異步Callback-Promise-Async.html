@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var add=(a,b,callback)=>{
+            setTimeout(()=>{
+                if( a>=0 && b>=0){
+                    callback(a+b)
+                }else{
+                    callback(undefined,"Error Number Callback")
+                }
+            },400)
+        };
+
+        add(3,4,(sum,error)=>{
+            if(error){
+                console.log(error)
+            }else{
+                console.log(sum)
+            }
+        })
+
+        var addPromise=(a,b)=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    if( a>=0 && b>=0 ){
+                        resolve(a+b)
+                    }else{
+                        reject("Error Number Promise")
+                    }
+                },400)
+            })
+        }
+
+        addPromise(3,4).then(sum=>{
+            return addPromise(sum,4)
+        }).then(sum2=>{
+            console.log(sum2)
+        })
+
+        var addAsync=async ()=>{
+            let sum;
+            try{
+                sum=await addPromise(20,30);
+                var sum2=await addPromise(sum,100);
+                var sum3=await addPromise(sum2,100);
+                return sum3;
+            }catch(error){
+                console.log("Number Error Asunc")
+            }finally{
+                console.log("Finally Async")
+            }
+        }
+        addAsync().then(result=>{
+            console.log(result)
+        })
+    </script>
+</body>
+</html>
