@@ -69,6 +69,10 @@
                 <time :datetime=`${year}-${month+1}-${d}`>{{d}}</time>
             </button>
         </div>
+        <div class="test-box">
+            <input type="text" ref="input">
+            <button @click="getInput()">Get Input</button>
+        </div>
     </div>
 
     <script>
@@ -115,6 +119,9 @@
                     }else{
                         this.month=month
                     }
+                },
+                getInput(){
+                    console.log(this.$refs.input.value)
                 }
             }
         })
