@@ -120,6 +120,25 @@
             var timeLeave='';
             var onoff=false;
             var stopper=true;
+
+            var timeLeave=(nextIndex,sec_leave,sec_arrive,callback)=>{
+                setTimeout(()=>{
+                    $.fn.fullpage.silentMoveTo(nextIndex);
+                    stopper=false;
+                    callback(nextIndex,sec_leave,sec_arrive);
+                },480)
+            }
+            var timeArrive=(sec_leave,sec_arrive,callback)=>{
+                setTimeout(()=>{
+                    $(sec_leave).removeClass('leave')
+                    $(sec_arrive).removeClass('arrive')
+                    onoff=false;
+                    $.fn.fullpage.setAllowScrolling(true);
+                    stopper=true;
+                    callback(sec_leave,sec_arrive)
+                },480)
+            }
+
             $("#fullpage").fullpage({
                 scrollingSpeed:0,
                 fitToSectionDelay: 600,
@@ -130,33 +149,36 @@
                         console.log("STOPPER")
                         return false;
                     }
-                    if(nextIndex != 5){
-                        $(sec_arrive).addClass('arrive')
-                        $(sec_leave).addClass('leave')
-                        timeLeave=setTimeout(function(){
-                            $.fn.fullpage.silentMoveTo(nextIndex);
-                            clearTimeout(timeLeave);
-                            stopper=false;
-                            console.log("timeLeave")
-                            timeArrive=setTimeout(function(){
-                                $(sec_arrive).removeClass('arrive')
-                                $(sec_leave).removeClass('leave')
-                                onoff=false;
-                                $.fn.fullpage.setAllowScrolling(true);
-                                clearTimeout(timeArrive);
-                                stopper=true;
-                                console.log("timeArrive")
-                            },480)
-                        },480)
+                    $(sec_leave).addClass('leave')
+                    $(sec_arrive).addClass('arrive')
+                    timeLeave(nextIndex,sec_leave,sec_arrive,(nextIndex,sec_leave,sec_arrive)=>{
+                        timeArrive(sec_leave,sec_arrive,getTimeArrive=>{
+                            console.log("timeArrive")
+                        })
+                    })
+                    // timeLeave=setTimeout(function(){
+                    //     $.fn.fullpage.silentMoveTo(nextIndex);
+                    //     clearTimeout(timeLeave);
+                        
+                    //     stopper=false;
+                    //     console.log("timeLeave")
+                    //     timeArrive=setTimeout(function(){
+                    //         $(sec_leave).removeClass('leave')
+                    //         $(sec_arrive).removeClass('arrive')
+    
+                    //         onoff=false;
+                    //         $.fn.fullpage.setAllowScrolling(true);
+                    //         clearTimeout(timeArrive);
+                    //         stopper=true;
+                    //         console.log("timeArrive")
+                    //     },480)
+                    // },480)
 
-                        if(!onoff){
-                            $.fn.fullpage.setAllowScrolling(false);
-                            onoff=true;
-                            console.log("ONOFF")
-                            return false;
-                        }
-                    }else{
-                        console.log("end")
+                    if(!onoff){
+                        $.fn.fullpage.setAllowScrolling(false);
+                        onoff=true;
+                        console.log("ONOFF")
+                        return false;
                     }
                     console.log(origin, nextIndex, direction)
                 }

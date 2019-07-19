@@ -18,11 +18,27 @@
             },400)
         };
 
+        var tripleDown=(a,callback)=>{
+            setTimeout(()=>{
+                callback(a*3)
+            },1000)
+        }
+        var isEvent=(a,callback)=>{
+            setTimeout(()=>{
+                callback(a % 2 === 0)
+            },1000)
+        }
         add(3,4,(sum,error)=>{
             if(error){
                 console.log(error)
             }else{
-                console.log(sum)
+                tripleDown(sum,tripleResult=>{
+                    isEvent(tripleDown,isEventResult=>{
+                        console.log(`The sum is: ${sum}`)
+                        console.log(`The triple of the sum is: ${tripleResult}`)
+                        console.log(`The triple is even: ${isEventResult}`)
+                    })
+                })
             }
         })
 

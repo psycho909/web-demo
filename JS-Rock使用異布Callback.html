@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var stopper=true;
+        var onoff=true;
+        var timeLeave=(nextIndex,sec_leave,sec_arrive,callback)=>{
+            setTimeout(()=>{
+                stopper=false;
+                callback(nextIndex,sec_leave,sec_arrive);
+            },480)
+        }
+        var timeArrive=(sec_leave,sec_arrive,callback)=>{
+            setTimeout(()=>{
+                onoff=false;
+                stopper=true;
+                callback(sec_leave,sec_arrive)
+            },480)
+        }
+        timeLeave(1,2,3,(nextIndex,sec_leave,sec_arrive)=>{
+            timeArrive(sec_leave,sec_arrive,getTimeArrive=>{
+                console.log(nextIndex,sec_leave,sec_arrive)
+                console.log(sec_leave,sec_arrive)
+                console.log(onoff)
+            })
+        })
+    </script>
+</body>
+</html>

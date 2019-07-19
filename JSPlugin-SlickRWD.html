@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Patua+One&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <style>
+        html {
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background: #fff;
+            color: #333
+        }
+
+        body {
+            margin: 0;
+            background: #ff5057;
+            height: 100vh;
+        }
+
+        h3 {
+            font-family: 'Patua One', cursive;
+            font-weight: 400;
+            font-size: 1.4em;
+            line-height: 1.4em;
+            color: #fff
+        }
+
+        .container {
+            box-sizing: content-box;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 40px 15px;
+        }
+
+        .indentity {
+            margin: 0 !important
+        }
+
+        figure.testimonial {
+            position: relative;
+            float: left;
+            overflow: hidden;
+            margin: 10px 1%;
+            padding: 0 20px;
+            text-align: left;
+            box-shadow: none !important;
+        }
+
+        figure.testimonial * {
+            box-sizing: border-box;
+            transition: all 0.35s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+        }
+
+        figure.testimonial img {
+            max-width: 100%;
+            vertical-align: middle;
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+            margin: 40px 0 0 10px;
+        }
+
+        figure.testimonial blockquote {
+            background-color: #fff;
+            display: block;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5em;
+            margin: 0;
+            padding: 25px 50px 30px;
+            position: relative;
+        }
+
+        figure.testimonial blockquote:before,
+        figure.testimonial blockquote:after {
+            content: "\201C";
+            position: absolute;
+            color: #ff5057;
+            font-size: 50px;
+            font-style: normal;
+        }
+
+        figure.testimonial blockquote:before {
+            top: 25px;
+            left: 20px;
+        }
+
+        figure.testimonial blockquote:after {
+            content: "\201D";
+            right: 20px;
+            bottom: 0;
+        }
+
+        figure.testimonial .btn {
+            top: 100%;
+            width: 0;
+            height: 0;
+            border-left: 0 solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 25px solid #fff;
+            margin: 0;
+            position: absolute;
+        }
+
+        figure.testimonial .peopl {
+            position: absolute;
+            bottom: 45px;
+            padding: 0 10px 0 120px;
+            margin: 0;
+            color: #ffffff;
+            transform: translateY(50%);
+        }
+
+        figure.testimonial .peopl h3 {
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            font-family: "FontAwesome";
+            font-size: 40px;
+            line-height: 1;
+            opacity: .75;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .slick-prev {
+            left: -40px;
+        }
+
+        .slick-prev:before {
+            content: "";
+        }
+
+        .slick-next {
+            right: -40px;
+        }
+
+        .slick-next:before {
+            content: "";
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="testiSlide">
+            <div>
+                <figure class="testimonial">
+                    <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <div class="btn"></div>
+                    </blockquote>
+                    <img src="http://pbs.twimg.com/profile_images/829191018331385858/jxsj-ZmD.jpg" alt="Maksim Goffin" />
+                    <div class="peopl">
+                        <h3>Neil Patel</h3>
+                        <p class="indentity">SEO Expert</p>
+                    </div>
+                </figure>
+            </div>
+
+            <div>
+                <figure class="testimonial">
+                    <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <div class="btn"></div>
+                    </blockquote>
+                    <img src="https://secure.gravatar.com/avatar/24a495e3a7316e619af62445f1a86886?s=96&d=mm&r=g" alt="Maksim Goffin" />
+                    <div class="peopl">
+                        <h3>Shaan</h3>
+                        <p class="indentity">Web Developer</p>
+                    </div>
+                </figure>
+            </div>
+
+            <div>
+                <figure class="testimonial">
+                    <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <div class="btn"></div>
+                    </blockquote>
+                    <img src="https://yt3.ggpht.com/a/AGF-l7_ESQtd3r7nPdFdP_mmyxn65RFy9JlGT0dGyA=s900-mo-c-c0xffffffff-rj-k-no" alt="Maksim Goffin" />
+                    <div class="peopl">
+                        <h3>Brian Dean</h3>
+                        <p class="indentity">SEO / Blogger</p>
+                    </div>
+                </figure>
+            </div>
+
+            <div>
+                <figure class="testimonial">
+                    <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <div class="btn"></div>
+                    </blockquote>
+                    <img src="https://design.sva.edu/wp-content/uploads/2018/08/Sagmeister.jpg" alt="Maksim Goffin" />
+                    <div class="peopl">
+                        <h3>Stefan Sagmeister</h3>
+                        <p class="indentity">Graphic Designer</p>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.testiSlide').slick({
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                // autoplay: true,
+                autoplaySpeed: 1500,
+                responsive: [{
+                    breakpoint: 850,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true,
+                    }
+                }]
+            });
+        });
+    </script>
+</body>
+
+</html>

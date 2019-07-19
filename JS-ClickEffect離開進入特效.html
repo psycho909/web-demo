@@ -57,6 +57,7 @@
         .section.action .section__inner  img{
             opacity: 1;
         }
+        
         .section.action .section__inner{
             opacity: 1;
             transform: scale(1);
@@ -106,6 +107,7 @@
             $("#section"+_next).removeClass("leave").addClass('arrive')
             setTimeout(() => {
                 $("#fullpage").css("transform","translateY(-"+(_index*_wHeight)+"px)")
+                $("#section"+_prev).removeClass("leave");
                 $("#section"+_next).removeClass("arrive").addClass('action');
             }, 480);
         })
