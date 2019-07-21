@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css-doodle</title>
+    <script src="https://unpkg.com/css-doodle@0.7.2/css-doodle.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <css-doodle>
+        :doodle {
+          @grid: 7 / 100vmax;
+          background: #000;
+        }
+      
+        @shape: clover 5;
+        background: hsla(
+          calc(360 - @index() * 4),
+          70%, 68%, @rand(.8)
+        );
+        transform:
+          scale(@rand(.2, 1.5))
+          translate(
+            @rand(-50%, 50%), @rand(-50%, 50%)
+          );
+      </css-doodle>
+      
+</body>
+
+</html>
