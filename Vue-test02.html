@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全國電子 X 銀行活動公告</title>
+    <link rel="stylesheet" href="https://www.elifemall.com.tw/event/bank/css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.0/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .step-wrap{
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .steps{
+            margin-bottom: 24px;
+        }
+        .steps h1{
+            padding: 1rem;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .step2 input{
+            display: block;
+            margin-bottom: 12px;
+            width: 320px;
+            height: 40px;
+            padding: 8px 6px;
+            border-radius: 6px;
+            outline: none;
+            border: 1px solid #c7c7c7;
+        }
+        .btn{
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: transparent;
+            border: 1px solid rgb(22, 140, 209);
+            font-size: 14px;
+            color:rgb(22, 140, 209);
+            cursor: pointer;
+        }
+        .btn.btn-copy{
+            border: 1px solid rgb(209, 97, 22);
+            color:rgb(209, 97, 22);
+        }
+        .btn.btn-copy:hover{
+            background-color: rgb(209, 97, 22);
+            color:#fff;
+        }
+        .btn.btn-primary:hover{
+            background-color: rgb(22, 140, 209);
+            color:#fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vueapp">
+        <div id="bank-html">
+            <div id="app" :style="`background-image:url(https://www.elifemall.com.tw/event/bank/images/${bg}.jpg?v=${getTime})`">
+                <div class="header" :style="`background-image:url(https://www.elifemall.com.tw/event/bank/images/${headerBg}.jpg?v=${getTime})`">
+                    <div class="header__box">
+                        <picture>
+                            <source media="(min-width:768px)"
+                                :srcset="`https://www.elifemall.com.tw/event/bank/images/${header}.png?v=${getTime}`">
+                            <source media="(max-width:768px)"
+                                :srcset="`https://www.elifemall.com.tw/event/bank/images/${headerMobile}.jpg?v=${getTime}`">
+                            <img :src="`https://www.elifemall.com.tw/event/bank/images/${header}.png?v=${getTime}`"
+                                :srcset="`https://www.elifemall.com.tw/event/bank/images/${header}.png?v=${getTime}`" alt="銀行回饋">
+                        </picture>
+                    </div>
+                </div>
+                <div class="bank">
+                    <div class="bank__list">
+                        <div class="bank__list-item" v-for="(bank,index) in banks" :key="index">
+                            <a :href="bank.href" target="_blank" :title="bank.name">
+                                <img :src="`https://www.elifemall.com.tw/event/bank/images/${bank.img}.jpg?v=${getTime}`"
+                                    :alt="bank.name">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="footer__box">
+                        <img :src="`https://www.elifemall.com.tw/event/bank/images/${footer}.jpg?v=${getTime}`" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-wrap">
+            <div class="steps step1">
+                <h1>第一步:圖片上傳(可以多選圖片)</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <input id="pic" ref="pic" type="file" name="files[]" multiple />
+                    <button @click="imageUpload">上傳圖片</button>
+                </form>
+            </div>
+            <div class="steps step2">
+                <h1>第二步:設定背景圖片</h1>
+                <input v-model="bg" type="text" placeholder="請輸入背景圖片檔案名稱">
+                <input v-model="header" type="text" placeholder="請輸入主要圖片檔案名稱">
+                <input v-model="headerBg" type="text" placeholder="請輸入主要圖片背景檔案名稱(可用可不用)">
+                <input v-model="headerMobile" type="text" placeholder="請輸入手機版本主要圖片檔案名稱">
+                <input v-model="footer" type="text" placeholder="請輸入底部圖片檔案名稱">
+            </div>
+            <div class="steps step3">
+                <h1>第三步:匯入銀行公告Excel</h1>
+                <input @change="getExcel" type="file" id="file" ref="file" />
+            </div>
+            <div class="steps step4">
+                <h1>第四步:獲取程式碼</h1>
+                <textarea name="htmlcode" ref="htmlcode" id="htmlcode" cols="30" rows="10"></textarea>
+                <div class="btn-group">
+                    <button class="btn btn-primary" @click="getHTML">獲取語法</button>
+                    <button id="copy" @click="copyHTML" class="btn btn-copy" data-clipboard-target="#htmlcode">複製</button>
+                </div>
+            </div>
+            <div class="steps step4">
+                <h1>第五步:上傳銀行代碼txt檔案</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <input id="txt" ref="txt" type="file" name="files" />
+                    <button @click="txtUpload">上傳銀行代碼文件</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#vueapp",
+            mounted() {
+                
+            },
+            data: {
+                message: "Helo Vue",
+                banks: [{ name: "玉山銀行", href: "#", img: "bank_1" }],
+                bg:"",
+                header:"",
+                headerBg:"",
+                headerMobile:"",
+                footer:""
+            },
+            computed:{
+                getTime(){
+                    return new Date().getTime();
+                }
+            },
+            methods: {
+                copyHTML(){
+                    var clipboard=new Clipboard("#copy");
+                    clipboard.on('success',function(e){
+                        alert("已複製成功")
+                    })
+                },
+                txtUpload(e){
+                    e.preventDefault();
+
+                    var txtFile=this.$refs.txt.files;
+                    var formData=new FormData();
+                    formData.append('txt',txtFile[0]);
+                    axios({
+                        url:"./api/txtUpload.php",
+                        method:"POST",
+                        data:formData
+                    }).then((data)=>{
+                        this.$refs.txt.value="";
+                        alert("上傳成功")
+                    })
+
+                },
+                imageUpload(e){
+                    e.preventDefault()
+                    
+                    var imgFile=this.$refs.pic.files;
+                    var formData=new FormData();
+                    for(var i=0;i<imgFile.length;i++){
+                        formData.append("pic[]",imgFile[i]);
+                    }
+                    
+                    axios({
+                        url:"./api/imageUpload.php",
+                        method:"POST",
+                        data:formData
+                    }).then((data)=>{
+                        this.$refs.pic.value="";
+                        alert("上傳成功")
+                    })
+                },
+                getHTML() {
+                    var bankHTML=document.getElementById("bank-html").innerHTML;
+                    var wrapHTML=`
+                    <!DOCTYPE html>
+                    <html lang="zh-Hant-TW">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <title>全國電子 X 銀行活動公告</title>
+                    <link rel="stylesheet" href="https://www.elifemall.com.tw/event/bank/css/index.css">
+                    </head>
+                    <body>
+                        ${bankHTML}
+                    </body>
+                    </html>
+                    `;
+                    this.$refs.htmlcode.value = wrapHTML;
+                },
+                clearExcel(){
+                    this.$refs.file.value="";
+                },
+                getExcel() {
+                    var files = this.$refs.file.files;
+                    var fileReader = new FileReader()
+                    var _this = this;
+                    fileReader.onload = function (ev) {
+                        try {
+                            var data = ev.target.result;
+                            var workbook = XLSX.read(data, {
+                                type: 'binary'
+                            }); // 以二进制流方式读取得到整份excel表格对象
+                            var persons = [] // 存储获取到的数据
+                        } catch (e) {
+                            console.log('文件类型不正确')
+                            return
+                        }
+
+                        // 表格的表格范围，可用于判断表头数量是否正确
+                        var fromTo = ''
+                        // 遍历每张表读取
+                        for (var sheet in workbook.Sheets) {
+                            if (workbook.Sheets.hasOwnProperty(sheet)) {
+                                fromTo = workbook.Sheets[sheet]['!ref']
+                                persons = persons.concat(
+                                    XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
+                                )
+                                /*使用XLSX.utils.sheet_to_json方法解析表格对象返回相应的JSON数据 */
+
+                                // break; // 如果只取第一张表，就取消注释这行
+                            }
+                        }
+                        console.log(persons)
+                        _this.banks = [
+                            ...persons
+                        ];
+                        _this.clearExcel();
+                    }
+
+                    // 以二进制方式打开文件
+                    fileReader.readAsBinaryString(files[0])
+                }
+            }
+        })
+    </script>
+</body>
+
+
+</html>

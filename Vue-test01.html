@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{message}}</div>
+        <div>
+            <div class="bank__list-item" v-for="(bank,index) in banks" :key="index">
+                <a :href="bank.href">{{bank.name}}</a>
+            </div>
+        </div>
+        <button @click="getHTML">獲取語法</button>
+    </div>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:"Helo Vue",
+                banks:[{name:"玉山銀行",href:"#123",img:"bank_1"}]
+            },
+            methods:{
+                getHTML(){
+                    console.log(document.getElementById("app").innerHTML)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
