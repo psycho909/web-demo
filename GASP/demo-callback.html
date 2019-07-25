@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>staggerTo</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+	<style>
+        .container {
+            width: 800px;
+            background: black;
+            margin: 100px auto 0;
+            overflow: hidden;
+            padding: 100px;
+        }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            background: red;
+            margin-bottom: 1rem;
+        }
+	</style>
+</head>
+<body>
+<div class="container">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</div>
+</body>
+<script>
+
+    var t=new TimelineMax();
+    t.staggerTo(".box",1,{
+        x:100,
+        onStart:function(){
+            console.log("onStart")
+        },
+        onUpdate:function(){
+            console.log("onUpdate")
+        },
+        onComplete:function(){
+            this.target.style.background="yellow"
+        }
+    },1)
+</script>
+</html>

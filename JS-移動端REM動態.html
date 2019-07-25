@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root{
+            --r:25rem;
+            --bg:red;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html{
+            font-size: 16px;
+        }
+        .box{
+            /* iphone6/7/8 375px */
+            /* 375/16 */
+            /* 200 / (375/16) */
+            width: 8.533333333rem;
+            height: 12.8rem;
+            background-color: var(--bg);
+            color:#fff;
+            font-size: 0.68266666rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        大家好
+    </div>
+
+    <script>
+        function resetRem(){
+            // 獲取html tag
+            var html=document.documentElement;
+            // 獲取html tag width,並限制最大寬度
+            var htmlWidth=html.getBoundingClientRect().width;
+            if(htmlWidth > 768){
+                htmlWidth=768;
+            }
+            // 動態計算 rem
+            html.style.fontSize=htmlWidth/16+"px";
+        }
+
+        resetRem();
+
+        window.onresize=function(){
+            resetRem();
+        }
+    </script>
+</body>
+</html>

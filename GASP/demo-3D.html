@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    <style>
+        .container{
+            width: 600px;
+            height: 600px;
+            /* perspective: 300; */
+        }
+        .camera{
+            /* perspective: 300px; */
+        }
+        .space{
+            transform-style: preserve-3d;
+        }
+        #box{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container camera">
+        <div class="space">
+            <div id="box"></div>
+        </div>
+    </div>
+    <script>
+        var t=new TimelineMax();
+        t.set("#box",{
+            transformPerspective:300,
+            transformOrigin:"left"
+        })
+        t.to("#box",1,{
+            rotationY:45
+        },1)
+    </script>
+</body>
+</html>
