@@ -130,6 +130,7 @@
             })
             $(window).scroll(function() {
                 var _top = $(document).scrollTop()
+                console.log(_top)
                 $('.tab').each(function(i, v) {
                     if ( $(v).offset().top <= _top &&  $(v).offset().top + $(v).outerHeight() > _top ) {
                         var data_name = $(v).attr('data-name')
