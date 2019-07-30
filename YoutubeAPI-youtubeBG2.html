@@ -6,31 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Document</title>
         <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            body{
-                overflow-x: hidden;
-            }
-            .videobox {
-                position: relative;
-                width: 1920px;
-                height: 1080px;
-                text-align: center;
-                pointer-events: none;
-                margin-top: -10%;
-            }
-            #section1 {
-                position: relative;
-                z-index: 1;
-            }
+
         </style>
     </head>
     <body>
-        <div id="section1">
-            <div id="player" class="videobox"></div>
-        </div>
+        <div id="player" class="videobox"></div>
 
         <script async src="https://www.youtube.com/iframe_api"></script>
         <script>
@@ -41,10 +21,8 @@
                     width: '1090',
                     videoId: 'aJg4OJxp-co',
                     playerVars:{
-                        autoplay:1,
                         controls:0,
                         loop:1,
-                        showinfo:0,
                         modestbranding:1,
                         fs:0,  // 顯示全螢幕按鈕
                         cc_load_policty: 0, // 隱藏字幕
