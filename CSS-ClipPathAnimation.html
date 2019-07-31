@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #212121;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100vh;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 950px;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .section {
+            flex: 1;
+            flex-basis: 300px;
+            flex-grow: 0;
+            height: 440px;
+            background: #fff;
+            border: 2px solid #fff;
+            box-shadow: 0px 4px 7px rgba(0, 0, 0, .5);
+            cursor: pointer;
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .section img {
+            width: 100%;
+            height: 100%;
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+        }
+
+        .descriptions {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(255, 255, 255, .7);
+            width: 100%;
+            height: 100%;
+            transition: all .7s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+            clip-path: circle(0% at 100% 100%);
+        }
+
+        .section:hover .descriptions {
+            transition: all .7s ease-in-out;
+            clip-path: circle(75%);
+        }
+
+        .section:hover {
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
+            transform: scale(1.2);
+            z-index: 9999;
+        }
+
+        .section:hover img {
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            transform: scale(2);
+            filter: blur(4px);
+        }
+
+        .section h1 {
+            color: #5cb85c;
+            letter-spacing: 1px;
+            margin: 0px;
+        }
+
+        .section p {
+            line-height: 24px;
+            height: 70%;
+        }
+
+        .section button {
+            width: fit-content;
+            height: 40px;
+            cursor: pointer;
+            border-style: none;
+            background-color: #5cb85c;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            box-shadow: 0px 2px 3px rgba(0, 0, 0, .4);
+            transition: all .5s ease-in-out;
+        }
+
+        .section button:hover {
+            transform: scale(1.2);
+            transition: all .3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="section">
+            <img
+                src="https://images.pexels.com/photos/2537547/pexels-photo-2537547.jpeg?cs=srgb&dl=beautiful-woman-blur-brunette-2537547.jpg">
+            <div class="descriptions">
+                <h1>Heading 1</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ipsum est. Etiam vehicula elit
+                    eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ipsum est. Etiam vehicula elit
+                    eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan.
+                </p>
+                <button>Read More</button>
+            </div>
+        </div>
+        <div class="section">
+            <img
+                src="https://images.pexels.com/photos/2462045/pexels-photo-2462045.jpeg?cs=srgb&dl=bandana-fashion-fashionable-2462045.jpg">
+            <div class="descriptions">
+                <h1>Heading 2</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ipsum est. Etiam vehicula elit
+                    eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan. Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit. Vivamus a ipsum est.
+                    Etiam vehicula elit eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan. </p>
+                <button>Read More</button>
+            </div>
+        </div>
+        <div class="section">
+            <img
+                src="https://images.pexels.com/photos/1721558/pexels-photo-1721558.jpeg?cs=srgb&dl=attractive-beautiful-beauty-1721558.jpg">
+            <div class="descriptions">
+                <h1>Heading 3</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a ipsum est. Etiam vehicula elit
+                    eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan. Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit. Vivamus a ipsum est.
+                    Etiam vehicula elit eget turpis faucibus placerat. Nullam mollis neque ut semper accumsan. </p>
+                <button>Read More</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 99999px;
+            background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
+        }
+
+        #r {
+            position: fixed;
+        }
+    </style>
+
+</head>
+
+<body>
+    <p id="r"></p>
+
+    <script>
+        var r=document.getElementById("r");
+
+        function insertHello(){
+            r.textContent += 'hello!';
+        }
+
+        var throttle=function(fn,interval){
+            var lastTime=Date.now()-interval;
+            console.log(lastTime)
+            return function(){
+                console.log("Fn()")
+                if((lastTime+interval) < Date.now()){
+                    lastTime=Date.now();
+                    fn()
+                }
+            }
+        }
+
+        var hello=throttle(insertHello,1000);
+        window.addEventListener('scroll',hello);
+    </script>
+</body>
+
+</html>
