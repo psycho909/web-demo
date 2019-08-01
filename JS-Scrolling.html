@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Abel', sans-serif;
+            line-height: 1.5;
+            color: #212121;
+            font-size: 1.3rem;
+        }
+
+        img {
+            width: 200px;
+            display: block;
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .in-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            height: 100vh;
+        }
+
+        .text-block,
+        .img-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .texts {
+            padding: 1rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .grid-image {
+            position: fixed;
+            z-index: 100;
+        }
+
+        .image-1,
+        .image-2,
+        .image-3 {
+            opacity: 0;
+        }
+
+        .image-1.active,
+        .image-2.active,
+        .image-3.active {
+            animation: myAni 1000ms ease forwards;
+            opacity: 1;
+        }
+
+        @keyframes myAni {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="section1">
+        <div class="in-section">
+            <div class="text-block">
+                <div class="texts">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum diam at lectus rhoncus,
+                        ac commodo ante finibus. Mauris volutpat tortor quis dolor iaculis elementum. Cras erat risus,
+                        feugiat vitae augue et, finibus vehicula dolor.
+                        Integer id maximus lectus. Nullam laoreet nunc auctor tortor vestibulum, in pharetra leo
+                        suscipit. Nunc lorem mi, porttitor non neque id, sollicitudin sollicitudin nulla. Donec in felis
+                        est. Duis nec sapien vel dolor ultricies consequat ac quis eros.
+                        Nulla eleifend semper odio id sollicitudin. Duis id orci elementum diam fermentum feugiat et
+                        eget felis.
+                    </p>
+                </div>
+            </div>
+            <div class="img-block">
+                <div class="grid-image image-1 active"><img
+                        src="https://webdevtrick.com/wp-content/uploads/b47sample3.jpg" /></div>
+            </div>
+        </div>
+    </section>
+    <section id="section2">
+        <div class="in-section">
+            <div class="text-block">
+                <div class="texts">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum diam at lectus rhoncus,
+                        ac commodo ante finibus. Mauris volutpat tortor quis dolor iaculis elementum. Cras erat risus,
+                        feugiat vitae augue et, finibus vehicula dolor.
+                        Integer id maximus lectus. Nullam laoreet nunc auctor tortor vestibulum, in pharetra leo
+                        suscipit. Nunc lorem mi, porttitor non neque id, sollicitudin sollicitudin nulla. Donec in felis
+                        est. Duis nec sapien vel dolor ultricies consequat ac quis eros.
+                        Nulla eleifend semper odio id sollicitudin. Duis id orci elementum diam fermentum feugiat et
+                        eget felis.
+                    </p>
+                </div>
+            </div>
+            <div class="img-block">
+                <div class="grid-image image-2 active"><img
+                        src="https://webdevtrick.com/wp-content/uploads/image-slider4.jpg" /></div>
+            </div>
+        </div>
+    </section>
+    <section id="section3">
+        <div class="in-section">
+            <div class="text-block">
+                <div class="texts">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum diam at lectus rhoncus,
+                        ac commodo ante finibus. Mauris volutpat tortor quis dolor iaculis elementum. Cras erat risus,
+                        feugiat vitae augue et, finibus vehicula dolor.
+                        Integer id maximus lectus. Nullam laoreet nunc auctor tortor vestibulum, in pharetra leo
+                        suscipit. Nunc lorem mi, porttitor non neque id, sollicitudin sollicitudin nulla. Donec in felis
+                        est. Duis nec sapien vel dolor ultricies consequat ac quis eros.
+                        Nulla eleifend semper odio id sollicitudin. Duis id orci elementum diam fermentum feugiat et
+                        eget felis.
+                    </p>
+                </div>
+            </div>
+            <div class="img-block">
+                <div class="grid-image image-3 active"><img
+                        src="https://webdevtrick.com/wp-content/uploads/image-slider3.jpg" /></div>
+            </div>
+        </div>
+    </section>
+    <section id="section4">
+        <div class="in-section">
+            <div class="text-block">
+                <div class="texts">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum diam at lectus rhoncus,
+                        ac commodo ante finibus. Mauris volutpat tortor quis dolor iaculis elementum. Cras erat risus,
+                        feugiat vitae augue et, finibus vehicula dolor.
+                        Integer id maximus lectus. Nullam laoreet nunc auctor tortor vestibulum, in pharetra leo
+                        suscipit. Nunc lorem mi, porttitor non neque id, sollicitudin sollicitudin nulla. Donec in felis
+                        est. Duis nec sapien vel dolor ultricies consequat ac quis eros.
+                        Nulla eleifend semper odio id sollicitudin. Duis id orci elementum diam fermentum feugiat et
+                        eget felis.
+                    </p>
+                </div>
+            </div>
+            <div class="img-block">
+                <div class="grid-image image-4 active"><img
+                        src="https://webdevtrick.com/wp-content/uploads/image-slider1.jpg" /></div>
+            </div>
+        </div>
+    </section>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+
+    <script>
+        var section1 = $('#section1').offset().top;
+        var section2 = $('#section2').offset().top;
+        var section3 = $('#section3').offset().top;
+        var section4 = $('#section4').offset().top;
+
+        var scrollOffset=300;
+
+        $(window).scroll(function(){
+            var scroll=$(window).scrollTop()+scrollOffset;
+
+            if(scroll < 500){
+                $(".grid-image img").attr("src",'https://webdevtrick.com/wp-content/uploads/b47sample3.jpg')
+            }
+            if(scroll > section2){
+                $(".grid-image img").attr("src",'https://webdevtrick.com/wp-content/uploads/image-slider4.jpg')
+            }
+            if(scroll > section3){
+                $(".grid-image img").attr("src",'https://webdevtrick.com/wp-content/uploads/image-slider3.jpg')
+            }
+            if(scroll > section4){
+                $(".grid-image img").attr("src",'https://webdevtrick.com/wp-content/uploads/image-slider1.jpg')
+            }
+        })
+    </script>
+</body>
+
+</html>
