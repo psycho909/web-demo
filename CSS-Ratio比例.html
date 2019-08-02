@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CS Aspect Ratio | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0 none;
+            position: relative;
+        }
+
+        html,
+        body {
+            background: #2ab1ce;
+            font-family: Dosis;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #FFF;
+            font-family: 'Varela Round', sans-serif;
+        }
+
+        body {
+            padding: 1rem;
+        }
+
+        .ratio {
+            text-align: center;
+        }
+
+        .box {
+            width: 45%;
+            background: #fbb016;
+            position: relative;
+            display: inline-block;
+            margin: 1%;
+            vertical-align: top;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+        }
+
+        .box:before {
+            content: '';
+            display: block;
+        }
+
+        .ratio1-1:before {
+            padding-top: 100%;
+        }
+
+        .ratio2-1:before {
+            padding-top: 50%;
+        }
+
+        .ratio4-3:before {
+            padding-top: 75%;
+        }
+
+        .ratio16-9:before {
+            padding-top: 56.25%;
+        }
+
+        .text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-size: 1.5rem;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="ratio">
+        <h1>CSS Aspect Ratio</h1>
+        <p>Resize the window to test</p>
+        <div class="box ratio2-1">
+            <div class="text">Aspect ratio 2:1</div>
+        </div>
+        <div class="box ratio16-9">
+            <div class="text">Aspect ratio 16:9</div>
+        </div>
+        <div class="box ratio4-3">
+            <div class="text">Aspect ratio 4:3</div>
+        </div>
+        <div class="box ratio1-1">
+            <div class="text">Aspect ratio 1:1</div>
+        </div>
+    </section>
+</body>
+
+</html>
