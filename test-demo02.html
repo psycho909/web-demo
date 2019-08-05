@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        #box2{
+            width: 390px;
+            height: 260px;
+            background-image: url('./images/3.jpg');
+        }
+        #box2:hover{
+            background-image: url('./images/4.jpg');
+        }
+        #box2.on{
+            background-image: url('./images/4.jpg');
+        }
+    </style>
+</head>
+<body>
+    <div class="" id="box">
+        <img src="./images/1.jpg" alt="">
+    </div>
+    <div class="" id="box2"></div>
+    <script>
+        $("#box").hover(function(){
+            $(this).find('img').attr('src','./images/2.jpg')
+        },function(){
+            var _src=$(this).find('img').attr('data-src');
+            if(_src){
+                return false;
+            }else{
+                $(this).find('img').attr('src','./images/1.jpg')
+            }
+            
+        })
+
+        $("#box").on("click",function(){
+            var _src='./images/2.jpg'
+            $(this).find('img').attr('src',_src);
+            $(this).find('img').attr('data-src',_src);
+        })
+
+        $("#box2").on("click",function(){
+            $(this).addClass("on")
+        })
+    </script>
+</body>
+</html>
