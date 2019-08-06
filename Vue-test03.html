@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <titled>
+                <template #header="slotProps">
+                    <div>{{slotProps.user.firstname}}</div>
+                </template>
+                <template #btn="{alertText}">
+                    <button @click="alertText">Click ME!</button>
+                </template>
+            </titled>
+        </div>
+    </div>
+
+    <script type="text/x-template" id="titled">
+        <div>
+            <header>
+                <slot name="header" :user="user">{{user.lastname}}</slot>
+            </header>
+            <slot name="btn" :alertText="alertText"></slot>
+        </div>
+    </script>
+    <script>
+        Vue.component("titled",{
+            template:"#titled",
+            data(){
+                return {
+                    user:{
+                        firstname:"Mr",
+                        lastname:"Chen"
+                    }
+                }
+            },
+            methods:{
+                alertText(){
+                    console.log(123)
+                }
+            }
+        })
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:"Hello"
+            }
+        })
+    </script>
+</body>
+</html>

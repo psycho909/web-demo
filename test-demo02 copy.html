@@ -33,12 +33,6 @@
         .boxss ul li.on img:nth-of-type(2){
             display: block;
         }
-        .boxss ul li.hover img:nth-of-type(1){
-            display: none;
-        }
-        .boxss ul li.hover img:nth-of-type(2){
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -60,12 +54,23 @@
     </div>
     <script>
         $(".boxss__ul li").hover(function(){
-            $(this).addClass("hover")
+            if(!$(this).hasClass("on")){
+                $(this).find("img").eq(0).css('display','none');
+                $(this).find("img").eq(1).css('display','block');
+            }
         },function(){
-            $(this).removeClass("hover")
+            if(!$(this).hasClass("on")){
+                $(this).find("img").eq(1).css('display','none');
+                $(this).find("img").eq(0).css('display','block');
+            }
         })
         $(".boxss__ul li").on('click',function(){
             $(this).addClass("on").siblings().removeClass('on')
+            var _this=$(this);
+            $(".boxss__ul li").each(function(i,v){
+                $(v).not(_this).find('img').eq(0).show();
+                $(v).not(_this).find('img').eq(1).hide();
+            })
         })
     </script>
 </body>
