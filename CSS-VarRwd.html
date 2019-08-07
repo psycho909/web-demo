@@ -6,23 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        :root{
+            --column:200px 200px;
+        }
         *{
             padding: 0;
             margin: 0;
         }
-        body {
+        body{
             background: #efefef;
-            padding: 1rem;
-            line-height: 1.4;
-            font-family: sans-serif;
         }
-        .auto-grid{
-            --auto-grid-min-size:16rem;
+        .container{
             display: grid;
-            grid-template-columns: repeat(auto-fill,minmax(var(--auto-grid-min-size),1fr));
-            grid-gap:1rem;
+            grid-template-columns: var(--column);
+            grid-gap: 12px;
         }
-        li {
+        .box {
             padding: 5rem 1rem;
             text-align: center;
             font-size: 1.2rem;
@@ -30,14 +29,20 @@
             color: #ffffff;
             list-style: none;
         }
+
+        @media screen and (max-width:768px){
+            :root{
+                --column:400px;
+            }
+        }
     </style>
 </head>
 <body>
-    <ul class="auto-grid">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-    </ul>
+    <div class="container">
+        <div class="box">BOX1</div>
+        <div class="box">BOX2</div>
+        <div class="box">BOX3</div>
+        <div class="box">BOX4</div>
+    </div>
 </body>
 </html>
