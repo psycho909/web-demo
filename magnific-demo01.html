@@ -41,7 +41,15 @@
             <img src="http://farm4.staticflickr.com/3721/9207329484_ba28755ec4_o.jpg" width="107" height="75">
         </a>
     </div>
+    <button class="ibtn">INSERT BTN</button>
+    <div class="btn-wrap"></div>
     <script>
+        $(".ibtn").on("click",function(){
+            $('.btn-wrap').append("<button class='btn'>BTN</button>")
+        })
+        $(".btn-wrap").on("click",'.btn',function(){
+            console.log(123)
+        })
         $('.popup-gallery').magnificPopup({
             delegate: "a",
             type: 'image',
@@ -60,8 +68,8 @@
             type: "image",
             closeOnContentClick: false,
             mainClass: "mfp-img-mobile",
-            showCloseBtn:false,
             closeOnBgClick:false,
+            closeMarkup:'<button title="%title%" class="mfp-close" style="position: absolute; top: 40px; right: -5px"><img class="img" src="./images/close.png" width="30" height="30"/></button>',
             image: {
                 verticalFit: true
             }
@@ -73,6 +81,9 @@
             image: {
                 verticalFit: true
             }
+        })
+        $('body').on("click",'.img',function(){
+            $.magnificPopup.close();
         })
     </script>
 </body>

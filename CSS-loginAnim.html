@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animated Login Page | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-section {
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            animation-name: left-section;
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-delay: 1s;
+        }
+
+        .right-section {
+            flex: 1;
+            background: linear-gradient(to right, #f50629 0%, #fd9d08 100%);
+            transition: 1s;
+            background-image: url(https://webdevtrick.com/wp-content/uploads/login-page-image.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        @keyframes move {
+            0% {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-40px);
+            }
+
+            100% {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes left-section {
+            0% {
+                opacity: 0;
+                width: 0;
+            }
+
+            100% {
+                opacity: 1;
+                padding: 20px 40px;
+                width: 440px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="header">
+                <h1 class="animation a1">Welcome Back!</h1>
+                <h4 class="animation a2">Log in for entering your membership dashboard.</h4>
+            </div>
+            <div class="form">
+                <input type="email" class="form-field animation a3" placeholder="Username">
+                <input type="password" class="form-field animation a4" placeholder="Password">
+                <p class="animation a5"><a href="#">Forgot Password</a></p>
+                <button class="animation a6">LOGIN</button>
+            </div>
+        </div>
+        <div class="right-section"></div>
+    </div>
+</body>
+
+</html>
