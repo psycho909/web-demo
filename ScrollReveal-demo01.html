@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {}
+
+        .box {
+            height: 500px;
+        }
+
+        .widget-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background: black;
+            border-radius: 8px;
+        }
+
+        .widget {
+            width: 15%;
+            height: 50px;
+            flex: auto;
+            margin: 0.5rem;
+            background: white;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box">
+            <ul class="widget-list">
+                <li class="widget">1</li>
+                <li class="widget">2</li>
+                <li class="widget">3</li>
+                <li class="widget">4</li>
+                <li class="widget">5</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        ScrollReveal({
+            reset: true
+        }).reveal('.widget',{
+            interval:200
+        });
+    </script>
+</body>
+
+</html>

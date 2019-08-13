@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input id="name" type="text">
+        <input type="text" id="phone">
+        <input type="text" id="need">
+        <button id="btn">送出</button>
+        <button id="gbtn">獲取</button>
+    </div>
+
+    <script>
+        var ID_TOKEN = "17-DmSADBdrCEZrnsIQmo9Phtga6Hh_7a0EP0qOYPFTg";
+        var API = `https://spreadsheets.google.com/feeds/list/${ID_TOKEN}/od6/public/full?alt=json`;
+
+        var apiContent = () => {
+            const getData = (route) => {
+                $.ajax({
+                    url: route,
+                    method: "GET",
+                    success: function (data) {
+                        var arr = [];
+                        data.feed.entry.forEach((v, i) => {
+                            arr.push({
+                                name: v.gsx$name.$t,
+                                phone: v.gsx$phone.$t,
+                                need: v.gsx$need.$t,
+                            })
+                        })
+                        console.log(arr)
+                    }
+                })
+            }
+
+            const postData = (route, params, gData) => {
+                $.ajax({
+                    url: route,
+                    data: params,
+                    success: function (res) {
+                        if (res === "成功") {
+                            setTimeout(function () {
+                                getData(gData)
+                            }, 1000)
+                        }
+                    }
+                })
+            }
+            return { getData, postData }
+        }
+
+        $("#gbtn").on("click", function () {
+            var api = apiContent();
+            api.getData(API);
+        })
+        $("#btn").on("click", function () {
+            var name = $("#name").val();
+            var phone = $("#phone").val();
+            var need = $("#need").val();
+
+            var postRoute = "https://script.google.com/macros/s/AKfycbwOXcEgyZMtIQjXfJb71D6I2BNhYT9xBH7qTzhcFPkLRuqWb_c/exec";
+            var api = apiContent();
+            var params = {
+                name, phone, need
+            }
+            api.postData(postRoute, params, API)
+        })
+    </script>
+</body>
+
+</html>

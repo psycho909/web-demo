@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const person=(name)=>{
+        //     const sayAge=(age)=>{
+        //         return `${name} age is ${age}`
+        //     }
+        //     const sayHoby=(hoby)=>{
+        //         return `${name} hoby is ${hoby}`
+        //     }
+
+        //     return {sayAge,sayHoby}
+        // }
+
+        function person(name){
+            function sayAge(age){
+                return `${name} age is ${age}`
+            }
+            function sayHoby(hoby){
+                return `${name} hoby is ${hoby}`
+            }
+            return {sayAge,sayHoby} 
+        }
+
+        var p=person("Lin");
+        console.log(p.sayAge(30))
+    </script>
+</body>
+</html>
