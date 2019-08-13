@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200,user-scalable=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 100%;
+            background-color: rgb(255, 234, 113);
+            position: relative;
+            overflow: hidden;
+        }
+        .wrap{
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .box{
+            width: 651px;
+            height: 88px;
+            background-color: rgb(0, 43, 136);
+            position: absolute;
+            bottom: 77px;
+            left: 50%;
+            margin-left: -555px;
+            opacity: 0.6;
+        }
+        .role{
+            width: 300px;
+            height: 300px;
+            position: absolute;
+        }
+        .role img{
+            width: 100%;
+            display: block;
+        }
+        .left{
+            top: 0;
+            left: -156px;
+        }
+        .right{
+            top: 0;
+            right: -156px;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrap">
+            <div class="role left">
+                <img src="./images/poker00.png" alt="">
+            </div>
+            <div class="role right">
+                    <img src="./images/poker00.png" alt="">
+                </div>
+            <img src="./images/header1.jpg" alt="">
+            <div class="box"></div>
+        </div>
+    </div>
+</body>
+</html>
