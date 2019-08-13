@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object Creation Patterns in JavaScript</title>
+</head>
+
+<body>
+    <script>
+        //Factory pattern for object Creation
+        var computerFactory = function (ram, hardDisk) {
+            var computer = {}; //creating a new temporary object
+            //Create class properties
+            computer.ram = ram;
+            computer.hardDisk = hardDisk;
+            //Create class methods
+            computer.AvailableMemory = function () {
+                console.log('Hard-disk : ' + this.hardDisk);
+                console.log('Ram : ' + this.ram);
+            };
+            return computer;
+        };
+
+        var computer1=computerFactory(1,11);
+        console.log(computer1)
+
+        // Constructor Pattern
+        var computerConstructor=function(ram,disk){
+            this.ram=ram;
+            this.disk=disk;
+            this.AvailableMemory=function(){
+                console.log('Hard-disk : ' + this.hardDisk);
+                console.log('Ram : ' + this.ram);
+            }
+        }
+
+        var computer2=new computerConstructor(2,12);
+        console.log(computer2)
+
+        // Prototype Pattern
+
+        var computerProtorype=function(){
+            computerProtorype.prototype.ram='';
+            computerProtorype.prototype.disk='';
+            computerProtorype.prototype.AvailableMemory=function(){
+                console.log('Hard-disk : ' + this.disk);
+                console.log('Ram : ' + this.ram);
+            }
+        }
+
+        var computer3=new computerProtorype();
+        computer3.ram=3;
+        computer3.disk=13;
+
+        console.log(computer3.AvailableMemory())
+
+        // Dynamic Prototype Pattern
+        var computerDynamic=function(ram,disk){
+            this.ram=ram;
+            this.disk=disk;
+            if(typeof this.AvailableMemory !== 'function'){
+                computerDynamic.prototype.AvailableMemory=function(){
+                    console.log('Hard-disk : ' + this.disk);
+                    console.log('Ram : ' + this.ram);
+                }
+            }
+        }
+
+        var computer4=new computerDynamic(4,14)
+        console.log(computer4)
+        console.log(computer4.AvailableMemory())
+    </script>
+</body>
+
+</html>
