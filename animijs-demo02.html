@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    <style>
+        .demo-content {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: center;
+            width: 290px;
+            height: 100%;
+            background-color: #000;
+            padding: 1rem;
+        }
+        .line{
+            display: inline-block;
+        }
+        .small {
+            width: 18px;
+            height: 18px;
+            background-color: #F6FF56;
+            margin: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-content">
+        <div class="line">
+            <div class="small square el loop"></div>
+        </div>
+        <div class="line">
+            <div class="small square el loop-reverse"></div>
+        </div>
+        <div class="line">
+            <div class="small square el loop-alternate"></div>
+        </div>
+        <div class="line">
+            <div class="small square el loop-infinity"></div>
+        </div>
+        <div class="line">
+            <div class="small square el loop-reverse-infinity"></div>
+        </div>
+        <div class="line">
+            <div class="small square el loop-alternate-infinity"></div>
+        </div>
+    </div>
+
+    <script>
+        anime.timeline({
+            loop:true
+        })
+        .add({
+            targets: '.square',
+            scale:[0,1],
+            duration: 1500,
+            elasticity:500,
+            delay:function(el,i){
+                return 100 * i
+            }
+        })
+        .add({
+            targets:".line",
+            opacity:0,
+            duration:1000,
+            easing:"easeOutExpo",
+            delay:1000
+        })
+    </script>
+</body>
+
+</html>
