@@ -1,23 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <style>
-        
-            @media screen and (max-width:768px){
-                
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .box {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .box img {
+            width: 100%;
+            display: block;
+        }
+
+        .picture {
+            width: 1200px;
+            height: 300px;
+            --bgi: url("https://placehold.it/1200x300");
+            background-image: var(--bgi);
+            background-position: center center;
+            background-size: cover;
+        }
+
+        @media screen and (max-width:1000px) {
+            .picture{
+                --bgi: url("https://placehold.it/1000x300");
             }
-        </style>
-    </head>
-    <body>
+        }
+
+        @media screen and (max-width:900px) {
+            .picture{
+                --bgi: url("https://placehold.it/900x300");
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .picture{
+                --bgi: url("https://placehold.it/768x300");
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
         <picture>
+            <source media="(max-width: 999px)" srcset="./images/2.jpg" />
             <source media="(min-width: 1000px)" srcset="./images/1.jpg" />
-            <source media="(min-width: 768px)" srcset="./images/2.jpg" />
-            <source media="(min-width: 576px)" srcset="./images/3.jpg" />
+
             <img src="./images/1.jpg" srcset="./images/1.jpg" alt="" />
         </picture>
-    </body>
+        <picture>
+            <source media="(max-width:768px)" srcset="https://placehold.it/768">
+            <source media="(max-width:900px)" srcset="https://placehold.it/900">
+            <source media="(max-width:1000px)" srcset="https://placehold.it/1000">
+
+            <source media="(mix-width:1200px)" srcset="https://placehold.it/1200">
+            <img srcset="https://placehold.it/1200" src="https://placehold.it/1200" alt="">
+        </picture>
+        <div class="picture"></div>
+    </div>
+</body>
+
 </html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 300px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            background: rgb(221, 248, 255);
+            padding: 1rem;
+        }
+        .scrollbar-track{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 16px;
+            height: 400px;
+            background-color: rgb(212, 212, 212);
+            padding: 1rem 0;
+        }
+        .scrollbar-thumb{
+            cursor: pointer;
+            width: 16px;
+            height: 235px;
+            background-color: red;
+            position: relative;
+            top: 0px;
+            left: 0;
+        }
+        .content {
+            transform: translateY(0px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="content">
+            本作是《大航海時代》系列的全新作品，不僅繼承了系列作傳統的「交易」、「海戰」和「探險」等要素，同時還調整成更適合使用智慧型手機遊玩，是一款充滿挑戰性的作品，以下就為大家整理實際試玩的感想。
+
+            雖然常被人認為是「以史實大航海時代為背景的硬派作品」，但本系列作以角色扮演要素以及充滿魅力的角色們，建構起遊戲獨特的世界觀。附帶一提本作的角色採用類似 Live2D 技術，會像動畫一樣擺出各種動作。
+
+            本系列作是以世界史十五世紀到十七世紀，也就是所謂「大航海時代」作為背景的遊戲，最大特徵就是把當時的世界局勢巧妙融合到遊戲裡面。於是玩家就要橫跨廣大海洋，反覆執行冒險與發現的過程來提高自己的名望。因為是使用以實際地理環境為底所建立的世界地圖，所以對當年的忠實玩家來說，想必有不少人曾經有過「手邊放著世界地圖來玩遊戲」這種經驗才對。
+
+            而每一個都市都有設定各自的「交易品」，充份反應出各地實際風土民情，這個概念在本作當中也沒有改變。
+
+            附帶一提邊看世界地圖邊玩，就更能夠對於國家和都市產生具體印象。在實際進行遊戲時，也會出現「因為這裡是英國，所以那邊就是法國吧」，像這樣對遊戲真的有所幫助的情況，其實是很推薦的攻略方法。在對航海感到充滿浪漫的同時，還能夠發現蘇伊士與巴拿馬這種貫穿兩個海洋的運河有多重要，應該可以說是本系列作最為獨特的體驗。
+        </div>
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+    <script>
+        var clicking = false;
+        var scroll=0;
+        var i=0;
+        // var scrolltop=new Array();
+        // scrolltop[0]=[];
+        $(".scrollbar-thumb").on("mousedown",function(){
+            clicking=true
+        })
+        $(".scrollbar-thumb").on("mouseup",function(){
+            clicking=false
+        })
+        $(".scrollbar-thumb").on("mousemove",function(e){
+            i++;
+            var halfWidth=$(this).height()/2;
+            var limitEnd=$('.scrollbar-track').height()-$(this).height()
+            if(!clicking){
+                return;
+            }
+            scroll=e.pageY-halfWidth;
+            if(scroll <= 0){
+                scroll=0;
+            }
+            if(scroll >= limitEnd){
+                scroll=limitEnd
+            }
+            $(this).css("top",scroll+'px')
+
+            var wHeight=$(".box").height();
+            var tHeight=$('.content').outerHeight()
+            var n=tHeight-wHeight;
+            var t=(scroll/n)*100;
+            // scrolltop[i]=scroll;
+
+            // if(scrolltop[i] > scrolltop[i-1]){
+            //     $(".content").css("transform","translateY(-"+(scroll)+"px)")
+            // }else{
+            //     $(".content").css("transform","translateY(-"+scroll+"px)")
+            // }
+
+            $(".content").css("transform","translateY(-"+t+"%)")
+            console.log(n)
+        })
+        $(".scrollbar-thumb").on('mouseleave',function(){
+            clicking=false
+        })
+    </script>
+</body>
+
+</html>
