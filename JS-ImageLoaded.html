@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box"></div>
+
+    <script>
+        function onImageLoaded(url,callback){
+            var image=new Image();
+            image.src=url;
+            if(image.complete){
+                callback(image)
+            }else{
+                image.onload=function(){
+                    callback(image)
+                }
+            }
+        }
+        onImageLoaded("https://s3.envato.com/files/246166756/Liquid-Plastic-Seamless-Background-Textures-1.jpg",function(img){
+            console.log("載入完成")
+            document.querySelector(".box").appendChild(img)
+        }) 
+    
+    </script>
+</body>
+</html>
