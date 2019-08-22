@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Turn JS 翻頁效果</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="./js/turn.min.js"></script>
+    <style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #333;
+}
+
+body.hide-overflow {
+    overflow: hidden;
+}
+
+/* helpers */
+
+.t {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.tc {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.rel {
+    position: relative;
+}
+
+/* book */
+
+.book {
+    margin: 0 auto;
+    width: 90%;
+    height: 90%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.book .page {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+}
+
+.book .page img {
+    max-width: 100%;
+    height: 100%;
+}
+    </style>
+</head>
+
+<body>
+    <div class="t">
+        <div class="tc rel">
+            <div class="book" id="book">
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/01.jpg)"></div>
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/02.jpg)"></div>
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/03.jpg)"></div>
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/04.jpg)"></div>
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/05.jpg)"></div>
+                <div class="page" style="background-image:url(https://raw.github.com/blasten/turn.js/master/demos/magazine/pages/06.jpg)"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+/*
+ * Turn.js responsive book
+ */
+
+/*globals window, document, $*/
+
+(function () {
+    var module = {
+        ratio: 1.38,
+        init: function (id) {
+            var me = this;
+
+            // if older browser then don't run javascript
+            if (document.addEventListener) {
+                this.el = document.getElementById(id);
+                this.resize();
+                this.plugins();
+
+                // on window resize, update the plugin size
+                window.addEventListener('resize', function (e) {
+                    var size = me.resize();
+                    $(me.el).turn('size', size.width, size.height);
+                });
+            }
+        },
+        resize: function () {
+            // reset the width and height to the css defaults
+            this.el.style.width = '';
+            this.el.style.height = '';
+
+            var width = this.el.clientWidth,
+                height = Math.round(width / this.ratio),
+                padded = Math.round(document.body.clientHeight * 0.9);
+
+            // if the height is too big for the window, constrain it
+            if (height > padded) {
+                height = padded;
+                width = Math.round(height * this.ratio);
+            }
+
+            // set the width and height matching the aspect ratio
+            this.el.style.width = width + 'px';
+            this.el.style.height = height + 'px';
+
+            return {
+                width: width,
+                height: height
+            };
+        },
+        plugins: function () {
+            // run the plugin
+            $(this.el).turn({
+                gradients: true,
+                acceleration: true,
+                display:"single"
+            });
+            // hide the body overflow
+            document.body.className = 'hide-overflow';
+        }
+    };
+
+    module.init('book');
+}());
+    </script>
+</body>
+
+</html>
