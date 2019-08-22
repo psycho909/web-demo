@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Gruppo&display=swap');
+
+        .wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+
+        #youChoose {
+            font-family: 'Gruppo', cursive;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        #computerPlay {
+            width: 100%;
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        #computerPlay .far {
+            font-size: 5rem;
+            color: red;
+        }
+
+        #youChooseBtns {
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        button {
+            border-radius: 50%;
+            background-color: white;
+            padding: 1rem 1.2rem;
+            margin-right: 1rem;
+            border: 4px solid grey;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button .far {
+            font-size: 4rem;
+            color: orange;
+        }
+
+        #result {
+            font-family: 'Gruppo', cursive;
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div id="youChoose">You choose</div>
+        <div id="youChooseBtns">
+            <button id="rock">
+                <i class="far fa-hand-rock"></i>
+            </button>
+            <button id="scissor">
+                <i class="far fa-hand-scissors"></i>
+            </button>
+            <button id="paper">
+                <i class="far fa-hand-paper"></i>
+            </button>
+        </div>
+
+        <div id="computerPlay"></div>
+
+        <div id="result"></div>
+
+    </div>
+    <script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                randomize();
+                computerPlays(e);
+            })
+        })
+
+        const randomize = () => {
+            const random = [
+                '<i class="far fa-hand-rock"></i>',
+                '<i class="far fa-hand-scissors"></i>',
+                '<i class="far fa-hand-paper"></i>'
+            ];
+            let randomIcon=random[Math.floor(Math.random()*random.length)];
+            document.querySelector("#computerPlay").innerHTML=randomIcon
+        }
+
+        const computerPlays = (e) => {
+            let chosenIcon=e.target.className;
+            let chosenByPc=document.querySelector("#computerPlay").innerHTML;
+            let resultBanner=document.querySelector("#result");
+
+            if(chosenIcon.includes("scissors") && chosenByPc.includes("paper") ||
+            chosenIcon.includes("rock") && chosenByPc.includes("scissors") ||
+            chosenIcon.includes("paper") && chosenByPc.includes("rock") ){
+                resultBanner.innerHTML="You Won!";
+            }else if(chosenIcon.includes("scissors") && chosenByPc.includes("rock") ||
+            chosenIcon.includes("rock") && chosenByPc.includes("paper") || 
+            chosenIcon.includes("paper") && chosenByPc.includes("scissors")){
+                resultBanner.innerHTML="Ouch. You Lost!";
+            }else{
+                resultBanner.innerHTML="Its a draw!";
+            }
+        }
+    </script>
+</body>
+
+</html>

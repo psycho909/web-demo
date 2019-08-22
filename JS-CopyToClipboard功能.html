@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Copy To Clipboard | Webdevtrick.com</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: "Open Sans", Helvetica, Arial, sans-serif;
+            color: #212121;
+            line-height: 1.6;
+        }
+
+        .done {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-1em);
+            color: #000;
+            transition: all .500s;
+        }
+
+        .copied .done {
+            opacity: 1;
+            transform: translateY(-2em);
+        }
+
+        h1 {
+            margin: 1.75em auto 1.25em;
+        }
+
+        textarea,
+        button {
+            font-size: 1em;
+            font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        }
+
+        textarea {
+            display: block;
+            width: 700px;
+            max-width: 100%;
+            height: 75px;
+            margin: 2em auto 1.5em;
+            background: #F2F2F6;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            resize: vertical;
+        }
+
+        [id="empty-field"] {
+            margin-top: 3em;
+        }
+
+        textarea:focus {
+            border-color: red;
+        }
+
+        button {
+            position: relative;
+            padding: 8px 20px;
+            border: 0;
+            font-size: 0.835em;
+            text-transform: uppercase;
+            letter-spacing: 0.125em;
+            font-weight: bold;
+            color: #FFF;
+            background: #e60023;
+            transition: background .275s;
+        }
+
+        button:hover,
+        button:focus {
+            background: #212121;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JavaScript Copy To Clipboard</h1>
+
+    <textarea id="copy-text"
+        spellcheck="false">These are some demo texts for testing copy to clipboard program. Click the button given below to copy these texts.</textarea>
+
+    <button id="copy" type="button">Copy to clipboard<span class="done" aria-hidden="true">Copied</span></button>
+
+    <textarea id="empty-field" placeholder="Paste your copied texts here for testing...."></textarea>
+
+    <script>
+        var toCopy = document.getElementById('copy-text'),
+            btnCopy = document.getElementById('copy'),
+            paste = document.getElementById('empty-field');
+
+            btnCopy.addEventListener("click",function(){
+                toCopy.select();
+                paste.value="";
+
+                if(document.execCommand('copy')){
+                    // btnCopy.classList.add("copied");
+                    btnCopy.className+="copied"
+                    paste.focus();
+
+                    var temp=setInterval(function(){
+                        // btnCopy.classList.remove("copied");
+                        btnCopy.className=btnCopy.className.replace(/\bcopied\b/g,"")
+                        clearInterval(temp)
+                    },600)
+                }else{
+                    console.info( 'document.execCommand went wrong…' )
+                }
+
+                return false;
+            })
+    </script>
+</body>
+
+</html>

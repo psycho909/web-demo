@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <title>jQuery Select Option | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Playfair+Display&display=swap");
+
+        body {
+            text-align: center;
+            font-family: 'Lexend Deca', sans-serif;
+        }
+
+        .wrapper {
+            padding-top: 150px;
+            height: 100vh;
+            font-size: 60px;
+        }
+
+        .typo,
+        .list a {
+            font-size: 60px;
+            font-weight: 700;
+            color: #212121;
+            text-decoration: none;
+        }
+
+        .list {
+            display: inline-block;
+            position: relative;
+            margin-left: 6px;
+        }
+
+        .list ul {
+            text-align: left;
+            position: absolute;
+            padding: 0;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .list ul .active {
+            display: block;
+        }
+
+        .list li {
+            list-style: none;
+        }
+
+        .list li:first-child a {
+            color: #ff3a3a;
+        }
+
+        .list a {
+            transition: all .4s;
+            color: #ff3a3a;
+            position: relative;
+        }
+
+        .list a:after {
+            position: absolute;
+            content: '';
+            height: 5px;
+            width: 0;
+            left: 0;
+            background: #ff3a3a;
+            bottom: 0;
+            transition: all .4s ease-out;
+        }
+
+        .list a:hover {
+            cursor: pointer;
+            color: #ff3a3a;
+        }
+
+        .list a:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper typo">I Want To Learn
+        <div class="list"><span class="placeholder">select</span>
+            <ul class="list__ul">
+                <li><a href="">Design</a></li>
+                <li><a href="">Development</a></li>
+                <li><a href="">Blockchain</a></li>
+                <li><a href="">Cloud</a></li>
+                <li><a href="">SEO</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script>
+        console.clear();
+
+        var el = {};
+        $('.placeholder').on('click', function (ev) {
+            $('.placeholder').css('opacity', '0');
+            $('.list__ul').toggle();
+        });
+        $('.list__ul a').on('click', function (ev) {
+            ev.preventDefault();
+            var index = $(this).parent().index();
+            $('.placeholder').text($(this).text()).css('opacity', '1');
+
+            console.log($('.list__ul').find('li').eq(index).html());
+
+            $('.list__ul').find('li').eq(index).prependTo('.list__ul');
+            $('.list__ul').toggle();
+
+        });
+    </script>
+</body>
+
+</html>
