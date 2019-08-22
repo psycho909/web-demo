@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FullPage demo0</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css">
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.css">
+    <script type="text/javascript"
+        src="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        .section{
+            width: 100%;
+            height: 100%;
+        }
+        .section__inner{
+            width: 100%;
+            height: 100%;
+        }
+        .page1__slick{
+            height: 100%;
+        }
+        .page1__slick div{
+            height: 100%;
+        }
+        .page1--bg{
+            background-position: center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper" id="fullpage">
+        <div id="section1" class="section">
+            <div class="section__inner">
+                <div class="page1__slick">
+                    <div class="page1--bg" style="background-image: url('http://placehold.it/1200x400?text=1')"></div>
+                    <div class="page1--bg" style="background-image: url('http://placehold.it/1200x400?text=2')"></div>
+                    <div class="page1--bg" style="background-image: url('http://placehold.it/1200x400?text=3')"></div>
+                </div>
+            </div>
+        </div>
+        <div id="section2" class="section">
+            <div class="section__inner">
+                <h1>SECTION 2</h1>
+                <img src="./images/puzzle_02.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#fullpage").fullpage({
+                fitToSectionDelay: 600,
+                autoScrolling: true,
+            })
+            $(".page1__slick").slick({
+                fade: true,
+                cssEase: 'linear',
+                arrows:false,
+                autoplay:true,
+                autoplaySpeed:1000,
+                pauseOnHover:false
+            });
+        })
+    </script>
+</body>
+
+</html>
