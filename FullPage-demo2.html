@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Full Page Scrolling | Webdevtrick.com</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css'>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,700);
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Alegreya Sans', Arial, sans-serif;
+            text-transform: uppercase;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            color: black;
+            letter-spacing: .18em;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        ul,
+        li {
+            list-style-type: none;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .l-left {
+            float: left;
+        }
+
+        .l-right {
+            float: right;
+        }
+
+        .end {
+            margin-top: 30px;
+            font-size: 3em;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(300px);
+            transition: opacity, transform 1s;
+            transition-delay: 1s;
+        }
+
+        .header-top {
+            background: rgba(0, 47, 77, .3);
+            height: 70px;
+            padding: 0 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 12;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            line-height: 70px;
+            height: 70px;
+        }
+
+        h1 a {
+            display: block;
+            padding: 0 10px;
+        }
+
+        .toggle-menu {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            position: relative;
+            top: 10px;
+        }
+
+        .toggle-menu i {
+            position: absolute;
+            display: block;
+            height: 2px;
+            background: white;
+            width: 30px;
+            left: 10px;
+            transition: all .3s;
+        }
+
+        .toggle-menu i:nth-child(1) {
+            top: 16px;
+        }
+
+        .toggle-menu i:nth-child(2) {
+            top: 24px;
+        }
+
+        .toggle-menu i:nth-child(3) {
+            top: 32px;
+        }
+
+        .open-menu i:nth-child(1) {
+            top: 25px;
+            transform: rotateZ(45deg);
+        }
+
+        .open-menu i:nth-child(2) {
+            background: transparent;
+        }
+
+        .open-menu i:nth-child(3) {
+            top: 25px;
+            transform: rotateZ(-45deg);
+        }
+
+        nav {
+            height: 0;
+            opacity: 0;
+            box-sizing: border-box;
+            background: rgba(0, 47, 77, .25);
+            position: fixed;
+            top: 70px;
+            width: 100%;
+            transition: all 1s;
+        }
+
+        .open-menu~nav {
+            opacity: 1;
+            padding: 80px 0;
+            z-index: 15;
+            height: calc(90vh - 70px);
+        }
+
+        nav ul {
+            padding: 0 10px;
+            display: flex;
+        }
+
+        nav li {
+            flex: 1;
+        }
+
+        nav li a {
+            font-size: 2em;
+            display: block;
+            padding: 30px;
+            text-align: center;
+            transition: background .3s;
+        }
+
+        nav li a {
+            background: #ff4b4b;
+            margin-left: 20px;
+        }
+
+        nav li a:hover {
+            background: #212121;
+        }
+
+        section {
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-weight: 300;
+            font-size: 2.8em;
+        }
+
+        @media screen and (max-width: 767px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                margin-top: 1px;
+            }
+
+            nav li a {
+                font-size: 1.5em;
+            }
+
+            .scroll-icon {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            html {
+                font-size: 50%;
+            }
+
+            .open-menu~nav {
+                padding: 20px 0;
+            }
+
+            nav li a {
+                padding: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-top clearfix">
+            <h1 class="l-left"><a href="#firstSection">LOGO</a></h1>
+            <a class="l-right toggle-menu" href="#">
+                <i></i>
+                <i></i>
+                <i></i>
+            </a>
+        </div>
+
+        <nav class="hide">
+            <ul id="menu">
+                <li data-menuanchor="firstSection">
+                    <a href="#firstSection" title="First Section">First Section</a>
+                </li>
+                <li data-menuanchor="secondSection">
+                    <a href="#secondSection" title="Second Section">Second Section</a>
+                </li>
+                <li data-menuanchor="thirdSection">
+                    <a href="#thirdSection" title="Second Section">Third Section</a>
+                </li>
+                <li data-menuanchor="fourthSection">
+                    <a href="#fourthSection" title="Fourth Section">Fourth Section</a>
+                </li>
+                <li data-menuanchor="fifthSection">
+                    <a href="#fifthSection" title="First Slide">Fifth Section</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="fullpage">
+        <section class="vertical-scrolling">
+            <h2>#1</h2>
+            <h3>This is the first section</h3>
+        </section>
+        <section class="vertical-scrolling">
+            <h2>#2</h2>
+            <h3>This is the second section</h3>
+        </section>
+        <section class="vertical-scrolling">
+            <h2>#3</h2>
+            <h3>This is the third section</h3>
+        </section>
+        <section class="vertical-scrolling">
+            <h2>#4</h2>
+            <h3>This is the fourth section</h3>
+        </section>
+        <section class="vertical-scrolling">
+            <h2>#5</h2>
+            <h3>This is the fourth section</h3>
+        </section>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js'></script>
+    <script>
+        var $header_top = $('.header-top');
+        var $nav = $('nav');
+        $header_top.find('a').on('click', function () {
+            $(this).parent().toggleClass('open-menu');
+        });
+        $('#fullpage').fullpage({
+            sectionsColor: ['#3dcfa1', '#348899', '#ff8b20', '#ff5757', '#ffd03c'],
+            sectionSelector: '.vertical-scrolling',
+            navigation: true,
+            slidesNavigation: true,
+            controlArrows: false,
+            anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
+            menu: '#menu',
+            afterLoad: function (anchorLink, index) {
+                $header_top.css('background', 'rgba(0, 47, 77, .6)');
+                $nav.css('background', 'rgba(0, 47, 77, .6)');
+                if (index == 5) {
+                    $('#fp-nav').hide();
+                }
+                console.log(anchorLink, index)
+            },
+            onLeave: function (index, nextIndex, direction) {
+                console.log(index, nextIndex, direction)
+                if (nextIndex < 5) {
+                    $('#fp-nav').show();
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

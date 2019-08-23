@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1356455_c5d3d3ohlbq.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        input {
+            -webkit-appearance: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        input[name="rate"]{
+            font-family: "iconfont";
+            font-size: 30px;
+            padding-right: 30px;
+            position: relative;
+        }
+        input[name="rate"]:after{
+            content:"\e645";
+            color:#999;
+            transition: color .4s ease;
+        }
+        input[name="rate"]:checked:after{
+            content:"\e73c";
+            color:#ffa822;
+        }
+        input[name="rate"]:checked:after,
+        input[name="rate"]:checked~input[name="rate"]:after{
+            content:"\e73c";
+            color:#ffa822;
+        }
+        .rate-content{
+            display: flex;
+            flex-flow: row-reverse;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rate-content">
+        <input type="radio" name="rate">
+        <input type="radio" name="rate">
+        <input type="radio" name="rate">
+        <input type="radio" name="rate">
+        <input type="radio" name="rate">
+    </div>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>
