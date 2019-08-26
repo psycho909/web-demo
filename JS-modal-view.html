@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            line-height: 50px;
+            text-align: right;
+            background: #3C78D8;
+            position: fixed;
+            will-change: transform;
+        }
+
+        .modal-button {
+            background: #FFF;
+            border: none;
+            color: #333;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 2px;
+            margin-right: 10px;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            padding-top: 50px;
+        }
+        .modal-view-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            padding-top: 50px;
+            z-index: 10;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .view.modal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            transform: scale(2);
+            opacity: 0;
+            will-change: transform,opacity;
+            transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946),
+    opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+        }
+        .view.modal.visible{
+            pointer-events: auto;
+            opacity: 1;
+            transform: scale(1);
+            transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946),
+    opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+        }
+        .view.modal:before{
+            content:"";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.4);
+            
+        }
+        .modal-view-body{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            background-color: #fff;
+            z-index: 2;
+            padding: 25px;
+            width: 65%;
+            max-width: 300px;
+            transform: translate(-50%,-50%);
+            border-radius: 2px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+        }
+        .test{
+            width: 100%;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="modal-button">Open Modal</button>
+    </header>
+    <div class="modal-view-container">
+        <div class="view modal">
+            <div class="modal-view-body">
+                <h1>Oh no!</h1>
+                <p>You pressed the button! Well that's gone and torn it, hasn't it?</p>
+                <button class="modal-close">Sorry</button>
+            </div>
+        </div>
+    </div>
+    <div class="container test">
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+    </div>
+
+    <script>
+        var oBtn=document.querySelector(".modal-button");
+        var oClose=document.querySelector(".modal-close")
+        oBtn.addEventListener("click",function(){
+            document.querySelector('.view.modal').classList.add("visible")
+        })
+        oClose.addEventListener("click",function(){
+            document.querySelector('.view.modal').classList.remove("visible")
+        })
+    </script>
+</body>
+
+</html>
