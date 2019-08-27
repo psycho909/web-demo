@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Custom Marker On Map | Webdevtrick.com</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .full-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .full-screen .map {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .full-screen .btn {
+            cursor: pointer;
+            border: 0;
+            border-radius: 2px;
+            background-color: white;
+            box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: all 300ms ease-in-out;
+        }
+
+        .full-screen .btn.zoom {
+            position: absolute;
+            right: 20px;
+            color: #e60023;
+            font-size: 20px;
+            padding: 5px 8px;
+        }
+
+        .full-screen .btn.zoom.in {
+            top: 50%;
+            margin-top: -37px;
+        }
+
+        .full-screen .btn.zoom.out {
+            bottom: 50%;
+            margin-bottom: -37px;
+        }
+
+        .full-screen .btn.zoom.center {
+            top: 50%;
+            margin-top: -87px;
+        }
+
+        .full-screen .btn.zoom:hover,
+        .full-screen .btn.zoom:active {
+            color: white;
+            background-color: #e60023;
+        }
+
+        .full-screen .btn.zoom:active {
+            opacity: 0.75;
+        }
+
+        .full-screen .mapTypeId {
+            position: absolute;
+            top: 20px;
+            left: 5px;
+            border-radius: 2px;
+            background-color: #e60023;
+            box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.1);
+            width: 90px;
+            overflow: hidden;
+            color: white;
+            padding: 8px 0;
+        }
+
+        .full-screen .mapTypeId select {
+            color: white;
+            text-indent: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            width: 100%;
+            position: relative;
+            top: -2px;
+            border: none;
+            box-shadow: none;
+            background-color: #e60023;
+            background-image: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .full-screen .mapTypeId select:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="full-screen">
+        <div id="map" class="map"></div>
+
+        <!--controls-->
+        <span id="zoomIn" class="btn zoom in">
+            <i class="fa fa-plus"></i>
+        </span>
+        <span id="zoomOut" class="btn zoom out">
+            <i class="fa fa-minus"></i>
+        </span>
+
+        <span id="center" class="btn zoom center">
+            <i class="fa fa-crosshairs"></i>
+        </span>
+
+        <div class="mapTypeId">
+            <select id="mapTypeId">
+                <option value="1">Roadmap</option>
+                <option value="2">Satellite</option>
+            </select>
+        </div>
+
+    </div>
+    <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCLFomDOPKqvvITt7tv_hZG0PDlWB2-q0g'></script>
+    <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
+    <script src='https://code.jquery.com/jquery-migrate-1.2.1.min.js'></script>
+    <script>
+        $(document).ready(function () {
+
+            var map;
+            var marker;
+            var lat = 28.7407056;
+            var lng = 77.0577493;
+            var ico = new google.maps.MarkerImage("https://webdevtrick.com/wp-content/uploads/location.png");
+
+            var overlay = new google.maps.OverlayView();
+            overlay.draw = function () { };
+
+            function initialize() {
+                var mapCanvas = document.getElementById('map');
+                var mapOptions = {
+                    zoom: 13,
+                    center: {
+                        lat: lat,
+                        lng: lng
+                    },
+                    mapTypeControl: false,
+                    zoomControl: false,
+                    panControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    scrollwheel: false
+                }
+
+                map = new google.maps.Map(mapCanvas, mapOptions);
+
+                overlay.setMap(map);
+                ZoomControl(map);
+                addMarker(map);
+
+            }
+
+            // Marker
+            function addMarker(map) {
+                marker = new google.maps.Marker({
+                    map: map,
+                    draggable: false,
+                    icon: ico,
+                    position: new google.maps.LatLng(lat, lng)
+                });
+
+                mouseOverHandler = function () {
+                    showMarker(marker);
+                }
+                mouseClickHandler = function () {
+                    clickMarker(lat, lng);
+                }
+
+                google.maps.event.addListener(marker, 'click', mouseClickHandler);
+                google.maps.event.addListener(marker, 'mouseover', mouseOverHandler);
+            }
+
+            // Marker Click
+            function clickMarker(lat, lng) {
+                var url = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=18';
+                window.open(url, '_blank');
+            }
+
+            // Zoom
+            function ZoomControl(map) {
+                var zoomIn = document.getElementById('zoomIn');
+                var zoomOut = document.getElementById('zoomOut');
+
+                google.maps.event.addDomListener(zoomOut, 'click', function () {
+                    var currentZoomLevel = map.getZoom();
+                    if (currentZoomLevel != 0) {
+                        map.setZoom(currentZoomLevel - 1);
+                    }
+                });
+
+                google.maps.event.addDomListener(zoomIn, 'click', function () {
+                    var currentZoomLevel = map.getZoom();
+                    if (currentZoomLevel != 21) {
+                        map.setZoom(currentZoomLevel + 1);
+                    }
+                });
+            }
+
+            // MapTypeId
+            function TypeIdChange(option) {
+                switch (option) {
+                    case "1":
+                        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                        break;
+                    case "2":
+                        map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+                        break;
+                    default:
+                        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                }
+            }
+            // center
+            $('#center').on('click', function () {
+                map.setZoom(13);
+                map.setCenter(new google.maps.LatLng(lat, lng));
+                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                $('#mapTypeId').val("1").trigger('click');
+            });
+
+            // center
+            $('#center').on('click', function () {
+                map.setZoom(13);
+                map.setCenter(new google.maps.LatLng(lat, lng));
+                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                $('#mapTypeId').val("1").trigger('click');
+            });
+
+            $('#mapTypeId').change(function () {
+                var self = $(this);
+                TypeIdChange(self.val());
+            });
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+        });
+    </script>
+</body>
+
+</html>

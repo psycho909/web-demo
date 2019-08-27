@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" class="file" name="file" multiple />
+    <img class="img" src="" alt="" />
+    <script>
+        document.querySelector('.file').addEventListener("change",function(e){
+            let files=e.target.files;
+
+            if(!files.length) return;
+            let formData=new FormData();
+
+            for(var i=0;i<files.length;i++){
+                formData.append("upFile",files[i],files[i].name)
+            }
+            
+            console.log(formData.getAll('upFile'))
+            // previewFile(files[0])
+        })
+
+        function previewFile(file){
+            let reader;
+            if(file){
+                reader=new FileReader();
+                reader.readAsDataURL(file)
+            }
+            reader.onload=function(e){
+                document.querySelector(".img").src=e.target.result
+            }
+        }
+    </script>
+</body>
+
+</html>
