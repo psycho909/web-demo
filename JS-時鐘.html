@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            width: 500px;
+            height: 500px;
+            background-color: #eaeaea;
+            margin-left: 20px;
+        }
+
+        .clock {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background-color: rgb(252, 237, 172);
+            position: relative;
+            transform: rotate(-90deg);
+        }
+
+        .point {
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            position: absolute;
+            top: 250px;
+            left: 250px;
+            margin-top: -5px;
+            margin-left: -5px;
+            border-radius: 50%;
+        }
+
+        .min {
+            width: 10px;
+            height: 10px;
+            background: red;
+            position: absolute;
+            top: 250px;
+            left: 0px;
+            margin-top: -5px;
+            margin-left: -5px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="clock">
+            <div class="point"></div>
+            <div class="min"></div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var deg = 360 / 60;
+            var a = 250;
+            var b = 250;
+            var times = 0;
+            var time=setInterval(function(){
+                var hudu = (Math.PI / 180) * deg * times;
+                var x = a + Math.sin(hudu) * 250;
+                var y = b + Math.cos(hudu) * 250;
+                times++
+                $(".min").css({
+                    top: x + "px",
+                    left: y + "px"
+                })
+            },1000)
+        })
+
+    </script>
+</body>
+
+</html>
