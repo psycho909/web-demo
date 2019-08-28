@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .containerDiv {
+            display: block;
+            margin: auto;
+            width: 300px;
+        }
+
+        #nameContainer>p {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        input {
+            width: 200px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="containerDiv">
+        <input id="txt" type='text' />
+        <div id="nameContainer"></div>
+    </div>
+
+    <script>
+        const office = ['Kelly', 'Creed', 'Stanley', 'Oscar', 'Michael', 'Jim', 'Darryl', 'Phyllis', 'Pam', 'Dwight', 'Angela', 'Andy', 'William', 'Ryan', 'Toby', 'Bob'];
+        document.addEventListener("DOMContentLoaded", function () {
+            appendNodes(office)
+        })
+        document.getElementById("txt").addEventListener("change",function(event){
+            onKeyUp()
+        })
+        function appendNodes(filteredOffice) {
+            var container = document.getElementById("nameContainer");
+            if (filteredOffice != "no results") {
+                container.innerText = "";
+                filteredOffice.map((name) => {
+                    var p = document.createElement("p");
+                    p.innerText = name;
+                    container.appendChild(p)
+                })
+            } else {
+                container.innerText = "no results"
+            }
+        }
+        function onKeyUp() {
+            var str = event.target.value.toLowerCase();
+
+            var filteredArr = office.filter((x) => {
+                var xSub=x.substring(0,3).toLowerCase()
+                return x.toLowerCase().includes(str)
+            })
+            if (filteredArr.length > 0) {
+                appendNodes(filteredArr)
+            } else {
+                appendNodes("no results")
+            }
+        }
+        function checkName(name,str){
+            var pattern=str.split("").map((x)=>{
+                return `(?=.*${x})`
+            }).join("");
+            var regex=new RegExp(`${pattern}`,"g");
+            return name.match(regex)
+        }
+    </script>
+</body>
+
+</html>

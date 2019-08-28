@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <Child :message="message"></Child>
+        <input type="text" v-model="message">
+        <div class="box"></div>
+        <button @click="showMethod">methodsNow</button>
+        <button @click="showComputed">computedNow</button>
+    </div>
+    <template id="child">
+        <div>
+            Child Page {{message}}
+        </div>
+    </template>
+    <script>
+        var Child = {
+            template: "#child",
+            props: ["message"]
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                Child
+            },
+            data: {
+                message: 'Hello Vue.js!'
+            },
+            methods: {
+                methodsNow: function () {
+                    return new Date().toLocaleString();
+                },
+                showMethod: function () {
+                    console.log(this.methodsNow());
+                },
+                showComputed: function () {
+                    console.log(this.computedNow);
+                }
+            },
+            computed: {
+                computedNow: function () {
+                    return new Date().toLocaleString();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
