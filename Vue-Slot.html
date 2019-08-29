@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header-box{
+            width: 300px;
+            height: 200px;
+            background-color: #eee;
+            border:2px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+        .header-box:nth-child(1){
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="header-box">
+            <div class="width"></div>
+            <div class="outerWidth"></div>
+            <div class="outerWidth-true"></div>
+            <div class="clientWidth"></div>
+            <div class="offsetWidth"></div>
+            <div class="getBoundWidth"></div>
+        </div>
+        <div class="header-box">
+            <div class="width"></div>
+            <div class="outerWidth"></div>
+            <div class="outerWidth-true"></div>
+            <div class="clientWidth"></div>
+            <div class="offsetWidth"></div>
+            <div class="getBoundWidth"></div>
+        </div>
+        <Child @todata="getTo">
+            <template #nav="slotProps">
+                <div class="times">{{today}}</div>
+                <div class="header">{{slotProps.text}}</div>
+            </template>
+            <template #main="slotProps">
+                <li >{{slotProps.job.name}}</li>
+            </template>
+            <template #footer="slotProps">
+                <div>{{slotProps.r.phone}}</div>
+            </template>
+        </Child>
+        <ul>
+            <li 
+                v-for="(book,index) in books"
+                :key="index"
+                :style="{
+                    backgroundColor:colors[index%colors.length],
+                    color:'#fff'
+                }"
+            >{{book}}</li>
+        </ul>
+    </div>
+    <template id="child">
+        <div>
+            <header>
+                <slot name="nav" :text="nameText"></slot>
+            </header>
+            <main>
+                <slot 
+                name="main" 
+                :job="job" 
+                v-for="(job,index) in jobs"
+                >MAIN</slot>
+            </main>
+            <footer>
+                <slot name="footer" :r="r">{{r.phone}}</slot>
+            </footer>
+            <button @click="fromTo">傳給</button>
+        </div>
+    </template>
+    <script>
+        var headerBox=document.querySelectorAll(".header-box");
+        headerBox[0].children[3].innerHTML="clientWidth: "+headerBox[0].clientWidth;
+        headerBox[0].children[4].innerHTML="offsetWidth: "+headerBox[0].offsetWidth;
+        headerBox[0].children[5].innerHTML="getBoundingClientRect: "+headerBox[0].getBoundingClientRect().width;
+
+        headerBox[1].children[3].innerHTML="clientWidth: "+headerBox[0].clientWidth;
+        headerBox[1].children[4].innerHTML="offsetWidth: "+headerBox[0].offsetWidth;
+        headerBox[1].children[5].innerHTML="getBoundingClientRect: "+headerBox[0].getBoundingClientRect().width;
+        var w1=$(".header-box").eq(0).width();
+        var ow1=$(".header-box").eq(0).outerWidth();
+        var owt1=$(".header-box").eq(0).outerWidth(true);
+        var w2=$(".header-box").eq(1).width();
+        var ow2=$(".header-box").eq(1).outerWidth();
+        var owt2=$(".header-box").eq(1).outerWidth(true);
+        $(".header-box").eq(0).find('.width').text("width: "+w1)
+        $(".header-box").eq(0).find('.outerWidth').text("outerWidth: "+ow1)
+        $(".header-box").eq(0).find('.outerWidth-true').text("outerWidth(true): "+owt1)
+        $(".header-box").eq(1).find('.width').text("width: "+w2)
+        $(".header-box").eq(1).find('.outerWidth').text("outerWidth: "+ow2)
+        $(".header-box").eq(1).find('.outerWidth-true').text("outerWidth(true): "+owt2)
+        var Child = {
+            template: "#child",
+            data() {
+                return {
+                    nameText: "About Header",
+                    jobs:[{name:"Front"},{name:"BackEnd"},{name:"Art"}],
+                    r:{
+                        phone:"000-000-000",
+                        email:"asdasda@gmail.com"
+                    }
+                }
+            },
+            methods: {
+                fromTo(){
+                    this.$emit("todata","ChildChild")
+                }
+            },
+        }
+        new Vue({
+            el: "#app",
+            components: {
+                Child
+            },
+            data: {
+                msg: "Today is ",
+                books:["A","B","C","D","E"],
+                styles:{
+                    backgroundColor:"firebrick",
+                    color:"#fff"
+                },
+                colors: ["rebeccapurple", "#B22222", "black", "navy", "green"]
+            },
+            computed:{
+                today(){
+                    return this.msg+Date.now()
+                }
+            },
+            methods:{
+                getTo(data){
+                    console.log(data)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
