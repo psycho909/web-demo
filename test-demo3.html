@@ -32,12 +32,36 @@
 <body>
     <div class="container">
         <div class="wheel">2</div>
+        <select name="" id="select">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+        <div class="check-box">
+            <input type="checkbox" class="check-hobby" name="hobby" value="eat">eat
+            <input type="checkbox" class="check-hobby" name="hobby" value="play">play
+            <input type="checkbox" class="check-hobby" name="hobby" value="run">run
+        </div>
+        <div class="radio-box">
+            <input type="radio" class="check-radio" name="gender" value="male">male
+            <input type="radio" class="check-radio" name="gender" value="female">female
+            <input type="radio" class="check-radio" name="gender" value="nomale">nomale
+        </div>
         <button class="btn">按鈕</button>
     </div>
 
     <script>
+        $("#select").on("change",function(){
+            console.log($(this).val())
+        })
         $(".btn").on('click',function(){
             $('.wheel').css("transform","rotate(100deg)")
+        })
+        $(".check-hobby").on("click",function(){
+            console.log($(this).val())
+        })
+        $(".check-radio").on("click",function(){
+            console.log($(this).val())
         })
     </script>
 </body>
