@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="input-box" data-name="性別" data-n="">
+            <input type="radio" name="gender" value="male">male
+            <input type="radio" name="gender" value="female">female
+        </div>
+        <div class="input-box" data-name="興趣" data-n="">
+            <input type="checkbox" name="hobby" value="eat">eat
+            <input type="checkbox" name="hobby" value="play">play
+            <input type="checkbox" name="hobby" value="run">run
+            <input type="checkbox" name="hobby" value="game">game
+        </div>
+        <div class="input-box" data-name="工作" data-n="2">
+            <input type="checkbox" name="job" value="front">front
+            <input type="checkbox" name="job" value="backend">backend
+            <input type="checkbox" name="job" value="art">art
+            <input type="checkbox" name="job" value="message">message
+        </div>
+        <div class="input-box" data-name="數量" data-n="">
+            <select  name="" id="">
+                <option value="">請選擇</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <button class="btn-submit">送出</button>
+    </div>
+
+    <script>
+        var checkPaper=[];
+        var arr=[]
+        $(".btn-submit").on("click", function () {
+            checkPaper=[]
+            $('.input-box').each(function (i, v) {
+                var _n = $(v).attr('data-n');
+                var _name = $(v).attr('data-name');
+                var _tag=$(v).children()[0].tagName;
+                var _type;
+                switch (_tag){
+                    case "INPUT":
+                        _type=$(v).find("input").attr('type');
+                        switch(_type){
+                            case "checkbox":
+                                var l = $(v).find('input[type=checkbox]:checked').length;
+                                if(l == 0){
+                                    checkPaper.push("請作題 :" + _name)
+                                    return;
+                                }
+                                if(_n !== "" && l > _n){
+                                    checkPaper.push("只能選擇" + _n + " 個選項")
+                                    return;
+                                }
+                                break;
+                            case "radio":
+                                var l = $(v).find('input[type=radio]:checked').length;
+                                if(l == 0){
+                                    checkPaper.push("請作題 :" + _name)
+                                    return;
+                                }
+                                if(_n !== "" && l > _n){
+                                    checkPaper.push("只能選擇" + _n + " 個選項")
+                                    return;
+                                }
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case "SELECT":
+                        if($(v).find("select option:selected").val() == ''){
+                            checkPaper.push("請作題 :" + _name)
+                            return;
+                        }
+                        break;
+                    default:break;
+                }
+            })
+            var alertStr="";
+            checkPaper.forEach((v,i)=>{
+                alertStr+=v+"\n"
+            })
+            alert(alertStr)
+        })
+    </script>
+</body>
+
+</html>

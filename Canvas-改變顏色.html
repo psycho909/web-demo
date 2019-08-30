@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @charset "utf-8";
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            width: 800px;
+            margin: 0 auto;
+            padding: 30px 0px;
+        }
+
+        .btn-bg {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #000;
+            margin-right: 10px;
+        }
+
+        #cake {
+            width: 500px;
+            height: 400px;
+            border: 3px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <div class="container side_color">
+        <h4>Side Color</h4>
+        <span class="btn-bg" data-bg-color="#ffa763"></span>
+        <span class="btn-bg" data-bg-color="#612a0c"></span>
+        <span class="btn-bg" data-bg-color="#190a01"></span>
+        <span class="btn-bg" data-bg-color="#ab0e2f"></span>
+        <span class="btn-bg" data-bg-color="#ff1818"></span>
+        <span class="btn-bg" data-bg-color="#c06248"></span>
+    </div>
+    <div class="container top_color">
+        <h4>Top Color</h4>
+        <span class="btn-bg" data-bg-color="#ffa763"></span>
+        <span class="btn-bg" data-bg-color="#612a0c"></span>
+        <span class="btn-bg" data-bg-color="#190a01"></span>
+        <span class="btn-bg" data-bg-color="#ab0e2f"></span>
+        <span class="btn-bg" data-bg-color="#ff1818"></span>
+        <span class="btn-bg" data-bg-color="#c06248"></span>
+    </div>
+
+    <div style="clear:both;"></div>
+
+    <div class="container">
+        <canvas id="cake">
+
+        </canvas>
+    </div>
+
+    <script>
+        $('.btn-bg').each(function () {
+            $(this).css("background", $(this).data('bg-color'));
+        });
+
+        var cakeCanvas = $('#cake')[0];
+        var context = cakeCanvas.getContext('2d');
+
+        function cakeSide(color) {
+            context.beginPath();
+            context.moveTo(50, 50);
+            context.quadraticCurveTo(150, 70, 250, 50);
+            context.lineWidth = 2;
+            context.fillStyle = color || '#CCC';
+            context.fill();
+        }
+        function cakeSideVert(color) {
+            context.beginPath();
+            context.rect(50, 30, 200, 20);
+            context.fillStyle = color || "#CCC";
+            context.fill();
+        }
+        function cakeTopHalf1(color) {
+            context.beginPath();
+            context.moveTo(50, 30);
+            context.quadraticCurveTo(150, 20, 250, 30);
+            context.fillStyle = color || "#b4b4b4";
+            context.fill();
+        }
+        function cakeTopHalf2(color) {
+            context.beginPath();
+            context.moveTo(50, 30);
+            context.quadraticCurveTo(150, 50, 250, 30);
+            context.fillStyle = color || "#b4b4b4";
+            context.fill();
+        }
+        cakeSide(); cakeSideVert(); cakeTopHalf1(); cakeTopHalf2();
+        $('.side_color .btn-bg').click(function () {
+            var fillSide = $(this).data('bg-color');
+            cakeSide(fillSide);
+            cakeSideVert(fillSide);
+        });
+        $('.top_color .btn-bg').click(function () {
+            var fillTop = $(this).data('bg-color');
+            cakeTopHalf1(fillTop);
+            cakeTopHalf2(fillTop);
+        });
+    </script>
+</body>
+
+</html>
