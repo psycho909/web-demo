@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <List></List>
+        <div ref="dream" v-if="showDom">測試DOM</div>
+        <button @click="hideDom">Hide</button>
+    </div>
+    <template id="List">
+        <ul class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </template>
+    <script>
+        var List={
+            template:"#List"
+        }
+        new Vue({
+            el:"#app",
+            components:{
+                List
+            },
+            data:{
+                showDom:true
+            },
+            create(){
+                console.log($('.list').html())
+            },
+            mounted(){
+                console.log($('.list').html())
+            },
+            methods: {
+                hideDom(){
+                    // this.showDom=!this.showDom
+                    this.$nextTick(()=>{
+                        this.$refs.dream.style.color="blue"
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>

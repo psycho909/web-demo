@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=750, user-scalable=1"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 100%;
+            background-color: rgb(255, 241, 160);
+        }
+
+        .box {
+            width: 100%;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            width: 5.0625rem;
+        }
+
+        .logo img {
+            display: block;
+            width: 100%;
+        }
+
+        .box-inner {
+            max-width: 46.875rem;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <a href="#" class="logo">
+                <img src="./images/decoration-background-maple-2.png" alt="">
+            </a>
+            <div class="box-inner">
+                在難未合自自現
+                以小細人解就。
+
+                數課物很在養事，北看充有樣是日部書整技親發益死眼度以學水地有天大有生絕政收！
+
+                答有來國進現開之說到比員覺有此他一驚，音遊其得明覺臺地人難神心規。
+
+                了院中候的來出等可公動球子場態很物法飛為員上此生的外想開列選一具果有土手十銷程有比內自的當我想的率著這走。拉包國過。
+
+                在價不民土不美來的那度。過務念職？
+
+                想員會、法物全必服應未行去重手然要人大前軍久照。下像樣得是兒是收例亮聽不。城地呢我第我夠：能神樂科且一助，影不苦陸們源媽點一物於好不機。路業以，轉那出印整綠腳望開照來去感一頭查了品燈；傳雖質我麼地一方：變提式發案……東英下質度就規我與的以成起現資再教高得大方心？
+
+                顧養的市服常望當與實以規布部人管學現經人說子治點……種員處排裡記來只那起心有。之算要許配……國奇來車，住數天拿不一？大事河成空權影要意山好候料。
+
+                向品解光你部極上人國幾計，場室開心文式說……太父白痛性文嚴的位根坡熱長與也濟心。食業不前轉深別觀結的母法到能都一片史車從不首為起我。好期的？在時等說關絕法口音者與好了本西南羅算流分面界而投其著兒相白世星造成放起其向男驗星的客團我下分又麼出日際們。
+
+                年想西國上花大生就部……北卻個到告，到進不：樂人個那馬作樣專：歡風山畫類是假，色這理業時想可下加友沒不機動見照的畫我神有事推響化以好用資打名年的成在集政這因病件旅視意如別要，用可府環國生元。我師生領投格集認少然流一。運營著排自經，一國因其細……天頭間沒聲物、錯看美裡再開雨我間後態做電國意要位世比縣奇像，學星正灣重理家這就利作府家傷！到教師不日？電下們將上保角環不，相斷以發育現畫你；前利影分爭那間，滿多無灣益古灣議想動軍以終覺裡不從外報我興強老水國別成成已望，唱金會遠利為奇女得因程哥，著漸人康時、傳遊想極痛可美黑，由叫在色體。下館教這，校統人課氣小廣特模最。問麗持不性聽治的公些供麼會達怎住蘭父作；臉長就交和北我要支水叫提一：指去招的環樂之作沒把工光仍我都？一向影現但面上有，這心比時而！
+
+                記使就長。色道小告需手型市已清白人與表那另起一想，在先多用坡書來，夠望可們官投小球樂和特的天長對廣服最小門不道新認有一中實果生，未取個中白流政媽海員下說預國合從品代講加對室是定生：落表車員定傳什，詩氣只我沒是過花那道人跑開！府喜來歡市好日心空康作人阿檢的合黃自領度去之上起行的，信裡選……轉定風心家資口實歌足們地什天度行什。
+
+                國食馬一有草呢味國重人車過定事在輪技府車務開；水精動十小是顯在為覺子環命臉各遊大親馬包故投坡輪叫球口長多沒衣可關卻，速德票實白少最不。這過他有她以年全沒保際了過乎了她都他起初器原，連成英叫智，成值辦麼沒留數公一總現象財運。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(window).on('load',function(){
+            var oHTML=document.querySelector("html");
+            var aWidth=oHTML.clientWidth;
+
+            if(aWidth >= 1200){
+                oHTML.style.fontSize=16+'px';
+            }
+            if(aWidth > 750 && aWidth < 1200){
+                oHTML.style.fontSize=(aWidth/1200)*16+'px';
+            }
+        })
+        $(window).on("resize",function(){
+            var oHTML=document.querySelector("html");
+            var aWidth=oHTML.clientWidth;
+
+            if(aWidth >= 1200){
+                oHTML.style.fontSize=16+'px';
+            }
+            if(aWidth > 750 && aWidth < 1200){
+                oHTML.style.fontSize=(aWidth/1200)*16+'px';
+            }
+        })
+    </script>
+</body>
+
+</html>
