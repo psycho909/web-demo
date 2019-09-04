@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scroll Arrow</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: #ff5050;
+            font-size: 1.3em;
+            color: #212121;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        header {
+            float: left;
+            width: 100%;
+            padding: 2em 4em;
+            color: #fff;
+            height: calc(100% - 3em);
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 auto;
+        }
+
+        header h3 {
+            margin: 0;
+            color: #212121;
+        }
+
+        .content {
+            float: left;
+            width: 70%;
+            margin: 0 15%;
+            padding: 2em 0;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 2.4em;
+        }
+
+        h2,
+        h3 {
+            font-weight: 300;
+            font-size: 1.5em;
+            margin-top: 2em;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.3em;
+        }
+
+        p a {
+            color: #14b5d1;
+            text-decoration: none;
+        }
+
+        section {
+            float: left;
+            width: 100%;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 0 5px 0px #333;
+        }
+
+        .arrow-wrap {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: -5em;
+            margin-left: -5em;
+            background: #111;
+            width: 10em;
+            height: 10em;
+            padding: 4em 2em;
+            border-radius: 50%;
+            font-size: 0.5em;
+            display: block;
+            box-shadow: 0px 0px 5px 0px #333;
+        }
+
+        .arrow {
+            float: left;
+            position: relative;
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 3em 3em 0 3em;
+            border-color: #ff5050 transparent transparent transparent;
+            -webkit-transform: rotate(360deg)
+        }
+
+        .arrow:after {
+            content: '';
+            position: absolute;
+            top: -3.2em;
+            left: -3em;
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 3em 3em 0 3em;
+            border-color: #111 transparent transparent transparent;
+            -webkit-transform: rotate(360deg)
+        }
+
+        .hint {
+            position: absolute;
+            top: 0.6em;
+            width: 100%;
+            left: 0;
+            font-size: 2em;
+            font-style: italic;
+            text-align: center;
+            color: #fff;
+            opacity: 0;
+        }
+
+        .arrow-wrap:hover .hint {
+            opacity: 1;
+        }
+
+        .arrow-wrap .arrow {
+            -webkit-animation: downicon 2.8s 0.4s;
+            -webkit-animation-delay: 1s;
+        }
+
+        @-webkit-keyframes downicon {
+            0% {
+                top: 0;
+            }
+
+            10% {
+                top: 12%;
+            }
+
+            20% {
+                top: 0;
+            }
+
+            30% {
+                top: 12%;
+            }
+
+            40% {
+                top: -12%;
+            }
+
+            50% {
+                top: 12%;
+            }
+
+            60% {
+                top: 0;
+            }
+
+            70% {
+                top: 12%;
+            }
+
+            80% {
+                top: -12%;
+            }
+
+            90% {
+                top: 12%;
+            }
+
+            100% {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Scroll Icon Indicator</h1>
+        <h3>Animated Scroll Down With Button Click</h3>
+    </header>
+
+    <section class="main">
+        <a class="arrow-wrap" href="#content">
+            <span class="arrow"></span>
+        </a>
+
+        <div class="content" id="content">
+            <h1>Content Section</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Tellus orci ac auctor augue. Luctus venenatis lectus magna fringilla urna porttitor
+                rhoncus dolor. Morbi leo urna molestie at. Nulla malesuada pellentesque elit eget. Eget nullam non nisi
+                est. Consectetur a erat nam at lectus urna duis. At in tellus integer feugiat scelerisque varius morbi
+                enim. Sed felis eget velit aliquet. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+                Malesuada nunc vel risus commodo viverra. Elementum sagittis vitae et leo duis ut. Ut porttitor leo a
+                diam sollicitudin tempor. Aenean pharetra magna ac placerat vestibulum lectus mauris ultrices.<br><br>
+
+                Pellentesque adipiscing commodo elit at imperdiet dui accumsan. At elementum eu facilisis sed odio
+                morbi. Donec pretium vulputate sapien nec. Euismod lacinia at quis risus sed vulputate odio. Consectetur
+                a erat nam at lectus urna duis convallis convallis. Gravida rutrum quisque non tellus orci ac auctor
+                augue mauris. Egestas integer eget aliquet nibh praesent. In metus vulputate eu scelerisque felis
+                imperdiet. Sagittis id consectetur purus ut faucibus pulvinar elementum. Morbi enim nunc faucibus a
+                pellentesque sit. Facilisis gravida neque convallis a. Tortor dignissim convallis aenean et. Urna nec
+                tincidunt praesent semper feugiat nibh. Integer malesuada nunc vel risus commodo.
+                Lorem sed risus ultricies tristique nulla aliquet enim. Fermentum leo vel orci porta non pulvinar neque
+                laoreet.<br><br>
+
+                Integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Ultricies mi quis hendrerit
+                dolor magna eget. Quis imperdiet massa tincidunt nunc pulvinar sapien et. Ac turpis egestas maecenas
+                pharetra convallis posuere morbi leo urna. Vestibulum lectus mauris ultrices eros in cursus turpis massa
+                tincidunt. Vitae congue eu consequat ac felis donec. Ut aliquam purus sit amet luctus venenatis lectus
+                magna. Sit amet risus nullam eget. Ac tincidunt vitae semper quis lectus. Ipsum dolor sit amet
+                consectetur. Netus et malesuada fames ac. Dignissim diam quis enim lobortis scelerisque fermentum. Nec
+                feugiat nisl pretium fusce id velit. Et malesuada fames ac turpis egestas integer. Sit amet consectetur
+                adipiscing elit ut.
+                Non nisi est sit amet facilisis magna. Condimentum lacinia quis vel eros donec ac odio tempor. Commodo
+                sed egestas egestas fringilla phasellus. Mauris vitae ultricies leo integer malesuada nunc vel risus
+                commodo. Porta nibh venenatis cras sed felis eget velit.<br><br>
+
+                Orci dapibus ultrices in iaculis nunc sed. Integer eget aliquet nibh praesent tristique magna sit.
+                Tincidunt tortor aliquam nulla facilisi cras fermentum odio. Nunc pulvinar sapien et ligula ullamcorper
+                malesuada. A cras semper auctor neque vitae tempus. Ut morbi tincidunt augue interdum velit euismod in.
+                Convallis tellus id interdum velit laoreet. Arcu dui vivamus arcu felis bibendum ut tristique et
+                egestas. Arcu dui vivamus arcu felis bibendum ut tristique. Amet massa vitae tortor condimentum lacinia
+                quis vel eros donec. Nec tincidunt praesent semper feugiat nibh sed pulvinar.<br><br>
+
+                Tristique risus nec feugiat in fermentum posuere urna nec. Luctus venenatis lectus magna fringilla urna
+                porttitor. Varius morbi enim nunc faucibus a. Donec ac odio tempor orci dapibus ultrices in. In nibh
+                mauris cursus mattis molestie a iaculis at. Urna duis convallis convallis tellus id interdum velit
+                laoreet id. Ultrices eros in cursus turpis. Dui nunc mattis enim ut tellus. Volutpat consequat mauris
+                nunc congue nisi vitae suscipit tellus mauris. Tincidunt tortor aliquam nulla facilisi cras fermentum
+                odio eu feugiat. Tempor orci dapibus ultrices in iaculis nunc sed augue lacus. Nulla pellentesque
+                dignissim enim sit amet venenatis urna. Blandit aliquam etiam erat velit. Phasellus vestibulum lorem sed
+                risus ultricies.</p>
+        </div>
+    </section>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        $(window).scroll(function(){
+            var topWindow=$(window).scrollTop();
+            var topWindow=topWindow*1.5;
+
+            var windowHeight=$(window).height()
+            var position=topWindow/windowHeight;
+            position=1-position;
+            
+            $('.arrow-wrap').css('opacity',position)
+        })
+        $(function(){
+            $("a[href*=#]:not([href=#])").on('click',function(){
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                    var target=$(this.hash);
+                    target=target.length?target:$('[name=' + this.hash.slice(1) +']');
+                    if(target.length){
+                        $('html,body').animate({
+                            scrollTop:target.offset().top
+                        },1000)
+                        return false;
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        .piece-wrap {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 100px auto auto 173px;
+            transform-origin: left center;
+            transition: transform 3s cubic-bezier(0, .47, .31, 1.03);
+        }
+
+        .piece {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 300px;
+            border-radius: 0 150px 150px 0;
+            transform-origin: left center;
+        }
+
+        .piece span {
+            margin-left: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            color: #fff;
+        }
+
+        .piece:nth-child(2n) {
+            background-image: linear-gradient(120deg, #f6d365, #f6d365 75px, transparent 75px);
+        }
+
+        .piece:nth-child(2n+1) {
+            background-image: linear-gradient(120deg, #ff5858, #ff5858 75px, transparent 75px);
+        }
+
+        .piece-0 {
+            transform: rotate(calc(-30deg * 1));
+        }
+
+        .piece-1 {
+            transform: rotate(calc(-30deg * 2));
+        }
+
+        .piece-2 {
+            transform: rotate(calc(-30deg * 3));
+        }
+
+        .piece-3 {
+            transform: rotate(calc(-30deg * 4));
+        }
+
+        .piece-4 {
+            transform: rotate(calc(-30deg * 5));
+        }
+
+        .piece-5 {
+            transform: rotate(calc(-30deg * 6));
+        }
+
+        .piece-6 {
+            transform: rotate(calc(-30deg * 7));
+        }
+
+        .piece-7 {
+            transform: rotate(calc(-30deg * 8));
+        }
+
+        .piece-8 {
+            transform: rotate(calc(-30deg * 9));
+        }
+
+        .piece-9 {
+            transform: rotate(calc(-30deg * 10));
+        }
+
+        .piece-10 {
+            transform: rotate(calc(-30deg * 11));
+        }
+
+        /* .piece-11{
+            transform: rotate(-30deg*2);
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="piece_wrap" class="piece-wrap"></div>
+    <button class="start">開始</button>
+    <script>
+        // 转盘抽奖数据
+        var wards = ['1元', '2元', '3元', '5元', '再来',
+            '算法', '0.5元', '0.1元', '0.2元', '0.6元',
+            '0.5元', '来'];
+        // 渲染dom
+        var fragment = document.createDocumentFragment();
+        for (var i = 0, len = wards.length; i < len; i++) {
+            var piece = document.createElement('div');
+            piece.className = 'piece piece-' + i;
+            piece.innerHTML = '<span>' + wards[i] + '</span>';
+            fragment.appendChild(piece);
+        }
+
+        $('#piece_wrap')[0].appendChild(fragment);
+
+        // 生成从 start到end的随机数
+        function randomArr(start, end) {
+            return Math.round(start + Math.random() * (end - start))
+        }
+
+        // totalRadis = initRadis + radis * n + radis/2
+        // 转动逻辑
+        var radis = 30,  // 每个扇形区域的度数
+            n = randomArr(0, 360 / radis),  // 计算随机中奖的位置
+            initRadis = 720,   // 初始转动的角度
+            time = 3 * 1000,    // 转动时间 
+            once = true,    // 限制一个转动周期只能点击一次
+            totalRadis = initRadis + radis * n;  // 转动角度计算公式
+
+        $('.start').on('click',function(){
+            if(once){
+                one=false;
+                $("#piece_wrap").css({
+                    'transform':'rotate('+totalRadis+'deg)'
+                })
+                setTimeout(()=>{
+                    one=true;
+                    $("#piece_wrap").css({
+                        'transform':'rotate('+totalRadis+'deg)'
+                    })
+                    console.log(n)
+                    console.log(totalRadis)
+                    console.log('恭喜你抽中了' + wards[n] + '!')
+                },time)
+            }
+        })
+    </script>
+</body>
+
+</html>
