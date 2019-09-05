@@ -1,7 +1,7 @@
 <div id="home">
     <div>Home</div>
     <div>{{addr}}</div>
-    <About :about="toabout">
+    <About :about="toabout" @getaddr="getChild">
         <template #header>
             Hello Header
         </template>

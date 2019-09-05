@@ -5,13 +5,19 @@ define(['vue',"text!./Home.html","json!json/Home.json","./About"],function(Vue,H
             About:About
         },
         mounted:function(){
-            console.log("Home")
+            console.log()
         },
         data:function(){
             return {
                 addr:"Home .road",
-                teams:Home_json.teams,
+                teams:Home_json,
                 toabout:"How About!!!!"
+            }
+        },
+        methods:{
+            getChild(data){
+                this.addr=data
+                console.log(data)
             }
         }
     }
