@@ -4,7 +4,7 @@ define(['vue',"text!./Home.html","json!json/Home.json","./About"],function(Vue,H
         components:{
             About:About
         },
-        mounted(){
+        mounted:function(){
             console.log("Home")
         },
         data:function(){
