@@ -4,10 +4,13 @@ define(['vue',"text!./Home.html","json!json/Home.json","./About"],function(Vue,H
         components:{
             About:About
         },
+        mounted(){
+            console.log("Home")
+        },
         data:function(){
             return {
                 addr:"Home .road",
-                teams:Home_json,
+                teams:Home_json.teams,
                 toabout:"How About!!!!"
             }
         }
