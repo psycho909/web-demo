@@ -12,6 +12,7 @@
     <div id="app">
         <List></List>
         <div ref="dream" v-if="showDom">測試DOM</div>
+        <button @click="addComponent">Add</button>
         <button @click="hideDom">Hide</button>
     </div>
     <template id="List">
@@ -21,14 +22,28 @@
             <li>3</li>
         </ul>
     </template>
+    <template id="SelectBox">
+        <div>
+            <select name="" id="">
+                <option value="">請選擇</option>
+                <option value="a">a</option>
+                <option value="b">b</option>
+                <option value="c">c</option>
+            </select>
+        </div>
+    </template>
     <script>
         var List={
             template:"#List"
         }
+        var SelectBox={
+            template:"#SelectBox"
+        }
         new Vue({
             el:"#app",
             components:{
-                List
+                List,
+                SelectBox
             },
             data:{
                 showDom:true
@@ -45,6 +60,9 @@
                     this.$nextTick(()=>{
                         this.$refs.dream.style.color="blue"
                     })
+                },
+                addComponent(){
+                    $("#app").append("<Select-Box></Select-Box>")
                 }
             },
         })

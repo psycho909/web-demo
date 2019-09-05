@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="input-box">
+            <input type="radio" v-model="gender" name="gender" value="male">male
+            <input type="radio" v-model="gender" name="gender" value="female">female
+            <div>gender: {{gender}}</div>
+        </div>
+        <div class="input-box">
+            <input type="checkbox" v-model="hobbys" name="hobby" value="eat">eat
+            <input type="checkbox" v-model="hobbys" name="hobby" value="play">play
+            <input type="checkbox" v-model="hobbys" name="hobby" value="run">run
+            <input type="checkbox" v-model="hobbys" name="hobby" value="game">game
+            <div>hobby: {{hobbys}}</div>
+        </div>
+        <div class="input-box">
+            <input type="checkbox" v-model="jobs" name="job" value="front">front
+            <input type="checkbox" v-model="jobs" name="job" value="backend">backend
+            <input type="checkbox" v-model="jobs" name="job" value="art">art
+            <input type="checkbox" v-model="jobs" name="job" value="message">message
+        </div>
+        <div class="input-box">
+            <select v-model="player" name="" id="">
+                <option value="">請選擇</option>
+                <option value="C">C</option>
+                <option value="PF">PF</option>
+                <option value="PG">PG</option>
+            </select>
+            <div>player: {{player}}</div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                gender: "",
+                hobbys: [],
+                jobs: [],
+                player: "",
+            },
+            computed: {
+
+            },
+            mounted:function() {
+
+            },
+            methods: {
+
+            },
+            watch: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<div id="home">
+    <div>Home</div>
+    <div>{{addr}}</div>
+    <About :about="toabout">
+        <template #header>
+            Hello Header
+        </template>
+    </About>
+    <ul>
+        <li v-for="team in teams">{{team}}</li>
+    </ul>
+</div>
