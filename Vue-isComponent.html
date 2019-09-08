@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button 
+            v-for="tab in viewTab"
+            @click="tabView(tab)"
+        >{{tab}}</button>
+        <component :is="view"></component>
+    </div>
+    <template id="Bus">
+        <div>
+            BUS
+        </div>
+    </template>
+    <template id="Bike">
+        <div>
+            Bike
+        </div>
+    </template>
+    <template id="Fly">
+        <div>
+            Fly
+        </div>
+    </template>
+    <script>
+        var Bus={
+            template:"#Bus"
+        }
+        var Bike={
+            template:"#Bike"
+        }
+        var Fly={
+            template:"#Fly"
+        }
+        new Vue({
+            el:"#app",
+            components:{
+                Bus,
+                Bike,
+                Fly
+            },
+            data:{
+                view:"Bus",
+                viewTab:["Bus","Bike","Fly"]
+            },
+            methods:{
+                tabView(tab){
+                    this.view=tab
+                }
+            }
+        })
+    </script>
+</body>
+</html>
