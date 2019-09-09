@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #box-inner{
+            width: 300px;
+            height: 300px;
+            background-color: #eee;
+            position: relative;
+        }
+        #box-inner h3{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box-inner">
+            <h3>box-inner</h3>
+        </div>
+    </div>
+    <script id="js-footer" src="./JS-insertAdjcentHTML.js" prod="新瑪奇B" theme="dark"></script>
+    <script>
+        var afterEnd="<h1>afterEnd</h1>";
+        var beforeEnd="<h1>beforeEnd</h1>";
+        var beforeBegin="<h1>beforeBegin</h1>";
+        var afterBegin="<h1>afterBegin</h1>";
+
+        var boxInner=document.getElementById("box-inner");
+        boxInner.insertAdjacentHTML("afterEnd",afterEnd)
+        boxInner.insertAdjacentHTML("beforeEnd",beforeEnd)
+        boxInner.insertAdjacentHTML("beforeBegin",beforeBegin)
+        boxInner.insertAdjacentHTML("afterBegin",afterBegin)
+    </script>
+</body>
+</html>
