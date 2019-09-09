@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
     <style>
     .loading{
         display: none;
@@ -14,8 +15,10 @@
 <body>
     <div id="app">
         <div ref="loading" class="loading">
-            {{msg}}
-            <Home></Home>
+            <Modal v-if="isShow" :title="title" @close="close"></Modal>
+            <Home @set_modal="showModal"></Home>
+            <Home2 @set_modal="showModal"></Home2>
+            <list-view @set_modal="showModal"></list-view>
         </div>
     </div>
 

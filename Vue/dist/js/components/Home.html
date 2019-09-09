@@ -1,4 +1,4 @@
-<div id="home">
+<div id="home" ref="home">
     <div>Home</div>
     <div>{{addr}}</div>
     <About :about="toabout" @getaddr="getChild">
@@ -9,4 +9,6 @@
     <ul>
         <li v-for="team in teams">{{team}}</li>
     </ul>
+    <button @click="appendComponent">Add</button>
+    <button @click="setModal">SHOW MODAL</button>
 </div>

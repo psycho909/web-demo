@@ -13,17 +13,32 @@ require.config({
     }
 });
 
-require(["jquery","vue","components/Home"],function($,Vue,Home){
+require(["jquery","vue","components/Home","components/Modal","components/Home2","components/ListView"],function($,Vue,Home,Modal,Home2,ListView){
     new Vue({
         el:"#app",
         mounted:function(){
             this.$refs.loading.className="show"
         },
         components:{
-            Home:Home
+            Home:Home,
+            Modal:Modal,
+            Home2:Home2,
+            ListView:ListView
         },
         data:{
-            msg:"Hello World"
+            msg:"Hello World",
+            isShow:false,
+            title:""
+        },
+        methods:{
+            showModal:function(...data){
+                var [isShow,title]=data
+                this.isShow=isShow
+                this.title=title
+            },
+            close:function(){
+                this.isShow=false;
+            }
         }
     })
 })
