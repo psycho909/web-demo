@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app{
+            width: 600px;
+            height: 600px;
+            position: relative;
+        }
+        .ball-box{
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: bezierXBall 2s 0.5s 2;
+            animation-timing-function: cubic-bezier(.07,.59,.31,1)
+        }
+        .ball{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #000;
+            animation: bezierYBall 2s linear 0.5s 2;
+        }
+        @keyframes bezierXBall{
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(400px);
+            }
+        }
+        @keyframes bezierYBall{
+            0%{
+                transform: translateY(0);
+            }
+            100%{
+                transform: translateY(400px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="ball-box">
+            <div class="ball"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -50,16 +50,16 @@
                 list:["a","b","c"]
             },
             created(){
-                console.log(this.$el)
-                console.log(this.list)
-                console.log(this.listLength)
-                console.log("create: "+this.$refs.dream)
+                console.log("created: $el - "+this.$el)
+                console.log("created: data - "+this.list)
+                console.log("created: computed - "+this.listLength)
+                console.log("created: ref - "+this.$refs.dream)
             },
             mounted(){
-                console.log(this.$el)
-                console.log(this.list)
-                console.log(this.listLength)
-                console.log("mounted: "+this.$refs.dream)
+                console.log("mounted: $el - "+this.$el)
+                console.log("mounted: data - "+this.list)
+                console.log("mounted: computed - "+this.listLength)
+                console.log("mounted: ref - "+this.$refs.dream)
             },
             computed: {
                 listLength(){
