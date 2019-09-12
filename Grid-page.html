@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root {
+            --brand-color:#c8c8c8;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            outline: 1px dotted #000;
+        }
+        html,body{
+            height: 100%;
+        }
+        body{
+            display: grid;
+            grid-template-rows: min-content auto min-content;
+        }
+        header ul{
+            background-color: var(--brand-color);
+            display: grid;
+            grid-template-columns: repeat(4,min-content);
+            justify-content: space-evenly;
+        }
+        li{
+            display: inline-block;
+            padding: 10px;
+            outline: 1px solid #000;
+        }
+        main{
+            display: grid;
+            grid-template-rows: min-content min-content;
+            justify-content: center;
+            align-content: center;
+        }
+        .box{
+            background-color: lightcoral;
+            width: 200px;
+            border:1px solid #000;
+            margin: 5px;
+            padding: 10px;
+        }
+        footer{
+            background-color: var(--brand-color);
+            padding: 10px;
+        }
+        @media screen and (max-width: 600px){
+            header ul{
+                grid-template-columns: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li>Nav1</li>
+            <li>Nav2</li>
+            <li>Nav3</li>
+            <li>Nav4</li>
+        </ul>
+    </header>
+    <main>
+        <div class="box">Box 1</div>
+        <div class="box">Box 2</div>
+    </main>
+    <footer>Footer</footer>
+</body>
+</html>

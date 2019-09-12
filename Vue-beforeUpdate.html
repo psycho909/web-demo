@@ -6,23 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .ul-box{
+            width: 200px;
+            overflow-y: auto;
+        }
+        .ul-box__li{
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <input type="text" v-model="txt">
         <h3>{{txt}}</h3>
-        <Child :txt="txt"></Child>
+        <Child title="Child" :users="users" @hook:mounted="listenChild"></Child>
     </div>
     <template id="Child">
         <div>
-            {{txt}}
+            <h3>{{title}}</h3>
+            <ul class="ul-box" ref="ulbox" v-if="users">
+                <li class="ul-box__li" v-for="(user,index) in users" :key="index">name:{{user.name}}</li>
+            </ul>
         </div>
     </template>
     <script>
         var Child={
             template:"#Child",
-            props:["txt"],
+            props:["users","title"],
+            created(){
+                console.log("組件創建")
+            },
             beforeUpdate(){
+                var temp=this.users.length;
+                this.$refs.ulbox.style.width=800+'px';
+                console.log(temp)
                 console.log("beforeUpdate")
             }
         }
@@ -31,9 +49,25 @@
             components:{
                 Child
             },
+            created(){
+                fetch("https://jsonplaceholder.typicode.com/users")
+                .then((data)=>{
+                    return data.json()
+                })
+                .then((res)=>{
+                    this.users=res
+                })
+                console.log("mounted")
+            },
             data:{
-                txt:""
-            }
+                txt:"",
+                users:[]
+            },
+            methods: {
+                listenChild(){
+                    console.log("listenChild mounted")
+                }
+            },
         })
     </script>
 </body>
