@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        const pogData = {
+            alfPogs: [`Shaving Alf`, `Rockin’ Alf`, `Fonzie Alf`],
+            notAlfPogs: [`Pizza`, `Skateboard`, `A radical flaming skull`],
+            [Symbol.iterator]() {
+                //get a 2-d array representation of our data structure
+                const arrayOfCategories = Object.values(this);
+                //counters to traverse arrayOfCategories 2-d array   
+                let currentPogIndex = 0;
+                let currentCategoryIndex = 0;
+                const iterator = {
+                    next: function () {
+                        //get an array of pogs in current category
+                        const currentPogs = arrayOfCategories[currentCategoryIndex];
+                        //check if we're at the end of a category
+                        //if we are switch to the start of the next category
+                        if (currentPogIndex >= currentPogs.length) {
+                            currentCategoryIndex++;
+                            currentPogIndex = 0;
+                        }
+                        //check if we're done with this everything 
+                        //if we are return an object saying we're done
+                        if (currentCategoryIndex >= arrayOfCategories.length) {
+                            return {
+                                value: undefined,
+                                done: true
+                            };
+                        }
+                        //return the current pog in the current category we're on
+                        return {
+                            value: arrayOfCategories[currentCategoryIndex][currentPogIndex++],
+                            done: false
+                        }
+                    }
+                };
+                return iterator;
+            }
+        };
+        for(let key of pogData){
+            // console.log(key)
+        }
+
+        var obj={
+            name:["chen","ching","yang"],
+            [Symbol.iterator]:function(){
+                var objValues=Object.values(this)
+                var nextIndex=0;
+                var nextArr=0;
+                return {
+                    next:function(){
+                        var currPage=objValues[nextArr]
+                        if(nextIndex >= currPage.length){
+                            nextArr++;
+                            nextIndex=0
+                        }
+                        if(nextArr >= objValues.length){
+                            return {
+                                value:undefined,
+                                done:true
+                            }
+                        }
+                        return {
+                            value:objValues[nextArr][nextIndex++],
+                            done:false
+                        }
+                    }
+                }
+            }
+        }
+        for(var v of obj){
+            console.log(v)
+        }
+    </script>
+</body>
+
+</html>

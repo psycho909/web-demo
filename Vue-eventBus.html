@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}} - {{name}}</div>
+        <Home :title="msg" @setmsg="getmsg" :change="change"></Home>
+        <List></List>
+    </div>
+    <template id="Home">
+        <div id="home">
+            HOME {{title}}
+            <button @click="setmsg">BTN</button>
+            <button @click="change">CHANGE</button>
+            <button @click="eventbus">BUS</button>
+        </div>
+    </template>
+    <template id="List">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>{{names}}</li>
+        </ul>
+    </template>
+    <script>
+        var Bus=new Vue();
+        var List={
+            template:"#List",
+            created(){
+                Bus.$on("tobus",(data)=>{
+                    this.names=data
+                })
+            },
+            data(){
+                return {
+                    names:"123"
+                }
+            }
+        }
+        var Home={
+            template:"#Home",
+            props:{
+                title:String,
+                change:Function
+            },
+            data(){
+                return {
+                    username:""
+                }
+            },
+            mounted(){
+                console.log("Child mounted")
+            },
+            methods:{
+                setmsg(){
+                    this.$emit("setmsg","FFFF")
+                },
+                eventbus(){
+                    Bus.$emit('tobus',"Hello bus")
+                }
+            }
+        }
+        new Vue({
+            el:"#app",
+            components:{
+                Home,
+                List
+            },
+            data() {
+                return {
+                    msg:"Hello Title",
+                    name:""
+                }
+            },
+            created(){
+                Bus.$on("tobus",(data)=>{
+                    this.name=data
+                })
+            },
+            methods:{
+                getmsg(data){
+                    this.msg=data
+                },
+                change(){
+                    this.msg="CHANGE"
+                },
+            }
+        })
+    </script>
+</body>
+</html>
