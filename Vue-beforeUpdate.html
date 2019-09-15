@@ -35,13 +35,15 @@
             template:"#Child",
             props:["users","title"],
             created(){
-                console.log("組件創建")
+                console.log("created:Child組件創建")
+            },
+            mounted(){
+                console.log("mounted:Child")
             },
             beforeUpdate(){
                 var temp=this.users.length;
                 this.$refs.ulbox.style.width=800+'px';
-                console.log(temp)
-                console.log("beforeUpdate")
+                console.log("beforeUpdate:Child")
             }
         }
         new Vue({
@@ -57,7 +59,10 @@
                 .then((res)=>{
                     this.users=res
                 })
-                console.log("mounted")
+                console.log("created:App")
+            },
+            mounted(){
+                console.log("mounted:App")
             },
             data:{
                 txt:"",
