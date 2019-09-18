@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ecommerce Product Card | Webdevtrick.com</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background: #eaebec;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        #view-code {
+            color: #ff5757;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-decoration: none;
+            position: absolute;
+            top: 640px;
+            left: 50%;
+            margin-left: -35px;
+        }
+
+        #view-code:hover {
+            color: #34c29e;
+        }
+
+        #container {
+            position: relative;
+            perspective: 800px;
+            width: 340px;
+            height: 500px;
+            transform-style: preserve-3d;
+            transition: transform 5s;
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            margin-left: -167px;
+        }
+
+        #front-side,
+        #back-side {
+            width: 335px;
+            height: 500px;
+            background: #fff;
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            transition: all 100ms ease-out;
+        }
+
+        #back-side {
+            display: none;
+            transform: rotateY(180deg);
+        }
+
+        #product-card.animate #back-side,
+        #product-card.animate #front-side {
+            top: 0px;
+            left: 0px;
+            transition: all 100ms ease-out;
+        }
+
+        #product-card {
+            width: 325px;
+            height: 490px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: 100ms ease-out;
+        }
+
+        div#product-card.flip-10 {
+            transform: rotateY(-10deg);
+            transition: 50ms ease-out;
+        }
+
+        div#product-card.flip90 {
+            transform: rotateY(90deg);
+            transition: 100ms ease-in;
+        }
+
+        div#product-card.flip190 {
+            transform: rotateY(190deg);
+            transition: 100ms ease-out;
+        }
+
+        div#product-card.flip180 {
+            transform: rotateY(180deg);
+            transition: 150ms ease-out;
+        }
+
+        #product-card.animate {
+            top: 5px;
+            left: 5px;
+            width: 335px;
+            height: 500px;
+            box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.3);
+            transition: 100ms ease-out;
+        }
+
+        .details-container {
+            background: #fff;
+            position: absolute;
+            top: 386px;
+            left: 0;
+            width: 265px;
+            height: 300px;
+            padding: 27px 35px 35px;
+            transition: all 200ms ease-out;
+        }
+
+        #product-card.animate .details-container {
+            top: 272px;
+            transition: all 200ms ease-out;
+        }
+
+        .details-container .title {
+            font-size: 22px;
+            color: #393c45;
+        }
+
+        .details-container p {
+            font-size: 16px;
+            color: #b1b1b3;
+            padding: 2px 0 20px 0;
+        }
+
+        .details-container .price {
+            float: right;
+            color: #ff5757;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .image_overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff5757;
+            opacity: 0;
+        }
+
+        #product-card.animate .image_overlay {
+            opacity: 0.7;
+            transition: all 200ms ease-out;
+        }
+
+        .select-option {
+            padding: 2px 0 0;
+        }
+
+        .select-option strong {
+            font-weight: 700;
+            color: #393c45;
+            font-size: 14px;
+        }
+
+        .select-option span {
+            color: #969699;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #detailsV {
+            position: absolute;
+            top: 112px;
+            left: 50%;
+            margin-left: -85px;
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 19px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 10px 0;
+            width: 172px;
+            opacity: 0;
+            transition: all 200ms ease-out;
+        }
+
+        #detailsV:hover {
+            background: #fff;
+            color: #ff5757;
+            cursor: pointer;
+
+        }
+
+        #product-card.animate #detailsV {
+            opacity: 1;
+            width: 152px;
+            font-size: 15px;
+            margin-left: -75px;
+            top: 115px;
+            transition: all 200ms ease-out;
+        }
+
+        div.colors div {
+            margin-top: 3px;
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            float: left;
+        }
+
+        div.colors div span {
+            width: 15px;
+            height: 15px;
+            display: block;
+            border-radius: 50%;
+        }
+
+        div.colors div span:hover {
+            width: 17px;
+            height: 17px;
+            margin: -1px 0 0 -1px;
+        }
+
+        div.blueC span {
+            background: #2ab1ce;
+        }
+
+        div.yellowC span {
+            background: #fd9d08;
+        }
+
+        div.redC span {
+            background: #ff3838;
+        }
+
+        div.whiteC span {
+            background: #fff;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #e8e9eb;
+        }
+
+        div.shadow {
+            width: 335px;
+            height: 520px;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            display: none;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+        }
+
+        #back-side div.shadow {
+            z-index: 10;
+            opacity: 1;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+        }
+
+        #back-flip {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        #cx,
+        #cy {
+            background: #d2d5dc;
+            position: absolute;
+            width: 0px;
+            top: 15px;
+            right: 15px;
+            height: 3px;
+            transition: all 250ms ease-in-out;
+        }
+
+        #back-flip:hover #cx,
+        #back-flip:hover #cy {
+            background: #979ca7;
+            transition: all 250ms ease-in-out;
+        }
+
+        #cx.s1,
+        #cy.s1 {
+            right: 0;
+            width: 30px;
+            transition: all 100ms ease-out;
+        }
+
+        #cy.s2 {
+            -ms-transform: rotate(50deg);
+            -webkit-transform: rotate(50deg);
+            transform: rotate(50deg);
+            transition: all 100ms ease-out;
+        }
+
+        #cy.s3 {
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            transition: all 100ms ease-out;
+        }
+
+        #cx.s1 {
+            right: 0;
+            width: 30px;
+            transition: all 100ms ease-out;
+        }
+
+        #cx.s2 {
+            transform: rotate(140deg);
+            transition: all 100ms ease-out;
+        }
+
+        #cx.s3 {
+            transform: rotate(135deg);
+            transition: all 100ms ease-out;
+        }
+
+        #carousel {
+            width: 335px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+
+        }
+
+        #carousel ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #carousel li {
+            width: 335px;
+            height: 500px;
+            float: left;
+            overflow: hidden;
+        }
+
+        .arrow-buttons {
+            width: 335px;
+            height: 55px;
+            position: absolute;
+            top: 218px;
+            transform-style: preserve-3d;
+            transition: transform 5s;
+            perspective: 335px;
+        }
+
+        .PreIMG,
+        .NextIMG {
+            width: 50px;
+            height: 55px;
+            background: #ccc;
+            position: absolute;
+            top: 0;
+            transition: all 200ms ease-out;
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        .NextIMG {
+            top: 0;
+            right: -26px;
+            transform: rotateY(-117deg);
+            transition: all 200ms ease-out;
+
+        }
+
+        .NextIMG.visible {
+            right: 0;
+            opacity: 0.8;
+            background: #efefef;
+            transform: rotateY(0deg);
+            transition: all 200ms ease-out;
+        }
+
+        .PreIMG {
+            left: -26px;
+            top: 0;
+            transform: rotateY(117deg);
+            transition: all 200ms ease-out;
+
+        }
+
+        .PreIMG.visible {
+            left: 0;
+            opacity: 0.8;
+            background: #eee;
+            transform: rotateY(0deg);
+            transition: all 200ms ease-out;
+        }
+
+        #carousel .x,
+        #carousel .y {
+            height: 2px;
+            width: 15px;
+            background: #ff5757;
+            position: absolute;
+            top: 31px;
+            left: 17px;
+            transform: rotate(45deg);
+        }
+
+        #carousel .x {
+            transform: rotate(135deg);
+            top: 21px;
+        }
+
+        #carousel .NextIMG .x {
+            transform: rotate(45deg);
+        }
+
+        #carousel .NextIMG .y {
+            transform: rotate(135deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="product-card">
+            <div id="front-side">
+                <div class="shadow"></div>
+                <img src="https://webdevtrick.com/wp-content/uploads/jordan.jpg" alt="" />
+                <div class="image_overlay"></div>
+                <div id="detailsV">View details</div>
+                <div class="details">
+                    <div class="details-container">
+                        <span class="price">$249</span>
+                        <span class="title">Nike Air Jordan</span>
+                        <p>Basketball Shoes & Sneakers</p>
+
+                        <div class="select-option">
+                            <strong>SIZES</strong>
+                            <span>US8, US8.5, US9, US9.5</span>
+                            <strong>COLORS</strong>
+                            <div class="colors">
+                                <div class="whiteC"><span></span></div>
+                                <div class="blueC"><span></span></div>
+                                <div class="yellowC"><span></span></div>
+                                <div class="redC"><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="back-side">
+                <div class="shadow"></div>
+                <div id="carousel">
+                    <ul>
+                        <li><img src="https://webdevtrick.com/wp-content/uploads/jordan-large.jpg" alt="" /></li>
+                        <li><img src="https://webdevtrick.com/wp-content/uploads/side-view.jpg" alt="" /></li>
+                        <li><img src="https://webdevtrick.com/wp-content/uploads/back-side.jpg" alt="" /></li>
+                    </ul>
+                    <div class="arrow-buttons">
+                        <div class="PreIMG">
+                            <div class="y"></div>
+                            <div class="x"></div>
+                        </div>
+                        <div class="NextIMG">
+                            <div class="y"></div>
+                            <div class="x"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="back-flip">
+                    <div id="cy"></div>
+                    <div id="cx"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        $('#product-card').hover(function () {
+            $(this).addClass('animate');
+            $('div.NextIMG, div.PreIMG').addClass('visible');
+        }, function () {
+            $(this).removeClass('animate');
+            $('div.NextIMG, div.PreIMG').removeClass('visible');
+        })
+        // back flip
+        $('#detailsV').click(function () {
+            $('div.NextIMG, div.PreIMG').removeClass('visible');
+            $('#product-card').addClass('flip-10');
+            setTimeout(function () {
+                $('#product-card').removeClass('flip-10').addClass('flip90').find('div.shadow').show().fadeTo(80, 1, function () {
+                    $('#front-side, #front-side div.shadow').hide();
+                });
+            }, 50);
+
+            setTimeout(function () {
+                $('#product-card').removeClass('flip90').addClass('flip190');
+                $('#back-side').show().find('div.shadow').show().fadeTo(90, 0);
+                setTimeout(function () {
+                    $('#product-card').removeClass('flip190').addClass('flip180').find('div.shadow').hide();
+                    setTimeout(function () {
+                        $('#product-card').css('transition', '100ms ease-out');
+                        $('#cx, #cy').addClass('s1');
+                        setTimeout(function () { $('#cx, #cy').addClass('s2'); }, 100);
+                        setTimeout(function () { $('#cx, #cy').addClass('s3'); }, 200);
+                        $('div.NextIMG, div.PreIMG').addClass('visible');
+                    }, 100);
+                }, 100);
+            }, 150);
+        });
+        // front flip
+        $('#back-flip').click(function () {
+
+            $('#product-card').removeClass('flip180').addClass('flip190');
+            setTimeout(function () {
+                $('#product-card').removeClass('flip190').addClass('flip90');
+
+                $('#back-side div.shadow').css('opacity', 0).fadeTo(100, 1, function () {
+                    $('#back-side, #back-side div.shadow').hide();
+                    $('#front-side, #front-side div.shadow').show();
+                });
+            }, 50);
+
+            setTimeout(function () {
+                $('#product-card').removeClass('flip90').addClass('flip-10');
+                $('#front-side div.shadow').show().fadeTo(100, 0);
+                setTimeout(function () {
+                    $('#front-side div.shadow').hide();
+                    $('#product-card').removeClass('flip-10').css('transition', '100ms ease-out');
+                    $('#cx, #cy').removeClass('s1 s2 s3');
+                }, 100);
+            }, 150);
+
+        })
+        // Carousel
+
+        var carousel = $('#carousel ul');
+        var carouselSlideWidth = 335;
+        var carouselWidth = 0;
+        var isAnimating = false;
+
+        // building width of casousel
+        $('#carousel li').each(function () {
+            carouselWidth += carouselSlideWidth;
+        });
+        $(carousel).css('width', carouselWidth);
+
+        // Next Image
+        $('div.NextIMG').on('click', function () {
+            var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+            var newLeft = currentLeft + carouselSlideWidth;
+            if (newLeft == carouselWidth || isAnimating === true) { return; }
+            $('#carousel ul').css({
+                'left': "-" + newLeft + "px",
+                "transition": "300ms ease-out"
+            });
+            isAnimating = true;
+            setTimeout(function () { isAnimating = false; }, 300);
+        });
+
+        // Previous Image
+        $('div.PreIMG').on('click', function () {
+            var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+            var newLeft = currentLeft - carouselSlideWidth;
+            if (newLeft < 0 || isAnimating === true) { return; }
+            $('#carousel ul').css({
+                'left': "-" + newLeft + "px",
+                "transition": "300ms ease-out"
+            });
+            isAnimating = true;
+            setTimeout(function () { isAnimating = false; }, 300);
+        });;	
+    </script>
+</body>
+
+</html>

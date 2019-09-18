@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: '微軟正黑體';
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+        }
+        #app {
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+            background-image: linear-gradient(135deg, #ABDCFF 10%, #0396FF 100%);
+        }
+
+        .weathers-top {
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .weathers-title {
+            margin-bottom: 12px;
+        }
+
+        #select-location {
+            width: 300px;
+            padding: 6px;
+        }
+
+        .weathers-wrap {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 24px;
+        }
+
+        .weathers__card-box {
+            width: 33.3333%;
+            padding: 6px;
+        }
+
+        .weathers__card {
+            box-shadow:0px 2px 6px rgba(123, 123, 123, 0.3);
+        }
+
+        .weathers__card-title {
+            background-color: #F5F5F5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid rgb(230, 230, 230);
+        }
+
+        .weathers__card-body {
+            background-color: #fff;
+            padding: 12px;
+        }
+
+        .weathers__card-title-location {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .weathers__card-title-time {
+            color: rgb(187, 187, 187);
+        }
+
+        .weathers__card-body__top {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .weathers__card-body__bottom {
+            display: flex;
+            justify-content: space-between;
+        }
+        .weathers__time-select{
+            padding: 24px;
+        }
+        @media screen and (max-width:768px) {
+            .weathers__card-box {
+                width: 50%;
+            }
+        }
+
+        @media screen and (max-width:576px) {
+            .weathers__card-box {
+                width: 100%;
+            }
+            .weathers__time-select label{
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="weathers-top">
+            <h2 class="weathers-title">天氣預報</h2>
+            <select name="" id="select-location" v-model="location">
+                <option value="">全部縣市</option>
+                <option :value="locationName" v-for="(locationName,index) in locationNames" :key="index">
+                    {{locationName}}</option>
+            </select>
+            <div class="weathers__time-select">
+                <label :for="timeselect.id" v-for="(timeselect,index) in timeselects" :key="index">
+                    <input type="radio" :id="timeselect.id" :name="timeselect.name" :value="timeselect.value" v-model="timekey"> {{timeselect.txt}}
+                </label>
+            </div>
+        </div>
+        <div class="weathers-wrap">
+            <div class="weathers__card-box" v-for="(weather,index) in filterLocation" :key="index">
+                <div class="weathers__card">
+                    <div class="weathers__card-title">
+                        <span class="weathers__card-title-location">{{weather.locationName}}</span>
+                        <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
+                    </div>
+                    <div class="weathers__card-body">
+                        <div class="weathers__card-body__top">
+                            {{weather.weatherElement[0].time[timekey].parameter['parameterName']}}</div>
+                        <div class="weathers__card-body__bottom">
+                            <div class="weathers__card-body__status-pop">
+                                {{weather.weatherElement[2].time[timekey].parameter['parameterName']}}°C ~
+                                {{weather.weatherElement[4].time[timekey].parameter['parameterName']}}°C
+                            </div>
+                            <div class="weathers__card-body__status-pop">
+                                降雨機率:{{weather.weatherElement[1].time[timekey].parameter['parameterName']}}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            created() {
+                var _this = this;
+                $.ajax({
+                    url: "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001",
+                    dataType: "JSON",
+                    type: "GET",
+                    data: {
+                        Authorization: "CWB-E6BBD0F0-3472-452C-BA72-A6656FB3F55C"
+                    },
+                    success: function (data) {
+                        _this.weathers = data.records.location
+                        _this.locationNames = data.records.location.map((v, i) => {
+                            return v.locationName
+                        })
+                    }
+                })
+            },
+            computed: {
+                filterLocation() {
+                    if (this.location == '') {
+                        return this.weathers
+                    } else {
+                        return this.weathers.filter((v, i) => {
+                            return v.locationName === this.location
+                        })
+                    }
+                }
+            },
+            data() {
+                return {
+                    weathers: [],
+                    locationNames: [],
+                    location: "",
+                    timeselects:[
+                        {id:"timeselect0",value:0,txt:"今日06:00 ~ 今日18:00",name:"timeselect"},
+                        {id:"timeselect1",value:1,txt:"今日18:00 ~ 明日06:00",name:"timeselect"},
+                        {id:"timeselect2",value:2,txt:"明日06:00 ~ 明日18:00",name:"timeselect"}
+                    ],
+                    timekey: 0
+                }
+            },
+        })
+
+    </script>
+</body>
+
+</html>

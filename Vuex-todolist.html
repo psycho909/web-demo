@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vuex TodoList</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <script src="https://unpkg.com/vuex@2.0.0"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="list">
+        <button @click="add">新增</button>
+        <span>預覽 {{list}}</span>
+        <List>
+            <template #title>
+                <h3>List 列表 - {{getlistlength}} total</h3>
+            </template>
+        </List>
+    </div>
+    <template id="List">
+        <div>
+            <slot name="header" :total="total">{{total}}</slot>
+            <ul>
+                <li v-for="(item,index) in listarr" :key="index">
+                    {{item}} <button @click="remove(index)">X</button> 
+                </li>
+            </ul>
+        </div>
+    </template>
+    <script>
+        var store=new Vuex.Store({
+            state:{
+                count:0,
+                lists:['a','b','c']
+            },
+            getters:{
+                listlength(state){
+                    return state.lists.length
+                }
+            },
+            mutations:{
+                ADD(state,data){
+                    state.lists.push(data.list)
+                },
+                REMOVE(state,index){
+                    state.lists.splice(index,1)
+                }
+            },
+            actions:{
+                addlist(context,list){
+                    context.commit("ADD",list)
+                },
+                removelist(context,index){
+                    context.commit("REMOVE",index)
+                }
+            }
+        })
+        var List={
+            template:"#List",
+            created(){
+                this.listarr=this.$store.state.lists
+            },
+            data(){
+                return {
+                    listarr:[]
+                }
+            },
+            methods:{
+                ...Vuex.mapActions(['addlist','removelist']),
+                remove(index){
+                    this.removelist(index)
+                    // this.$store.dispatch({
+                    //     type:'removelist',
+                    //     index:index
+                    // })
+                }
+            }
+        }
+        new Vue({
+            el:"#app",
+            store,
+            components:{
+                List
+            },
+            computed:{
+                ...Vuex.mapGetters(['listlength']),
+                getlistlength(){
+                    return this.listlength
+                }
+            },
+            data:{
+                list:"",
+                listarr:[]
+            },
+            methods: {
+                add(){
+                    this.$store.dispatch({
+                        type:"addlist",
+                        list:this.list
+                    })
+                    this.list=""
+                },
+                
+            }
+        })
+    </script>
+</body>
+</html>

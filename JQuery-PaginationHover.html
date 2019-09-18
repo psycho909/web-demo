@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pagintaion With Active and Hover Effect| Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-weight: 500;
+            letter-spacing: 0;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        html {
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+
+        a,
+        a:hover {
+            text-decoration: none;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination-container {
+            padding: 10px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            display: inline-flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pagination-hover-overlay {
+            background-color: #e60023;
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition-duration: 0.5s;
+            left: 60px;
+            opacity: 0;
+        }
+
+        .pagination .icon-pagination {
+            color: #e60023;
+            font-size: 11px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 3;
+            background-color: #fff;
+        }
+
+        .pagination-prev {
+            margin-right: 15px;
+            margin-left: 10px;
+        }
+
+        .pagination-prev .icon-pagination-prev {
+            transform: rotate(0deg);
+        }
+
+        .pagination-next {
+            margin-left: 15px;
+            margin-right: 10px;
+        }
+
+        .pagination-next .icon-pagination-next {
+            transform: rotate(180deg);
+        }
+
+        .pagination-page-number {
+            border-radius: 5px;
+            color: #212121;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition-duration: 0.5s;
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .pagination-page-number:hover {
+            color: #fff;
+        }
+
+        .pagination-page-number.active {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pagination">
+        <div class="pagination-container">
+            <div class="pagination-hover-overlay"></div>
+            <a href="#0" class="pagination-prev">
+                <span class="icon-pagination icon-pagination-prev">
+                    <i class="icon material-icons">
+                        keyboard_arrow_left
+                    </i>
+                </span>
+            </a>
+
+            <a href="#0" class="pagination-page-number">1</a>
+            <a href="#0" class="pagination-page-number">2</a>
+            <a href="#0" class="pagination-page-number">3</a>
+            <a href="#0" class="pagination-page-number">4</a>
+            <a href="#0" class="pagination-page-number">5</a>
+            <a href="#0" class="pagination-page-number">6</a>
+            <a href="#0" class="pagination-page-number">7</a>
+
+            <a href="#0" class="pagination-next">
+                <span class="icon-pagination icon-pagination-next">
+                    <i class="icon material-icons">
+                        keyboard_arrow_left
+                    </i>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        let paginationLeftPos = "20px";
+        let paginationOpacity = 0;
+        let checkPaginationClick = 0;
+
+        $(".pagination-page-number").click(function () {
+            $(".pagination-page-number").removeClass("active");
+            $(this).addClass("active");
+            paginationLeftPos = $(this).prop("offsetLeft") + "px";
+            paginationOpacity = 1;
+            checkPaginationClick = 1;
+            $(".pagination-hover-overlay").css({
+                left: paginationLeftPos,
+                backgroundColor: "#e60023",
+                opacity: paginationOpacity
+            });
+
+            $(this).css({
+                color: "#fff"
+            });
+        });
+        $(".pagination-page-number").hover(
+            function () {
+                paginationOpacity = 1;
+                $(".pagination-hover-overlay").css({
+                    backgroundColor: "#fa4949",
+                    left: $(this).prop("offsetLeft") + "px",
+                    opacity: paginationOpacity
+                });
+                $(".pagination-page-number.active").css({
+                    color: "#212121"
+                });
+                $(this).css({
+                    color: "#fff"
+                });
+            },function () {
+                if (checkPaginationClick) {
+                    paginationOpacity = 1;
+                } else {
+                    paginationOpacity = 0;
+                }
+                $(".pagination-hover-overlay").css({
+                    backgroundColor: "#e60023",
+                    opacity: paginationOpacity,
+                    left: paginationLeftPos
+                });
+                $(this).css({
+                    color: "#212121"
+                });
+                $(".pagination-page-number.active").css({
+                    color: "#fff"
+                });
+            });
+    </script>
+</body>
+
+</html>
