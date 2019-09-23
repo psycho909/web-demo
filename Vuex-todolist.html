@@ -13,16 +13,17 @@
     <div id="app">
         <input type="text" v-model="list">
         <button @click="add">新增</button>
+        <button @click="test">Test</button>
         <span>預覽 {{list}}</span>
         <List>
-            <template #title>
+            <template #header>
                 <h3>List 列表 - {{getlistlength}} total</h3>
             </template>
         </List>
     </div>
     <template id="List">
         <div>
-            <slot name="header" :total="total">{{total}}</slot>
+            <slot name="header"></slot>
             <ul>
                 <li v-for="(item,index) in listarr" :key="index">
                     {{item}} <button @click="remove(index)">X</button> 
@@ -55,6 +56,9 @@
                 },
                 removelist(context,index){
                     context.commit("REMOVE",index)
+                },
+                testAction(context,data){
+                    console.log(data)
                 }
             }
         })
@@ -103,6 +107,12 @@
                     })
                     this.list=""
                 },
+                test(){
+                    this.$store.dispatch({
+                        type:"testAction",
+                        data:123
+                    })
+                }
                 
             }
         })
