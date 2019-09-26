@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .grid{
+            width: 600px;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: [main-start navbar-start] 1fr [content-start] 1fr [content-end navbar-end] 1fr [main-end];
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+        .grid-item{
+            height: 100px;
+            background-color: #666;
+        }
+        .grid-item:nth-of-type(1){
+            background-color: red;
+            grid-column: navbar-start/navbar-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+    </div>
+</body>
+</html>
