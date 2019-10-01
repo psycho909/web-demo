@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app{
+            width: 300px;
+            height: 300px;
+            background-color: #eee;
+        }
+        .ball{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #666;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="ball"></div>
+    </div>
+    <script>
+        var dragging=false;
+        var initialMouseX=0;
+        var initialSliderX=0;
+        var sliderX=0;
+        document.querySelector(".ball").addEventListener("mousedown",function(e){
+            dragging=true;
+            initialMouseX=e.pageX;
+            initialSliderX=sliderX;
+        })
+        document.querySelector("#app").addEventListener("mouseup",function(){
+            dragging=false;
+        })
+        document.querySelector("#app").addEventListener("mousemove",function(e){
+            if(dragging){
+                
+                var dragAmount=e.pageX-initialMouseX;
+                var targetX=initialSliderX+dragAmount;
+
+                sliderX=Math.max(Math.min(targetX,250),100);
+
+                document.querySelector(".ball").style.left=sliderX+"px";
+            }
+        })
+    </script>
+</body>
+</html>

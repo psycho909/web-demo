@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/faker.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul li[data-name*="Miss" i]{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li data-name="Miss">Miss Asadasd</li>
+        <li data-name="Mr">Mr Bsadasd</li>
+        <li data-name="Dr">Dr Csadasd</li>
+    </ul>
+    <input type="radio" class="check-gender" name="gender" value="male" >male
+    <input type="radio" class="check-gender" name="gender" value="female" >female
+    <script>
+        var randomName = faker.name.findName();
+        console.log(randomName)
+
+        document.querySelectorAll(".check-gender").forEach(function(v){
+            v.addEventListener('input', function (e) {
+                console.log(e.target)
+            });
+        })
+    </script>
+</body>
+</html>
