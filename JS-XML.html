@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #xml{
+            display: none;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="get">獲取</button>
+    <textarea id="xml"></textarea>
+    <script>
+        
+        $(".get").on("click",function(e){
+            e.preventDefault()
+            axios({
+                url:"./xml/taipei.xml",
+                method:"get",
+                responseType:'text'
+            })
+            .then((res)=>{
+                var _xml=res.data.replace(/</g,'&lt;')
+                                .replace(/>/g,'&gt;')
+                                .replace(/"/g,'&quot;')
+                $("#xml").html(_xml)
+                return _xml;
+            })
+            .then((data)=>{
+                var copyText=document.getElementById("xml");
+                copyText.select();
+                document.execCommand('copy');
+            })
+            // $.ajax({
+            //     url:"./xml/taipei.xml",
+            //     dataType:"text",
+            //     success:function(data){
+            //         var xml=data.replace(/</g,'&lt;')
+            //             .replace(/>/g,'&gt;')
+            //             .replace(/"/g,'&quot;')
+            //         $("#xml").html(xml)
+            //         var clipboard = new ClipboardJS('.get');
+            //         clipboard.on('success',function(e){
+            //             console.log("action",e.action)
+            //         })
+            //     }
+            // })
+        })
+    </script>
+</body>
+</html>

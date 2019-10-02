@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
     <style>
         *{
             padding: 0;
@@ -55,6 +56,10 @@
             transform: translateY(-50%);
             color:rgb(85, 85, 85);
         }
+        #xml{
+            display: none;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -77,22 +82,25 @@
         <div class="input-group input-placeholder">
             <input type="text" class="input">
         </div>
-
-        
     </form>
-    <button class="get">獲取</button>
+    <button class="get" data-clipboard-target="#xml">獲取</button>
+    <textarea id="xml"></textarea>
     <pre class="pre"></pre>
     <script>
         $(".get").on("click",function(e){
             e.preventDefault()
             $.ajax({
-                url:"./xml/AOD.xml",
+                url:"./xml/taipei.xml",
                 dataType:"text",
                 success:function(data){
                     var xml=data.replace(/</g,'&lt;')
                         .replace(/>/g,'&gt;')
                         .replace(/"/g,'&quot;')
-                    $(".pre").html(xml)
+                    $("#xml").html(xml)
+                    var clipboard = new ClipboardJS('.get');
+                    clipboard.on('success',function(e){
+                        console.log("action",e.action)
+                    })
                 }
             })
         })

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/plugins/CSSPlugin.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            position: relative;
+            margin: 0 auto;
+            max-width: 1920px;
+            height: 1310px;
+            background-color: yellow;
+        }
+
+        #ball {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="ball"></div>
+        <div id="demo">
+            <div id="scoreDisplay"></div>
+        </div>
+    </div>
+    <script>
+        var logo = document.getElementById("ball");
+        window.onload=function(){
+            TweenLite.to(logo, 2, { left: "542px", backgroundColor: "black", borderBottomColor: "#90e500", color: "white" });
+        }
+
+        var demo = { score: 0 };
+        var scoreDisplay = document.getElementById('scoreDisplay');
+        var tween = TweenLite.to(demo, 20, {
+            score: 100, onUpdate: function () {
+                scoreDisplay.innerHTML = demo.score.toFixed(2)
+            }
+        })
+    </script>
+</body>
+
+</html>

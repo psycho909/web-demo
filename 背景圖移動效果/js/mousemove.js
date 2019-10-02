@@ -37,14 +37,14 @@ $(function(){
 			// 	$(this).css({'transform':'translate3d('+distX+'px,'+ distY+'px, 0)'});
 			// 	i= i*2;
 			// });
-			var a_imgCentetX=$('.m02').offset().left+($('.m02').width()/2);
-			var a_imgCentetY=$('.m02').offset().top+($('.m02').height()/2)
+			var a_imgCentetX=$('.m02').offset().left + ( $('.m02').width() / 2 );
+			var a_imgCentetY=$('.m02').offset().top + ( $('.m02').height() / 2 )
 			
 			var a_distX=(cursorX-a_imgCentetX)*i/20
 			var a_distY=(cursorY-a_imgCentetY)*i/20
 
-			var b_imgCentetX=$('.m03').offset().left+($('.m03').width()/2);
-			var b_imgCentetY=$('.m03').offset().top+($('.m03').height()/2)
+			var b_imgCentetX=$('.m03').offset().left + ( $('.m03').width() / 2 );
+			var b_imgCentetY=$('.m03').offset().top + ( $('.m03').height() / 2 )
 
 			var b_distX=-(cursorX-b_imgCentetX)*i/20
 			var b_distY=-(cursorY-b_imgCentetY)*i/20
