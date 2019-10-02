@@ -28,10 +28,10 @@
         <div class="ball"></div>
     </div>
     <script>
-        var dragging=false;
-        var initialMouseX=0;
-        var initialSliderX=0;
-        var sliderX=0;
+        var dragging=false; // 判斷物體是否被滑鼠點下去
+        var initialMouseX=0; // 初始化 物體被滑鼠點下去的位置
+        var initialSliderX=0; // 物體被滑鼠移動後的位置
+        var sliderX=0; // 物體被滑鼠移動後的位置
         document.querySelector(".ball").addEventListener("mousedown",function(e){
             dragging=true;
             initialMouseX=e.pageX;
@@ -43,9 +43,15 @@
         document.querySelector("#app").addEventListener("mousemove",function(e){
             if(dragging){
                 
+                // 物體被移動後位置 - 物體被點下去的位置
+                // -----o
+                //       +++++
+                // -----------o
                 var dragAmount=e.pageX-initialMouseX;
-                var targetX=initialSliderX+dragAmount;
 
+                // 把獲取移動後的位置 加上上一次移動後的位置
+                var targetX=initialSliderX+dragAmount;
+                // 限制移動後的最大距離跟最小距離
                 sliderX=Math.max(Math.min(targetX,250),100);
 
                 document.querySelector(".ball").style.left=sliderX+"px";

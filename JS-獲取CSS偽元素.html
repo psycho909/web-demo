@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app{
+            position: relative;
+        }
+        .box{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: yellow;
+        }
+        .box:before{
+            content:attr(data-text);
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" data-text="偽元素"></div>
+    </div>
+
+    <script>
+        var box=document.querySelector(".box");
+        var boxBefore=window.getComputedStyle(box,'::before');
+        console.log(boxBefore.content)
+    </script>
+</body>
+</html>
