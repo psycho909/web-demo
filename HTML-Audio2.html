@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="play1" class="play">Play1</button>
+    <button id="play2" class="play">Play2</button>
+    <button id="pause">All Pause</button>
+    <!-- <button id="pause">Pause</button> -->
+    <script>
+        var mp3a="https://freemusicdownloads.world/wp-content/uploads/2017/05/A-Boogie-Wit-Da-Hoodie-Drowning-WATER-ft-Kodak-Black-Official-Audio.mp3"
+        var mp3b="https://freemusicdownloads.world/wp-content/uploads/2017/07/Numb20Official20Video20-20Linkin20Park-kXYiU_JCYtU.mp3"
+        var map3List=[
+            mp3a,
+            mp3b
+        ];
+        var audioList=[];
+
+        var _play=document.getElementsByClassName("play");
+        var _pause=document.getElementById('pause');
+        
+        for(var i=0;i<map3List.length;i++){
+            audioList.push(new Audio(map3List[i]))
+        }
+
+        for(var i=0;i<_play.length;i++){
+            _play[i].index=i;
+            _play[i].addEventListener('click',function(){
+                for(var j=0;j<audioList.length;j++){
+                    audioList[j].pause()
+                }
+                var _index=this.index;
+                audioList[_index].play()
+            })
+        }
+        _pause.addEventListener("click",function(){
+            for(var i=0;i<audioList.length;i++){
+                audioList[i].pause()
+            }
+        })
+    </script>
+</body>
+</html>

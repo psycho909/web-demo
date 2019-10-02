@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <audio id="audio1"  src="https://freemusicdownloads.world/wp-content/uploads/2017/05/A-Boogie-Wit-Da-Hoodie-Drowning-WATER-ft-Kodak-Black-Official-Audio.mp3" type="audio/mpeg"></audio>
+    <audio id="audio2"  src="https://freemusicdownloads.world/wp-content/uploads/2017/07/Numb20Official20Video20-20Linkin20Park-kXYiU_JCYtU.mp3" type="audio/mpeg"></audio>
+    <button id="play1">Play1</button>
+    <button id="play2">Play2</button>
+    <button id="pause">All Pause</button>
+    <!-- <button id="pause">Pause</button> -->
+    <script>
+        // http://mabinogi.vod.nexoncdn.co.kr/mp3/20181011_halloween.mp3
+        // https://freemusicdownloads.world/wp-content/uploads/2017/07/Numb20Official20Video20-20Linkin20Park-kXYiU_JCYtU.mp3
+        var _audio1=document.getElementById("audio1");
+        var _audio2=document.getElementById("audio2");
+        var _play1=document.getElementById('play1');
+        var _play2=document.getElementById('play2');
+        var _pause=document.getElementById('pause');
+        
+        _play1.addEventListener('click',function(){
+            _audio1.play()
+            _audio2.pause()
+        })
+        _play2.addEventListener('click',function(){
+            _audio2.play()
+            _audio1.pause()
+        })
+        _pause.addEventListener("click",function(){
+            _audio1.pause()
+            _audio2.pause()
+        })
+        // _audio.addEventListener('durationchange',function(){
+        //     console.log(1)
+        // })
+    </script>
+</body>
+</html>
