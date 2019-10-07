@@ -1,0 +1,59 @@
+.gift-container {
+    /* 變數區 START */
+    $width: var(--width);
+    $height: var(--height);
+    $fontSize: var(--fontSize);
+    //
+    $duration: var(--duration);
+    $rotateY: var(--rotateY);
+    $targetDeg: var(--targetDeg);
+    $currentDeg: var(--currentDeg);
+    $rollBackDeg: var(--rollBackDeg);
+
+    /* 變數區 END*/
+    * {
+        box-sizing: border-box;
+    }
+
+    perspective: 999999px;
+    user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: $width;
+    transform-style: preserve-3d;
+
+    .gift {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $width;
+        height: $height;
+        border: 1px solid #333;
+        background-color: #fff;
+        font-size: $fontSize;
+
+        img {
+            padding: 1px;
+        }
+    }
+
+    &.flat {
+        transform: rotateX($currentDeg);
+
+        &.autoTurn {
+            transition: $duration ease-in-out;
+            transform: rotateX($targetDeg);
+        }
+    }
+
+    &.three-dimension {
+        transform: rotateY($rotateY) rotateX($currentDeg);
+
+        &.autoTurn {
+            transition: $duration cubic-bezier(0.1, 0, 0, $rollBackDeg);
+            transform: rotateY($rotateY) rotateX($targetDeg);
+        }
+    }
+}
