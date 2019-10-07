@@ -44,16 +44,24 @@ var configs = [
     }
 ];
 
-var GiftsHTML=`
+var GiftHTML=`
     <div class="gift-container">
         {{GiftInnerHTML}}
     </div>
 `;
+var GiftStr='';
 var GiftInnerHTML=`
 <div class="gift gift-style" style="transform: rotateX({{rotate}}) translateZ({{translateZ}})">
     {{name}}
 </div>
 `;
+var GiftInnerStr='';
+
+for(var i=0;i<configs.length;i++){
+    for(var j=0;j<configs[i][gifts].length;j++){
+        GiftStr+=GiftInnerHTML.replace("{{rotate}}","")
+    }
+}
 
 function turn(){
     active=true;
@@ -74,12 +82,12 @@ function isFinished(val){
 }
 
 // computed
-function displayType(){
-    return configs.run3D? 'three-dimension' : 'flat';
+function displayType(config){
+    return config.run3D? 'three-dimension' : 'flat';
 }
-function rotate(){
-    return 360/configs.gifts.length;
+function rotate(config){
+    return 360/config.gifts.length;
 }
-function translateZ(){
-    return (configs.height / 2) / Math.tan((rotate / 2 / 180) * Math.PI)
+function translateZ(config){
+    return (config.height / 2) / Math.tan((rotate / 2 / 180) * Math.PI)
 }
