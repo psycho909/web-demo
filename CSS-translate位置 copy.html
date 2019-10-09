@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="新瑪奇Mabinogi 俏皮又可愛!神秘的魔法圖書館~">
+    <meta property="og:title" content="新瑪奇Mabinogi ｜神秘圖書館管理員箱子轉蛋">
+    <meta property="og:description" content="新瑪奇Mabinogi 俏皮又可愛!神秘的魔法圖書館~">
+    <meta property="og:url" content="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/E20190919LibraryBox/index.html" />
+    <meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/E20190919LibraryBox/ogTitle.jpg">
+
+    <title>新瑪奇Mabinogi ｜神秘圖書館管理員箱子轉蛋</title>
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/E20190919LibraryBox/css/normalize.css">
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* min-width: 1200px; */
+        }
+
+        #app {
+            width: 100%;
+            min-width: 1200px;
+            position: relative;
+            background-color: yellow;
+        }
+
+        .box-wrap {
+            width: 100%;
+            min-width: 1200px;
+            height: 1214px;
+            background-repeat: no-repeat;
+            background-position: center top;
+            position: relative;
+        }
+
+        .box-inner {
+            background-color: blue;
+            margin: 0 auto;
+            max-width: 1200px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .box {
+            width: 522px;
+            height: 854px;
+            top: 20px;
+            /* left: 50%; */
+            position: absolute;
+        }
+
+        .box--left {
+            /* transform: translateX(-570px); */
+            left: 5%;
+            background-color: red;
+        }
+
+        .box--right {
+            /* transform: translateX(45px); */
+            right: 5%;
+            background-color: green;
+        }
+
+        @media screen and (max-width:1200px) {
+            .box {
+                width: 522px;
+                height: 854px;
+                top: 20px;
+                position: absolute;
+            }
+            .box--left {
+                left: 5%;
+            }
+            .box--right{
+                right: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box-wrap">
+            <div class="box-inner">
+                <div class="box box--left"></div>
+                <div class="box box--right"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

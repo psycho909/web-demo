@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            width: 100%;
+            padding-top: 189px;
+        }
+        .box{
+            width: 690px;
+            min-height: 203px;
+            background-image: url('images/rbg.png');
+            background-repeat: repeat-y;
+            text-align: center;
+            font-size: 32px;
+            position: relative;
+        }
+        .box:before{
+            content:"";
+            width: 690px;
+            height: 189px;
+            background-image: url('images/rbg-t.png');
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(-100%);
+        }
+        .box:after{
+            content:"";
+            width: 690px;
+            height: 202px;
+            background-image: url('images/rbg-b.png');
+            background-repeat: no-repeat;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: translateY(100%);
+        }
+    </style>
+</head>
+<body>
+    <button id="a">btn</button>
+    <div id="app">
+        <div class="box">
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+        </div>
+    </div>
+
+    
+    <script>
+        // document.getElementById('a').addEventListener('click',function(e){
+        //     console.log(this)
+        // })
+        $('#a').on('click',function(e){
+            console.log($(this))
+        })
+        
+    </script>
+</body>
+</html>

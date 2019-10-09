@@ -61,19 +61,6 @@
           transform: rotateX(var(--targetDeg));
 }
 
-.gift-container.three-dimension {
-  -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--currentDeg));
-          transform: rotateY(var(--rotateY)) rotateX(var(--currentDeg));
-}
-
-.gift-container.three-dimension.autoTurn {
-  -webkit-transition: var(--duration) cubic-bezier(0.1, 0, 0, var(--rollBackDeg));
-  -o-transition: var(--duration) cubic-bezier(0.1, 0, 0, var(--rollBackDeg));
-  transition: var(--duration) cubic-bezier(0.1, 0, 0, var(--rollBackDeg));
-  -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--targetDeg));
-          transform: rotateY(var(--rotateY)) rotateX(var(--targetDeg));
-}
-
 html,
 body {
   margin: 0;

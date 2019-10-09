@@ -41,6 +41,7 @@
 
     &.flat {
         transform: rotateX($currentDeg);
+        // transform: rotateX($targetDeg);
 
         &.autoTurn {
             transition: $duration ease-in-out;
@@ -48,12 +49,12 @@
         }
     }
 
-    &.three-dimension {
-        transform: rotateY($rotateY) rotateX($currentDeg);
+    // &.three-dimension {
+    //     transform: rotateY($rotateY) rotateX($currentDeg);
 
-        &.autoTurn {
-            transition: $duration cubic-bezier(0.1, 0, 0, $rollBackDeg);
-            transform: rotateY($rotateY) rotateX($targetDeg);
-        }
-    }
+    //     &.autoTurn {
+    //         transition: $duration cubic-bezier(0.1, 0, 0, $rollBackDeg);
+    //         transform: rotateY($rotateY) rotateX($targetDeg);
+    //     }
+    // }
 }
