@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,196 +9,218 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<style>
-		*{
+		* {
 			position: relative;
 			padding: 0;
 			margin: 0;
 			box-sizing: border-box;
 		}
-		.box{
-			border:1px solid #000;
+
+		.box {
+			border: 1px solid #000;
 		}
-		.cssbox{
+
+		.cssbox {
 			display: inline-block;
 			position: relative;
 			padding: 20px 60px;
 			background-color: #e45151;
-			color:#fff;
+			color: #fff;
 			text-align: center;
 			text-decoration: none;
 		}
-		.cssbox:before{
-			content:'';
+
+		.cssbox:before {
+			content: '';
 			position: absolute;
 			top: 0;
 			right: 0;
 			border-top: 56px solid #fff;
 			border-left: 40px solid transparent;
 		}
-		.cssbox:after{
-			content:'';
+
+		.cssbox:after {
+			content: '';
 			position: absolute;
 			top: 0;
 			left: 0;
 			border-top: 56px solid #fff;
 			border-right: 40px solid transparent;
 		}
+
 		.counter {
 			display: inline-block;
-			margin:1.5%;
-			font-size:50px;
+			margin: 1.5%;
+			font-size: 50px;
 			background-color: #FF6F6F;
-			width:200px;
+			width: 200px;
 			border-radius: 50%;
-			height:200px;
+			height: 200px;
 			line-height: 200px;
 			vertical-align: middle;
 			text-align: center;
 			color: #fff;
 		}
-		.user-count{
+
+		.user-count {
 			display: inline-block;
 			margin: 1.5%;
 			font-size: 50px;
 			background-color: #2866AB;
-			width:200px;
+			width: 200px;
 			border-radius: 50%;
-			height:200px;
+			height: 200px;
 			line-height: 160px;
 			vertical-align: middle;
 			text-align: center;
 			color: #fff;
 			border: 20px solid green;
 		}
+
 		.circle {
-		    position: relative;
-		    width: 130px;
-		    height: 130px;
-		    text-align: center;
+			position: relative;
+			width: 130px;
+			height: 130px;
+			text-align: center;
 		}
-		.circle .track, .circle .mask, .circle .left, .circle .right {
-		    width: 130px;
-		    height: 130px;
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    border-radius: 50%;
-		    border: 20px #e7e7e7 solid;
-		    box-sizing: border-box;
-		}
-		.circle .mask, .circle .left, .circle .right {
-		    clip: rect(0 65px 130px 0);
-		}
-		.circle .left, .circle .right {
-		    border-color: #6FEC6F;
-		}
+
+		.circle .track,
+		.circle .mask,
+		.circle .left,
 		.circle .right {
-		    opacity: 0;
-		    transform: rotate(180deg);
+			width: 130px;
+			height: 130px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-radius: 50%;
+			border: 20px #e7e7e7 solid;
+			box-sizing: border-box;
 		}
+
+		.circle .mask,
+		.circle .left,
+		.circle .right {
+			clip: rect(0 65px 130px 0);
+		}
+
+		.circle .left,
+		.circle .right {
+			border-color: #6FEC6F;
+		}
+
+		.circle .right {
+			opacity: 0;
+			transform: rotate(180deg);
+		}
+
 		/* 进度显示文字样式 */
 		.circle #hour {
-		    color: #666;
-		    font-size: 48px;
-		    line-height: 130px;
+			color: #666;
+			font-size: 48px;
+			line-height: 130px;
 		}
+
 		.circle .percent {
-		    font-size: 20px;
-		    color: #999;
-		    margin-left: 5px;
+			font-size: 20px;
+			color: #999;
+			margin-left: 5px;
 		}
+
 		.transition-rotate {
-		    transition: transform 1s ease-in-out;
+			transition: transform 1s ease-in-out;
 		}
 	</style>
 </head>
+
 <body>
 	<div class="box">
 		<a class="cssbox">box</a>
 	</div>
 	<div class="circle">
-        <div class="track"></div>
-	    <div class="left transition-rotate"></div>
-	    <div class="right transition-rotate"></div>
-	    <div class="mask"></div>
-	    <span id="hour" data-count="200">0</span>
-    </div>
+		<div class="track"></div>
+		<div class="left transition-rotate"></div>
+		<div class="right transition-rotate"></div>
+		<div class="mask"></div>
+		<span id="hour" data-count="200">0</span>
+	</div>
 	<div class="user-count">0%</div>
 	<div class="counter" data-count="150">0</div>
 	<div class="counter" data-count="85">0</div>
 	<div class="counter" data-count="2200">0</div>
 </body>
 <script>
-$('.circle').each(function(index, el) {
-    var num = $(this).find('span').attr('data-count');
-    var $this=$(this);
-    if (num<=50) {
-    	//$(this).find('.left').css('transform',"rotate(" + 3.6 * num + "deg)");
-    	$this.find('.left').animate({
-    		countNum:num
-    	},{
-    		duration:1000,
-    		step:function(n){
-    			$this.find('.left').css('transform',"rotate(" + 3.6 * n + "deg)");
-    		}
-    	})
-    	$(this).find('.right').css('opacity',0);
-    	$(this).find('.mask').css('opacity',1);
-    } else {
-        //$(this).find('.right').css('opacity',1);
-    	//$(this).find('.mask').css('opacity',0);
-    	//$(this).find('.left').css('transform',"rotate(" + 180 + "deg)");
-    	// setTimeout(function(){
-    	// 	$this.find('.right').css('transform',"rotate(" + 3.6 * num + "deg)");
-    	// },1000)
-    	$this.find('.left').animate({
-    		countNum:num
-    	},{
-    		duration:500,
-    		step:function(n){
-    			$this.find('.left').css('transform',"rotate(" + 180 + "deg)");
-    		},
-    		complete:function(){
-    			$this.find('.right').animate({
-    				countNum:num
-    			},{
-    				duration:1000,
-    				step:function(n){
-    					$this.find('.right').css('transform',"rotate(" + (3.6 * n )+ "deg)");
-    					$this.find('span').text(Math.floor(n));
-    				}
-    			})
-    		}
-    	})
+	$('.circle').each(function (index, el) {
+		var num = $(this).find('span').attr('data-count');
+		var $this = $(this);
+		if (num <= 50) {
+			//$(this).find('.left').css('transform',"rotate(" + 3.6 * num + "deg)");
+			$this.find('.left').animate({
+				countNum: num
+			}, {
+				duration: 1000,
+				step: function (n) {
+					$this.find('.left').css('transform', "rotate(" + 3.6 * n + "deg)");
+				}
+			})
+			$(this).find('.right').css('opacity', 0);
+			$(this).find('.mask').css('opacity', 1);
+		} else {
+			//$(this).find('.right').css('opacity',1);
+			//$(this).find('.mask').css('opacity',0);
+			//$(this).find('.left').css('transform',"rotate(" + 180 + "deg)");
+			// setTimeout(function(){
+			// 	$this.find('.right').css('transform',"rotate(" + 3.6 * num + "deg)");
+			// },1000)
+			$this.find('.left').animate({
+				countNum: num
+			}, {
+				duration: 500,
+				step: function (n) {
+					$this.find('.left').css('transform', "rotate(" + 180 + "deg)");
+				},
+				complete: function () {
+					$this.find('.right').animate({
+						countNum: num
+					}, {
+						duration: 1000,
+						step: function (n) {
+							$this.find('.right').css('transform', "rotate(" + (3.6 * n) + "deg)");
+							$this.find('span').text(Math.floor(n));
+						}
+					})
+				}
+			})
 
-    };
-});
+		};
+	});
 
-var count=11;
-var total=(count/35)*100;
-$('.user-count').animate({
-	user:total
-},{
-	duration:1000,
-	easing:'linear',
-	step:function(n){
-		$(this).text(parseInt(n)+'%');
-	}
-})
-
-$('.counter').each(function(i,v){
-	var $this=$(this);
-	var countTo=$this.attr('data-count');
-
-	$({countNum:$this.text()}).animate({
-		countNum:countTo
-	},{
-		duration:1000,
-		easing:'linear',
-		step:function(n){
-			$this.text(parseInt(n));
+	var count = 11;
+	var total = (count / 35) * 100;
+	$('.user-count').animate({
+		user: total
+	}, {
+		duration: 1000,
+		easing: 'linear',
+		step: function (n) {
+			$(this).text(parseInt(n) + '%');
 		}
 	})
-})
+
+	$('.counter').each(function (i, v) {
+		var $this = $(this);
+		var countTo = $this.attr('data-count');
+
+		$({ countNum: $this.text() }).animate({
+			countNum: countTo
+		}, {
+			duration: 1000,
+			easing: 'linear',
+			step: function (n) {
+				$this.text(parseInt(n));
+			}
+		})
+	})
 </script>
+
 </html>

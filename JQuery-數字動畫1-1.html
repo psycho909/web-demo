@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>《jQuery Animate step》</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style>
+		* {
+			position: relative;
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.counter {
+			display: inline-block;
+			margin: 1.5%;
+			font-size: 50px;
+			background-color: #FF6F6F;
+			width: 200px;
+			border-radius: 50%;
+			height: 200px;
+			line-height: 200px;
+			vertical-align: middle;
+			text-align: center;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="counter" data-count="2200">0</div>
+</body>
+<script>
+	var _count=$('.counter').attr("data-count");
+	$('.counter').animate({
+		num:_count
+	},{
+		duration:1000,
+		step:function(n){
+			$('.counter').html(n)
+		}
+	})
+</script>
+
+</html>

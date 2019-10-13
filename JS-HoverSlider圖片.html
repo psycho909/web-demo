@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hover Carousel Slider | Webdevtrick.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        body {
+            background: #212121;
+        }
+
+        .carousel {
+            display: block;
+            position: absolute;
+            -webkit-transform: translateZ(0);
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 55%;
+            height: 200px;
+            min-width: 550px;
+            margin: auto;
+            font-size: 0;
+            background: #505456;
+            padding: 8px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px #000;
+            height: 200px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .touch .carousel {
+            overflow: auto;
+        }
+
+        .carousel:before,
+        .carousel:after {
+            content: '';
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 50px;
+            font-size: 80px;
+            line-height: 190px;
+            font-family: arial;
+            color: #2ab1ce;
+            font-weight: bold;
+            pointer-events: none;
+            transition: 0.2s ease-out;
+        }
+
+        .carousel:before {
+            content: '\2039';
+            left: 0;
+            text-align: left;
+            text-indent: -20px;
+            box-shadow: 50px 0 20px -20px #292B2C inset;
+        }
+
+        .carousel:after {
+            content: '\203A';
+            right: 0;
+            text-align: right;
+            text-indent: 40px;
+            box-shadow: -50px 0 20px -20px #292B2C inset;
+        }
+
+        .carousel.right:after,
+        .carousel.left:before {
+            opacity: 1;
+        }
+
+        .carousel.right:after {
+            right: 0;
+            text-indent: 60px;
+        }
+
+        .carousel.left:before {
+            left: 0;
+            text-indent: -40px;
+        }
+
+        .carousel>a {
+            position: absolute;
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            color: #CCC;
+            font-size: 1.5em;
+            transition: 0.1s;
+        }
+
+        .carousel>a:hover {
+            color: #FFF;
+        }
+
+        .carousel>a.prev {
+            left: -20px;
+        }
+
+        .carousel>a.next {
+            right: -20px;
+        }
+
+        .carousel>.slide {
+            pointer-events: none;
+            position: absolute;
+            z-index: 4;
+            bottom: 0;
+            left: 0;
+            background: #2ab1ce;
+            height: 4px;
+            border-radius: 10px;
+            opacity: 1;
+            transition: opacity 0.2s, bottom 0.2s;
+        }
+
+        .carousel:hover>.slide {
+            opacity: 1;
+            bottom: -10px;
+        }
+
+        .carousel>.wrap {
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .carousel>.wrap>ul {
+            list-style: none;
+            white-space: nowrap;
+            height: 200px;
+        }
+
+        .carousel>.wrap>ul>li {
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+            margin: 0 0 0 5px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.25s ease-out;
+        }
+
+        .carousel>.wrap>ul>li:first-child {
+            margin: 0;
+        }
+
+        .carousel>.wrap>ul>li>img {
+            display: block;
+            height: 100%;
+            margin: auto;
+            vertical-align: bottom;
+            position: relative;
+            z-index: 1;
+            transition: 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel right">
+        <div class="slide"></div>
+        <div class="wrap">
+            <ul>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/sunset-background.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/coding.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/1st.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/login-page-image.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/1.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/b47sample2.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/image-slider1.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/black-background.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/sunset-background.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/coding.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/1st.jpg" /></li>
+                <li><img src="https://webdevtrick.com/wp-content/uploads/login-page-image.jpg" /></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var bindToClass = 'carousel',
+                containerWidth = 0,
+                scrollWidth = 0,
+                posFromLeft = 0,
+                stripePos = 0,
+                animated = null,
+                $slide, $carousel, el, $el, ratio, scrollPos, nextMore, prevMore, pos, padding;
+            function calc(e) {
+                $el = $(this).find('> .wrap');
+                el = $el[0];
+                $carousel = $el.parent();
+                $slide = $el.prev('.slide');
+
+                nextMore = preMore = false;
+
+                containerWidth = el.clientWidth;
+                scrollWidth = el.scrollWidth;
+                padding = 0.2 * containerWidth;
+                posFromLeft = $el.offset().left;
+                stripePos = e.pageX - padding - posFromLeft;
+                pos = stripePos / (containerWidth - padding * 2);
+                scrollPos = (scrollWidth - containerWidth) * pos;
+
+                if (scrollPos < 0) {
+                    scrollPos = 0;
+                }
+                if (scrollPos > (scrollWidth - containerWidth)) {
+                    scrollPos = scrollWidth - containerWidth;
+                }
+                $el.animate({
+                    scrollLeft: scrollPos
+                }, 200, 'swing')
+
+                if ($slide.length) {
+                    $slide.css({
+                        width: (containerWidth / scrollWidth) * 100 + '%',
+                        left: (scrollPos / scrollWidth) * 100 + '%'
+                    })
+                }
+
+                clearTimeout(animated);
+                animated = setTimeout(function () {
+                    animated = null;
+                }, 200)
+                return this;
+            }
+
+            function move(e) {
+                if (animated) return;
+                ratio = scrollWidth / containerWidth;
+                stripePos = e.pageX - padding - posFromLeft;
+
+                if (stripePos < 0){
+                    stripePos = 0;
+                }
+                pos = stripePos / (containerWidth - padding * 2);
+                scrollPos = (scrollWidth - containerWidth) * pos;
+
+                el.scrollLeft = scrollPos;
+                if ($slide[0] && scrollPos < (scrollWidth - containerWidth)){
+                    $slide[0].style.left = (scrollPos / scrollWidth) * 100 + '%';
+                }
+
+                prevMore = el.scrollLeft > 0;
+                nextMore = el.scrollLeft < (scrollWidth - containerWidth);
+
+                $carousel.toggleClass('left', prevMore);
+                $carousel.toggleClass('right', nextMore);
+            }
+            $.fn.carousel = function (options) {
+                $(document).on('mouseenter.carousel', '.' + bindToClass, calc)
+                $(document).on('mousemove.carousel', '.' + bindToClass, move)
+            }
+
+            $.fn.carousel()
+        })
+    </script>
+</body>
+
+</html>
