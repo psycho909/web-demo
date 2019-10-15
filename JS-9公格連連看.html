@@ -39,11 +39,15 @@
             border-color: red;
             background-color: #eee;
         }
+        .game.active.bingo{
+            background-color: orange;
+        }
     </style>
 </head>
 
 <body>
     <div id="app" class="game-box">
+        <div class="game" data-game="false">0</div>
         <div class="game" data-game="false">1</div>
         <div class="game" data-game="false">2</div>
         <div class="game" data-game="false">3</div>
@@ -52,7 +56,6 @@
         <div class="game" data-game="false">6</div>
         <div class="game" data-game="false">7</div>
         <div class="game" data-game="false">8</div>
-        <div class="game" data-game="false">9</div>
     </div>
     <div id="winner">Winner:0</div>
     <script>
@@ -74,39 +77,50 @@
         }
         
         function checkWinner(){
-            var getSummaryClick=summaryClick();
+            // var getSummaryClick=summaryClick();
             var win=0
+            // Array.prototype.forEach.call(getSummaryClick,function(a,i){
+            //     var result=a.every(function(v,i){
+            //         return v.indexOf('true') > -1
+            //     })
+            //     result?win+=1:0
+            // })
 
-            Array.prototype.forEach.call(getSummaryClick,function(a,i){
-                var result=a.every(function(v,i){
-                    return v.indexOf('true') > -1
+            for(var i=0;i<winList.length;i++){
+                var bingo=winList[i].every(function(v,i){
+                    return _game[v].getAttribute('data-game').indexOf('true') > -1
                 })
-                result?win+=1:0
-            })
+                if(bingo){
+                    winList[i].forEach(function(v,i){
+                        _game[v].className="game active bingo";
+                    })
+                    bingo?win+=1:0
+                }
+            }
             document.getElementById('winner').innerHTML="Winner:"+win
         }
         
-        function findCurrentClick(){
-            var arr=[]
-            Array.prototype.forEach.call(_game,function(v,i){
-                arr.push(v.getAttribute('data-game'))
-            })
-            return arr;
-        }
+        // function findCurrentClick(){
+        //     var arr=[]
+        //     Array.prototype.forEach.call(_game,function(v,i){
+        //         arr.push(v.getAttribute('data-game'))
+        //     })
+        //     return arr;
+        // }
 
-        function summaryClick(){
-            var arr2=[]
-            var getFindCurrentClick=findCurrentClick();
+        // function summaryClick(){
+        //     var arr2=[]
+        //     var getFindCurrentClick=findCurrentClick();
 
-            for(var i=0;i<winList.length;i++){
-                arr2[i]=[];
-                for(var j=0;j<winList[i].length;j++){
-                    arr2[i][j]=getFindCurrentClick[winList[i][j]]
-                }
-            }
+        //     for(var i=0;i<winList.length;i++){
+        //         arr2[i]=[];
+        //         for(var j=0;j<winList[i].length;j++){
+        //             arr2[i][j]=getFindCurrentClick[winList[i][j]]
+        //         }
+        //     }
 
-            return arr2;
-        }
+        //     return arr2;
+        // }
         
     </script>
 </body>
