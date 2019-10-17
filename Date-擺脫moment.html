@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 判斷是否閏年
+        var getDayOfMonth1 = function (year, month) {
+            var isLeapYear = !year % 4 && year % 100 || !year % 400;
+
+            if ([4, 6, 9, 11].includes(month)) {
+                return 30;
+            }
+            if ([1, 3, 5, 7, 8, 10, 12].includes(month)) {
+                return 31;
+            }
+
+            if (month === 2) {
+                return isLeapYear ? 29 : 28
+            }
+        }
+        // 取地當月天數
+        var getDayOfMonth2 = function (year, month) {
+            return new Date(year, month - 1, 0).getDate();
+        }
+        // 格式化時間
+        var formatTime = function () {
+            var now = Date.now();
+            var nums = new Date(now).toLocaleString().match(/\d+/g);
+            return nums.slice(0, 3).join('-') + " " + nums.slice(3).join(":")
+        }
+
+        // 取前X天
+        const getBeforeThreeDays = (year, month, day,len) => {
+            const LEN = len, beforeThreeDays = []
+            for (let i =  1; i <= LEN; i++) {
+                beforeThreeDays.push(
+                    new Date(new Date(year, month - 1, day).getTime() - i * 24 * 3600 * 1000).toLocaleDateString()
+                )
+            }
+            return beforeThreeDays
+        }
+        // 取後X天
+        const getAfterThreeDays = (year, month, day,len) => {
+            const LEN = len, afterThreeDays = []
+            for (let i =  1; i <= LEN; i++) {
+                afterThreeDays.push(
+                    new Date(new Date(year, month - 1, day).getTime() + i * 24 * 3600 * 1000).toLocaleDateString()
+                )
+            }
+            return afterThreeDays
+        }\
+    </script>
+</body>
+
+</html>
