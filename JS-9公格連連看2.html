@@ -41,6 +41,74 @@
         }
         .game.active.bingo{
             background-color: orange;
+            position: relative;
+        }
+
+        .game.active.bingo.line0:nth-of-type(1):before{
+            content:"";
+            width: 50%;
+            height: 1px;
+            background-color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .game.active.bingo.line0:nth-of-type(2):before{
+            content:"";
+            width: 50%;
+            height: 1px;
+            background-color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .game.active.bingo.line0:nth-of-type(3):before{
+            content:"";
+            width: 50%;
+            height: 1px;
+            background-color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .game.active.bingo:nth-of-type(4){
+            
+        }
+        .game.active.bingo:nth-of-type(5){
+            
+        }
+        .game.active.bingo:nth-of-type(6){
+            
+        }
+        .game.active.bingo:nth-of-type(7){
+            
+        }
+        .game.active.bingo:nth-of-type(8){
+            
+        }
+        .game.active.bingo.line0{
+            background-color: pink;
+        }
+        .game.active.bingo.line1{
+            background-color: green;
+        }
+        .game.active.bingo.line2{
+            background-color: rgb(47, 0, 255);
+        }
+        .game.active.bingo.line3{
+            background-color: rgb(0, 217, 255);
+        }
+        .game.active.bingo.line4{
+            background-color: rgb(155, 16, 197);
+        }
+        .game.active.bingo.line5{
+            background-color: rgb(255, 94, 0);
+        }
+        .game.active.bingo.line6{
+            background-color: rgb(252, 2, 198);
+        }
+        .game.active.bingo.line7{
+            background-color: rgb(34, 221, 143);
         }
     </style>
 </head>
@@ -64,12 +132,19 @@
             [0,3,6],[1,4,7],[2,5,8],
             [0,4,8],[2,4,6]
         ];
-
+        var gameList=[];
         var _game=document.getElementsByClassName("game");
 
         for(var i=0;i<_game.length;i++){
             _game[i].index=i;
+            gameList[i]=[];
             _game[i].addEventListener('click',function(){
+                // if(gameList[this.index].indexOf('active') < 0){
+                //     gameList[this.index].push("active")
+                // }
+                // if(gameList[this.index].indexOf('game') < 0){
+                //     gameList[this.index].push("game")
+                // }
                 this.className="game active";
                 this.setAttribute("data-game",'true')
                 checkWinner()
@@ -83,8 +158,19 @@
                     return _game[v].getAttribute('data-game').indexOf('true') > -1
                 })
                 if(bingo){
-                    winList[i].forEach(function(v,i){
-                        _game[v].className="game active bingo";
+                    var line="line"+i;
+                    winList[i].forEach(function(v,n){
+                        _game[v].className='game active ';
+                        if(gameList[v].indexOf("bingo") < 0){
+                            gameList[v].push("bingo");
+                        }
+                        if(gameList[v].indexOf(line) < 0){
+                            gameList[v].push(line);
+                        }
+                        gameList[v].forEach(function(cls,nn){
+                            _game[v].className+=cls+" ";
+                        })
+                        
                     })
                     bingo?win+=1:0
                 }
