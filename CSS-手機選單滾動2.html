@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            overflow: hidden;
+        }
+        #app{
+            width: 100%;
+            height: 2000px;
+            background: yellow;
+        }
+        .nav-wrap{
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .nav-wrap ul{
+            width: 100%;
+            list-style: none;
+            background-color: red;
+            overflow-x:auto;
+            white-space: nowrap;
+            font-size: 0;
+        }
+        .nav-wrap ul li{
+            width: 25%;
+            text-align: center;
+            border-bottom: 1px solid #fff;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="nav-wrap">
+            <ul>
+                <li>標題一</li>
+                <li>標題二</li>
+                <li>標題三</li>
+                <li>標題四</li>
+                <li>標題五</li>
+                <li>標題六</li>
+                <li>標題日</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
