@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+
+<body>
+    <canvas id="radarChart" width="400" height="400"></canvas>
+
+    <script>
+        // Radar Chart
+        var radarCtx = document.getElementById("radarChart");
+        radarCtx.style.backgroundColor = '#1B2F3A';
+        var radarChart = new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ["近攻", "遠攻", "魔攻", "血量", "魔量"],
+                datasets: [
+                    {
+                        // データ 0時から右回りに設定する
+                        data: [100, 25, 50, 81, 56],
+                        // 色設定(冗長だけど念押しで塗りつぶす為に細かく設定してみる。不要なのは消してよい)
+                        // 能力顏色
+                        backgroundColor: "rgba(178,15,7,0.5)",
+                        // 能力border顏色
+                        borderColor: "transparent",
+                        pointBackgroundColor: "transparent",
+                        pointBorderColor: "transparent",
+                        pointHoverBackgroundColor: "transparent",
+                        pointHoverBorderColor: "transparent",
+                        pointStyle: false,
+                    },
+                    {
+                        // データ 0時から右回りに設定する
+                        data: [100, 100, 100, 100, 100],
+                        backgroundColor: "rgba(79,5,1,0.5)",
+                        // 能力border顏色
+                        borderColor: "transparent",
+                        pointBackgroundColor: "transparent",
+                        pointBorderColor: "transparent",
+                        pointHoverBackgroundColor: "transparent",
+                        pointHoverBorderColor: "transparent",
+                        pointStyle: false,
+                    }
+                ],
+            },
+            options: {
+                // レスポンシブモードを切らないと自分でサイズを設定できない
+                responsive: false,
+                // アニメーション無効
+                // animation: false,
+                // 凡例タイトル無効
+                legend: {
+                    display: false,
+                },
+                // ツールチップ無効
+                tooltips: {
+                    enabled: false,
+                },
+                scale: {
+                    // 頂点ラベル設定
+                    pointLabels: {
+                        fontSize: 14,
+                        fontStyle: 'bold',
+                        fontColor: "#E1C9AF"
+                    },
+                    // 刻み設定
+                    ticks: {
+                        // 刻みラベル非表示
+                        display: false,
+                        // 最小値0
+                        beginAtZero: true,
+                        // 最大値100
+                        max: 100,
+                        // 20刻み
+                        stepSize: 50,
+                    },
+                    // 內容裡面的線
+                    angleLines: {
+                        color: '#666',
+                        backgroundColor: 'rgba(255,0,0,1)',
+                        borderColor: 'rgba(0,255,0,1)',
+                        backdropColor: 'rgba(0,255,0,1)'
+                    },
+                    // 外面的線
+                    gridLines: {
+                        color: '#666',
+                        backgroundColor: 'rgba(255,0,0,1)',
+                        borderColor: 'rgba(0,255,0,1)',
+                        backdropColor: 'rgba(0,255,0,1)'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
