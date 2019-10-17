@@ -20,7 +20,11 @@
 
 <body>
     <div id="app">
-        <Child :message="message"></Child>
+        <Child :message="message" :index="v" v-for="v in 4">
+            <template slot:default>
+                {{v}}
+            </template>
+        </Child>
         <input type="text" v-model="message">
         <div class="box"></div>
         <button @click="showMethod">methodsNow</button>
@@ -28,13 +32,14 @@
     </div>
     <template id="child">
         <div>
-            Child Page {{message}}
+            Child Page {{message}} - {{index}}
+            <p><slot></slot></p>
         </div>
     </template>
     <script>
         var Child = {
             template: "#child",
-            props: ["message"]
+            props: ["message","index"]
         }
         new Vue({
             el: '#app',
