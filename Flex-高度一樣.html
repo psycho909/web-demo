@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div {
+            box-sizing: border-box;
+        }
+
+        .children {
+            float: left;
+            width: calc(100%/2);
+            border: 1px solid;
+        }
+
+        .borderRed {
+            border-color: red;
+        }
+
+        .borderGreen {
+            border-color: green;
+        }
+
+        .borderBlue {
+            border-color: blue;
+        }
+
+        #parent {
+            width: 300px;
+            display: flex;
+        }
+        .sameHeight {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div class="children borderGreen sameHeight">正常狀況下，字多的 div，高度會比較高，但這樣版面會很怪，所以必須同一列的 div 都要同高，用計算的方式又很麻煩</div>
+        <div class="children borderBlue sameHeight">這個高度比較低</div>
+    </div>
+</body>
+
+</html>

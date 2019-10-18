@@ -8,89 +8,110 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <style>
-        .canvas-box{
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            ;
+        }
+
+        .canvas-box {
             position: relative;
         }
-        #radarChart{
+
+        #radarChart {
             position: absolute;
             top: 0;
             left: 0;
             z-index: 1;
         }
-        #radarChart2{
+
+        #radarChart2 {
             position: absolute;
             top: 0;
             z-index: 0;
+        }
+
+        .canvas {
+            width: 600px;
+            height: 600px;
         }
     </style>
 </head>
 
 <body>
     <div class="canvas-box">
-        <canvas id="radarChart" width="400" height="400"></canvas>
-        <canvas id="radarChart2" width="400" height="400"></canvas>
+        <canvas id="radarChart" class="canvas"></canvas>
+        <canvas id="radarChart2" class="canvas"></canvas>
     </div>
-    
+
 
     <script>
-        var radarCtx = document.getElementById("radarChart");
-        var radarCtx2 = document.getElementById("radarChart2");
-        radarCtx2.style.backgroundColor = '#1B2F3A';
-        var radarChart2 = new Chart(radarCtx2, {
-            type: 'radar',
-            data: {
-                labels: ["近攻", "遠攻", "魔攻", "血量", "魔量"],
-                datasets: [
-                    {
-                        data: [100, 100, 100, 100, 100],
-                        backgroundColor: "rgba(79,5,1,0.5)",
-                        borderColor: "transparent",
-                        pointBackgroundColor: "transparent",
-                        pointBorderColor: "transparent",
-                        pointHoverBackgroundColor: "transparent",
-                        pointHoverBorderColor: "transparent",
-                        pointStyle: false,
-                    }
-                ],
-            },
-            options: {
-                responsive: false,
-                animation: false,
-                legend: {
-                    display: false,
+        // "近攻", "遠攻", "魔攻", "血量", "魔量"
+        var data=[80, 25, 50, 81, 56];
+
+        radarBg();
+        radar(data)
+        function radarBg() {
+            var radarCtx2 = document.getElementById("radarChart2");
+            radarCtx2.style.backgroundColor = '#1B2F3A';
+            var radarChart2 = new Chart(radarCtx2, {
+                type: 'radar',
+                data: {
+                    labels: ["近攻", "遠攻", "魔攻", "血量", "魔量"],
+                    datasets: [
+                        {
+                            data: [100, 100, 100, 100, 100],
+                            backgroundColor: "rgba(79,5,1,0.5)",
+                            borderColor: "transparent",
+                            pointBackgroundColor: "transparent",
+                            pointBorderColor: "transparent",
+                            pointHoverBackgroundColor: "transparent",
+                            pointHoverBorderColor: "transparent",
+                            pointStyle: false,
+                        }
+                    ],
                 },
-                tooltips: {
-                    enabled: false,
-                },
-                scale: {
-                    pointLabels: {
-                        fontSize: 14,
-                        fontStyle: 'bold',
-                        fontColor: "transparent"
-                    },
-                    ticks: {
+                options: {
+                    responsive: false,
+                    animation: false,
+                    legend: {
                         display: false,
-                        beginAtZero: true,
-                        max: 100,
-                        stepSize: 50,
                     },
-                    angleLines: {
-                        color: 'transparent',
-                        backgroundColor: 'transparent',
-                        borderColor: 'transparent',
-                        backdropColor: 'transparent'
+                    tooltips: {
+                        enabled: false,
                     },
-                    gridLines: {
-                        color: 'transparent',
-                        backgroundColor: 'transparent',
-                        borderColor: 'transparent',
-                        backdropColor: 'transparent'
+                    scale: {
+                        pointLabels: {
+                            fontSize: 14,
+                            fontStyle: 'bold',
+                            fontColor: "transparent"
+                        },
+                        ticks: {
+                            display: false,
+                            beginAtZero: true,
+                            max: 100,
+                            stepSize: 50,
+                        },
+                        angleLines: {
+                            color: 'transparent',
+                            backgroundColor: 'transparent',
+                            borderColor: 'transparent',
+                            backdropColor: 'transparent'
+                        },
+                        gridLines: {
+                            color: 'transparent',
+                            backgroundColor: 'transparent',
+                            borderColor: 'transparent',
+                            backdropColor: 'transparent'
+                        }
                     }
                 }
-            }
-        });
-        
-        var radarChart = new Chart(radarCtx, {
+            });
+        }
+        function radar(data){
+            var radarCtx = document.getElementById("radarChart");
+            var radarChart = new Chart(radarCtx, {
             type: 'radar',
             data: {
                 // 順時針
@@ -98,7 +119,7 @@
                 datasets: [
                     {
                         // 數值
-                        data: [100, 25, 50, 81, 56],
+                        data: data,
                         // 數值顏色
                         backgroundColor: "rgba(178,15,7,0.5)",
                         // 數值邊框顏色
@@ -150,6 +171,9 @@
                 }
             }
         });
+        }
+
+        
     </script>
 </body>
 

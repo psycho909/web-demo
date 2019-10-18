@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #d6d6d6;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid #d6d6d6;
+        }
+
+        td,
+        th {
+            padding: 12px;
+        }
+
+        .rwd {
+            display: none;
+        }
+
+        @media screen and (max-width:750px) {
+            tr:not(.rwd) {
+                display: none;
+            }
+
+            thead tr {
+                display: block !important;
+            }
+
+            thead tr th {
+                display: block;
+                width: 100%;
+            }
+
+            .rwd {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .rwd th {
+                display: block;
+                width: 100%;
+            }
+
+            .rwd td {
+                display: inline-block;
+                width: 50%;
+            }
+
+            .rwd td.w100 {
+                width: 100%;
+            }
+
+            .txt {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .txt p {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">國王的狩獵地</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>副本名稱</th>
+                    <th>入場方式</th>
+                    <th>入場限制</th>
+                </tr>
+                <tr>
+                    <td>國王的狩獵地</td>
+                    <td>副本->特殊副本</td>
+                    <td>
+                        <div class="txt">
+                            <p>入場等級:45-69等/70(含)等以上</p>
+                            <p>傳送費用:10,000金幣</p>
+                            <p>使用時間:每人每日2小時(角色不共用)</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>國王的魔法狩獵地</td>
+                    <td colspan="2">使用【國王的麼法狩獵地入場卷(活動)】可進入，使用時間為2分鐘</td>
+                </tr>
+                <tr class="rwd">
+                    <th>副本名稱</th>
+                    <td>
+                        <div class="txt">國王的狩獵地</div>
+                    </td>
+                    <td>
+                        <div class="txt">國王的魔法狩獵地</div>
+                    </td>
+                </tr>
+                <tr class="rwd">
+                    <th>入場方式</th>
+                    <td>
+                        <div class="txt">副本->特殊副本</div>
+                    </td>
+                    <td>
+                        <div class="txt">使用國王的麼法狩獵地入場卷可進入</div>
+                    </td>
+                </tr>
+                <tr class="rwd">
+                    <th>入場限制</th>
+                    <td class="w100">
+                        <div class="txt">
+                            <p>入場等級:45-69等/70(含)等以上</p>
+                            <p>傳送費用:10,000金幣</p>
+                            <p>使用時間:每人每日2小時(角色不共用)</p>
+                        </div>
+                    </td>
+                    <td class="w100">
+                        <div class="txt">使用【國王的麼法狩獵地入場卷(活動)】可進入，使用時間為2分鐘</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

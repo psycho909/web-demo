@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .game-box {
+            width: 300px;
+            background-color: gray;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 0;
+        }
+
+        .game {
+            flex-basis: 33.333%;
+            width: 33.3333%;
+            text-align: center;
+            line-height: 100px;
+            height: 100px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        .game:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .game.active {
+            border-color: red;
+            background-color: #eee;
+        }
+
+        .game.bingo {
+            background-color: orange;
+            position: relative;
+        }
+
+        p {
+            position: absolute;
+            width: 200px;
+            height: 2px;
+            background-color: #fff;
+        }
+
+        .line1 {
+            top: 48px;
+            left: 50px;
+        }
+
+        .line2 {
+            top: 147px;
+            left: 51px;
+        }
+
+        .line3 {
+            top: 248px;
+            left: 50px;
+        }
+
+        .line4 {
+            top: 148px;
+            left: -50px;
+            transform: rotate(90deg);
+        }
+
+        .line5 {
+            top: 148px;
+            left: 51px;
+            transform: rotate(90deg);
+        }
+
+        .line6 {
+            top: 148px;
+            left: 150px;
+            transform: rotate(90deg);
+        }
+
+        .line7 {
+            top: 148px;
+            left: 53px;
+            transform: rotate(45deg);
+        }
+
+        .line8 {
+            top: 148px;
+            left: 50px;
+            transform: rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="game-box">
+        <div class="game" data-game="false">0</div>
+        <div class="game" data-game="false">1</div>
+        <div class="game" data-game="false">2</div>
+        <div class="game" data-game="false">3</div>
+        <div class="game" data-game="false">4</div>
+        <div class="game" data-game="false">5</div>
+        <div class="game" data-game="false">6</div>
+        <div class="game" data-game="false">7</div>
+        <div class="game" data-game="false">8</div>
+    </div>
+    <script>
+        var winList = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+        var connect = [
+            "<p class='line1'>line1</p>", "<p class='line2'>line2</p>", "<p class='line3'>line3</p>", "<p class='line4'>line4</p>", "<p class='line5'>line5</p>", "<p class='line6'>line6</p>", "<p class='line7'>line7</p>", "<p class='line8'>line8</p>"
+        ];
+        var connectGet = [];
+        var gameList = [];
+        var gameSTR = '<div class="{{class}}" data-game="{{data}}">{{number}}</div>';
+        var gameHTML = "";
+        var _game = document.getElementsByClassName("game");
+        for (var i = 0; i < _game.length; i++) {
+            gameList[i] = ['game'];
+        }
+        for (var i = 0; i < connect.length; i++) {
+            connectGet[i] = '';
+        }
+        $('body').on("click", '.game', function () {
+            var index = $(this).index();
+            if($(this).attr("data-game") == 'false'){
+                if (gameList[index].indexOf('active') < 0) {
+                    gameList[index].push("active")
+                }
+
+                $(this).addClass('active');
+                $(this).attr('data-game', 'true');
+                checkWinner()
+            }
+        })
+
+        function checkWinner() {
+            // var win = 0
+            for (var i = 0; i < 8; i++) {
+                var bingo = winList[i].every(function (v, i) {
+                    return _game[v].getAttribute('data-game').indexOf('true') > -1
+                })
+                if (bingo) {
+                    connectGet[i] = connect[i];
+                    winList[i].forEach(function (v, n) {
+                        if (gameList[v].indexOf("bingo") < 0) {
+                            gameList[v][gameList[v].indexOf("active")] = "bingo"
+                        }
+                    })
+                    gameHTML = '';
+                    for (var j = 0; j < gameList.length; j++) {
+                        var data = "false";
+                        if (gameList[j].indexOf("bingo") > -1 || gameList[j].indexOf("active") > -1) {
+                            data = true;
+                        }
+                        gameHTML += gameSTR.replace("{{class}}", gameList[j].join(" "))
+                            .replace("{{data}}", data)
+                            .replace("{{number}}", j)
+                    }
+                    for (var k = 0; k < connectGet.length; k++) {
+                        gameHTML += connectGet[k]
+                    }
+                    $('#app').html('');
+                    $('#app').html(gameHTML)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
