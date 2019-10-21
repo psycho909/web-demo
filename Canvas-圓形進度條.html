@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+    var canvas=document.getElementById('canvas');
+    canvas.width=400;
+    canvas.height=400;
+    var ctx=canvas.getContext('2d');
+    
+    ctx.beginPath();
+    // deg=(size/100)*360;
+    // 順時針方向 初始為90°
+    // 各減去90°
+    // ctx.arc(100,100,100,0-(Math.PI/180*90),(Math.PI/180*deg)-(Math.PI/180*90));
+    // ctx.stroke()
+    // ctx.closePath();
+
+    function drawCircle(toAngle,currentAngle){
+        var rad = Math.PI*2/100
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.beginPath();
+        // 0° ~ 360°
+        ctx.arc(200,200,100,0,360);
+        ctx.lineCap="round";
+        ctx.lineWidth=20;
+        ctx.strokeStyle="green";
+        ctx.stroke();
+
+        ctx.beginPath();
+        // 0° ~ 360°
+        ctx.arc(200,200,100, -Math.PI/2, -Math.PI/2 +currentAngle*rad);
+        ctx.lineCap="round";
+        ctx.lineWidth=10;
+        ctx.strokeStyle="#fff";
+        ctx.stroke();
+
+        if (currentAngle < toAngle) {
+            currentAngle += 1
+            if (currentAngle > toAngle) currentAngle = toAngle
+            requestAnimationFrame(() => {
+                drawCircle(toAngle,currentAngle)
+                drawCirclePoint(currentAngle);
+            })
+        }
+    }
+    function drawCirclePoint(deg){
+        // 弧度換算
+        var deg=(deg/100)*360;
+        var rad = Math.PI/180*deg+(Math.PI/180*270)
+        // var deger=Math.PI/180*deg;
+        ctx.beginPath();
+        let x=Math.cos(rad) * (100)+200;
+        let y=Math.sin(rad) * (100)+200;
+        ctx.arc(x,y,8,0, 2*Math.PI, false);
+        ctx.fillStyle="#fff";
+        ctx.fill();
+    }
+
+    drawCircle(100,0)
+    
+    </script>
+</body>
+</html>

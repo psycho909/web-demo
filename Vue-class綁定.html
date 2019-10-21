@@ -14,7 +14,7 @@
     <div id="app">
         <div class="input-group" v-for="team in teams">
         <button class="h-button" :class="{[`h-button-${type}`]:true}">
-         <slot></slot>
+        <slot></slot>
     </button>
             <label :for="team.name">{{team.name}} - {{team.number}}</label>
             <input :id="team.name" type="radio" :value="[`laker-${team.name}`]" :name="team.team">
