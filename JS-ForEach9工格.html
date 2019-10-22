@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            width: 300px;
+            height: 300px;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,1fr);
+            grid-gap: 10px;
+        }
+        .box{
+            background-color: yellow;
+            width: 100%;
+            height: 100%;
+        }
+        .box.blue{
+            background-color: blue;
+            color:#fff;
+        }
+        .box.red{
+            background-color: red;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">1</div>
+    </div>
+
+    <script>
+        var boxSTR=`<div class="box {{class}}">{{txt}}</div>`;
+        var boxHTML="";
+        var data=[
+            {id:0,field:1,txt:"ONE"},
+            {id:1,field:2,txt:"TWO"},
+            {id:2,field:3,txt:"THREE"},
+            {id:3,field:4,txt:"FOUR"},
+            {id:4,field:5,txt:"SHARE FB"},
+            {id:5,field:6,txt:"SIX"},
+            {id:6,field:7,txt:"SEVEN"},
+            {id:7,field:8,txt:"EIGHT"},
+            {id:8,field:9,txt:"NIGHT"},
+        ];
+        data.forEach(function(v,i){
+            if(i == 0 || i == 1 || i == 2 || i == 6 || i == 8){
+                boxHTML+=boxSTR.replace("{{class}}","blue")
+                                .replace("{{txt}}",v.txt);
+            }else if(i == 4){
+                boxHTML+=boxSTR.replace("{{class}}","red")
+                                .replace("{{txt}}",v.txt);
+            }else{
+                boxHTML+=boxSTR.replace("{{class}}","")
+                                .replace("{{txt}}",v.txt);
+            }
+        })
+        document.getElementById("app").innerHTML=boxHTML;
+    </script>
+</body>
+</html>
