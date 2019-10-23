@@ -30,18 +30,6 @@
             i++;
             r.innerHTML=i;
         }
-
-        // var throttle=function(fn,interval){
-        //     var lastTime=Date.now()-interval;
-        //     console.log(lastTime)
-        //     return function(){
-        //         console.log("Fn()")
-        //         if((lastTime+interval) < Date.now()){
-        //             lastTime=Date.now();
-        //             fn()
-        //         }
-        //     }
-        // }
         var throttle=function(fn,interval){
             let ready=true;
             return function(){
