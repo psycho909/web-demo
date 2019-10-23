@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .game-box {
+            width: 300px;
+            background-color: gray;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 0;
+        }
+
+        .game {
+            flex-basis: 33.333%;
+            width: 33.3333%;
+            text-align: center;
+            line-height: 100px;
+            height: 100px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        .game:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .game.active {
+            border-color: red;
+            background-color: #eee;
+        }
+
+        .game.bingo {
+            background-color: orange;
+            position: relative;
+        }
+
+        p {
+            position: absolute;
+            width: 200px;
+            height: 2px;
+            background-color: #fff;
+        }
+
+        .line1 {
+            top: 48px;
+            left: 50px;
+        }
+
+        .line2 {
+            top: 147px;
+            left: 51px;
+        }
+
+        .line3 {
+            top: 248px;
+            left: 50px;
+        }
+
+        .line4 {
+            top: 148px;
+            left: -50px;
+            transform: rotate(90deg);
+        }
+
+        .line5 {
+            top: 148px;
+            left: 51px;
+            transform: rotate(90deg);
+        }
+
+        .line6 {
+            top: 148px;
+            left: 150px;
+            transform: rotate(90deg);
+        }
+
+        .line7 {
+            top: 148px;
+            left: 53px;
+            transform: rotate(45deg);
+        }
+
+        .line8 {
+            top: 148px;
+            left: 50px;
+            transform: rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="game-box">
+        <div class="game">0</div>
+        <div class="game">1</div>
+        <div class="game">2</div>
+        <div class="game">3</div>
+        <div class="game">4</div>
+        <div class="game">5</div>
+        <div class="game">6</div>
+        <div class="game">7</div>
+        <div class="game">8</div>
+    </div>
+    <script>
+        var winList = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+        var connect = [
+            "<p class='line1'>line1</p>", "<p class='line2'>line2</p>", "<p class='line3'>line3</p>", "<p class='line4'>line4</p>", "<p class='line5'>line5</p>", "<p class='line6'>line6</p>", "<p class='line7'>line7</p>", "<p class='line8'>line8</p>"
+        ];
+        var connectGet = [];
+        var _game = document.getElementsByClassName("game");
+        $('.game-box').append("<div class='gameline'></div>")
+
+        for (var i = 0; i < connect.length; i++) {
+            connectGet[i] = '';
+        }
+        $('body').on("click", '.game', function () {
+            var index = $(this).index();
+            if(!$(this).hasClass('active') || !$(this).hasClass('bingo')){
+                $(this).addClass('active');
+                checkWinner($('body .game'),$('.gameline'))
+            }
+        })
+
+        function checkWinner(bingoItem,linebox) {
+            var gameHTML='';
+            for (var i = 0; i < 8; i++) {
+                var bingo = winList[i].every(function (v, i) {
+                    return bingoItem.eq(v).attr('class').indexOf('active') > -1 || bingoItem.eq(v).attr('class').indexOf('bingo') > -1
+                })
+                if (bingo) {
+                    connectGet[i] = connect[i];
+                    gameHTML = '';
+                    for (var j = 0; j < winList[i].length; j++) {
+                        bingoItem.eq([winList[i][j]]).addClass('bingo');
+                    }
+                    for (var k = 0; k < connectGet.length; k++) {
+                        gameHTML += connectGet[k]
+                    }
+                    linebox.html('');
+                    linebox.html(gameHTML)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

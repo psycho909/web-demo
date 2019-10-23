@@ -7,7 +7,7 @@
     <title>Document</title>
     <style>
         :root{
-            --column:200px 200px;
+            /* --column:200px 200px; */
         }
         *{
             padding: 0;
@@ -18,7 +18,7 @@
         }
         .container{
             display: grid;
-            grid-template-columns: var(--column);
+            grid-template-columns: var(--column,200px 200px);
             grid-gap: 12px;
         }
         .box {
@@ -32,7 +32,7 @@
 
         @media screen and (max-width:768px){
             :root{
-                --column:400px;
+                --column:1fr;
             }
         }
     </style>
