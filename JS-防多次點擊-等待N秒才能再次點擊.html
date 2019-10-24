@@ -22,23 +22,24 @@
 <body>
     <button id="btn">Click</button>
     <p id="r"></p>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
     <script>
-        function sayHello(){
-            document.getElementById('r').innerHTML+="Hello ! ";
+        function sayHello() {
+            document.getElementById('r').innerHTML += "Hello ! ";
             console.log("hello")
         }
-        var now=new Date().getTime();
-        document.getElementById("btn").addEventListener('click',function(){
-            var curent=new Date().getTime();
-            if((curent - now) < 1000){
-                now=curent;
-                return;
-            }else{
+
+        var isClick = true;
+        document.getElementById("btn").addEventListener('click', function () {
+            if (isClick) {
+                isClick = false;
+                //事件
                 sayHello()
+                //定时器
+                setTimeout(function () {
+                    isClick = true;
+                }, 1000);//一秒内不能重复点击
             }
-            now=curent;
         });
     </script>
 </body>
