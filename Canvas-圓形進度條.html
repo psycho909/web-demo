@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #canvas{
+            background-color: blue;
+        }
+    </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
@@ -31,7 +36,7 @@
         ctx.arc(200,200,100,0,360);
         ctx.lineCap="round";
         ctx.lineWidth=20;
-        ctx.strokeStyle="green";
+        ctx.strokeStyle="rgba(255,255,255,0.4)";
         ctx.stroke();
 
         ctx.beginPath();
@@ -44,11 +49,13 @@
 
         if (currentAngle < toAngle) {
             currentAngle += 1
-            if (currentAngle > toAngle) currentAngle = toAngle
-            requestAnimationFrame(() => {
+            if (currentAngle > toAngle){
+                currentAngle = toAngle
+            }
+            setTimeout(function(){
                 drawCircle(toAngle,currentAngle)
-                drawCirclePoint(currentAngle);
-            })
+                drawCirclePoint(currentAngle)
+            },10);
         }
     }
     function drawCirclePoint(deg){
@@ -57,8 +64,8 @@
         var rad = Math.PI/180*deg+(Math.PI/180*270)
         // var deger=Math.PI/180*deg;
         ctx.beginPath();
-        let x=Math.cos(rad) * (100)+200;
-        let y=Math.sin(rad) * (100)+200;
+        var x=Math.cos(rad) * (100)+200;
+        var y=Math.sin(rad) * (100)+200;
         ctx.arc(x,y,8,0, 2*Math.PI, false);
         ctx.fillStyle="#fff";
         ctx.fill();

@@ -25,28 +25,20 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
     <script>
-        var r=document.getElementById("r");
-
-        function insertHello(){
-            r.textContent += 'hello!';
+        function sayHello(){
+            document.getElementById('r').innerHTML+="Hello ! ";
+            console.log("hello")
         }
-
-        var debounce=function(fn,interval){
-            var timer;
-            return function(){
-                clearTimeout(timer)
-                timer=setTimeout(function(){
-                    fn()
-                },interval)
-            }
-        }
-
-        var hello=debounce(insertHello,1000);
+        var now=new Date().getTime();
         document.getElementById("btn").addEventListener('click',function(){
-            if(3 > 1){
-                hello()
+            var curent=new Date().getTime();
+            if((curent - now) < 1000){
+                now=curent;
+                return;
+            }else{
+                sayHello()
             }
-            console.log(1)
+            now=curent;
         });
     </script>
 </body>

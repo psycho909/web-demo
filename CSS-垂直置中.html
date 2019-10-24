@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box1 {
+            display: block;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+        }
+
+        .box1:before {
+            content: " ";
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+
+        .box1__child {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: #666;
+        }
+
+        .box2{
+            display: block;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        .box2__child{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            height: 100px;
+            background-color: #666;
+        }
+        .box3{
+            display: block;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        .box3__child{
+            width: 100%;
+            background-color: #666;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 方法一 -->
+    <div class="box1">
+        <div class="box1__child">
+            <p>123</p>
+            <p>321</p>
+        </div>
+    </div>
+    <!-- 方法二 -->
+    <div class="box2">
+        <div class="box2__child">
+            <p>123</p>
+            <p>321</p>
+        </div>
+    </div>
+    <!-- 方法三 -->
+    <div class="box3">
+        <div class="box3__child">
+            <p>123</p>
+            <p>321</p>
+        </div>
+    </div>
+</body>
+
+</html>
