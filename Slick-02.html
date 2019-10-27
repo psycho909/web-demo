@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://kenwheeler.github.io/slick/slick/slick.css">
+    <link rel="stylesheet" href="http://kenwheeler.github.io/slick/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://kenwheeler.github.io/slick/slick/slick.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #3498db;
+        }
+
+        #app {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .multiple-items {
+            width: 600px;
+            margin: 0 auto;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        h3 {
+            background: #fff;
+            color: #3498db;
+            font-size: 36px;
+            line-height: 100px;
+            margin: 10px;
+            padding: 2%;
+            position: relative;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <button class="bttn" href="#slick-wrap">BTN</button> -->
+        <div class="btn-box"></div>
+        <div id="slick-wrap" class="multiple-items mfp-hide"></div>
+    </div>
+    <script>
+        // $('body').on('click', '.btn', function () {
+        //     $.magnificPopup.open({
+        //         items: {
+        //             src: '#slick-wrap', 
+        //             type: 'inline'
+        //         }
+        //     });
+        // })
+
+        var arr = [1, 2, 3, 4, 5, 6];
+        var slickHTML = "";
+        var slickSTR = "<h3>{{slick}}</h3>";
+        var btnHTML = "";
+        var btnSTR = '<button class="btn" href="#slick-wrap">{{btn}}</button>';
+        var opneSlick = true;
+        arr.forEach(function (v, i) {
+            slickHTML += slickSTR.replace("{{slick}}", v);
+            btnHTML += btnSTR.replace('{{btn}}', v);
+        })
+        $('.btn-box').append(btnHTML)
+        $('.multiple-items').append(slickHTML)
+
+        // $('.multiple-items').slick({
+        //     infinite: true,
+        //     slidesToShow: 1
+        // });
+        $('body .btn').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            focus: '#name',
+            callbacks: {
+                beforeOpen: function () {
+                    console.log("beforeOpen")
+                },
+                elementParse: function () {
+                    if (opneSlick) {
+                        $('.multiple-items').slick({
+                            infinite: true,
+                            slidesToShow: 1
+                        });
+                        opneSlick = false
+                    }
+                    console.log("elementParse")
+                },
+                open: function () {
+                    $('.multiple-items').on('setPosition', function (event, slick) {
+                        $(this).css({
+                            "visibility":"initial",
+                            "opacity":1
+                        })
+                    });
+                    console.log("open")
+                }
+            }
+        })
+        // $('.multiple-items').slick({
+        //                     infinite: true,
+        //                     slidesToShow: 1
+        //                 });
+        $('body').on('click', '.btn', function () {
+            var index = $(this).index()
+            $('.multiple-items').slick("slickGoTo", parseInt(index))
+        })
+
+    </script>
+</body>
+
+</html>
