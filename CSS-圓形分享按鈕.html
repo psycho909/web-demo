@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animated Circular Share | Webdevtrick.com</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(#eee, #ccc);
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 140px;
+            height: 140px;
+            margin-top: -70px;
+            margin-left: -70px;
+        }
+
+        .circle,
+        .circle button {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 300;
+        }
+
+        .circle button {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            background: #428bca;
+            border-radius: 50%;
+            border: 0;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+            transition: all .1s;
+        }
+
+        .circle button:hover {
+            background: #3071a9;
+        }
+
+        .circle button:focus {
+            outline: none;
+        }
+
+        .circle ul {
+            position: absolute;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            top: -20px;
+            right: -20px;
+            bottom: -20px;
+            left: -20px;
+        }
+
+        .circle li {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            margin: 0 50%;
+            -webkit-transform: rotate(-360deg);
+            transition: all 0.8s ease-in-out;
+        }
+
+        .circle li input {
+            display: none;
+        }
+
+        .circle li input+label {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            width: 0;
+            height: 0;
+            line-height: 1px;
+            margin-left: 0;
+            background: #fff;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: none;
+            transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+        }
+
+        .circle li input+label:hover {
+            background: #f3f3f3;
+        }
+
+        .circle.open li input+label {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            margin-left: -40px;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .fab {
+            font-size: 50px;
+            line-height: 80px;
+        }
+
+        .fa-facebook {
+            color: #3a559f;
+        }
+
+        .fa-dribbble {
+            color: #e74d89;
+        }
+
+        .fa-pinterest {
+            color: #bd081c;
+        }
+
+        .fa-stumbleupon-circle {
+            color: #eb4823;
+        }
+
+        .fa-reddit {
+            color: #ff4500;
+        }
+
+        .fa-telegram {
+            color: #2a9fd1;
+        }
+
+        .fa-google-plus {
+            color: #d74c3e;
+        }
+
+        .fa-twitter {
+            color: #53a8e6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='circle'>
+        <ul>
+            <li>
+                <input id='1' type='checkbox'>
+                <label for='1'><a href="#"><i class="fab fa-facebook"></i></a></label>
+            </li>
+            <li>
+                <input id='2' type='checkbox'>
+                <label for='2'><a href="#"><i class="fab fa-dribbble"></i></a></label>
+            </li>
+            <li>
+                <input id='3' type='checkbox'>
+                <label for='3'><a href="#"><i class="fab fa-pinterest"></i></a></label>
+            </li>
+            <li>
+                <input id='4' type='checkbox'>
+                <label for='4'><a href="#"><i class="fab fa-stumbleupon-circle"></i></a></label>
+            </li>
+            <li>
+                <input id='5' type='checkbox'>
+                <label for='5'><a href="#"><i class="fab fa-reddit"></i></i></a></label>
+            </li>
+            <li>
+                <input id='6' type='checkbox'>
+                <label for='6'><a href="#"><i class="fab fa-telegram"></i></a></label>
+            </li>
+            <li>
+                <input id='7' type='checkbox'>
+                <label for='7'><a href="#"><i class="fab fa-google-plus"></i></a></label>
+            </li>
+            <li>
+                <input id='8' type='checkbox'>
+                <label for='8'><a href="#"><i class="fab fa-twitter"></i></a></label>
+            </li>
+        </ul>
+        <button>Share</button>
+    </div>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        var angleStart = 0;
+        // rotate animation
+        function rotate(li, d) {
+            $(li).animate({ d: d }, {
+                step: function (now) {
+                    $(li)
+                        .css({ transform: 'rotate(' + now + 'deg)' })
+                        .find('label')
+                        .css({ transform: 'rotate(' + (-now) + 'deg)' });
+                }, duration: 0
+            });
+        }
+        // show / hide
+        function toggleOptions(s) {
+            $(s).toggleClass('open');
+            var li = $(s).find('li');
+            var deg = $(s).hasClass('half') ? 180 / (li.length - 1) : 360 / li.length;
+            for (var i = 0; i < li.length; i++) {
+                var d = $(s).hasClass('half') ? (i * deg) - 90 : i * deg;
+                $(s).hasClass('open') ? rotate(li[i], d) : rotate(li[i], angleStart);
+            }
+        }
+
+        $('.circle button').click(function (e) {
+            toggleOptions($(this).parent());
+        });
+    </script>
+</body>
+
+</html>
