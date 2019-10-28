@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 600px;
+            height: 600px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        .circle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 140px;
+            height: 140px;
+            margin-top: -70px;
+            margin-left: -70px;
+            background: #428bca;
+            border-radius: 50%;
+        }
+
+        .ul {
+            position: absolute;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            top: -20px;
+            right: -20px;
+            bottom: -20px;
+            left: -20px;
+        }
+
+        .ul li {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            margin: 0 50%;
+            transition: all 0.8s ease-in-out;
+            transform: rotate(0deg);
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            margin-left: -40px;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            background: #fff;
+            border-radius: 50%;
+            text-align: center;
+            transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="circle">
+            <ul class="ul"></ul>
+        </div>
+    </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script>
+        // var box=document.querySelectorAll('.box');
+        // var boxArr=Array.apply(null,box);
+        var angle=360;
+        var fragment=document.createDocumentFragment();
+        for(var i=0;i<8;i++){
+            var li=document.createElement("li");
+            var div=document.createElement("div");
+            div.className="box";
+            li.style.transform="rotate("+i*45+"deg)";
+            li.appendChild(div)
+            fragment.appendChild(li);
+        }
+        document.querySelector(".ul").appendChild(fragment);
+
+        // var angleStart = -360;
+        // $({ d: angleStart }).animate({ d: 45 }, {
+        //     step: function (now) {
+        //         console.log(now)
+        //         $('.box')
+        //             .css({ transform: 'rotate(' + now + 'deg)' })
+        //             .find('label')
+        //             .css({ transform: 'rotate(' + (-now) + 'deg)' });
+        //     }, duration: 0
+        // });
+    </script>
+</body>
+
+</html>

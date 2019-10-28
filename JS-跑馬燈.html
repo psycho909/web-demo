@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            width: 400px;
+            height: 500px;
+            border:1px solid #000;
+            overflow: hidden;
+            margin: 100px auto;
+            position: relative;
+        }
+        .box1{
+            background-color: rgb(211, 211, 211);
+            padding: 12px;
+            position: absolute;
+            top: 191px;
+            left: 0;
+        }
+        .box2{
+            background-color: rgb(255, 240, 190);
+            padding: 12px;
+            position: absolute;
+            top: 500px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="box1" class="box1">
+            1.	Banner輪播區<br>
+            (1)	預留五個Banner版位，且需同天M後台，讓營運能隨時或是預約進行更換<br>
+            (2)	點擊Banner即可前往事先設定好的活動連結<br>
+            (3)	輪播切換至下一張的速度約為三秒。<br>
+            (4)	左右方有按鈕可以讓玩家選擇左右切換Banner，滑鼠在按鈕上時會有特效。<br>
+            2.	最新消息區<br>
+            (1)	分類為[綜合]、[活動]、[系統]、，三個類別可隨意切換並顯示該類別公告。<br>
+            (2)	公告區需顯示: 公告類別頁籤、公告新增日期以及公告標題，點擊後前往該公告的公告公版。<br>
+            (3)	公告頁面下方顯示當前所在公告頁數，且可透過選擇頁數或上下頁來進行切換。<br>
+            (4)	PC版本會有10則公告，手機版則顯示5則公告。<br>
+        </div>
+        <div id="box2" class="box2">
+            1.	Banner輪播區<br>
+            (1)	預留五個Banner版位，且需同天M後台，讓營運能隨時或是預約進行更換<br>
+            (2)	點擊Banner即可前往事先設定好的活動連結<br>
+            (3)	輪播切換至下一張的速度約為三秒。<br>
+            (4)	左右方有按鈕可以讓玩家選擇左右切換Banner，滑鼠在按鈕上時會有特效。<br>
+            2.	最新消息區<br>
+            (1)	分類為[綜合]、[活動]、[系統]、，三個類別可隨意切換並顯示該類別公告。<br>
+            (2)	公告區需顯示: 公告類別頁籤、公告新增日期以及公告標題，點擊後前往該公告的公告公版。<br>
+            (3)	公告頁面下方顯示當前所在公告頁數，且可透過選擇頁數或上下頁來進行切換。<br>
+            (4)	PC版本會有10則公告，手機版則顯示5則公告。<br>
+        </div>
+    </div>
+
+    <script>
+        var box1=document.getElementById("box1");
+        var box2=document.getElementById("box2");
+
+        
+        
+
+        function runText(){
+            var box1_height=box1.clientHeight;
+            var box1_top=window.getComputedStyle(box1,null).top;
+            box1_top=box1_top.replace("px",'');
+            box1.style.top=box1_top+'px';
+
+            var box2_top=window.getComputedStyle(box2,null).top;
+            var box2_height=box2.clientHeight;
+            box2_top=box2_top.replace("px",'');
+            box2.style.top=box2_top+'px';
+            
+            var t1=parseInt(box1.style.top);
+            var t2=parseInt(box2.style.top);
+
+            var t1_run=true;
+            var t2_run=false;
+            setInterval(function(){
+                if(parseInt(box2.style.top) <= -(box2_height-150) ){
+                    t1_run=true;
+                }
+
+                if(t1_run){
+                    if(parseInt(box1.style.top) <= -(box1_height)){
+                        box1.style.top=500+'px';
+                        t1=500;
+                        t1_run=false;
+                    }
+                    t1--;
+                    box1.style.top=t1+'px';
+                }
+
+
+                if(parseInt(box1.style.top) <= -(box1_height-150) ){
+                    t2_run=true;
+                }
+
+                if(t2_run){
+                    if(parseInt(box2.style.top) <= -(box2_height)){
+                        box2.style.top=500+'px';
+                        t2=500;
+                        t2_run=false;
+                    }
+                    t2--;
+                    box2.style.top=t2+'px';
+                }
+                
+            }, 10);
+        }
+        runText()
+    </script>
+</body>
+</html>
