@@ -1,0 +1,158 @@
+@media screen and (max-width:1200px) and (min-width:751px){
+
+}
+@media screen and (max-width:750px){
+    .part1{
+        &-table{
+            &__head{
+                display: block;
+                width: 100%;
+                tr{
+                    display: flex;
+                    width: 100%;
+                    th{
+                        width: 100%;
+                    }
+                    th:last-child{
+                        display: none;
+                    }
+                }
+            }
+            &__body{
+                display: block;
+                width: 100%;
+                tr{
+                    display: flex;
+                }
+                tr:nth-child(even){
+                    td{
+                        background-color: #53402F;
+                    }
+                }
+                td:not(.part1-table__body-rwd){
+                    display: none;
+                }
+                td:first-child{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                &-rwd{
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    &__wish{
+                        width: 50%;
+                        border-right: 1px solid #BA8349;
+                        border-bottom: 1px solid #BA8349;
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    &__get{
+                        width: 50%;
+                        border-bottom: 1px solid #BA8349;
+                        text-align: center;
+                    }
+                    &__gift{
+                        width: 100%;
+                        text-align: center;
+                        color:#FCE5BC;
+                    }
+                }
+            }
+        }
+    }
+    .part2{
+        &-table{
+            &__head{
+
+            }
+            &__body{
+                tr:not(.part2-table__body-rwd){
+                    display: none;
+                }
+                &-rwd{
+                    display: block;
+                    margin-bottom: 12px;
+                    td{
+                        display: block;
+                    }
+                    &__title{
+                        background-color: #241405 !important;
+                        color:#DAAF2D !important;
+                    }
+                    &__info{
+                        text-align: left !important;
+                    }
+                }
+            }
+        }
+    }
+    .part3{
+        &-table-a{
+            &__head{
+
+            }
+            &__body{
+                &-rwd{
+
+                }
+            }
+        }
+        &-table-b{
+            &__head{
+
+            }
+            &__body{
+                &-rwd{
+                    display: flex;
+                    width: 100%;
+                    th{
+                        background-color: #241405;
+                        color:#DAAF2D;
+                        flex: 1;
+                    }
+                    &__content{
+                        td{
+                            flex: 1;
+                            text-align: center !important;
+                        }
+                    }
+                }
+                &-title{
+                    display: flex;
+                    width: 100%;
+                    th{
+                        display: none;
+                    }
+                    th:nth-of-type(1){
+                        display: inline-block;
+                        flex: 1;
+                    }
+                    th:nth-of-type(2){
+                        display: inline-block;
+                        flex: 1;
+                    }
+                }
+                &-content{
+                    display: flex;
+                    width: 100%;
+                    td{
+                        display: none;
+                    }
+                    td:nth-of-type(1){
+                        display: inline-block;
+                        flex: 1;
+                    }
+                    td:nth-of-type(2){
+                        display: inline-block;
+                        flex: 1;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

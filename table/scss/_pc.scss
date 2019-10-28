@@ -1,0 +1,159 @@
+.part1{
+    &-table{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        th,td{
+            border:1px solid #BA8349;
+        }
+        &__head{
+            th{
+                background-color: #241405;
+                color:#DAAF2D;
+            }
+        }
+        &__body{
+            td{
+                background-color: #3E2C1E;
+                color:#fff;
+                span{
+                    display: block;
+                }
+            }
+            td:first-child{
+                text-align: center;
+            }
+            &-rwd{
+                display: none;
+            }
+        }
+    }
+}
+.part2{
+    &-table{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        th,td{
+            border:1px solid #BA8349;
+        }
+        &__head{
+            tr{
+                th{
+                    background-color: #241405;
+                    color:#DAAF2D;
+                }
+            }
+        }
+        &__body{
+            &-rwd{
+                display: none;
+            }
+            
+            td{
+                background-color: #3E2C1E;
+                color:#fff;
+                text-align: center;
+            }
+            &-title{
+                td{
+                    background-color: #241405;
+                    color:#DAAF2D;
+                }
+            }
+            td.part2-table__body-info{
+                text-align: left;
+            }
+            &--red{
+                color:red;
+            }
+        }
+    }
+}
+.part3{
+    &-table-a{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        th,td{
+            border:1px solid #BA8349;
+        }
+        &__body{
+            td{
+                background-color: #3E2C1E;
+                color:#fff;
+                text-align: center;
+            }
+            td.part3-table-a__body--left{
+                text-align: left;
+            }
+            &-rwd{
+                display: none;
+            }
+            &-title{
+                background-color: #241405;
+                color:#DAAF2D;
+            }
+            
+        }
+    }
+    &-table-b{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        th,td{
+            border:1px solid #BA8349;
+        }
+        &__head{
+            tr{
+                th{
+                    background-color: #241405;
+                    color:#DAAF2D;
+                }
+            }
+        }
+        &__body{
+            td{
+                background-color: #3E2C1E;
+                color:#fff;
+                text-align: center;
+            }
+            td:nth-of-type(2){
+                text-align: left;
+            }
+            &-rwd{
+                display: none;
+            }
+            &-title{
+                background-color: #241405;
+                color:#DAAF2D;
+            }
+            
+        }
+    }
+    &-seedlist{
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        list-style: none;
+        li{
+            background-color: #3E2C1E;
+            color:#fff;
+            text-align: center;
+            border: 1px solid #DAAF2D;
+            border-bottom:none;
+        }
+        li:first-child{
+            background-color: #241405;
+            color:#E0AE31;
+        }
+        li:last-child{
+            border-bottom: 1px solid #DAAF2D;
+        }
+        
+    }
+}
