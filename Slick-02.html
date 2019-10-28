@@ -31,8 +31,8 @@
         .multiple-items {
             width: 600px;
             margin: 0 auto;
-            visibility: hidden;
-            opacity: 0;
+            /* visibility: hidden;
+            opacity: 0; */
             transition: opacity .3s;
         }
 
@@ -105,12 +105,13 @@
                     console.log("elementParse")
                 },
                 open: function () {
-                    $('.multiple-items').on('setPosition', function (event, slick) {
-                        $(this).css({
-                            "visibility":"initial",
-                            "opacity":1
-                        })
-                    });
+                    // $('.multiple-items').on('setPosition', function (event, slick) {
+                    //     $(this).css({
+                    //         "visibility":"initial",
+                    //         "opacity":1
+                    //     })
+                    // });
+                    $('.multiple-items').slick('setPosition');
                     console.log("open")
                 }
             }
