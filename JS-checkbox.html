@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+</head>
+<body>
+    <div class="checkbox-box">
+        <label for="fruit">
+            <input class="checkbox" type="checkbox" name="fruit" id="fruit" value="fruit">
+            水果
+        </label>
+        <label for="beef">
+            <input class="checkbox" type="checkbox" name="beef" id="beef" value="beef">
+            牛肉
+        </label>
+        <label for="park">
+            <input class="checkbox" type="checkbox" name="park" id="park" value="park">
+            豬肉
+        </label>
+    </div>
+    <div class="radio-box">
+        <label for="baseball">
+            <input class="radio" type="radio" name="sport" id="baseball" value="baseball">
+            棒球
+        </label>
+        <label for="basketball">
+            <input class="radio" type="radio" name="sport" id="basketball"" value="basketball">
+            籃球
+        </label>
+        <label for="football">
+            <input class="radio" type="radio" name="sport" id="football" value="football">
+            足球
+        </label>
+    </div>
+    <script>
+        $('.checkbox').on("change",function(){
+            if($(this).val() == 'beef'){
+                console.log("牛肉")
+            }
+        })
+        $('.radio').on("change",function(){
+            console.log($(this).val())
+        })
+    </script>
+</body>
+</html>
