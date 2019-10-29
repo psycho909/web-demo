@@ -48,9 +48,8 @@
 
     <script>
         // "近攻", "遠攻", "魔攻", "血量", "魔量"
-        var data=[80, 25, 50, 81, 56];
+        var data = [80, 25, 50, 81, 56];
 
-        radarBg();
         radar(data)
         function radarBg() {
             var radarCtx2 = document.getElementById("radarChart2");
@@ -109,71 +108,72 @@
                 }
             });
         }
-        function radar(data){
+        function radar(data) {
+            radarBg();
             var radarCtx = document.getElementById("radarChart");
             var radarChart = new Chart(radarCtx, {
-            type: 'radar',
-            data: {
-                // 順時針
-                labels: ["近攻", "遠攻", "魔攻", "血量", "魔量"],
-                datasets: [
-                    {
-                        // 數值
-                        data: data,
-                        // 數值顏色
-                        backgroundColor: "rgba(178,15,7,0.5)",
-                        // 數值邊框顏色
-                        borderColor: "transparent",
-                        // 數值點點...以下省略
-                        pointBackgroundColor: "transparent",
-                        pointBorderColor: "transparent",
-                        pointHoverBackgroundColor: "transparent",
-                        pointHoverBorderColor: "transparent",
-                        pointStyle: false,
-                    }
-                ],
-            },
-            options: {
-                responsive: false,
-                legend: {
-                    display: false,
+                type: 'radar',
+                data: {
+                    // 順時針
+                    labels: ["近攻", "遠攻", "魔攻", "血量", "魔量"],
+                    datasets: [
+                        {
+                            // 數值
+                            data: data,
+                            // 數值顏色
+                            backgroundColor: "rgba(178,15,7,0.5)",
+                            // 數值邊框顏色
+                            borderColor: "transparent",
+                            // 數值點點...以下省略
+                            pointBackgroundColor: "transparent",
+                            pointBorderColor: "transparent",
+                            pointHoverBackgroundColor: "transparent",
+                            pointHoverBorderColor: "transparent",
+                            pointStyle: false,
+                        }
+                    ],
                 },
-                tooltips: {
-                    enabled: false,
-                },
-                scale: {
-                    // 字體大小顏色粗細
-                    pointLabels: {
-                        fontSize: 14,
-                        fontStyle: 'normal',
-                        fontColor: "#E1C9AF"
-                    },
-                    ticks: {
+                options: {
+                    responsive: false,
+                    legend: {
                         display: false,
-                        beginAtZero: true,
-                        max: 100,
-                        stepSize: 50,
                     },
-                    // 線條顏色
-                    angleLines: {
-                        color: '#666',
-                        backgroundColor: 'rgba(255,0,0,1)',
-                        borderColor: 'rgba(0,255,0,1)',
-                        backdropColor: 'rgba(0,255,0,1)'
+                    tooltips: {
+                        enabled: false,
                     },
-                    // 線條顏色
-                    gridLines: {
-                        color: '#666',
-                        backgroundColor: 'rgba(255,0,0,1)',
-                        borderColor: 'rgba(0,255,0,1)',
-                        backdropColor: 'rgba(0,255,0,1)'
+                    scale: {
+                        // 字體大小顏色粗細
+                        pointLabels: {
+                            fontSize: 14,
+                            fontStyle: 'normal',
+                            fontColor: "#E1C9AF"
+                        },
+                        ticks: {
+                            display: false,
+                            beginAtZero: true,
+                            max: 100,
+                            stepSize: 50,
+                        },
+                        // 線條顏色
+                        angleLines: {
+                            color: '#666',
+                            backgroundColor: 'rgba(255,0,0,1)',
+                            borderColor: 'rgba(0,255,0,1)',
+                            backdropColor: 'rgba(0,255,0,1)'
+                        },
+                        // 線條顏色
+                        gridLines: {
+                            color: '#666',
+                            backgroundColor: 'rgba(255,0,0,1)',
+                            borderColor: 'rgba(0,255,0,1)',
+                            backdropColor: 'rgba(0,255,0,1)'
+                        }
                     }
                 }
-            }
-        });
+            });
         }
 
-        
+
     </script>
 </body>
 
