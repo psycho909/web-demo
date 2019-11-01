@@ -12,12 +12,15 @@
             margin: 0;
             box-sizing: border-box;
         }
-
-        .box1 {
-            display: block;
+        .box{
             width: 300px;
             height: 300px;
             border: 1px solid #000;
+            margin-bottom: 6px;
+            position: relative;
+        }
+        .box1 {
+            display: block;
         }
 
         .box1:before {
@@ -35,9 +38,6 @@
 
         .box2{
             display: block;
-            width: 300px;
-            height: 300px;
-            border: 1px solid #000;
             position: relative;
         }
         .box2__child{
@@ -52,10 +52,6 @@
         }
         .box3{
             display: block;
-            width: 300px;
-            height: 300px;
-            border: 1px solid #000;
-            position: relative;
         }
         .box3__child{
             width: 100%;
@@ -64,29 +60,47 @@
             top: 50%;
             transform: translateY(-50%);
         }
+        .box4{
+            display: table;
+        }
+        .box4 > div{
+            display: table-cell;
+            vertical-align: middle;
+            background-color: #000;
+            color:#fff;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <!-- 方法一 -->
-    <div class="box1">
+    <div class="box box1">
         <div class="box1__child">
             <p>123</p>
             <p>321</p>
         </div>
     </div>
     <!-- 方法二 -->
-    <div class="box2">
+    <div class="box box2">
         <div class="box2__child">
             <p>123</p>
             <p>321</p>
         </div>
     </div>
     <!-- 方法三 -->
-    <div class="box3">
+    <div class="box box3">
         <div class="box3__child">
             <p>123</p>
             <p>321</p>
+        </div>
+    </div>
+    <!-- 方法四 -->
+    <!-- 多行文字 -->
+    <div class="box box4">
+        <div>
+            <p>PPPPPPP</p>
+            <p>WWWWWWW</p>
         </div>
     </div>
 </body>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        Before: <span id="before">...</span>
+    </div>
+    <div>
+        First: <span id="first">...</span>
+    </div>
+    <div>
+        Second: <span id="second">...</span>
+    </div>
+    <div>
+        Third: <span id="third">...</span>
+    </div>
+    <div>
+        After: <span id="after">...</span>
+    </div>
+
+    <script>
+        const timeout = (milliseconds, id) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    document.getElementById(id).innerHTML = "Done!";
+                    resolve();
+                }, milliseconds);
+            });
+        };
+
+        (async function () {
+            document.getElementById("before").innerHTML = "Done!";
+
+            for (const item of ["first", "second", "third"]) {
+                await timeout(1000, item);
+            }
+
+            document.getElementById("after").innerHTML = "Done!";
+        })();
+    </script>
+</body>
+
+</html>

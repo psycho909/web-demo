@@ -20,7 +20,7 @@
     <div id="app">
         <input type="text" v-model="txt">
         <h3>{{txt}}</h3>
-        <Child title="Child" :users="users" @hook:mounted="listenChild"></Child>
+        <Child title="Child" :users="users" @hook:mounted="listenChild" @settxt="gettxt"></Child>
     </div>
     <template id="Child">
         <div>
@@ -28,22 +28,38 @@
             <ul class="ul-box" ref="ulbox" v-if="users">
                 <li class="ul-box__li" v-for="(user,index) in users" :key="index">name:{{user.name}}</li>
             </ul>
+            <input type="text" v-model="tt">
+            <h3>{{tt}}</h3>
+            <button @click="emmitTxt">Emit Button</button>
         </div>
     </template>
     <script>
         var Child={
             template:"#Child",
             props:["users","title"],
+            data(){
+                return {
+                    tt:""
+                }
+            },
             created(){
                 console.log("created:Child組件創建")
+                console.log("===========================")
             },
             mounted(){
                 console.log("mounted:Child")
+                console.log("===========================")
             },
             beforeUpdate(){
                 var temp=this.users.length;
                 this.$refs.ulbox.style.width=800+'px';
                 console.log("beforeUpdate:Child")
+                console.log("===========================")
+            },
+            methods:{
+                emmitTxt(){
+                    this.$emit("settxt","sadsadasd");
+                }
             }
         }
         new Vue({
@@ -60,9 +76,11 @@
                     this.users=res
                 })
                 console.log("created:App")
+                console.log("===========================")
             },
             mounted(){
                 console.log("mounted:App")
+                console.log("===========================")
             },
             data:{
                 txt:"",
@@ -70,7 +88,11 @@
             },
             methods: {
                 listenChild(){
-                    console.log("listenChild mounted")
+                    console.log("@hook:mounted : listenChild mounted")
+                    console.log("===========================")
+                },
+                gettxt(data){
+                    console.log(data)
                 }
             },
         })

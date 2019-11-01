@@ -11,25 +11,49 @@
             padding: 0;
             margin: 0;
         }
-        .box{
-            border:1px solid #000;
+
+        .box {
+            border: 1px solid #000;
             width: 100%;
             height: 100vh;
         }
-        #part1{
+
+        #part1 {
             background-color: #eee;
         }
-        #part2{
+
+        #part2 {
             background-color: red;
         }
-        #part3{
+
+        #part3 {
             background-color: blue;
+        }
+
+        #title {
+            color: white;
+            background-color: lightblue;
+            font-family: Arial;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: monospace;
+            padding: 1rem;
+        }
+        #box{
+            padding: 1rem;
+            background-color: red;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
+        <div id="title">
+            <div id="box">
+                Title
+            </div>
+        </div>
+        <ul id="styles-list"></ul>
         <nav>
             <a href="#part1">GO to Part1</a>
             <a href="#part2">GO to Part2</a>
@@ -45,6 +69,25 @@
 
         </div>
     </div>
+
+    <script>
+        window.onload=()=>{
+            const title=document.getElementById("title");
+            const box=document.getElementById("box");
+            const stylesList=document.getElementById('styles-list');
+            const titleStyles=window.getComputedStyle(title);
+            title.addEventListener('mouseout',function(){
+                console.log("mouseout")
+            })
+            // Object.keys(titleStyles).forEach(key=>{
+            //     const li=document.createElement("li");
+            //     if(isNaN(+key)){
+            //         li.innerHTML=`${key}: ${titleStyles[key]}`;
+            //         stylesList.appendChild(li)
+            //     }
+            // })
+        }
+    </script>
 </body>
 
 </html>

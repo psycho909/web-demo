@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <span>result: </span><span id="posts">...</span>
+        </div>
+        <div>
+            <span>comments: </span><span id="comments">...</span>
+        </div>
+        <div>
+            <span>likes: </span><span id="likes">...</span>
+        </div>
+        <div>
+            <span>everything: </span><span id="everything">...</span>
+        </div>
+    </div>
+    <script>
+        const getPosts = (userId) => new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementById("posts").innerHTML = "Done!";
+                resolve([{ id: 1 }]);
+            }, 1500);
+        });
+        const getComments = (postId) => new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementById("comments").innerHTML = "Done!";
+                resolve([{}, {}]);
+            }, 1500);
+        });
+        const getLikes = (postId) => new Promise((resolve) => {
+            setTimeout(() => {
+                document.getElementById("likes").innerHTML = "Done!";
+                resolve(5);
+            }, 1500);
+        });
+
+        const getLatestPostActivity = (userId) => {
+            return new Promise((resolve, reject) => {
+                getPosts(userId).then((posts) => {
+                    const latestPost = posts[0];
+                    return getComments(latestPost.id).then((comments) => {
+                        return { comments: comments, latestPost: latestPost };
+                    });
+                }).then(({ latestPost, comments }) => {
+                    return getLikes(latestPost.id).then((likes) => {
+                        resolve({ comments: comments, latestPost: latestPost, likes: likes });
+                    });
+                });
+            });
+        };
+
+        getLatestPostActivity(1).then((result) => {
+            document.getElementById("everything").innerHTML = "Done!";
+            console.log(result);
+        });
+    </script>
+</body>
+
+</html>
