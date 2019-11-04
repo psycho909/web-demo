@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 99999px;
+            background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
+        }
+
+        #r {
+            position: fixed;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        input 節流:
+        <input type="text" id="inputc">
+    </div>
+    <div>
+        <button id="btn">按鈕</button>
+    </div>
+    <p id="r">0</p>
+
+    <script>
+        var inputc=document.getElementById("inputc");
+        var btn=document.getElementById("btn");
+
+        function ajax(content) {
+            console.log('ajax request ' + content+" : "+new Date())
+        }
+
+        var throttle=function(fn,interval){
+            let ready=true;
+            return function(args){
+                if(!ready){
+                    return;
+                }
+                var that=this;
+                var _args=args;
+                ready=false;
+                fn.call(that,_args);
+                setTimeout(function(){
+                    ready=true;
+                },interval)
+            }
+        }
+        var throttleAjax=throttle(ajax,1000);
+
+        inputc.addEventListener('keyup',function(e){
+            throttleAjax(e.target.value)
+        });
+        btn.addEventListener('click',function(e){
+            throttleAjax(1)
+        });
+    </script>
+</body>
+
+</html>

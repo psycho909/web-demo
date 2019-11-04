@@ -20,34 +20,37 @@
 </head>
 
 <body>
-    <button id="btn">Click</button>
+    <div>
+        input 防抖:
+        <input type="text" id="inputb">
+    </div>
     <p id="r"></p>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
     <script>
-        var delta = 1000;
-
-        function log(e) {
-            return function(e){
-                console.log(e)
-            }
+        var delay = 1000;
+        var inputb=document.getElementById('inputb');
+        function ajax(content) {
+            console.log('ajax request ' + content)
         }
 
-        function debounce(fn, delta) {
+        function debounce(fn, delay) {
             var timeoutID = null;
 
-            return function () {
+            return function (args) {
+                var that=this;
+                var _args = args;
                 clearTimeout(timeoutID);
-
-                var args = arguments;
                 timeoutID = setTimeout(function () {
-                    fn.apply(null, args);
-                }, delta);
+                    fn.call(that, _args);
+                }, delay);
             };
         }
 
-        var debouncedLog = debounce(log(1), delta);
-        window.onkeydown = debouncedLog;
+        var debouncedLog = debounce(ajax, delay);
+        inputb.addEventListener('keyup',function(e){
+            debouncedLog(e.target.value)
+        })
     </script>
 </body>
 
