@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        #link {
+            color: #E45635;
+            display: block;
+            font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        #link:hover {
+            color: #CCCCCC
+        }
+
+        #link,
+        #link:hover {
+            -webkit-transition: color 0.5s ease-out;
+            -moz-transition: color 0.5s ease-out;
+            -ms-transition: color 0.5s ease-out;
+            -o-transition: color 0.5s ease-out;
+            transition: color 0.5s ease-out;
+        }
+
+        /** BEGIN CSS **/
+        body {
+            background: #333333;
+        }
+        .loading-container,
+        .loading {
+            height: 100px;
+            position: relative;
+            width: 100px;
+            border-radius: 100%;
+        }
+
+
+        .loading-container {
+            margin: 40px auto
+        }
+
+        .loading {
+            border: 2px solid transparent;
+            border-color: #fff #fff transparent #FFF;
+            -moz-transform-origin: 50% 50%;
+            -o-transform-origin: 50% 50%;
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            transition: opacity .3s;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="loading-container">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <div class="loading"></div>
+    </div>
+
+    <script>
+        var _load=false;
+        var t=null;
+        $("#start").on('click',function(){
+            var num=0;
+            t=setInterval(function(){
+                num++;
+                if(num >= 360){
+                    num=0;
+                }
+                $('.loading').css('transform','rotate('+num+'deg)');
+                $('.loading').css('-ms-transform','rotate('+num+'deg)');
+                $('.loading').css('-webkit-transform','rotate('+num+'deg)');
+                $('.loading').css('-o-transform','rotate('+num+'deg)');
+                $('.loading').css('-moz-transform','rotate('+num+'deg)');
+            },10)
+        })
+        $('#stop').on('click',function(){
+            clearInterval(t)
+        })
+    </script>
+</body>
+
+</html>
