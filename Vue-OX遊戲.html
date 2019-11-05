@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .cell {
+            width: 64px;
+            height: 64px;
+            border: 2px solid rgb(75, 75, 75);
+            font-size: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tictactoe-board {
+            display: flex;
+            flex-wrap: wrap;
+            width: 204px;
+            height: 204px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <tictactoe></tictactoe>
+    </div>
+
+    <template id="tictactoe">
+        <div class="tictactoe-board">
+            <div v-for="(n,i) in 3">
+                <div v-for="(n,j) in 3">
+                    <cell @click="performMove(i,j)" :value="board.cells[i][j]"></cell>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="cell">
+        <div class="cell" @click="$emit('click')">
+            <span v-if="value !== ''">{{value}}</span>
+        </div>
+    </template>
+    <script>
+        class Board{
+            constructor(){
+                this.cells=[
+                    ['', '', ''],
+                    ['', '', ''],
+                    ['', '', '']
+                ]
+            }
+
+            doMove(x,y,player){
+                if(this.cells[x][y] !== ''){
+                    return false;
+                }
+
+                this.cells[x][y]=player;
+                return true;
+            }
+
+            getScore(){
+                let score=0;
+                if(this.playerHas3InARow('x')){
+                    score-=100;
+                }
+                if(this.playerHas3InARow('o')){
+                    score+=100;
+                }
+                return score;
+            }
+
+            playerHas3InARow(player){
+                
+                return false;
+            }
+        }
+        Vue.component('tictactoe',{
+            template: "#tictactoe",
+            data() {
+                return {
+                    board: new Board()
+                }
+            },
+            methods:{
+                performMove(x,y){
+                    console.log(x,y)
+                    if(!this.board.doMove(x,y,'x')){
+                        return;
+                    }
+
+                    this.$forceUpdate()
+                }
+            }
+        })
+        Vue.component('cell',{
+            template: "#cell",
+            props: {
+                value: String
+            }
+        })
+        new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>
