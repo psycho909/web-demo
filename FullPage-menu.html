@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FullPage demo0</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css">
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .section {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section__inner {
+            width: 100%;
+            height: 100%;
+        }
+
+        .page1__slick {
+            height: 100%;
+        }
+
+        .page1__slick div {
+            height: 100%;
+        }
+
+        .page1--bg {
+            background-position: center center;
+            background-size: cover;
+            user-select: none;
+        }
+
+        #menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 40px;
+            z-index: 70;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu li {
+            display: inline-block;
+            margin: 10px;
+            color: #000;
+            background: #fff;
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        #menu li.active {
+            background: #666;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        #menu li a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        #menu li a,
+        #menu li.active a {
+            padding: 9px 18px;
+            display: block;
+        }
+
+        #menu li.active a {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="menu">
+        <li data-menuanchor="page1" class="active"><a href="#page1">First slide</a></li>
+        <li data-menuanchor="page2"><a href="#page2">Second slide</a></li>
+        <li data-menuanchor="page3"><a href="#page3">Third slide</a></li>
+    </ul>
+    <div class="wrapper" id="fullpage">
+
+        <div id="section1" class="section" data-anchor="page1">
+            <div class="section__inner">
+                <h1>SECTION 1</h1>
+            </div>
+        </div>
+        <div id="section2" class="section" data-anchor="page2">
+            <div class="section__inner">
+                <h1>SECTION 2</h1>
+                <img src="./images/puzzle_02.jpg" alt="">
+            </div>
+        </div>
+        <div id="section3" class="section" data-anchor="page3">
+            <div class="section__inner">
+                <h1>SECTION 3</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#fullpage").fullpage({
+                fitToSectionDelay: 600,
+                autoScrolling: true,
+                anchors:["page1","page2","page3"],
+                menu: '#menu'
+            })
+        })
+    </script>
+</body>
+
+</html>

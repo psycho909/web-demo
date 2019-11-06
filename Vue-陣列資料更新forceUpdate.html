@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div id="change-by-array-index" v-cloak="v-cloak">
+            <h3>利用索引值變更 index 0 的值</h3>
+            <input type="text" v-model="animal" />
+            <button v-on:click="changeAnimal">Change Animal</button>
+            <ul>
+                <li v-for="item in animals" v-bind:key="item">{{ item }}</li>
+            </ul>
+            <button v-on:click="$forceUpdate()">forceUpdate</button>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                animal: "",
+                animals: ['<YOURAnimal>', 'cat', 'penguin', 'bird', 'rabbit']
+            },
+            methods: {
+                changeAnimal() {
+                    // 當利用陣列索引直接設置值時
+                    this.animals[0] = this.animal
+                    this.$forceUpdate();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

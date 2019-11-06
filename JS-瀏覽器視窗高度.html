@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            height: 20000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            bodyoffsetHeight(Body總高度):
+            <div id="bodyoffsetheight"></div>
+        </div>
+        <div>
+            bodyClient(Body展示高度):
+            <div id="bodyclient"></div>
+        </div>
+        <div>
+            outerHeight:
+            <div id="outerheight"></div>
+        </div>
+        <div>
+            innerHeight:
+            <div id="innerheight"></div>
+        </div>
+        <div>
+            screen.height:
+            <div id="screenheight"></div>
+        </div>
+        <div>
+            screen.availHeight:
+            <div id="screenavailheight"></div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById("outerheight").innerHTML=window.outerHeight;
+            document.getElementById("innerheight").innerHTML=window.innerHeight;
+            document.getElementById('screenheight').innerHTML=window.screen.height;
+            document.getElementById('screenavailheight').innerHTML=window.screen.availHeight;
+            document.getElementById('bodyoffsetheight').innerHTML=document.body.offsetHeight;
+            document.getElementById('bodyclient').innerHTML=document.body.clientHeight;
+        }
+    </script>
+</body>
+
+</html>

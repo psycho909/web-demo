@@ -39,6 +39,10 @@
                     <cell @click="performMove(i,j)" :value="board.cells[i][j]"></cell>
                 </div>
             </div>
+
+            <div class="game-over-text" v-if="gameOver">
+                {{ gameOverText }}
+            </div>
         </div>
     </template>
 
@@ -78,25 +82,119 @@
             }
 
             playerHas3InARow(player){
-                
+                // Horizontal rows
+                for(let i=0;i<3;i++){
+                    if(this.cells[0][i] === player && this.cells[1][i] === player && this.cells[2][i] === player){
+                        return true;
+                    }
+                }
+                // Vertical rows
+                for(let i=0;i<3;i++){
+                    if(this.cells[i][0] === player && this.cells[i][1] === player && this.cells[i][2] === player){
+                        return true;
+                    }
+                }
+                // Diagonals
+                if(this.cells[0][0] === player && this.cells[1][1] === player && this.cells[2][2] === player){
+                    return true;
+                }
+                if(this.cells[2][0] === player && this.cells[1][1] === player && this.cells[0][2] === player){
+                    return true;
+                }
                 return false;
+            }
+
+            isGameOver(){
+                return this.getPossibleMoves().length  === 0 || this.playerHas3InARow('x') || this.playerHas3InARow('o')
+            }
+
+            clone(){
+                let clone=new Board();
+
+                for(let i=0;i<3;i++){
+                    for(let j=0;j<3;j++){
+                        clone.cells[i][j]=this.cells[i][j]
+                    }
+                }
+                return clone;
+            }
+
+            getPossibleMoves(){
+                let moves=[];
+                for(let i=0;i<3;i++){
+                    for(let j=0;j<3;j++){
+                        if(this.cells[i][j] === ''){
+                            moves.push({x:i,y:j});
+                        }
+                    }
+                }
+                return moves;
             }
         }
         Vue.component('tictactoe',{
             template: "#tictactoe",
             data() {
                 return {
+                    gameOver:false,
+                    gameOverText:"",
                     board: new Board()
                 }
             },
             methods:{
                 performMove(x,y){
-                    console.log(x,y)
+                    if(this.gameOver){
+                        return;
+                    }
                     if(!this.board.doMove(x,y,'x')){
                         return;
                     }
 
-                    this.$forceUpdate()
+                    this.$forceUpdate();
+
+                    if(this.board.isGameOver()){
+                        this.gameOver=true;
+                        this.gameOverText=this.board.playerHas3InARow('x')?'You win!':"Draw";
+                        return;
+                    }
+
+                    let aiMove=this.minimax(this.board.clone(),'o');
+                    this.board.doMove(aiMove.move.x,aiMove.move.y,'o')
+
+                    if(this.board.isGameOver()){
+                        this.gameOver=true;
+                        this.gameOverText=this.board.playerHas3InARow('o')?'You lose!':"Draw";
+                    }
+                    this.$forceUpdate();
+                },
+                minimax(board,player,depth=1){
+                    if(board.isGameOver()){
+                        return {
+                            score:board.getScore() + depth,
+                            move:null
+                        }
+                    }
+
+                    let bestScore=player === 'o' ? -10000:10000;
+                    let bestMove=null;
+
+                    let moves=board.getPossibleMoves();
+                    for(let i=0;i<moves.length;i++){
+                        let move=moves[i];
+                        let newBoard=board.clone();
+                        newBoard.doMove(move.x,move.y,player);
+
+                        const score=this.minimax(newBoard,player === 'x' ? 'o':'x',depth+1).score;
+
+                        if((player === 'o' && score > bestScore) || (player === 'x' && score < bestScore)){
+                            bestScore=score;
+                            bestMove=move;
+                        }
+                    }
+
+                    return {
+                        score:bestScore,
+                        move:bestMove
+                    }
                 }
             }
         })
