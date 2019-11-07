@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .c-avatar {
+            display: inline-block;
+            margin-right: 2rem;
+            width: calc(var(--size, 1) * 30px);
+            height: calc(var(--size, 1) * 30px);
+            -o-object-fit: cover;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* General Styles */
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: 'Roboto', 'Arial';
+            background: #f1f1f1;
+        }
+
+        .wrapper {
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" class="c-avatar" style="--size: 1">
+        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="" class="c-avatar" style="--size: 2">
+        <img src="https://images.unsplash.com/photo-1506085452766-c330853bea50?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=3e378252a934e660f231666b51bd269a"
+            alt="" class="c-avatar" style="--size: 3">
+        <img src="https://randomuser.me/api/portraits/men/59.jpg" alt="" class="c-avatar" style="--size: 4">
+    </div>
+</body>
+
+</html>
