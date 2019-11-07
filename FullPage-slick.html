@@ -18,40 +18,96 @@
             padding: 0;
             margin: 0;
         }
-        html,body{
+
+        html,
+        body {
             width: 100%;
             height: 100%;
         }
+
         .wrapper {
             width: 100%;
             height: 100%;
             margin: 0 auto;
         }
-        .section{
+
+        .section {
             width: 100%;
             height: 100%;
         }
-        .section__inner{
+
+        .section__inner {
             width: 100%;
             height: 100%;
         }
-        .page1__slick{
+
+        .page1__slick {
             height: 100%;
         }
-        .page1__slick div{
+
+        .page1__slick div {
             height: 100%;
         }
-        .page1--bg{
+
+        .page1--bg {
             background-position: center center;
             background-size: cover;
             user-select: none;
+        }
+
+        #menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 40px;
+            z-index: 70;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu li {
+            display: inline-block;
+            margin: 10px;
+            color: #000;
+            background: #fff;
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        #menu li.active {
+            background: #666;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        #menu li a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        #menu li a,
+        #menu li.active a {
+            padding: 9px 18px;
+            display: block;
+        }
+
+        #menu li.active a {
+            color: #fff;
         }
     </style>
 </head>
 
 <body>
+    <ul id="menu">
+        <li class="active"><a href="#page1">First slide</a></li>
+        <li><a href="#page2">Second slide</a></li>
+        <li><a href="#page3">Third slide</a></li>
+    </ul>
     <div class="wrapper" id="fullpage">
-        <div id="section1" class="section">
+
+        <div id="section1" class="section" data-anchor="page1">
             <div class="section__inner">
                 <div class="page1__slick">
                     <div class="page1--bg" style="background-image: url('http://placehold.it/1200x400?text=1')"></div>
@@ -60,10 +116,15 @@
                 </div>
             </div>
         </div>
-        <div id="section2" class="section">
+        <div id="section2" class="section" data-anchor="page2">
             <div class="section__inner">
                 <h1>SECTION 2</h1>
                 <img src="./images/puzzle_02.jpg" alt="">
+            </div>
+        </div>
+        <div id="section3" class="section" data-anchor="page3">
+            <div class="section__inner">
+                <h1>SECTION 3</h1>
             </div>
         </div>
     </div>
@@ -73,14 +134,16 @@
             $("#fullpage").fullpage({
                 fitToSectionDelay: 600,
                 autoScrolling: true,
+                anchors:["page1","page2","page3"],
+                menu: '#menu'
             })
             $(".page1__slick").slick({
                 fade: true,
                 cssEase: 'linear',
-                arrows:false,
-                autoplay:true,
-                autoplaySpeed:5000,
-                pauseOnHover:false,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                pauseOnHover: false,
             });
         })
     </script>

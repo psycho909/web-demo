@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .c-form {
+            max-width: 400px;
+            margin: 1rem auto 3rem;
+            background: #fff;
+            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.12);
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .c-form__item:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+        .c-form__item label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .c-form__item input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100%;
+            border: 1px solid lightgrey;
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        .c-button {
+            display: inline-block;
+            min-width: 100px;
+            width: var(--width, initial);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 0;
+            font-size: 16px;
+            color: #fff;
+            background: #5E35B1;
+            padding: 12px 32px;
+            border-radius: 5px;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .c-button+.c-button {
+            margin-left: 8px;
+        }
+
+        .c-button--ghost {
+            background: transparent;
+            color: var(--color, #000);
+            border-color: currentColor;
+            transition: 0.3s ease-out;
+        }
+
+        .c-button--ghost:hover {
+            background: var(--color);
+            border-color: var(--color);
+            color: #fff;
+        }
+
+        /* General Styles */
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: 'Roboto', 'Arial';
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="c-form">
+        <p class="c-form__item">
+            <label for="input-1">Label1 </label>
+            <input id="input-1" type="text">
+        </p>
+        <p class="c-form__item">
+            <label for="input-2">Label 2</label>
+            <input id="input-2" type="text">
+        </p>
+        <p class="c-form__item">
+            <button class="c-button" style="">Submit</button>
+        </p>
+    </form>
+
+    <form class="c-form">
+        <p class="c-form__item">
+            <label for="input-1">Label1 </label>
+            <input id="input-1" type="text">
+        </p>
+        <p class="c-form__item">
+            <label for="input-2">Label 2</label>
+            <input id="input-2" type="text">
+        </p>
+        <p class="c-form__item">
+            <button class="c-button" style="--width: 100%;">Submit</button>
+        </p>
+    </form>
+
+    <form class="c-form">
+        <p class="c-form__item">
+            <label for="input-1">Label1 </label>
+            <input id="input-1" type="text">
+        </p>
+        <p class="c-form__item">
+            <label for="input-2">Label 2</label>
+            <input id="input-2" type="text">
+        </p>
+        <p class="c-form__item">
+            <button class="c-button c-button--ghost" style="--color: #5E35B1;">Save Edits</button>
+            <button class="c-button c-button--ghost" style="--color: #ec2828;">Delete</button>
+        </p>
+    </form>
+</body>
+
+</html>

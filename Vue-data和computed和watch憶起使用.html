@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="group">
+            <label for="nickname">
+                name:
+                <input id="nickname" type="text" v-model="nickname">
+            </label>
+            <label for="team">
+                team:
+                <input id="team" type="text" v-model="team">
+            </label>
+            <button @click="addDatas">按鈕</button>
+        </div>
+        <div>
+            <h3>{{dataSize}}</h3>
+            <template v-for="(item,index) in datas">
+                <p v-if="item.team" :key="index">{{item.name}}</p>
+                <p v-else>暫無數據</p>
+            </template>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                nickname:"",
+                team:"",
+                datas:[
+                    {name:"LBJ",team:"湖人"},
+                    {name:"Kawhi",team:"快艇"},
+                    {name:"KD",team:"籃網"},
+                    {name:"Lin",team:""},
+                ]
+            },
+            methods:{
+                addDatas(){
+                    this.datas.push({
+                        name:this.nickname,
+                        team:this.team
+                    })
+                },
+                getData(){
+                    console.log(this.datas.length)
+                }
+            },
+            watch:{
+                datas:{
+                    handler(newVal,oldVal){
+                        this.getData()
+                    },
+                    immediate:true
+                }
+            },
+            computed:{
+                dataSize(){
+                    return this.datas.length;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
