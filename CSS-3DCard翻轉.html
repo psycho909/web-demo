@@ -30,7 +30,7 @@
                 height: 150px;
             }
             .card-container.active .card{
-                transform: rotateY(180deg);
+                transform: rotateY(-180deg);
             }
             .card{
                 width: 150px;
@@ -38,6 +38,7 @@
                 position: relative;
                 transition: all .7s;
                 transform-style: preserve-3d;
+                transform-origin: center center;
             }
 
             .front,.back{
@@ -52,11 +53,14 @@
                 align-items: center;
             }
             .front{
-                background-color: yellow;
+                opacity: 1;
             }
             .back{
                 transform: rotateY(180deg);
-                background-color: blue;
+            }
+            .card-container.active .card .front{
+                opacity: 0;
+                transition-delay: .2s;
             }
         </style>
     </head>
