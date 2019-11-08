@@ -58,7 +58,25 @@
             for (var j = 0; j < 10; j++) {
                 arr[i][j] = { x: 0, y: 0 }
             }
-        }
+        };
+        var p1=new Promise(function(resolve,reject){
+            resolve(1)
+        });
+        var p2=new Promise(function(resolve,reject){
+            setTimeout(() => {
+                resolve(1)
+            }, 100);
+        });
+        p1.then(function(value){
+            console.log("p1 promise 1")
+        })
+        console.log(1)
+        p2.then(function(value){
+            console.log("p2 promise 1")
+        })
+        setTimeout(function(){
+            console.log("setTimeout")
+        },0)
     </script>
 </body>
 
