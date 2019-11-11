@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 600px;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .max-content {
+            width: max-content;
+        }
+
+        .min-content {
+            width: min-content;
+        }
+        .inner-box{
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="max-content">
+            <div class="inner-box"></div>
+            <p>display:inline-block具有收縮特性，但是，當（例如這裡的）描述文字超過一行顯示的時候，其會這行，不會讓自身的寬度超過父級容器的可用空間的，但是，width:max-content就不是醬樣子哦咯！表現得好像設置了white-space:nowrap一樣，科科！
+            </p>
+        </div>
+    </div>
+    <div class="box">
+        <div class="min-content">
+            <div class="inner-box"></div>
+            <p>display:inline-block具有收缩特性，但这里宽度随文字。而width:min-content随图片。</p>
+        </div>
+    </div>
+</body>
+
+</html>
