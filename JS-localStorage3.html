@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // IE 9 可以用
+        // 每2分鐘重新設置並獲取
+        var _timer=parseInt(window.localStorage.getItem("timer"));
+        
+
+        var now=new Date();
+        var y=now.getFullYear();
+        var m=now.getMonth()+1;
+        var d=now.getDate();
+        var h=now.getHours();
+        var min=now.getMinutes();
+
+        var _now=new Date(y,m,d,h,min).getTime();
+        var nextDay=_now+(60*1000*2);
+        if(_timer){
+            if(_now >= _timer){
+                window.localStorage.setItem("timer",nextDay);
+                var _timer=parseInt(window.localStorage.getItem("timer"));
+                console.log("設置成功",new Date(_timer))
+            }else{
+                var _timer=parseInt(window.localStorage.getItem("timer"));
+                console.log("獲取成功",new Date(_timer))
+            }
+            
+        }else{
+            window.localStorage.setItem("timer",nextDay);
+            var _timer=parseInt(window.localStorage.getItem("timer"));
+            console.log("設置成功",new Date(_timer))
+        }
+    </script>
+</body>
+</html>
