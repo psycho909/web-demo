@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #000;
+        }
+        .falling-leaves {
+            z-index: 3;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 100%;
+            max-width: 1220px;
+            max-height: 652px;
+            -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+            background-size: cover;
+            overflow: hidden;
+        }
+        .leaf-scene{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            transform-style: preserve-3d;
+        }
+        .leaf-scene div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: url('/images/flower.svg') no-repeat;
+            background-size: 100%;
+            transform-style: preserve-3d;
+            backface-visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="falling-leaves"></div>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
