@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 100%;
+            min-width: 1200px;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <img src="images/cover.jpeg" alt="" usemap="#planetmap">
+        <map name="planetmap" id="planetmap">
+            <area shape="polygon" coords="663,492,668,515,721,578,1469,331,1896,140,1876,33,1446,235,660,492" href="/example/html/sun.html" target="_blank" alt="Sun" />
+
+        </map>
+    </div>
+
+    <script>
+        document.getElementById('app').addEventListener('click',function(e){
+            console.log(e.offsetX,e.offsetY)
+        })
+    </script>
+</body>
+
+</html>
