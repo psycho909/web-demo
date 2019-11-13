@@ -20,8 +20,8 @@
 
 <body>
     <div id="app">
-        <Child :message="message" :index="v" v-for="v in 4">
-            <template slot:default>
+        <Child :message="message" :index="v" v-for="(v,index) in 4" :key="index">
+            <template #default>
                 {{v}}
             </template>
         </Child>

@@ -22,8 +22,8 @@
     </div>
     <template id="fruitlist">
         <ul>
-            <li v-for="fruit in fruits" :key="fruit.id">
-                <slot :fruit="fruit" :slice="slice"></slot>
+            <li v-for="f in fruits" :key="f.id">
+                <slot :fruit="f" :slice="slices"></slot>
             </li>
         </ul>
     </template>
@@ -38,7 +38,7 @@
                 }
             },
             methods: {
-                slice(id) {
+                slices(id) {
                     console.log(id)
                 }
             }

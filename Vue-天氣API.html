@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>天氣預報</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
@@ -16,26 +16,33 @@
             font-family: '微軟正黑體';
             box-sizing: border-box;
         }
-        html,body{
-            height: 100%;
-        }
         #app {
             width: 100%;
-            height: 100%;
-            background-color: #eee;
-            background-image: linear-gradient(135deg, #ABDCFF 10%, #0396FF 100%);
+            background-color: #F4F7F6;
+            padding-top: 32px;
         }
-
+        .isloading{
+            width: 100%;
+            height: 100vh;
+            text-align: center;
+            font-size: 32px;
+        }
         .weathers-top {
             text-align: center;
             max-width: 1000px;
             width: 100%;
             margin: 0 auto;
-            padding: 24px;
         }
 
         .weathers-title {
-            margin-bottom: 12px;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            padding: 24px 0;
+            border-top:1px solid #E6EAEA;
+            border-bottom:1px solid #E6EAEA;
+            background-color: #fff;
+            margin-bottom: 36px;
         }
 
         #select-location {
@@ -54,25 +61,25 @@
 
         .weathers__card-box {
             width: 33.3333%;
-            padding: 6px;
+            padding: 8px;
         }
 
         .weathers__card {
-            box-shadow:0px 2px 6px rgba(123, 123, 123, 0.3);
+            box-shadow: 0px 1px 3px rgba(123, 123, 123, 0.2);
+            background-color: #fff;
+            border-radius: 8px;
         }
 
         .weathers__card-title {
-            background-color: #F5F5F5;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px;
+            padding: 16px 12px;
             border-bottom: 1px solid rgb(230, 230, 230);
         }
 
         .weathers__card-body {
-            background-color: #fff;
-            padding: 12px;
+            padding: 16px 12px;
         }
 
         .weathers__card-title-location {
@@ -81,12 +88,12 @@
         }
 
         .weathers__card-title-time {
-            color: rgb(187, 187, 187);
+            color: #b3b3b3;
         }
 
         .weathers__card-body__top {
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 18px;
         }
 
         .weathers__card-body__bottom {
@@ -96,9 +103,55 @@
         .weathers__time-select{
             padding: 24px;
         }
+        .weathers__time-select label{
+            margin-right: 12px;
+        }
+        .weathers__time-select label input{
+            display: none;
+            opacity: 0;
+        }
+        .weathers__time-select label:last-child{
+            margin-right: 0;
+        }
+        .weathers__time-select label span{
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        .weathers__time-select label input:checked + span::after{
+            content:"";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 16px;
+            height: 16px;
+            background-color: #2AB1CE;
+            border-radius: 50%;
+        }
+        .radio-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin-right: 6px;
+            box-shadow: 1px 1px 3px rgba(184, 184, 184, 0.2);
+            position: relative;
+        }
+        .weathers__card-body__status-pop:nth-of-type(1){
+            font-family: Arial;
+            font-weight: bold;
+            color:#fd7792;
+        }
         @media screen and (max-width:768px) {
             .weathers__card-box {
                 width: 50%;
+            }
+            .weathers__time-select label{
+                margin-bottom: 18px;
+                display: block;
             }
         }
 
@@ -110,14 +163,17 @@
                 display: block;
                 width: 100%;
             }
+            .weathers-wrap{
+                padding: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div id="app">
+        <h2 class="weathers-title">天氣預報</h2>
         <div class="weathers-top">
-            <h2 class="weathers-title">天氣預報</h2>
             <select name="" id="select-location" v-model="location">
                 <option value="">全部縣市</option>
                 <option :value="locationName" v-for="(locationName,index) in locationNames" :key="index">
@@ -125,36 +181,48 @@
             </select>
             <div class="weathers__time-select">
                 <label :for="timeselect.id" v-for="(timeselect,index) in timeselects" :key="index">
-                    <input type="radio" :id="timeselect.id" :name="timeselect.name" :value="timeselect.value" v-model="timekey"> {{timeselect.txt}}
+                    <input type="radio" :id="timeselect.id" :name="timeselect.name" :value="timeselect.value" v-model="timekey">
+                    <span class="radio-btn"></span>
+                    <span>{{timeselect.txt}}</span>
                 </label>
             </div>
         </div>
         <div class="weathers-wrap">
-            <div class="weathers__card-box" v-for="(weather,index) in filterLocation" :key="index">
-                <div class="weathers__card">
-                    <div class="weathers__card-title">
-                        <span class="weathers__card-title-location">{{weather.locationName}}</span>
-                        <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
-                    </div>
-                    <div class="weathers__card-body">
-                        <div class="weathers__card-body__top">
-                            {{weather.weatherElement[0].time[timekey].parameter['parameterName']}}</div>
-                        <div class="weathers__card-body__bottom">
-                            <div class="weathers__card-body__status-pop">
-                                {{weather.weatherElement[2].time[timekey].parameter['parameterName']}}°C ~
-                                {{weather.weatherElement[4].time[timekey].parameter['parameterName']}}°C
-                            </div>
-                            <div class="weathers__card-body__status-pop">
-                                降雨機率:{{weather.weatherElement[1].time[timekey].parameter['parameterName']}}%</div>
+            <div class="isloading" v-if="weathers.length == 0">Loading</div>
+            <template v-else>
+                <card-box :weather="weather" :timeselects="timeselects" :timekey="timekey" v-for="(weather,index) in filterLocation" :key="index"></card-box>
+            </template>
+        </div>
+    </div>
+    
+    <template id="card-box">
+        <div class="weathers__card-box">
+            <div class="weathers__card">
+                <div class="weathers__card-title">
+                    <span class="weathers__card-title-location">{{weather.locationName}}</span>
+                    <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
+                </div>
+                <div class="weathers__card-body">
+                    <div class="weathers__card-body__top">
+                        {{weather.weatherElement[0].time[timekey].parameter['parameterName']}}</div>
+                    <div class="weathers__card-body__bottom">
+                        <div class="weathers__card-body__status-pop">
+                            {{weather.weatherElement[2].time[timekey].parameter['parameterName']}}°C ~
+                            {{weather.weatherElement[4].time[timekey].parameter['parameterName']}}°C
                         </div>
+                        <div class="weathers__card-body__status-pop">
+                            降雨機率:{{weather.weatherElement[1].time[timekey].parameter['parameterName']}}%</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </template>
     <script>
-        new Vue({
+        Vue.component('card-box',{
+            template:"#card-box",
+            props:['weather','timeselects','timekey']
+        })
+        var vm=new Vue({
             el: "#app",
             created() {
                 var _this = this;

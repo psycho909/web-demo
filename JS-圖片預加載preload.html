@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* CSS方法 */
+        #preload {
+            width: 0;
+            height: 0;
+            display: inline;
+            background-image: url('images/t2b.jpg');
+        }
+
+        .box {
+            width: 300px;
+            height: 100px;
+            background-image: url('images/t2.jpg');
+            cursor: pointer;
+        }
+
+        .box:hover {
+            background-image: url('images/t2b.jpg');
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="preload"></div>
+        <div class="box"></div>
+        <div class="box2"></div>
+    </div>
+
+    <script>
+        // JS方法
+        var imgs = [
+            'images/t2b.jpg',
+        ];
+        function preloadImage() {
+            var index = 0;
+            var imgLength = imgs.length;
+            var count = 0
+            var boxHTML = '';
+            imgs.forEach(function (src, i) {
+                var imgObj = new Image()
+                imgObj.src = src;
+            })
+        }
+
+    // preloadImage()
+    </script>
+</body>
+
+</html>

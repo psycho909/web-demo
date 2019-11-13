@@ -14,24 +14,45 @@
             width: 600px;
             display: grid;
             grid-gap: 10px;
-            grid-template-columns: [main-start navbar-start] 1fr [content-start] 1fr [content-end navbar-end] 1fr [main-end];
+            grid-template-columns: 
+                [main-start navbar-start] 1fr 
+                [content-start] 1fr 
+                [navbar-end right-start right-end] 1fr 
+                [content-end] 1fr
+                [main-end];
             grid-template-rows: 1fr 1fr 1fr;
         }
         .grid-item{
             height: 100px;
             background-color: #666;
+            color:#fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .grid-item:nth-of-type(1){
             background-color: red;
             grid-column: navbar-start/navbar-end;
         }
+        .grid-item:nth-of-type(2){
+            background-color: blue;
+            grid-column: content-start/content-end;
+        }
+        .grid-item:nth-of-type(3){
+            background-color: green;
+            grid-column: main-start/main-end;
+        }
+        .grid-item:nth-of-type(4){
+            background-color: yellow;
+            grid-column: right-start/right-end;
+        }
     </style>
 </head>
 <body>
     <div class="grid">
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
+        <div class="grid-item">Navbar</div>
+        <div class="grid-item">Content</div>
+        <div class="grid-item">Main</div>
         <div class="grid-item"></div>
     </div>
 </body>
