@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery Infinite Carousel | Webdevtrick.com</title>
+    <link href='https://fonts.googleapis.com/css?family=Teko' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            background: #333;
+            color: #fff;
+            font-size: 22pt;
+            text-align: center;
+            font-family: 'Teko';
+            letter-spacing: 0.15em;
+        }
+
+        body * {
+            -webkit-user-select: none;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: 300px;
+            margin: 0 auto;
+            box-shadow: 7px 7px 5px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .window {
+            overflow: hidden;
+            position: relative;
+            background: #222;
+        }
+
+        #carousel {
+            width: 10000px;
+            position: relative;
+            top: 0;
+            left: -450px;
+        }
+
+        .slide {
+            height: 300px;
+            width: 500px;
+            cursor: pointer;
+            float: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide#s1 {
+            background: #00c8c8;
+        }
+
+        .slide#s2 {
+            background: #ff4946;
+        }
+
+        .slide#s3 {
+            background: #5cb85c;
+        }
+
+        .slide#s4 {
+            background: #3a559f;
+        }
+
+        .slide#s5 {
+            background: #ff8500;
+        }
+
+        #prev,
+        #next {
+            cursor: pointer;
+            position: absolute;
+            bottom: -40px;
+            font-size: 14pt;
+        }
+
+        #prev {
+            left: 0;
+        }
+
+        #next {
+            right: 0;
+        }
+
+        .transition {
+            transition: .7s;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>INFINITE CAROUSEL</h1>
+    <div class="container">
+        <div class="window">
+            <div id="carousel">
+                <span class="slide" id="s1">SLIDE-1</span>
+                <span class="slide" id="s2">SLIDE-2</span>
+                <span class="slide" id="s3">SLIDE-3</span>
+                <span class="slide" id="s4">SLIDE-4</span>
+                <span class="slide" id="s5">SLIDE-5</span>
+            </div>
+        </div>
+        <span id="prev">PREV</span>
+        <span id="next">NEXT</span>
+    </div>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+
+    <script>
+        var threshold = 150,
+            slideWidth = 500,
+            dragStart,
+            dragEnd;
+        $('#next').click(function () { shiftSlide(-1) })
+        $('#prev').click(function () { shiftSlide(1) })
+
+        $('#carousel').on('mousedown',function(e){
+            if($('#carousel').hasClass("transition")){
+                return;
+            }
+            dragStart=e.pageX;
+            $(this).on('mousemove',function(e){
+                dragEnd=e.pageX;
+                $(this).css("transform",'translateX('+dragPos()+'px)')
+            })
+            $(document).on('mouseup',function(){
+                if(dragPos() > threshold){
+                    return shiftSlide(1);
+                }
+                if(dragPos() < -threshold){
+                    return shiftSlide(-1);
+                }
+                shiftSlide(0);
+            })
+        })
+
+        function dragPos() {
+            return dragEnd - dragStart;
+        }
+
+        function shiftSlide(direction) {
+            if($('#carousel').hasClass("transition")){
+                return;
+            }
+            dragEnd = dragStart;
+            $(document).off("mouseup");
+            $('#carousel').off('mousemove')
+                        .addClass('transition')
+                        .css('transform','translateX(' + (direction * slideWidth) + 'px)');
+            setTimeout(function(){
+                if(direction === 1){
+                    $('.slide:first').before($('.slide:last'));
+                }else if(direction === -1){
+                    $('.slide:last').after($('.slide:first'));
+                }
+                $('#carousel').removeClass("transition")
+                            .css('transform','translateX(0px)'); 
+            },700)
+        }
+    </script>
+</body>
+
+</html>

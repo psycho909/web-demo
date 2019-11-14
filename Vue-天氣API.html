@@ -16,6 +16,12 @@
             font-family: '微軟正黑體';
             box-sizing: border-box;
         }
+        html,body{
+            height: 100%;
+        }
+        body{
+            background-color: #F4F7F6;
+        }
         #app {
             width: 100%;
             background-color: #F4F7F6;
@@ -139,6 +145,7 @@
             margin-right: 6px;
             box-shadow: 1px 1px 3px rgba(184, 184, 184, 0.2);
             position: relative;
+            border:1px solid rgba(42, 176, 206, 0.514);
         }
         .weathers__card-body__status-pop:nth-of-type(1){
             font-family: Arial;
@@ -190,7 +197,24 @@
         <div class="weathers-wrap">
             <div class="isloading" v-if="weathers.length == 0">Loading</div>
             <template v-else>
-                <card-box :weather="weather" :timeselects="timeselects" :timekey="timekey" v-for="(weather,index) in filterLocation" :key="index"></card-box>
+                <card-box v-for="(weather,index) in filterLocation" :key="index">
+                    <template #title>
+                        <span class="weathers__card-title-location">{{weather.locationName}}</span>
+                        <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
+                    </template>
+                    <template #body>
+                        <div class="weathers__card-body__top">
+                            {{weather.weatherElement[0].time[timekey].parameter['parameterName']}}</div>
+                        <div class="weathers__card-body__bottom">
+                            <div class="weathers__card-body__status-pop">
+                                {{weather.weatherElement[2].time[timekey].parameter['parameterName']}}°C ~
+                                {{weather.weatherElement[4].time[timekey].parameter['parameterName']}}°C
+                            </div>
+                            <div class="weathers__card-body__status-pop">
+                                降雨機率:{{weather.weatherElement[1].time[timekey].parameter['parameterName']}}%</div>
+                        </div>
+                    </template>
+                </card-box>
             </template>
         </div>
     </div>
@@ -199,20 +223,10 @@
         <div class="weathers__card-box">
             <div class="weathers__card">
                 <div class="weathers__card-title">
-                    <span class="weathers__card-title-location">{{weather.locationName}}</span>
-                    <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
+                    <slot name="title"></slot>
                 </div>
                 <div class="weathers__card-body">
-                    <div class="weathers__card-body__top">
-                        {{weather.weatherElement[0].time[timekey].parameter['parameterName']}}</div>
-                    <div class="weathers__card-body__bottom">
-                        <div class="weathers__card-body__status-pop">
-                            {{weather.weatherElement[2].time[timekey].parameter['parameterName']}}°C ~
-                            {{weather.weatherElement[4].time[timekey].parameter['parameterName']}}°C
-                        </div>
-                        <div class="weathers__card-body__status-pop">
-                            降雨機率:{{weather.weatherElement[1].time[timekey].parameter['parameterName']}}%</div>
-                    </div>
+                    <slot name="body"></slot>
                 </div>
             </div>
         </div>

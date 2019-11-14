@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: calc(100% - 200px);
+            height: 600px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <a href="#google">google</a>
+        </div>
+        <div class="box">
+            <a href="#yahoo">yahoo</a>
+        </div>
+        <div class="box">
+            <a href="#beanfun">beanfun</a>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('hashchange', onHashChange);
+        var _wr = function (type) {
+            var orig = history[type];
+            return function () {
+                var rv = orig.apply(this, arguments);
+                var e = new Event(type);
+                e.arguments = arguments;
+                window.dispatchEvent(e);
+                return rv;
+            };
+        };
+        history.pushState = _wr('pushState');
+        history.replaceState = _wr('replaceState');
+        window.addEventListener('replaceState', function (e) {
+            console.log('THEY DID IT AGAIN! replaceState 111111');
+        });
+        window.addEventListener('pushState', function (e) {
+            console.log('THEY DID IT AGAIN! pushState 2222222');
+        });
+        function onHashChange(e) {
+            console.log(123)
+            // switch(location.hash){
+            //     case "#google":
+            //         location.href="https://www.google.com.tw";
+            //         return;
+            //     case "#yahoo":
+            //         location.href="https://tw.yahoo.com/";
+            //         return;
+            //     case "#beanfun":
+            //         location.href="https://tw.beanfun.com/";
+            //         return;
+            // }
+        }
+    </script>
+</body>
+
+</html>

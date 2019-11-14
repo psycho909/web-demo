@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <template #footer={user,testclick}>
+                <div>
+                    <span>{{user.title}}</span>
+                    <span>{{user.name}}</span>
+                    <button @click="testclick()">測試click</button>
+                </div>
+            </template>
+        </child>
+    </div>
+    <template id="child">
+        <div class="content">
+            <div class="text">
+                <slot name="footer" :user="user" :testclick="testclick"></slot>
+            </div>
+        </div>
+    </template>
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            data(){
+                return {
+                    user: {
+                        title: '測試 title',
+                        name: '測試 name'
+                    }
+                }
+            },
+            methods:{
+                testclick(){
+                    console.log("testclick")
+                }
+            }
+        })
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>
