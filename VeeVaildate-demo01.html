@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <validation-provider name="email" rules="required|email" v-slot="{ errors }">
+            <input v-model="email" type="text" />
+            <span>{{ errors[0] }}</span>
+        </validation-provider>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.0.5/rules.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.0.5/vee-validate.full.min.js"></script>
+    <script>
+        // Add a rule.
+        VeeValidate.extend('email', {
+            validate: value => value === 'example',
+            message: '這 {_field_} 需要填寫'
+        });
+        VeeValidate.extend('required', VeeValidateRules.required);
+
+        // VeeValidate.extend('email', VeeValidateRules.email);
+        // Register the component globally.
+        Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+
+        new Vue({
+            el: "#app",
+            data: {
+                email: ""
+            }
+        })
+    </script>
+</body>
+
+</html>
