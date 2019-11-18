@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" @input="checkInput">
+        <div>
+            <label>
+                <input type="radio" name="gender" v-model="gender" value="male" @input="checkInput">
+                <span>男</span>
+            </label>
+            <label>
+                <input type="radio" name="gender" v-model="gender" value="female" @input="checkInput">
+                <span>女</span>
+            </label>
+            <div>{{gender}}</div>
+        </div>
+        <br>
+        <div>
+            <label>
+                <input type="checkbox" name="fruits" v-model="fruits" value="banana" @input="checkInput">
+                <span>香蕉</span>
+            </label>
+            <label>
+                <input type="checkbox" name="fruits" v-model="fruits" value="apple" @input="checkInput">
+                <span>蘋果</span>
+            </label>
+            <div>{{fruits}}</div>
+        </div>
+        <br>
+        <div>
+            <select name="" id="" v-model="selected" @input="checkInput">
+                <option value="">請選擇</option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+            </select>
+            <div>{{selected }}</div>
+        </div>
+        <br>
+        <input type="text" v-model="menuShow">
+        <child v-model="menuShow"></child>
+    </div>
+    <template id="child">
+        <div>
+            <input type="text" :value="value">
+            <div>123</div>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            props:["value"]
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                menuShow:"",
+                gender:"",
+                fruits:[],
+                selected :""
+            },
+            methods:{
+                checkInput(e){
+                    console.log(e.target.value)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

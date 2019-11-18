@@ -29,6 +29,8 @@
 </head>
 <body>
     <div id="app">
+        <button id="btn">RANDOM</button>
+        <ul></ul>
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
@@ -44,7 +46,31 @@
         <div class="box"></div>
     </div>
     <script>
-    
+        // console.log(document.documentElement.scrollTop)
+        // console.log(window.pageYOffset)
+        
+        function bingoROUND(){
+            var bingo=[];
+            var bingoLength=6;
+            var num=0;
+            for(var i=0;i<bingoLength;i++){
+                num=Math.floor(Math.random()*bingoLength);
+                if(bingo.indexOf(num) > -1){
+                    i--
+                    continue;
+                }
+                bingo.push(num);
+            }
+            return bingo.join();
+        }
+        var btn=document.getElementById('btn');
+        var ul=document.getElementsByTagName('ul')[0];
+        btn.addEventListener("click",function(){
+            var bing=bingoROUND();
+            var li=document.createElement('li');
+            li.innerHTML=bing;
+            ul.appendChild(li);
+        })
     </script>
 </body>
 </html>
