@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: relative;
+        margin-bottom: 12px;
+    }
+    </style>
+</head>
+<body>
+    <button id="btn">click</button>
+    <button id="stop">stop</button>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <script>
+        var play=document.getElementById("btn")
+        var stop=document.getElementById("stop")
+
+        /*
+            gsap.globalTimeline.timeScale(0.1); // 控制整個動畫的速率 0~1
+            gsap.globalTimeline.paused(); // 回傳目前動畫狀態 true:暫停 false:播放
+        */
+        console.log(gsap.globalTimeline.paused())
+        gsap.timeline({defaults:{ease:"elastic",duration:1}})
+            .to(".box1",{x:100})
+            .to(".box2",{x:200});
+
+        
+
+        play.addEventListener('click',function(){
+            gsap.globalTimeline.play(); // 播放目前所有動畫
+            console.log(gsap.globalTimeline.paused())
+        })
+
+        stop.addEventListener('click',function(){
+            gsap.globalTimeline.pause(); // 停止目前所有動畫
+            console.log(gsap.globalTimeline.paused())
+        })
+    </script>
+</body>
+</html>

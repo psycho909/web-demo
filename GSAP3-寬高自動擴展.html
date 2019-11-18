@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .app{
+        width: 300px;
+        height: 300px;
+        border:1px solid #000;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: relative;
+        margin-bottom: 12px;
+    }
+    </style>
+</head>
+<body>
+    <button id="btn">click</button>
+    <div class="app">
+        <div class="box">
+            <h2>4545</h2>
+            <h2>123</h2>
+            <h2>456</h2>
+            <h2>456</h2>
+            <h2>456</h2>
+            <h2>456</h2>
+            <h2>@@@</h2>
+            <h2>###</h2>
+            <h2>999</h2>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <script>
+        document.getElementById("btn").addEventListener('click',function(){
+            gsap.to('.box',{
+                duration:1,
+                width:"auto",
+                height:"auto"
+            })
+        })
+    </script>
+</body>
+</html>
