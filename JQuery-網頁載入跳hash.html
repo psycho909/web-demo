@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans';
+        }
+        .box{
+            width: 100%;
+            height: 100vh;
+            font-size: 42px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box1{
+            background-color: #e5dfdf;
+        }
+        .box2{
+            background-color: #9dd8c8;
+        }
+        .box3{
+            background-color: #d7c79e;
+        }
+        .box4{
+            background-color: #f4efd3;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" data-anthor="box1">BOX1</div>
+        <div class="box" data-anthor="box2">BOX2</div>
+        <div class="box" data-anthor="box3">BOX3</div>
+        <div class="box" data-anthor="box4">BOX4</div>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        $(function(){
+            window.addEventListener('hashchange',function(){
+                var _data=location.hash.replace('#','');
+                if(_data){
+                    $("html,body").animate({
+                        scrollTop:$('.box[data-anthor='+_data+']').offset().top
+                    },300)
+                }
+            })
+            var _data=location.hash.replace('#','');
+            if(_data){
+                $("html,body").animate({
+                    scrollTop:$('.box[data-anthor='+_data+']').offset().top
+                },300)
+            }
+        })
+    </script>
+</body>
+</html>
