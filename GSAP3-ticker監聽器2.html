@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: relative;
+        margin-bottom: 12px;
+    }
+    </style>
+</head>
+<body>
+    <button id="btn">click</button>
+    <div class="box"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <script>
+        var box=document.querySelector('.box');
+        var moveX={x:1};
+        var xSet=gsap.quickSetter(box,"x","px");
+
+        document.getElementById("btn").addEventListener('click',function(){
+            moveX.x+=50;
+        })
+
+        gsap.ticker.add(()=>{
+            xSet(moveX.x)
+        })
+    </script>
+</body>
+</html>

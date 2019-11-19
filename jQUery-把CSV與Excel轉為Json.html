@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSV-Excel 2 JSON Demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.9/css/mdb.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/js/mdb.min.js"></script> -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.5/jquery.csv.min.js"></script>
+    <script type="text/javascript" lang="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div>
+
+        <div class="jumbotron" style="text-align: center;">
+            <h1 id="headerTitle">CSV & Excel 2 JSON Demo</h1>
+        </div>
+
+        <div class="justify-content-center" style="width: 100%; padding: 0 8rem">
+
+            <div class="p-3" style="width:100hw; padding: 1rem">
+                <h2>CSV File Data</h2>
+                <ul class="list-group" id="showCSV">
+
+                </ul>
+
+            </div>
+
+            <div class="p-3" style="width: 100hw; padding: 1rem">
+                <h2>Excel File Data</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Club</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody id="showExcel"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var csv_file_API = './excel/UsersSample.csv';
+        var excel_file_API = './excel/soccer_players.xlsx';
+        // read Excel file and convert to json format using fetch
+        fetch(excel_file_API).then(function (res) {
+            /* get the data as a Blob */
+            if (!res.ok) throw new Error("fetch failed");
+            return res.arrayBuffer();
+        }).then(function (ab) {
+                /* parse the data when it is received */
+                var data = new Uint8Array(ab);
+                var workbook = XLSX.read(data, {
+                    type: "array"
+                });
+
+                /* *****************************************************************
+                * DO SOMETHING WITH workbook: Converting Excel value to Json       *
+                ********************************************************************/
+                var first_sheet_name = workbook.SheetNames[0];
+                /* Get worksheet */
+                var worksheet = workbook.Sheets[first_sheet_name];
+
+                var _JsonData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+                /************************ End of conversion ************************/
+
+                console.log(_JsonData);
+
+                $.each(_JsonData, function (index, value) {
+
+                    $('#showExcel').append(
+
+                        '<tr>' +
+                        '<th scope="row">' +
+                        value['FIRST NAME'] +
+                        '</th>' +
+                        '<td>' +
+                        value['LAST NAME'] +
+                        '</td>' +
+                        '<td>' +
+                        '<span class="badge badge-primary badge-pill p-2">' +
+                        value.AGE +
+                        '</span>' +
+                        '</td>' +
+                        '<td>' +
+                        value.CLUB +
+                        '</td>' +
+                        '<td>' +
+                        value.CITY +
+                        '</td>' +
+                        '</tr>'
+                    );
+
+                });
+
+            });
+        $.ajax({
+            type: 'GET',
+            url: csv_file_API,
+            dataType: 'text',
+            error: function (e) {
+                alert('An error occurred while processing API calls');
+                console.log("API call Failed: ", e);
+            },
+            success: function (data) {
+                var jsonData = $.csv.toObjects(data);
+                console.log(jsonData);
+                $.each(jsonData, function (index, value) {
+                    $('#showCSV').append(
+                        '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                        '<span style="width: 15%; font-size: 1rem; font-weight: bold; color: #37474F">' +
+                        value['FIRST NAME'] +
+                        '</span>' +
+                        '<span style="width: 15%; font-size: 1rem;  color: #37474F">' +
+                        value['LAST NAME'] +
+                        '</span>' +
+                        '<span class="badge warning-color-dark badge-pill">' +
+                        value['PHONE NUMBER'] +
+                        '</span>' +
+                        '<span class="badge success-color-dark badge-pill">' +
+                        value['EMAIL ADDRESS'] +
+                        '</span>' +
+                        '<span class="badge badge-primary badge-pill">' +
+                        value.CITY +
+                        '</span>' +
+                        '<span class="badge badge-primary badge-pill">' +
+                        value.STATE +
+                        '</span>' +
+                        '</li>'
+                    );
+                });
+            } // end: Ajax success API call
+        }); // end: of Ajax call
+    </script>
+</body>
+
+</html>

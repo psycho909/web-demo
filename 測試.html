@@ -1,32 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-    *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    html{
-        -webkit-text-size-adjust: 100%;
-        text-size-adjust: 100%;
-    }
-    body {
-        font-size: 16px;
-        text-size-adjust: none;
-    }
-    #app h1{
-        font-size: 48px;
-    }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-size: 16px;
+            text-size-adjust: none;
+        }
+
+        #app h1 {
+            font-size: 48px;
+        }
     </style>
 </head>
+
 <body>
     <div id="app">
         <h1>H!</h1>
     </div>
+    <input type="file" id="input" accept=".xls,.xlsx,.ods">
+    <pre id="result"></pre>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("#input").on("change", function (e) {
+            var file = e.target.files[0];
+            // input canceled, return
+            if (!file) return;
+            var FR = new FileReader();
+            FR.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                console.log(data)
+                var workbook = XLSX.read(data, { type: 'array' });
+                var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+
+                // header: 1 instructs xlsx to create an 'array of arrays'
+                var result = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+                // data preview
+                var output = document.getElementById('result');
+                output.innerHTML = JSON.stringify(result, null, 2);
+            };
+            FR.readAsArrayBuffer(file);
+        });
+    </script>
 </body>
+
 </html>
