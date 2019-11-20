@@ -1,0 +1,31 @@
+var user={
+    namespaced:true,
+    state:{
+        count:0,
+        lists:['a','b','c']
+    },
+    getters:{
+        listlength(state){
+            return state.lists.length
+        }
+    },
+    mutations:{
+        ADD(state,data){
+            state.lists.push(data.list)
+        },
+        REMOVE(state,index){
+            state.lists.splice(index,1)
+        }
+    },
+    actions:{
+        addlist(context,list){
+            context.commit("ADD",list)
+        },
+        removelist(context,index){
+            context.commit("REMOVE",index)
+        },
+        testAction(context,data){
+            console.log(data)
+        }
+    }
+}

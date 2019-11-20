@@ -7,7 +7,7 @@
     <title>Vuex TodoList</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
-    <script src="https://unpkg.com/vuex@2.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.1/vuex.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -31,41 +31,14 @@
             </ul>
         </div>
     </template>
+    <script src="./Vuex-todolist-todolist.js"></script>
+    <script src="./Vuex-todolist-user.js"></script>
+    <script src="./Vuex-todolist-index.js"></script>
     <script>
-        var store=new Vuex.Store({
-            state:{
-                count:0,
-                lists:['a','b','c']
-            },
-            getters:{
-                listlength(state){
-                    return state.lists.length
-                }
-            },
-            mutations:{
-                ADD(state,data){
-                    state.lists.push(data.list)
-                },
-                REMOVE(state,index){
-                    state.lists.splice(index,1)
-                }
-            },
-            actions:{
-                addlist(context,list){
-                    context.commit("ADD",list)
-                },
-                removelist(context,index){
-                    context.commit("REMOVE",index)
-                },
-                testAction(context,data){
-                    console.log(data)
-                }
-            }
-        })
         var List={
             template:"#List",
             created(){
-                this.listarr=this.$store.state.lists
+                this.listarr=this.$store.state.todolist.lists
             },
             data(){
                 return {
@@ -73,7 +46,12 @@
                 }
             },
             methods:{
-                ...Vuex.mapActions(['addlist','removelist']),
+                ...Vuex.mapActions(
+                    {
+                        addlist:['todolist/removelist'],
+                        removelist:['todolist/removelist'],
+                    }
+                ),
                 remove(index){
                     this.removelist(index)
                     // this.$store.dispatch({
@@ -90,7 +68,9 @@
                 List
             },
             computed:{
-                ...Vuex.mapGetters(['listlength']),
+                ...Vuex.mapGetters({
+                    listlength:['todolist/listlength']
+                }),
                 getlistlength(){
                     return this.listlength
                 }
@@ -102,14 +82,14 @@
             methods: {
                 add(){
                     this.$store.dispatch({
-                        type:"addlist",
+                        type:"todolist/addlist",
                         list:this.list
                     })
                     this.list=""
                 },
                 test(){
                     this.$store.dispatch({
-                        type:"testAction",
+                        type:"todolist/testAction",
                         data:123
                     })
                 }
