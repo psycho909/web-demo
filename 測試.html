@@ -31,13 +31,28 @@
 
 <body>
     <div id="app">
-        <h1>H!</h1>
+        <select class="fix-select">
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="javascript">Javascript</option>
+            <option value="jquery" selected>jQuery</option>
+            <option value="php">PHP</option>
+        </select>
+        <select class="fix2-select">
+            <option value="Node">Node</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Python" selected>Python</option>
+        </select>
     </div>
     <input type="file" id="input" accept=".xls,.xlsx,.ods">
     <pre id="result"></pre>
+    <div class="box"><button id="btn">click</button></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        $('body').on("click",'#btn',function(){
+            console.log(123)
+        })
         $("#input").on("change", function (e) {
             var file = e.target.files[0];
             // input canceled, return
