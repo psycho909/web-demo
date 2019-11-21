@@ -34,10 +34,9 @@
         </select>
     </div>
     <div id="NEWSSlickWarp"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script
-        src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
-    <!-- <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script> -->
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
     <script src="js/jshtmproc.js"></script>
     <script>
         // window.onload = function () {
@@ -52,23 +51,28 @@
             console.log($(this).find(":selected").html())
         })
         var API = "https://randomuser.me/api/?results=10";
-        $.ajax({
-            url: "https://randomuser.me/api/?results=10",
-            dataType: "JSON",
-            success: function (data) {
-                console.log(data)
-                // var data=data.results;
-                // var DOM_A = new Array();
-                // $.each(data, function (i, item) {
-                //     // img = createEl('img', { 'src': item.SourceFile }, {}, '');
-                //     var img = createEl('div', { 'data-type': item.email }, {}, '');
-                //     DOM_A[i] = CreateUlObj('a', { 'href': item.email, 'class': 'news-slick__item', 'target': '_blank' });
-                //     DOM_A[i].appendChild(img);
-                // });
-                // console.log(1)
-                // $('#NEWSSlickWarp').append(DOM_A);
-            }
-        })
+        var JSON = "data/countries.json";
+        $.getJSON(JSON)
+        .done(function (data) {
+            console.log(data)
+        }); 
+        // $.ajax({
+        //     url: JSON,
+        //     methods:"get",
+        //     success: function (data) {
+        //         console.log(data)
+        //         // var data=data.results;
+        //         // var DOM_A = new Array();
+        //         // $.each(data, function (i, item) {
+        //         //     // img = createEl('img', { 'src': item.SourceFile }, {}, '');
+        //         //     var img = createEl('div', { 'data-type': item.email }, {}, '');
+        //         //     DOM_A[i] = CreateUlObj('a', { 'href': item.email, 'class': 'news-slick__item', 'target': '_blank' });
+        //         //     DOM_A[i].appendChild(img);
+        //         // });
+        //         // console.log(1)
+        //         // $('#NEWSSlickWarp').append(DOM_A);
+        //     }
+        // })
     </script>
 </body>
 
