@@ -144,13 +144,7 @@
 
 <body>
     <div class="box box1" data-select="style">
-        <select class="fix-select">
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-            <option value="javascript">Javascript</option>
-            <option value="jquery" selected>jQuery</option>
-            <option value="php">PHP</option>
-        </select>
+        <select class="fix-select"></select>
     
         <div class="reveal-select">
             <div class="selection">
@@ -257,9 +251,25 @@
             return {
                 init:init
             }
-        })()
-        selectStyle.init(".box1 .fix-select",".box1 .reveal-select");
-        selectStyle.init(".box2 .fix-select",".box2 .reveal-select");
+        })();
+        var API = "https://randomuser.me/api/?results=10";
+        $.ajax({
+            url: API,
+            dataType: "JSON",
+            success: function (data) {
+                var data=data.results;
+                var optionHTML=`<option value="{{value}}">{{html}}</option>`;
+                var HTMLL="";
+                $.each(data, function (i, item) {
+                    HTMLL+=optionHTML.replace("{{value}}",item.name.title+" "+item.name.first)
+                        .replace("{{html}}",item.name.title+" "+item.name.first)
+                });
+                $('.box1 .fix-select').append(HTMLL);
+                selectStyle.init(".box1 .fix-select",".box1 .reveal-select");
+            }
+        })
+        // selectStyle.init(".box1 .fix-select",".box1 .reveal-select");
+        // selectStyle.init(".box2 .fix-select",".box2 .reveal-select");
     </script>
 </body>
 
