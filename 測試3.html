@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 400px;
+            border: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+        }
+
+        select {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <span id="show">No-1</span>
+        <select id="select">
+            <option value="1">No-1</option>
+            <option value="2">No-2-我的内容很多哦。哈哈</option>
+        </select>
+    </div>
+    <div id="NEWSSlickWarp"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script
+        src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
+    <!-- <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script> -->
+    <script src="js/jshtmproc.js"></script>
+    <script>
+        // window.onload = function () {
+        //     var show = document.getElementById('show');
+        //     var sel = document.getElementsByTagName('select')[0];
+        //     sel.onchange = function () {
+        //         var index = sel.selectedIndex; //序号，取当前选中选项的序号
+        //         show.innerText = sel.options[index].text;
+        //     }
+        // }
+        $("#select").on('change',function(){
+            console.log($(this).find(":selected").html())
+        })
+        var API = "https://randomuser.me/api/?results=10";
+        $.ajax({
+            url: "https://randomuser.me/api/?results=10",
+            methods: "get",
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                // var data=data.results;
+                // var DOM_A = new Array();
+                // $.each(data, function (i, item) {
+                //     // img = createEl('img', { 'src': item.SourceFile }, {}, '');
+                //     var img = createEl('div', { 'data-type': item.email }, {}, '');
+                //     DOM_A[i] = CreateUlObj('a', { 'href': item.email, 'class': 'news-slick__item', 'target': '_blank' });
+                //     DOM_A[i].appendChild(img);
+                // });
+                // console.log(1)
+                // $('#NEWSSlickWarp').append(DOM_A);
+            }
+        })
+    </script>
+</body>
+
+</html>

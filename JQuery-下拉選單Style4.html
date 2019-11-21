@@ -42,9 +42,9 @@
         }
 
         .fix-select {
-            position: absolute;
+            /* position: absolute;
             top: -9999px;
-            left: -9999px;
+            left: -9999px; */
         }
 
         .reveal-select {
@@ -135,11 +135,15 @@
             background-color: #005488;
             color: #f5f5f5;
         }
+        .box{
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 
 <body>
-    <div class="box1">
+    <div class="box box1" data-select="style">
         <select class="fix-select">
             <option value="html">HTML</option>
             <option value="css">CSS</option>
@@ -158,14 +162,14 @@
             </div>
         </div>
     </div>
-    <div class="box2">
-            <select class="box2-fix-select">
+    <div class="box box2" data-select="style">
+            <select class="fix-select">
                 <option value="Node">Node</option>
                 <option value="Ruby">Ruby</option>
                 <option value="Python" selected>Python</option>
             </select>
         
-            <div class="box2-reveal-select">
+            <div class="reveal-select">
                 <div class="selection">
                     <p>
                         <span></span>
@@ -229,8 +233,12 @@
                     $(this).toggleClass("open");
                     if ($(this).hasClass('open') === true) {
                         _this.openSelection();
+                        $(this).closest('[data-select=style]').css('z-index',3)
                     } else {
                         _this.closeSelection();
+                        setTimeout(function(){
+                            $(this).closest('[data-select=style]').css('z-index',1)
+                        },400)
                     }
                 })
 
@@ -250,8 +258,8 @@
                 init:init
             }
         })()
-        selectStyle.init(".fix-select",".reveal-select");
-        selectStyle.init(".box2-fix-select",".box2-reveal-select");
+        selectStyle.init(".box1 .fix-select",".box1 .reveal-select");
+        selectStyle.init(".box2 .fix-select",".box2 .reveal-select");
     </script>
 </body>
 
