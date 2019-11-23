@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="myInputField" placeholder="IE9 Placeholder Text">
+    <!--[if IE]>
+    <script type="text/javascript">
+        // A no-dependancy quick and dirty method of adding basic
+        // placeholder functionality to Internet Explorer 5.5+
+        // Author: Jay Williams <myd3.com>
+        // License: MIT License
+        // Link: https://gist.github.com/1105055
+
+        function add_placeholder (id){
+            var el = document.getElementById(id);
+            el.placeholder = el.getAttribute('placeholder');
+
+            el.onfocus = function (){
+                if(this.value == this.placeholder){
+                    this.value = '';
+                    el.style.cssText  = '';
+                }
+            };
+
+            el.onblur = function (){
+                if(this.value.length == 0){
+                    this.value = this.placeholder;
+                    el.style.cssText = 'color:#A9A9A9;';
+                }
+            };
+
+            el.onblur();
+        }
+
+        // Add right before </body> or inside a DOMReady wrapper
+        add_placeholder('myInputField');
+
+    </script>
+    <![endif]-->
+</body>
+
+</html>
