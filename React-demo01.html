@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const restaurants = [
+            {
+                name: "Dan's Hamburgers",
+                price: 'Cheap',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Austin's Pizza",
+                price: 'Cheap',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "Via 313",
+                price: 'Moderate',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "Bufalina",
+                price: 'Expensive',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "P. Terry's",
+                price: 'Cheap',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Hopdoddy",
+                price: 'Expensive',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Whataburger",
+                price: 'Moderate',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Chuy's",
+                cuisine: 'Tex-Mex',
+                price: 'Moderate'
+            },
+
+            {
+                name: "Taquerias Arandina",
+                cuisine: 'Tex-Mex',
+                price: 'Cheap'
+            },
+
+            {
+                name: "El Alma",
+                cuisine: 'Tex-Mex',
+                price: 'Expensive'
+            },
+
+            {
+                name: "Maudie's",
+                cuisine: 'Tex-Mex',
+                price: 'Moderate'
+            }];
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state={
+                    level:"LBJ",
+                    isKing:true
+                }
+            }
+            handleClick=()=>{
+                this.setState({
+                    isKing:!this.state.isKing
+                })
+            }
+            componentDidMount(){
+                console.log(this.props)
+            }
+            render(){
+                const level="最強";
+                const title=this.state.isKing?
+                    <p>早睡早起</p>:
+                    <h2>晚睡晚起</h2>;
+                const wordList = ['俺老孙来也','有妖气','取经之路，就在脚下']
+                return (
+                    <div>
+                        {title}
+                        <button onClick={this.handleClick}>點我</button>
+                        <ul>
+                        {wordList.map(v=><li key={v}>{v}</li>)}
+                        </ul>
+                        <Tank name="程咬金"></Tank>
+                    </div>
+                )
+            }
+        }
+        class Tank extends React.Component{
+            render(){
+                return (
+                    <div>{this.props.name} 是一個坦克</div>
+                )
+            }
+        }
+        ReactDOM.render(<App restaurants={restaurants} />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>
