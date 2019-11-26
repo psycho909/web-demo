@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <style>
+        .hero.latias {
+            bottom: 175px;
+            left: 100px;
+        }
+
+        .hero.infernape {
+            bottom: 125px;
+            left: 100px;
+        }
+
+        .foe.latias {
+            top: 110px;
+            right: 75px;
+        }
+
+        .foe.infernape {
+            top: 125px;
+            right: 75px;
+        }
+
+        .foe.blastoise {
+            top: 155px;
+            right: 80px;
+        }
+
+        .foe.pidgey {
+            top: 195px;
+            right: 115px;
+        }
+
+        .foe.arceus {
+            top: 135px;
+            right: 95px;
+        }
+
+        .foe.wigglytuff {
+            top: 175px;
+            right: 95px;
+        }
+
+        .latias .shadow {
+            bottom: -50px;
+        }
+
+        .infernape .shadow {
+            bottom: 9px;
+        }
+
+        .blastoise .shadow {
+            bottom: 9px;
+        }
+
+        .pidgey .shadow {
+            bottom: 5px;
+        }
+
+        .arceus .shadow {
+            bottom: 5px;
+        }
+
+        .wigglytuff .shadow {
+            bottom: 5px;
+        }
+
+        .battle {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-city.png); */
+            background: url(http://pokemoneclipse.net/prototyping/bgs/bg-forest.png);
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-desert.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-icecave.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-dampcave.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-beach.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-beachshore.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-mountain.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-river.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-route-2.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-space.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-volcanocave.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-earthycave.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-forest.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-deepsea.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-meadow.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-thunderplains.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/random-blue.png); */
+            background-position: -75px 0;
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-ilex-forest.png); */
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/bg-ilex-forest-2.png); */
+
+            /*   background: url(http://pokemoneclipse.net/prototyping/bgs/earth.png);
+  background-size: cover;
+  background-position: 50%; */
+            image-rendering: pixelated;
+        }
+
+        .message {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            padding: 15px;
+            background: rgba(20, 20, 20, 0.75);
+            border-radius: 10px;
+            color: white;
+            font-family: Roboto, Helvetica Neue, Arial;
+        }
+
+        .message.dark {
+            color: #111;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .sprite {
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+
+        .shadow {
+            image-rendering: initial;
+            position: absolute;
+            z-index: -1;
+            filter: brightness(0%);
+            opacity: 0.5;
+            transform: scaleY(0.25);
+            transform-origin: bottom center;
+        }
+
+        .hero {
+            position: absolute;
+            bottom: 125px;
+            left: 100px;
+            transform: scale(1.5) translateZ(0);
+        }
+
+        .foe {
+            position: absolute;
+            transform: translateZ(0);
+        }
+
+        @keyframes stats-active {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .stats {
+            position: absolute;
+            width: 150px;
+            background: rgba(20, 20, 20, 0.75);
+            padding: 10px;
+            border-radius: 5px;
+            animation: 0.8s stats-active infinite linear;
+            opacity: 0;
+        }
+
+        .hero-stats {
+            top: 120px;
+            left: 80px;
+            animation-delay: 150ms;
+        }
+
+        .foe-stats {
+            top: 100px;
+            right: 50px;
+        }
+
+        .name-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2px;
+            color: #fff;
+            font-family: Roboto;
+            font-size: 13px;
+            text-shadow: #111 1px 1px 0, #111 2px 2px 0, #111 1px -1px 0, #111 -1px 1px 0, #111 -1px -1px 0;
+        }
+
+        .name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .gender-and-level {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .gender {
+            margin-bottom: 2px;
+            margin-right: 4px;
+        }
+
+        .male {
+            color: teal;
+            font-weight: bold;
+            line-height: 14px;
+            margin-right: 4px;
+        }
+
+        .level-label {
+            color: rgb(232, 236, 107);
+            font-weight: bold;
+        }
+
+        .level-number {
+            font-size: 14px;
+        }
+
+        .hp-bar {
+            margin-top: 5px;
+            background: #222;
+            border: 1px solid #111;
+            padding: 1px;
+            border-radius: 5px;
+        }
+
+        .hp-bar.bad.bad .hp-bar-inner {
+            background: linear-gradient(#ff6d6d, #860d0d);
+        }
+
+        .hp-bar.medium .hp-bar-inner {
+            background: linear-gradient(#ffc16d, #864a0d);
+        }
+
+        .hp-bar-inner {
+            background: linear-gradient(#6dff6d, #0d860d);
+            border-radius: 5px;
+            height: 9px;
+        }
+
+        .exp-bar {
+            margin-top: 2px;
+            background: #222;
+            border: 1px solid #111;
+            padding: 1px;
+            border-radius: 5px;
+        }
+
+        .exp-bar-inner {
+            background: linear-gradient(#6de1ff, #005a75);
+            border-radius: 5px;
+            height: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="battle">
+        <div class="scene">
+            <div class='stats foe-stats'>
+                <div class='name-line'>
+                    <div class='name'>Spearow</div>
+                    <div class='gender-and-level'>
+                        <img class='gender' src='http://pokemoneclipse.net/prototyping/pics/gender-male.png'>
+                        <div class='level-label'>Lv.</div>
+                        <div class='level-number'>8</div>
+                    </div>
+                </div>
+                <div class='hp-bar'>
+                    <div class='hp-bar-inner'></div>
+                </div>
+            </div>
+            <div class='stats hero-stats'>
+                <div class='name-line'>
+                    <div class='name'>Latios</div>
+                    <div class='gender-and-level'>
+                        <div class='level-label'>Lv.</div>
+                        <div class='level-number'>70</div>
+                    </div>
+                </div>
+                <div class='hp-bar medium'>
+                    <div class='hp-bar-inner'></div>
+                </div>
+                <div class='exp-bar'>
+                    <div class='exp-bar-inner' style='width: 75%'></div>
+                </div>
+            </div>
+            <div class='foe pidgey'>
+                <img class='sprite' src='http://www.pkparaiso.com/imagenes/xy/sprites/animados/spearow.gif'>
+                <img class='shadow' src='http://www.pkparaiso.com/imagenes/xy/sprites/animados/spearow.gif'>
+            </div>
+            <div class='hero latias'>
+                <img class='sprite' src='http://www.pkparaiso.com/imagenes/xy/sprites/animados-espalda/latios.gif'>
+                <img class='shadow' src='http://www.pkparaiso.com/imagenes/xy/sprites/animados-espalda/latios.gif'>
+            </div>
+        </div>
+        <div class='message -dark'>Wild Spearow attacked!</div>
+    </div>
+
+    <div style='text-align: center; margin-top: 10px'>
+        <button onclick='attackgsap2()'>Attack Foe</button>
+        <button onclick='attackgsap()'>Get Attacked</button>
+    </div>
+    </div>
+
+    <script>
+        const $hero = $('.hero');
+        const $foe = $('.foe');
+        const $heroSprite = $('.hero .sprite');
+        const $foeSprite = $('.foe .sprite');
+        const $heroShadow = $('.hero .shadow');
+        const $foeShadow = $('.foe .shadow');
+        const attackSpeed = 0.25;
+        const heroFlying = false;
+        const foeFlying = true;
+
+        // Max HP: 146
+        let heroHP = 0.47 * 146;
+        let foeHP = 1.0 * 146;
+
+        TweenMax.set($('.scene'), {
+            x: -295,
+            y: 55,
+            scale: 2
+        });
+
+        setTimeout(() => {
+            TweenMax.to($('.scene'), 0.3, {
+                x: 0,
+                y: 0,
+                scale: 1,
+                onComplete: () => {
+                    $('.message').text('What will Latios do?');
+                    TweenMax.to($('.message'), 0.3, {
+                        opacity: 1
+                    });
+                    TweenMax.to($('.stats'), 0.3, {
+                        opacity: 1
+                    });
+                }
+            });
+        }, 750);
+
+        $('.hero-stats .hp-bar-inner').css('width', `${heroHP}px`);
+        $('.foe-stats .hp-bar-inner').css('width', `${foeHP}px`);
+
+        function attackgsap() {
+            TweenMax.to($foe, attackSpeed, {
+                scale: 1.5
+            });
+
+            const dest = { x: -210, y: 75 };
+            TweenMax.to($foeShadow, attackSpeed, {
+                x: dest.x,
+                y: dest.y + 30
+            });
+
+            TweenMax.to($foeSprite, attackSpeed, {
+                bezier: [
+                    { x: -130, y: -30 },
+                    { x: dest.x, y: dest.y }
+                ],
+                onComplete: () => {
+                    TweenMax.to($hero, 0.075, { opacity: 0, onComplete: () => { TweenMax.to($hero, 0.075, { opacity: 1, onComplete: () => { TweenMax.to($hero, 0.075, { opacity: 0, onComplete: () => { TweenMax.to($hero, 0.075, { opacity: 1, onComplete: () => { TweenMax.to($hero, 0.075, { opacity: 0, onComplete: () => { TweenMax.to($hero, 0.075, { opacity: 1, onComplete: () => { } }) } }) } }) } }) } }) } });
+                    TweenMax.to($foe, attackSpeed, {
+                        scale: 1
+                    });
+                    TweenMax.to($foeSprite, attackSpeed, {
+                        x: 0,
+                        y: 0
+                    });
+                    TweenMax.to($foeShadow, attackSpeed, {
+                        x: 0,
+                        y: 0
+                    });
+                    const rand = Math.floor(Math.random() * 10) + 5;
+                    heroHP -= rand;
+                    TweenMax.to($('.hero-stats .hp-bar-inner'), attackSpeed, {
+                        width: Math.max(0, heroHP),
+                        onComplete: () => {
+                            if (heroHP <= 36) {
+                                $('.hero-stats .hp-bar').addClass('bad');
+                            } else if (heroHP <= 73) {
+                                $('.hero-stats .hp-bar').addClass('medium');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        function attackgsap2() {
+            TweenMax.to($hero, attackSpeed, {
+                scale: 1
+            });
+
+            const dest = { x: 305, y: -110 };
+            TweenMax.to($heroShadow, attackSpeed, {
+                x: dest.x,
+                y: dest.y
+            });
+
+            $('.message').text('Latios attacked!');
+
+            TweenMax.to($heroSprite, attackSpeed, {
+                bezier: [
+                    { x: 135, y: -150 },
+                    { x: dest.x, y: dest.y }
+                ],
+                onComplete: () => {
+                    TweenMax.to($foe, 0.075, { 
+                        opacity: 0, 
+                        onComplete: () => { 
+                            TweenMax.to($foe, 0.075, { 
+                                opacity: 1, 
+                                onComplete: () => { 
+                                    TweenMax.to($foe, 0.075, { 
+                                        opacity: 0, 
+                                        onComplete: () => { 
+                                            TweenMax.to($foe, 0.075, { 
+                                                opacity: 1, 
+                                                onComplete: () => { 
+                                                    TweenMax.to($foe, 0.075, { 
+                                                        opacity: 0, 
+                                                        onComplete: () => { 
+                                                            TweenMax.to($foe, 0.075, { 
+                                                                opacity: 1
+                                                            }) 
+                                                        } 
+                                                    }) 
+                                                } 
+                                            }) 
+                                        } 
+                                    }) 
+                                } 
+                            }) 
+                        } 
+                    });
+                    TweenMax.to($hero, attackSpeed, {
+                        scale: 1.5
+                    });
+                    TweenMax.to($heroSprite, attackSpeed, {
+                        x: 0,
+                        y: 0
+                    });
+                    TweenMax.to($heroShadow, attackSpeed, {
+                        x: 0,
+                        y: 0
+                    });
+                    const rand = Math.floor(Math.random() * 30) + 25;
+                    foeHP -= rand;
+                    TweenMax.to($('.foe-stats .hp-bar-inner'), attackSpeed, {
+                        width: Math.max(0, foeHP),
+                        onComplete: () => {
+                            if (foeHP <= 0) {
+                                const aud = new Audio();
+                                aud.src = 'http://pokemoneclipse.net/prototyping/cries/021.wav';
+                                aud.play();
+                                $('.message').text('Spearow fainted!');
+                                setTimeout(() => {
+                                    TweenMax.to($('.foe-stats'), 0.5, {
+                                        opacity: 0
+                                    });
+                                    TweenMax.to($foe, 0.5, {
+                                        opacity: 0,
+                                        y: 100
+                                    });
+                                    TweenMax.to($('.message'), 0.5, {
+                                        opacity: 0
+                                    });
+                                }, 950);
+                            } else if (foeHP <= 36) {
+                                $('.foe-stats .hp-bar').addClass('bad');
+                            } else if (foeHP <= 73) {
+                                $('.foe-stats .hp-bar').addClass('medium');
+                            }
+
+                            if (foeHP > 0) {
+                                $('.message').text('What will Latios do?');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

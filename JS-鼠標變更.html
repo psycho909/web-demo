@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            display: flex;
+        }
+
+        .inner {
+            width: 50%;
+            height: 300px;
+            position: relative;
+        }
+
+        .hero {
+            background-color: green;
+        }
+
+        .boss {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div id="hero" class="inner hero"></div>
+        <div id="boss" class="inner boss">
+            <canvas id="myCanvas"></canvas>
+        </div>
+    </div>
+    <script>
+        var boss = document.getElementById("boss");
+        var ball = document.getElementById("ball");
+        let attack = {
+            x: boss.clientWidth/2,
+            y: boss.clientHeight/2,
+            w:40,
+            h:40
+        }
+        boss.addEventListener("mousemove", (e) => {
+            var _w=boss.clientWidth;
+            var _h=boss.clientHeight;
+            attack.x = e.offsetX
+            attack.y = e.offsetY
+            if(e.offsetX <= (attack.w/2)){
+                attack.x = (attack.w/2);
+            }
+            if(e.offsetX >= (_w-(attack.w/2))){
+                attack.x = _w-(attack.w/2);
+            }
+            if(e.offsetY <= (attack.h/2)){
+                attack.y = (attack.h/2);
+            }
+            if(e.offsetY >= (_h-(attack.h/2))){
+                attack.y = _h-(attack.h/2);
+            }
+            draw(img,attack.x,attack.y,attack.w,attack.h)
+        })
+        boss.addEventListener("mousedown", (e) => {
+            draw(img,attack.x,attack.y,(attack.w*1.5),(attack.h*1.5))
+            setTimeout(function(){
+                draw(img,attack.x,attack.y,attack.w,attack.h)
+            },50)
+        })
+        var img = new Image();
+        img.onload = function () {
+            draw(img,attack.x,attack.y,attack.w,attack.h);
+        };
+        img.src = "images/attack-icon.png";
+
+        const draw = (img,x,y,w,h) => {
+            let canvas = document.getElementById('myCanvas');
+            let ctx = canvas.getContext('2d')
+            canvas.height=boss.clientHeight;
+            canvas.width=boss.clientWidth;
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ctx.drawImage(img, x-(w/2), y-(h/2),w,h);
+        }
+    </script>
+</body>
+
+</html>
