@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p {
+            color: #FFF;
+            font-size: 3em;
+            font-family: sans-serif;
+        }
+
+        p span {
+            font-family: serif;
+        }
+
+        p.glow {
+            filter: progid:DXImageTransform.Microsoft.Glow(Color=#000000, Strength=1);
+        }
+
+        p.drop-shadow {
+            -ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=0, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=0, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=1, Color=#000000)";
+        }
+
+        p.text-shadow {
+            text-shadow:
+                -3px -3px 0 #000,
+                -3px 3px 0 #000,
+                -3px 0 0 #000,
+                3px -3px 0 #000,
+                3px 3px 0 #000,
+                3px 0 0 #000,
+                0 -3px 0 #000,
+                0 3px 0 #000;
+        }
+
+        p.text-stroke {
+            -webkit-text-stroke: 3px #000;
+            -webkit-text-fill-color: #fff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="glow">Text stroke based off <span>glow filter</span></p>
+
+    <p class="drop-shadow">Text stroke based off <span>drop shadow filter</span></p>
+
+    <p class="text-shadow">Text stroke based off <span>text shadow</span></p>
+
+    <p class="text-stroke">Actual <span>text stroke</span></p>
+</body>
+
+</html>
