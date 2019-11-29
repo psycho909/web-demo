@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://kenwheeler.github.io/slick/slick/slick.css">
+    <link rel="stylesheet" href="http://kenwheeler.github.io/slick/slick/slick-theme.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://kenwheeler.github.io/slick/slick/slick.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #3498db;
+        }
+
+        #app {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        h3 {
+            background: #fff;
+            color: #3498db;
+            font-size: 36px;
+            line-height: 100px;
+            margin: 10px;
+            padding: 2%;
+            position: relative;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="multiple-items">
+            <h3>1</h3>
+            <h3>2</h3>
+            <h3>3</h3>
+            <h3>4</h3>
+            <h3>5</h3>
+            <h3>6</h3>
+        </div>
+
+        <button class="next">Next</button>
+    </div>
+    <script>
+        $('.multiple-items').on('init', function (event, slick, direction) {
+            console.log("init");
+        });
+        $('.multiple-items').slick({
+            infinite: true,
+            slidesToShow: 1,
+            vertical: true
+        });
+        $('.multiple-items').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            console.log(currentSlide, nextSlide);
+        });
+        $('.multiple-items').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+            console.log(currentSlide, nextSlide);
+        });
+        $('.multiple-items').on('swipe', function (event, slick, direction) {
+            console.log(direction);
+        });
+        
+        $('.next').on('click',function(){
+            $('.multiple-items').slick("slickNext");
+        })
+    </script>
+</body>
+
+</html>

@@ -21,26 +21,38 @@
 <body>
     <div id="app">
         <div>
+            bodyoffsetWdith(Body總寬度):
+            <div id="bodyoffsetwidth"></div>
             bodyoffsetHeight(Body總高度):
             <div id="bodyoffsetheight"></div>
         </div>
         <div>
+            bodyClient(Body展示寬度):
+            <div id="bodyclientwidth"></div>
             bodyClient(Body展示高度):
-            <div id="bodyclient"></div>
+            <div id="bodyclientheight"></div>
         </div>
         <div>
+            outerWidth:
+            <div id="outerwidth"></div>
             outerHeight:
             <div id="outerheight"></div>
         </div>
         <div>
+            innerWidth:
+            <div id="innerwidth"></div>
             innerHeight:
             <div id="innerheight"></div>
         </div>
         <div>
+            screen.width:
+            <div id="screenwidth"></div>
             screen.height:
             <div id="screenheight"></div>
         </div>
         <div>
+            screen.availwidth:
+            <div id="screenavailwidth"></div>
             screen.availHeight:
             <div id="screenavailheight"></div>
         </div>
@@ -48,11 +60,17 @@
     <script>
         window.onload = function () {
             document.getElementById("outerheight").innerHTML=window.outerHeight;
+            document.getElementById("outerwidth").innerHTML=window.outerWidth;
+            document.getElementById("innerwidth").innerHTML=window.innerWidth;
             document.getElementById("innerheight").innerHTML=window.innerHeight;
+            document.getElementById('screenwidth').innerHTML=window.screen.width;
             document.getElementById('screenheight').innerHTML=window.screen.height;
+            document.getElementById('screenavailwidth').innerHTML=window.screen.availWidth;
             document.getElementById('screenavailheight').innerHTML=window.screen.availHeight;
+            document.getElementById('bodyoffsetwidth').innerHTML=document.body.offsetWidth;
             document.getElementById('bodyoffsetheight').innerHTML=document.body.offsetHeight;
-            document.getElementById('bodyclient').innerHTML=document.body.clientHeight;
+            document.getElementById('bodyclientwidth').innerHTML=document.body.clientWidth;
+            document.getElementById('bodyclientheight').innerHTML=document.body.clientHeight;
         }
     </script>
 </body>
