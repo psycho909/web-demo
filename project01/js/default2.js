@@ -150,6 +150,7 @@ $(".next").on("click",function(){;
     if(_length < 2){
         setting.unInitSlick()
         var itemHTML="";
+        
         itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
         $('.ranks__box').eq(setting.index).append(itemHTML)
     }
