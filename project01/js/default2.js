@@ -130,8 +130,8 @@ $('.down').on("click",function(){
     if(setting.index < 0){
         return;
     }
-    $('.floor').attr("data-index",setting.index).text(setting.getFloor());
 
+    setting.setInfo()
     setting.goTo()
 })
 
@@ -145,14 +145,13 @@ $(window).on('click',function(e){
 })
 
 $(".next").on("click",function(){;
-    var _length=$('.ranks__item').eq(setting.index).length;
-    
+    var _length=$('.ranks__box').eq(setting.index).find('.ranks__item').length;
+
     if(_length < 2){
         setting.unInitSlick()
         var itemHTML="";
         itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
         $('.ranks__box').eq(setting.index).append(itemHTML)
-        setting.initSlick()
     }
 
     setting.goTo()

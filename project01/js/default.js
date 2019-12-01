@@ -140,7 +140,7 @@ $(window).on('click',function(e){
 
 $(".next").on("click",function(){
     var _index=parseInt($('.floor').attr("data-index"));
-    var _length=$('.ranks__item').eq(_index).length;
+    var _length=$('.ranks__box').eq(setting.index).find('.ranks__item').length;
     var itemHTML="";
     itemHTML=item.replace(/{{floor}}/g,(_index*10)+10)
     if(_length < 2){
