@@ -153,6 +153,8 @@ $(".next").on("click",function(){;
         
         itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
         $('.ranks__box').eq(setting.index).append(itemHTML)
+
+        setting.initSlick()
     }
 
     setting.goTo()
