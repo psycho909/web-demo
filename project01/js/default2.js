@@ -202,6 +202,8 @@ $(".next").on("click",function(){;
         // $('.ranks__box').eq(setting.index).append(itemHTML)
 
         // setting.initSlick()
+
+        setting.initSlick()
     }
 
     setting.goTo()
