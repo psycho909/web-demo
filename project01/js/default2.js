@@ -14,8 +14,10 @@ var setting={
     goTo:function(){
         $('.ranks__wrap').slick("slickGoTo",this.index)
     },
-    setInfo:function(){
-        $('.floor').attr("data-index",this.index).attr("data-total",$('.ranks__box').length).text(this.getFloor());
+    setInfo:function(index){
+        this.total=$('.ranks__box').length;
+        this.index=index;
+        $('.floor').attr("data-index",index).attr("data-total",$('.ranks__box').length).text(this.getFloor());
     },
     initSlick:function(){
         $(".ranks__wrap").slick({
@@ -62,14 +64,23 @@ var box=`
 var item=`<div class="ranks__item">{{floor}}B</div`;
 
 $(function(){
-    var boxHTML="";
-    boxHTML=box.replace(/{{floor}}/g,setting.getFloor())
-    $('.ranks__wrap').append(boxHTML);
-
-    if(!isMobile.any || setting.orientation() == 'landscape'){
-        setting.initSlick()
-        setting.setInfo()
-    }
+    var index=setting.index;
+    $.ajax({
+        url:"https://randomuser.me/api/",
+        method:"get",
+        success:function(){
+            var boxHTML="";
+            boxHTML=box.replace(/{{floor}}/g,setting.getFloor())
+            $('.ranks__wrap').append(boxHTML);
+        
+            if(!isMobile.any || setting.orientation() == 'landscape'){
+                setting.initSlick()
+                setting.initBtn();
+                setting.setInfo(index)
+                setting.goTo()
+            }
+        }
+    })
 })
 
 window.addEventListener("orientationchange", function () {
@@ -97,27 +108,47 @@ $('.ranks__open').on('click',function(){
 })
 
 $('.up').on("click",function(){
-    setting.up();
+    var index=setting.index;
+    index+=1;
 
-    if(setting.index >= 10){
+    if(index >= 10){
         return;
     }
+    setting.index=index;
+
     if(setting.index >= setting.total){
         if(!isMobile.any || setting.orientation() == 'landscape'){
             setting.unInitSlick();
         }
 
-        var boxHTML="";
-        boxHTML=box.replace(/{{floor}}/g,setting.getFloor())
-        $('.ranks__wrap').append(boxHTML);
+        $.ajax({
+            url:"https://randomuser.me/api/",
+            method:"get",
+            success:function(){
+                var boxHTML="";
+                boxHTML=box.replace(/{{floor}}/g,setting.getFloor())
+                $('.ranks__wrap').append(boxHTML);
+            
+                if(!isMobile.any || setting.orientation() == 'landscape'){
+                    setting.initSlick()
+                    setting.initBtn();
+                    setting.setInfo(index)
+                    setting.goTo()
+                }
+            }
+        })
 
-        if(!isMobile.any || setting.orientation() == 'landscape'){
-            setting.initSlick();
-            setting.initBtn();
-        }
+        // var boxHTML="";
+        // boxHTML=box.replace(/{{floor}}/g,setting.getFloor())
+        // $('.ranks__wrap').append(boxHTML);
+
+        // if(!isMobile.any || setting.orientation() == 'landscape'){
+        //     setting.initSlick();
+        //     setting.initBtn();
+        // }
     }
 
-    setting.setInfo()
+    
     
     if(!isMobile.any || setting.orientation() == 'landscape'){
         setting.goTo()
@@ -125,13 +156,14 @@ $('.up').on("click",function(){
 })
 
 $('.down').on("click",function(){
-    setting.down()
-
-    if(setting.index < 0){
+    var index=setting.index;
+    index-=1;
+    
+    if(index < 0){
         return;
     }
-
-    setting.setInfo()
+    setting.index=index;
+    setting.setInfo(index)
     setting.goTo()
 })
 
@@ -149,10 +181,27 @@ $(".next").on("click",function(){;
 
     if(_length < 2){
         setting.unInitSlick()
-        var itemHTML="";
+
+        $.ajax({
+            url:"https://randomuser.me/api/",
+            method:"get",
+            success:function(){
+                var itemHTML="";
         
-        itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
-        $('.ranks__box').eq(setting.index).append(itemHTML)
+                itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
+                $('.ranks__box').eq(setting.index).append(itemHTML)
+
+                setting.initSlick()
+                setting.goTo()
+                $('.ranks__box').eq(setting.index).slick("slickGoTo",1)
+            }
+        })
+        // var itemHTML="";
+        
+        // itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
+        // $('.ranks__box').eq(setting.index).append(itemHTML)
+
+        // setting.initSlick()
     }
 
     setting.goTo()
