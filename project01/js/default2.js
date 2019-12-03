@@ -35,9 +35,18 @@ var setting={
             arrows:true,
         })
     },
+    initSlick2:function(index){
+        $(".ranks__box").eq(index).slick({
+            infinite: false,
+            arrows:true,
+        })
+    },
     unInitSlick:function(){
         $(".ranks__wrap").slick("unslick");
         $(".ranks__box").slick("unslick");
+    },
+    unInitSlick2:function(index){
+        $(".ranks__box").eq(index).slick("unslick");
     },
     initBtn:function(){
         $(".next").removeAttr("disabled")
@@ -180,7 +189,7 @@ $(".next").on("click",function(){;
     var _length=$('.ranks__box').eq(setting.index).find('.ranks__item').length;
 
     if(_length < 2){
-        setting.unInitSlick()
+        setting.unInitSlick2(setting.index)
 
         $.ajax({
             url:"https://randomuser.me/api/",
@@ -191,7 +200,7 @@ $(".next").on("click",function(){;
                 itemHTML=item.replace(/{{floor}}/g,setting.getFloor())
                 $('.ranks__box').eq(setting.index).append(itemHTML)
 
-                setting.initSlick()
+                setting.initSlick2(setting.index)
                 setting.goTo()
                 $('.ranks__box').eq(setting.index).slick("slickGoTo",1)
             }
@@ -202,8 +211,6 @@ $(".next").on("click",function(){;
         // $('.ranks__box').eq(setting.index).append(itemHTML)
 
         // setting.initSlick()
-
-        setting.initSlick()
     }
 
     setting.goTo()
