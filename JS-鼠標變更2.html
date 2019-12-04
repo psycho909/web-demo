@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
     <style>
         * {
             padding: 0;
@@ -30,6 +32,10 @@
         .boss {
             background-color: red;
         }
+        #myCanvas{
+            transition: all .2s;
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -50,9 +56,7 @@
             w:40,
             h:40
         }
-        box.addEventListener("mousemove",(e)=>{
-            console.log(e.currentTarget)
-        })
+
         boss.addEventListener("mousemove", (e) => {
             var _w=boss.clientWidth;
             var _h=boss.clientHeight;
@@ -61,15 +65,30 @@
             if(e.offsetX <= (attack.w/2)){
                 attack.x = (attack.w/2);
             }
+            
             if(e.offsetX >= (_w-(attack.w/2))){
                 attack.x = _w-(attack.w/2);
             }
+
             if(e.offsetY <= (attack.h/2)){
                 attack.y = (attack.h/2);
             }
             if(e.offsetY >= (_h-(attack.h/2))){
                 attack.y = _h-(attack.h/2);
             }
+
+            if(e.offsetX <= (attack.w/2)+60){
+                $('#myCanvas').css("opacity",0)
+            }else if(e.offsetX >= (_w-(attack.w/2)-60)){
+                $('#myCanvas').css("opacity",0)
+            }else if(e.offsetY <= (attack.h/2)+60){
+                $('#myCanvas').css("opacity",0)
+            }else if(e.offsetY >= (_h-(attack.h/2)-60)){
+                $('#myCanvas').css("opacity",0)
+            }else{
+                $('#myCanvas').css("opacity",1)
+            }
+
             draw(img,attack.x,attack.y,attack.w,attack.h)
         })
         boss.addEventListener("mousedown", (e) => {
