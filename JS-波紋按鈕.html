@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .btn{
+            font-size: 3rem;
+            margin: 1rem;
+            padding: 1rem;
+            background-image: linear-gradient(
+                to right top,
+                rgb(230,140,0) 0%,
+                rgb(230,20,0) 100%
+            );
+            color:#eee;
+            box-shadow: 
+            rgba(230,81,0,.2) 0px 5px 5px -3px,
+            rgba(230,81,0,.14) 0px 8px 10px 1px,
+            rgba(230,81,0,.12) 0px 3px 14px 2px;
+            outline: 0;
+            border:none;
+            border-radius: 3rem;
+            font-family: Arial;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .ripple{
+            position: absolute;
+            background-color: #eee;
+            width: 400px;
+            height: 400px;
+            border-radius: 100%;
+            opacity: 0.6;
+            transform: scale(0);
+        }
+        .ripple-active{
+            animation: ripple .25s ease-out both;
+        }
+        @keyframes ripple{
+            100%{
+                opacity: 0.3;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn">
+        Button
+        <div class="ripple"></div>
+    </button>
+    <script>
+        const btn=document.querySelector('.btn');
+        const ripple=document.querySelector('.ripple');
+
+        const pointerdown=({clientX,clientY})=>{
+            const rect=btn.getBoundingClientRect();
+
+            console.log(clientX,rect.top)
+            ripple.style.top=`${clientY-rect.top-200}px`;
+            ripple.style.left=`${clientX-rect.left-200}px`;
+            ripple.classList.add('ripple-active');
+        };
+
+        const pointerup=()=>{
+            setTimeout(()=>{
+                ripple.classList.remove('ripple-active')
+            },250)
+        };
+
+        btn.addEventListener('mousedown',pointerdown);
+        btn.addEventListener('touchstart',pointerdown);
+
+        btn.addEventListener('mouseup',pointerup);
+        btn.addEventListener('mouseout',pointerup);
+        btn.addEventListener('touchend',pointerup);
+    </script>
+</body>
+</html>
