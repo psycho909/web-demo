@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=750, user-scalable=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .header{
+            width: 750px;
+            height: 600px;
+            background-image: url('../images/header1.jpg');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="header"></div>
+    </div>
+    <script>
+        (function () {
+            // 设置设计稿的宽度
+            var targetW = 750;
+
+            // 计算当前视口与设计稿的比值
+            var scale = document.documentElement.clientWidth / targetW;
+
+            // 获取 meta[name='viewport'] 元素
+            var meta = document.querySelector("meta[name='viewport']");
+
+            // 设置meta元素 content的值，重点是设置 initial-scale 的值为前面计算的比例
+            meta.content = "initial-scale=" + scale + ",minimum-scale=" + scale + ",maximum-scale=" + scale + ",user-scalable=no";
+        })()    
+    </script>
+</body>
+
+</html>
