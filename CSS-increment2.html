@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .increment{
+            counter-reset: i;
+            list-style-type: none;
+        }
+        .increment li{
+            counter-increment: i;
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 12px;
+        }
+        .increment li:before{
+            content:counter(i);
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color:#fff;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <ul class="increment">
+        <li>內容內容內容</li>
+        <li>內容內容內容內容內容內容內容</li>
+        <li>內容內容內容內容</li>
+    </ul>
+</body>
+</html>

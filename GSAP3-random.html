@@ -11,6 +11,9 @@
         margin: 0;
         box-sizing: border-box;
     }
+    #box{
+        transition: width .5s;
+    }
     .box{
         width: 100px;
         height: 100px;
@@ -22,6 +25,7 @@
 </head>
 <body>
     <button id="btn">click</button>
+    <div id="box" class="box" style="width:100%"></div>
     <div class="box box1"></div>
     <div class="box box2"></div>
     <div class="box box3"></div>
@@ -29,12 +33,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
     <script>
+        var box=document.getElementById("box");
+        var type=3;
+        
         document.getElementById("btn").addEventListener('click',function(){
-            gsap.to('.box',{
-                duration:1,
-                x:"random(100,500)",
-                stagger:.5
-            })
+            var w=parseInt(box.style.width);
+            if(type == 1){
+                var w = 0;
+            }else{
+                var random = gsap.utils.random(1, w/type, true);
+                while(random < (w/type)){
+                    random+=gsap.utils.random(1, (w/type)/2, true);
+                }
+                w=w-random;
+            }
+            box.style.width=w+"%";
+            type--;
         })
     </script>
 </body>
