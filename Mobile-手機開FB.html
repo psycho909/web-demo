@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        .icon_fb{
+            padding: 24px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="icon_fb">Click</button>
+    <script>
+        mobile();
+        function mobile() {
+            var screenWidth = $(window).width();
+            var WhatSystem = navigator.userAgent;
+            $('.icon_fb').on('click', function () {
+                alert("click")
+                if (WhatSystem.match(/android/i)) {
+                    alert("android")
+                    window.open('fb://page/103801226391404');
+                    
+                } else if (WhatSystem.match(/(iphone|ipad|ipod)/i)) {
+                    alert("iphone")
+                    window.open('fb://page/?id=103801226391404');
+                    
+                }else{
+                    window.open('https://www.facebook.com/kartriderTW/');
+                }
+
+            })
+        }    
+    </script>
+</body>
+
+</html>
