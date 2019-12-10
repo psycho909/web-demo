@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .select-style {
+            width: 261px;
+            height: 54px;
+            line-height: 54px;
+            position: relative;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            border: 1px solid #ceaf83;
+        }
+
+        .select-style>* {
+            background-color: #000;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        .select-style__select {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .select-style__style {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 0;
+        }
+
+        .select-style__style .icon {
+            background-image: url('images/icon-select.png');
+            width: 31px;
+            height: 18px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+        }
+
+        @media screen and (max-width:750px) {
+            .select-style {
+                width: 85%;
+                height: 72px;
+                line-height: 72px;
+                margin-bottom: 32px;
+            }
+
+            .select-style>* {
+                font-size: 32px;
+            }
+
+            .select-style__style .icon {
+                width: 31px;
+                height: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="select-style">
+        <select class="select-style__select">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <div class="select-style__style">
+            <p>A</p>
+            <span class="icon"></span>
+        </div>
+    </div>
+
+    <script>
+        var selectStyle = (function () {
+            var selectStyles = function (fix, reveal) {
+                this.fix = fix;
+                this.reveal = reveal;
+                this.countOption = $(this.fix).find('option').length;
+            }
+            selectStyles.prototype.init = function () {
+                if ($(this.fix).find('option[selected]').length === 1) {
+                    $(this.reveal).find('p').html($(this.fix).find('option[selected]').html());
+                } else {
+                    $(this.reveal).find('p').html($(this.fix).find('option:first-child').html());
+                }
+                var _this = this;
+                $(this.fix).on("change", function () {
+                    var newValue = $(this).val();
+                    var newHTML = $(this).find(":selected").html();
+                    $(_this.reveal).find('p').html(newHTML);
+                })
+            }
+            var init = function (fix, reveal) {
+                new selectStyles(fix, reveal).init();
+            }
+            return {
+                init: init
+            }
+        })();
+
+        selectStyle.init(".select-style__select",".select-style__style")
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wrap{
+            width: 150px;
+            height: 150px;
+            background-color: yellow;
+            border:1px solid rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="box">
+        <div id="wrap" class="wrap"></div>
+    </div>
+
+    <script>
+        var box=document.getElementById("box");
+        var wrap=document.getElementById('wrap');
+
+        // 當移入事件所綁定的元素和子元素時會觸發
+        box.addEventListener("mouseover",function(e){
+            console.log("mouseover: ",e.target)
+        })
+        box.addEventListener("mouseleave",function(e){
+            console.log("mouseleave: ",e.target)
+        })
+
+        // 當移入事件所綁定的元素
+        box.addEventListener("mouseenter",function(e){
+            console.log("mouseenter: ",e.target)
+        })
+        box.addEventListener("mouseout",function(e){
+            console.log("mouseout: ",e.target)
+        })
+    </script>
+</body>
+</html>

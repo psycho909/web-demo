@@ -45,6 +45,9 @@
         </div>
         <br>
         <input type="text" v-model="menuShow">
+        <div>
+            <input placeholder="lazy" v-model.lazy="msg" @input="input" @change="change">
+        </div>
         <child v-model="menuShow"></child>
     </div>
     <template id="child">
@@ -65,11 +68,18 @@
                 menuShow:"",
                 gender:"",
                 fruits:[],
-                selected :""
+                selected :"",
+                msg:""
             },
             methods:{
                 checkInput(e){
                     console.log(e.target.value)
+                },
+                input(e){
+                    console.log("input: "+e.target.value)
+                },
+                change(e){
+                    console.log("change: "+e.target.value)
                 }
             }
         })
