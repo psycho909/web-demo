@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .choose {
+            counter-reset: fruit, unfruit;
+        }
+
+        .choose input {
+            counter-increment: unfruit;
+        }
+
+        .choose input:checked {
+            counter-increment: fruit;
+        }
+
+        .count:before {
+            content: counter(fruit)
+        }
+
+        .uncount:before {
+            content: counter(unfruit)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="choose">
+        <input type="checkbox" id="a">
+        <label for="a">APPLE</label>
+        <input type="checkbox" id="b">
+        <label for="b">BANANA</label>
+        <input type="checkbox" id="c">
+        <label for="c">PIEAPPLE</label>
+        <input type="checkbox" id="d">
+        <label for="d">FISH</label>
+        <div>
+            <p>你選擇了<span class="count"></span>種水果</p>
+            <p>你未選擇了<span class="uncount"></span>種水果</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

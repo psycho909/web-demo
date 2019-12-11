@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 400px;
+            border: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul>
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+        </ul>
+    </div>
+    <script>
+        var list=document.querySelector('ul');
+        var firstLi=document.querySelector('ul > li');
+        var newLi=document.createElement('li');
+        newLi.textContent="W";
+        list.insertBefore(newLi,firstLi)
+    </script>
+</body>
+
+</html>

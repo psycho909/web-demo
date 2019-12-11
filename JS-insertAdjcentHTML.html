@@ -9,15 +9,35 @@
         *{
             padding: 0;
             margin: 0;
+            font-family: "微軟正黑體";
+        }
+        #box{
+            width: 600px;
         }
         #box-inner{
-            width: 300px;
-            height: 300px;
+            width: 100%;
             background-color: #eee;
             position: relative;
+            padding: 2rem 0;
+        }
+        h1{
+            font-size: 24px;
         }
         #box-inner h3{
             background-color: red;
+            font-size: 24px;
+        }
+        .afterEnd{
+            background-color: yellow;
+        }
+        .afterBegin{
+            background-color: yellow;
+        }
+        .beforeBegin{
+            background-color: green;
+        }
+        .beforeEnd{
+            background-color: green;
         }
     </style>
 </head>
@@ -29,10 +49,15 @@
     </div>
     <script id="js-footer" src="./JS-insertAdjcentHTML.js" prod="新瑪奇B" theme="dark"></script>
     <script>
-        var afterEnd="<h1>afterEnd</h1>";
-        var beforeEnd="<h1>beforeEnd</h1>";
-        var beforeBegin="<h1>beforeBegin</h1>";
-        var afterBegin="<h1>afterBegin</h1>";
+        // beforebegin：元素自身的前面。
+        // afterbegin：插入元素內部的第一個子節點之前。
+        // beforeend：插入元素內部的最後一個子節點之後。
+        // afterend：元素自身的後面。
+
+        var afterEnd="<h1 class='afterEnd'>afterend：元素自身的後面。</h1>";
+        var beforeEnd="<h1 class='beforeEnd'>beforeend：插入元素內部的最後一個子節點之後。</h1>";
+        var beforeBegin="<h1 class='beforeBegin'>beforebegin：元素自身的前面。</h1>";
+        var afterBegin="<h1 class='afterBegin'>afterbegin：插入元素內部的第一個子節點之前。</h1>";
 
         var boxInner=document.getElementById("box-inner");
         boxInner.insertAdjacentHTML("afterEnd",afterEnd)

@@ -9,13 +9,17 @@
 <body>
     
     <script>
-        function numberToAdd(number,callback){
-            callback(number)
+        function fun(x,y,callback){
+            return callback(x,y)
         }
-        numberToAdd(123,function(number){
-            var num=number+100;
-            console.log(num)
-        })
+        var add=function(x,y){
+            return x+y;
+        }
+        var deincrement=function(x,y){
+            return x-y;
+        }
+        console.log(fun(2,5,add))
+        console.log(fun(2,5,deincrement))
     </script>
 </body>
 </html>
