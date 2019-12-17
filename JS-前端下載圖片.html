@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img id="img" src="images/3.jpg" alt="">
+    <script>
+        function getImageDataURL(){
+            var canvas=document.createElement("canvas");
+            var image=document.getElementById('img');
+            canvas.width=image.width;
+            canvas.height=image.height;
+            var ctx=canvas.getContext('2d');
+            ctx.drawImage(image,0,0,image.width,image.height);
+            var extension=image.src.substring(image.src.lastIndexOf('.')+1).toLowerCase();
+            return canvas.toDataURL("image/"+extension,1)
+        };
+        function downLoad(downloadName,url){
+            var tag=document.createElement('a');
+            tag.setAttribute('download',downloadName.replace(/\./g,"。"));
+            var image=new Image();
+            image.src=url+"?time="+new Date().getTime();
+            image.setAttribute("crossOrign","Anoymous");
+            console.log(image)
+            image.onload=function(){
+                tag.href=getImageDataURL(image);
+                console.log(tag)
+                tag.click();
+            }
+        }
+        downLoad("aaa","images/3.jpg")
+    </script>
+</body>
+</html>
