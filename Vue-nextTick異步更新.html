@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div ref="msgDiv">{{msg}}</div>
+        <div>沒用$nextTick: {{msg1}}</div>
+        <div>用了$nextTick: {{msg2}}</div>
+        <div>沒用$nextTick: {{msg3}}</div>
+        <button @click="changeMsg">Change Msg</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                msg:"Hello Vue",
+                msg1:"",
+                msg2:"",
+                msg3:"",
+            },
+            methods: {
+                changeMsg(){
+                    this.msg="Hello world";
+                    this.msg1=this.$refs.msgDiv.innerHTML
+                    this.$nextTick(()=>{
+                        this.msg2=this.$refs.msgDiv.innerHTML
+                    })
+                    this.msg3=this.$refs.msgDiv.innerHTML
+                }
+            },
+        })
+    </script>
+</body>
+</html>

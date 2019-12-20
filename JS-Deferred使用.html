@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+        <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    </head>
+    <body>
+        <script>
+            var getTodo =function (url){
+                var def=$.Deferred();
+                $.ajax({
+                    url:url,
+                    success:function(json){
+                        def.resolve(json)
+                    }
+                })
+                return def;
+            }
+            var getUser =function (url){
+                var def=$.Deferred();
+                $.ajax({
+                    url:url,
+                    success:function(json){
+                        def.resolve(json)
+                    }
+                })
+                return def;
+            }
+            getTodo('https://jsonplaceholder.typicode.com/todos/1')
+                .then(function(data){
+                    console.log(data)
+                    return getUser(
+                        'https://jsonplaceholder.typicode.com/users/1'
+                    )
+                })
+                .then(function(data){
+                    console.log(data)
+                })
+        </script>
+    </body>
+</html>
