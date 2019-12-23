@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Masonry Flex Grids | Webdevtrick.com</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .background {
+            align-items: center;
+            background: #212121;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            width: 100vw;
+        }
+
+        button {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 7px;
+            color: #ff5050;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-left: 10px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ff5050;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .container {
+            background: #212121;
+            box-sizing: border-box;
+            display: flex;
+            flex-flow: column wrap;
+            height: 80vh;
+            margin-bottom: 5vh;
+            text-align: center;
+            text-transform: uppercase;
+            width: 90vw;
+        }
+
+        .grids {
+            align-items: center;
+            background: white;
+            background-size: cover;
+            border: 5px solid #ff5050;
+            box-sizing: border-box;
+            color: white;
+            display: flex;
+            flex-grow: 0;
+            font-family: sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            height: 50%;
+            justify-content: center;
+            outline: 5px solid white;
+            text-shadow: 0 0 5px black;
+        }
+
+        .grids:nth-child(6n - 5) {
+            height: 25%;
+        }
+
+        .grids:nth-child(6n-4) {
+            height: 75%;
+        }
+
+        .grids:nth-child(6n-3) {
+            height: 50%;
+        }
+
+        .grids:nth-child(6n-2) {
+            height: 50%;
+        }
+
+        .grids:nth-child(6n-1) {
+            height: 66.666%;
+        }
+
+        .grids:nth-child(6n) {
+            height: 33.333%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="container" data-container>
+            <div class="grids" data-grids style="background-image: url('https://source.unsplash.com/random/1')">1</div>
+            <div class="grids" style="background-image: url('https://source.unsplash.com/random/2')">2</div>
+            <div class="grids" style="background-image: url('https://source.unsplash.com/random/3')">3</div>
+            <div class="grids" style="background-image: url('https://source.unsplash.com/random/4')">4</div>
+            <div class="grids" style="background-image: url('https://source.unsplash.com/random/5')">5</div>
+            <div class="grids" style="background-image: url('https://source.unsplash.com/random/6')">6</div>
+        </div>
+        <div class="buttons">
+            <button data-remove>-</button>
+            <button data-add>+</button>
+        </div>
+    </div>
+    <script>
+        // JS only for adding image
+        const add = document.querySelector('[data-add]');
+        const remove = document.querySelector('[data-remove]');
+        const grids = document.querySelector('[data-grids]');
+        const container = document.querySelector('[data-container]');
+        let number = 7;
+
+        add.addEventListener('click', () => {
+            const addgrids = grids.cloneNode(true);
+            const image = `url('https://source.unsplash.com/random/${Math.floor(Math.random() * 100)}')`;
+            addgrids.style.backgroundImage = image;
+            addgrids.innerHTML = number;
+            container.appendChild(addgrids);
+            number++;
+        });
+
+        remove.addEventListener('click', () => {
+            if (container.childElementCount > 0) {
+                container.removeChild(container.lastElementChild);
+            }
+
+            if (number > 1) {
+                number--;
+            }
+        });
+    </script>
+</body>
+
+</html>

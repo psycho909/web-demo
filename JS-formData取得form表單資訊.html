@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        username<input type="text" name="username">
+        password<input type="password" name="password">
+        <button type="button" id="btn">submit</button>
+    </form>
+    <script>
+        document.getElementById("btn").addEventListener("click",function(){
+            var data={username:"asdasd",passowrd:"12321"}
+            var formData=new FormData();
+            for(var v in data){
+                formData.append(v,data[v])
+            }
+            console.log(formData.get('username'))
+        })
+    </script>
+</body>
+</html>
