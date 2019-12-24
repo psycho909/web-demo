@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript SVG Clock | Webdevtrick.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <style>
+        :root {
+            --color-primary: #3F3F3F;
+            --color-accent: #ff3636;
+            --color-background: #FFF;
+        }
+
+        * {
+            -webkit-transform-origin: inherit;
+            transform-origin: inherit;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: var(--color-background);
+        }
+
+        .clock {
+            width: 60vmin;
+            height: 60vmin;
+            color: var(--color-primary);
+            fill: currentColor;
+            -webkit-transform-origin: 50px 50px;
+            transform-origin: 50px 50px;
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+            -webkit-animation-duration: 500ms;
+            animation-duration: 500ms;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .clock line {
+            stroke: currentColor;
+            stroke-linecap: round;
+        }
+
+        .lines {
+            opacity: 0.5;
+            stroke-width: 0.5px;
+        }
+
+        .line-1 {
+            -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+        }
+
+        .line-2 {
+            -webkit-transform: rotate(60deg);
+            transform: rotate(60deg);
+        }
+
+        .line-3 {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .line-4 {
+            -webkit-transform: rotate(120deg);
+            transform: rotate(120deg);
+        }
+
+        .line-5 {
+            -webkit-transform: rotate(150deg);
+            transform: rotate(150deg);
+        }
+
+        .line-6 {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .line-7 {
+            -webkit-transform: rotate(210deg);
+            transform: rotate(210deg);
+        }
+
+        .line-8 {
+            -webkit-transform: rotate(240deg);
+            transform: rotate(240deg);
+        }
+
+        .line-9 {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+
+        .line-10 {
+            -webkit-transform: rotate(300deg);
+            transform: rotate(300deg);
+        }
+
+        .line-11 {
+            -webkit-transform: rotate(330deg);
+            transform: rotate(330deg);
+        }
+
+        .line-12 {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
+        .line {
+            stroke-width: 1.5px;
+            transition: -webkit-transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275), -webkit-transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .line-second {
+            color: var(--color-accent);
+            stroke-width: 1px;
+        }
+
+        @-webkit-keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg class="clock" viewBox="0 0 100 100">
+        <g class="lines">
+            <line class="line line-1" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-2" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-3" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-4" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-5" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-6" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-7" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-8" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-9" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-10" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-11" x1="50" y1="5" x2="50" y2="10"></line>
+            <line class="line line-12" x1="50" y1="5" x2="50" y2="10"></line>
+        </g>
+
+        <line class="line line-hour" x1="50" y1="25" x2="50" y2="50"></line>
+        <line class="line line-minute" x1="50" y1="10" x2="50" y2="50"></line>
+        <circle cx="50" cy="50" r="3"></circle>
+
+        <g class="line line-second">
+            <line x1="50" y1="10" x2="50" y2="60"></line>
+            <circle cx="50" cy="50" r="1.5"></circle>
+        </g>
+    </svg>
+    <script>
+        (function () {
+            const secondline = document.querySelector('.line-second');
+            const minuteline = document.querySelector('.line-minute');
+            const hourline = document.querySelector('.line-hour');
+
+            let rotations = [0, 0, 0] // [second, minutes, hours]
+
+            function setTime() {
+                const now = new Date();
+
+                const seconds = now.getSeconds();
+                const minutes = now.getMinutes();
+                const hours = now.getHours() % 12;
+                if (seconds === 0) {
+                    rotations[0]++;
+                }
+
+                if (minutes === 0 && seconds === 0) {
+                    rotations[1]++;
+                }
+
+                if (hours === 0 && minutes === 0 && seconds === 0) {
+                    rotations[2]++;
+                }
+                const secondsDeg = (seconds / 60 * 360) + (rotations[0] * 360);
+                const minutesDeg = (minutes / 60 * 360) + (rotations[1] * 360);
+                const hoursDeg = (hours / 12 * 360) + (minutes / 60 * 30) + (rotations[2] * 360);
+                
+                secondline.style.transform = `rotate(${secondsDeg}deg)`;
+                minuteline.style.transform = `rotate(${minutesDeg}deg)`;
+                hourline.style.transform = `rotate(${hoursDeg}deg)`;
+            }
+
+            setTime();
+            setInterval(setTime, 1000);
+
+        })()
+    </script>
+</body>
+
+</html>
