@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Droppable && Draggable</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <style>
+        .container {
+            width: 65%;
+            height: 500px;
+            border: 2px solid silver;
+            margin: 0 auto;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            padding: 50px;
+        }
+
+        .draggableList,
+        .droppableList {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .draggable {
+            width: 75px;
+            height: 75px;
+            border-radius: 50px;
+            margin: 10px;
+            list-style: none;
+            display: inline-block;
+        }
+
+        .drapCircle {
+            width: 75px;
+            height: 75px;
+            border-radius: 50px;
+            border: 1px solid silver;
+            margin: 0 auto;
+        }
+
+        .dropable {
+            border: 2px solid silver;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            text-align: center;
+            color: silver;
+            line-height: 100px;
+            letter-spacing: 2px;
+            list-style: none;
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .feedback {
+            width: 150px;
+            margin-left: 10px;
+            margin-right: 10px;
+            list-style: none;
+            display: inline-block;
+        }
+
+        .dropable header {
+            padding: 5px 0px 5px 0px;
+            border-bottom: 2px solid silver;
+        }
+
+        #draggableOne {
+            background: #2ecc71;
+        }
+
+        #draggableTwo {
+            background: #3498db;
+        }
+
+        #draggableThree {
+            background: #9b59b6;
+        }
+
+        #draggableFour {
+            background: #e67e22;
+        }
+
+        .message {
+            color: green;
+            transition: 2s;
+        }
+
+        .colorChange {
+            background: #9b59b6;
+            color: #9b59b6;
+            border: 2px solid #9b59b6;
+            transition: 2s;
+        }
+
+        .colorChangeGreen {
+            background: #2ecc71;
+            color: #2ecc71;
+            border: 2px solid #2ecc71;
+            transition: 2s;
+        }
+
+        .colorChangeBlue {
+            background: #3498db;
+            color: #3498db;
+            border: 2px solid #3498db;
+            transition: 2s;
+        }
+
+        .colorChangeOrange {
+            background: #e67e22;
+            color: #e67e22;
+            border: 2px solid #e67e22;
+            transition: 2s;
+        }
+
+        .bounce {
+            animation-name: bounce;
+            animation-duration: 1.6s;
+            animation-timing-function: ease;
+            transform-origin: 50% 100%;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0%) scaleY(0.6);
+            }
+
+            60% {
+                transform: translateY(-100%) scaleY(1.1);
+            }
+
+            70% {
+                transform: translateY(0%) scaleY(0.95) scaleX(1.05);
+            }
+
+            80% {
+                transform: translateY(0%) scaleY(1.05) scaleX(1);
+            }
+
+            90% {
+                transform: translateY(0%) scaleY(0.95) scaleX(1);
+            }
+
+            100% {
+                transform: translateY(0%) scaleY(1) scaleX(1);
+            }
+        }
+
+        @-webkit-keyframes bounce {
+            0% {
+                -webkit-transform: translateY(0%) scaleY(0.6);
+            }
+
+            60% {
+                -webkit-transform: translateY(-100%) scaleY(1.1);
+            }
+
+            70% {
+                -webkit-transform: translateY(0%) scaleY(0.95) scaleX(1.05);
+            }
+
+            80% {
+                -webkit-transform: translateY(0%) scaleY(1.05) scaleX(1);
+            }
+
+            90% {
+                -webkit-transform: translateY(0%) scaleY(0.95) scaleX(1);
+            }
+
+            100% {
+                -webkit-transform: translateY(0%) scaleY(1) scaleX(1);
+            }
+        }
+
+        .disappear {
+            display: none;
+        }
+
+        .bazang {
+            color: pink;
+            font-size: 6em;
+        }
+
+        .out-of-stock {
+            display: none;
+            width: 100%;
+            text-align: center;
+            color: #666;
+            font-size: 24px;
+            line-height: 36px;
+        }
+
+        .ui-state-active {
+            border: 2px solid #000;
+            background-color:yellow;
+        }
+        .ui-state-hover{
+            border:2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1> Drag and Drop Animation </h1>
+        <ul class="draggableList">
+            <li class="draggable" id="draggableOne"></li>
+            <li class="draggable" id="draggableTwo"></li>
+            <li class="draggable" id="draggableThree"></li>
+            <li class="draggable" id="draggableFour"></li>
+        </ul>
+
+        <ul class="droppableList">
+            <li class="dropable" id="dropableOne"> Purple <span class="message"> </span> </li>
+            <li class="dropable" id="dropableTwo"> Green </li>
+            <li class="dropable" id="dropableThree"> Orange </li>
+            <li class="dropable" id="dropableFour"> Blue </li>
+        </ul>
+    </div>
+    <h4 class='out-of-stock'>Whoa!<br />You must really like images!</h4>
+    <script>
+        $(function () {
+            $("#draggableThree").draggable({
+                // true false
+                // 在非目標drop下 true會回到原位置、false會停留在drop的位置
+                revert: true,
+                // 可設定吸住的目標也可以不用
+                snap: ".drapCircle",
+                // inner outer both
+                snapMode: "inner"
+            });
+            $("#dropableOne").droppable({
+                // 對應哪個 DOM 可以 drop
+                accept: "#draggableThree",
+                // 在對應的 DOM drag對應到時會 加上class
+                // hoverClass: "ui-state-active",
+                classes: {
+                    // 在對應的 DOM drag時碰到觸發
+                    "ui-droppable-active": "ui-state-active",
+                    // 在對應的 DOM drag時到觸發
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                //在對應的 DOM drop時觸發的callback
+                drop: function (event, ui) {
+                    console.log("碰到了")
+                    $("#draggableThree")
+                        .addClass("disappear");
+                    $("#dropableOne")
+                        .addClass("colorChange")
+                        .addClass("bounce");
+                }
+            });
+
+            $("#draggableOne").draggable({
+                revert: "invalid"
+            });
+            $("#dropableTwo").droppable({
+                accept: "#draggableOne",
+                hoverClass: "ui-state-active",
+                drop: function (event, ui) {
+                    $("#draggableOne")
+                        .addClass("disappear");
+                    $("#dropableTwo")
+                        .addClass("colorChangeGreen")
+                        .addClass("bounce");
+                }
+            });
+
+            $("#draggableFour").draggable({
+                revert: "invalid"
+            });
+            $("#dropableThree").droppable({
+                accept: "#draggableFour",
+                activeClass: "ui-state-hover",
+                hoverClass: "ui-state-active",
+                drop: function (event, ui) {
+                    $("#draggableFour")
+                        .addClass("disappear");
+                    $("#dropableThree")
+                        .addClass("colorChangeOrange")
+                        .addClass("bounce");
+                }
+            });
+
+            $("#draggableTwo").draggable({
+                revert: "invalid"
+            });
+            $("#dropableFour").droppable({
+                accept: "#draggableTwo",
+                activeClass: "ui-state-hover",
+                hoverClass: "ui-state-active",
+                drop: function (event, ui) {
+                    $("#draggableTwo")
+                        .addClass("disappear");
+                    $("#dropableFour")
+                        .addClass("colorChangeBlue")
+                        .addClass("bounce");
+                }
+            });
+            // var draggableList = $(".drabbableList");
+            // if (draggableList.children().length == 0) {
+            //     $("<h4 class='out-of-stock'>Whoa!<br/>You must really like images!</h4>")
+            //         .appendTo(drabbableList)
+            //         .fadeIn("slow");
+            // }
+        });
+    </script>
+</body>
+
+</html>
