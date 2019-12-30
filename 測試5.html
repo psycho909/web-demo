@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .wrap {
+            position: relative;
+            min-width: 1200px;
+            z-index: 2;
+        }
+
+        .dungeon {
+            position: relative;
+            width: 100%;
+            height: 1160px;
+        }
+
+        .wrap .cont {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            font-family: "NexonGothic", sans-serif;
+            letter-spacing: -0.025em;
+            word-break: keep-all;
+        }
+
+        .wrap .cont.cont_03 {
+            height: 1160px;
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0808_uprise_zez992/images/cont_03.jpg?7f3716d…) no-repeat center 0/auto 100%;
+        }
+
+        .door {
+            position: absolute;
+            left: 50%;
+            bottom: 92px;
+            margin-left: -656px;
+            width: 573px;
+            height: 546px;
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0808_uprise_zez992/images/cont_03_door.png?ea2618e…) no-repeat 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="dungeon">
+            <div class="cont cont_03">
+                <div class="door"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
