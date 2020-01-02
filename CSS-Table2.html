@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet"
+        href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <!-- jQuery -->
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+
+    <script
+        src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        .fixed-table-container {
+            width: 70%;
+            height: 200px;
+            border: 1px solid black;
+            margin: 10px auto;
+            background-color: white;
+            position: relative;
+            padding-top: 30px;
+        }
+
+        .fixed-table-container .header-background {
+            background-color: #D5ECFF;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            border-bottom: 1px solid black;
+        }
+
+        .fixed-table-container .fixed-table-container-inner {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .fixed-table-container table {
+            background-color: white;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .fixed-table-container th {
+            padding: 0 5px;
+            text-align: left;
+        }
+
+        .fixed-table-container .first .th-inner {
+            border-left: none;
+            padding-left: 6px;
+        }
+
+        .fixed-table-container .th-inner {
+            position: absolute;
+            top: 0;
+            line-height: 30px;
+            text-align: left;
+            border-left: 1px solid black;
+            padding-left: 5px;
+            margin-left: -5px;
+        }
+
+        .fixed-table-container td+td {
+            border-left: 1px solid #ccc;
+        }
+
+        .fixed-table-container td {
+            border-bottom: 1px solid #ccc;
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed-table-container">
+        <div class="header-background"> </div>
+        <div class="fixed-table-container-inner">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="first">
+                            <div class="th-inner">First</div>
+                        </th>
+                        <th>
+                            <div class="th-inner">Second</div>
+                        </th>
+                        <th>
+                            <div class="th-inner">Third</div>
+                        </th>
+                        <th>
+                            <div class="th-inner">Fourth</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>First</td>
+                        <td>First</td>
+                        <td>First</td>
+                        <td>First</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Third</td>
+                        <td>Fourth</td>
+                    </tr>
+                    <tr>
+                        <td>First</td>
+                        <td>Second</td>
+                        <td>Fourth</td>
+                        <td>Third</td>
+                    </tr>
+                    <tr>
+                        <td>Last</td>
+                        <td>Last</td>
+                        <td>Last</td>
+                        <td>Last</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // $(".body").mCustomScrollbar({
+        //     theme: "dark",
+        //     callbacks: {
+        //         whileScrolling: function () {
+        //             // 獲取滾動距離
+        //             var yPos = this.mcs.top;
+        //             // $('.photowall').css("background-position","center "+yPos+"px");
+        //         }
+        //     }
+        // });
+    </script>
+</body>
+
+</html>

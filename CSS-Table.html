@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+        .fixed_header{
+            width: 1000px;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        .fixed_header th,.fixed_header td {
+            padding: 12px;
+            text-align: center;
+        }
+        .fixed_header th{
+            background-color: rgb(255, 243, 173);
+        }
+        .fixed_header thead{
+            display: block;
+            width: 100%;
+        }
+        .fixed_header tr{
+            width: 100%;
+            display: block;
+            font-size: 0;
+        }
+        .fixed_header th{
+            display: inline-block;
+            font-size: 16px;
+            height: 45px;
+            border-top:1px solid #000;
+            border-left:1px solid #000;
+        }
+        .fixed_header th:nth-of-type(1){
+            width: 10%;
+        }
+        .fixed_header th:nth-of-type(2){
+            width: 30%;
+        }
+        .fixed_header th:nth-of-type(3){
+            width: 25%;
+        }
+        .fixed_header th:nth-of-type(4){
+            width: 30%;
+        }
+        .fixed_header th:nth-of-type(5){
+            width: 5%;
+        }
+        .fixed_header th:last-child{
+            padding-right:17px;
+            border-right:1px solid #000;
+        }
+        .fixed_header tbody{
+            display: block;
+            width: 100%;
+            overflow-y: auto;
+            height: 100px;
+        }
+        .fixed_header td{
+            font-size: 16px;
+            border:1px solid #000;
+        }
+        .fixed_header td:nth-of-type(1){
+            width: 10%;
+        }
+        .fixed_header td:nth-of-type(2){
+            width: 30%;
+        }
+        .fixed_header td:nth-of-type(3){
+            width: 25%;
+        }
+        .fixed_header td:nth-of-type(4){
+            width: 30%;
+        }
+        .fixed_header td:nth-of-type(5){
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <table class="fixed_header">
+        <thead>
+            <tr>
+                <th>難度</th>
+                <th>副本名稱</th>
+                <th>BOSS</th>
+                <th>寶物</th>
+                <th>TR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td>Lair of Shaitan</td>
+                <td>Shaitan the Advisor</td>
+                <td>Skull of Endless Torment</td>
+                <td>NC</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Puppet Master’s Encore</td>
+                <td>The Puppet Master (Encore)</td>
+                <td>Sunny Side Bow</td>
+                <td>NC</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Cnidarian Reef</td>
+                <td>Royal Cnidarian</td>
+                <td>Cnidaria Rod</td>
+                <td>NC</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Secluded Thicket</td>
+                <td>Xolotl the Lightning God</td>
+                <td>Reikoku</td>
+                <td>NC</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
