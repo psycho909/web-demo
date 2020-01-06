@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .article-body {
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-body {
+            max-width: none;
+            display: grid;
+            grid-template-columns: [fullWidth-start] 1rem [left-start] 1fr [article-start right-start] minmax(20ch, 80ch) [article-end left-end] 1fr [right-end] 1rem [fullWidth-end];
+        }
+
+        .article-body>* {
+            grid-column: article;
+        }
+
+        .full-width {
+            grid-template-columns: minmax(20ch, 80ch);
+            justify-content: center;
+            grid-column: fullWidth;
+            background-color: lightblue;
+            display: grid;
+            padding: 1rem;
+        }
+
+        @supports (grid-template-columns: subgrid) {
+            .full-width {
+                grid-template-columns: subgrid;
+                padding: 0;
+            }
+
+            .fullWidth-center {
+                grid-column: article;
+            }
+
+            .fullWidth-right {
+                grid-column: right;
+                text-align: right;
+            }
+
+            .fullWidth-left {
+                grid-column: left;
+            }
+        }
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 1rem 0 0;
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+
+        p {
+            line-height: 1.4em;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="article-body">
+        <header class="article-head full-width">
+            <h1 class="fullWidth-center">Lorem Ipsum Title of this Story is Here</h1>
+            <p class="fullWidth-center">By Bryan Robinson</p>
+        </header>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis turpis, quis tempus sem. Sed
+            et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in enim sagittis, pharetra nulla nec,
+            interdum dui. Sed ut metus tempor, efficitur neque non, vehicula quam. Sed eu blandit diam. Curabitur quis
+            lectus eu eros condimentum auctor vitae a lorem. Quisque hendrerit lorem ligula, et ornare ante tempus
+            vitae. Nullam sodales euismod mi, id mollis justo molestie ornare. Nunc aliquam leo nec dolor elementum, ut
+            pulvinar elit lacinia.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis turpis, quis tempus sem. Sed
+            et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in enim sagittis, pharetra nulla nec,
+            interdum dui. Sed ut metus tempor, efficitur neque non, vehicula quam. Sed eu blandit diam. Curabitur quis
+            lectus eu eros condimentum auctor vitae a lorem. Quisque hendrerit lorem ligula, et ornare ante tempus
+            vitae. Nullam sodales euismod mi, id mollis justo molestie ornare. Nunc aliquam leo nec dolor elementum, ut
+            pulvinar elit lacinia.
+        </p>
+        <div class="full-width">
+            <h3 class="fullWidth-left">This is a full-width area</h3>
+            <p class="fullWidth-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis
+                turpis, quis tempus sem. Sed et tristique nibh. </p>
+        </div>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis turpis, quis tempus sem. Sed
+            et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in enim sagittis, pharetra nulla nec,
+            interdum dui. Sed ut metus tempor, efficitur neque non, vehicula quam. Sed eu blandit diam. Curabitur quis
+            lectus eu eros condimentum auctor vitae a lorem. Quisque hendrerit lorem ligula, et ornare ante tempus
+            vitae. Nullam sodales euismod mi, id mollis justo molestie ornare. Nunc aliquam leo nec dolor elementum, ut
+            pulvinar elit lacinia.
+        </p>
+        <div class="full-width">
+            <h3 class="fullWidth-right">This is a full-width right item</h3>
+            <p class="fullWidth-right"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis
+                turpis, quis tempus sem. Sed et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in
+                enim sagittis, pharetra nulla nec, interdum dui. Sed ut metus tempor, efficitur neque non, vehicula
+                quam. Sed eu blandit diam. Curabitur quis lectus eu eros condimentum auctor vitae a lorem. Quisque
+                hendrerit lorem ligula, et ornare ante tempus vitae. Nullam sodales euismod mi, id mollis justo molestie
+                ornare. Nunc aliquam leo nec dolor elementum, ut pulvinar elit lacinia. </p>
+
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis turpis, quis tempus sem. Sed
+            et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in enim sagittis, pharetra nulla nec,
+            interdum dui. Sed ut metus tempor, efficitur neque non, vehicula quam. Sed eu blandit diam. Curabitur quis
+            lectus eu eros condimentum auctor vitae a lorem. Quisque hendrerit lorem ligula, et ornare ante tempus
+            vitae. Nullam sodales euismod mi, id mollis justo molestie ornare. Nunc aliquam leo nec dolor elementum, ut
+            pulvinar elit lacinia.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis turpis, quis tempus sem. Sed
+            et tristique nibh. Proin eget dolor et lacus euismod pulvinar. Aliquam in enim sagittis, pharetra nulla nec,
+            interdum dui. Sed ut metus tempor, efficitur neque non, vehicula quam. Sed eu blandit diam. Curabitur quis
+            lectus eu eros condimentum auctor vitae a lorem. Quisque hendrerit lorem ligula, et ornare ante tempus
+            vitae. Nullam sodales euismod mi, id mollis justo molestie ornare. Nunc aliquam leo nec dolor elementum, ut
+            pulvinar elit lacinia.
+        </p>
+
+
+    </main>
+
+</body>
+
+</html>

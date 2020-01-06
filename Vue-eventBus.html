@@ -10,7 +10,9 @@
 <body>
     <div id="app">
         <div>{{msg}} - {{name}}</div>
+        <hr>
         <Home :title="msg" @setmsg="getmsg" :change="change"></Home>
+        <hr>
         <List></List>
     </div>
     <template id="Home">
