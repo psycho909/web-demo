@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            margin-bottom: 10px;
+        }
+        .box.blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script>
+        $('.box').addClass("blue")
+        class Person{
+            constructor(name){
+                this.name=name;
+                this.fn=function(){};
+            }
+            todo(fn){
+                this.fn=fn;
+            }
+        }
+
+        function sayName(name){
+            console.log(`Hello My name is ${name}`)
+        }
+
+        var p=new Person("Jack");
+        p.todo(sayName(p.name))
+    </script>
+</body>
+</html>

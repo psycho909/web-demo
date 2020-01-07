@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg | previewPlus(15) | addcopy}}</div>
+    </div>
+    <script>
+        Vue.filter("previewPlus",function(value,cutoff){
+            if(!value){
+                return '';
+            }
+            return value.substring(0,cutoff)+"..."
+        })
+        Vue.filter("addcopy",function(value,cutoff){
+            if(!value){
+                return '';
+            }
+            return value+" 來自GTW"
+        })
+        new Vue({
+            el:"#app",
+            filters:{
+                preview:function(value){
+                    if(!value){
+                        return '';
+                    }
+                    return value.substring(0,10)+"..."
+                }
+            },
+            data:{
+                msg:"橘子集團旗下江湖桔子代理，上海睿邏網路開發、盛趣遊戲發行的擬真生活養成手機遊戲《小森生活》，今（3）日台港澳事前預約正式開跑，玩家可在預約網頁及 beanfun! 參加活動，領取虛寶及實體獎項。玩家可至預約網站下載 Android 版本及 iOS TestFlight 連結。"
+            }
+        })
+    </script>
+</body>
+</html>
