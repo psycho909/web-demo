@@ -51,7 +51,7 @@
         <noscript>⚠️ JAVASCRIPT IS DISABLED IN YOUR BROWSER!</noscript>
 
         <h1>When the video is not fully visible on page, it pauses</h1>
-        <video src="https://raw.githubusercontent.com/rpsthecoder/h/gh-pages/OSRO-animation.mp4" controls=""></video>
+        <video id="video" src="https://raw.githubusercontent.com/rpsthecoder/h/gh-pages/OSRO-animation.mp4" controls=""></video>
         <p>
             Animation by Seoro Oh (via
             <a href="https://www.youtube.com/user/osro1113" target="_blank">Osro's YouTube Channel</a>
@@ -59,6 +59,13 @@
         </p>
 
         <script>
+        var vd=document.getElementById("video");
+        vd.addEventListener("loadeddata",function(){
+            if(vd.readyState >= 2){
+                vd.play()
+            }
+        })
+
         if(!!window.IntersectionObserver){
             let video = document.querySelector('video');
             let isPaused = false; /* flag for auto-pausing of the video */
