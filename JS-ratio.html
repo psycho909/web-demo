@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .wrap{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: #666;
+            overflow: hidden;
+            /* background-image: url('images/body-bg.jpg');
+            background-position: center center;
+            background-size: 100%;
+            background-repeat: no-repeat; */
+        }
+        .img{
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            top: 0;
+            transform: translate(-50%,0);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <img class="img" src="images/body-bg.jpg" alt="">
+    </div>
+    <script>
+        $(window).resize(function(){
+            radioSize()
+        }).resize()
+        
+        function radioSize(){
+            var imgW=$('.img').outerWidth();
+            var imgH=$('.img').outerHeight();
+            var vw=window.innerWidth;
+            var vh=window.innerHeight;
+            var s=Math.max(vw/imgW,vh/imgH);
+
+            $('.img').css({
+                "width":imgH*s*(16/9)+'px',
+                "height":imgH*s+"px"
+            })
+        }
+    </script>
+</body>
+</html>
