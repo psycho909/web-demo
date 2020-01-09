@@ -30,6 +30,7 @@
             left: 50%;
             top: 0;
             transform: translate(-50%,0);
+            z-index: 0;
         }
     </style>
 </head>
@@ -38,11 +39,13 @@
         <img class="img" src="images/body-bg.jpg" alt="">
     </div>
     <script>
+        radioSize()
         $(window).resize(function(){
             radioSize()
-        }).resize()
+        })
         
         function radioSize(){
+            console.log(1)
             var imgW=$('.img').outerWidth();
             var imgH=$('.img').outerHeight();
             var vw=window.innerWidth;
