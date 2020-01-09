@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20200103/js/animatesprite.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #666666;
+            font-family: 微軟正黑體, PingFangTC-Regular, arial, sans-serif;
+            font-size: 16px;
+            color: #fff;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #smokeBg {
+            position: fixed;
+            z-index: 50;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #smokeBg .smoke_inner {
+            width: 600px;
+            height: 344px;
+            background-image: url(https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20200103/css/img/smoke.png);
+            
+        }
+        #smokeBg .smoke_inner.anim{
+            animation: play 2s steps(22) infinite;
+        }
+        @keyframes play {
+            0% {
+                background-position: 0px 0px;
+            }
+
+            100% {
+                background-position: 0px -7568px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn">ON</button>
+    <div id="smokeBg">
+        <div class="smoke_inner"></div>
+    </div>
+    <script>
+        $('.btn').on('click',function(){
+            $(".smoke_inner").animateSprite('restart');
+            $('.smoke_inner').css('background-position',"0 0");
+            $(".smoke_inner").animateSprite({
+                fps: 20,
+                loop: false
+            });
+        })
+        // InitAnimate()
+        function InitAnimate() {
+            $(window).resize(function () {
+                var imgW = 600;
+                var imgH = 344;
+                var vw = window.innerWidth;
+                var vh = window.innerHeight;
+                var s;
+                // if (vw / vh > imgW / imgH) {
+                //     s = vw / imgW;
+                // } else {
+                //     s = vh / imgH;
+                // }
+                s=Math.max(vw/imgW,vh/imgH)
+                TweenMax.set($('#smokeBg'), {
+                    scale: s,
+                    x: '-50%',
+                    y: '-50%'
+                });
+            });
+
+            $(".smoke_inner").animateSprite({
+                fps: 20,
+                loop: false,
+                complete: function () {
+                    // use complete only when you set animations with 'loop: false'
+                    if ($('.smoke_inner').css('background-position') !== '0px 0px') {
+                        // $('#smokeBg').css('display', 'none');
+                        // smoking = false;
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

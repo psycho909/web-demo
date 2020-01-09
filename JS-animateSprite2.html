@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20200103/js/animatesprite.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #666666;
+            font-family: 微軟正黑體, PingFangTC-Regular, arial, sans-serif;
+            font-size: 16px;
+            color: #fff;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .fire3 {
+            position: fixed;
+            bottom: 25%;
+            left: 35%;
+            width: 100px;
+            height: 100px;
+            background-image: url('./images/spark.png');
+            background-position: 0 0;
+            animation: play3 2.5s steps(10) infinite;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn">ON</button>
+    <div class="fire3"></div>
+    <script>
+        var anim = false;
+        $('.btn').on('click', function () {
+            if (anim) {
+                $(".fire3").animateSprite('restart')
+            } else {
+                $(".fire3").animateSprite({
+                    fps: 10,
+                    loop: false,
+                    complete: function () {
+                        $('.fire3').css('background-position', "0 0");
+                        anim=true;
+                    }
+                });
+            }
+        })
+    </script>
+
+</body>
+
+</html>
