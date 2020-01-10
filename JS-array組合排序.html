@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        function quicksort(array){
+            var arr=array.slice(0);
+            console.log(arr)
+            if(arr.length <= 1){
+                return arr
+            }
+            var pivotIndex=Math.floor(arr.length/2);
+            var pivot=arr.splice(pivotIndex,1);
+
+            var left=[],right=[];
+
+            for(var i=0;i<arr.length;i++){
+                if(arr[i] > pivot){
+                    right.push(arr[i])
+                }else{
+                    left.push(arr[i])
+                }
+            }
+            return this.quicksort(left).concat(pivot, this.quicksort(right))
+        }
+        var arr=[77,1,3,99,2,44,421,100];
+        console.log(quicksort(arr))
+    </script>
+</body>
+</html>

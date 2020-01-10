@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function cloneDeep(obj) {
+            var newObj = {};
+            for (var key in obj) {
+                if (obj[key] && obj[key] instanceof Object) {
+                    newObj[key] = cloneDeep(obj[key])
+                } else {
+                    newObj[key] = obj[key];
+                }
+            }
+            return newObj;
+        }
+        var obj1 = {
+            a: "123",
+            b: 123,
+            c: true,
+            d: [43, 2],
+            e: undefined,
+            f: null,
+            g: function () { console.log("g"); },
+            h: new Set([3, 2, null]),
+            i: Symbol("fsd"),
+            k: new Map([["name", "张三"], ["title", "Author"]])
+        };
+        var obj2 = cloneDeep(obj1);
+        console.log(obj1)
+        console.log(obj2)
+    </script>
+</body>
+
+</html>

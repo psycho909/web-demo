@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child @get="getValue">
+            <template #footer={user}>
+                <div>
+                    <span>{{user}}</span>
+                </div>
+            </template>
+        </child>
+    </div>
+    <template id="child">
+        <div class="content">
+            <div class="text">
+                <slot name="footer" :user="user2"></slot>
+            </div>
+        </div>
+    </template>
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            data(){
+                return {
+                    user: {
+                        title: '測試 title',
+                        name: '測試 name'
+                    },
+                    user2: {
+                        title: 'LBJ',
+                        name: 'King'
+                    }
+                }
+            },
+            methods:{
+                testclick(){
+                    this.$emit("get","get value")
+                    console.log("child testclick")
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            methods:{
+                getValue(val){
+                    console.log("get emit "+val)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

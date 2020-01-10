@@ -58,13 +58,10 @@
             });
         };
 
-        async function addAsync(){
-            await getPosts(1);
-            await getComments(1);
-            await getLikes(1);
+        getLatestPostActivity(1).then((result) => {
             document.getElementById("everything").innerHTML = "Done!";
-        }
-        addAsync()
+            console.log(result);
+        });
     </script>
 </body>
 

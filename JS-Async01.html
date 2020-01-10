@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        async function getQuote() {
+            // get the type of quote from one fetch call, everything else waits for this to finish
+            let quoteTypeResponse = await fetch(`https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/quotes.json`)
+            let quoteType = await quoteTypeResponse.json()
+
+            // use what we got from the first call in the second call to an API, everything else waits for this to finish
+            let quoteResponse = await fetch("https://programming-quotes-api.herokuapp.com/quotes/" + quoteType.type)
+            let quote = await quoteResponse.json()
+
+            // finish up
+            console.log('done')
+        }
+
+        getQuote()
+    </script>
+</body>
+
+</html>
