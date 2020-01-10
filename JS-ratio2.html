@@ -28,12 +28,8 @@
         }
 
         .img {
-            position: absolute;
+            position: relative;
             width: 100%;
-            left: 50%;
-            top: 0;
-            transform: translate(-50%, 0);
-            z-index: 0;
         }
 
         .btn {
@@ -55,10 +51,10 @@
         <a class="btn" href="javascript:;"></a>
     </div>
     <script>
-        radioSize()
-        $(window).resize(function () {
-            radioSize()
-        })
+        // radioSize()
+        // $(window).resize(function () {
+        //     radioSize()
+        // })
 
         function radioSize() {
             var imgW = $('.img').outerWidth();
@@ -66,24 +62,11 @@
             var vw = window.innerWidth;
             var vh = window.innerHeight;
             var s = Math.max(vw / imgW, vh / imgH);
-            console.log(s)
+
             $('.img').css({
-                    "width": imgH * s* (16 / 9) +'px',
-                    "height": imgH * s + "px"
-                })
-            // if (s != 1) {
-            //     $('.img').css({
-            //         "width": imgW * s +'px',
-            //         "height": imgH * s + "px"
-            //     })
-            // } else {
-            //     $('.img').css({
-            //         "width": vw + 'px',
-            //         "height": vw * (9 / 16) + "px"
-            //     })
-            // }
-            // var tt=390/(imgH * s* (16 / 9))*100;
-            // $('.btn').css("top",tt+"vw")
+                "width": imgW * s + 'px',
+                "height": imgH * s + "px"
+            })
             // $('.img').css({
             //     "width": imgH * s * (16 / 9) + 'px',
             //     "height": imgH * s + "px"
