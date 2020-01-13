@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vuex watch</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.1/vuex.min.js"></script>
+    <style>
+        body {
+            background: #222;
+            padding: 20px;
+        }
+
+        #app {
+            background: #fff;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .item {
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+        .item--selected {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="item in items" :key="item.id" :class="{'item--selected': item.isSelected}" class="item"
+            @click="selectItem(item)">
+            {{ item.name }}
+        </div>
+        <button @click="shuffle">
+            Shuffle items
+        </button>
+    </div>
+
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                items: [
+                    { id: 1, name: 'First' },
+                    { id: 2, name: 'Second' },
+                    { id: 3, name: 'Third' },
+                    { id: 4, name: 'Fourth' }
+                ],
+                selectedItemId: 1
+            },
+            mutations: {
+                selectItem(state, item) {
+                    state.selectedItemId = item.id
+                },
+                shuffle(state) {
+                    const items = [...state.items]
+                    let j, x, i
+                    for (i = items.length - 1; i > 0; i--) {
+                        j = Math.floor(Math.random() * (i + 1))
+                        x = items[i]
+                        items[i] = items[j]
+                        items[j] = x
+                    }
+                    
+                    state.items = items
+                }
+            },
+            getters: {
+                items(state) {
+                    return state.items.map(item => ({
+                        ...item,
+                        isSelected: item.id === state.selectedItemId
+                    }))
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            store,
+            computed: {
+                items() { return this.$store.getters.items },
+                itemIds() { 
+                    return this.items.map(item => item.id) 
+                }
+            },
+            watch: {
+                items: {
+                    deep: true,
+                    handler(items) {
+                        console.log('Items watcher run', items)
+                    }
+                },
+                itemIds: {
+                    deep: true,
+                    handler(itemIds) {
+                        console.log('ItemsIds watcher run', itemIds)
+                    }
+                }
+            },
+            methods: {
+                selectItem(item) {
+                    this.$store.commit('selectItem', item)
+                },
+                shuffle() {
+                    this.$store.commit('shuffle')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            outline: none;
+            padding: 0;
+        }
+
+        .text {
+            width: 300px;
+            border:1px solid #000;
+            white-space: nowrap;
+            /* 规定文本是否折行 */
+            overflow: hidden;
+            /* 规定超出内容宽度的元素隐藏 */
+            text-overflow: ellipsis;
+            /* 规定超出的内容文本省略号显示，通常跟上面的属性连用，因为没有上面的属性不会触发超出规定的内容 */
+        }
+    </style>
+</head>
+
+<body>
+    <button>按鈕</button>
+    <div class="text">文字過多文字過多文字過多文字過多文字過多文字過多文字過多文字過多文字過多文字過多</div>
+</body>
+
+</html>
