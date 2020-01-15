@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>新龍之谷改版蓋台</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=1200, user-scalable=0">
+	<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+	<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+	<style>
+		*{padding: 0;margin: 0;box-sizing: border-box;}
+		.wrap{position: relative;width: 100%;height: 100vh;background-color: #666;overflow-x: hidden;}
+		.bg{width: 1920px;height: 1080px;position: absolute;left: 50%;top: 0;transform: translate(-50%, 0);z-index: 0;background-position: center 0;background-size: cover;}
+		.fulllink{width: 100%;height: 100%;display: block;}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<!-- 
+			[底下各種東東的說明]
+			.bg的background-image是內網的背景圖(16:9的大底圖)|
+			data-start的時間是對外露出的時間
+			data-src的圖是外網的背景圖
+			.fulllink是超大的整頁連結
+		-->
+		<div class="bg" 
+		style="background-image: url(https://backendweb.beanfun.com/CDN/UserUpload/beanfun/DragonNest/E20200122-bf/images/body-bg.jpg);"
+		data-start="2020/01/22 00:00:00" 
+		data-src="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20200122-bf/images/body-bg.jpg">
+			<a class="fulllink" href="https://tw.beanfun.com/DragonNest/Main.aspx?utm_source=beanfun_coverbanner0122&utm_medium=banner&utm_campaign=DN_OfficialWebsite0122" target="_blank"></a>
+		</div>
+	</div>
+
+
+	<script>
+		$(window).on("load", function () {
+			radioSize()
+		})
+		
+
+		$(window).resize(function () {
+			radioSize()
+		})
+
+		function radioSize() {
+			var radio = $('.bg').attr("data-radio");
+			var imgW = $('.bg').outerWidth();
+			var imgH = $('.bg').outerHeight();
+			
+			var vw = window.innerWidth;
+			var vh = window.innerHeight;
+			var s = Math.max(vw / imgW, vh / imgH);
+
+			var bgW, bgH, btnW, btnT, radioW, radioH;
+			var radioW = (16 / 9), radioH = (9 / 16);
+
+			bgW = imgH * s * radioW;
+			bgH = imgH * s;
+
+			if (bgW < vw) {
+				bgW = vw;
+				bgH = vw * radioH;
+			}
+			
+			$('.bg').css({ "width": bgW + 'px', "height": bgH + "px" })
+		}
+
+		var serverTime;
+		$.ajax({
+			type: "GET",
+			cache: false,
+			url: location.href,
+			complete: function (req, textStatus) {
+				var dateString = req.getResponseHeader("Date");
+				var imgRevealTime = new Date($('.bg').attr("data-start"));
+				if (dateString.indexOf("GMT") === -1) {
+					dateString += " GMT";
+				}
+				serverTime = new Date(dateString);
+				if (imgRevealTime < serverTime) {
+					$('[data-src]').each(function(i,v){
+						if($(v).attr("src")){
+							var worldImage=$(v).attr('data-src')
+							$(v).attr("src", worldImage);
+						}else{
+							var worldImage=$(v).attr('data-src')
+							$(v).css("background-image", worldImage);
+						}
+					})
+					console.log('小於serverTime');
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

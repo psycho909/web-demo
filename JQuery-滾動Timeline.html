@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery Scroll Timeline | Webdevtrick.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            line-height: 1.5;
+        }
+
+        .wrapper {
+            margin: 0 auto;
+            padding: 0 16.66% 50px;
+            width: 100%;
+        }
+
+        article {
+            position: relative;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .navigations {
+            position: fixed;
+            z-index: 99;
+            top: 0;
+            transition: top .3s ease-out;
+        }
+
+        .navigations ul {
+            list-style: none;
+            list-style-position: inside;
+            margin: 15px 0;
+        }
+
+        .navigations ul li {
+            margin: 15px 0;
+            padding-left: 0;
+            list-style-type: none;
+            color: #bfc1c3;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all .3s ease-out;
+        }
+
+        .navigations ul li.active {
+            font-weight: bold;
+            color: #f94125;
+            border-bottom: 1px dotted transparent;
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .navigations ul li:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="timeline">
+        <nav class="navigations">
+            <ul>
+                <li><span>2000</span></li>
+                <li><span>2001</span></li>
+                <li><span>2002</span></li>
+                <li><span>2003</span></li>
+                <li><span>2004</span></li>
+                <li><span>2005</span></li>
+                <li><span>2006</span></li>
+                <li><span>2007</span></li>
+                <li><span>2008</span></li>
+                <li><span>2009</span></li>
+                <li><span>2010</span></li>
+                <li><span>2011</span></li>
+                <li><span>2012</span></li>
+                <li><span>2013</span></li>
+                <li><span>2014</span></li>
+                <li><span>2015</span></li>
+                <li><span>2016</span></li>
+                <li><span>2017</span></li>
+                <li><span>2018</span></li>
+                <li><span>2019</span></li>
+                <li><span>2020</span></li>
+            </ul>
+        </nav>
+        <section class="sections">
+            <div class="wrapper">
+                <h2 class="singleSEC">2000</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2001</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2002</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2003</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2004</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2005</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2006</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2007</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2008</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2009</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2010</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2011</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2012</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2013</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2014</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2015</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2016</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2017</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2018</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2019</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+                <h2 class="singleSEC">2020</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et lectus auctor nisi porttitor
+                    semper ut vitae augue. Suspendisse egestas pharetra lacinia. Donec sollicitudin velit eget leo
+                    cursus, vitae molestie risus posuere.</p>
+                <p>Suspendisse ac turpis eleifend, dapibus eros sit amet, imperdiet mi. Praesent vitae enim nibh. Etiam
+                    eu metus ipsum. Donec rhoncus nunc sed orci consequat consectetur. Sed id varius felis. Sed et lorem
+                    ut nisi luctus blandit eget in lacus. Sed ut sapien eu odio ultricies vestibulum.</p>
+                <p>In non sapien varius, finibus tellus eu, scelerisque mauris. Vivamus ultricies, mi sed rutrum
+                    elementum, enim arcu vehicula justo, non rhoncus magna dolor in mauris. Curabitur quis congue metus,
+                    sed sollicitudin nibh. Pellentesque felis orci, efficitur ut nunc id, dignissim ultrices tellus.</p>
+            </div>
+        </section>
+    </article>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script>
+        let stickyTop = 0,
+            scrollTarget = false;
+
+        let timeline = $('.navigations'),
+            items = $('li', timeline),
+            singleSECs = $('.sections .singleSEC'),
+            offsetTop = parseInt(timeline.css('top'));
+
+        const TIMELINE_VALUES = {
+            start: 190,
+            step: 30
+        };
+
+
+        $(window).resize(function () {
+            timeline.removeClass('fixed');
+
+            stickyTop = timeline.offset().top - offsetTop;
+
+            $(window).trigger('scroll');
+        }).trigger('resize');
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > stickyTop) {
+                timeline.addClass('fixed');
+            } else {
+                timeline.removeClass('fixed');
+            }
+        }).trigger('scroll');
+
+        items.find('span').click(function () {
+            let li = $(this).parent(),
+                index = li.index(),
+                singleSEC = singleSECs.eq(index);
+
+            if (!li.hasClass('active') && singleSEC.length) {
+                scrollTarget = index;
+
+                let scrollTargetTop = singleSEC.offset().top - 80;
+
+                $('html, body').animate({ scrollTop: scrollTargetTop }, {
+                    duration: 400,
+                    complete: function complete() {
+                        scrollTarget = false;
+                    }
+                });
+
+            }
+        });
+        $(window).scroll(function () {
+            let viewLine = $(window).scrollTop() + $(window).height() / 3,
+                active = -1;
+
+            if (scrollTarget === false) {
+                singleSECs.each(function () {
+                    if ($(this).offset().top - viewLine > 0) {
+                        return false;
+                    }
+
+                    active++;
+                });
+            } else {
+                active = scrollTarget;
+            }
+            
+            timeline.css('top', -1 * active * TIMELINE_VALUES.step + TIMELINE_VALUES.start + 'px');
+
+            items.filter('.active').removeClass('active');
+
+            items.eq(active != -1 ? active : 0).addClass('active');
+        }).trigger('scroll');
+    </script>
+</body>
+
+</html>

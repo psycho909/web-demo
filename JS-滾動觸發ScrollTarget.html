@@ -132,11 +132,11 @@
                 var _top = $(document).scrollTop()
                 console.log(_top)
                 $('.tab').each(function(i, v) {
-                    if ( $(v).offset().top <= _top &&  $(v).offset().top + $(v).outerHeight() > _top ) {
-                        var data_name = $(v).attr('data-name')
+                    if ( $(this).offset().top <= _top &&  $(this).offset().top + $(this).outerHeight() > _top ) {
+                        var data_name = $(this).attr('data-name')
                         $('.nav li[data-name=' + data_name + ']').addClass( 'active' )
                     } else {
-                        var data_name = $(v).attr('data-name')
+                        var data_name = $(this).attr('data-name')
                         $('.nav li[data-name=' + data_name + ']').removeClass( 'active' )
                     }
                 })
