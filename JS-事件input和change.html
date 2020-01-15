@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>INPUT</div>
+        <input type="text" id="ipt">
+        <div id="ipt-txt"></div>
+        <br>
+        <div>CHANGE</div>
+        <input type="text" id="chg">
+        <div id="chg-txt"></div>
+    </div>
+
+    <script>
+        document.getElementById('ipt').addEventListener('input',function(){
+            document.getElementById('ipt-txt').innerText=this.value
+        })
+        document.getElementById('chg').addEventListener('change',function(){
+            document.getElementById('chg-txt').innerText=this.value
+        })
+    </script>
+</body>
+</html>
