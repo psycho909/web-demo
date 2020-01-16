@@ -18,11 +18,11 @@
     </div>
 
     <script>
-        document.getElementById('ipt').addEventListener('input',function(){
-            document.getElementById('ipt-txt').innerText=this.value
+        document.getElementById('ipt').addEventListener('input',function(e){
+            document.getElementById('ipt-txt').textContent=e.target.value
         })
-        document.getElementById('chg').addEventListener('change',function(){
-            document.getElementById('chg-txt').innerText=this.value
+        document.getElementById('chg').addEventListener('change',function(e){
+            document.getElementById('chg-txt').textContent=e.target.value
         })
     </script>
 </body>
