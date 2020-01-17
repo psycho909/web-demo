@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            display: inline-block;
+        }
+
+        .box img {
+            display: inline-block;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img data-cover="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20191112/images/body-bg.jpg"
+            src="https://backendweb.beanfun.com/CDN/UserUpload/beanfun/MapleStory/E20200122-bf/images/bg1.jpg" alt="">
+    </div>
+    <div class="box">
+        <img data-cover="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20191112/images/body-bg2.jpg"
+            src="https://backendweb.beanfun.com/CDN/UserUpload/beanfun/MapleStory/E20200122-bf/images/bg1.jpg" alt="">
+    </div>
+    <div class="box">
+        <img data-cover="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20191112/images/body-bg3.jpg"
+            src="https://backendweb.beanfun.com/CDN/UserUpload/beanfun/MapleStory/E20200122-bf/images/bg1.jpg" alt="">
+    </div>
+    <script>
+        // var coverIMG = [...document.querySelectorAll('[data-cover]')];
+        // coverIMG.forEach(function (v, i) {
+        //     var imgObj = new Image();
+        //     imgObj.src = v.dataset.cover;
+        //     imgObj.onerror = function (e) {
+        //         var parentDOM = v.parentElement;
+        //         parentDOM.innerHTML = "圖片仔入發生錯誤"
+        //         // console.log("圖片仔入發生錯誤")
+        //     }
+        //     imgObj.onload = function () {
+        //         v.src = v.dataset.cover
+        //     }
+
+        // })
+        // document.getElementById("img").addEventListener("load", function () {
+        //     var cover = this.dataset.cover;
+        //     var newIMG=new Image();
+        //     newIMG.src=cover;
+
+        //     newIMG.onerror=function(e){
+        //         console.log("圖片發生錯誤")
+        //     }
+        //     newIMG.onload=function(){
+        //         this.src=cover;
+        //     }
+        // })
+        (function () {
+                console.log(3)
+            })()
+        console.log(1);
+        setTimeout(function () {
+            console.log(1000)
+        },1000)
+        setTimeout(function () {
+            console.log(2)
+        })
+
+    </script>
+</body>
+
+</html>

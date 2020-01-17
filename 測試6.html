@@ -90,6 +90,36 @@
         <p>213123123122222222222222222222</p>
         <p>213123123122222222222222222222</p>
     </div>
+
+    <script>
+        const person = [
+            {
+                name: "Jim",
+                color: "blue",
+                age: 22
+            },
+            {
+                name: "Sam",
+                color: "blue",
+                age: 33
+            },
+            {
+                name: "Eddie",
+                color: "green",
+                age: 77
+            }
+        ];
+
+        const groupBy=(array,key)=>{
+            return array.reduce((result,currentValue)=>{
+                result[currentValue.color]=(result[currentValue.color]||[]).concat(currentValue)
+                console.log(result)
+                return result;
+            },{})
+        };
+        const personGroupedByColor = groupBy(person, "color");
+        // console.log(personGroupedByColor)
+    </script>
 </body>
 
 </html>
