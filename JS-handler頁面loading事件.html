@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #cover{
+            width: 300px;
+            display: block;
+        }
+        .box{
+            width: 300px;
+            display: table-cell;
+            background-color: rgb(175, 175, 175);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box">
+            <p>1</p>
+        </div>
+        <div class="box">
+            <p>2</p>
+            <p>2</p>
+            <p>2</p>
+        </div>
+        <div class="box">
+            <p>3</p>
+            <p>3</p>
+        </div>
+    </div>
+    
+    <img id="cover" src="" alt="">
+    <script>
+        // 當頁面整個loading會傳 complete
+        document.onreadystatechange = () => {
+            console.log(document.readyState);
+
+            var img=new Image();
+            img.src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
+            img.onload=function(){
+                console.log("done")
+            }
+        };
+
+        // 當頁面有被滑鼠選擇時會觸發
+        document.onselectionchange = () => {
+            console.log(document.getSelection().toString());
+        }
+    </script>
+</body>
+
+</html>

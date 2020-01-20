@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <video width="320" height="240" controls id='video'>
+        <source src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <p id='duration'>
+    </p>
+
+    <script>
+        const video = document.getElementById('video');
+        const duration = document.getElementById('duration');
+        video.load();
+
+        // 元信息已載入或已改變，表明媒體的長度發生了改變。例如，在媒體已被加載足夠的長度從而得知總長度時會觸發這個事件。
+        video.addEventListener('durationchange', (e) => {
+            console.log(e.srcElement.duration);
+            duration.innerHTML = `The video is ${e.srcElement.duration} seconds long`;
+        })
+        // 媒體被清空（初始化）時觸發。
+        video.addEventListener('emptied', function (e) {
+            console.dir(e.srcElement);
+        });
+    </script>
+</body>
+
+</html>

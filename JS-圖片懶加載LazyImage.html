@@ -88,7 +88,7 @@
                         setTimeout(()=>{
                             lazyImages.forEach(lazyImage=>{
                                 var bound=lazyImage.getBoundingClientRect();
-                                var scrollTop=window.pageYOffset;
+                                // var scrollTop=window.pageYOffset;
                                 // bound.top <= window.innerHeight && bound.bottom >= 0
                                 // lazyImage.offsetTop <= window.innerHeight+scrollTop
                                 if((bound.top <= window.innerHeight && bound.bottom >= 0) && getComputedStyle(lazyImage).display !== 'none'){
