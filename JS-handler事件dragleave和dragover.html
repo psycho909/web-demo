@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #drag-box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        #drop-zones {
+            display: flex;
+        }
+
+        #drop-zone {
+            width: 200px;
+            height: 200px;
+            background-color: purple
+        }
+
+        #drop-zone-2 {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="drag-over-tracker"></p>
+    <hr>
+    <div id="drag-box" draggable="true"></div>
+    <div id="drop-zones">
+        <div id="drop-zone"></div>
+
+        <div id="drop-zone-2"></div>
+    </div>
+
+    <script>
+        const dragBox = document.getElementById('drag-box');
+        const dropZone = document.getElementById('drop-zone');
+        const dropZone2 = document.getElementById('drop-zone-2');
+        const dragOverTracker = document.getElementById('drag-over-tracker');
+        const dragEnterHandler = (e) => {
+            console.log(e.srcElement.id)
+            if (e.srcElement.id.includes('drop-zone')) {
+                e.srcElement.appendChild(document.getElementById('drag-box'));
+            }
+        }
+        const dragOverHandler = (e) => {
+            if (e.toElement.id.includes('drop-zone')) {
+                dragOverTracker.innerHTML = `Dragging over  ${e.target.id}, coordinate (${e.clientX}, ${e.clientY})`;
+            }
+        }
+        dropZone.ondragenter = dragEnterHandler;
+        dropZone.ondragover = dragOverHandler;
+        dropZone2.ondragenter = dragEnterHandler;
+        dropZone2.ondragover = dragOverHandler;
+    </script>
+</body>
+
+</html>

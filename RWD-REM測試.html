@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 100%;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #999;
+        }
+
+        .section1 .box {
+            width: 750px;
+            background-color: #666;
+            margin: 0 auto;
+            padding: 12px;
+            font-size: 28px;
+        }
+
+        @media screen and (max-width: 750px) {
+
+            html{
+                font-size: calc(100vw / 750);
+            }
+            .section1 .box {
+                width: calc(375rem / 12);
+                background-color: #666;
+                margin: 0 auto;
+                padding: calc(12rem / 12);
+                font-size: calc(28rem / 12);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="section section1">
+            <div class="box">
+                <p>為了紀念本專案開跑，官方今日在「索尼克頻道」正式開設「SONIC2020」的特設網頁，提供紀念桌布、Twitter
+                    頭像等數位內容供玩家下載使用。索尼克頻道本身也常態性提供各式各樣的內容，今日公布以「希弗爾（Silver）」為主題所設計的桌布與 2020 年 2 月份月曆。參與畫作投稿或有獎問答亦可獲得特製贈品。
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var oHTML = document.querySelector("html");
+        // 當前螢幕寬度
+        var aWidth = oHTML.clientWidth;
+
+        // 設計稿: 750px
+        // 默認大小: 28px
+
+        // oHTML.style.fontSize = (aWidth / 750) * 28 + "px";
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 나눔고딕, Nanum Gothic, 'NanumGothic', 돋움, Dotum, Arial, sans-serif;
+            font-size: 16px;
+            color: #676767;
+            line-height: 1;
+            letter-spacing: -1px;
+            -webkit-text-size-adjust: none;
+        }
+
+        .wrap .cont {
+            position: relative;
+            font-family: "NexonGothic", sans-serif;
+            letter-spacing: -0.025em;
+            word-break: keep-all;
+        }
+
+        .wrap .cont.cont_02 {
+            height: 1320px;
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0829_uprise_nayu2q/images/cont_02.jpg?1763b44…) no-repeat center 0;
+        }
+
+        .blind {
+            font-size: 0;
+            line-height: 0;
+            text-indent: -9999999px;
+        }
+
+        .cont_02 .sel_unit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cont_02 .sel_unit .unit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity .3s ease-in-out;
+        }
+
+        .cont_02 .sel_unit .unit1 {
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0829_uprise_nayu2q/images/cont_02a.jpg?12f2fc8…) no-repeat center 0;
+        }
+
+        .cont_02 .sel_unit .unit.hide {
+            opacity: 0;
+        }
+
+        .cont_02 .sel_unit .unit .txt {
+            display: block;
+            position: absolute;
+            left: 50%;
+            width: 824px;
+            height: 544px;
+        }
+
+        .cont_02 .sel_unit .unit1 .txt {
+            top: 512px;
+            margin-left: -268px;
+        }
+
+        .cont_02 .sel_unit ul {
+            position: absolute;
+            left: 50%;
+            top: 290px;
+            margin-left: -600px;
+            width: 1200px;
+            height: 855px;
+            font-size: 0;
+        }
+
+        .cont_02 .sel_unit ul li {
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .cont_02 .sel_unit .unit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity .3s ease-in-out;
+        }
+
+        .cont_02 .sel_unit .unit .txt span {
+            display: block;
+            position: absolute;
+            width: 824px;
+            height: 25%;
+        }
+
+        .cont_02 .sel_unit .unit1 .txt span {
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0829_uprise_nayu2q/images/cont_02a_txt.png?4379d31…) no-repeat 0 0;
+        }
+
+        .cont_02 .sel_unit .unit .txt span.t1 {
+            left: 0;
+            top: 0;
+            background-position: 0 0;
+        }
+
+        .cont_02 .sel_unit .unit .txt span.t2 {
+            right: 0;
+            top: 136px;
+            background-position: right -136px;
+        }
+
+        .cont_02 .sel_unit .unit .txt span.t3 {
+            left: 0;
+            top: 272px;
+            background-position: 0 -272px;
+        }
+
+        .cont_02 .sel_unit .unit .txt span.t4 {
+            right: 0;
+            top: 408px;
+            background-position: right -408px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="cont cont_02" id="Event1" name="Event1">
+            <h2 class="blind">드러나는 진실</h2>
+            <p class="blind">퍼지는 어둠 사이에 웅크린 이야기. 이제 이 비극에 얽힌 진정한 목적이 드러날 때.</p>
+            <div class="sel_unit">
+                <div class="unit unit1">
+                    <h3 class="blind">테흐 두인 원정대</h3>
+                    <p class="blind">"조용한 장소에서 말씀드리고 싶어요. 제가 기억하고 있는 것들에 대해서요."</p>
+                    <p class="blind">어둠을 향해 무기를 치켜들었던 원정대원들. 그들의 숨겨둔 이야기가 드러난다.</p>
+                    <span class="txt">
+                        <span class="t1" style="width: 824px;"></span>
+                        <span class="t2" style="width: 824px;"></span>
+                        <span class="t3" style="width: 824px;"></span>
+                        <span class="t4" style="width: 824px;"></span>
+                    </span>
+                </div>
+                <div class="unit unit2 hide">
+                    <h3 class="blind">검은 달의 교단</h3>
+                    <p class="blind">"마땅히 해야 할 일을 할 뿐이지. 이 세계가 끊임없이 앞으로 나아가게 하기 위해서는 질서와 안정만이 최선책이 아니기 때문이다."</p>
+                    <p class="blind">교단에 드리워져 있던 베일이 걷힌다. 검은 달을 추종하는 자들이 품은 진실은...</p>
+                    <span class="txt">
+                        <span class="t1" style="width: 824px;"></span>
+                        <span class="t2" style="width: 824px;"></span>
+                        <span class="t3" style="width: 824px;"></span>
+                        <span class="t4" style="width: 824px;"></span>
+                    </span>
+                </div>
+                <ul class="hide">
+                    <li>aaa</li>
+                    <li>bbb</li>
+                </ul>
+            </div>
+            <div class="info">
+                <h3 class="blind">안내 사항</h3>
+                <p class="blind">
+                    <span>- G24 메인스트림 2부는 1부 및 '벨바스트 월석 잔해 제거' 퀘스트를 클리어한 밀레시안만 진행하실 수 있습니다.</span>
+                    <span>- 다른 마을의 월석 잔해 제거 퀘스트를 완료하지 않아도 G24 2부 진행이 가능하며, 해당 퀘스트는 메인스트림 진행과 무관하게 언제든 수행할 수 있습니다.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.sel_unit > ul > li').hover(function () {
+            var _index = $(this).index();
+            $('.unit').eq(_index).removeClass('hide')
+            var _span = $('.unit').eq(_index).find(".txt span");
+            $('.unit').eq(_index).find(".txt span").attr('style',"")
+            TweenMax.staggerFrom(_span, .45, {
+                width: 0
+            }, .15)
+        }, function () {
+            var _index = $(this).index();
+            $('.unit').eq(_index).addClass('hide')
+            var _span = $('.unit').eq(_index).find(".txt span");
+            TweenMax.set(_span,{
+                width:"824px"
+            })
+        })
+    </script>
+</body>
+
+</html>

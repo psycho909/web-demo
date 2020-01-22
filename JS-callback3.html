@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="copy-share" value="網址" hidden>
+    <a id="btnShare" class="btn" href="javascript:;" onclick="copyShare()">
+        <span>分享本活動</span>
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/clipboard/clipboard.min.js"></script>
+    <script>
+        // 複製網址
+        function copyShare() {
+            var clipboard = new ClipboardJS('#btnShare', {
+                text: function () {
+                    return $('#copy-share').val()
+                }
+            })
+            clipboard.on('success', function (e) {
+                console.log("已複製網址")
+            })
+        }
+        function callTime(callback) {
+            console.log("momo")
+            return callback
+        }
+        $('#btn').on("click", function () {
+            callTime(copyShare())
+        })
+
+    </script>
+</body>
+
+</html>
