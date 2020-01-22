@@ -15,13 +15,19 @@
     </div>
     <template id="child">
         <div>
-            <input type="text" :value="value" @input="$emit('input',$event.target.value)">
+            <!-- <input type="text" :value="value" @input="$emit('input',$event.target.value)"> -->
+            <input type="text" :value="value" @input="handleInput($event.target.value)">
         </div>
     </template>
     <script>
         Vue.component("child",{
             template:"#child",
             props:["value"],
+            methods:{
+                handleInput:function(val){
+                    this.$emit('input',val)
+                }
+            }
         })
         new Vue({
             el:"#app",
