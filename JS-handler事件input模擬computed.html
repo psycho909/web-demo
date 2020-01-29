@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <button>Display</button>
+        <p id="output"></p>
+    </div>
+    <script>
+        let user = {
+            firstName: '',
+            lastName: ''
+        };
+
+        let handlerChange= (e)=>{
+            const {name,value}=e.target;
+            console.log(`${name} is equal to ${value}`);
+            user[name]=value;
+        }
+
+        let displayPerson=()=>{
+            document.querySelector('#output').innerHTML = `${user.firstName} ${user.lastName}`;
+        };
+
+        document.querySelectorAll("input").forEach(ele=>{
+            ele.oninput=handlerChange;
+        })
+
+        document.querySelector('button').onclick = displayPerson;
+    </script>
+</body>
+
+</html>

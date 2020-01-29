@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+
+        header {
+            grid-area: header;
+        }
+
+        main {
+            grid-column: main;
+        }
+
+        aside {
+            grid-row: sidebar;
+        }
+
+        footer {
+            grid-column: footer;
+        }
+
+        aside,
+        main {
+            min-height: 300px;
+        }
+
+        body {
+            background: #fafafa;
+            line-height: 1.5;
+            font-family: "Arial";
+            padding: 4rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        main {
+            display: grid;
+            align-items: initial;
+            justify-content: initial;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas: 
+            "featured featured featured"
+            "item-1 item-1 item-1"
+            "item-2 item-2 item-2";
+            grid-gap: 1.25rem;
+        }
+
+        .item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e2deed;
+            border-radius: 5px;
+        }
+        .item-2 {
+            grid-area: item-1;
+        }
+
+        .item-3 {
+            grid-area: item-2;
+        }
+
+        .item.featured {
+            grid-area: featured;
+        }
+        
+
+        @media (min-width: 600px) {
+            main {
+                grid-template-areas: 
+                "featured item-1 item-2"
+                "featured item-1 item-2";
+            }
+        }
+
+        @media (min-width: 900px) {
+            main {
+                grid-template-areas: 
+                "featured item-1 item-1"
+                "featured item-2 item-2";
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <main>
+            <div class="item featured">featured</div>
+            <div class="item item-2">item-1</div>
+            <div class="item item-3">item-2</div>
+        </main>
+    </div>
+</body>
+
+</html>

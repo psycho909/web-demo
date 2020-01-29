@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>Text</div>
+    <img
+        src="https://images.unsplash.com/photo-1503066211613-c17ebc9daef0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" />
+    <img
+        src="https://images.unsplash.com/photo-1558603668-6570496b66f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80" />
+    <img
+        src="https://images.unsplash.com/photo-1558769132-92e717d613cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" />
+
+    <video src='https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_30mb.mp4'></video>
+    <script>
+        const img = document.querySelectorAll("img");
+        const video = document.querySelector('video');
+
+        video.onloadeddata = (event) => {
+            console.log(event);
+            console.log('video loaded');
+        }
+
+        var len=img.length;
+        [].forEach.call(img, function (v) {
+            var image = new Image();
+            image.src = v.src;
+
+            image.onload = function () {
+                len--;
+                if(len == 0){
+                    console.log("載入完成")
+                }
+            }
+        })
+        // img.onload = (event) => {
+        //     console.log("img loaded");
+        // };
+        window.onload = () => {
+            console.log("window loaded");
+        };
+    </script>
+</body>
+
+</html>

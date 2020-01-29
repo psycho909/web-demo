@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <style>
+        .wrapper {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .c-panel {
+            display: flex;
+            flex-direction: column;
+            background: #eee;
+            height: 180px;
+        }
+
+        .c-panel__title {
+            padding: 1rem;
+            background: #ccc;
+            font-weight: bold;
+        }
+
+        .c-panel__body {
+            padding: 1rem;
+            min-height: 0;
+        }
+
+        .c-panel__content {
+            overflow-y: scroll;
+            height: 100%;
+        }
+
+
+        body {
+            background: #fafafa;
+            line-height: 1.5;
+            font-family: 'Arial';
+            padding: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="c-panel">
+            <h2 class="c-panel__title">Title should be there</h2>
+            <div class="c-panel__body">
+                <div class="c-panel__content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam libero maxime esse ipsam
+                        commodi eius accusantium quasi enim id, totam modi voluptate tempore maiores fugiat officia
+                        minus labore magnam sit.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam libero maxime esse ipsam
+                        commodi eius accusantium quasi enim id, totam modi voluptate tempore maiores fugiat officia
+                        minus labore magnam sit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

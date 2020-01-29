@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function User(name, gender) {
+            let person={
+                name:name,
+                gender:gender,
+                hobys:[],
+                sayName:function(){
+                    console.log(`my name is ${person.name}`)
+                },
+                addHoby:function(a){
+                    person.hobys.push(a);
+                },
+                getHobdy:function(){
+                    return person.hobys
+                }
+            };
+
+            return person;
+        }
+
+        let me=User("chen","man");
+        me.sayName()
+        me.addHoby("aa")
+        console.log(me.getHobdy())
+    </script>
+</body>
+
+</html>

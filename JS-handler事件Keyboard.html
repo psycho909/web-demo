@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input" required>
+    <p id="log"></p>
+    <script>
+        // const input = document.querySelector('input');
+        // input.onkeydown = event => {
+        //     if (event.isComposing || event.keyCode === 229) {
+        //         return;
+        //     }
+        // };
+
+        const log = document.getElementById('log');
+        // input.onkeydown = e => {
+        //     log.textContent += ` ${e.code}`;
+        // };
+
+        input.onkeyup = e => {
+            log.textContent += ` ${e.code}`;
+        };
+    </script>
+</body>
+
+</html>

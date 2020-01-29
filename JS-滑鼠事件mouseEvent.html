@@ -52,17 +52,18 @@
             // document.getElementById("pre").innerHTML=`mouseover: ${e.target}`;
             console.log("mouseover: ",e.target.id)
         })
-        wrap.addEventListener("mouseleave",function(e){
-            console.log("mouseleave: ",e.target.id)
+        wrap.addEventListener("mouseout",function(e){
+            console.log("mouseout: ",e.target.id)
         })
 
         // 當移入事件所綁定的元素
         wrap.addEventListener("mouseenter",function(e){
             console.log("mouseenter: ",e.target.id)
         })
-        wrap.addEventListener("mouseout",function(e){
-            console.log("mouseout: ",e.target.id)
+        wrap.addEventListener("mouseleave",function(e){
+            console.log("mouseleave: ",e.target.id)
         })
+        
     </script>
 </body>
 </html>

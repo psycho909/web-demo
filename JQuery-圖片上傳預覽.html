@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Upload Preview | Webdevtrick.com</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+    <style>
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: calc(calc(100vh - 405px)/2);
+        }
+
+        #form1 {
+            width: auto;
+        }
+
+        .alert {
+            text-align: center;
+        }
+
+        #preview {
+            max-height: 256px;
+            height: auto;
+            width: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 5px;
+        }
+
+        #img_container {
+            border-radius: 5px;
+            margin-top: 20px;
+            width: auto;
+        }
+
+        .input-group {
+            margin-left: calc(calc(100vw - 100%)/2);
+            margin-top: 40px;
+            width: 320px;
+        }
+
+        .imgInp {
+            width: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #d3d3d3;
+        }
+
+        .loading {
+            animation: blinkingText ease 2.5s infinite;
+        }
+
+        @keyframes blinkingText {
+            0% {
+                color: #000;
+            }
+
+            50% {
+                color: transparent;
+            }
+
+            99% {
+                color: transparent;
+            }
+
+            100% {
+                color: #000;
+            }
+        }
+
+        .custom-file-label {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container animated bounce">
+        <form id="form1" runat="server">
+            <div class="alert"></div>
+            <div id='img_container'><img id="preview" src="https://webdevtrick.com/wp-content/uploads/preview-img.jpg"
+                    alt="your image" title='' /></div>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" id="inputGroupFile01" class="imgInp custom-file-input"
+                        aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $("#inputGroupFile01").change(function (event) {
+            RecurFadeIn();
+            readURL(this);
+        });
+        $("#inputGroupFile01").on('click', function (event) {
+            RecurFadeIn();
+        });
+        function readURL(input) {
+            // 0.檢驗是否有圖片
+            if (input.files && input.files[0]) {
+                // 1. 創建 reader = new FileReader
+                var reader = new FileReader();
+
+                var filename = $("#inputGroupFile01").val();
+                // 判斷文件是否符合我们要求的扩展名
+                if(!/\.(jpg?g|png|gif)$/i.test(filename)){
+                    return false;
+                }
+                filename = filename.substring(filename.lastIndexOf('\\') + 1);
+                
+                // 2. reader onload 並獲取 e.target.result
+                reader.onload = function (e) {
+                    // debugger;
+                    // 顯示文件
+                    $('#preview').attr('src', e.target.result);
+                    $('#preview').hide();
+                    $('#preview').fadeIn(500);
+                    $('.custom-file-label').text(filename);
+                }
+
+                // 3. 將文件以Data URL形式讀入頁面
+                reader.readAsDataURL(input.files[0]);
+            }
+            $(".alert").removeClass("loading").hide();
+        }
+        function RecurFadeIn() {
+            console.log('ran');
+            FadeInAlert("Wait for it...");
+        }
+        function FadeInAlert(text) {
+            $(".alert").show();
+            $(".alert").text(text).addClass("loading");
+        }
+    </script>
+</body>
+
+</html>
