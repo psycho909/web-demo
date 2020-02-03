@@ -26,10 +26,7 @@
             -webkit-transform-style: preserve-3d;
             -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
-            perspective: 600px;
-            -webkit-transition: 0.5s;
-            -moz-transition: 0.5s;
-            transition: 0.5s;
+            perspective: 1000;
 
             margin-left: 85px;
         }
@@ -40,7 +37,9 @@
 
             position: relative;
         }
-        .front,.back{
+
+        .front,
+        .back {
             backface-visibility: hidden;
             transition: 0.6s;
             transform-style: preserve-3d;
@@ -49,6 +48,7 @@
             top: 0;
             left: 0;
         }
+
         .front {
             z-index: 2;
             transform: rotateY(0deg);
@@ -78,9 +78,20 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.passbook').click(function (event) {
-                $(this).toggleClass('rotate-3d');
-                event.preventDefault();
+            var flipped = false;
+            $('.passbook').on('click', function () {
+                if (!flipped) {
+                    $('.back').css('transform', 'rotateY(0deg)');
+                    $('.front').css('transform', 'rotateY(180deg)');
+                    flipped = true;
+                    console.log('true part :' + flipped);
+                }
+                else {
+                    $('.back').css('transform', 'rotateY(180deg)');
+                    $('.front').css('transform', 'rotateY(0deg)');
+                    flipped = false;
+                    console.log('else part :' + flipped);
+                }
             });
         });
     </script>
