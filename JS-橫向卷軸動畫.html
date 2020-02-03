@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Horizontal Portfolio Layout | Webdevtric.com</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
+        type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato:300,100,400);
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            box-sizing: border-box;
+            position: relative;
+            list-style-type: none
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        a.link {
+            color: #C4290D
+        }
+
+        html,
+        body {
+            min-height: 100%
+        }
+
+        body {
+            background: #eee;
+            font: 300 20px/1.5 "Lato", sans-serif;
+            color: #333
+        }
+
+        .container {
+            padding: 30px
+        }
+
+        .portfolio-items {
+            height: 400px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            margin-bottom: 30px;
+            position: relative
+        }
+
+        .portfolio-items>li {
+            display: inline-block;
+            vertical-align: top
+        }
+
+        .item {
+            width: 300px;
+            height: 202px;
+            margin: 150px 20px 0;
+            padding: 5px;
+            border-radius: 2px;
+            background-color: white;
+            font-size: 14px;
+            opacity: 0;
+            position: relative;
+            top: -300px;
+            box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.5);
+            -webkit-transform: rotate(-135deg);
+            -ms-transform: rotate(-135deg);
+            -o-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+            -webkit-transition: all .3s ease, opacity 2s ease, top 1s ease;
+            -o-transition: all .3s ease, opacity 2s ease, top 1s ease;
+            transition: all .3s ease, opacity 2s ease, top 1s ease
+        }
+
+        .item:nth-child(even) {
+            margin-top: 100px
+        }
+
+        .item:hover {
+            height: 270px;
+            padding: 15px;
+            -webkit-transform: translateY(-68px);
+            -ms-transform: translateY(-68px);
+            -o-transform: translateY(-68px);
+            transform: translateY(-68px)
+        }
+
+        .item:hover .date {
+            -webkit-transform: translate3d(0, 61px, 0);
+            -ms-transform: translate3d(0, 61px, 0);
+            -o-transform: translate3d(0, 61px, 0);
+            transform: translate3d(0, 61px, 0)
+        }
+
+        .item:hover figcaption {
+            -webkit-animation: show .25s ease-in .120s forwards;
+            -o-animation: show .25s ease-in .120s forwards;
+            animation: show .25s ease-in .120s forwards
+        }
+
+        .item:hover p:nth-of-type(1) span {
+            -webkit-animation: slideOut .25s ease-out .15s forwards;
+            -o-animation: slideOut .25s ease-out .15s forwards;
+            animation: slideOut .25s ease-out .15s forwards
+        }
+
+        .item:hover p:nth-of-type(2) span {
+            -webkit-animation: slideOut .2s ease-out .3s forwards;
+            -o-animation: slideOut .2s ease-out .3s forwards;
+            animation: slideOut .2s ease-out .3s forwards
+        }
+
+        .item:hover .view {
+            height: 170px
+        }
+
+        .item:hover .view img {
+            top: -20px;
+            left: -20px;
+        }
+
+        .falldown {
+            top: 0;
+            opacity: 1;
+            -webkit-transform: rotate(0);
+            -ms-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0)
+        }
+
+        figure {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .view {
+            overflow: hidden;
+            width: 100%;
+            height: 190px;
+            position: relative
+        }
+
+        .view img {
+            width: 300px;
+            height: 190px;
+            -webkit-transition: width .3s ease;
+            -o-transition: width .3s ease;
+            transition: width .3s ease;
+            position: absolute;
+
+        }
+
+        figcaption {
+            height: 60px;
+            width: 100%;
+            padding: 0;
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+            opacity: 0
+        }
+
+        figcaption p {
+            line-height: 25px !important;
+            font: bold 12px/18px "Arial", sans-serif;
+            text-transform: uppercase;
+            padding: 0 10px;
+            margin: 5px 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            color: #333
+        }
+
+        figcaption span {
+            left: -100%;
+            opacity: 0
+        }
+
+        figcaption a {
+            color: #CC320F
+        }
+
+        .date {
+            z-index: 1;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 1px;
+            background-color: #CC320F;
+            position: absolute;
+            bottom: 30px;
+            left: 15px;
+            -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92);
+            -o-transition: -o-transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92);
+            transition: -webkit-transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92);
+            transition: -ms-transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92);
+            transition: -o-transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92);
+            transition: transform 0.5s cubic-bezier(0.12, 1.6, 0.91, 0.92)
+        }
+
+        @keyframes slideOut {
+            0% {
+                left: -100%;
+                opacity: 0
+            }
+
+            95% {
+                left: 0;
+                opacity: 0.2
+            }
+
+            100% {
+                opacity: 1;
+                left: 0
+            }
+        }
+
+        @keyframes show {
+            to {
+                opacity: 1
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+            cursor: pointer
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #ddd;
+            border-radius: 10px
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #C4290D
+        }
+
+        @-webkit-keyframes slideOut {
+            0% {
+                left: -100%;
+                opacity: 0
+            }
+
+            95% {
+                left: 0;
+                opacity: 0.2
+            }
+
+            100% {
+                opacity: 1;
+                left: 0
+            }
+        }
+
+        @-o-keyframes slideOut {
+            0% {
+                left: -100%;
+                opacity: 0
+            }
+
+            95% {
+                left: 0;
+                opacity: 0.2
+            }
+
+            100% {
+                opacity: 1;
+                left: 0
+            }
+        }
+
+        @-webkit-keyframes show {
+            to {
+                opacity: 1
+            }
+        }
+
+        @-o-keyframes show {
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <ul class="portfolio-items">
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/image-upload-with-preview.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/image-upload-with-preview/">Image Upload &
+                                    Preview</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/custom-select-dropdown-options.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/custom-select-dropdown-options/">Custom Select
+                                    Dropdown</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/flex-hover-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/flex-hover-slider/">Flex Hover Slider</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/jquery-circlular-image-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/jquery-customized-circle-slider/">Circular
+                                    Slider</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/javascript-coverflow-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/javascript-coverflow-slider/">JS Coverflow
+                                    Slider</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/3d-visualization-elements.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/3d-visualization-elements/">3D Visualization
+                                    Elements</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/javascript-quote-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/javascript-quote-slider/">Quote Slider</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/responsive-animated-gallery.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/responsive-animated-gallery/">Responsive Animated
+                                    Gallery</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/password-strength-checker.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/jquery-password-strength-checker/">Password Strength
+                                    Checker</a></span></p>
+                        <p><span>By Webdevtrick</span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/css-feedback-star-rating.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/css-feedback-star-rating/">Feedback Rating</a></span>
+                        </p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/product-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/fancybox-product-slider/">Fancybox Product
+                                    Slider</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/css-segment-control.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/css-animated-segmented-control/">Segmented
+                                    Control</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/javascript-rgb-slider.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/javascript-rgb-slider/">JavaScript RGB
+                                    Slider</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/javascript-loan-calculator.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/javascript-loan-calculator/">Loan
+                                    Calculator</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+            <li class="item">
+                <figure>
+                    <div class="view">
+                        <img src="https://webdevtrick.com/wp-content/uploads/full-page-navigation.jpg" />
+                    </div>
+                    <figcaption>
+                        <p><span><a href="https://webdevtrick.com/css-full-page-navigation/">Full Page
+                                    Navigation</a></span></p>
+                        <p><span>By Webdevtrick </span></p>
+                    </figcaption>
+                </figure>
+                <div class="date">2019</div>
+            </li>
+        </ul>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js'></script>
+    <script>
+        (function ($) {
+            var $window = $(window);
+
+            $.fn.isVisible = function () {
+                var $this = $(this),
+                    Left = $this.offset().left,
+                    visibleWidth = $window.width();
+
+                return Left < visibleWidth;
+            };
+        })(jQuery);
+
+        (function ($) {
+            var list = $('.portfolio-items');
+            var showVisibleItems = function () {
+                list.children('.item:not(.falldown)').each(function (el, i) {
+                    var $this = $(this);
+                    if ($this.isVisible()) {
+                        $this.addClass('falldown');
+                    }
+                });
+            };
+
+            //initially show all visible items before any scroll starts
+            showVisibleItems();
+
+            list.scroll(function () {
+                showVisibleItems();
+            });
+
+            list.on('mousemove', 'img', function (ev) {
+                var $this = $(this),
+                    posX = ev.pageX,
+                    posY = ev.pageY,
+                    data = $this.data('cache');
+                //cache necessary variables
+                if (!data) {
+                    data = {};
+                    data.marginTop = - parseInt($this.css('top')),
+                        data.marginLeft = - parseInt($this.css('left')),
+                        data.parent = $this.parent('.view'),
+                        $this.data('cache', data);
+                }
+
+                var originX = data.parent.offset().left,
+                    originY = data.parent.offset().top;
+
+                //move image
+                $this.css({
+                    'left': -(posX - originX) / data.marginLeft,
+                    'top': -(posY - originY) / data.marginTop
+                });
+            });
+
+
+            list.on('mouseleave', '.item', function (e) {
+                $(this).find('img').css({
+                    'left': '0',
+                    'top': '0'
+                });
+            });
+
+            list.mousewheel(function (event, delta) {
+                this.scrollLeft -= (delta * 60);
+
+                event.preventDefault();
+
+            });
+        })(jQuery)
+    </script>
+</body>
+
+</html>

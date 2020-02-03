@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 400px;
+            margin: 30px auto;
+            position: relative;
+            text-align: center;
+        }
+        .box ul{
+            list-style: none;
+            display: inline-block;
+        }
+        .box ul li{
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            background-image: url('https://imgur.com/qabSL8I.png');
+            position: relative;
+            margin-left: 108px;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        .box ul li:hover{
+            opacity: 1;
+        }
+        .box ul li:first-child{
+            margin-left: 0;
+        }
+        .box ul li:last-child:before{
+            content: none;
+        }
+        .box ul li:before{
+            content:"";
+            width: 113px;
+            height: 2px;
+            background-color: #000;
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%)
+        }
+        .box ul li span{
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translate(-50%,150%);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>
+                <span>AAAAA</span>
+            </li>
+            <li>
+                <span>BBBB</span>
+            </li>
+            <li>
+                <span>CCCCCC</span>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
