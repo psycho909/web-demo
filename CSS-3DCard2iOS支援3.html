@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* entire container, keeps perspective */
+        .flip-container {
+            perspective: 1000;
+            transform-style: preserve-3d;
+            color: #fff;
+        }
+
+        /*  UPDATED! flip the pane when hovered */
+        /*.flip-container:hover .back {
+		transform: rotateY(0deg);
+	}
+	.flip-container:hover .front {
+	    transform: rotateY(180deg);
+	}*/
+
+        .flip-container,
+        .front,
+        .back {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* flip speed goes here */
+        .card {
+            transition: 0.6s;
+            transform-style: preserve-3d;
+
+            position: relative;
+        }
+
+        /* hide back of pane during swap */
+        .front,
+        .back {
+            backface-visibility: hidden;
+            transition: 0.6s;
+            transform-style: preserve-3d;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /*  UPDATED! front pane, placed above back */
+        .front {
+            z-index: 2;
+            transform: rotateY(0deg);
+            background: red;
+        }
+
+        /* back, initially hidden pane */
+        .back {
+            transform: rotateY(180deg);
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="flip-container">
+        <div id="card0" class="card">
+            <figure class="front">
+                front
+            </figure>
+            <figure class="back">
+                back
+            </figure>
+        </div>
+    </article>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var flipped = false;
+
+            $('.flip-container').on('click', function () {
+                if (!flipped) {
+                    $('.back').css('transform', 'rotateY(0deg)');
+                    $('.front').css('transform', 'rotateY(180deg)');
+                    flipped = true;
+                    console.log('true part :' + flipped);
+                }
+                else {
+                    $('.back').css('transform', 'rotateY(180deg)');
+                    $('.front').css('transform', 'rotateY(0deg)');
+                    flipped = false;
+                    console.log('else part :' + flipped);
+                }
+            });
+
+
+        });
+
+    </script>
+</body>
+
+</html>

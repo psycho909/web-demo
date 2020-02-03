@@ -35,26 +35,29 @@
         }
 
         .card {
-            position: absolute;
-
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .front,.back{
             -webkit-backface-visibility: hidden;
             -moz-backface-visibility: hidden;
             backface-visibility: hidden;
+            transform-style: preserve-3d;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         .front {
             z-index: 1;
+            transform: rotateY(0deg);
         }
 
         .back {
-            -webkit-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
             transform: rotateY(180deg);
         }
 
         .rotate-3d {
-            -webkit-transform: rotateY(180deg);
-            -moz-transform: rotateY(180deg);
-            transform: rotateY(180deg);
+            transform: rotateY(-180deg);
         }
     </style>
 </head>
