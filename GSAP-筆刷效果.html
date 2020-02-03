@@ -143,16 +143,38 @@
             top: 408px;
             background-position: right -408px;
         }
+
+        .cont_02 .sel_unit .unit2 .txt {
+            top: 479px;
+            margin-left: -797px;
+        }
+
+        .cont_02 .sel_unit .unit2 .txt span {
+            background: url(http://s.nx.com/s2/game/mabinogi/MabiWeb/event/2019/0829_uprise_nayu2q/images/cont_02b_txt.png?4098095…) no-repeat 0 0;
+        }
+        .box{
+            width: 100%;
+            height: 600px;
+        }
+        .f_menu{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 200px;
+            background-color: #666;
+        }
     </style>
 </head>
 
 <body>
     <div class="wrap">
+        <!-- <div class="box"></div> -->
         <div class="cont cont_02" id="Event1" name="Event1">
             <h2 class="blind">드러나는 진실</h2>
             <p class="blind">퍼지는 어둠 사이에 웅크린 이야기. 이제 이 비극에 얽힌 진정한 목적이 드러날 때.</p>
             <div class="sel_unit">
-                <div class="unit unit1">
+                <div class="unit unit1 hide">
                     <h3 class="blind">테흐 두인 원정대</h3>
                     <p class="blind">"조용한 장소에서 말씀드리고 싶어요. 제가 기억하고 있는 것들에 대해서요."</p>
                     <p class="blind">어둠을 향해 무기를 치켜들었던 원정대원들. 그들의 숨겨둔 이야기가 드러난다.</p>
@@ -188,13 +210,14 @@
             </div>
         </div>
     </div>
-
+    <!-- <div class="f_menu"></div> -->
     <script>
+
         $('.sel_unit > ul > li').hover(function () {
             var _index = $(this).index();
             $('.unit').eq(_index).removeClass('hide')
             var _span = $('.unit').eq(_index).find(".txt span");
-            $('.unit').eq(_index).find(".txt span").attr('style',"")
+            $('.unit').eq(_index).find(".txt span").attr('style', "")
             TweenMax.staggerFrom(_span, .45, {
                 width: 0
             }, .15)
@@ -202,10 +225,23 @@
             var _index = $(this).index();
             $('.unit').eq(_index).addClass('hide')
             var _span = $('.unit').eq(_index).find(".txt span");
-            TweenMax.set(_span,{
-                width:"824px"
+            TweenMax.set(_span, {
+                width: "824px"
             })
         })
+        // var motionTime=1000;
+        // function fixShow() {
+        //     var top = $('.cont_02').offset().top;
+        //     console.log(top,$(window).scrollTop())
+        //     if ($(window).scrollTop() > top) {
+        //         $('.f_menu').fadeIn(motionTime)
+        //     } else {
+        //         $('.f_menu').fadeOut(motionTime)
+        //     }
+        // }
+        // $(window).scroll(function(){
+        //     fixShow()
+        // })
     </script>
 </body>
 

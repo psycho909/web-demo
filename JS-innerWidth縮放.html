@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            width: 100%;
+            background-color: #666;
+        }
+        .box{
+            width: 750px;
+            height: 600px;
+            margin: 0 auto;
+            background-image: url('images/header1.jpg');
+            background-size: cover;
+        }
+        .box img{
+            width: 100%;
+            display: block;
+        }
+        @media screen and (max-width:990px) {
+            .box{
+                width: calc(750 / 990 * 100vw);
+            }
+            /* body{
+                min-width: 990px;
+            } */
+        }
+        @media screen and (max-width:750px) {
+            /* body{
+                min-width: 750px;
+            } */
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="box" class="box">
+            <!-- <img src="images/header1.jpg" alt=""> -->
+        </div>
+    </div>
+
+    <script>
+        reszieImg()
+        function reszieImg(){
+            var oBox=document.getElementById("box");
+            var vw=window.innerWidth;
+            // r = 螢幕寬度 / 預設縮放寬度
+            var r=vw/990;
+
+            if(vw <= 990){
+                // 圖片寬度 * r
+                oBox.style.width=750*r+"px";
+                // 圖片高度 * r
+                oBox.style.height=600*r+"px";
+            }else{
+                oBox.style.width=750+"px"
+                oBox.style.height=600+"px"
+            }
+        }
+        window.addEventListener('resize',function(){
+            reszieImg()
+        })
+    </script>
+</body>
+</html>

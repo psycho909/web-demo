@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #eee;
+        }
+        .passbook-container{
+            width: 150px;
+            perspective: 600px;
+        }
+        .passbook-container:hover .passbook{
+            transform: rotateY(180deg);
+        }
+        .passbook {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            
+            -webkit-transition: 0.5s;
+            -moz-transition: 0.5s;
+            transition: 0.5s;
+        }
+        .card {
+            position: absolute;
+
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .front {
+            z-index: 1;
+        }
+
+        .back {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+
+        .rotate-3d {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="passbook-container">
+        <section class="passbook">
+            <div class="card front">
+                <img src="https://api.adorable.io/avatars/150/1">
+            </div>
+            <div class="card back">
+                <img src="https://api.adorable.io/avatars/150/2">
+            </div>
+        </section>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.passbook').click(function (event) {
+                $(this).toggleClass('rotate-3d');
+                event.preventDefault();
+            });
+        });
+    </script>
+</body>
+
+</html>
