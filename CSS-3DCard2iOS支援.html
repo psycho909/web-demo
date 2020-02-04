@@ -16,52 +16,68 @@
         body {
             background-color: #eee;
         }
-
+        .passbook-container{
+            width: 150px;
+            perspective: 600px;
+        }
+        /* .passbook-container:hover .passbook{
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        } */
         .passbook {
             position: relative;
             width: 150px;
             height: 150px;
-            margin-bottom: 100px;
-
             -webkit-transform-style: preserve-3d;
             -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
-            perspective: 1000;
-
-            margin-left: 85px;
+            
+            -webkit-transition: 0.5s;
+            -moz-transition: 0.5s;
+            transition: 0.5s;
         }
-
-        .card {
-            transition: 0.6s;
-            transform-style: preserve-3d;
-
-            position: relative;
-        }
-
-        .front,
-        .back {
-            backface-visibility: hidden;
-            transition: 0.6s;
-            transform-style: preserve-3d;
-
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .front {
-            z-index: 2;
-            transform: rotateY(0deg);
-            background: red;
-        }
-
-        .back {
+        .passbook:hover .front{
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
             transform: rotateY(180deg);
-            background: blue;
+        }
+        .passbook:hover .back{
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+        }
+        
+        .card {
+            position: absolute;
+
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .front {
+            z-index: 1;
+            -webkit-transition:  0.6s;
+            -moz-transition:  0.6s;
+            transition: 0.6s;
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+        }
+
+        .back {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            -webkit-transition:  0.6s;
+            -moz-transition:  0.6s;
+            transition: 0.6s;
         }
 
         .rotate-3d {
-            transform: rotateY(-180deg);
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
         }
     </style>
 </head>
@@ -75,22 +91,20 @@
             <img src="https://api.adorable.io/avatars/150/2">
         </div>
     </section>
-
     <script type="text/javascript">
         $(document).ready(function () {
             var flipped = false;
             $('.passbook').on('click', function () {
+                console.log(1)
                 if (!flipped) {
                     $('.back').css('transform', 'rotateY(0deg)');
                     $('.front').css('transform', 'rotateY(180deg)');
                     flipped = true;
-                    console.log('true part :' + flipped);
                 }
                 else {
                     $('.back').css('transform', 'rotateY(180deg)');
                     $('.front').css('transform', 'rotateY(0deg)');
                     flipped = false;
-                    console.log('else part :' + flipped);
                 }
             });
         });

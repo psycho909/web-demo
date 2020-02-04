@@ -37,6 +37,12 @@
             -moz-transition: 0.5s;
             transition: 0.5s;
         }
+        .passbook:hover .front{
+            transform: rotateY(180deg);
+        }
+        .passbook:hover .back{
+            transform: rotateY(0deg);
+        }
         .card {
             position: absolute;
 
@@ -46,12 +52,15 @@
         }
         .front {
             z-index: 1;
+            transition: 0.6s;
+            transform: rotateY(0deg);
         }
 
         .back {
             -webkit-transform: rotateY(180deg);
             -moz-transform: rotateY(180deg);
             transform: rotateY(180deg);
+            transition: 0.6s;
         }
 
         .rotate-3d {
@@ -63,22 +72,29 @@
 </head>
 
 <body>
-    <div class="passbook-container">
-        <section class="passbook">
-            <div class="card front">
-                <img src="https://api.adorable.io/avatars/150/1">
-            </div>
-            <div class="card back">
-                <img src="https://api.adorable.io/avatars/150/2">
-            </div>
-        </section>
-    </div>
+    <section class="passbook">
+        <div class="card front">
+            <img src="https://api.adorable.io/avatars/150/1">
+        </div>
+        <div class="card back">
+            <img src="https://api.adorable.io/avatars/150/2">
+        </div>
+    </section>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.passbook').click(function (event) {
-                $(this).toggleClass('rotate-3d');
-                event.preventDefault();
+            var flipped = false;
+            $('.passbook').on('click', function () {
+                if (!flipped) {
+                    $('.back').css('transform', 'rotateY(0deg)');
+                    $('.front').css('transform', 'rotateY(180deg)');
+                    flipped = true;
+                }
+                else {
+                    $('.back').css('transform', 'rotateY(180deg)');
+                    $('.front').css('transform', 'rotateY(0deg)');
+                    flipped = false;
+                }
             });
         });
     </script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            background-color: #666;;
+        }
+        .active{
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        var zappo=function(selector){
+            var el;
+
+            var obj={
+                getEl(selector){
+                    if(el) return el;
+                    return document.querySelector(selector);
+                },
+                addClass(className){
+                    el.classList.add(className)
+                    return this
+                },
+                removeClass(className){
+                    el.classList.remove(className);
+                    return this;
+                }
+            }
+            el=obj.getEl(selector)
+            return obj;
+        }
+
+        var el=zappo(".box").addClass('active')
+    </script>
+</body>
+
+</html>
