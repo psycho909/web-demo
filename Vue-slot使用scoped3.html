@@ -22,7 +22,7 @@
     <template id="child">
         <div class="content">
             <div class="text">
-                <slot name="footer" :user="user" :testclick="testclick"></slot>
+                <slot name="footer" :user="users" :testclick="testclicks"></slot>
             </div>
         </div>
     </template>
@@ -31,14 +31,14 @@
             template:"#child",
             data(){
                 return {
-                    user: {
+                    users: {
                         title: '測試 title',
                         name: '測試 name'
                     }
                 }
             },
             methods:{
-                testclick(){
+                testclicks(){
                     this.$emit("get","get value")
                     console.log("child testclick")
                 }

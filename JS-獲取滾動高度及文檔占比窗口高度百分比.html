@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100%;
+            height: 800px;
+            background-color: #999;
+        }
+
+        .box:nth-child(odd) {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <script>
+        // 该函数主要功能返回，滚动的高度以及文档占比窗口高度的百分比
+        var utilsScrollTop = function (callback) {
+            // 页面总高
+            var totalH = document.body.scrollHeight || document.documentElement.scrollHeight;
+            // 可视高
+            var clientH = window.innerHeight || document.documentElement.clientHeight;
+            var result = {}
+            window.addEventListener('scroll', function (e) {
+                // 计算有效高
+                var validH = totalH - clientH
+                // 滚动条卷去高度
+                var scrollH = document.body.scrollTop || document.documentElement.scrollTop
+                // 百分比
+                result.percentage = (scrollH / validH * 100).toFixed(2)
+                result.scrollH = scrollH;
+                callback && callback(result)
+            })
+        }
+        window.onload=function(){
+            utilsScrollTop((res)=>{
+                console.log(res)
+            })
+        }
+    </script>
+</body>
+
+</html>

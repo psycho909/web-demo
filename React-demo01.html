@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
     <style>
         *,
         *:before,
@@ -21,86 +19,153 @@
 
 <body>
     <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const restaurants = [
             {
                 name: "Dan's Hamburgers",
                 price: 'Cheap',
-                cuisine: 'Burger'
+                cuisine: 'Burger',
+                key:1
             },
 
             {
                 name: "Austin's Pizza",
                 price: 'Cheap',
-                cuisine: 'Pizza'
+                cuisine: 'Pizza',
+                key:2
             },
 
             {
                 name: "Via 313",
                 price: 'Moderate',
-                cuisine: 'Pizza'
+                cuisine: 'Pizza',
+                key:3
             },
 
             {
                 name: "Bufalina",
                 price: 'Expensive',
-                cuisine: 'Pizza'
+                cuisine: 'Pizza',
+                key:4
             },
 
             {
                 name: "P. Terry's",
                 price: 'Cheap',
-                cuisine: 'Burger'
+                cuisine: 'Burger',
+                key:5
             },
 
             {
                 name: "Hopdoddy",
                 price: 'Expensive',
-                cuisine: 'Burger'
+                cuisine: 'Burger',
+                key:6
             },
 
             {
                 name: "Whataburger",
                 price: 'Moderate',
-                cuisine: 'Burger'
+                cuisine: 'Burger',
+                key:7
             },
 
             {
                 name: "Chuy's",
                 cuisine: 'Tex-Mex',
-                price: 'Moderate'
+                price: 'Moderate',
+                key:8
             },
 
             {
                 name: "Taquerias Arandina",
                 cuisine: 'Tex-Mex',
-                price: 'Cheap'
+                price: 'Cheap',
+                key:9
             },
 
             {
                 name: "El Alma",
                 cuisine: 'Tex-Mex',
-                price: 'Expensive'
+                price: 'Expensive',
+                key:10
             },
 
             {
                 name: "Maudie's",
                 cuisine: 'Tex-Mex',
-                price: 'Moderate'
+                price: 'Moderate',
+                key:11
             }];
+        const {useState,useEffect}=React;
 
+        const Say=(props)=>{
+            const [word,setWord]=useState("");
+            const [searched,setSearched]=useState([])
+            
+            const setList=searched.map((data,key)=>{
+                return (
+                    <li key={data.key}>
+                        <dl>
+                            <dt>{data.name}</dt>
+                            <dd>{data.price}</dd>    
+                        </dl>
+                    </li>
+                )
+            })
+
+            useEffect(() => {
+                const searched = restaurants.filter((item,key)=>{
+                    return item.name.search(word) !== -1
+                })
+                setSearched(searched)
+            }, [word])
+            const bindWord=(e)=>{
+                let word=e.target.value;
+                setWord(word)
+            }
+            const clear=()=>{
+                let word='';
+                setWord(word)
+            }
+
+            return (
+                <>
+                    <input type="text" onChange={bindWord} value={word} />
+                    <p>搜尋結果 {searched.length} 件</p>
+                    <button onClick={clear}>清除</button>
+                    <ul>{setList}</ul>
+                    
+                </>
+            )
+        }
+        class Tank extends React.Component{
+            render(){
+                return (
+                    <div>{this.props.name} 是一個坦克</div>
+                )
+            }
+        }
         class App extends React.Component {
             constructor(props) {
                 super(props);
                 this.state={
                     level:"LBJ",
-                    isKing:true
+                    isKing:true,
+                    msg:""
                 }
             }
             handleClick=()=>{
                 this.setState({
                     isKing:!this.state.isKing
+                })
+            }
+            handleChange=(e)=>{
+                this.setState({
+                    msg:e.target.value
                 })
             }
             componentDidMount(){
@@ -114,24 +179,20 @@
                 const wordList = ['俺老孙来也','有妖气','取经之路，就在脚下']
                 return (
                     <div>
+                        <Say name="Chen" />
                         {title}
                         <button onClick={this.handleClick}>點我</button>
                         <ul>
                         {wordList.map(v=><li key={v}>{v}</li>)}
                         </ul>
                         <Tank name="程咬金"></Tank>
+                        <div>{this.state.msg}</div>
+                        <input type="text" onChange={this.handleChange} />
                     </div>
                 )
             }
         }
-        class Tank extends React.Component{
-            render(){
-                return (
-                    <div>{this.props.name} 是一個坦克</div>
-                )
-            }
-        }
-        ReactDOM.render(<App restaurants={restaurants} />, document.getElementById('app'));
+        ReactDOM.render(<App />, document.getElementById('app'));
     </script>
 </body>
 

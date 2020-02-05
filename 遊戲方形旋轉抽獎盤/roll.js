@@ -5,8 +5,8 @@ var lottery = {
     speed: 20, //初始转动速度
     times: 0, //转动次数
     cycle: 50, //转动基本次数：即至少需要转动多少次再进入抽奖环节
-    prize: -1, //中奖位置
-    point: -1, //最终中奖位置
+    prize: -1, //中奖位置，會經由回傳的值去做改變
+    point: -1, //最终中奖位置，會經由回傳的值去做改變
     total: 400, //获奖弹框延迟显示时间，毫秒
     init: function(id) {
         if ($('#' + id).find('.lottery-unit').length > 0) {
@@ -37,6 +37,7 @@ var lottery = {
         return false
     },
     stop: function(index) {
+        console.log("stop",index)
         this.prize = index
         return false
     }
@@ -44,15 +45,15 @@ var lottery = {
 function roll() {
     lottery.times += 1
     lottery.roll() //转动过程调用的是lottery的roll方法，这里是第一次调用初始化
-    console.log(lottery.index)
+    // console.log(lottery.index)
     if (lottery.times > lottery.cycle + 10 && lottery.prize == lottery.index) {
+        console.log(lottery.prize,lottery.index)
         clearTimeout(lottery.timer)
         lottery.prize = -1
         lottery.times = 0
         click = false
         // 获奖弹框显示
         setTimeout(popShow, lottery.total)
-        // console.log(1)
     } else {
         if (lottery.times < lottery.cycle) {
             lottery.speed -= 10
@@ -86,7 +87,7 @@ var nscore = 0
 
 var res={
     "status":1,
-    "type":"25",
+    "type":"25",//設定中獎位置
     "prize":"5積分",
     "score":5,
     "t":"score"}
