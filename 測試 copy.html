@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
     <style>
         * {
             padding: 0;
@@ -68,6 +70,7 @@
 </head>
 
 <body>
+    <input type="text" name="token" id="token" inputmode="numeric" />
     <div class="list">
         <p class="favorite">
             <span class="highlight">Butter</span>
@@ -88,6 +91,13 @@
         <div class="box">6</div>
         <div class="box">7</div>
     </div>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+    <script>
+        $(function(){
+            console.log(isMobile.any)
+        })
+    </script>
+    
 </body>
 
 </html>

@@ -74,13 +74,13 @@ var rating=(function(){
 			num=$(this).index()+1
 		}).on('mouseout',function(){
 			lightOn(num);
-			console.log(num)
+			console.log("mouseover",num)
 		})
 	}
 
 	$.fn.extend({
-		rating:function(num){
-			console.log(this)
+		ratings:function(num){
+
 			return this.each(function(){
 				init(this,num);
 			})
@@ -92,6 +92,6 @@ var rating=(function(){
 	};
 })();
 rating.init('#rating',1)
-$('#rating2').rating(4);
+// $('#rating2').ratings(4);
 </script>
 </html>

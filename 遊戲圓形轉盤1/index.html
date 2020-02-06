@@ -131,56 +131,8 @@
 
                     return this.each(function () {
                         var o = opt;
-                        var data = [
-                            {
-                                color: '#3f297e',
-                                text: 'N분의 1'
-                            },
-                            {
-                                color: '#1d61ac',
-                                text: '요즘것들'
-                            },
-                            {
-                                color: '#169ed8',
-                                text: '도박'
-                            },
-                            {
-                                color: '#209b6c',
-                                text: '젓가락'
-                            },
-                            {
-                                color: '#60b236',
-                                text: '거북선'
-                            },
-                            {
-                                color: '#efe61f',
-                                text: '겁'
-                            },
-                            {
-                                color: '#f7a416',
-                                text: 'Day Day'
-                            },
-                            {
-                                color: '#e6471d',
-                                text: '호랑나비'
-                            },
-                            {
-                                color: '#dc0936',
-                                text: 'Okey Dokey'
-                            },
-                            {
-                                color: '#e5177b',
-                                text: '오빠차'
-                            },
-                            {
-                                color: '#be107f',
-                                text: 'RESPECT'
-                            },
-                            {
-                                color: '#881f7e',
-                                text: '작두'
-                            }
-                        ];
+                        console.log(o.options())
+                        data=o.options().data
 
                         var $wrap = $(this);
                         var $btnStart = $wrap.find("#btn-start");
@@ -196,7 +148,7 @@
                         var d = 360 / itemSize;
                         var borderTopWidth = wrapW;
                         var borderRightWidth = tanDeg(d);
-
+                        var R=wrapW*.5;
                         for (i = 1; i <= itemSize; i += 1) {
                             var idx = i - 1;
                             var rt = i * d + angleOffset;
@@ -217,12 +169,13 @@
                                 "transform": "rotate(" + rt + "deg)"
                             });
 
-                            var textH = parseInt(((2 * Math.PI * wrapW) / d) * .5);
-
+                            // var textH = parseInt(((2 * Math.PI * wrapW) / d) * .5);
+                            var textH = parseInt(((2 * Math.PI * R) / itemSize) * .5);
                             $roulette.children("." + itemSelector).eq(idx).children("." + labelSelector).css({
                                 "height": textH + 'px',
                                 "line-height": textH + 'px',
-                                "transform": 'translateX(' + (textH * 1.3) + 'px) translateY(' + (wrapW * -.3) + 'px) rotateZ(' + (90 + d * .5) + 'deg)'
+                                // "transform": 'translateX(' + (textH * 1.03) + 'px) translateY(' + (wrapW * -.25) + 'px) rotateZ(' + (90 + d * .5) + 'deg)'
+                                "transform": 'translateX(' + (textH * 1.203) + 'px) translateY(' + (wrapW * -.325) + 'px) rotateZ(' + (90 + d * .5) + 'deg)'
                             });
 
                         }
@@ -234,13 +187,10 @@
 
 
                         $btnStart.on("click", function () {
-                            rotation(o.options);
+                            rotation(o.options().completeA);
                         });
 
-                        function rotation(callbacks) {
-                            if(callbacks){
-                                var completeA = callbacks();
-                            }
+                        function rotation(completeA) {
                             // var completeA = 360 * r(5, 10) + r(0, 360);
 
                             $roulette.rotate({
@@ -250,8 +200,43 @@
                                 easing: $.easing.esing,
                                 callback: function () {
                                     var currentA = $(this).getRotateAngle();
-
-                                    console.log(currentA[0]%360);
+                                    currentA=currentA[0]%360
+                                    if(currentA <= 14 && currentA > 0){
+                                        console.log("1")
+                                    }
+                                    if(currentA <= 44 && currentA > 14){
+                                        console.log("12")
+                                    }
+                                    if(currentA <= 74 && currentA > 44){
+                                        console.log("11")
+                                    }
+                                    if(currentA <= 104 && currentA > 74){
+                                        console.log("10")
+                                    }
+                                    if(currentA <= 134 && currentA > 1044){
+                                        console.log("9")
+                                    }
+                                    if(currentA <= 164 && currentA > 134){
+                                        console.log("8")
+                                    }
+                                    if(currentA <= 194 && currentA > 164){
+                                        console.log("7")
+                                    }
+                                    if(currentA <= 224 && currentA > 194){
+                                        console.log("6")
+                                    }
+                                    if(currentA <= 254 && currentA > 224){
+                                        console.log("5")
+                                    }
+                                    if(currentA <= 284 && currentA > 254){
+                                        console.log("4")
+                                    }
+                                    if(currentA <= 314 && currentA > 284){
+                                        console.log("3")
+                                    }
+                                    if(currentA <= 344 && currentA > 314){
+                                        console.log("2")
+                                    }
 
                                 },
                                 duration: speed
@@ -270,7 +255,47 @@
         $(function () {
 
             $('.box-roulette').roulette(function(){{
-                return 2172
+                return {
+                    completeA:(360*5+312),
+                    data:[
+                            {
+                                color: '#3f297e',
+                                text: '第1獎'
+                            },
+                            {
+                                color: '#1d61ac',
+                                text: '第2獎'
+                            },
+                            {
+                                color: '#169ed8',
+                                text: '第3獎'
+                            },
+                            {
+                                color: '#209b6c',
+                                text: '第4獎'
+                            },
+                            {
+                                color: '#60b236',
+                                text: '第5獎'
+                            },
+                            {
+                                color: '#efe61f',
+                                text: '第6獎'
+                            },
+                            {
+                                color: '#f7a416',
+                                text: '第7獎'
+                            },
+                            {
+                                color: '#e6471d',
+                                text: '第8獎'
+                            },
+                            {
+                                color: '#dc0936',
+                                text: '第9獎'
+                            }
+                        ]
+                }
             }});
 
         });    
