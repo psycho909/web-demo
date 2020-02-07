@@ -54,11 +54,13 @@
                 left: 100%;
             }
         }
-        .list{
+
+        .list {
             width: 300px;
             min-height: 300px;
             background-color: pink;
         }
+
         div.list p .highlight {
             color: red;
         }
@@ -66,10 +68,61 @@
         div.list p .highlight:nth-of-type(odd) {
             color: black;
         }
+
+        a.link[href$=".ppt"] {
+            color: red;
+        }
+
+        a.link[href$=".word"] {
+            color: green;
+        }
+
+        a {
+            padding: 1rem;
+            display: inline-block;
+        }
+
+        /* Target data-info attr that contains the value "external" */
+        a[data-info~="external"] {
+            color: red;
+        }
+
+        /* And which contain the value "image" */
+        a[data-info~="image"] {
+            border: 1px solid black;
+        }
+
+        .icon {
+            display: inline-block;
+            padding: 4rem 12rem;
+            background-image: url('images/attack-icon.png');
+            background-position: 0 center;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
 
-<body>
+<body onload="document.myform.LoginID.onblur();document.myform.AA.onblur()">
+    <form name="myform" id="myform">
+        <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入密碼" id="LoginID"
+        name="LoginID" placeholder="請輸入密碼" 
+        onfocus="if(this.value=='請輸入密碼') this.value=''"
+        onblur="if(this.value=='') this.value='請輸入密碼' "
+        type="text" value="" />
+        <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入帳號" id="AA"
+        name="AA" placeholder="請輸入帳號" 
+        onfocus="if(this.value=='請輸入帳號') this.value=''"
+        onblur="if(this.value=='') this.value='請輸入帳號' "
+        type="text" value="" />
+    </form>
+    
+    <!-- <input class="ie-input" name="LoginID" placeholder="請輸入密碼" type="text" value="" />
+    <input class="ie-input" name="LoginAccount" placeholder="請輸入帳號" type="text" value="" /> -->
+
+    <a class="icon" href="">按鈕</a>
+    <a href="path/to/image.jpg" data-info="external image"> Click Me, Fool </a>
+    <a class="link" href="qweqweqw.ppt">PTT</a>
+    <a class="link" href="qweqweqw.word">Word</a>
     <input type="text" name="token" id="token" inputmode="numeric" />
     <div class="list">
         <p class="favorite">
@@ -93,11 +146,54 @@
     </div>
     <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
     <script>
-        $(function(){
-            console.log(isMobile.any)
-        })
+        // function add_placeholder(id) {
+        //     var el = document.getElementById(id);
+        //     el.placeholder = el.getAttribute('placeholder');
+
+        //     el.onfocus = function () {
+        //         if (this.value == this.placeholder) {
+        //             this.value = '';
+        //             el.style.cssText = '';
+        //         }
+        //     };
+
+        //     el.onblur = function () {
+        //         if (this.value.length == 0) {
+        //             this.value = this.placeholder;
+        //             el.style.cssText = 'color:#A9A9A9;';
+        //         }
+        //     };
+
+        //     el.onblur();
+        // }
+        // var el=document.getElementsByClassName("ie-input");
+        // console.log(el)
+        // for(var i=0,len=el.length;i<len;i++){
+        //     el[i].onfocus=function(){
+        //         console.log()
+        //     }
+        // }
+        // var oInput = document.getElementById("LoginID");
+        // LoginID.addEventListener("focus", function () {
+        //     console.log("onfocus")
+        // })
+        // LoginID.onblur = function () {
+        //     console.log("onblur")
+        // };
+        // LoginID.onblur()
+        // $(function () {
+        //     console.log(isMobile.any)
+        // })
+
+        // var initialState = {
+        //     dogs: []
+        // };
+        // var a = Object.assign({}, initialState, {
+        //     dogs: [...initialState.dogs, { name: "Chen", age: 21 }]
+        // })
+        // console.log(a)
     </script>
-    
+
 </body>
 
 </html>

@@ -23,6 +23,7 @@
             left: 50%;
             margin-top: -200px;
             margin-left: -200px;
+            transform: rotate(90deg);
         }
 
         .roulette .shadow {
@@ -348,7 +349,7 @@
 
                 $item.find('.label').css({
                     //transform: 'translateX('+ (textHeight) +'px) translateY('+  (-1 * R) +'px) rotateZ('+ (90 + delta*.5) +'deg)',
-                    transform: 'translateY(' + (D * -.25) + 'px) translateX(' + (textHeight * 1.03) + 'px) rotateZ(' + (90 + delta * .5) + 'deg)',
+                    transform: 'translateY(' + (D * -.25) + 'px) translateX(' + (textHeight * 1.03) + 'px) rotate(' + (90 + delta * .5) + 'deg)',
                     height: textHeight + 'px',
                     lineHeight: textHeight + 'px',
                     textIndent: (R * .1) + 'px'

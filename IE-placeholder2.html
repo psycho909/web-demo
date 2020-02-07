@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+
+<body>
+    <input class="ie-input" name="LoginID" placeholder="請輸入密碼" type="text" value="" />
+    <input class="ie-input" name="LoginAccount" placeholder="請輸入帳號" type="text" value="" />
+    <input class="ie-input" name="LoginAccountC" placeholder="請輸入帳號AA" type="text" value="" />
+    <script>
+        function add_placeholder(clas,color) {
+            var el = document.getElementsByClassName(clas);
+
+            for (var i = 0, len = el.length; i < len; i++) {
+                el[i].onfocus = function () {
+                    if (this.value == this.getAttribute("placeholder")) {
+                        this.value = "";
+                        this.style.cssText = "";
+                    }
+                }
+                el[i].onblur = function () {
+                    if (this.value.length == 0) {
+                        this.value = this.getAttribute("placeholder");
+                        this.style.cssText = 'color:'+color+';';
+                    }
+                }
+                el[i].onblur();
+            }
+        }
+        add_placeholder('ie-input',"#e20d0d")
+    </script>
+
+</body>
+
+</html>

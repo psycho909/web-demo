@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            background: #093637;
+            background: linear-gradient(to right, #44a08d, #093637);
+            font-family: 'Open Sans', sans-serif;
+            color: #FFFFFF;
+        }
+
+        .wrapper {
+            width: 90%;
+            max-width: 620px;
+            margin: 20px auto;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .intro-box {
+            width: 80%;
+            max-width: 820px;
+            margin: 60px auto 40px auto;
+        }
+
+        .intro-box h2 {
+            font-size: 2em;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .fields-box {
+            padding: 18px 5%;
+        }
+
+        .fields-box label {
+            display: inline-block;
+            width: 33.33%;
+            padding: 6px 12px;
+        }
+
+        .fields-box label span {
+            display: block;
+            width: 100%;
+            margin-bottom: 4px;
+            font-size: .8em;
+            color: #BBDEFB;
+        }
+
+        .fields-box label input {
+            width: 100%;
+            padding: 8px;
+            color: #29B6F6;
+            background: #FFFFFF;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            outline: none;
+            border-radius: 3px;
+        }
+
+        @media only screen and (max-width: 520px) {
+            .fields-box label {
+                width: 100%;
+            }
+        }
+
+        .table-box {
+            padding: 10px 5%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        table,
+        tr,
+        td {
+            border: none;
+            border-collapse: collapse;
+        }
+
+        .table-box table,
+        .table-box table tr {
+            width: 100%;
+            max-width: 100%;
+            padding: 12px;
+        }
+
+        .table-box table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-box table tr:last-child {
+            border: none;
+        }
+
+        .table-box table tr td {
+            padding: 10px;
+            text-align: left;
+            outline: none;
+        }
+
+        .buttons-box {
+            position: fixed;
+            width: 54px;
+            right: 14px;
+            bottom: 18px;
+            z-index: 1;
+        }
+
+        .buttons-box button {
+            display: inline-block;
+            width: 54px;
+            height: 54px;
+            margin-top: 14px;
+            font-size: .8em;
+            font-weight: 700;
+            color: #2196F3;
+            background: #FFFFFF;
+            border: none;
+            outline: none;
+            border-radius: 100%;
+            text-align: center;
+            box-shadow:
+                0 5px 10px rgba(0, 0, 0, 0.25),
+                0 4px 8px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: ease .2s;
+        }
+
+        .buttons-box button:hover {
+            background: #EDE7F6;
+            box-shadow:
+                0 10px 20px rgba(0, 0, 0, 0.1),
+                0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        @media print {
+            @page {
+                margin: .5cm;
+            }
+
+            body {
+                border: 6px solid #DDDDDD;
+            }
+
+            tr {
+                border-bottom: 1px solid #DDDDDD;
+            }
+
+            .intro-box,
+            .fields-box,
+            .buttons-box {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="intro-box">
+        <h2>Random Password Generator</h2>
+    </div>
+
+    <div class="wrapper">
+
+
+        <div class="fields-box">
+            <label for="new-chars">
+                <span>Enter Possible Chars</span>
+                <input type="text" id="new-chars">
+            </label><label for="new-length">
+                <span>Set Character Length</span>
+                <input type="number" id="new-length" min="1">
+            </label><label for="new-num">
+                <span>Set Items Number</span>
+                <input type="number" id="new-num" min="1">
+            </label>
+        </div>
+
+
+        <div class="table-box">
+            <table>
+            </table>
+        </div>
+
+
+        <div class="buttons-box">
+            <button onclick="download();">Save</button>
+            <button onclick="printTable();">Print</button>
+        </div>
+
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script>
+        var setChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; //Given chars.
+        var setLenght = 12; //Output length.
+        var setNum = 5; //Items length.
+
+        //Strings:
+        var pass = ""; //Password string.
+        var plainText = ""; //Plain text version.
+        var textTitle = ""; //Plain text intro.
+        var fileName = "pass.txt"; //Plain text filename.
+
+        //Random password function:
+        function randString() {
+            //Get user values:
+            var newChars = $("#new-chars").val();
+            var newLenght = $("#new-length").val();
+            var newNum = $("#new-num").val();
+            //Check valid values:
+            if (newChars) { setChars = newChars; };
+            if (newLenght) { setLenght = newLenght; };
+            if (newNum) { setNum = newNum; };
+            //Reset table:
+            $("table").empty();
+            //Passwords gen:
+            for (i = 0; i < setNum; i++) {
+                //Shuffle chars:
+                for (var j = 0; j < setLenght; j++) {
+                    pass += setChars.charAt(Math.floor(Math.random() * setChars.length));
+                };
+                //Append items:
+                $("table").append("<tr><td>" + parseInt(i + 1) + "</td><td>" + pass + "</td><td contenteditable=''>Edit me!</td></tr>");
+                //Reset 'pass' string:
+                pass = "";
+            };
+        };
+
+        //Run password generator:
+        $(document).ready(function () {
+            randString();
+        });
+
+        //Password generator triggers:
+        $("input").change(function () {
+            randString();
+        });
+
+        //Plain text gen:
+        function toPlain() {
+            //Set plain text header:
+            textTitle = "\n\n=========================\nRandom password generator\n=========================\n\n"
+            //Get raw content:
+            tableContent = $("table").html();
+            //Remove HTML tags:
+            plainText = tableContent.replace(/<tbody>|<\/tbody>|<tr>|<\/td>/g, '').replace(/<\/tr>/g, '\n').replace(/<td>|<td contenteditable="">/g, ' > ');
+        };
+        //Download function:
+        function download() {
+            //Get plain text.
+            // toPlain();
+            //Save file:
+            var textContent = document.createElement('a');
+            textContent.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textTitle + plainText)); //Set content.
+            textContent.setAttribute('download', fileName) //set filename.
+            textContent.style.display = 'none'
+            document.body.appendChild(textContent)
+            textContent.click()
+            document.body.removeChild(textContent)
+        };
+
+        //Print function:
+        function printTable() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

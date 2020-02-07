@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+        }
+        a[href*="abc"]{
+            color:red;
+        }
+        a[href$="doc"]{
+            border:1px solid yellow;
+        }
+        a[href^="http://"]{
+            border:1px solid red;
+        }
+        a[href^="https://"]{
+            border:1px solid green;
+        }
+        a[data-target~="google"]{
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <a href="bbabccc.ppt">PPT</a>
+    <a href="abbc.doc">Word</a>
+    <a href="http://www.google.com">LINK1</a>
+    <a href="https://www.google.com">LINK2</a>
+    <a data-target="this is a google img." href="javascript:;">Image</a>
+</body>
+</html>

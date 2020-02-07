@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{name}} {{teams}}</div>
+    </div>
+    <script>
+        var mixin={
+            created(){
+                let option=this.$options.doNotInit;
+                console.log(option)
+                if(!option){
+                    console.log("King "+this.name)
+                }
+                
+            },
+            data(){
+                return {
+                    name:"LBJ",
+                    teams:"Laker"
+                }
+            }
+        }
+        new Vue({
+            el:"#app",
+            mixins:[mixin],
+            doNotInit:true,
+            created(){
+                console.log("King "+this.name)
+            },
+            computed:{
+
+            },
+            data:{
+                name:"AAAAA"
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

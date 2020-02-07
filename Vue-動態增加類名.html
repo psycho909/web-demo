@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            background-color: #666;
+        }
+        .active{
+            background-color: red;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .btn{
+            padding: 1rem 2.5rem;
+        }
+        .dark-theme{
+            background-color: #000;
+        }
+        .light-theme{
+            background-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" :class="bg">背景</div>
+        <div :class="['box',bgcolor ? 'red' : 'green']">This is how you add static classess</div>
+        <input type="text" v-model="theme">
+        <Btn class="btn" txt="按鈕" @click="bclick"></Btn>
+    </div>
+    <template id="Btn">
+        <button @click="$emit('click','b')">
+            @{{txt}}
+        </button>
+    </template>
+    <script>
+        Vue.component("Btn",{
+            template:"#Btn",
+            props:{
+                txt:{
+                    type:String,
+                    required:true,
+                    validator:function(value){
+                        return ["按鈕"].indexOf(value) !== -1
+                    }
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            computed:{
+                bg(){
+                    return this.darkMode?"dark-theme":"light-theme"
+                }
+            },
+            data:{
+                darkMode:true,
+                theme:"",
+                bgcolor:true
+            },
+            methods:{
+                bclick(v){
+                    console.log(1,v)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
