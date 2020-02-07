@@ -102,19 +102,18 @@
     </style>
 </head>
 
-<body onload="document.myform.LoginID.onblur();document.myform.AA.onblur()">
-    <form name="myform" id="myform">
-        <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入密碼" id="LoginID"
-        name="LoginID" placeholder="請輸入密碼" 
-        onfocus="if(this.value=='請輸入密碼') this.value=''"
-        onblur="if(this.value=='') this.value='請輸入密碼' "
-        type="text" value="" />
-        <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入帳號" id="AA"
-        name="AA" placeholder="請輸入帳號" 
-        onfocus="if(this.value=='請輸入帳號') this.value=''"
-        onblur="if(this.value=='') this.value='請輸入帳號' "
-        type="text" value="" />
-    </form>
+<body>
+    <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入密碼" id="LoginID"
+    name="LoginID" placeholder="請輸入密碼" 
+    onfocus="if(this.value=='請輸入密碼') this.value=''"
+    onblur="if(this.value=='') this.value='請輸入密碼' "
+    type="text" value="" />
+
+    <input align="center" autocomplete="off" class="form-control" data-val="true" data-val-required="請輸入帳號" id="AA"
+    name="AA" placeholder="請輸入帳號" 
+    onfocus="if(this.value=='請輸入帳號') this.value=''"
+    onblur="if(this.value=='') {this.value='請輸入密碼';this.style.color='#A9A9A9'} "
+    type="text" value="請輸入密碼" />
     
     <!-- <input class="ie-input" name="LoginID" placeholder="請輸入密碼" type="text" value="" />
     <input class="ie-input" name="LoginAccount" placeholder="請輸入帳號" type="text" value="" /> -->
