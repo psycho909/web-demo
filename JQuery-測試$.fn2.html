@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100%;
+            height: 600px;
+            background-color: #eee;
+        }
+        .box:nth-of-type(odd){
+            background-color: #a0a0a0;
+        }
+        ul{
+            list-style: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        ul li{
+            display: inline-block;
+        }
+        ul li a{
+            text-decoration: none;
+            padding: 1rem 2rem;
+            display: block;
+            background-color: rgb(251, 255, 213);
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="javascript:;" data-target="A">到A</a></li>
+        <li><a href="javascript:;" data-target="B">到B</a></li>
+        <li><a href="javascript:;" data-target="C">到C</a></li>
+        <li><a href="javascript:;" data-target="D">到D</a></li>
+        <li><a href="javascript:;" data-target="E">到E</a></li>
+        <li><a href="javascript:;" class="top">TOP</a></li>
+    </ul>
+    <div class="box" data-target="A">AAA</div>
+    <div class="box" data-target="B">BBB</div>
+    <div class="box" data-target="C">CCC</div>
+    <div class="box" data-target="D">DDD</div>
+    <div class="box" data-target="E">EEE</div>
+    <script>
+        (function () {
+            $.fn.extend({
+                scrollTarget:function(options){
+                    return this.each(function(){
+                        var _target=$(this).attr("data-target");
+                        var _top=$(options+"[data-target="+_target+"]").offset().top;
+                        $('html,body').stop().animate({
+                            scrollTop:_top
+                        },600)
+                    })
+                },
+                toTop:function(){
+                    return this.each(function(){
+                        $('html,body').stop().animate({
+                            scrollTop:0
+                        },600)
+                    })
+                },
+                check: function () {
+                    return this.each(function () {
+                        this.checked = true;
+                    });
+                },
+                uncheck: function () {
+                    return this.each(function () {
+                        this.checked = false;
+                    });
+                }
+            })
+        })(jQuery)
+        // $("ul li a").on("click",function(){
+        //     $(this).scrollTarget(".box")
+        // })
+        $(".top").on('click',function(){
+            $(this).toTop()
+        })
+    </script>
+</body>
+
+</html>

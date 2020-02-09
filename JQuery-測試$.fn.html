@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" data-bg="#ccc">AAA</div>
+    <div class="box" data-bg="#eb1b1b">BBB</div>
+    <label><input type="checkbox" name="foo"> Foo</label>
+    <label><input type="checkbox" name="bar"> Bar</label>
+    <script>
+        (function () {
+            $.fn.extend({
+                check: function () {
+                    return this.each(function () {
+                        this.checked = true;
+                    });
+                },
+                uncheck: function () {
+                    return this.each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+            $.fn.emc = function () {
+                emcInit(this)
+                function emcInit(e) {
+                    $(e).append("<div>123</div>")
+                }
+            }
+        })(jQuery)
+
+        $(".box").on("click", function () {
+            $(this).getWidth()
+            $(this).emc()
+        })
+        $( "input[type='checkbox']" ).check();
+    </script>
+</body>
+
+</html>

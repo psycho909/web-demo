@@ -128,10 +128,10 @@
                     };
 
                     var opt = $.extend(defaults);
-
+                    console.log(this)
                     return this.each(function () {
                         var o = opt;
-                        console.log(o.options())
+                        // console.log(o.options())
                         data=o.options().data
 
                         var $wrap = $(this);
@@ -297,7 +297,9 @@
                         ]
                 }
             }});
-
+            // $("#btn-start").on('click',function(){
+            //     $.rotation(o.options().completeA);
+            // })
         });    
     </script>
 </body>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        button {
+            font-family: Arial, "돋움", Dotum, "굴림", Gulim, "Apple SD Gothic Neo", AppleGothic, sans-serif;
+        }
+
+        button {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .title {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .box-roulette {
+            position: relative;
+            margin: 50px auto;
+            width: 500px;
+            height: 500px;
+            border: 10px solid #ccc;
+            border-radius: 50%;
+            background: #ccc;
+            overflow: hidden;
+        }
+
+        .box-roulette .markers {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            margin-left: -25px;
+            width: 0;
+            height: 0;
+            border: 25px solid #fff;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            z-index: 9999;
+        }
+
+        .box-roulette .roulette {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .box-roulette .item {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border: 0 solid transparent;
+            transform-origin: 0 100%;
+        }
+
+        .box-roulette .label {
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #fff;
+            white-space: nowrap;
+            transform-origin: 0 0;
+        }
+
+        .box-roulette .label .text {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        #btn-start {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -50px 0 0 -50px;
+            width: 100px;
+            height: 100px;
+            font-weight: bold;
+            background: #fff;
+            border-radius: 50px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="title">본의아니 행운의 여보세요?</p>
+
+    <div class="box-roulette">
+        <div class="markers"></div>
+        <button type="button" id="btn-start">
+            돌려 돌려<br>돌림판
+        </button>
+        <div class="roulette" id="roulette"></div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        var data = [
+            {
+                color: '#3f297e',
+                text: '第1獎'
+            },
+            {
+                color: '#1d61ac',
+                text: '第2獎'
+            },
+            {
+                color: '#169ed8',
+                text: '第3獎'
+            },
+            {
+                color: '#209b6c',
+                text: '第4獎'
+            },
+            {
+                color: '#60b236',
+                text: '第5獎'
+            },
+            {
+                color: '#efe61f',
+                text: '第6獎'
+            },
+            {
+                color: '#f7a416',
+                text: '第7獎'
+            },
+            {
+                color: '#e6471d',
+                text: '第8獎'
+            },
+            {
+                color: '#dc0936',
+                text: '第9獎'
+            }
+        ];
+        var RouletteWheel = function (el, data) {
+            this.$el = $(el);
+            this.data = data || [];
+            this.angle = 0;
+            this.angleOffset = -45;
+            this.speed = 5000;
+            this.easing = "easeInOutElastic";
+            this.itemSelector = "item";
+            this.itemSize = data.length;
+            this.labelSelector = "label";
+            this.d = 360 / this.itemSize;
+            this.$btnStart = this.$el.find("#btn-start");
+            this.$roulette = this.$el.find(".roulette");
+            this.wrapW = this.$el.width();
+            this.borderTopWidth = this.wrapW;
+            this.R = this.wrapW * .5;
+            this.borderRightWidth = this.tanDeg(this.d);
+        };
+        RouletteWheel.prototype.tanDeg = function (deg) {
+            var rad = deg * Math.PI / 180;
+            return this.wrapW / (1 / Math.tan(rad));
+        }
+        RouletteWheel.prototype.render = function () {
+            for (var i = 1; i <= this.itemSize; i += 1) {
+                var idx = i - 1;
+                var rt = i * this.d + this.angleOffset;
+                var itemHTML = $('<div class="' + this.itemSelector + '">');
+                var labelHTML = '';
+                labelHTML += '<p class="' + this.labelSelector + '">';
+                labelHTML += '	<span class="text">' + this.data[idx].text + '<\/span>';
+                labelHTML += '<\/p>';
+
+                this.$roulette.append(itemHTML);
+                this.$roulette.children("." + this.itemSelector).eq(idx).append(labelHTML);
+                this.$roulette.children("." + this.itemSelector).eq(idx).css({
+                    "left": this.wrapW / 2,
+                    "top": -this.wrapW / 2,
+                    "border-top-width": this.borderTopWidth,
+                    "border-right-width": this.borderRightWidth,
+                    "border-top-color": this.data[idx].color,
+                    "transform": "rotate(" + rt + "deg)"
+                });
+
+                // var textH = parseInt(((2 * Math.PI * wrapW) / d) * .5);
+                var textH = parseInt(((2 * Math.PI * this.R) / this.itemSize) * .5);
+                this.$roulette.children("." + this.itemSelector).eq(idx).children("." + this.labelSelector).css({
+                    "height": textH + 'px',
+                    "line-height": textH + 'px',
+                    // "transform": 'translateX(' + (textH * 1.03) + 'px) translateY(' + (wrapW * -.25) + 'px) rotateZ(' + (90 + d * .5) + 'deg)'
+                    "transform": 'translateX(' + (textH * 1.203) + 'px) translateY(' + (this.wrapW * -.325) + 'px) rotate(' + (90 + this.d * .5) + 'deg)'
+                });
+
+            }
+        }
+        RouletteWheel.prototype.rotation = function (completeA, callbacks) {
+            var _this = this;
+            _this.$roulette.rotate({
+                angle: _this.angle,
+                animateTo: completeA,
+                center: ["50%", "50%"],
+                easing: $.easing.esing,
+                duration: _this.speed,
+                callback: function () {
+                    var currentA = $(this).getRotateAngle();
+                    currentA = currentA[0] % 360;
+                    if (currentA <= 14 && currentA > 0) {
+                        console.log("1")
+                        callbacks()
+                    }
+                    if (currentA <= 44 && currentA > 14) {
+                        console.log("12")
+                        callbacks()
+                    }
+                    if (currentA <= 74 && currentA > 44) {
+                        console.log("11")
+                        callbacks()
+                    }
+                    if (currentA <= 104 && currentA > 74) {
+                        console.log("10")
+                        callbacks()
+                    }
+                    if (currentA <= 134 && currentA > 1044) {
+                        console.log("9")
+                        callbacks()
+                    }
+                    if (currentA <= 164 && currentA > 134) {
+                        console.log("8")
+                        callbacks()
+                    }
+                    if (currentA <= 194 && currentA > 164) {
+                        console.log("7")
+                        callbacks()
+                    }
+                    if (currentA <= 224 && currentA > 194) {
+                        console.log("6")
+                        callbacks()
+                    }
+                    if (currentA <= 254 && currentA > 224) {
+                        console.log("5")
+                        callbacks()
+                    }
+                    if (currentA <= 284 && currentA > 254) {
+                        console.log("4")
+                        callbacks()
+                    }
+                    if (currentA <= 314 && currentA > 284) {
+                        console.log("3")
+                        callbacks()
+                    }
+                    if (currentA <= 344 && currentA > 314) {
+                        console.log("2")
+                        callbacks()
+                    }
+
+                },
+
+            });
+        }
+        RouletteWheel.prototype.r = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        $(function () {
+            var spinner;
+            spinner = new RouletteWheel($('.box-roulette'), data);
+            spinner.render();
+
+            $("#btn-start").on('click', function () {
+                spinner.rotation((360 * 5 + 312), function () {
+                    alert("done")
+                });
+            })
+        });    
+    </script>
+</body>
+
+</html>

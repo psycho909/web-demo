@@ -145,6 +145,13 @@
     </div>
     <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
     <script>
+        var Box=function(el){
+            this.$el=$(el);
+            this.width=this.$el.width();
+        }
+
+        var b=new Box("#app");
+        console.log(b)
         // function add_placeholder(id) {
         //     var el = document.getElementById(id);
         //     el.placeholder = el.getAttribute('placeholder');

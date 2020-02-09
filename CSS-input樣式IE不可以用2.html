@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[type="checkbox"]{
+            position: relative;
+            display: none;
+        }
+        @supports(-webkit-appearance: none) or (-moz-appearance: none) {
+
+            input[type="checkbox"],
+            input[type="radio"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                height: 21px;
+                outline: none;
+                display: inline-block;
+                vertical-align: top;
+                position: relative;
+                margin: 0;
+                cursor: pointer;
+                border: 1px solid #eee;
+                background: #fff;
+                -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+                transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+            }
+        }
+        
+
+
+        ul {
+            margin: 12px;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        ul li {
+            margin: 16px 0;
+            position: relative;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: inherit;
+        }
+
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", Arial, sans-serif;
+            color: #8a91b4;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            background: #f6f8ff;
+        }
+
+        @media (max-width: 800px) {
+            body {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <input id="c1" type="checkbox">
+            <label for="c1">Checkbox</label>
+        </li>
+        <li>
+            <input id="c2" type="checkbox" checked>
+            <label for="c2">Checkbox</label>
+        </li>
+        <li>
+            <input id="r1" type="radio" name="radio" value="1">
+            <label for="r1">Radio</label>
+        </li>
+        <li>
+            <input id="r2" type="radio" name="radio" value="2" checked>
+            <label for="r2">Radio</label>
+        </li>
+        <li>
+            <input id="s1" type="checkbox" class="switch">
+            <label for="s1">Switch</label>
+        </li>
+        <li>
+            <input id="s2" type="checkbox" class="switch" checked>
+            <label for="s2">Switch</label>
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <input id="c1d" type="checkbox" disabled>
+            <label for="c1d">Checkbox</label>
+        </li>
+        <li>
+            <input id="c2d" type="checkbox" checked disabled>
+            <label for="c2d">Checkbox</label>
+        </li>
+        <li>
+            <input id="r1d" type="radio" name="radiod" value="1" disabled>
+            <label for="r1d">Radio</label>
+        </li>
+        <li>
+            <input id="r2d" type="radio" name="radiod" value="2" checked disabled>
+            <label for="r2d">Radio</label>
+        </li>
+        <li>
+            <input id="s1d" type="checkbox" class="switch" disabled>
+            <label for="s1d">Switch</label>
+        </li>
+        <li>
+            <input id="s2d" type="checkbox" class="switch" checked disabled>
+            <label for="s2d">Switch</label>
+        </li>
+    </ul>
+</body>
+
+</html>
