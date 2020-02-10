@@ -103,8 +103,8 @@
                 </span>
                 <table width="100%" border="0" cellspacing="1" cellpadding="2">
                     <tr>
-                        <td width="3%" align="left" valign="top" class="font_12_black"><span
-                                class="style3">5. </span></td>
+                        <td width="3%" align="left" valign="top" class="font_12_black"><span class="style3">5. </span>
+                        </td>
                         <td width="97%" class="font_12_black" valign="top">遊戲中禁止販售、宣傳及使用任何「自動練功」及「非官方提供」之外掛程式進行遊戲。一經發現
                             ，遊戲管理者(GM)將針對違規角色進行查詢，而當遊戲管理者(GM)在進行相關查緝工作時，玩家應隨
                             時回應遊戲管理者(GM)的詢問，並不得以關閉對話視窗或斷線等理由規避遊戲管理者(GM)之測試、查核，違者一律視為違反遊戲管理規則。<br>
@@ -376,6 +376,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        const commodity = new Map([
+            [{ name: 'phone', date: '11-11' }, () => {
+                console.log(9999)
+                // do Something
+            }],
+            [{ name: 'phone', date: '12-12' }, () => {
+                console.log(9888)
+                // do Something
+            }],
+            [{ name: 'phone', date: '06-18' }, () => {
+                console.log(9799)
+                // do Something
+            }],
+            [{ name: 'phone', date: '09-09' }, () => {
+                console.log(9699)
+                // do Something
+            }],
+        ]);
+        const showPrice = (name, date) => {
+            [...commodity].forEach(([key, value]) => {
+                key.name === name && key.date === date ? value.call() : ''
+            })
+        }
+        console.log(showPrice('phone', '12-12'))
+
         $('body').on("click", '#btn', function () {
             console.log(123)
         })

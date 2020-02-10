@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <test></test>
+        <button @click="myEvent">$ON</button>
+    </div>
+    <template id="test">
+        <div class="test">
+            <button @click="eventBus">EVENT BUS</button>
+            <test-child></test-child>
+        </div>
+    </template>
+    <template id="test-child">
+        <div class="test">
+            test-child - {{msg}}
+        </div>
+    </template>
+    <script>
+        var Bus = new Vue();
+
+        Vue.component("test", {
+            template: "#test",
+            methods: {
+                eventBus() {
+                    Bus.$emit("tobus", "TOBUS")
+                }
+            }
+        })
+        Vue.component("test-child", {
+            template: "#test-child",
+            mounted() {
+                Bus.$on("tobus", (data) => {
+                    this.msg = data
+                })
+            },
+            data() {
+                return {
+                    msg: ""
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                data1: "Hello World1",
+                data2: "Hello World2"
+            },
+            mounted() {
+                Bus.$on("tobus", (data) => {
+                    console.log(data)
+                })
+            },
+            methods: {
+                myEvent() {
+                    console.log(123)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -47,6 +47,7 @@
         <li><a href="javascript:;" data-target="D">到D</a></li>
         <li><a href="javascript:;" data-target="E">到E</a></li>
         <li><a href="javascript:;" class="top">TOP</a></li>
+        <li><a href="javascript:;" class="test">TEST</a></li>
     </ul>
     <div class="box" data-target="A">AAA</div>
     <div class="box" data-target="B">BBB</div>
@@ -82,11 +83,23 @@
                         this.checked = false;
                     });
                 }
-            })
+            });
+            $.fn.gbox=function(content,options){
+                $(this).on('click',function(e){
+                    e.preventDefault();
+                    console.log("gbox",content,options)
+                })
+            };
+            $.gbox={
+                open:function(){
+                    console.log("open")
+                }
+            }
         })(jQuery)
         // $("ul li a").on("click",function(){
         //     $(this).scrollTarget(".box")
         // })
+        console.log($.gbox)
         $(".top").on('click',function(){
             $(this).toTop()
         })
