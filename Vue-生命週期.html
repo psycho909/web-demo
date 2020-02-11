@@ -32,6 +32,15 @@
             data: {
                 message: 18
             },
+            watch:{
+                message:{
+                    immediate: true,
+                    handler(newVal,oldVal){
+                        console.group('watch');
+                        console.log("watch: ",newVal,oldVal)
+                    }
+                }
+            },
             beforeCreate: function () {
                 console.group('beforeCreate 创建前');
                 console.log("el: " + this.$el);

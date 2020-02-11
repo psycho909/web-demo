@@ -64,6 +64,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function Particle(params) {
+            for (var kindex in params) {
+                this[kindex] = params[kindex];
+            }
+        }
+
+        var p = new Particle({
+            'direction': 'left_right',
+            'from_squirt': 'left_particles_squirt',
+            'draw_thing': "sadasd",
+            'speed': 1
+        });
+        console.log(p)
+    </script>
 </body>
 
 </html>

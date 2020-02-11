@@ -22,13 +22,15 @@
             font-size: 16px;
             text-size-adjust: none;
         }
-        #app{
+
+        #app {
             background-color: #000;
         }
-        .box{
+
+        .box {
             background-color: #000;
             display: inline-block;
-            color:#fff;
+            color: #fff;
             padding: 28px 12px;
             position: relative;
             font-size: 25px;
@@ -36,12 +38,13 @@
             text-align: center;
             position: relative;
             margin: 36px;
-            border-right:1px solid #a9a9a9;
-            border-left:1px solid #a9a9a9;
-            border-bottom:1px solid #a9a9a9;
+            border-right: 1px solid #a9a9a9;
+            border-left: 1px solid #a9a9a9;
+            border-bottom: 1px solid #a9a9a9;
         }
-        .box:before{
-            content:"";
+
+        .box:before {
+            content: "";
             width: 100%;
             height: 100%;
             background-image: url('images/m.png');
@@ -51,30 +54,73 @@
             left: 0;
             z-index: 0;
         }
-        .box:after{
-            content:"趣味密語";
+
+        .box:after {
+            content: "趣味密語";
             font-size: 27px;
-            color:#f2cf93;
+            color: #f2cf93;
             font-weight: normal;
             position: absolute;
             top: 0;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             z-index: 0;
         }
-        .box-text{
+
+        .box-text {
             position: relative;
             z-index: 1;
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border: 50px solid;
+            border-color: transparent #0f0 transparent transparent;
+            position: relative;
+        }
+
+        .arrow:after {
+            content: "";
+            position: absolute;
+            right: -55px;
+            top: -50px;
+            border: 50px solid;
+            border-color: transparent #fff transparent transparent;
         }
     </style>
 </head>
 
 <body>
+    <div class="arrow"></div>
     <div id="app">
         <div class="box">
             <span class="box-text">奇岩-鬧鬧XXXX編 喜歡在XX 地龍XX身上 喝XX 加速藥水XXXXXXXXXXXXXXXXXXXXXXXXXx</span>
         </div>
     </div>
+    <div>
+        <span id="childSpan">foo bar</span>
+    </div>
+    <script>
+
+        var sp1 = document.createElement("span");
+        sp1.setAttribute("id", "newSpan");
+        var sp1_content = document.createTextNode("新的span元素的內容")
+        sp1.appendChild(sp1_content);
+
+        var sp2 = document.getElementById("childSpan");
+        var parentDiv = sp2.parentNode;
+
+        parentDiv.replaceChild(sp1, sp2);
+
+        let gibbonsArray = [];
+        fetch("http://allthegibbons.com")
+            .then(r => r.json())
+            .then(data => {
+                gibbonsArray = data;
+                console.log(data)
+            });
+    </script>
 </body>
 
 </html>

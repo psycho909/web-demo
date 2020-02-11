@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+    </style>
+</head>
+<body>
+    <h2>My fravorite dog breeds:</h2>
+    <ul id="dog-breed-list">
+        <li>French Bullodg</li>
+        <li>Welsh Corgi</li>
+        <li>Bassett Hound</li>
+        <li>Chihuahua</li>
+        <li>Pomeranian</li>
+    </ul>
+    <script>
+        const dogBreedList=document.getElementById("dog-breed-list");
+        dogBreedList.addEventListener('click',handleDogBreedClick);
+        
+        function handleDogBreedClick (e){
+            if(e.target.tagName.toLowerCase() === 'li'){
+                e.target.style.color=createRandomColor()
+            }
+            console.log(Math.floor(Math.random()*6+1))
+        }
+        function createRandomColor(){
+            const hexParts="0123456789ABCDEF";
+            let color="#";
+            for(let i=0;i<6;i++){
+                color+=hexParts[Math.floor(Math.random()*16)]
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
