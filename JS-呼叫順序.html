@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = [8, 1, 4, 7, 2];
+
+        function quickSort(arr) {
+            if (arr.length < 2) return arr;
+            var p = arr.slice(0, 1)[0];
+            var d = arr.slice(1);
+            var newArr = [];
+            var left = [], right = [];
+
+            d.forEach(function (c) {
+                if (c < p) {
+                    left.push(c)
+                } else {
+                    right.push(c)
+                }
+            })
+            return [].concat(quickSort(left), [p], quickSort(right))
+        }
+        console.log("start")
+
+        var p = new Promise((resolve, reject) => {
+            console.log("Promise")
+            resolve()
+        })
+        p.then(() => {
+            console.log("then")
+        })
+        setTimeout(() => {
+            console.log("settimeout")
+        }, 0);
+        console.log(quickSort(arr))
+
+        function aPromise(){
+            return new Promise((resolve, reject) => {
+                console.log("Promise2")
+                resolve(22312)
+            })
+        }
+        async function wait() {
+            var a=await aPromise();
+            console.log(a)
+        }
+        wait()
+    </script>
+</body>
+
+</html>

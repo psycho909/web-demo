@@ -2,19 +2,56 @@
 <html>
 
 <head>
-	<title>新龍之谷改版蓋台</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=1200, user-scalable=0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>《新龍之谷》砲擊之星REMAKE</title>
+	<meta name="description" content="爆改蘿莉強悍崛起！">
+	<meta name="open-default-browser" content="true">
+	<link rel="stylesheet" href="index.css">
 	<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 	<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 	<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 	<style>
-		*{padding: 0;margin: 0;box-sizing: border-box;}
-		.wrap{position: relative;width: 100%;height: 100vh;background-color: #666;overflow-x: hidden;}
-		.bg{width: 1920px;height: 1080px;position: absolute;left: 50%;top: 0;transform: translate(-50%, 0);z-index: 0;background-position: center 0;background-size: cover;}
-		.fulllink{width: 100%;height: 100%;display: block;}
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+
+		.wrap {
+			position: relative;
+			width: 100%;
+			height: 100vh;
+			background-color: #666;
+			overflow-x: hidden;
+		}
+
+		.bg {
+			width: 1920px;
+			height: 1080px;
+			position: absolute;
+			left: 50%;
+			top: 0;
+			transform: translate(-50%, 0);
+			z-index: 0;
+			background-position: center 0;
+			background-size: cover;
+		}
+
+		.fulllink {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
 	</style>
+	<script>
+		var start = 0;
+		var end = 0;
+
+		start = new Date().getTime();
+	</script>
 </head>
 
 <body>
@@ -23,24 +60,29 @@
 			[底下各種東東的說明]
 			.bg的background-image是內網的背景圖(16:9的大底圖)|
 			data-start的時間是對外露出的時間
-			data-src的圖是外網的背景圖
+			data-src:把需要對外露出圖片的tag加上data-src
 			.fulllink是超大的整頁連結
 		-->
-		<div class="bg" 
-		style="background-image: url(https://backendweb.beanfun.com/CDN/UserUpload/beanfun/DragonNest/E20200122-bf/images/body-bg.jpg);"
-		data-start="2020/01/22 00:00:00" 
-		data-src="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20200122-bf/images/body-bg.jpg">
-			<a class="fulllink" href="https://tw.beanfun.com/DragonNest/Main.aspx?utm_source=beanfun_coverbanner0122&utm_medium=banner&utm_campaign=DN_OfficialWebsite0122" target="_blank"></a>
+		<div id="bg" class="bg"
+			style="background-image: url(https://backendweb.beanfun.com/CDN/UserUpload/beanfun/DragonNest/E20200219-bf/images/body-bg.jpg);"
+			data-start="2020/02/19 00:00:00"
+			data-src="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20200219-bf/images/body-bg.jpg">
+
+			<!-- 整張視覺都能導向同一個連結用 -->
+			<a class="fulllink" href="https://tw.hicdn.beanfun.com/beanfun/promo/DragonNest/E20200217/index.html"
+				target="_blank"></a>
 		</div>
 	</div>
 
 
 	<script>
-		$(window).on("load", function () {
+		var b = window.getComputedStyle($('.bg')[0], null);
+		var bgI = b.getPropertyValue("background-image");
+		end = new Date().getTime();
+		console.log((end - start),bgI)
+		$(function () {
 			radioSize()
 		})
-		
-
 		$(window).resize(function () {
 			radioSize()
 		})
@@ -49,7 +91,6 @@
 			var radio = $('.bg').attr("data-radio");
 			var imgW = $('.bg').outerWidth();
 			var imgH = $('.bg').outerHeight();
-			
 			var vw = window.innerWidth;
 			var vh = window.innerHeight;
 			var s = Math.max(vw / imgW, vh / imgH);
@@ -64,7 +105,7 @@
 				bgW = vw;
 				bgH = vw * radioH;
 			}
-			
+
 			$('.bg').css({ "width": bgW + 'px', "height": bgH + "px" })
 		}
 
@@ -81,13 +122,13 @@
 				}
 				serverTime = new Date(dateString);
 				if (imgRevealTime < serverTime) {
-					$('[data-src]').each(function(i,v){
-						if($(v).attr("src")){
-							var worldImage=$(v).attr('data-src')
+					$('[data-src]').each(function (i, v) {
+						if ($(v).attr("src")) {
+							var worldImage = $(v).attr('data-src')
 							$(v).attr("src", worldImage);
-						}else{
-							var worldImage=$(v).attr('data-src')
-							$(v).css("background-image", "url("+worldImage+")");
+						} else {
+							var worldImage = $(v).attr('data-src')
+							$(v).css("background-image", "url(" + worldImage + ")");
 						}
 					})
 					console.log('小於serverTime');

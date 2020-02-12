@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = [8, 1, 4, 7, 2];
+
+        function quickSort(arr) {
+            if (arr.length < 2) return arr;
+            var p = arr.slice(0, 1)[0];
+            var d = arr.slice(1);
+            var newArr = [];
+            var left = [], right = [];
+
+            d.forEach(function (c) {
+                if (c < p) {
+                    left.push(c)
+                } else {
+                    right.push(c)
+                }
+            })
+            return [].concat(quickSort(left), [p], quickSort(right))
+        }
+    </script>
+</body>
+
+</html>

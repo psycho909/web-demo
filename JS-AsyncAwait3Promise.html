@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+    <script>
+
+        function aPromise(time,b){
+            return new Promise(function(resolve, reject){
+                console.log("Promise2")
+                setTimeout(function(){
+                    resolve(22312+" : "+b)
+                }, time);
+            })
+        }
+        aPromise(500,1).then(function(d){
+            console.log(d)
+        })
+        // async function wait() {
+        //     var a=await aPromise(1000,1);
+        //     console.log(a)
+        //     var b=await aPromise(2000,2);
+        //     console.log(b)
+        // }
+        // wait()
+    </script>
+</body>
+
+</html>

@@ -72,8 +72,9 @@
 </div>
 
 <script>
+	
 var imgs=[
-	'https://images.unsplash.com/photo-1539015387781-bc317868733c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=519366474e490047849cac8a12cecd84&auto=format&fit=crop&w=500&q=60',
+	'',
 	'https://images.unsplash.com/photo-1539068885179-c05359aea4b8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aac7bd099a6cb3e9c12c6cfc6ccef6f2&auto=format&fit=crop&w=500&q=60',
 	'https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5729f18a6a6b8ab1b2e2108964227ae5&auto=format&fit=crop&w=500&q=60',
 	'https://images.unsplash.com/photo-1539035992980-e41ff3f540ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9588b1964a617c7d87d4354de301ee80&auto=format&fit=crop&w=500&q=60',
@@ -97,11 +98,14 @@ $.each(imgs,function(i,src){
 		$progress.html(persent);
 
 		if(count >= len-1){
-			$('.loading').hide();
+			// $('.loading').hide();
 			document.title='1/'+len;
 		}
 
 		count++;
+	})
+	$(imgObj).on('error',function(){
+		console.log(i,src,"error")
 	})
 	imgObj.src=src;
 
@@ -116,6 +120,7 @@ $('.btn').on('click',function(){
 	document.title=(index+1)+'/'+len;
 	$('#img').attr('src',imgs[index]);
 })
+
 </script>
 </body>
 </html>
