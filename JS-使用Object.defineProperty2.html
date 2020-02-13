@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="btn">show</button>
+    <button class="btn">hide</button>
+    <div id="box" data-show="isShow">Hello</div>
+    <script>
+        var model={
+            isShow:false
+        }
+        var oBox=document.getElementById("box");
+        var oBtns=document.getElementsByClassName("btn");
+
+        var dataKey=oBox.getAttribute("data-show");
+
+        function isShowControl(value){
+            oBox.style.display=value?"":"none";
+        }
+
+        for(var i=0;i<oBtns.length;i++){
+            oBtns[i].index=i;
+            oBtns[i].addEventListener("click",function(){
+                if(this.index == 0){
+                    model.isShow=true;
+                    return;
+                }
+                if(this.index == 1){
+                    model.isShow=false;
+                    return;
+                }
+            })
+        }
+
+        isShowControl(model[dataKey])
+
+        Object.defineProperty(model,"isShow",{
+            get:function(){
+                console.log('get!')
+                return model;
+            },
+            set:function(value){
+                console.log("set")
+                isShowControl(value)
+            }
+        })
+
+        function Archiver() {
+            let temperature = null
+            let archive = []
+
+            Object.defineProperty(this, 'temperature', {
+                get: function () {
+                    console.log('get!')
+                    return temperature
+                },
+                set: function (value) {
+                    console.log("set")
+                    temperature = value
+                    archive.push(temperature)
+                }
+            })
+
+            this.getArchive = function () {
+                return archive
+            }
+        }
+
+        let arc = new Archiver();
+    </script>
+</body>
+
+</html>
