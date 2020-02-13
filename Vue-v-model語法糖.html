@@ -13,8 +13,21 @@
     <div id="app">
         <input type="text" :value="msg" @input="msg = $event.target.value" />
         <div>{{msg}}</div>
+        <child :msg.sync="msg"></child>
     </div>
+    <template id="child">
+        <div>{{msg}}</div>
+    </template>
     <script>
+        Vue.component("child",{
+            template:"#child",
+            props:{
+                msg:{
+                    type:String,
+                    required:true
+                }
+            }
+        })
         new Vue({
             el: "#app",
             data: {
