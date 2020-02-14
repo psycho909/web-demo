@@ -43,11 +43,14 @@
             img.src=v;
         })
 
-        setInterval(function () {
+        function loopClick(){
             index++;
             $(".btn").css("background-image","url("+img_arr[index%2]+")");
-        }, 300);
-
+            setTimeout(function () {
+                loopClick()
+            }, 300);
+        }
+        loopClick()
         function anim(){
             TweenMax.to(".btn", .6, {
                 x:-30,

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,47 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
     <style>
-        .box{
+        .box {
             width: 300px;
             height: 300px;
             background-color: #666;
         }
-        .active{
+
+        .active {
             background-color: red;
         }
-        .red{
+
+        .red {
             background-color: red;
         }
-        .green{
+
+        .green {
             background-color: green;
         }
-        .btn{
+
+        .btn {
             padding: 1rem 2.5rem;
         }
-        .dark-theme{
-            background-color: #000;
+
+        .dark-theme {
+            background-color: rgb(212, 248, 52);
         }
-        .light-theme{
+
+        .light-theme {
             background-color: #999;
         }
     </style>
 </head>
+
 <body>
     <div id="app">
-        <div class="box" :class="bg">背景</div>
+        <div class="box" :style="flexStyle">
+            <div>A</div><div>B</div>
+        </div>
+        <div class="box" :class="bg" :style="{
+            color:activeColor,
+            fontSize:fontSize
+        }">背景</div>
         <div :class="['box',bgcolor ? 'red' : 'green']">This is how you add static classess</div>
         <input type="text" v-model="theme">
         <Btn class="btn" txt="按鈕" @click="bclick"></Btn>
@@ -45,36 +59,43 @@
         </button>
     </template>
     <script>
-        Vue.component("Btn",{
-            template:"#Btn",
-            props:{
-                txt:{
-                    type:String,
-                    required:true,
-                    validator:function(value){
+        Vue.component("Btn", {
+            template: "#Btn",
+            props: {
+                txt: {
+                    type: String,
+                    required: true,
+                    validator: function (value) {
                         return ["按鈕"].indexOf(value) !== -1
                     }
                 }
             }
         })
         new Vue({
-            el:"#app",
-            computed:{
-                bg(){
-                    return this.darkMode?"dark-theme":"light-theme"
+            el: "#app",
+            computed: {
+                bg() {
+                    return this.darkMode ? "dark-theme" : "light-theme"
                 }
             },
-            data:{
-                darkMode:true,
-                theme:"",
-                bgcolor:true
+            data: {
+                darkMode: true,
+                theme: "",
+                bgcolor: true,
+                activeColor: "red",
+                fontSize: "13px",
+                flexStyle: {
+                    display: ["-webkit-box", "-ms-flexbox", "flex"],
+                    "justify-content": "space-between"
+                }
             },
-            methods:{
-                bclick(v){
-                    console.log(1,v)
+            methods: {
+                bclick(v) {
+                    console.log(1, v)
                 }
             }
         })
     </script>
 </body>
+
 </html>

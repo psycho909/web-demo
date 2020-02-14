@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #F6BB15;
+        }
+
+        .btn {
+            display: block;
+            width: 322px;
+            height: 86px;
+            margin: 0 auto;
+            text-decoration: none;
+            background-color: transparent !important;
+            background-image: url('images/btn.png');
+            font-size: 0;
+            border: none;
+            outline: none;
+        }
+
+        a[type="submit"] {
+            -webkit-appearance: none;
+        }
+        .box{
+            font-size: 0;
+            text-align: center;
+        }
+        #phoneNumber {
+            width: 40%;
+            height: 49px;
+            padding-left: 20px;
+            margin-left: 10px;
+            font-size: 30px;
+            display: inline-block;
+            border-radius: 0;
+            outline: none;
+            border:1px solid #949494;
+        }
+        .custom-select{
+            width: 40%;
+            height: 49px;
+            padding-left: 20px;
+            margin-left: 10px;
+            font-size: 30px;
+            background-color: #fff;
+            border:1px solid #949494;
+            display: inline-block;
+            vertical-align: top;
+            border-radius: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/">
+        <a data-type="a" class="btn btn-style1" href="javascript:;">按鈕</a>
+        <a data-type="b" class="btn btn-style2" type="submit" href="javascript:;">按鈕</a>
+        <input data-type="c" type="submit" class="btn btn-style2" value="按鈕">
+        <button data-type="d" type="button" class="btn btn-style3">按鈕</button>
+        <button data-type="e" type="submit" class="btn btn-style3">按鈕</button>
+    </form>
+    <div class="box">
+        <div class="input-group">
+            <div class="custom-select"></div>
+            <input type="tel" id="phoneNumber" class="form-control" autocomplete="off" data-intl-tel-input-id="0"
+                placeholder="" maxlength="10">
+        </div>
+    </div>
+    <script>
+        $(".btn").on("click", function (e) {
+            e.preventDefault();
+            console.log($(this).attr("data-type"))
+        })
+    </script>
+</body>
+
+</html>

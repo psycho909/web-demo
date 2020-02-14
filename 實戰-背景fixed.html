@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+        .header{
+            width: 100%;
+            height: 940px;
+            background-color: #eee;
+            position: relative;
+            z-index: 1;
+        }
+        .section{
+            width: 100%;
+            height: 940px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12rem;
+        }
+        .section-1{
+            color:#fff;
+        }
+        .section-2{
+            color:yellow;
+        }
+        .section-3{
+            background-color: #666;
+        }
+        .section-4{
+            color:orange;
+        }
+        .top{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 940px;
+            background-image: url('images/pc_bg.jpg');
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header"></div>
+        <div class="section section-1">SECTION 1</div>
+        <div class="section section-2">SECTION 2</div>
+        <div class="section section-3">SECTION 3</div>
+        <div class="section section-4">SECTION 4</div>
+        <div class="top"></div>
+    </div>
+</body>
+</html>
