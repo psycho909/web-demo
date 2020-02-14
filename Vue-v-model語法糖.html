@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" :value="msg" @input="msg = $event.target.value" />
+        <div>{{msg}}</div>
+        <child :msg.sync="msg"></child>
+    </div>
+    <template id="child">
+        <div>{{msg}}</div>
+    </template>
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            props:{
+                msg:{
+                    type:String,
+                    required:true
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                msg:""
+            }
+        })
+    </script>
+</body>
+
+</html>

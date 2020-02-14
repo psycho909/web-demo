@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>This is Component in Parent  <span style="color: red;">{{ counter }}</span></p>
+        <!-- <child :counter="counter" @counter-update="updateCounter"></child> -->
+        <child :counter.sync="counter">
+            <template #title>
+                <div>Child 1</div>
+            </template>
+        </child>
+    </div>
+    <template id="child">
+        <div>
+            <slot name="title"></slot>
+            <button @click="add">+</button>
+            <span>This is component in children counter: {{ counter }} </span>
+            <button @click="increment">-</button>
+        </div>
+    </template>
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            props:{
+                counter:{
+                    type:Number,
+                    default:0
+                }
+            },
+            methods:{
+                add(){
+                    // this.$emit("counter-update",this.counter+1)
+                    // <!-- We use 'update:"props-name"' to emit a update event, and pass the change value. -->
+                    this.$emit("update:counter",this.counter+1)
+                },
+                increment(){
+                    // <!-- We use 'update:"props-name"' to emit a update event, and pass the change value. -->
+                    this.$emit("update:counter",this.counter-1)
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                counter:0
+            },
+            methods:{
+                updateCounter(val){
+                    this.counter=val;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
