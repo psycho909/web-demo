@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #map {
+            height: 100vh;
+        }
+
+        .highlight {
+            background: #e9ffe3;
+        }
+
+        .toolbox {
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .toolbox a {
+            cursor: pointer;
+        }
+
+        .marker-cluster-small {
+            background-color: rgba(181, 226, 140, 0.6);
+        }
+
+        .marker-cluster-small div {
+            background-color: rgba(110, 204, 57, 0.6);
+        }
+
+        .marker-cluster-medium {
+            background-color: rgba(241, 211, 87, 0.6);
+        }
+
+        .marker-cluster-medium div {
+            background-color: rgba(240, 194, 12, 0.6);
+        }
+
+        .marker-cluster-large {
+            background-color: rgba(253, 156, 115, 0.6);
+        }
+
+        .marker-cluster-large div {
+            background-color: rgba(241, 128, 23, 0.6);
+        }
+
+        .marker-cluster {
+            background-clip: padding-box;
+            border-radius: 20px;
+        }
+
+        .marker-cluster div {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+
+            text-align: center;
+            border-radius: 15px;
+            font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+
+        .marker-cluster span {
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="row no-gutters">
+            <div class="col-sm-3">
+                <div class="toolbox">
+                    <div class="sticky-top bg-white shadow-sm p-2">
+                        <div class="form-group d-flex">
+                            <label for="cityName" class="mr-2 col-form-label text-right">縣市</label>
+                            <div class="flex-fill">
+                                <select id="cityName" class="form-control" v-model="select.city"
+                                    @change="updatedRanderInit()">
+                                    <option value="">-- Select One --</option>
+                                    <option :value="c.CityName" v-for="c in countryName" :key="c.CityName">
+                                        {{c.CityName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex">
+                            <label for="area" class="mr-2 col-form-label text-right">地區</label>
+                            <div class="flex-fill">
+                                <select ref="town" id="town" class="form-control" @change="updatedRander()" v-model="select.town">
+                                    <option value="" selected>-- Select One --</option>
+                                    <option :value="t" v-for="(t,index) in towns" :key="index">
+                                        {{t}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="mb-0 small text-muted text-right">請先選擇區域查看（綠色表示還有口罩）</p>
+                    </div>
+                    <ul class="list-group">
+                        <li v-for="(p,index) in pharmaciesTotal" :key="index" @click="penTo(p)">
+                            <a class="list-group-item text-left">
+                                <h3>藥局名稱</h3>
+                                <p class="mb-0">
+                                    成人口罩：{{p.properties.mask_adult}} | 兒童口罩：{{p.properties.mask_child}}
+                                </p>
+                                <p class="mb-0">地址：{{p.properties.address}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 客製化ICON
+        var greenIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var redIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        let osmMap = {};
+        new Vue({
+            el: "#app",
+            mounted() {
+                axios.get("./json/cityName.json").then((res)=>{
+                    this.countryName=res.data;
+                    this.countryFilter();
+                    this.townFilter();
+                })
+                axios.get(this.url).then(res => {
+                    this.data = res.data.features;
+                    // this.updateMap()
+                });
+                osmMap = L.map('map', {
+                    center: [25.0686719, 121.4814326],
+                    zoom: 18
+                });
+
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(osmMap);
+            },
+            data() {
+                return {
+                    url: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json",
+                    data: [],
+                    countryName:[],
+                    countrys:[],
+                    towns:[],
+                    pharmaciesTotal:[],
+                    select: {
+                        city: "臺北市",
+                        town:""
+                    }
+                };
+            },
+            computed:{
+                townName(){
+                    return this.countryName.filter((town)=>{
+                        return town.properties.town === this.select.town;
+                    })
+                }
+            },
+            methods: {
+                updatedRanderInit(){
+                    this.pharmaciesTotal=[];
+                    this.countryFilter()
+                    this.townFilter();
+                    this.removeMarker();
+                    this.initSelect()
+                    // this.updateMap();
+                },
+                updatedRander(){
+                    this.removeMarker();
+                    this.updateMap();
+                },
+                initSelect(){
+                    this.$nextTick(()=>{
+                        this.$refs.town.options[0].selected=true
+                    })
+                },
+                countryFilter(){
+                    this.countrys=this.countryName.filter((county)=>{
+                        return county.CityName === this.select.city;
+                    })
+                },
+                townFilter(){
+                    this.towns=this.countrys[0].AreaList.map(town=>{
+                        return town.AreaName
+                    })
+                },
+                updateMap() {
+                    let _this = this;
+                    const pharmacies = this.data.filter((pharmacy) => {
+                        return pharmacy.properties.county === _this.select.city
+                    })
+
+                    const pharmacies2=pharmacies.filter((p)=>{
+                        return p.properties.town === _this.select.town
+                    });
+
+                    this.pharmaciesTotal=pharmacies2;
+
+                    pharmacies2.forEach((pharmacy) => {
+                        const { properties, geometry } = pharmacy
+                        if(properties.mask_adult > 0){
+                            L.marker([
+                                geometry.coordinates[1],
+                                geometry.coordinates[0]
+                            ]).addTo(osmMap)
+                                .bindPopup(
+                                    `<strong>${properties.name}</strong> <br>
+                                    口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
+                                    地址: <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a><br>
+                                    電話: ${properties.phone}<br>
+                                    <small>最後更新時間: ${properties.updated}</small>`).openPopup();
+                        }else{
+                            L.marker([
+                                geometry.coordinates[1],
+                                geometry.coordinates[0]
+                            ]).addTo(osmMap)
+                                .bindPopup(
+                                    `<strong>${properties.name}</strong> <br>
+                                    口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
+                                    地址: <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a><br>
+                                    電話: ${properties.phone}<br>
+                                    <small>最後更新時間: ${properties.updated}</small>`);
+                        }
+                        
+                    })
+                    // this.penTo(pharmacies)
+                },
+                removeMarker() {
+                    osmMap.eachLayer((layer) => {
+                        if (layer instanceof L.Marker) {
+                            osmMap.removeLayer(layer)
+                        }
+                    })
+                },
+                penTo(item) {
+                    const { properties, geometry } = item;
+                    osmMap.panTo([geometry.coordinates[1], geometry.coordinates[0]]);
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
