@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+
+<body>
+    <ul>
+        <li>list item 1</li>
+        <li>list item 2</li>
+        <li>list item 3</li>
+        <li class="findme">list item 4</li>
+        <li class="findme">list item 5</li>
+        <li>list item 6</li>
+        <li>list item 7</li>
+    </ul>
+    <button class="find">FIND</button>
+    <button class="has">HAS</button>
+    <button class="filter">FILTER</button>
+    <script>
+        $(".find").on("click", function () {
+            console.log($('ul').find('.findme'))
+        })
+        $(".has").on("click", function () {
+            $("p").find("span").css("color", 'green')
+        })
+        $(".filter").on("click", function () {
+            var selectedElements = $('li').filter('.findme');
+            console.log(selectedElements)
+        })
+    </script>
+</body>
+
+</html>

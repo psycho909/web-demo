@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function promise(num,timeout){
+            return new Promise((resolve,reject)=>{
+                if(num){
+                    setTimeout(() => {
+                        resolve(`${num}, success`)
+                    }, timeout);
+                }else{
+                    reject("Error")
+                }
+            })
+        }
+        
+        Promise.all([promise(1,100),promise(2,200),promise(3,300)])
+        .then(res=>{
+            console.log(res)
+        })
+        
+        Promise.race([promise(1,200),promise(2,500),promise(3,0)])
+        .then(res=>{
+            console.log(res)
+        })
+
+        function get(url){
+            return new Promise(function(resolve,reject){
+                var xhr=new XMLHttpRequest();
+                xhr.open("GET",url);
+                xhr.send();
+                xhr.onload=function(){
+                    if(xhr.status == 200){
+                        resolve(JSON.parse(xhr.response))
+                    }else{
+                        reject(new Error(xhr))
+                    }
+                }
+            })
+        }
+
+        get("https://jsonplaceholder.typicode.com/todos/1")
+        .then(res=>{
+            console.log(res)
+        })
+    </script>
+</body>
+</html>

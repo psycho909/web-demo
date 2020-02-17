@@ -27,7 +27,13 @@
             margin: 0 auto;
             height: 100%;
         }
+        .mb{
+            display: none;
+        }
         @media screen and (max-width: 750px) {
+            body{
+                overflow: hidden;
+            }
             img{
                 position: absolute;
                 width: 100%;
@@ -36,13 +42,20 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
+            .pc{
+                display: none;
+            }
+            .mb{
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
     <div id="app">
         <a class="a-link" href="javascript:;">
-            <img src="images/lbj1.jpg" alt="">
+            <img class="pc" src="images/pc.jpg" alt="">
+            <img class="mb" src="images/mb.jpg" alt="">
         </a>
     </div>
 </body>

@@ -87,6 +87,9 @@
         .marker-cluster span {
             line-height: 30px;
         }
+        .list-group li.active a{
+            background-color: #eee;
+        }
     </style>
 </head>
 
@@ -121,9 +124,9 @@
                         <p class="mb-0 small text-muted text-right">請先選擇區域查看（綠色表示還有口罩）</p>
                     </div>
                     <ul class="list-group">
-                        <li v-for="(p,index) in pharmaciesTotal" :key="index" @click="penTo(p)">
+                        <li ref="li" v-for="(p,index) in pharmaciesTotal" :key="index" @click="penTo(p,index)">
                             <a class="list-group-item text-left">
-                                <h3>藥局名稱</h3>
+                                <h3>{{p.properties.name}}</h3>
                                 <p class="mb-0">
                                     成人口罩：{{p.properties.mask_adult}} | 兒童口罩：{{p.properties.mask_child}}
                                 </p>
@@ -189,7 +192,8 @@
                     select: {
                         city: "臺北市",
                         town:""
-                    }
+                    },
+                    marker:""
                 };
             },
             computed:{
@@ -241,29 +245,18 @@
 
                     pharmacies2.forEach((pharmacy) => {
                         const { properties, geometry } = pharmacy
-                        if(properties.mask_adult > 0){
-                            L.marker([
+                        const icon= properties.mask_adult > 0?greenIcon:redIcon;
+
+                        L.marker([
                                 geometry.coordinates[1],
                                 geometry.coordinates[0]
-                            ]).addTo(osmMap)
+                            ],{icon}).addTo(osmMap)
                                 .bindPopup(
                                     `<strong>${properties.name}</strong> <br>
                                     口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
                                     地址: <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a><br>
                                     電話: ${properties.phone}<br>
-                                    <small>最後更新時間: ${properties.updated}</small>`).openPopup();
-                        }else{
-                            L.marker([
-                                geometry.coordinates[1],
-                                geometry.coordinates[0]
-                            ]).addTo(osmMap)
-                                .bindPopup(
-                                    `<strong>${properties.name}</strong> <br>
-                                    口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
-                                    地址: <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a><br>
-                                    電話: ${properties.phone}<br>
-                                    <small>最後更新時間: ${properties.updated}</small>`);
-                        }
+                                    <small>最後更新時間: ${properties.updated}</small>`)
                         
                     })
                     // this.penTo(pharmacies)
@@ -275,9 +268,32 @@
                         }
                     })
                 },
-                penTo(item) {
+                penTo(item,index) {
+                    this.$refs.li.forEach((l,i)=>{
+                        l.classList.remove("active")
+                    })
+                    this.$refs.li[index].classList.add("active");
+
                     const { properties, geometry } = item;
+                    const icon= properties.mask_adult > 0?greenIcon:redIcon;
+
+                    var x=geometry.coordinates[0];
+                    var y=geometry.coordinates[1];
+
                     osmMap.panTo([geometry.coordinates[1], geometry.coordinates[0]]);
+
+                    if(this.marker){
+                        this.marker.remove()
+                    }
+
+                    this.marker=L.marker([y, x],{icon})
+                    this.marker.remove()
+                    this.marker.addTo(osmMap).bindPopup(
+                    `<strong>${properties.name}</strong> <br>
+                    口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
+                    地址: <a href="https://www.google.com.tw/maps/place/${properties.address}" target="_blank">${properties.address}</a><br>
+                    電話: ${properties.phone}<br>
+                    <small>最後更新時間: ${properties.updated}</small>`).openPopup();
                 }
             }
         })

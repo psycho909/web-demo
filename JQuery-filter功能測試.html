@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Content Filter | Webdevtrick.com</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <style>
+        body {
+            padding: 10%;
+            font-family: sans-serif;
+        }
+
+        button {
+            padding: 1em;
+            border: 0;
+            margin: 0.25em;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button.is-active {
+            -moz-transform: scale(1.15);
+            -ms-transform: scale(1.15);
+            -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+        }
+
+        .s-red {
+            background: #ff4136;
+        }
+
+        .s-red:hover {
+            background: #e90d00;
+        }
+
+        .s-green {
+            background: #2ecc40;
+        }
+
+        .s-green:hover {
+            background: #208e2c;
+        }
+
+        .s-blue {
+            background: #1da1f2;
+        }
+
+        .s-blue:hover {
+            background: #004b8d;
+        }
+
+        .s-all {
+            background: #333;
+        }
+
+        .s-all:hover {
+            background: #0d0d0d;
+        }
+
+        .red,
+        .green,
+        .blue {
+            color: #fff;
+            padding: 1em;
+            margin-bottom: 0.25em;
+        }
+
+        .red {
+            background: #ff4136;
+        }
+
+        .green {
+            background: #2ecc40;
+        }
+
+        .blue {
+            background: #1da1f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>jQuery Content Filtering</h2>
+    <p>
+        <button class="s-all is-active">All Items</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="s-red">Filter Red Items</button>
+        <button class="s-blue">Filter Blue Items</button>
+        <button class="s-green">Filter Green Items</button>
+    </p>
+
+    <div class="wrap">
+        <div class="red">First</div>
+        <div class="red">Second</div>
+        <div class="blue">Third</div>
+        <div class="green">Fourth</div>
+        <div class="red">Fifth</div>
+        <div class="blue">Sixth</div>
+        <div class="blue">Seventh</div>
+        <div class="green">Eighth</div>
+    </div>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script>
+        var fActive;
+
+        function filterColor(color) {
+            if (fActive != color) {
+                $('div').filter('.' + color).slideDown();
+                $('div').filter(':not(.' + color + ')').slideUp();
+                fActive = color;
+                $('button').removeClass("is-active");
+            }
+        }
+
+        $('.s-red').click(function () { filterColor('red'); $(this).addClass("is-active"); });
+        $('.s-blue').click(function () { filterColor('blue'); $(this).addClass("is-active"); });
+        $('.s-green').click(function () { filterColor('green'); $(this).addClass("is-active"); });
+
+        $('.s-all').click(function () {
+            $('div').slideDown();
+            fActive = 'all';
+            $(this).addClass("is-active");
+        });
+    </script>
+</body>
+
+</html>
