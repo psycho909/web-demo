@@ -116,8 +116,7 @@
                             <div class="flex-fill">
                                 <select ref="town" id="town" class="form-control" @change="updatedRander()" v-model="select.town">
                                     <option value="" selected>-- Select One --</option>
-                                    <option :value="t" v-for="(t,index) in towns" :key="index">
-                                        {{t}}</option>
+                                    <option :value="t" v-for="(t,index) in towns" :key="index">{{t}}</option>
                                 </select>
                             </div>
                         </div>
@@ -160,7 +159,7 @@
             shadowSize: [41, 41]
         });
         let osmMap = {};
-        new Vue({
+        var app=new Vue({
             el: "#app",
             mounted() {
                 axios.get("./json/cityName.json").then((res)=>{
@@ -170,7 +169,6 @@
                 })
                 axios.get(this.url).then(res => {
                     this.data = res.data.features;
-                    // this.updateMap()
                 });
                 osmMap = L.map('map', {
                     center: [25.0686719, 121.4814326],
@@ -197,11 +195,7 @@
                 };
             },
             computed:{
-                townName(){
-                    return this.countryName.filter((town)=>{
-                        return town.properties.town === this.select.town;
-                    })
-                }
+
             },
             methods: {
                 updatedRanderInit(){
@@ -210,7 +204,6 @@
                     this.townFilter();
                     this.removeMarker();
                     this.initSelect()
-                    // this.updateMap();
                 },
                 updatedRander(){
                     this.removeMarker();
@@ -246,11 +239,8 @@
                     pharmacies2.forEach((pharmacy) => {
                         const { properties, geometry } = pharmacy
                         const icon= properties.mask_adult > 0?greenIcon:redIcon;
-
-                        L.marker([
-                                geometry.coordinates[1],
-                                geometry.coordinates[0]
-                            ],{icon}).addTo(osmMap)
+                        var [x,y]=[geometry.coordinates[0],geometry.coordinates[1]];
+                        L.marker([y,x],{icon}).addTo(osmMap)
                                 .bindPopup(
                                     `<strong>${properties.name}</strong> <br>
                                     口罩剩餘：<strong>成人 - ${properties.mask_adult}/ 兒童 - ${properties.mask_child ? `${properties.mask_child} 個` : '未取得資料'}</strong><br>
@@ -259,7 +249,6 @@
                                     <small>最後更新時間: ${properties.updated}</small>`)
                         
                     })
-                    // this.penTo(pharmacies)
                 },
                 removeMarker() {
                     osmMap.eachLayer((layer) => {
@@ -275,12 +264,11 @@
                     this.$refs.li[index].classList.add("active");
 
                     const { properties, geometry } = item;
-                    const icon= properties.mask_adult > 0?greenIcon:redIcon;
+                    const icon= properties.mask_adult > 0 ? greenIcon : redIcon;
 
-                    var x=geometry.coordinates[0];
-                    var y=geometry.coordinates[1];
+                    var [x,y]=[geometry.coordinates[0],geometry.coordinates[1]];
 
-                    osmMap.panTo([geometry.coordinates[1], geometry.coordinates[0]]);
+                    osmMap.panTo([y,x]);
 
                     if(this.marker){
                         this.marker.remove()

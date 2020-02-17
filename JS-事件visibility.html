@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            height: 3000px;
+        }
+    </style>
+</head>
+
+<body>
+    <video controls src='https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_30mb.mp4'></video>
+    <div class="box"></div>
+    <script>
+        const video = document.querySelector('video');
+        // 頁面切換 或 網頁隱藏之類時觸發
+        document.addEventListener('visibilitychange', () => {
+            console.log(document.visibilityState)
+            if (document.visibilityState !== 'visible') {
+                video.pause();
+            }
+        })
+
+    </script>
+</body>
+
+</html>
