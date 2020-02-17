@@ -159,7 +159,7 @@
             shadowSize: [41, 41]
         });
         let osmMap = {};
-        var app=new Vue({
+        new Vue({
             el: "#app",
             mounted() {
                 axios.get("./json/cityName.json").then((res)=>{
@@ -195,7 +195,6 @@
                 };
             },
             computed:{
-
             },
             methods: {
                 updatedRanderInit(){

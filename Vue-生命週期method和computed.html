@@ -5,73 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
 </head>
 <body>
     <div id="app">
-        <List></List>
-        <div ref="dream" v-if="showDom">測試DOM</div>
-    </div>
-    <template id="List">
-        <ul class="list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
+        <ul>
+            <li v-for="(l,index) in filters" :key="index">
+                {{l.gender}}
+            </li>
         </ul>
-    </template>
-    <template id="SelectBox">
-        <div>
-            <select name="" id="">
-                <option value="">請選擇</option>
-                <option value="a">a</option>
-                <option value="b">b</option>
-                <option value="c">c</option>
-            </select>
-        </div>
-    </template>
+    </div>
     <script>
-        var List={
-            template:"#List"
-        }
-        var SelectBox={
-            template:"#SelectBox"
-        }
-        new Vue({
+        var app=new Vue({
             el:"#app",
-            components:{
-                List,
-                SelectBox
-            },
             data:{
-                showDom:true,
-                list:["a","b","c"]
+                results:[],
+                filters:[]
             },
             created(){
                 console.log("created: $el - "+this.$el)
-                console.log("created: data - "+this.list)
-                console.log("created: computed - "+this.aFilter)
+                console.log("created: data - "+this.title)
                 console.log("created: computed - "+this.listLength)
-                console.log("created: ref - "+this.$refs.dream)
                 console.log("=====================================")
             },
             mounted(){
+                fetch('https://randomuser.me/api/?results=10')
+                .then(response => response.json())
+                .then(json => {
+                    this.results=json
+                    this.listLength()
+                })
+                
                 console.log("mounted: $el - "+this.$el)
-                console.log("mounted: data - "+this.list)
+                console.log("mounted: data - "+this.title)
                 console.log("mounted: computed - "+this.listLength)
-                console.log("mounted: ref - "+this.$refs.dream)
                 console.log("=====================================")
             },
             computed: {
-                listLength(){
-                    return this.aFilter
-                },
-                aFilter(){
-                    return 4;
-                }
+                
             },
             methods: {
-
+                listLength(){
+                    this.filters= this.results.results.filter((f)=>{
+                        return f.gender === 'male'
+                    })
+                },
             },
         })
     </script>
