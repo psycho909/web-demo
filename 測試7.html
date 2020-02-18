@@ -33,31 +33,38 @@
 
 <body>
     <a class="btn" href="javascript:;"></a>
-
+    <ul>
+        <li id="li" data-person='
+            {
+            "name": "Chris Coyier",
+            "job": "Web Person"
+            }
+        '></li>
+    </ul>
     <script>
-        var index=0;
-        var img_arr=['images/enter_btn.png','images/enter_btn_glow.png'];
+        var index = 0;
+        var img_arr = ['images/enter_btn.png', 'images/enter_btn_glow.png'];
 
-        $.each(img_arr,function(i,v){
-            var img=new Image();
-            img.src=v;
+        $.each(img_arr, function (i, v) {
+            var img = new Image();
+            img.src = v;
         })
 
-        function loopClick(){
+        function loopClick() {
             index++;
-            $(".btn").css("background-image","url("+img_arr[index%2]+")");
+            $(".btn").css("background-image", "url(" + img_arr[index % 2] + ")");
             setTimeout(function () {
                 loopClick()
             }, 300);
         }
         loopClick()
-        function anim(){
+        function anim() {
             TweenMax.to(".btn", .6, {
-                x:-30,
-                y:-20,
+                x: -30,
+                y: -20,
                 ease: Power0.easeNone,
-                yoyo:true,
-                repeat:-1
+                yoyo: true,
+                repeat: -1
             });
         }
 

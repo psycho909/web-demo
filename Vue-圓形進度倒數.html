@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全國電子 X 銀行活動公告</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        #app {
+            font-family: "Avenir", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .base-timer {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .base-timer__svg {
+            transform: scaleX(-1);
+        }
+
+        .base-timer__circle {
+            fill: none;
+            stroke: none;
+        }
+
+        .base-timer__path-elapsed {
+            stroke-width: 7px;
+            stroke: grey;
+        }
+
+        .base-timer__path-remaining {
+            stroke-width: 7px;
+            stroke-linecap: round;
+            -webkit-transform: rotate(90deg);-ms-transform: rotate(90deg);transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            fill-rule: nonzero;
+            stroke: currentColor;
+        }
+
+        .base-timer__path-remaining.green {
+            color: #41b883;
+        }
+
+        .base-timer__path-remaining.orange {
+            color: orange;
+        }
+
+        .base-timer__path-remaining.red {
+            color: red;
+        }
+
+        .base-timer__label {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 48px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="base-timer">
+            <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                    <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                    <path :stroke-dasharray="circleDasharray" class="base-timer__path-remaining"
+                        :class="remainingPathColor" d="
+                    M 50, 50
+                    m -45, 0
+                    a 45,45 0 1,0 90,0
+                    a 45,45 0 1,0 -90,0
+                  "></path>
+                </g>
+            </svg>
+            <span class="base-timer__label">{{ formattedTimeLeft }}</span>
+        </div>
+    </div>
+    <script>
+        var FULL_DASH_ARRAY = 283;
+        var WARNING_THRESHOLD = 10;
+        var ALERT_THRESHOLD = 5;
+
+        var COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+        };
+
+        var TIME_LIMIT = 20;
+        var app = new Vue({
+            el: "#app",
+            mounted:function(){
+                this.startTimer();
+            },
+            data: {
+                timePassed: 0,
+                timerInterval: null
+            },
+            computed: {
+                circleDasharray:function(){
+                    // return (this.timeFraction * FULL_DASH_ARRAY).toFixed(0)+" 283";
+                    return ((FULL_DASH_ARRAY / 20)*this.timeLeft).toFixed(0)+" 283";
+                },
+
+                formattedTimeLeft:function(){
+                    var timeLeft = this.timeLeft;
+                    var minutes = Math.floor(timeLeft / 60);
+                    var seconds = timeLeft % 60;
+
+                    if (seconds < 10) {
+                        seconds = "0"+seconds;
+                    }
+
+                    return minutes+":"+seconds;
+                },
+
+                timeLeft:function(){
+                    return TIME_LIMIT - this.timePassed;
+                },
+
+                timeFraction:function(){
+                    var rawTimeFraction = this.timeLeft / TIME_LIMIT;
+                    return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+                },
+
+                remainingPathColor:function(){
+                    // var { alert, warning, info } = COLOR_CODES;
+
+                    if (this.timeLeft <= COLOR_CODES.alert.threshold) {
+                        return COLOR_CODES.alert.color;
+                    } else if (this.timeLeft <= COLOR_CODES.warning.threshold) {
+                        return COLOR_CODES.warning.color;
+                    } else {
+                        return COLOR_CODES.info.color;
+                    }
+                }
+            },
+            watch: {
+                timeLeft:function(newValue) {
+                    if (newValue === 0) {
+                        this.onTimesUp();
+                    }
+                }
+            },
+            methods: {
+                onTimesUp:function(){
+                    clearInterval(this.timerInterval);
+                },
+
+                startTimer:function(){
+                    var _this=this;
+                    this.timerInterval = setInterval(function(){
+                        _this.timePassed += 1
+                    }, 1000);
+                }
+            }
+        })
+    </script>
+</body>
+
+
+</html>
