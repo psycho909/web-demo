@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick-theme.min.css">
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script type="text/javascript"
+        src="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #eee;
+        }
+        .header-box {
+            width: 300px;
+            height: 200px;
+            background-color: #eee;
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .header-box:nth-child(1) {
+            box-sizing: border-box;
+        }
+        .slick-wrap{
+            width: 300px;
+            background-color: #fff;
+            margin: 0 auto;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .5s;
+        }
+        .open{
+            visibility:visible;
+            opacity: 1;
+        }
+        .close{
+            visibility: hidden;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="title">
+        <div>{{title}}</div>
+        <div class="slick-wrap" :class="[open?'open':'close']">
+            <div class="slick">
+                <div v-for="(u,index) in users" :key="index">{{u.email}}</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                title: "",
+                usersData: "",
+                open:false
+            },
+            created() {
+                fetch("https://randomuser.me/api/?results=10")
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        setTimeout(() => {
+                            this.usersData = data.results
+                        }, 3000);
+                    })
+            },
+            computed: {
+                users() {
+                    return this.usersData
+                },
+            },
+            watch: {
+                title: {
+                    immediate: false,
+                    deep: true,
+                    handler(newV, oldV) {
+                        console.log(newV, oldV)
+                    }
+                },
+                users: {
+                    immediate: true,
+                    handler(newV, oldV) {
+                        if(newV.length > 0){
+                            var _this=this;
+                            this.$nextTick(()=>{
+                                _this.open=true
+                                _this.initSlick()
+                                console.log("Watch Hit")
+                            })
+                        }
+                    }
+                }
+            },
+            methods: {
+                getTo(data) {
+                    console.log(data)
+                },
+                initSlick() {
+                    $('.slick').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

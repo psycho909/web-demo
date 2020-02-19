@@ -13,6 +13,7 @@
         <div>沒用$nextTick: {{msg1}}</div>
         <div>用了$nextTick: {{msg2}}</div>
         <div>沒用$nextTick: {{msg3}}</div>
+        <div>沒用$nextTick: {{msg4}}</div>
         <button @click="changeMsg">Change Msg</button>
     </div>
     <script>
@@ -23,6 +24,7 @@
                 msg1:"",
                 msg2:"",
                 msg3:"",
+                msg4:"",
             },
             methods: {
                 changeMsg(){
@@ -32,6 +34,9 @@
                         this.msg2=this.$refs.msgDiv.innerHTML
                     })
                     this.msg3=this.$refs.msgDiv.innerHTML
+                    setTimeout(() => {
+                        this.msg4=this.$refs.msgDiv.innerHTML
+                    }, 0);
                 }
             },
         })

@@ -8,9 +8,12 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
     <style>
+        #app{
+            display: flex;
+        }
         .box {
-            width: 300px;
-            height: 300px;
+            width: 100px;
+            height: 100px;
             background-color: #666;
         }
 
@@ -49,7 +52,10 @@
             color:activeColor,
             fontSize:fontSize
         }">背景</div>
+        <div class="box" :class="bgg">背景</div>
         <div :class="['box',bgcolor ? 'red' : 'green']">This is how you add static classess</div>
+        <div :class="['box',{b:true}]">This is how you add static classess</div>
+        <div class="box" :class="{bg:true}">This is how you add static classess</div>
         <input type="text" v-model="theme">
         <Btn class="btn" txt="按鈕" @click="bclick"></Btn>
     </div>
@@ -81,9 +87,10 @@
             data: {
                 darkMode: true,
                 theme: "",
-                bgcolor: true,
+                bgcolor: false,
                 activeColor: "red",
                 fontSize: "13px",
+                bgg:"bg",
                 flexStyle: {
                     display: ["-webkit-box", "-ms-flexbox", "flex"],
                     "justify-content": "space-between"

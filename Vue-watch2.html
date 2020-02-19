@@ -31,22 +31,37 @@
     <div id="app">
         <input type="text" v-model="title">
         <div>{{title}}</div>
+        <h3>{{answer}}</h3>
     </div>
     <script>
         var vm=new Vue({
             el: "#app",
             data: {
-                title:""
+                title:"",
+                a:""
+            },
+            created(){
+                fetch("https://yesno.wtf/api")
+                .then(res=>res.json())
+                .then(data=>{
+                    this.a=data.answer
+                })
             },
             computed:{
-                today(){
-                    return this.msg+Date.now()
+                answer(){
+                    return this.a
                 }
             },
             watch:{
                 title:{
                     immediate: false,
                     deep:true,
+                    handler(newV,oldV){
+                        console.log(newV,oldV)
+                    }
+                },
+                answer:{
+                    immediate:true,
                     handler(newV,oldV){
                         console.log(newV,oldV)
                     }

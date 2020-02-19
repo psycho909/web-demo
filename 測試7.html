@@ -42,6 +42,18 @@
         '></li>
     </ul>
     <script>
+        var expenses = [
+            { total: 148.39, purpose: 'food' },
+            { total: 27.45, purpose: 'entertainment' },
+            { total: 59.36, purpose: 'food' },
+            { total: 95.27, purpose: 'food' },
+            { total: 284.74, purpose: 'entertainment' }
+        ];
+
+        ///////// Array.every() //////////
+        var expensesUnderBudget = expenses.every(expense => expense.total <= 100);
+        console.log(expensesUnderBudget)
+
         var index = 0;
         var img_arr = ['images/enter_btn.png', 'images/enter_btn_glow.png'];
 
