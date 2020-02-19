@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img class="img" src="" data-src="https://i.picsum.photos/id/1/200/300.jpg" alt="">
+    <img class="img" src="" data-src="https://i.picsum.photos/id/2/200/300.jpg" alt="">
+    <script>
+        var img=document.querySelectorAll(".img");
+        var imgArr=[];
+        function promise(i){
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    imgArr[i]=new Image();
+                    imgArr[i].src=img[i].dataset.src;
+                    // var e=Math.floor(Math.random()*10);
+                    imgArr[i].onload=function(){
+                        resolve()
+                    }
+                }, i*1000);
+            })
+        }
+        var promiseAll=[];
+        for(var i=0;i<img.length;i++){
+            promiseAll.push(promise(i))
+            // promise(i).then((i)=>{
+            //     console.log(i)
+            // },(error)=>{
+            //     console.log("error",error)
+            // })
+        }
+        Promise.all(promiseAll)
+        .then((data)=>{
+            img.forEach((v,i)=>{
+                v.src=imgArr[i].src
+            })
+            
+        })
+        .catch(()=>{
+            console.log("error")
+        })
+    </script>
+</body>
+</html>

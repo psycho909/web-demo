@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+</head>
+<body>
+    
+    <script>
+        var promise=$.ajax({
+            url:"https://randomuser.me/api/?results=10",
+            dataType:"JSON",
+            method:"GET"
+        })
+        promise.then(function(data){
+            console.log(data.results)
+        },function(error){
+            console.log("ERROR")
+        })
+
+        // var promise=function(s){
+        //     return new Promise((resolve)=>{
+        //         setTimeout(() => {
+        //             resolve(s)
+        //         }, s);
+        //     })
+        // }
+
+        // promise(1000).then((data)=>{
+        //     console.log(data)
+        //     return promise(2000)
+        // }).then((data)=>{
+        //     console.log(data)
+        // })
+    </script>
+</body>
+</html>
