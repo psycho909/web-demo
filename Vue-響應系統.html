@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            first name: {{user.firstName}}, last name: {{user.lastName}}
+        </div>
+        <div>{{info}}</div>
+        <div class="middle" target="_blank" @click.capture="a" @click="b">
+            middle, capture & none-capture & self
+            <a class="inner1" href="javascript:;" target="_blank" @click="c">
+                inner1, passive & preventDefault(which is not allowed)
+            </a>
+        </div>
+        <h2>Checkbox Value Binding</h2>
+        <div>
+            <input type="checkbox" id="checkboxvaluebinding" v-model="checked" :true-value="yes" :false-value="no">
+            <label for="checkboxvaluebinding">{{ checked }}</label>
+        </div>
+        <input type="checkbox" id="checkbox" v-model="checked2" value="A">
+        <label for="checkbox">{{ checked2 }}</label>
+        <div>
+            <div>What are you learning? {{multipleChecked}}</div>
+            <input type="checkbox" id="vue" value="Vue" v-model="multipleChecked">
+            <label for="vue">Vue</label>
+            <br />
+            <input type="checkbox" id="react" value="React" v-model="multipleChecked">
+            <label for="react">React</label>
+            <br />
+            <input type="checkbox" id="angular" value="Angular" v-model="multipleChecked">
+            <label for="angular">Angular</label>
+            <br />
+        </div>
+        <div>
+            <div>Are you learning Vue ? {{isLearningVue}}</div>
+            <input type="radio" id="yes" value="Yes" v-model="isLearningVue">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" value="No" v-model="isLearningVue">
+            <label for="no">No</label>
+            <br />
+        </div>
+        <h2>Radio Value Binding</h2>
+        <div>
+            <div>{{helloOrBye}}</div>
+            <input type="radio" id="radiovalueyes" :value="yesA" v-model="helloOrBye">
+            <label for="radiovalueyes">Yes</label>
+            <input type="radio" id="radiovalueno" :value="noB" v-model="helloOrBye">
+            <label for="radiovalueno">No</label>
+        </div>
+        <div>
+            {{count}}
+            <button-counter button-name="Click me" @click-plus="clickPlus"></button-counter>
+        </div>
+        <div>
+            <custom-input title="Input Something" v-model="inputSomething"></custom-input>
+            <input v-model="inputSomething">
+            <!-- <input :value="inputSomething" @input="inputSomething=$event.target.value">
+            Your input text is: {{inputSomething}} -->
+        </div>
+    </div>
+    <script>
+        Vue.component('button-counter', {
+            template: `
+                <button @click="clickPlus">
+                {{buttonName}} {{count}} times
+                </button>
+            `,
+            props: ['buttonName'],
+            data: function () {
+                return {
+                    count: 0,
+                };
+            },
+            methods: {
+                clickPlus: function () {
+                    this.count += 1;
+                    this.$emit('click-plus', this.count);
+                }
+            }
+        });
+        Vue.component('custom-input', {
+            template: `
+                <div>
+                <h3>{{title}}</h3>
+                <input :value="value"
+                        @input="$emit('input', $event.target.value)">
+                </div>
+            `,
+            props: ['title', 'value'],
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                user: {
+                    firstName: 'Peter', // reactive
+                },
+                checked2: false,
+                info: {},
+                checked: 'Hello',
+                yes: 'Hello',
+                no: 'Bye',
+                yesA: 'yesA',
+                noB: 'noB',
+                multipleChecked: [],
+                isLearningVue: "",
+                helloOrBye: "yesA",
+                count: 0,
+                inputSomething:""
+            },
+            created() {
+                // this.user.lastName = 'Chen'; // not reactive
+                this.$set(this.user, "lastName", "Chen")
+                this.info = Object.assign({}, this.info, { lastName: "CC", account: "23123213" })
+            },
+            methods: {
+                a() {
+                    console.log("middle, capture")
+                },
+                b() {
+                    console.log('middle, none-capture, default')
+                },
+                c() {
+                    console.log('inner1, passive, open new page')
+                },
+                clickPlus(count) {
+                    this.count = count
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
