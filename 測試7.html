@@ -42,6 +42,17 @@
         '></li>
     </ul>
     <script>
+        new Promise((resolve, reject) => {
+            resolve('Success!');
+        })
+            .then(() => {
+                console.log("1")
+                throw Error('Oh noes!');
+            })
+            .catch(error => {
+                return "actually, that worked";
+            })
+            .catch(error => console.log(error.message));
         var expenses = [
             { total: 148.39, purpose: 'food' },
             { total: 27.45, purpose: 'entertainment' },

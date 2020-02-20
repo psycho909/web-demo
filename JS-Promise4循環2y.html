@@ -16,9 +16,9 @@
                 setTimeout(() => {
                     imgArr[i]=new Image();
                     imgArr[i].src=img[i].dataset.src;
-                    // var e=Math.floor(Math.random()*10);
+                    var e=Math.floor(Math.random()*10);
                     imgArr[i].onload=function(){
-                        resolve("scc")
+                        resolve(e)
                     }
                 }, i*1000);
             })
@@ -26,22 +26,13 @@
         var promiseAll=[];
         for(var i=0;i<img.length;i++){
             promiseAll.push(promise(i))
-            // promise(i).then((i)=>{
-            //     console.log(i)
-            // },(error)=>{
-            //     console.log("error",error)
-            // })
         }
-        Promise.all(promiseAll)
-        .then((data)=>{
-            // img.forEach((v,i)=>{
-            //     v.src=imgArr[i].src
-            // })
-            console.log(data)
-        })
-        .catch(()=>{
-            console.log("error")
-        })
+        (async function(){
+            for await (let p of promiseAll){
+                const val=await p;
+                console.log(val)
+            }
+        })()
     </script>
 </body>
 </html>

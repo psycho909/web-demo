@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" id="txt">
+        <p id="show-txt"></p>
+    </div>
+    <script>
+        var obj = {};
+        Object.defineProperties(obj, {
+            //数据属性
+            _txt: {
+                writable: true,
+                value: "Test"
+            },
+            //访问器属性
+            txt: {
+                get: () => {
+                    return obj;
+                },
+                set: (newValue) => {
+                    console.log(this._txt)
+                    document.getElementById("txt").value = newValue
+                    document.getElementById("show-txt").innerHTML = newValue
+                }
+            }
+        })
+        document.getElementById("txt").addEventListener('keyup', function (e) {
+            obj.txt = e.target.value
+        });
+    </script>
+</body>
+
+</html>
