@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        #hello{
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>Clicked {{clicks}}</div>
+        <div>Mouse {{mouse}}</div>
+        <super-button-template class="myClass" :id="id" blah="blah" @mouseover="countMouse()" @click="countClicks()"></super-button-template>
+    </div>
+    <template id="super-button-template">
+        <div>
+            <button v-bind="attrs" v-on="listeners">SUPER BUTTON</button>
+            <div>{{$attrs.id}}</div>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("super-button-template",{
+            // inheritAttrs: 對於class 和 style沒有效果
+            // inheritAttrs: 可以取消子組件繼承父組件在上面添加的屬性
+            inheritAttrs:false,
+            template:"#super-button-template",
+            computed:{
+                listeners(){
+                    console.log(this.$attrs)
+                    return this.$listeners
+                },
+                attrs(){
+                    console.log(this.$attrs)
+                    return this.$attrs
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                clicks:0,
+                mouse:0,
+                id:"hello"
+            },
+            methods:{
+                countClicks(){
+                    this.clicks++;
+                },
+                countMouse(){
+                    this.mouse++;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

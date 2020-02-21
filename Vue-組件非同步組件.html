@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <async-component></async-component>
+        <async-component-promise></async-component-promise>
+        <async-component-object></async-component-object>
+    </div>
+    <script>
+        Vue.component("async-component", (resolve, reject) => {
+            setTimeout(() => {
+                resolve({
+                    template: "<div>Async Coponent</div>"
+                })
+            }, 1000);
+        })
+        Vue.component('async-component-promise', () => new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({
+                    template: '<div>Async Component Promise</div>'
+                });
+                // reject('Error!!!');
+            }, 1000);
+        }));
+        const LoadingComponent = {
+            template: '<div>Loading...</div>'
+        };
+        const ErrorComponent = {
+            template: '<div>Error!!!</div>'
+        };
+        Vue.component('async-component-object', () => ({
+            component: new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        template: '<div>Async Component Object</div>'
+                    });
+                    // reject('Error!!!');
+                }, 5000);
+            }),
+            loading: LoadingComponent,
+            error: ErrorComponent,
+            delay: 3000,
+            timeout: 6000
+        }));
+        new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

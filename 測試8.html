@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        class Solider {
+            constructor(name) {
+                this.name = name;
+                this.attack = this.attack.bind(this)
+            }
+            attack() { }
+        }
+
+        class LannisterSoldier extends Solider {
+            attack() {
+                return "A Lannister always pays his debts -- "+this.name;
+            }
+        }
+        class Spawn {
+            constructor(type, name) {
+                if (type === "lannister") return new LannisterSoldier(name);
+                else return new TargaryenSoldier(name);
+            }
+        }
+        (() => {
+            const lannister = new LannisterSoldier("CC");
+            console.log(lannister.attack())
+        })()
+    </script>
+</body>
+
+</html>

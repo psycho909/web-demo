@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <root node-name="Root">
+            <node node-name="Node">
+                <node node-name="NodeOfNode">
+                </node>
+            </node>
+        </root>
+        <child-a></child-a>
+    </div>
+    <template id="Child-a">
+        <div>123</div>
+    </template>
+    <script>
+        Vue.component("ChildA",{
+            template:"#Child-a"
+        })
+        Vue.component('root', {
+            name: 'root',
+            template: `
+                <div>
+                {{nodeName}}
+                <slot></slot>
+                </div>
+            `,
+            props: ['nodeName'],
+            provide: function () {
+                return {
+                    rootName: this.nodeName
+                };
+            }
+        });
+
+        Vue.component('node', {
+            name: 'node',
+            template: `
+                <div @click.stop="showRoot">
+                {{nodeName}}
+                <slot></slot>
+                </div>
+            `,
+            props: ['nodeName'],
+            inject: ['rootName'],
+            methods: {
+                showRoot: function () {
+                    alert('Root Name: ' + this.rootName);
+                }
+            }
+        });
+
+        var vm = new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+
+</html>

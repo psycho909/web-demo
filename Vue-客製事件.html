@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" :checked="checkboxValue">
+        {{checkboxValue}}
+        <base-checkbox v-model='checkboxValue' label="one"></base-checkbox>
+        <!-- <base-checkbox @change="onChange" label="one"></base-checkbox> -->
+        <counter :count="count" @plus-count="count=$event;" @minus-count="count=$event;"></counter>
+        <br>
+        <br>
+        <base-input @focus.native="onFocus" value="123"></base-input>
+        <br>
+        <br>
+        <base-input-with-label @focus="onFocus" v-model="inputModel" label="test2"></base-input-with-label>{{inputModel}}
+        <br>
+        <br>
+        <base-button :title="title" @update:title="title=$event"></base-button>
+        <br>
+        <br>
+        <base-button :title.sync="title"></base-button>
+        <br>
+        <br>
+        <base-button v-bind.sync="obj"></base-button>
+    </div>
+
+    <script>
+        Vue.component('base-button', {
+            props: ['title'],
+            template: `
+                <button @click="click">{{title}}</button>
+            `,
+            methods: {
+                click() {
+                    const newTitle = this.title.split("").reverse().join("");
+                    this.$emit('update:title', newTitle);
+                }
+            }
+        });
+        Vue.component('base-input-with-label', {
+            props: ['value', 'label'],
+            computed: {
+                inputListeners: function () {
+                    var vm = this;
+                    return Object.assign({},
+                        this.$listeners,
+                        {
+                            input: function (event) {
+                                vm.$emit('input', event.target.value)
+                            }
+                        }
+                    )
+                }
+            },
+            template: `
+                <label>
+                {{label}}
+                    <input
+                        v-on="inputListeners"
+                        :value="value"
+                    >
+                </label>
+            `
+        });
+
+        Vue.component('base-input', {
+            props: ['value'],
+            template: `
+                <input
+                :value="value"
+                @input="$emit('input', $event.target.value)"
+                >
+            `
+        });
+
+        Vue.component('base-checkbox', {
+            model: {
+                prop: 'checked',
+                event: 'onChange'
+            },
+            props: ['checked', 'label'],
+            template: `
+                <label>
+                    <input
+                        type="checkbox"
+                        :checked="checked"
+                        @change="$emit('onChange', $event.target.checked)"
+                    >
+                 {{label}}
+                </label>
+            `
+        });
+
+        Vue.component('counter', {
+            props: ['count'],
+            template: `
+                <div>
+                    <button @click="$emit('plus-count', count+1)">+</button>
+                    <span>{{count}}</span>
+                    <button @click="$emit('minus-count', count-1)">-</button>
+                </div>
+            `
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                count: 5,
+                checkboxValue: true,
+                inputModel: '',
+                title: 'I Love Vue.js',
+                obj: {
+                    title: 'I am in obj'
+                }
+            },
+            methods: {
+                onFocus() {
+                    console.log('focus');
+                },
+                onChange(data){
+                    this.checkboxValue=data
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

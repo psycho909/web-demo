@@ -16,7 +16,9 @@
             v-for="tab in viewTab"
             @click="tabView(tab)"
         >{{tab}}</button>
-        <component :is="view"></component>
+        <keep-alive include="Bus">
+            <component :is="view"></component>
+        </keep-alive>
     </div>
     <template id="Bus">
         <div>BUS</div>
@@ -29,13 +31,40 @@
     </template>
     <script>
         var Bus={
-            template:"#Bus"
+            template:"#Bus",
+            activated(){
+                console.log("Bus activated")
+            },
+            deactivated(){
+                console.log("Bus deactivated")
+            },
+            destroyed(){
+                console.log("Bus destroyed")
+            }
         }
         var Bike={
-            template:"#Bike"
+            template:"#Bike",
+            activated(){
+                console.log("Bike activated")
+            },
+            deactivated(){
+                console.log("Bike deactivated")
+            },
+            destroyed(){
+                console.log("Bike destroyed")
+            }
         }
         var Fly={
-            template:"#Fly"
+            template:"#Fly",
+            activated(){
+                console.log("Fly activated")
+            },
+            deactivated(){
+                console.log("Fly deactivated")
+            },
+            destroyed(){
+                console.log("Fly destroyed")
+            }
         }
         new Vue({
             el:"#app",

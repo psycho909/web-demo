@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <component-boolean :male="isMale" female="false" :love-coding="true"></component-boolean>
+        <component-array :habits="['movie', 'coding', 'game']" :phones="phones"></component-array>
+        <component-string v-bind="name"></component-string>
+    </div>
+
+    <script>
+        Vue.component('component-boolean', {
+            props: ['male', 'female', 'loveCoding'],
+            template: `
+                <div>
+                <div>Male : {{male}}, {{male ? 'Yes' : 'No'}}, {{typeof male}}</div>
+                <div>Female : {{female}}, {{female ? 'Yes' : 'No'}}, {{typeof female}}</div>
+                <div>Love coding : {{loveCoding}}, {{loveCoding ? 'Yes' : 'No'}}, {{typeof loveCoding}}</div>
+                </div>
+            `,
+        })
+        Vue.component('component-array', {
+            props: ['habits', 'phones'],
+            template: `
+                <div>
+                <div>Habits
+                    <ul>
+                    <li v-for="habit in habits">{{habit}}</li>
+                    </ul>
+                </div>
+                <div>Phones
+                    <ul>
+                    <li v-for="phone in phones">{{phone}}</li>
+                    </ul>
+                </div>
+                </div>
+            `,
+        })
+        Vue.component('component-string', {
+            props: ['fullName', 'firstName', 'lastName'],
+            template: `
+                <div>
+                <div v-if="fullName">Full Name : {{fullName}}</div>
+                <div>First Name : {{firstName}}</div>
+                <div>Last Name : {{lastName}}</div>
+                </div>
+            `,
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isMale: true,
+                phones: ['555', '666'],
+                name: {
+                    firstName: 'Peter',
+                    lastName: 'Chen',
+                },
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>{{nameFirst}}</h2>
+        <aa></aa>
+    </div>
+
+    <template id="aa">
+        <div class="aa">
+            <h2>組件A 數據項:{{mydata}}</h2>
+            <bb :mydata="mydata" @changemydata="changemydata"></bb>
+        </div>
+    </template>
+
+    <template id="bb">
+        <div class="bb">
+            <h2>組件B</h2>
+            <cc v-bind="$attrs" v-on="$listeners"></cc>
+        </div>
+    </template>
+    <template id="cc">
+        <div class="cc">
+            <h2>組件C</h2>
+            <div>{{myc}}</div>
+            <input type="text" v-model="myc" @input="hInput">
+        </div>
+    </template>
+    <script>
+        Vue.component("aa",{
+            template:"#aa",
+            data(){
+                return {
+                    mydata:"100",
+                }
+            },
+            methods:{
+                changemydata(val){
+                    console.log(val)
+                    this.mydata=val;
+                }
+            }
+        })
+        Vue.component("bb",{
+            template:"#bb",
+            created(){
+                console.log(this.$listeners)
+            }
+        })
+        Vue.component("cc",{
+            template:"#cc",
+            created(){
+                this.myc=this.$attrs.mydata;
+                console.log(this.$attrs,this.$listeners)
+            },
+            data(){
+                return {
+                    myc:""
+                }
+            },
+            methods:{
+                hInput(){
+                    this.myc=event.target.value;
+                    this.$emit("changemydata",this.myc)
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                nameFirst:"CCC"
+            },
+            methods:{
+            }
+        })
+    </script>
+</body>
+</html>
