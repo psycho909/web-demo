@@ -27,7 +27,7 @@
 
         class LannisterSoldier extends Solider {
             attack() {
-                return "A Lannister always pays his debts -- "+this.name;
+                return "A Lannister always pays his debts -- " + this.name;
             }
         }
         class Spawn {
@@ -39,7 +39,16 @@
         (() => {
             const lannister = new LannisterSoldier("CC");
             console.log(lannister.attack())
-        })()
+        })();
+
+        let john={
+            name:"john"
+        }
+        let setName = function (hobby0, hobby1) {
+            console.log(this.name + "'s hobbies are " + hobby0 + " and " + hobby1);
+        }
+
+        setName.apply(john,["A","b"])
     </script>
 </body>
 

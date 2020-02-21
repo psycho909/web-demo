@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Loading Images | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Squada One', cursive;
+            text-align: center;
+            font-weight: 100;
+            color: #666;
+            font-size: 52px;
+            margin: 100px 0 0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 960px;
+            margin: 100px auto;
+            box-shadow: 0 0 50px #333;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .gallery-item>img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        img {
+            opacity: 1;
+            transition: opacity 1s;
+        }
+
+        img[data-src] {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lazy Loading Images</h1>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=20" width="400" height="500"
+                alt="Image 1" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=19" width="400" height="500"
+                alt="Image 2" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=1" width="400" height="500"
+                alt="Image 3" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=2" width="400" height="500"
+                alt="Image 4" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=3" width="400" height="500"
+                alt="Image 5" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=4" width="400" height="500"
+                alt="Image 6" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=5" width="400" height="500"
+                alt="Image 7" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=6" width="400" height="500"
+                alt="Image 8" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=7" width="400" height="500"
+                alt="Image 9" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=8" width="400" height="500"
+                alt="Image 10" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=9" width="400" height="500"
+                alt="Image 11" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=10" width="400" height="500"
+                alt="Image 12" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=11" width="400" height="500"
+                alt="Image 13" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=12" width="400" height="500"
+                alt="Image 14" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=13" width="400" height="500"
+                alt="Image 15" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=14" width="400" height="500"
+                alt="Image 16" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=15" width="400" height="500"
+                alt="Image 17" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=16" width="400" height="500"
+                alt="Image 18" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=17" width="400" height="500"
+                alt="Image 19" />
+        </div>
+        <div class="gallery-item">
+            <img data-src="https://source.unsplash.com/collection/3694365/800x600/?sig=18" width="400" height="500"
+                alt="Image 20" />
+        </div>
+    </div>
+    <script>
+        (function(){
+            var elements=document.querySelectorAll("img[data-src]");
+            var index=0;
+            var lazyLoad=function(){
+                if(index >= elements.length) return;
+                var item=elements[index];
+                if(item.offsetTop <= (window.scrollY + window.innerHeight)){
+                    console.log((window.scrollY + window.innerHeight),item.offsetTop)
+                    var src=item.getAttribute("data-src");
+                    item.src=src;
+                    item.addEventListener("load",function(){
+                        item.removeAttribute('data-src')
+                    })
+                    index++;
+                    lazyLoad();
+                }
+            };
+            var init=function(){
+                window.addEventListener("scroll",lazyLoad);
+                lazyLoad()
+            };
+            return init();
+        })()
+    </script>
+</body>
+
+</html>
