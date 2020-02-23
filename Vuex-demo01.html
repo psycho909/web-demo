@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vuex"></script>
+</head>
+<body>
+    <div id="app">
+        <title-world level="1"></title-world>
+        <h1>{{welcome}}</h1>
+        <h2>{{message}}</h2>
+        <h3>{{count}}</h3>
+        <button @click="pressed">Increment Counter</button>
+        <button @click="deincrement">Deincrement Counter</button>
+    </div>
+    <script>
+        Vue.component("title-world",{
+            props:["level"],
+            template:`<h1>Hello {{this.level}}</h1>`,
+            created(){
+                console.log(this.level)
+            }
+        })
+        const store=new Vuex.Store({
+            state:{
+                message:"Hello From Vuex",
+                count:0
+            },
+            mutations:{
+                INCREMENT(state,payload){
+                    state.count+=payload
+                },
+                DEINCREMENT(state,payload){
+                    state.count-=payload
+                }
+            },
+            actions:{
+                increment(state,payload){
+                    state.commit("INCREMENT",payload)
+                },
+                deincrement(state,payload){
+                    state.commit("DEINCREMENT",payload)
+                }
+            },
+            getters:{
+                message(state){
+                    return state.message.toUpperCase()
+                },
+                counter(state){
+                    return state.count
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+                    welcome:"Hello World"
+                }
+            },
+            computed:{
+                message(){
+                    return store.getters.message
+                },
+                count(){
+                    return store.getters.counter
+                }
+            },
+            methods:{
+                pressed(){
+                    store.dispatch("increment",1)
+                },
+                deincrement(){
+                    store.dispatch("deincrement",1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
