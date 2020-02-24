@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var data = {
+            odata: {
+                name: 'odata',
+                age: '21'
+            },
+            arr: [{
+                name: 'youyi',
+                age: '24'
+            }],
+            name: 'bb'
+        }
+
+        var obsever = new Proxy(data, {
+            get: function (target, propKey, receiver) {
+                console.log('get:', target[propKey])
+                return Reflect.get(target, propKey, receiver);
+            },
+            set: function (target, propKey, value, receiver) {
+                console.log('set:', value)
+                return Reflect.set(target, propKey, value, receiver);
+            }
+        })
+    </script>
+</body>
+
+</html>

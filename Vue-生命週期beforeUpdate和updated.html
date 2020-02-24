@@ -23,12 +23,17 @@
 <body>
     <div id="app">
         <p>{{ message }}</p>
+        <ul id="ulbox" ref="ulbox">
+            <li v-for="(i,index) in list" :key="index">{{i}}</li>
+        </ul>
+        <button @click="changeMsg">CHANGE</button>
     </div>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                message: "xuxiao is boy"
+                message: "HWJJWJW",
+                list:[]
             },
             beforeCreate: function () {
                 console.group('beforeCreate 创建前状态===============》');
@@ -61,28 +66,38 @@
                 console.log("%c%s", "color:red", "el     : " + this.$el.innerHTML);
                 console.log(this.$el);
                 console.log("%c%s", "color:red", "data   : " + this.$data);
-                console.log("%c%s", "color:red", "message: " + this.message);
+                console.log("%c%s", "color:red", "list: " + this.list);
+                console.log("%c%s", "color:red", "list length: " + this.$refs.ulbox.children.length);
+                console.log("%c%s", "color:red", "list height: " + this.$refs.ulbox.clientHeight);
             },
             updated: function () {
                 console.group('updated 更新完成状态===============》');
                 console.log("%c%s", "color:red", "el     : " + this.$el.innerHTML);
                 console.log(this.$el);
                 console.log("%c%s", "color:red", "data   : " + this.$data);
-                console.log("%c%s", "color:red", "message: " + this.message);
+                console.log("%c%s", "color:red", "list: " + this.list);
+                console.log("%c%s", "color:red", "list length: " + this.$refs.ulbox.children.length);
+                console.log("%c%s", "color:red", "list height: " + this.$refs.ulbox.clientHeight);
             },
             beforeDestroy: function () {
                 console.group('beforeDestroy 销毁前状态===============》');
                 console.log("%c%s", "color:red", "el     : " + this.$el.innerHTML);
                 console.log(this.$el);
                 console.log("%c%s", "color:red", "data   : " + this.$data);
-                console.log("%c%s", "color:red", "message: " + this.message);
+                console.log("%c%s", "color:red", "list: " + this.list);
             },
             destroyed: function () {
                 console.group('destroyed 销毁完成状态===============》');
                 console.log("%c%s", "color:red", "el     : " + this.$el.innerHTML);
                 console.log(this.$el);
                 console.log("%c%s", "color:red", "data   : " + this.$data);
-                console.log("%c%s", "color:red", "message: " + this.message)
+                console.log("%c%s", "color:red", "list: " + this.list)
+            },
+            methods:{
+                changeMsg(){
+                    console.log(this.$refs.ulbox.clientHeight)
+                    this.list=[1,2,3,4,5,6,6,7]
+                }
             }
         })
         

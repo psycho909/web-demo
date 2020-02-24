@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        const account = {
+            name: "Marina Mosti",
+            money: 10
+        };
+
+        const avocadoCost = 2;
+
+        const accountProxy = new Proxy(account, {
+            get(target, key, receiver) {
+                console.log("Proxy getter was called for " + key);
+                return Reflect.get(target, key, receiver)
+            },
+            set(target, key, val, receiver) {
+                if (key === "money") {
+                    if (val <= 2) {
+                        console.log("You need at least 2 euros to buy avocados. PANIC.");
+                    } else {
+                        console.log("You can now afford: " + val / avocadoCost + " avocados");
+                    }
+                }
+                console.log(receiver)
+                return Reflect.set(target, key, val, receiver);
+            }
+        });
+    </script>
+</body>
+
+</html>

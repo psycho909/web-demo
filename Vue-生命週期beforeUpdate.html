@@ -56,8 +56,13 @@
                 var temp=this.users.length;
                 var width=window.getComputedStyle(document.querySelector('.ul-box')).width;
                 width=parseInt(width.replace("px",""));
-                this.$refs.ulbox.style.width=width+100+'px';
-                console.log("beforeUpdate:Child")
+                this.$refs.ulbox.style.height="300px"
+                console.log("beforeUpdate:Child",this.$refs.ulbox.childNodes.length)
+                console.log("beforeUpdate:Child",this.$refs.ulbox.clientHeight)
+            },
+            updated(){
+                console.log("updated:Child",this.$refs.ulbox.childNodes.length)
+                console.log("updated:Child",this.$refs.ulbox.clientHeight)
             },
             methods:{
                 emmitTxt(){

@@ -35,6 +35,27 @@
         document.getElementById("txt").addEventListener('keyup', function (e) {
             obj.txt = e.target.value
         });
+
+        
+        const account = {
+            name: "Marina Mosti",
+            money: 10 // That's 10 euros, so 5 avocados - 2 euros per
+        };
+        let money = account.money; // default value is current value
+        Object.defineProperty(account, "money", {
+            get() {
+                return money
+            },
+            set(val) {
+                const avocadoCost = 2
+                money = val; // Normal setter behavior, this stores the new value
+                if (val <= 2) {
+                    console.log("You need at least 2 euros to buy avocados. PANIC.");
+                } else {
+                    console.log("You can now afford: " + money / avocadoCost + ' avocados');
+                }
+            }
+        });
     </script>
 </body>
 

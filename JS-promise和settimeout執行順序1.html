@@ -11,7 +11,7 @@
 <body>
     <script>
         setTimeout(function(){
-            console.log("will be executed at the top of the next Event Loop")
+            console.log("setTimeout Start")
         },0)
 
         var p1=new Promise(function(resolve,reject){
@@ -19,6 +19,10 @@
                 resolve(1)
             }, 0);
         });
+
+        setTimeout(function(){
+            console.log("setTimeout Start Middle")
+        },0)
         
         for(var i=0;i<10;i++){
             (function(j){
@@ -27,10 +31,10 @@
                 })
             })(i)
         }
-
         setTimeout(function(){
-            console.log("will be executed at the bottom of the next Event Loop")
+            console.log("setTimeout Start End")
         },0)
+        
         console.log(1)
     </script>
 </body>

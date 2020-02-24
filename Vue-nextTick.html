@@ -11,10 +11,8 @@
 
 <body>
     <div id="app">
-        <h1>{{title}}</h1>
-        <button @click="setBoxContent">设置新的内容</button>
-        <hr>
-        <div ref="box" style="background: red" v-html="content"></div>
+        <h1 id="h1" ref="h1">{{title}}</h1>
+        <button @click="setBoxContent">New</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -24,21 +22,23 @@
         let app = new Vue({
             el: '#app',
             data: {
-                title: '标题',
-                n: 1
+                title: '未更新'
             },
             computed: {
-                content() {
-                    return new Array(this.n).fill(this.title).join('<br>');
-                }
+
             },
             methods: {
                 setBoxContent() {
-                    this.n++;
-                    console.log(this.$refs.box.clientHeight)
+                    this.title="已更新"
+                    console.log('outside nextTick callback:', this.$el.textContent)
                     this.$nextTick(() => {
-                        console.log(this.$refs.box.clientHeight);
+                        this.title="已更新...Tick";
+                        console.log('outside nextTick callback:', this.$el.textContent)
                     })
+                    // setTimeout(() => {
+                    //     this.title="已更新...Tick";
+                    //     console.log('outside nextTick callback:', this.$el.textContent)
+                    // }, 0);
                 }
             }
         });
