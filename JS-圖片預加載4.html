@@ -23,12 +23,17 @@
             height: 260px;
             float: left;
         }
+        .bg{
+            height: 300px;
+            background-size: 100%;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div id="oDiv" style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg),url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg);"></div>
+        <div class="bg" style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg),url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg);"></div>
+        <div class="bg" style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg)"></div>
         <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1"
             data-src="http://img4.imgtn.bdimg.com/it/u=951914923,777131061&fm=26&gp=0.jpg">
         <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1"
@@ -74,8 +79,6 @@
     <script>
         var bf = {};
         var urlList = [];
-        var imgList = [];
-        var c=[];
         var count = 0;
         $('body').append('<div id="bfImgProgress" class="bf-imgProgress"></div><style>.bf-imgProgress{width:100%;height:100%;background:url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/loading/type1.gif) 50% 50% rgba(0,0,0,.75) no-repeat;background-size:50px 50px;position:fixed;left:0;top:0;}</style>');
         $(function () {
@@ -92,26 +95,25 @@
                     var imgUrl = $(this)[0].src;
                     urlList.push(imgUrl);
                 });
-                $.each(urlList, function (i, v) {
-                    imgList[i] = new Image();
-                    imgList[i].src = v;
-                });
-                for (var i = 0; i < imgList.length; i++) {
-                    $(imgList[i]).on('load error', function () {
-                        //current image count
-                        if (arg.countFN !== 'undefined') {
+                $.each(urlList,function(i,v){
+                    var img=new Image();
+                    img.src=v;
+                    $(img).on("load error",function(){
+                        if (arg.countFN) {
                             arg.countFN();
                         }
                         count++;
-                        if (count == imgList.length) {
+                        if (count == urlList.length) {
                             //all images loaded
-                            $('.bf-imgProgress').fadeOut();
-                            if (arg.loadedFN !== 'undefined') {
+                            setTimeout(function(){
+                                $('.bf-imgProgress').fadeOut();
+                            },1500)
+                            if (arg.loadedFN) {
                                 arg.loadedFN();
                             }
                         }
-                    });
-                }
+                    })
+                })
             }
 
             bf.imgProgress({

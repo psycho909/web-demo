@@ -85,7 +85,7 @@
             $.each(imgs,function(i,src){
                 var imgObj=new Image()
                 imgObj.src=src;
-                
+                console.log(imgObj)
                 $(imgObj).on('load error',function(){
                     var HTML=`
                         <div class="box">
