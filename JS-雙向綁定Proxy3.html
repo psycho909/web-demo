@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        const obj = {
+            propValue: 1,
+            get prop() {
+                console.log("Retrieving property prop");
+                return this.propValue;
+            },
+            set prop(value) {
+                console.log("Setting property prop to", value);
+                this.propValue = value;
+            }
+        };
+
+        const originalObj = { prop: 1, anotherProp: "value" };
+        const proxyObj = new Proxy(originalObj, {
+            get(obj, prop,receiver) {
+                console.log("Retrieving property", prop);
+                console.log("Retrieving Obj", obj);
+                console.log("Retrieving receiver", receiver);
+                return obj[prop];
+            },
+            set(obj, prop, value,receiver) {
+                console.log("Setting property", prop, "to", value);
+                obj[prop] = value;
+                return true;
+            }
+        });
+    </script>
+</body>
+
+</html>

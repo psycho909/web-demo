@@ -46,7 +46,7 @@
 <body>
     <div class="select">
         <select class="select__select" name="" id="">
-            <option value="-1" disabled>-- SELECT ONE --</option>
+            <option value="-1" disabled selected>-- SELECT ONE --</option>
             <option value="">A</option>
             <option value="">B</option>
             <option value="">C</option>
@@ -55,7 +55,12 @@
     </div>
     <script>
         function selectStyle(select, style) {
-            var selectHTML=$(select).find("option[value=-1]").html();
+            var selectHTML="";
+            if($(select).find("option[selected]").html()){
+                selectHTML=$(select).find("option[selected]").html();
+            }else{
+                selectHTML=$(select).find("option:first-child").html();
+            }
             $(style).html(selectHTML)
             $(select).on("change", function () {
                 var _val = $(this).find(":selected").html();

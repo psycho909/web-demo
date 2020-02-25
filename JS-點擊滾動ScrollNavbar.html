@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Scroll Navigation | Webdevtrick.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <style>
+        :root {
+            --space: 1rem;
+            --border: 4px;
+            --page-width: 80ch;
+            --font-family: 'Airbnb Cereal', sans-serif;
+            --color-link: #212121;
+            --color-active: #00e676;
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --duration: 350ms;
+            --section-offset: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            --scroll-behavior: smooth;
+            scroll-behavior: var(--scroll-behavior);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                --scroll-behavior: auto;
+            }
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: bold;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: 2.75rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        ul:not(.menu) {
+            list-style-type: disc;
+            margin-left: var(--space);
+        }
+
+        ul:not(.menu)>li+li {
+            margin-top: var(--space);
+        }
+
+        .nav-sections {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+            z-index: 100;
+        }
+
+        .nav-sections .menu {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow: scroll;
+            -ms-scroll-chaining: none;
+            overscroll-behavior: none;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            margin: 0 auto;
+            max-width: var(--page-width);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-transition: -webkit-transform var(--ease) var(--duration);
+            transition: -webkit-transform var(--ease) var(--duration);
+            transition: transform var(--ease) var(--duration);
+            transition: transform var(--ease) var(--duration), -webkit-transform var(--ease) var(--duration);
+        }
+
+        .nav-sections .menu::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-sections .menu-item-link {
+            display: block;
+            padding: 12px 16px;
+            font-size: 15px;
+            text-decoration: none;
+            white-space: nowrap;
+            color: var(--color-link);
+            -webkit-transition: color var(--ease) var(--duration);
+            transition: color var(--ease) var(--duration);
+        }
+
+        .nav-sections .menu-item-link.active {
+            color: #fff;
+        }
+        .menu-item{
+            position: relative;
+            z-index: 1;
+        }
+        .menu-item:first-of-type .menu-item-link {
+            margin-left: 0;
+        }
+
+        .active-line {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            height: 80%;
+            border-radius: 4px;
+            background-color: var(--color-active);
+            opacity: 10%;
+            -webkit-transition: width var(--ease) var(--duration), -webkit-transform var(--ease) var(--duration);
+            transition: width var(--ease) var(--duration), -webkit-transform var(--ease) var(--duration);
+            transition: width var(--ease) var(--duration), transform var(--ease) var(--duration);
+            transition: width var(--ease) var(--duration), transform var(--ease) var(--duration), -webkit-transform var(--ease) var(--duration);
+        }
+
+        .placeholder-section {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            text-align: center;
+            height: 50vh;
+            background-color: #212121;
+            color: white;
+        }
+
+        .page-sections {
+            margin: 0 auto;
+            max-width: var(--page-width);
+        }
+
+        .page-section {
+            margin: calc(var(--space) * 2) 0;
+        }
+
+        .page-section>*+* {
+            margin-top: calc(var(--space) * 1.5);
+        }
+
+        .section-title {
+            outline: none;
+        }
+
+        .section-title:before {
+            content: "";
+            display: block;
+            visibility: hidden;
+            pointer-events: none;
+            margin-top: calc(var(--section-offset) * -1px);
+            height: calc(var(--section-offset) * 1px);
+        }
+
+        .buttons {
+            padding: var(--space) 0 calc(var(--space) * 2) 0;
+        }
+
+        .btn {
+            font: var(--font-family);
+            font-size: 12px;
+            margin-right: 4px;
+            background: transparent;
+            border: 1px solid black;
+            border-radius: 100px;
+            padding: 8px 12px;
+        }
+
+        .btn:focus {
+            outline: 0;
+        }
+
+        .btn:active {
+            background: #efefef;
+        }
+
+        .btn.on {
+            background: #212121;
+            color: white;
+        }
+
+        .micro .menu-item-link {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .micro .menu-item:first-of-type .menu-item-link {
+            margin-left: 0;
+        }
+
+        .floating nav {
+            margin: 12px auto;
+            max-width: 81ch;
+            border-radius: 4px;
+            top: 12px;
+        }
+
+        .bordered .nav-sections {
+            box-shadow: none;
+            border: 1px solid #EBEBEB;
+        }
+
+        .shadows .nav-sections {
+            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .rounded .active-line {
+            border-radius: 100px;
+        }
+
+        .rounded nav {
+            border-radius: 100px;
+        }
+
+        .highlight-bar.floating .nav-sections {
+            max-width: 88ch;
+        }
+
+        .highlight-bar .menu-item-link {
+            padding: 12px 0;
+            margin: 0 12px;
+        }
+
+        .highlight-bar .active-line {
+            bottom: 0;
+            height: 2px;
+            opacity: 1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="version" class="version">
+        <nav class="nav-sections">
+            <ul class="menu">
+                <li class="menu-item"><a class="menu-item-link active" href="#about">About</a></li>
+                <li class="menu-item"><a class="menu-item-link" href="#services">Services</a></li>
+                <li class="menu-item"><a class="menu-item-link" href="#Pricing">Pricing</a></li>
+                <li class="menu-item"><a class="menu-item-link" href="#News">News</a></li>
+                <li class="menu-item"><a class="menu-item-link" href="#contact">Contact</a></li>
+                <div class="active-line"></div>
+            </ul>
+        </nav>
+
+        <main id="main-content" class="page-sections">
+            <section class="page-section">
+                <div class="buttons">
+                    <button class="btn standard on">Clear all</button>
+                    <button class="btn micro">Micro</button>
+                    <button class="btn floating">Floating</button>
+                    <button class="btn bordered">Bordered</button>
+                    <button class="btn shadows">Shadows</button>
+                    <button class="btn rounded">Rounded</button>
+                    <button class="btn highlight-bar">Highlight bar</button>
+                </div>
+                <h2 class="section-title" id="about">About</h2>
+                <p>As you scroll through each section, the horizontal navigation will update its active state to the
+                    correlating anchor link. The menu overflows horizontally and allows the user to scroll left and
+                    right. If an anchor link is outside of the viewport, the menu will automatically scroll the active
+                    item into view.</p>
+                <p>And now... placeholder text: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur
+                    corporis, placeat eaque iure ex possimus ab exercitationem atque sed culpa eos vel, ipsa porro
+                    corrupti omnis tempore, fuga quos explicabo.</p>
+                <p>Velit eos maxime veritatis sunt provident accusantium vitae, aperiam consectetur, laboriosam
+                    consequatur beatae quam recusandae, corporis iste laudantium illo praesentium amet ratione aliquid
+                    modi. Officia similique incidunt magni doloremque aperiam!</p>
+                <p>Cupiditate odio exercitationem dolorem explicabo numquam natus, cum a omnis incidunt ipsam quibusdam
+                    eligendi odit consectetur? Laboriosam magni labore, nobis, facilis aliquid delectus ad molestiae quo
+                    iusto a, consectetur molestias?</p>
+                <p>Minus ratione quae, quibusdam ab atque obcaecati. Necessitatibus perferendis quibusdam, placeat ipsa
+                    expedita recusandae culpa labore? Aut quaerat animi culpa minima illo, odio tempore corporis, quidem
+                    nisi eius iure fugit! Id, earum reprehenderit. Placeat voluptate aut, provident aspernatur
+                    consequuntur praesentium ullam, magni deserunt repellendus dicta eos odio modi aliquid quasi tempora
+                    saepe adipisci itaque? Unde distinctio aut perferendis delectus quam?</p>
+                <h3>Lorem ipsum dolor</h3>
+                <ul>
+                    <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, quasi temporibus laborum
+                        quidem praesentium et vero incidunt itaque. Hic, aliquid odio non atque exercitationem ipsa? A
+                        repudiandae dolores blanditiis voluptatem.</li>
+                    <li>Dolore dolorem velit impedit libero non. Deserunt optio rerum earum quas recusandae.
+                        Praesentium, voluptates ipsa temporibus. Nisi, qui autem. Aliquid?</li>
+                    <li>Ea facilis corporis enim tempora tenetur consectetur quam asperiores, porro reprehenderit
+                        expedita! Esse laboriosam suscipit illo. Quasi numquam tempora aperiam corrupti alias? Amet
+                        provident esse tenetur eveniet voluptatum modi iure.</li>
+                    <li>Provident labore iusto, voluptatibus incidunt cumque cum quisquam, asperiores accusamus velit
+                        repellat mollitia facilis. Sit, voluptas tempore. Placeat quas, corporis enim ratione accusamus
+                        repellendus quos repellat quo voluptatum, eos rerum.</li>
+                </ul>
+            </section>
+            <section class="page-section">
+                <h2 class="section-title" id="services">services</h2>
+                <ul>
+                    <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut delectus, fuga tempore, recusandae
+                        vel ut aliquam reprehenderit dolorum odio ratione unde accusantium dolore, modi mollitia
+                        sapiente ipsa autem quibusdam. Qui?</li>
+                    <li>Iste facilis perspiciatis veritatis minima totam modi autem quaerat natus ullam at, qui
+                        similique asperiores laboriosam, voluptas quos blanditiis tempora illum et. Ea commodi facere
+                        tempora, officiis minus in odio.</li>
+                    <li>Ratione molestias, temporibus perferendis aspernatur voluptatem optio, necessitatibus distinctio
+                        cum doloremque, deserunt cumque deleniti a quos beatae magni in ab. Ipsa libero ullam minima
+                        repellat sit molestiae, maxime accusamus dicta?</li>
+                    <li>Ipsa dolor eveniet explicabo.</li>
+                    <li>Molestiae nobis quasi unde rerum cum laboriosam voluptatum id dolores autem fugiat aliquam,
+                        vitae error iure. Totam nesciunt earum dolorum facilis doloremque fuga asperiores fugiat, dicta
+                        nostrum, debitis harum veritatis.</li>
+                </ul>
+            </section>
+            <section class="page-section">
+                <h2 class="section-title" id="Pricing">Pricing</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea voluptatem perferendis quaerat neque
+                    voluptatibus vel unde, nostrum saepe voluptate voluptates iure veniam. Soluta possimus deserunt
+                    earum, itaque porro quam praesentium.</p>
+                <p>Vel itaque quae nostrum, blanditiis doloribus mollitia delectus unde rerum ab dignissimos voluptatum
+                    repellendus odit sint necessitatibus totam possimus cum voluptatem ipsa ex corrupti sit veritatis
+                    libero expedita laboriosam? Quas?</p>
+                <p>Illum repellendus modi at, nostrum harum iste. Natus animi corporis corrupti suscipit dicta magni
+                    distinctio a exercitationem ut. Saepe cum sequi asperiores? Quos, nemo corporis animi porro odit
+                    iure? Itaque?</p>
+                <p>Nesciunt in quibusdam, esse tempore sequi earum illum exercitationem praesentium reprehenderit
+                    aliquam asperiores sint impedit dolor? Sapiente, asperiores atque ipsam voluptatem molestiae
+                    repudiandae. In, optio! Quidem rem rerum perferendis pariatur.</p>
+                <p>Ipsam asperiores voluptas porro commodi? Consequuntur magni ipsum facere officiis fugit nesciunt
+                    itaque officia accusamus, cum tempore sed velit vero praesentium quod, hic blanditiis ducimus quis.
+                    Aperiam, sed! Deleniti, dolorum.</p>
+            </section>
+            <section class="page-section">
+                <h2 class="section-title" id="News">News</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                <p>Atque iste repellendus accusantium vitae nam eaque dolorem consequuntur laborum impedit ex nesciunt
+                    quod, aliquid pariatur nihil dolor deserunt animi ad earum voluptatibus ullam fugit id? Ex, nihil
+                    dolorum. Corporis? Maxime nemo amet iste itaque obcaecati dolor non ea, quae hic ducimus saepe,
+                    fugiat vitae voluptatem veniam reprehenderit minima sint! Atque dolor, mollitia doloremque id
+                    reiciendis debitis vel aspernatur facilis?</p>
+                <p>Itaque blanditiis soluta magni obcaecati maxime iure similique esse quibusdam fuga inventore.
+                    Sapiente pariatur quas delectus rerum, repellendus fugit possimus eligendi vel sit ipsum saepe
+                    nihil, accusamus obcaecati vitae atque!</p>
+                <p>Quibusdam accusamus, architecto obcaecati amet quasi fuga soluta quaerat tenetur. Omnis harum eos cum
+                    sed officiis rerum dignissimos nemo. Laboriosam illum vero pariatur ea consequuntur, autem
+                    cupiditate rerum eaque iste!</p>
+            </section>
+            <section class="page-section">
+                <h2 class="section-title" id="contact">Contact</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit provident necessitatibus laudantium,
+                    illo blanditiis inventore minima ipsam distinctio incidunt odio, itaque officiis vel facere unde.
+                    Ratione ex doloribus minus eius.</p>
+                <p>Quibusdam accusamus, architecto obcaecati amet quasi fuga soluta quaerat tenetur. Omnis harum eos cum
+                    sed officiis rerum dignissimos nemo. Laboriosam illum vero pariatur ea consequuntur, autem
+                    cupiditate rerum eaque iste!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit provident necessitatibus laudantium,
+                    illo blanditiis inventore minima ipsam distinctio incidunt odio, itaque officiis vel facere unde.
+                    Ratione ex doloribus minus eius.</p>
+                <p>Quibusdam accusamus, architecto obcaecati amet quasi fuga soluta quaerat tenetur. Omnis harum eos cum
+                    sed officiis rerum dignissimos nemo. Laboriosam illum vero pariatur ea consequuntur, autem
+                    cupiditate rerum eaque iste!</p>
+            </section>
+        </main>
+        <footer class="placeholder-section">
+            <p>Footer section</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        const sectionsContainer = document.querySelector('.page-sections');
+        const sections = document.querySelectorAll('.page-section');
+        const nav = document.querySelector('.nav-sections');
+        const menu = nav.querySelector('.menu');
+        const links = nav.querySelectorAll('.menu-item-link');
+        const activeLine = nav.querySelector('.active-line');
+        const sectionOffset = nav.offsetHeight + 24;
+        const activeClass = 'active';
+        let activeIndex = 0;
+        let isScrolling = true;
+        let userScroll = true;
+
+        const setActiveClass = () => {
+            links[activeIndex].classList.add(activeClass);
+        };
+
+        const removeActiveClass = () => {
+            links[activeIndex].classList.remove(activeClass);
+        };
+
+        const moveActiveLine = () => {
+            const link = links[activeIndex];
+            const linkX = link.getBoundingClientRect().x;
+            const menuX = menu.getBoundingClientRect().x;
+
+            activeLine.style.transform = `translateX(${(menu.scrollLeft - menuX) + linkX}px)`;
+            activeLine.style.width = `${link.offsetWidth}px`;
+        }
+
+        const setMenuLeftPosition = position => {
+            menu.scrollTo({
+                left: position,
+                behavior: 'smooth',
+            });
+        };
+
+        const checkMenuOverflow = () => {
+            const activeLink = links[activeIndex].getBoundingClientRect();
+            const offset = 30;
+            if (Math.floor(activeLink.right) > window.innerWidth) {
+                setMenuLeftPosition(menu.scrollLeft + activeLink.right - window.innerWidth + offset);
+            } else if (activeLink.left < 0) {
+                setMenuLeftPosition(menu.scrollLeft + activeLink.left - offset)
+            }
+        }
+
+        const handleActiveLinkUpdate = current => {
+            removeActiveClass();
+            activeIndex = current;
+            checkMenuOverflow();
+            setActiveClass();
+            moveActiveLine();
+        };
+
+        const init = () => {
+            moveActiveLine(links[0]);
+            document.documentElement.style.setProperty('--section-offset', sectionOffset);
+        }
+
+        links.forEach((link, index) => link.addEventListener('click', () => {
+            userScroll = false;
+            handleActiveLinkUpdate(index);
+        }))
+
+        window.addEventListener("scroll", () => {
+            const currentIndex = sectionsContainer.getBoundingClientRect().top < 0 
+            ? (sections.length - 1) - [...sections].reverse().findIndex(section => window.scrollY >= section.offsetTop - sectionOffset * 2) : 0;
+            // (section長度 - 1) - (section反轉).找符合( 瀏覽器滾動距離 > section的距離 - nav*2 )的index
+
+            if (userScroll && activeIndex !== currentIndex) {
+                handleActiveLinkUpdate(currentIndex);
+            } else {
+                window.clearTimeout(isScrolling);
+                isScrolling = setTimeout(() => userScroll = true, 100);
+            }
+        });
+
+        init();
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,6 @@ var selectStyle=(function(){
     var selectStyles=function(fix,reveal){
         this.fix=fix;
         this.reveal=reveal;
-        this.countOption=$(this.fix).find('option').length;
     }
     selectStyles.prototype.init=function(){
         if ($(this.fix).find('option[selected]').length === 1) {
@@ -12,7 +11,6 @@ var selectStyle=(function(){
         }
         var _this=this;
         $(this.fix).on("change",function(){
-            var newValue = $(this).val();
             var newHTML = $(this).find(":selected").html();
             $(_this.reveal).find('p').html(newHTML);
         })

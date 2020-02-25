@@ -56,6 +56,7 @@
         })
         new Vue({
             el:"#app",
+            store:store,
             data(){
                 return {
                     welcome:"Hello World"
@@ -63,15 +64,15 @@
             },
             computed:{
                 message(){
-                    return store.getters.message
+                    return this.$store.getters.message
                 },
                 count(){
-                    return store.getters.counter
+                    return this.$store.getters.counter
                 }
             },
             methods:{
                 pressed(){
-                    store.dispatch("increment",1)
+                    this.$store.dispatch("increment",1)
                 },
                 deincrement(){
                     store.dispatch("deincrement",1)
