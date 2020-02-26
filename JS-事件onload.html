@@ -23,15 +23,15 @@
     <script>
 
         $.ajax({
-            url:"https://jsonplaceholder.typicode.com/todos/1",
-            methods:"GET",
-            success:function(data){
+            url: "https://jsonplaceholder.typicode.com/todos/1",
+            methods: "GET",
+            success: function (data) {
                 console.log(data)
             },
-            error:function(err){
+            error: function (err) {
                 console.log("err")
             },
-            timeout:1
+            timeout: 1
         })
         const img = document.querySelectorAll("img");
         const video = document.querySelector('video');
@@ -40,7 +40,11 @@
             console.log(event);
             console.log('video loaded');
         }
-
+        var videoElement = document.createElement('video');
+        videoElement.onerror = function () {
+            console.log("Error " + videoElement.error.code + "; details: " + videoElement.error.message);
+        }
+        videoElement.src = "https://example.com/bogusvideo.mp4";
         var len = img.length;
         [].forEach.call(img, function (v) {
             var image = new Image();

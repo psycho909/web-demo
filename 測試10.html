@@ -54,27 +54,15 @@
         <div class="select__style"></div>
     </div>
     <script>
-        function selectStyle(select, style) {
-            var selectHTML="";
-            if($(select).find("option[selected]").html()){
-                selectHTML=$(select).find("option[selected]").html();
-            }else{
-                selectHTML=$(select).find("option:first-child").html();
-            }
-            $(style).html(selectHTML)
-            $("body").on("change",select, function () {
-                var _val = $(this).find(":selected").html();
-                $(style).html(_val)
-            })
+        for(var i=0;i<100;i++){
+            console.log(i)
         }
-
-        var HTML=`<option value="-1" disabled selected>-- SELECT ONE --</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>`;
-
-            
-        selectStyle(".select select", ".select__style")
+        for(var i=0;i<100;i++){
+            console.log(i)
+        }
+        setTimeout(() => {
+            console.log("done")
+        }, 0);
     </script>
 </body>
 

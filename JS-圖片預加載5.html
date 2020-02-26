@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/jquery"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .container img {
+            width: 50%;
+            height: 260px;
+            float: left;
+        }
+
+        .bg {
+            height: 300px;
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="bg"
+            style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg),url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg);">
+        </div>
+        <div class="bg"
+            style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg)"></div>
+        <img src="https://images.unsplash.com/photo-1534970028765-38ce47ef7d8d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80" alt="1">
+        <img src="https://images.unsplash.com/photo-1529151942096-589e0cd4e09e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="1">
+        <img src="https://images.unsplash.com/photo-1528740126071-ad298fd40acf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2024&q=80" alt="1">
+        <img src="https://images.unsplash.com/photo-1562113127-e5bcec12486b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80" alt="1">
+        <img src="http://2ds4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1">
+        <video width="320" height="240" controls id="video">
+            <source src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4" type="video/mp4">
+            <source src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <video src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_30mbs.mp4"></video>
+    </div>
+
+    <script>
+        var starttime=+new Date();
+        var bf = {};
+        var promiseAll = [];
+        var sourceList = [];
+        var count = 0;
+        $('body').append('<div id="bfImgProgress" class="bf-imgProgress"></div><style>.bf-imgProgress{width:100%;height:100%;background:url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/loading/type1.gif) 50% 50% rgba(0,0,0,1) no-repeat;background-size:50px 50px;position:fixed;left:0;top:0;}</style>');
+        function promise(data) {
+            return new Promise(function (resolve, reject) {
+                if (data.type === "img") {
+                    var img = new Image();
+                    img.src = data.url;
+                    $(img).on("load",function(){
+                        resolve("img")
+                    })
+                    $(img).on("error",function(){
+                        resolve("img error")
+                    })
+                }
+                if(data.type === 'media'){
+                    var video=document.createElement("video");
+                    video.src=data.url;
+                    video.onerror=function(){
+                        resolve("video error")
+                    }
+                    video.onloadeddata=function(){
+                        resolve("video")
+                    }
+                }
+            })
+        }
+        $(function () {
+            bf.imgProgress = function (arg) {
+                $('*').each(function () {
+                    if ($(this).css('background-image') != 'none') {
+                        var bgUrl = $(this).css('background-image').split(/,(?=\s)/g);
+                        bgUrl.forEach(function (img, i) {
+                            sourceList.push({ type: "img", url: img.replace(/"/g, '').replace(/url\(|\)$/ig, '') })
+                        })
+                    }
+                    if ($(this)[0].tagName.toLowerCase() == "video") {
+                        if ($(this).attr("src")) {
+                            sourceList.push({ type: "media", url: $(this).attr("src") })
+                        } else {
+                            sourceList.push({ type: "media", url: $(this).find("source").eq(0).attr("src") })
+                        }
+                    }
+
+                });
+                $('img').each(function () {
+                    var imgUrl = $(this)[0].src;
+                    sourceList.push({ type: "img", url: imgUrl })
+                });
+                for (var i = 0; i < sourceList.length; i++) {
+                    promiseAll.push(promise(sourceList[i]))
+                }
+                Promise.all(promiseAll)
+                .then(function(data){
+                    if(data.length === promiseAll.length){
+                        var endtime=+new Date();
+                        console.log(endtime-starttime)
+                        $('.bf-imgProgress').fadeOut();
+                        return;
+                    }
+                },function(err){
+                    console.log(err)
+                })
+            }
+
+            bf.imgProgress({
+                countFN: function () {
+                    // console.log(count);
+                },
+                loadedFN: function () {
+                    // console.log(imgList);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

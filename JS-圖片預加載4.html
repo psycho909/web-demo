@@ -23,7 +23,8 @@
             height: 260px;
             float: left;
         }
-        .bg{
+
+        .bg {
             height: 300px;
             background-size: 100%;
         }
@@ -32,8 +33,11 @@
 
 <body>
     <div class="container">
-        <div class="bg" style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg),url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg);"></div>
-        <div class="bg" style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg)"></div>
+        <div class="bg"
+            style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg),url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg);">
+        </div>
+        <div class="bg"
+            style="background-image: url(http://img2.imgtn.bdimg.com/it/u=354463615,3836278171&fm=200&gp=0.jpg)"></div>
         <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1"
             data-src="http://img4.imgtn.bdimg.com/it/u=951914923,777131061&fm=26&gp=0.jpg">
         <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1"
@@ -74,6 +78,10 @@
             data-src="http://img1.imgtn.bdimg.com/it/u=1968229118,3512711019&fm=26&gp=0.jpg">
         <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" alt="1"
             data-src="http://img2.imgtn.bdimg.com/it/u=1088428253,1150170159&fm=200&gp=0.jpg">
+        <video width="320" height="240" controls id='video'>
+            <source src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <script>
@@ -86,7 +94,7 @@
                 $('*').each(function () {
                     if ($(this).css('background-image') != 'none') {
                         var bgUrl = $(this).css('background-image').split(/,(?=\s)/g);
-                        bgUrl.forEach(function(img,i){
+                        bgUrl.forEach(function (img, i) {
                             urlList.push(img.replace(/"/g, '').replace(/url\(|\)$/ig, ''))
                         })
                     }
@@ -95,19 +103,17 @@
                     var imgUrl = $(this)[0].src;
                     urlList.push(imgUrl);
                 });
-                $.each(urlList,function(i,v){
-                    var img=new Image();
-                    img.src=v;
-                    $(img).on("load error",function(){
+                $.each(urlList, function (i, v) {
+                    var img = new Image();
+                    img.src = v;
+                    $(img).on("load error", function () {
                         if (arg.countFN) {
                             arg.countFN();
                         }
                         count++;
                         if (count == urlList.length) {
                             //all images loaded
-                            setTimeout(function(){
-                                $('.bf-imgProgress').fadeOut();
-                            },1500)
+                            $('.bf-imgProgress').fadeOut();
                             if (arg.loadedFN) {
                                 arg.loadedFN();
                             }

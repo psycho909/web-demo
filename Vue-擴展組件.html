@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <survey></survey>
+    </div>
+    <template id="SurveyInput">
+        <div class="wrapper">
+            <h4>{{ question }}</h4>
+            <slot />
+            <div v-if="questionType === 'text'">
+                <input type="text" v-model="input" />
+            </div>
+            <div v-else-if="questionType === 'select'">
+                <select v-model="input">
+                    <!--etc etc-->
+                </select>
+            </div>
+            <!--etc etc-->
+        </div>
+    </template>
+    <template id="SurveyInputText">
+        <input type="text" :placeholder="placeholder">
+    </template>
+    <template id="Survey">
+        <div>
+            <survey-input question="第一題" question-type="text">
+                <p>請注意:</p>
+            </survey-input>
+            <survey-input question="第二題" question-type="select">
+                <p>請注意:</p>
+            </survey-input>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.component("SurveyInput", {
+            template: "#SurveyInput",
+            props: {
+                question: String,
+                questionType:String
+            },
+            data(){
+                return {
+                    input:""
+                }
+            }
+        })
+        Vue.component("SurveyInputText", {
+            template: "#SurveyInputText",
+            props: {
+                placeholder: String
+            }
+        })
+        Vue.component("Survey", {
+            template: "#Survey"
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "Hello"
+            }
+        })
+    </script>
+</body>
+
+</html>
