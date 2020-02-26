@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function Promise() {
+            this.callbacks = [];
+        }
+        Promise.prototype.then = function (fn) {
+            this.callbacks.push(fn);
+            return this;
+        }
+        Promise.prototype.resolve = function (data) {
+            var fn = this.callbacks.shift();
+            fn && fn(data);
+        }
+
+        var promise = new Promise();
+        promise.then(getCity)
+            .then(getWeather)
+            .then(getSuggestion)
+        promise.resolve();
+
+        function getCity() {
+            setTimeout(function () {
+                promise.resolve("LBJ");
+                console.log("LBJ")
+            }, 1000)
+        }
+        function getWeather(city) {
+            setTimeout(function () {
+                promise.resolve(city + " King");
+                console.log(city + " King");
+            }, 1000)
+        }
+        function getSuggestion(weather) {
+            setTimeout(function () {
+                console.log(weather + ' MVP')
+            }, 1000)
+        }
+    </script>
+</body>
+
+</html>
