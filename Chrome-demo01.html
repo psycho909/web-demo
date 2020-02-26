@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="box" type="button">BOX</button>
+    <button id="btn" type="button">BTN</button>
+    <script>
+        var str = 1;
+        str++;
+        str++;
+        str++;
+        str++;
+        str++;
+        str++;
+        function add() {
+            str++;
+            str++;
+            str++;
+        }
+        add();
+        add();
+        document.getElementById("btn").addEventListener("click", function () {
+            document.getElementById("box").setAttribute("data-type", "123")
+        })
+        // fetch('https://jsonplaceholder.typicode.com/todos/1')
+        //     .then(response => response.json())
+        //     .then(json => console.log(json))
+
+        var xhr=new XMLHttpRequest();
+        xhr.open("get","https://jsonplaceholder.typicode.com/todos/1")
+        xhr.send();
+        xhr.onload=function(){
+            console.log(xhr.responseText)
+        }
+    </script>
+</body>
+
+</html>
