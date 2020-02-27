@@ -32,6 +32,7 @@
             height: 100vh;
             text-align: center;
             font-size: 32px;
+            transition: all 1s;
         }
         .weathers-top {
             text-align: center;
@@ -197,7 +198,7 @@
         <div class="weathers-wrap">
             <div class="isloading" v-if="weathers.length == 0">Loading</div>
             <template v-else>
-                <card-box v-for="(weather,index) in filterLocation" :key="index">
+                <card-box v-for="(weather,index) in filterLocation" :key="weather.locationName">
                     <template #title>
                         <span class="weathers__card-title-location">{{weather.locationName}}</span>
                         <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>
@@ -279,6 +280,11 @@
                     timekey: 0
                 }
             },
+            methods:{
+                handleChangeLocation(){
+
+                }
+            }
         })
 
     </script>
