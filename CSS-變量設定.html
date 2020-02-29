@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --width: 70vw;
+            --height: 50vh;
+            --bottom: 1rem;
+            --left: 1rem;
+        }
+
+        #shadowbox {
+            width: var(--width, 70vw);
+            height: var(--height, 50vh);
+            bottom: var(--bottom, 1rem);
+            left: var(--left, 1rem);
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="shadowbox"></div>
+</body>
+
+</html>

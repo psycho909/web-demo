@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        .breadcrumb {
+            margin-bottom: line(3);
+        }
+
+        ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            font-size: font(1);
+        }
+
+        li {
+            cursor: pointer;
+            color: #42b983;
+        }
+
+        li:last-child {
+            cursor: default;
+        }
+
+        li:not(:last-child):after {
+            content: ">";
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="breadcrumb">
+            <ul>
+                <li v-for="(breadcrumb, idx) in breadcrumbList" :key="idx" @click="routeTo(idx)"
+                    :class="{'linked': !!breadcrumb.link}">
+                    {{ breadcrumb.name }}
+                </li>
+            </ul>
+        </div>
+        <home></home>
+    </div>
+    <script>
+        var home={
+            template:`<div>Home</div>`
+        }
+        var routes=[{
+            path:"/",
+            component:home
+        }];
+        var router=new VueRouter({
+            routes
+        })
+        new Vue({
+            el: "#app",
+            router,
+            data: {
+                breadcrumbList: []
+            },
+            components:{
+                home
+            },
+            mounted() { this.updateList() },
+            watch: { '$route'() { this.updateList() } },
+            methods: {
+                routeTo(pRouteTo) {
+                    if (this.breadcrumbList[pRouteTo].link) this.$router.push(this.breadcrumbList[pRouteTo].link)
+                },
+                updateList() { this.breadcrumbList = this.$route.meta.breadcrumb }
+            }
+        })
+    </script>
+</body>
+
+</html>

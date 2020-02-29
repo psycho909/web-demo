@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="l in listFilter">{{l.age}} {{l.name}}</li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                list: [{
+                    name: '麥克滑司機',
+                    age: 16
+                }, {
+                    name: '鄧不麗君',
+                    age: 38,
+                }, {
+                    name: '波克比',
+                    age: 24
+                }]
+            },
+            computed: {
+                listFilter(){
+                    return this.list.filter((l,i)=>{
+                        return l.age > 25
+                    })
+                }
+            },
+            mounted: function () {
+
+            },
+            methods: {
+
+            },
+            watch: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

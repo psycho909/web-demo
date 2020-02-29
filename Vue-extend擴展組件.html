@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child-one></child-one>
+        <child-two></child-two>
+    </div>
+    <script type="text/x-template" id="childOne">
+        <div>
+          <h2 style="color: red;">Hello Vue</h2>
+          <button @click="sayHi">Click</button>
+        </div>
+      </script>
+
+    <script type="text/x-template" id="childTwo">
+        <div>
+          <h2 style="color: green;">Hello Vue</h2>
+          <button @click="sayHi">Click</button>
+        </div>
+      </script>
+    <script>
+        // Vue.component('child-one', {
+        //     template: '#childOne',
+        //     data() {
+        //         return {
+        //             msg: 'Evening'
+        //         }
+        //     },
+        //     methods: {
+        //         sayHi() {
+        //             console.log('Good' + this.msg)
+        //         }
+        //     }
+        // })
+
+        // Vue.component('child-two', {
+        //     template: '#childTwo',
+        //     data() {
+        //         return {
+        //             msg: 'Evening'
+        //         }
+        //     },
+        //     methods: {
+        //         sayHi() {
+        //             console.log('Good' + this.msg)
+        //         }
+        //     }
+        // })
+
+        // 可以將重複的部分用 extend 建立，再套用到元件內，重複的部分就用 extend 來套用
+        var extendComponent=Vue.extend({
+            template:"#childOne",
+            data() {
+                return {
+                    msg: 'Evening'
+                }
+            },
+            methods: {
+                sayHi() {
+                    console.log('Good' + this.msg)
+                }
+            }
+        })
+        Vue.component("child-one",{
+            extends:extendComponent
+        })
+        Vue.component("child-two",{
+            tempalte:"#childTwo",
+            extends:extendComponent
+        })
+        new Vue({
+            el: "#app"
+        })
+    </script>
+</body>
+
+</html>

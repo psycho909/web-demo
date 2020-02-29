@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-async-computed"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-focus value="123">
+        <div>{{asyncSource}}</div>
+        <div>
+            <div>Computed: {{datePlusNumberComputed}}</div>
+            <div>Method: {{datePlusNumberMethod()}}</div>
+        </div>
+    </div>
+    <script>
+        // 宣告全域屬性 'v-focus'
+        Vue.directive('focus', {
+            // 當被綁定的元素插入(用inserted鉤子)到 DOM 中時
+            inserted: function (el) {
+                // 聚焦元素
+                el.focus()
+                console.log(el.value)
+            }
+        })
+        new Vue({
+            el: "#app",
+            computed: {
+                datePlusNumberComputed() {
+                    return Date.now();
+                },
+                
+            },
+            asyncComputed:{
+                asyncData(){
+                    return Promise.resolve(this.asyncSource*2);
+                }
+            },
+            data:{
+                asyncSource: 2,
+            },
+            methods: {
+                datePlusNumberMethod() {
+                    return Date.now();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

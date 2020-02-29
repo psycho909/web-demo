@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <first-layer></first-layer>
+    </div>
+    <script>
+        Vue.component('first-layer', {
+            created(){
+                console.log(this.$root)
+            },
+            template: `<div>
+                I am First Layer. $root.a: {{$root.a}}
+                <button @click="$root.adda()">Add a</button>
+                <second-layer></second-layer>
+            </div>`
+        });
+
+        Vue.component('second-layer', {
+            template: `<div>
+                I am Second Layer. $root.a: {{$root.a}}
+                <button @click="$root.adda()">Add a</button>
+            </div>`
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                a: 1
+            },
+            methods: {
+                adda: function () {
+                    this.a += 1;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

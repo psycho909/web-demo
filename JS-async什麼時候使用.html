@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let vals = [];
+        Promise.resolve(1)
+            .then(val => {
+                vals.push(val);
+                return Promise.resolve(2)
+            })
+            .then(val => {
+                vals.push(val);
+                return Promise.resolve(3)
+            })
+            .then(val => {
+                vals.push(val);
+                return Promise.resolve(4)
+            })
+            .then(val => {
+                vals.push(val);
+                return Promise.resolve(5)
+            })
+            .then(val => {
+                vals.push(val);
+                return Promise.resolve(6)
+            })
+            .then(val => {
+                vals.push(val);
+                // console.log(vals)
+            });
+
+        (async () => {
+            var val = await Promise.resolve(1);
+            var val1 = await Promise.resolve(2);
+            var val2 = await Promise.resolve(3);
+            var val3 = await Promise.resolve(4);
+            var vals = [val, val1, val2, val3];
+            // console.log(vals)
+        })()
+
+        const getVals = () => {
+            let vals = [];
+            return Promise.resolve(1)
+                .then(val => {
+                    vals.push(val);
+                    return Promise.resolve(2)
+                })
+                .then(val => {
+                    vals.push(val);
+                    return Promise.resolve(3)
+                })
+                .then(val => {
+                    vals.push(val);
+                    return Promise.resolve(4)
+                })
+                .then(val => {
+                    vals.push(val);
+                    return Promise.resolve(5)
+                })
+                .then(val => {
+                    vals.push(val);
+                    return Promise.resolve(6)
+                })
+                .then(val => {
+                    vals.push(val);
+                    return vals;
+                });
+        }
+        (async () => {
+            const values = await getVals();
+            console.log(values);
+        })()
+
+        const getValsAsyncAwait = async () => {
+            const val = await Promise.resolve(1);
+            const val2 = await Promise.resolve(2);
+            const val3 = await Promise.resolve(3);
+            const val4 = await Promise.resolve(4);
+            const val5 = await Promise.resolve(5);
+            const val6 = await Promise.resolve(6);
+            const vals = [val, val2, val3, val4, val5, val6];
+            console.log(vals)
+        };
+        // getValsAsyncAwait();
+
+        
+    </script>
+</body>
+
+</html>

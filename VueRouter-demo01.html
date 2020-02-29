@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            background-color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <router-link to="/">Home</router-link>
+            <router-link to="/about/123">About</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+    <script>
+        // Vue.component("home",{
+        //     template:"#home"
+        // })
+        // Vue.component("about",{
+        //     template:"#about"
+        // })
+        var home={
+            template:"<div>home</div>"
+        }
+        var about={
+            template:"<div>about {{$route.params.id}}</div>"
+        }
+        var routes=[
+            {path:"/",component:home},
+            {path:"/about/:id",component:about}
+        ];
+        var router=new VueRouter({
+            routes
+        }) 
+        new Vue({
+            el: "#app",
+            router,
+            created(){
+                // $route 可以查找 meta、hash、params、query
+                // $router 可以用push、replace跳頁功能
+                console.log(this.$route)
+                console.log(this.$router)
+            },
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

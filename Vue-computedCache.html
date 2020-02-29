@@ -20,6 +20,7 @@
 
 <body>
     <div id="app">
+        <div>{{newDate}} {{formatTime}}</div>
         <Child :message="message" :index="v" v-for="(v,index) in 4" :key="index">
             <template #default>
                 {{v}}
@@ -27,33 +28,40 @@
         </Child>
         <input type="text" v-model="message">
         <div class="box"></div>
-        <button @click="showMethod">methodsNow</button>
+        <button @click="showMethod(1,$event)">methodsNow</button>
         <button @click="showComputed">computedNow</button>
     </div>
     <template id="child">
         <div>
             Child Page {{message}} - {{index}}
-            <p><slot></slot></p>
+            <p>
+                <slot></slot>
+            </p>
         </div>
     </template>
     <script>
         var Child = {
             template: "#child",
-            props: ["message","index"]
+            props: ["message", "index"]
         }
         new Vue({
             el: '#app',
             components: {
                 Child
             },
+            mounted(){
+                this.newDate = Math.floor(Date.now() / 1000);
+            },
             data: {
-                message: 'Hello Vue.js!'
+                message: 'Hello Vue.js!',
+                newDate:""
             },
             methods: {
                 methodsNow: function () {
                     return new Date().toLocaleString();
                 },
-                showMethod: function () {
+                showMethod: function (n,event) {
+                    console.log(n,event)
                     console.log(this.methodsNow());
                 },
                 showComputed: function () {
@@ -63,6 +71,23 @@
             computed: {
                 computedNow: function () {
                     return new Date().toLocaleString();
+                },
+                formatTime: function () {
+                    console.log(this.newDate)
+
+                    // 用 new Date 把值轉回原本的時間格式，newDate 時間長度可能不足所以 * 1000補回原本長度
+                    let dates = new Date(this.newDate * 1000);
+
+                    // 以下都是取出時間格式的方法
+                    let year = dates.getFullYear();
+                    let month = dates.getMonth() + 1;
+                    let date = dates.getDate();
+                    let hours = dates.getHours();
+                    let minutes = dates.getMinutes();
+                    let seconds = dates.getSeconds();
+
+                    // 最後將我們時間的格式拼成我們所要的
+                    return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}`
                 }
             }
         })
