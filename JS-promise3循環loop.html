@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.20/dayjs.min.js"></script>
+</head>
+
+<body>
+    <script>
+
+        function promise(next){
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    console.log(`Resolve!2 ${dayjs().format('hh:mm:ss')}`);
+                    resolve(next)
+                }, 1000);
+            })
+        }
+
+        var result=[1,2,3].reduce((acc,next)=>{
+            console.log(`Loop!2 ${dayjs().format('hh:mm:ss')}`);
+            return acc.then(()=>{
+                return promise(next)
+            })
+        },Promise.resolve())
+        result.then((e)=>{
+            console.log(e)
+        })
+    </script>
+</body>
+
+</html>

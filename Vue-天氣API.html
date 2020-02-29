@@ -172,7 +172,7 @@
         }
         .fade-enter-active,
         .fade-leave-active {
-            transition: opacity .8s;
+            transition: opacity .6s;
         }
 
         .fade-enter,
@@ -230,7 +230,7 @@
             <transition-group name="fade" class="fade-wrap" tag="div">
                 <div class="isloading" v-if="weathers.length == 0">Loading</div>
                 <template v-else>
-                    <card-box v-for="(weather,index) in filterLocation" :key="index">
+                    <card-box v-for="(weather,index) in filterLocation" :key="weather.locationName">
                         <template #title>
                             <span class="weathers__card-title-location">{{weather.locationName}}</span>
                             <span class="weathers__card-title-time">{{timeselects[timekey].txt}}</span>

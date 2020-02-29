@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>改變選單</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: '微軟正黑體';
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="type">
+            <option value="">選擇</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <div>{{type}}</div>
+        <div>{{filterList}}</div>
+        <ul>
+            <li v-for="l in filterList">{{l.players}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            el: "#app",
+            created() {
+
+            },
+            computed: {
+                filterList(){
+                    return this.list.filter((t,i)=>{
+                        return t.type === this.type
+                    })
+                }
+            },
+            data() {
+                return {
+                    list:[
+                        {type:"A",players:["A1","A2","A3"]},
+                        {type:"B",players:["B1","B2","B3"]},
+                        {type:"C",players:["C1","C2","C3"]},
+                    ],
+                    type:"A"
+                }
+            },
+            methods:{
+                handleChangeLocation(){
+
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

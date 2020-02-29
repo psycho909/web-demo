@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按鈕</button>
+    <button id="btn2">按鈕2</button>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        $("#btn").on("click", {
+            name: "LBJ"
+        }, function (e) {
+            console.log(e.data.name)
+        })
+
+        $("body").on("click", "#btn2", {
+            name: "LBJ2"
+        }, function (e) {
+            console.log(e.data.name)
+        })
+
+        let foo = (function () {
+            var x = 1;
+            return {
+                bar: 2
+            }
+        })();
+    </script>
+</body>
+
+</html>
