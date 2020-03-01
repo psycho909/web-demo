@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{hello}} {{info}} {{time}}
+        <button @click="info++">Press Me</button>
+        <child :showtime.sync="time"></child>
+    </div>
+    <template id="child">
+        <div>
+            <div>Hello From Child {{foo.info}}</div>
+            <button @click="showTime()">Time</button>
+        </div>
+    </template>
+    <script>
+        Vue.component("child",{
+            template:"#child",
+            inject:["foo"],
+            methods:{
+                showTime(){
+                    this.$emit("update:showtime",new Date())
+                }
+            }
+        })
+        new Vue({
+            el:"#app",
+            provide(){
+                // 1.普通用法
+                // return { foo:this.info }
+                const foo={};
+                Object.defineProperty(foo,"info",{
+                    enumerable:true,
+                    get:()=>this.info
+                })
+                return {foo}
+            },
+            data:{
+                hello:"Hello World",
+                info:123,
+                time:""
+            },
+            methods:{
+                showChildTime(data){
+                    console.log(data)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
