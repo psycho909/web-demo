@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <child-a width="90" @click="hanldeClick('a')" @hanldeclick="hanldeClick('b')"></child-a>
+    </div>
+    <template id="child-a">
+        <div>
+            <div>123 {{$attrs.width}}</div>
+            <button v-on="listeners">按下去1</button>
+            <button @click="$listeners.hanldeclick">按下去2</button>
+        </div>
+    </template>
+    <script>
+        Vue.component("childA",{
+            template:"#child-a",
+            created(){
+                console.log(this.$listeners)
+            },
+            computed:{
+                listeners(){
+                    return this.$listeners
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            methods:{
+                hanldeClick(v){
+                    console.log("HandleClick: ",v)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
