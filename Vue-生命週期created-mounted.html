@@ -13,9 +13,7 @@
 <body>
     <div id="app">
         <List></List>
-        <div ref="dream" v-if="showDom">測試DOM</div>
-        <button @click="addComponent">Add</button>
-        <button @click="hideDom">Hide</button>
+        <button @click="destroyBtn">銷毀</button>
         <p ref="foo">{{foo}}</p>
         <button @click="toggle">Toggle</button>
     </div>
@@ -50,7 +48,6 @@
                 SelectBox
             },
             data: {
-                showDom: true,
                 list: ["a", "b", "c"],
                 foo: "BAR"
             },
@@ -86,15 +83,18 @@
                 console.log("=====================================")
             },
             beforeUpdate() {
-                console.log(this.foo);
-                console.log(this.$el.textContent);
-                console.log(this.$refs.foo.textContent);
+                console.log("beforeUpdate: ",this.foo);
+                console.log("beforeUpdate: ",this.$el.textContent);
+                console.log("beforeUpdate: ",this.$refs.foo.textContent);
+                this.$nextTick(()=>{
+                    console.log("nextTick: ",this.$refs.foo.textContent);
+                })
                 console.log("=====================================")
             },
             updated() {
-                console.log(this.foo);
-                console.log(this.$el.textContent);
-                console.log(this.$refs.foo.textContent);
+                console.log("updated: ",this.foo);
+                console.log("updated: ",this.$el.textContent);
+                console.log("updated: ",this.$refs.foo.textContent);
                 console.log("=====================================")
             },
             beforeDestroy() {
@@ -109,11 +109,10 @@
                 }
             },
             methods: {
-                hideDom() {
-                    // this.showDom=!this.showDom
-                    this.$nextTick(() => {
-                        this.$refs.dream.style.color = "blue"
-                    })
+                destroyBtn() {
+                    // 會觸發 beforeDestroy
+                    // 會觸發 destroyed
+                    this.$destroy()
                 },
                 addComponent() {
                     $("#app").append("<Select-Box></Select-Box>")

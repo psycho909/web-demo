@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const CardContext=React.createContext()
+        const {useContext}=React;
+        const Card = props => {
+            const contextValue={...props}
+            return (
+                <CardContext.Provider value={contextValue}>
+                    <CardWrapperTheme>
+                        <CardWrapper>
+                            <CardTitle />
+                            <CardContent />
+                            <CardFooter />
+                        </CardWrapper>
+                    </CardWrapperTheme>
+                </CardContext.Provider>
+            )
+        }
+        const CardWrapperTheme=props=>{
+            const context=useContext(CardContext);
+            const {children}=props;
+            const ParentTag=`${context.parentTag}`
+            return (
+                <ParentTag>{children}</ParentTag>
+            )
+        }
+        const CardWrapper=props=>{
+            const context=useContext(CardContext);
+            const {children}=props;
+            const ContentTag=`${context.contentWrapper}`
+            return (
+                <ContentTag>{children}</ContentTag>
+            )
+        }
+        const CardTitle=props=>{
+            const context=useContext(CardContext);
+            const HeaderTag=`h${context.headerLevel}`
+            return (
+                <HeaderTag>{context.headerTitle}</HeaderTag>
+            )
+        }
+        const CardContent=props=>{
+            const context=useContext(CardContext);
+            console.log(context)
+            return (
+                <div>{context.contentContent}</div>
+            )
+        }
+        const CardFooter=props=>{
+            const context=useContext(CardContext);
+            return (
+                <div>{context.cardVariation}</div>
+            )
+        }
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    date: new Date(),
+                }
+            }
+            render() {
+                return (
+                    <div>
+                        <Card
+                            parentTag="article"
+                            headerLevel="3"
+                            headerTitle="My Card"
+                            contentWrapper="div"
+                            cardVariation="extra-large"
+                            contentContent="Content"
+                            this=""
+                            little=""
+                            piggy=""
+                            went=""
+                            to=""
+                            market=""
+                        />
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>
