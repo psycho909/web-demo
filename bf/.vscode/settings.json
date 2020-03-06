@@ -1,0 +1,15 @@
+{
+    "liveSassCompile.settings.formats": [
+        {
+        	// expanded, compact, compressed or nested
+            // 壓縮
+            // "format": "compressed",
+            // 未壓縮
+            // "format": "expanded",
+            "format": "compact",
+            "extensionName": ".css",
+            "savePath": "/dist/css"
+        }
+    ],
+    "previewServer.port": 50474
+}

@@ -1,0 +1,68 @@
+.bfm {
+    &-header {
+        position: relative;
+
+        .logo {
+            height: 92px;
+            background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/header-bg.png) 0% 0% repeat-x;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            a {
+                width: 385px;
+                height: 46px;
+                background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/logo.png) 0% 0% no-repeat;
+            }
+        }
+
+        .burger {
+            width: 92px;
+            height: 92px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/burger.png) 50% 50% no-repeat;
+        }
+    }
+
+    &-mainmenu {
+        width: 600px;
+        height: 100vh;
+        background: #8abe1c;
+        position: fixed;
+        right: -600px;
+        top: 0;
+        transition: right 0.4s linear;
+        overflow: auto;
+        a {
+            padding: 22px 0 22px 52px;
+            font-size: 36px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+
+            &.account {
+                padding: 40px 0 40px 52px;
+                margin-bottom: 20px;
+                background: #a1cb49;
+            }
+            img{
+                margin-right: 10px;
+                display: block;
+            }
+        }
+    }
+
+    &-modal {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: rgba(0, 0, 0, .7);
+        display: none;
+        opacity: 0;
+    }
+}
