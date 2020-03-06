@@ -129,6 +129,26 @@
         const isEvery = predicates => value => predicates.every(predicate => predicate(value));
         const isAny = predicates => value => predicates.some(predicate => predicate(value));
 
+        function ToggleFilter({ callback, name, className }) {
+            return (<button onClick={callback} className={className}>{name}</button>)
+        }
+
+        function Restaurant({ name }) {
+            return (<h3>{name}</h3>);
+        }
+
+        /* utility functions */
+
+        function isUnique(value, index, array) {
+            return array.indexOf(value) === index;
+        }
+
+        function mapToValue(value) {
+            return function (item) {
+                return item[value];
+            }
+        }
+
         class App extends React.Component {
             constructor(props) {
                 super(props);
@@ -143,6 +163,7 @@
             toggleFilter=(filterType, value)=>{
                 const filters = this.state.filters;
                 const hasFilter = filters[filterType].includes(value);
+
                 const newFilterValue = hasFilter
                     ? filters[filterType].filter(valueToRemove => valueToRemove !== value)
                     : [...filters[filterType], value];
@@ -157,7 +178,9 @@
             }
 
             render() {
+                console.log(this.state.filters)
                 const filters = this.state.filters;
+
                 const priceFilters = filters.price.map(price => isPrice(price));
                 const isSelectedPrice = priceFilters.length ? isAny(priceFilters) : () => true;
 
@@ -165,10 +188,9 @@
                 const isSelectedCuisine = cuisineFilters.length ? isAny(cuisineFilters) : () => true;
 
                 const passesFilters = isEvery([isSelectedPrice, isSelectedCuisine]);
-
+                
                 const allRestaurants = this.props.restaurants;
                 const filteredRestaurants = allRestaurants.filter(passesFilters);
-
                 const toPrice = mapToValue('price');
                 const priceOptions = allRestaurants.map(toPrice).filter(isUnique);
 
@@ -213,28 +235,7 @@
             }
         }
 
-        function ToggleFilter({ callback, name, className }) {
-            return (<button onClick={callback} className={className}>{name}</button>)
-        }
-
-        function Restaurant({ name }) {
-            return (<h3>{name}</h3>);
-        }
-
         ReactDOM.render(<App restaurants={restaurants} />, document.getElementById('app'));
-
-
-        /* utility functions */
-
-        function isUnique(value, index, array) {
-            return array.indexOf(value) === index;
-        }
-
-        function mapToValue(value) {
-            return function (item) {
-                return item[value];
-            }
-        }
     </script>
 </body>
 

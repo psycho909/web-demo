@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <script>
+        var restaurants = [
+            {
+                name: "Dan's Hamburgers",
+                price: 'Cheap',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Austin's Pizza",
+                price: 'Cheap',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "Via 313",
+                price: 'Moderate',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "Bufalina",
+                price: 'Expensive',
+                cuisine: 'Pizza'
+            },
+
+            {
+                name: "P. Terry's",
+                price: 'Cheap',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Hopdoddy",
+                price: 'Expensive',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Whataburger",
+                price: 'Moderate',
+                cuisine: 'Burger'
+            },
+
+            {
+                name: "Chuy's",
+                cuisine: 'Tex-Mex',
+                price: 'Moderate'
+            },
+
+            {
+                name: "Taquerias Arandina",
+                cuisine: 'Tex-Mex',
+                price: 'Cheap'
+            },
+
+            {
+                name: "El Alma",
+                cuisine: 'Tex-Mex',
+                price: 'Expensive'
+            },
+
+            {
+                name: "Maudie's",
+                cuisine: 'Tex-Mex',
+                price: 'Moderate'
+            }];
+
+            var filterPrice=restaurants.map((item,i)=>{
+                return item['price']
+            }).filter((value,index,arr)=>{
+                return arr.indexOf(value) === index
+            })
+            var filters={
+                price:["Cheap"]
+            }
+            const isKeyEqualToValue = key => value => object => {
+                return object[key] === value;
+            };
+            const isPrice = isKeyEqualToValue('price');
+            const priceFilters = filters.price.map(price => isPrice(price));
+            const isAny = predicates => value => {
+                return predicates.some(predicate => {
+                    return predicate(value)
+                })
+            };
+            const isEvery = predicates => value => predicates.every(predicate => predicate(value));
+            const isSelectedPrice = priceFilters.length ? isAny(priceFilters) : () => true;
+            console.log(isSelectedPrice)
+            const passesFilters = isEvery([isSelectedPrice]);
+            console.log(passesFilters)
+            const filteredRestaurants = restaurants.filter(passesFilters);
+
+            console.log(filteredRestaurants)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button @click="getBreedsAndDog">Get Breeds and Dog</button>
+            <!-- <p>{{Object.keys(breeds.message).slice(0, 3).join(',')}}</p> -->
+            <p>{{dog}}</p>
+            <p>{{breeds}}</p>
+            <img :src="dog.message" />
+        </div>
+    </div>
+
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                dog: {},
+                breeds: {
+                    message: {}
+                }
+            },
+            getters: {
+                dog(state) {
+                    return state.dog
+                },
+                breeds(state) {
+                    return state.breeds
+                }
+            },
+            mutations: {
+                SET_DOG(state, payload) {
+                    state.dog = payload
+                },
+                SET_BREEDS(state, payload) {
+                    state.breeds = payload
+                }
+            },
+            actions: {
+                async getBreeds({ commit }) {
+                    const response = await fetch("https://dog.ceo/api/breeds/list/all");
+                    const breeds = await response.json();
+                    commit("SET_BREEDS", breeds);
+                },
+                async getDog({ commit }) {
+                    const response = await fetch("https://dog.ceo/api/breeds/image/random");
+                    const dog = await response.json();
+                    commit("SET_DOG", dog);
+                },
+                async getBreedsAndDog({ dispatch }) {
+                    await dispatch("getBreeds");
+                    await dispatch("getDog");
+                }
+            }
+        })
+
+        new Vue({
+            el: "#app",
+            store,
+            computed: {
+                ...Vuex.mapGetters(["breeds", "dog"])
+            },
+            methods: {
+                ...Vuex.mapActions(["getBreedsAndDog"])
+            }
+        })
+    </script>
+</body>
+
+</html>
