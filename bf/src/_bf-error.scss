@@ -1,0 +1,53 @@
+.bfm{
+    &-error-wrap{
+        display: none;
+    }
+}
+@media screen and (max-width:750px){
+    .bfm{
+        & > table{
+            display: none;
+        }
+        &-error{
+            &-wrap{
+                display: block;
+                padding: 0 32px;
+                height: 100vh;
+            }
+            &__img{
+                width: 100%;
+                padding: 48px 0;
+                img{
+                    width: 100%;
+                    max-width: 350px;
+                    display: block;
+                    margin: 0 auto;
+                    transform: translateX(20%);
+                }
+            }
+            &__content{
+                width: 100%;
+                padding: 48px 0;
+                font-family: "微軟正黑體","新細明體";
+                font-size: 48px;
+                color: #000;
+                line-height: 1.5;
+                font-weight: bold;
+                p{
+                    font-size: inherit;
+                }
+            }
+            &__sub-content{
+                width: 100%;
+                padding: 48px 0;
+                font-family: "微軟正黑體","新細明體",Arial, Helvetica, sans-serif;
+                font-size: 28px;
+                color: #666;
+                line-height: 1.5;
+                p{
+                    font-size: inherit;
+                }
+            }
+        }
+    }
+}

@@ -8,23 +8,6 @@ document.addEventListener("DOMContentLoaded",function(event){
             return false;
         }
     }
-    
-    function Goto(url) {
-        var strUrl;
-        if (typeof (url) === "undefined") {
-            strUrl = location.protocol +
-                "//" +
-                document.location.host +
-                "/bflogin/Index?service=999999_T0&dt=20171102110846.184&url=" +
-                escape(document.location.href);
-        } else {
-            //轉回PC版時URL會和Web主站相同
-            if (url === "https://tw.beanfun.com/")
-                document.cookie = "bfMobilePC=1;  domain=.beanfun.com;";
-            strUrl = url;
-        }
-        window.setTimeout("top.location.href = \"" + strUrl + "\";", 200);
-    }
 
     function fadeIn(el,display){
         el.style.opacity=0;
@@ -49,94 +32,93 @@ document.addEventListener("DOMContentLoaded",function(event){
     }
     function moveRight(el){
         (function move(){
-            var val = parseFloat(window.getComputedStyle(el).right.replace("px",""));
-            if(!((val += 500) >= 0)){
-                el.style.right=val+"px";
-                requestAnimationFrame(move)
-            }else{
-                el.style.right=0+"px";
-            }
+            el.style.transform='translateX('+0+'%)';
         })()
     }
     function moveLeft(el){
         (function move(){
-            var val = parseFloat(window.getComputedStyle(el).right.replace("px",""));
-            if(!((val -= 500) < -600)){
-                el.style.right=val+"px";
-                requestAnimationFrame(move)
-            }else{
-                el.style.right=-600+"px";
-            }
+            el.style.transform='translateX('+100+'%)';
         })()
     }
+
     var winW=window.innerWidth;
+    var mainmenuContent=[
+        {
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-account.png",
+            name:"未登入",
+            href:"#",
+            class:"account"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-member-center.png",
+            name:"會員中心",
+            href:"#",
+            class:"pc"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-pc.png",
+            name:"線上遊戲",
+            href:"/Games",
+            class:"pc"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-mobile.png",
+            name:"熱門手遊",
+            href:"/Games/Mobile",
+            class:"moblie"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-news.png",
+            name:"最新消息",
+            href:"/Events",
+            class:"news"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-deposit.png",
+            name:"儲值中心",
+            href:"#",
+            class:"deposit"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-home.png",
+            name:"回到首頁",
+            href:"/",
+            class:"home"
+        },{
+            img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-switch.png",
+            name:"切換到PC版",
+            href:"javascript:;",
+            class:"switch"
+        }
+    ];
+
     if(winW <= 750 || isMobile ()){
         var metaTag=document.getElementsByTagName("meta");
         var metaTagLength=metaTag.length;
+        document.body.className+=" bfm";
+
         for(var i=0;i<metaTagLength;i++){
             if(metaTag[i].getAttribute("name") == "viewport"){
                 metaTag[i].content="width=750,user-scalable=0";
             }
         }
     
-        var headerHTML='<div class="bfm-header">'
-                    +'<div class="logo">'
-                    +'<a href="/"></a>'
-                    +'</div>'
-                    +'<div class="burger"></div>'
-                    +'</div>';
-    
-        document.body.className+=" bfm";
-        document.body.insertAdjacentHTML('afterBegin', headerHTML);
-
-        var burgetBtn=document.querySelector(".bfm-header .burger");
-        var modalHTML=document.createElement("div");
-        modalHTML.className="bfm-modal";
-        modalHTML.style.display="block";
-
-        var mainmenuContent=[
-            {
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-account.png",
-                name:"未登入",
-                href:"#",
-                class:"account"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-member-center.png",
-                name:"會員中心",
-                href:"#",
-                class:"pc"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-pc.png",
-                name:"線上遊戲",
-                href:"/Games",
-                class:"pc"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-mobile.png",
-                name:"熱門手遊",
-                href:"/Games/Mobile",
-                class:"moblie"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-news.png",
-                name:"最新消息",
-                href:"/Events",
-                class:"news"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-deposit.png",
-                name:"儲值中心",
-                href:"#",
-                class:"deposit"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-home.png",
-                name:"回到首頁",
-                href:"/",
-                class:"home"
-            },{
-                img:"https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/menu-switch.png",
-                name:"切換到PC版",
-                href:"javascript:;",
-                class:"switch"
+        function headerlogInStatus(){
+            var status=document.querySelector(".account > span").textContent;
+            var statusHTML="";
+            
+            if(status == '未登入'){
+                statusHTML='<div class="logInStatus" onclick="Goto();">登入</div>';
+            }else if(status != '未登入'){
+                statusHTML=`
+                <div class="points">
+                    <span id="RemainPoint">30</span>點
+                </div>
+                <div class="logInStatus" onclick="location.href='/bflogin/Logout';">登出</div>
+                `
             }
-        ];
+            var headerHTML='<div class="bfm-header">'
+                    +'<div class="logo"><a href="/"></a></div>'
+                    +'<div class="burger"></div>'
+                    +'<div class="dashboard">'+statusHTML+'</div>'
+                    +'</div>';
+            return headerHTML;
+        }
+        
         var mainmenuHTML=document.createElement("div");
         mainmenuHTML.className="bfm-mainmenu";
         var fragment=document.createDocumentFragment();
@@ -152,9 +134,16 @@ document.addEventListener("DOMContentLoaded",function(event){
             fragment.appendChild(a);
         }
         mainmenuHTML.appendChild(fragment)
+        document.body.appendChild(mainmenuHTML);
+        document.body.insertAdjacentHTML('afterBegin', headerlogInStatus());
+
+        var burgetBtn=document.querySelector(".bfm-header .burger");
+        var modalHTML=document.createElement("div");
+        modalHTML.className="bfm-modal";
+        modalHTML.style.display="block";
+
         burgetBtn.addEventListener("click",function(){
             document.body.appendChild(modalHTML);
-            document.body.appendChild(mainmenuHTML);
             document.documentElement.style.overflow="hidden";
 
             fadeIn(modalHTML)
