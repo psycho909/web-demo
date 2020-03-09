@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html lang="zh-Hant-TW">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <!-- + 增加響應式 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta name="viewport" content="width=750,user-scalable=1.0"> -->
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="{{description}}">
-
-    <!-- fb meta -->
-    <!-- 除了H5活動頁以外都要加上 -->
-    <meta name="open-default-browser" content="true">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{title}}" />
-    <meta property="og:description" content="{{description}}" />
-    <!-- Safari 數字過常會變成可撥打電話 -->
-    <meta name="format-detection" content="telephone=no">
-    <!-- 1200x628 -->
-    <meta property="og:image" content="images/og-image.jpg" />
-
-    <!-- 64x64 -->
-    <link href="images/64x64icon.png" rel="shortcut icon" />
-
-    <title>{{title}}</title>
-    <!-- CSS -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>抱歉，找不到您所查詢的頁面 - beanfun! 樂豆</title>
     <link rel="stylesheet" href="https://tw.beanfun.com/styles/sitemap/404.css">
-    <link rel="stylesheet" href="css/default.css">
-    <script src="./js/bf-header.js"></script>
-    <!-- JS -->
+
+    <!-- + 增加自定義的手機板CSS -->
+    <link rel="stylesheet" href="css/bfm-error.css">
+    <!-- + 增加自定義表頭用的JS -->
+    <script src="https://tw.hicdn.beanfun.com/beanfun/beanfun/bfm/js/bfm-header.js"></script>
+    <!-- + 增加自定義footer用的JS -->
+    <script src="https://tw.hicdn.beanfun.com/beanfun/beanfun/bfm/js/bfm-footer.js"></script>
+
     <style>
         body {
             margin-left: 0px;
@@ -43,13 +29,10 @@
             margin-top: 11px;
         }
     </style>
+    <style data-styled="" data-styled-version="4.2.0"></style>
 </head>
 
-<body class="aa bb" bgcolor="#FFFFFF">
-    <!-- GTM -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{GTM}}" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-
+<body bgcolor="#FFFFFF">
     <!-- 內容開始 -->
     <table width="967" border="0" cellspacing="0" cellpadding="0" align="center">
         <tbody>
@@ -119,24 +102,6 @@
                                                                                         <div id="cse-search-form"
                                                                                             style="width:352px;padding-top:5px">
                                                                                             Loading</div>
-                                                                                        <script
-                                                                                            src="http://www.google.com.tw/jsapi"
-                                                                                            type="text/javascript"></script>
-                                                                                        <script type="text/javascript">
-                                                                                            google.load('search', '1', { language: 'zh-TW', style: google.loader.themes.V2_DEFAULT });
-                                                                                            google.setOnLoadCallback(function () {
-                                                                                                var customSearchOptions = {}; var googleAnalyticsOptions = {};
-                                                                                                googleAnalyticsOptions['queryParameter'] = 'q';
-                                                                                                googleAnalyticsOptions['categoryParameter'] = '';
-                                                                                                customSearchOptions['googleAnalyticsOptions'] = googleAnalyticsOptions;
-                                                                                                var customSearchControl = new google.search.CustomSearchControl(
-                                                                                                    'partner-pub-5004984851047986:9406527619', customSearchOptions);
-                                                                                                customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-                                                                                                var options = new google.search.DrawOptions();
-                                                                                                options.enableSearchboxOnly("/google/googlesearch.htm");
-                                                                                                customSearchControl.draw('cse-search-form', options);
-                                                                                            }, true);
-                                                                                        </script>
                                                                                         <style type="text/css">
                                                                                             input.gsc-input,
                                                                                             .gsc-input-box,
@@ -399,7 +364,7 @@
         </tbody>
     </table>
 
-    <!-- 手機版內容開始 -->
+    <!-- + 增加手機版內容開始 -->
     <div class="bfm-error-wrap">
         <div class="bfm-error__img">
             <img src="https://tw.beanfun.com/images/200X350.png" alt="">
@@ -413,27 +378,6 @@
             <p>請稍後重整頁面或由下方的搜尋列尋找您想要查找的資訊</p>
         </div>
     </div>
-    <!-- footer -->
-    <script src="./js/bf-footer.js" id="bfm-footer"></script>
-    <script src="js/default.js"></script>
-    <script>
-        function Goto(url) {
-            var strUrl;
-            if (typeof (url) === "undefined") {
-                strUrl = location.protocol +
-                    "//" +
-                    document.location.host +
-                    "/bflogin/Index?service=999999_T0&dt=20171102110846.184&url=" +
-                    escape(document.location.href);
-            } else {
-                //轉回PC版時URL會和Web主站相同
-                if (url === "https://tw.beanfun.com/")
-                    document.cookie = "bfMobilePC=1;  domain=.beanfun.com;";
-                strUrl = url;
-            }
-            window.setTimeout("top.location.href = \"" + strUrl + "\";", 200);
-        }
-    </script>
 </body>
 
 </html>

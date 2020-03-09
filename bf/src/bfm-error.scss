@@ -4,6 +4,11 @@
     }
 }
 @media screen and (max-width:750px){
+    body{
+        & > table{
+            display: none;
+        }
+    }
     .bfm{
         & > table{
             display: none;
@@ -11,12 +16,14 @@
         &-error{
             &-wrap{
                 display: block;
-                padding: 0 32px;
+                padding: 0 calc(32 / 750 * 100vw);
                 height: 100vh;
+                background-color: #fff;
             }
             &__img{
                 width: 100%;
-                padding: 48px 0;
+                padding: calc(48 / 750 * 100vw) 0;
+                overflow: hidden;
                 img{
                     width: 100%;
                     max-width: 350px;
@@ -27,25 +34,27 @@
             }
             &__content{
                 width: 100%;
-                padding: 48px 0;
+                padding: calc(48 / 750 * 100vw) 0;
                 font-family: "微軟正黑體","新細明體";
-                font-size: 48px;
+                font-size: calc(48 / 750 * 100vw);
                 color: #000;
                 line-height: 1.5;
                 font-weight: bold;
                 p{
                     font-size: inherit;
+                    font-family: "微軟正黑體","新細明體";
                 }
             }
             &__sub-content{
                 width: 100%;
-                padding: 48px 0;
+                padding: calc(48 / 750 * 100vw) 0;
                 font-family: "微軟正黑體","新細明體",Arial, Helvetica, sans-serif;
-                font-size: 28px;
+                font-size: calc(28 / 750 * 100vw);
                 color: #666;
                 line-height: 1.5;
                 p{
                     font-size: inherit;
+                    font-family: "微軟正黑體","新細明體";
                 }
             }
         }

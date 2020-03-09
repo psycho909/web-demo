@@ -3,19 +3,35 @@ body{
     line-height: 1.6;
 }
 .bfm-footer {
-    padding: 14px 0;
+    padding: calc(14 / 750 * 100vw);
     color: #fff;
-    font-size: 21px;
+    font-size: calc(21 / 750 * 100vw);
     background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    .copyright{
+        color:inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
 }
 
 .ghq-logo {
-    width: 180px;
-    height: 32px;
+    width: calc(180 / 750 * 100vw);
+    height: calc(32 / 750 * 100vw);
     background: url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/gama-group/images/ghq-text2.png) 50% 1px no-repeat;
     background-size: contain;
+}
+@media screen and (min-width:751px){
+    .bfm-footer {
+        padding: 14px 0;
+        font-size: 21px;
+    }
+    
+    .ghq-logo {
+        width: 180px;
+        height: 32px;
+    }
 }

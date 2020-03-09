@@ -1,0 +1,147 @@
+@charset "UTF-8";
+body {
+  font-family: "PingFangTC-Regular", arial, "微軟正黑體","sans-serif";
+  line-height: 1.6;
+}
+
+.bfm-header {
+  position: relative;
+}
+
+.bfm-header .logo {
+  width: 100%;
+  height: calc(92 / 750 * 100vw);
+  background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/header-bg.png) 0% 0% repeat-x;
+  cursor: default;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 0;
+  float: none;
+  background-size: contain;
+}
+
+.bfm-header .logo a {
+  width: calc(385 / 750 * 100vw);
+  height: calc(46 / 750 * 100vw);
+  background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/logo.png) 0% 0% no-repeat;
+  background-size: 100%;
+}
+
+.bfm-header .burger {
+  width: calc(57 / 750 * 100vw);
+  height: calc(57 / 750 * 100vw);
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  background: url(https://tw.hicdn.beanfun.com/beanfun/beanfunM/img/burger.png) 50% 50% no-repeat;
+  background-size: 100%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.bfm-mainmenu {
+  width: calc(600 / 750 * 100vw);
+  height: 100vh;
+  background: #8abe1c;
+  position: fixed;
+  right: 0px;
+  top: 0;
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+  -webkit-transition: -webkit-transform 0.4s linear;
+  transition: -webkit-transform 0.4s linear;
+  -o-transition: transform 0.4s linear;
+  transition: transform 0.4s linear;
+  transition: transform 0.4s linear, -webkit-transform 0.4s linear;
+  overflow: auto;
+  z-index: 1;
+}
+
+.bfm-mainmenu a {
+  padding: calc(22 / 750 * 100vw) 0 calc(22 / 750 * 100vw) calc(52 / 750 * 100vw);
+  font-size: calc(36 / 750 * 100vw);
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+}
+
+.bfm-mainmenu a.account {
+  padding: calc(40 / 750 * 100vw) 0 calc(40 / 750 * 100vw) calc(52 / 750 * 100vw);
+  margin-bottom: calc(20 / 750 * 100vw);
+  background: #a1cb49;
+}
+
+.bfm-mainmenu a img {
+  margin-right: calc(10 / 750 * 100vw);
+  display: block;
+  width: calc(64 / 750 * 100vw);
+}
+
+.bfm-mainmenu a span {
+  word-wrap: break-word;
+  word-break: break-all;
+  line-height: calc(40 / 750 * 100vw);
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+
+.bfm-modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  opacity: 0;
+  -webkit-transition: opacity .4s linear;
+  -o-transition: opacity .4s linear;
+  transition: opacity .4s linear;
+}
+
+@media screen and (min-width: 751px) {
+  .bfm-header .logo {
+    height: 92px;
+  }
+  .bfm-header .logo a {
+    width: 385px;
+    height: 46px;
+  }
+  .bfm-header .burger {
+    width: 57px;
+    height: 57px;
+  }
+  .bfm-mainmenu {
+    width: 600px;
+  }
+  .bfm-mainmenu a {
+    padding: 22px 0 22px 52px;
+    font-size: 36px;
+  }
+  .bfm-mainmenu a.account {
+    padding: 40px 0 40px 52px;
+    margin-bottom: 20px;
+  }
+  .bfm-mainmenu a span {
+    line-height: 40px;
+  }
+  .bfm-mainmenu a img {
+    margin-right: 10px;
+    width: 64px;
+  }
+}

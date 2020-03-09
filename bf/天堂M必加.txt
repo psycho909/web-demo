@@ -1,7 +1,0 @@
-●head內
-<link href="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/LineageM/Web/images/favicon.jpg" rel="shortcut icon" />
-<script type="text/javascript" src="https://tw.beanfun.com/LineageM/Web_Head.js"></script>
-●body結尾前
-<script type="text/javascript" src="https://tw.beanfun.com/LineageM/Web_Body.js" ></script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
-<script type="text/javascript" src="https://tw.beanfun.com/LineageM/Web_Body2.js"></script>

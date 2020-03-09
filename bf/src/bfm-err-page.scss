@@ -1,0 +1,47 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    h3,p{
+        margin: 0;
+    }
+}
+body{
+    & > table{
+        display: none;
+    }
+}
+.bfm-err-page{
+    &-wrap{
+        text-align: center;
+        height: 100vh;
+        h3{
+            font-size: calc(42 / 750 * 100vw);
+        }
+        p{
+            font-size: calc(32 / 750 * 100vw);
+        }
+    }
+    padding: 0 24px;
+    padding-top: calc(200 / 750 * 100vw);
+}
+@media screen and (min-width: 751px) {
+    body{
+        & > table{
+            display: table;
+        }
+    }
+    .bfm-err-page{
+        &-wrap{
+            display: none;
+            height: 100vh;
+            h3{
+                font-size: 36px;
+            }
+            p{
+                font-size: 28px;
+            }
+        }
+        padding-top: 200px;
+    }
+}
