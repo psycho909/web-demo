@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 100%;
+            background-color: #999;
+            overflow: hidden;
+        }
+
+        .key-wrap {
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0,0,0,.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .key-box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .displayBox {
+            margin-bottom: 40px;
+        }
+
+        .numButton ul,
+        .displayBox ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .numButton li,
+        .displayBox li {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            font-family: Arial;
+            cursor: pointer;
+        }
+
+        .displayBox li {
+            opacity: 0.5;
+        }
+
+        .key-bg {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            font-size: 15vw;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .key-bg .box-blur {
+            width: 100vw;
+            height: 100vh;
+            background: url(images/psw-bg-blur@2x.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .key-bg .box {
+            width: 100vw;
+            height: 100vh;
+            background: url(images/psw-bg@2x.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="key-master">
+            <div class="key-wrap">
+                <div class="key-box">
+                    <div class="displayBox">
+                        <ul>
+                            <li class="display-0" data="E">E</li>
+                            <li class="display-1" data="L">L</li>
+                            <li class="display-2" data="S">S</li>
+                            <li class="display-3" data="W">W</li>
+                            <li class="display-4" data="O">O</li>
+                            <li class="display-5" data="R">R</li>
+                            <li class="display-6" data="D">D</li>
+                        </ul>
+                    </div>
+                    <div class="numButton">
+                        <ul>
+                            <li class="btn-R" data="R">R</li>
+                            <li class="btn-L" data="L">L</li>
+                            <li class="btn-W" data="W">W</li>
+                            <li class="btn-E" data="E">E</li>
+                            <li class="btn-O" data="O">O</li>
+                            <li class="btn-S" data="S">S</li>
+                            <li class="btn-Q" data="Q">Q</li>
+                            <li class="btn-D" data="D">D</li>
+                            <li class="btn-Z" data="Z">Z</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="key-bg">
+            <div class="box-blur">
+                <div class="box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var correctArray = ['E', 'L', 'S', 'W', 'O', 'R', 'D'];
+        var inputArray = [];
+        function onNumClick() {
+            //設置鍵盤碼 a=[65~90] 0-9 =[48~57]
+            var key = [
+                { num: 69, txt: 'E' }, { num: 76, txt: 'L' }, { num: 83, txt: 'S' },
+                { num: 87, txt: 'W' }, { num: 79, txt: 'O' }, { num: 82, txt: 'R' },
+                { num: 68, txt: 'D' }, { num: 81, txt: 'Q' }, { num: 90, txt: 'Z' }
+            ]
+
+            $(".numButton li").on("click", function (e) {
+                var key = $(this).attr("data");
+                toCheckPsd(key)
+            })
+            $("body").on("keydown", function (e) {
+                var kd_down = e.keyCode;
+                var sendKd_down;
+                for (var i = 0; i < key.length; i++) {
+                    if (kd_down == key[i].num) {
+                        sendKd_down = key[i].txt
+                    }
+                }
+                $(".btn-" + sendKd_down).css("opacity", "0.5")
+            })
+            $("body").on("keyup", function (e) {
+                var kd_down = e.keyCode;
+                var sendKd_down;
+                for (var i = 0; i < key.length; i++) {
+                    if (kd_down == key[i].num) {
+                        sendKd_down = key[i].txt
+                    }
+                }
+                $(".btn-" + sendKd_down).css("opacity", "1")
+                toCheckPsd(sendKd_down)
+            })
+        }
+        function toCheckPsd(_id) {
+            inputArray.push(_id)
+            var checklength = inputArray.length - 1;
+            var b = correctArray.slice(checklength, checklength + 1);
+            var inputNum = _id;
+            // inputNum == b
+            if (inputArray.toString() == correctArray.slice(0, inputArray.length).toString()) {
+                gsap.from(".display-" + checklength, {
+                    scale: 2,
+                    ease: Back.easeOut.config(1.7),
+                    duration: 0.4
+                })
+                gsap.to(".display-" + checklength, {
+                    autoAlpha: 1,
+                    duration: 0.2
+                })
+            } else {
+                inputArray.splice(checklength, 1)
+                gsap.to(".displayBox", {
+                    x: -15,
+                    yoyo: true,
+                    repeat: 3,
+                    ease: Back.easeInOut,
+                    duration: 0.1
+                })
+            }
+            if (inputArray.length == correctArray.length) {
+                var changSection = gsap.timeline({
+                    delay: 0.5
+                })
+                var shakePsdCont = gsap.timeline({
+                    repeat: -1,
+                    yoyo: true,
+                    duration: 0.07
+                })
+                var shankeBg = gsap.timeline({ 
+                    delay: 0.7, 
+                    paused: false, 
+                    repeat: -1,
+                    yoyo: true
+                })
+
+                shakePsdCont
+                .to('.key-box', { duration: 0.07,y: -2 })
+                .to('.key-box', { duration: 0.07,y: 2 })
+                .to('.key-box', { duration: 0.07,x: -2 })
+                .to('.key-box', { duration: 0.07,x: 2 })
+                .to('.key-box', { duration: 0.07,scale: .98 })
+                .to('.key-box', { duration: 0.07,scale: 1 })
+
+                shankeBg
+                .to(".box-blur",{ y:-2 })
+                .to(".box-blur",{ y:3 })
+                .to(".box-blur",{ x:-2 })
+                .to(".box-blur",{ x:3 })
+                .to(".box-blur",{ y:-3 })
+                .to(".box-blur",{ y:4 })
+                .to(".box-blur",{ x:-3 })
+                .to(".box-blur",{ x:4 })
+
+                changSection
+                .to(".key-wrap",{scale:1.2,duration:0.1})
+                .to(".key-wrap",{x:10,y:10,scale:1,duration:0.2})
+                .to(".key-master",{autoAlpha:0,duration:0.5},"-=.1")
+                .to(".box",{autoAlpha:0,duration:0.1,delay:1.5},"-=.4")
+                .to(".box-blur",{ x: '-5%', y: '-10%', scale: 3, ease: Power4.easeIn },"-=.2")
+                .to(".box-blur",{autoAlpha:0,ease: Power4.easeIn,duration:0.6},"-=.6")
+            }
+        }
+        onNumClick();
+    </script>
+</body>
+
+</html>

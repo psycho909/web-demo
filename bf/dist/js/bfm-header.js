@@ -25,7 +25,10 @@ document.addEventListener("DOMContentLoaded",function(event){
     }
     // 移進去
     function moveIn(el){
-        el.style.transform='translateX('+0+'%)';
+        el.style.transition="transform 0.4s linear";
+        setTimeout(function() {
+            el.style.transform='translateX('+0+'%)';
+        }, 0);
     }
     // 移出去
     function moveOut(el){
