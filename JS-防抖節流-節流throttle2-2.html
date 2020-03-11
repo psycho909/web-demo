@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 99999px;
+            background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
+        }
+
+        #r {
+            position: fixed;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button id="btn">Click</button>
+    <p id="r">0</p>
+
+    <script>
+        var r=document.getElementById("r");
+        var btn=document.getElementById("btn")
+        var i=0;
+        function insertHello(){
+            i++;
+            r.innerHTML=i;
+        }
+        var throttle=function(fn,interval){
+            let timer=null;
+            return function(){
+                if(timer){
+                    return;
+                }
+                timer=setTimeout(function(){
+                    fn.apply(this,arguments)
+                    timer=null
+                },interval)
+            }
+        }
+        // var hello=throttle(insertHello,1000);
+        btn.addEventListener('click',throttle(function(e){
+            insertHello()
+        },600));
+    </script>
+</body>
+
+</html>

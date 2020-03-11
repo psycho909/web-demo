@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <input type="search" id="input" placeholder="尋找球員 位置" />
+    <ul>
+        <li data-search="LBJ SF">LBJ</li>
+        <li data-search="Wade SG">Wade</li>
+        <li data-search="Curry PG">Curry</li>
+        <li data-search="Duncan PF">Duncan</li>
+        <li data-search="Bosh PF">Bosh</li>
+        <li data-search="Ming C">姚明</li>
+    </ul>
+    <script>
+        var eleStyle = document.createElement('style');
+        document.head.appendChild(eleStyle);
+        // 文本输入框
+        input.addEventListener('input', function () {
+            var value = this.value.trim().toUpperCase();
+            eleStyle.innerHTML = value ? '[data-search]:not([data-search*="' + value + '"]) { display: none; } ' : '';
+        });
+
+    </script>
+</body>
+
+</html>
