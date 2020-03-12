@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', 'sans-serif';
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .notification-container {
+            font-size: 14px;
+            box-sizing: border-box;
+            position: fixed;
+        }
+
+        .top-right {
+            top: 12px;
+            right: 12px;
+            transition: transform .6s ease-in-out;
+            animation: toast-in-right .7s;
+        }
+
+        .bottom-right {
+            bottom: 12px;
+            right: 12px;
+            transition: transform .6s ease-in-out;
+            animation: toast-in-right .7s;
+        }
+
+        .top-left {
+            top: 12px;
+            left: 12px;
+            transition: transform .6s ease-in;
+            animation: toast-in-left .7s;
+        }
+
+        .bottom-left {
+            bottom: 12px;
+            left: 12px;
+            transition: transform .6s ease-in;
+            animation: toast-in-left .7s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const testList = [
+            {
+                id: 1,
+                title: 'Success',
+                description: 'This is a success toast component',
+                backgroundColor: '#5cb85c'
+            },
+            {
+                id: 2,
+                title: 'Danger',
+                description: 'This is an error toast component',
+                backgroundColor: '#d9534f'
+            },
+        ];
+        const BUTTON_PROPS = [
+            {
+                id: 1,
+                type: 'success',
+                className: 'success',
+                label: 'Success'
+            },
+            {
+                id: 2,
+                type: 'danger',
+                className: 'danger',
+                label: 'Danger'
+            }
+        ];
+
+        const Button = (props) => {
+            const { label, className, handleClick } = props;
+            return (
+                <>
+                    <button className={className} onClick={handleClick}>
+                        {label}
+                    </button>
+                </>
+            )
+        }
+
+        const Toast = (props) => {
+            const { toastList, position } = props;
+            const [list, setList] = useState(toastList);
+            useEffect(() => {
+                setList(toastList);
+            }, [toastList, list]);
+
+            return (
+                <div className={`notification-container ${position}`}>
+                    {
+                        list.map((toast, i) =>
+                            <div key={i} className={`notification toast ${position}`} style={{ backgroundColor: toast.backgroundColor }}>
+                                <button>X</button>
+                                <div className="notification-image"></div>
+                                <div>
+                                    <p className="notification-title">{toast.title}</p>
+                                    <p className="notification-message">
+                                        {toast.description}
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    }
+                </div>
+            )
+        }
+        const App = () => {
+            const [list, setList] = useState([]);
+            let toastProperties = null;
+            const id = Math.floor((Math.random() * 100) + 1);
+            const showToast = (type) => {
+                switch (type) {
+                    case 'success':
+                        toastProperties = {
+                            id,
+                            title: 'Success',
+                            description: 'This is a success toast component',
+                            backgroundColor: '#5cb85c',
+                            icon: checkIcon
+                        }
+                        break;
+                    case 'danger':
+                        toastProperties = {
+                            id,
+                            title: 'Danger',
+                            description: 'This is an error toast component',
+                            backgroundColor: '#d9534f',
+                            icon: errorIcon
+                        }
+                        break;
+                    case 'info':
+                        toastProperties = {
+                            id,
+                            title: 'Info',
+                            description: 'This is an info toast component',
+                            backgroundColor: '#5bc0de',
+                            icon: infoIcon
+                        }
+                        break;
+                    case 'warning':
+                        toastProperties = {
+                            id,
+                            title: 'Warning',
+                            description: 'This is a warning toast component',
+                            backgroundColor: '#f0ad4e',
+                            icon: warningIcon
+                        }
+                        break;
+                    default:
+                        setList([]);
+                }
+                setList([...list, toastProperties]);
+            }
+            return (
+                <div>
+                    <p>React Toast Component</p>
+                    <div className="toast-buttons">
+                        {
+                            BUTTON_PROPS.map(e =>
+                                <Button
+                                    key={e.id}
+                                    className={e.className}
+                                    label={e.label}
+                                    handleClick={() => showToast(e.type)}
+                                />
+                            )
+                        }
+                    </div>
+                    <Toast
+                        toastList={testList}
+                        position="bottom-right"
+                    />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

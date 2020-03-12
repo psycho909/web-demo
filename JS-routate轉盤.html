@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/jQueryRotate.2.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .roulette-wrap{
+            z-index: 20;
+            position: relative;
+            width: 340px;
+            height: 340px;
+            margin: 0 auto;
+        }
+        .roulette{
+            width: 100%;
+            height: 100%;
+            background-image: url('./images/bg-lottery.png');
+        }
+        .roulette-btn{
+            width: 186px;
+            height: 186px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-image: url('./images/playbtn.png');
+            background-color: transparent;
+            border:none;
+            cursor: pointer;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="roulette-wrap">
+            <div class="roulette"></div>
+            <button class="roulette-btn"></button>
+        </div>
+    </div>
+
+    <script>
+        var items=[1,2,3,4,5,6]
+        $(".roulette-btn").on("click",function(){
+            if($(this).prop("disabled",true)){
+                roulette.init(items[1])
+            }
+            $(this).prop("disabled",true)
+        })
+
+        var roulette={
+            init:function(index){
+                roulette.rotation(index)
+            },
+            rotation:function(index){
+                var angel=360 * 5 + (360/items.length*index);
+                console.log(angel)
+                $(".roulette").rotate({
+                    angle:0,
+                    animateTo:angel,
+                    center:["50%","50%"],
+                    callback:function(){
+                        var n=$(this).getRotateAngle();
+                        roulette.complete();
+                    },
+                    duration:1000
+                })
+            },
+            complete:function(angle){
+                $(".roulette-btn").prop("disabled",false)
+            }
+        }
+    </script>
+</body>
+</html>

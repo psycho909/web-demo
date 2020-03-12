@@ -16,7 +16,7 @@
     <div id="app">
         <div>Clicked {{clicks}}</div>
         <div>Mouse {{mouse}}</div>
-        <super-button-template class="myClass" :id="id" blah="blah" @mouseover="countMouse()" @click="countClicks()"></super-button-template>
+        <super-button-template class="myClass" name="chen" :id="id" blah="blah" @mouseover="countMouse()" @click="countClicks()"></super-button-template>
     </div>
     <template id="super-button-template">
         <div>
@@ -26,14 +26,16 @@
     </template>
 
     <script>
+        // $attrs 可以獲取 未在props上定義的值
         Vue.component("super-button-template",{
             // inheritAttrs: 對於class 和 style沒有效果
             // inheritAttrs: 可以取消子組件繼承父組件在上面添加的屬性
             inheritAttrs:false,
             template:"#super-button-template",
+            props:["name"],
             computed:{
                 listeners(){
-                    console.log(this.$attrs)
+                    console.log("listeners: ",this.$attrs)
                     return this.$listeners
                 },
                 attrs(){
