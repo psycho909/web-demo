@@ -13,9 +13,11 @@
             margin: 0;
             box-sizing: border-box;
         }
-        .main{
+
+        .main {
             overflow: hidden;
         }
+
         p {
             color: #f55;
             background: #fcc;
@@ -29,11 +31,36 @@
 
 <body>
     <div class="main">
-        
+
         <p>Hehe</p>
     </div>
     <p>Haha</p>
+    <div id='grandparent'>
+        <div id='parent'>
+            <div id='start'>
+                Start
+            </div>
+        </div>
+    </div>
     <script>
+        const start = document.querySelector('#start');
+        const parent = document.querySelector('#parent');
+        const grandparent = document.querySelector('#grandparent');
+        start.addEventListener('click', () => {
+            alert('start clicked');
+        }, true)
+        parent.addEventListener('click', () => {
+            alert('parent clicked');
+        }, true)
+        grandparent.addEventListener('click', () => {
+            alert('grandparent clicked');
+        }, true)
+        document.addEventListener('click', () => {
+            alert('document clicked');
+        }, true)
+        window.addEventListener('click', () => {
+            alert('window clicked');
+        }, true)
     </script>
 </body>
 
