@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .cs-confirm-p:only-child{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 當該DOM沒有其他兄弟元素時觸發 only-child -->
+    <div class="cs-confirm">
+        <p class="cs-confirm-p">確定刪除該內容嗎?</p>
+    </div>
+    <div class="cs-confirm">
+        <p class="cs-confirm-p">確定刪除該內容嗎?</p>
+        <p class="cs-confirm"></p>
+    </div>
+</body>
+</html>

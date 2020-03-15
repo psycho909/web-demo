@@ -22,17 +22,17 @@
         </div>
     </div>
     <script>
-        new Vue({
+        var vm=new Vue({
             el: "#app",
             data: {
-                animal: "",
+                animal: "AA",
                 animals: ['<YOURAnimal>', 'cat', 'penguin', 'bird', 'rabbit']
             },
             methods: {
                 changeAnimal() {
                     // 當利用陣列索引直接設置值時
                     this.animals[0] = this.animal
-                    this.$forceUpdate();
+                    // this.$forceUpdate();
                 }
             }
         })

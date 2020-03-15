@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul{
+            list-style: none;
+        }
+        ul li{
+            position: relative;
+        }
+        ul li span{
+            position: relative;
+        }
+        ul li span:empty:before{
+            content:"暫無";
+        }
+    </style>
+</head>
+<body>
+    <!-- 當DOM裡面內容空時觸發 -->
+    <ul>
+        <li>姓名:<span>陳慶陽</span></li>
+        <li>數學:<span>60</span></li>
+        <li>英文:<span></span></li>
+        <li>國文:<span></span></li>
+    </ul>
+</body>
+</html>

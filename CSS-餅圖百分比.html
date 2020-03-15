@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .pie {
+            width: 100px;
+            height: 100px;
+            margin: 50px auto;
+            border-radius: 50%;
+            background: yellowgreen;
+            background-image: linear-gradient(to right, transparent 50%, #653 0);
+        }
+
+        .pie:before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0 / 50%;
+            background-color: inherit;
+            transform-origin: 0 50%;
+            animation: spin 3s linear,
+                bg 3s step-end;
+            /* animation-play-state: paused; */
+            /*  规定动画暂停或者播放   running 播放   paused 暂停*/
+            animation-delay: inherit;
+            /* 规定动画延迟时间从父元素继承 */
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(.5turn);
+            }
+        }
+
+        @keyframes bg {
+            50% {
+                background: #653;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pie"></div>
+
+    <div class="pie" ></div>
+
+</body>
+
+</html>

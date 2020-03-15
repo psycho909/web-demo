@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            height: 200px;
+            border: 1px solid black;
+            font-size: 0;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 200px;
+            background-color: red;
+            /* calc((100% - 寬度總和) / 間隔數量) */
+            margin-right: calc((100% - 450px) / 3);
+        }
+
+        .box:last-child {
+            margin-right: 0
+        }
+
+        .box-lg {
+            width: 200px;
+        }
+
+        .box-sm {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="box box-lg"></div>
+        <div class="box box-sm"></div>
+        <div class="box"></div>
+    </div>
+</body>
+
+</html>
