@@ -13,6 +13,8 @@
 <body>
     <div id="app">
         <div>
+            {{message}}
+            <input type="text" v-model="message" :value="message">
             <titled>
                 <template #header="slotProps">
                     <div>{{slotProps.user.firstname}}</div>
