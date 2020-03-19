@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="./js/scale.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="form-container">
+
+    </div>
+
+    <script type="text/javascript">
+        var tree = [
+            {
+                "id": 1,
+                "lv": "L1",
+                "pid": 0,
+                "isLastLevel": 0,
+                "des": "根",
+                "children": [
+                    {
+                        "id": 2,
+                        "lv": "L2",
+                        "pid": 1,
+                        "isLastLevel": 0,
+                        "des": "项目",
+                        "children": [
+                            {
+                                "id": 4,
+                                "lv": "L3",
+                                "pid": 2,
+                                "isLastLevel": 1,
+                                "des": "创建",
+                                "children": null
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "lv": "L2",
+                        "pid": 1,
+                        "des": "任务",
+                        "isLastLevel": 0,
+                        "children": [
+                            {
+                                "id": 5,
+                                "lv": "L3",
+                                "pid": 3,
+                                "isLastLevel": 1,
+                                "des": "创建",
+                                "children": null
+                            },
+                            {
+                                "id": 6,
+                                "lv": "L3",
+                                "pid": 3,
+                                "isLastLevel": 1,
+                                "des": "开始",
+                                "children": null
+                            },
+                            {
+                                "id": 7,
+                                "lv": "L3",
+                                "pid": 3,
+                                "isLastLevel": 1,
+                                "des": "结束",
+                                "children": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+        /* 参数
+        * array 树结构 查找所有叶子节点
+        */
+        function parseTreeJson(array) {
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                // 1.判断element.children是对象
+                if (element.children && typeof (element.children) == 'object') {
+                    parseTreeJson(element.children)
+                } else {
+                    // 判断是否为子节点
+                    if (element.isLastLevel === 1) {
+                        console.log(element.des + '的id:' + element.id)
+                        // 获得符合的 node
+                        nodes.push(element);
+                        // 获得符合的 nodeId
+                        nodeIds.push(element.id);
+                    }
+                }
+            }
+        }
+        /* 参数
+                * array 树结构
+                * nodeId 某个节点的id 从该节点开始查找其子节点中的所有叶子节点
+                */
+        function loopTreeJson(array, nodeId) {
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                if (element.id === nodeId) {
+                    // 判断element.children是对象
+                    if (element.children && typeof (element.children) == 'object') {
+                        // 查找叶子节点
+                        parseTreeJson(element.children)
+                    }
+                } else {
+                    // 判断element.children是对象
+                    if (element.children && typeof (element.children) == 'object') {
+                        // 继续遍历子节点查找当前nodeId
+                        loopTreeJson(element.children, nodeId)
+                    }
+                }
+            }
+        }
+        nodes = [];
+        nodeIds = [];
+        loopTreeJson(tree, 1);
+        console.log('点击根nodeId:1 找到的子节点nodeIds:' + nodeIds);
+    </script>
+
+</body>
+
+</html>

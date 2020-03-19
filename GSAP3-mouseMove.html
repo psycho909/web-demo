@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 17px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+
+        .list-outer {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+
+        .list-outer>ul:first-child {
+            margin-right: 5rem;
+        }
+
+        @media screen and (max-width: 50rem) {
+            .list-outer {
+                padding-top: 4rem;
+            }
+        }
+
+        ul {
+            list-style: none;
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .active {
+            font-weight: bold;
+        }
+
+        .bold {
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.05em;
+            font-size: 1rem;
+        }
+
+        svg {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+        }
+
+        .hover {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            margin: 0;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 0.05em;
+        }
+
+        .wrapper {
+            max-width: 1600px;
+            min-height: 100vh;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        @media screen and (min-width: 50rem) {
+            .split {
+                flex-direction: row;
+            }
+        }
+
+        #container {
+            perspective: 1.5rem;
+        }
+
+        #inner {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 2px 2px 50px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s;
+            display: flex;
+        }
+
+        #inner img {
+            mix-blend-mode: normal;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .turb-mask {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            left: -5%;
+            top: -5%;
+            opacity: 0.5;
+            pointer-events: none;
+            background-color: rgba(255, 0, 0, 0.65);
+            background-image: url(https://webdevtrick.com/wp-content/uploads/skynature.jpg);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+            z-index: 0;
+            -webkit-filter: url(#noise);
+            filter: url(#noise);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="container">
+            <div id="inner">
+                <div id="mask" class="turb-mask"></div>
+                <img id="image" src="https://webdevtrick.com/wp-content/uploads/skynature.jpg">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <script>
+        (function () {
+            // Init
+            var container = document.getElementById("container"),
+                inner = document.getElementById("inner");
+
+            // Mouse
+            var mouse = {
+                _x: 0,
+                _y: 0,
+                x: 0,
+                y: 0,
+                updatePosition: function (event) {
+                    var e = event || window.event;
+                    this.x = e.clientX - this._x;
+                    this.y = (e.clientY - this._y) * -1;
+                },
+                setOrigin: function (e) {
+                    this._x = e.offsetLeft + Math.floor(e.offsetWidth / 2);
+                    this._y = e.offsetTop + Math.floor(e.offsetHeight / 2);
+                },
+                show: function () {
+                    return "(" + this.x + ", " + this.y + ")";
+                }
+            };
+
+
+            mouse.setOrigin(container);
+
+            var counter = 0;
+            var updateRate = 10;
+            var isTimeToUpdate = function () {
+                return counter++ % updateRate === 0;
+            };
+
+            var onMouseEnterHandler = function (event) {
+                update(event);
+            };
+
+            var onMouseLeaveHandler = function () {
+                inner.style = "";
+            };
+
+            var onMouseMoveHandler = function (event) {
+                if (isTimeToUpdate()) {
+                    update(event);
+                }
+            };
+
+            var update = function (event) {
+                mouse.updatePosition(event);
+                updateTransformStyle(
+                    (mouse.y / inner.offsetHeight / 2).toFixed(2),
+                    (mouse.x / inner.offsetWidth / 2).toFixed(2));
+            };
+
+            var updateTransformStyle = function (x, y) {
+                var style = "rotateX(" + x + "deg) rotateY(" + y + "deg)";
+                inner.style.transform = style;
+            };
+
+            container.onmouseenter = onMouseEnterHandler;
+            container.onmouseleave = onMouseLeaveHandler;
+            container.onmousemove = onMouseMoveHandler;
+        })();
+    </script>
+</body>
+
+</html>

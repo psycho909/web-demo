@@ -18,7 +18,7 @@
             overflow: hidden;
         }
 
-        p {
+        .main p {
             color: #f55;
             background: #fcc;
             width: 200px;
@@ -26,10 +26,34 @@
             text-align: center;
             margin: 100px;
         }
+
+        .img-box {
+            width: 200px;
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
+    <div class="img-box">
+        <h1>Your title</h1>
+        <p>Introductory paragraph.</p>
+        <img src="images/lbj1.jpg" alt="" width="400" height="400">
+        <p>Lorem ipsum dolor sit amet, consectetur…</p>
+    </div>
+
     <div class="main">
         <div class="main-box">
             <p>Hehe</p>
@@ -66,14 +90,14 @@
 
         var withDuplicates = ["dog", "cat", "dog", "cow", "dog", "cat"]
 
-        function remove_duplicates(arr){
-            var obj={};
-            var ret_arr=[];
-            for(var i=0;i<arr.length;i++){
-                obj[arr[i]]=true
+        function remove_duplicates(arr) {
+            var obj = {};
+            var ret_arr = [];
+            for (var i = 0; i < arr.length; i++) {
+                obj[arr[i]] = true
             }
 
-            for(var key in obj){
+            for (var key in obj) {
                 ret_arr.push(key)
             }
 
