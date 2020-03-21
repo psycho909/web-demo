@@ -1,0 +1,116 @@
+$font-size:16px;
+$font-color:#000;
+$font-family:'Heiti TC', 'Microsoft JhengHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: $font-family;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(255, 255, 255);
+}
+a{
+	cursor: pointer;
+	display: inline-block;
+}
+.cur-p{
+	cursor: pointer
+}
+[hidden]{
+    display: none !important;
+}
+.d-hide,.d-hidden,.d-none{
+    display: none;
+}
+.v-hide{
+    visibility: hidden;
+}
+
+[data-open="true"]{
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0);
+    transition: all .6s;
+}
+[data-open="false"]{
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0);
+    transition: all .6s;
+}
+.clearfix{
+	overflow:hidden;
+	&::after{
+		content:"";
+		clear:both;
+		display:table;
+	}
+}
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    outline: none;
+    padding: 0;
+}
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn{
+    border:3px solid #231707;
+    background-image: linear-gradient(to bottom,#5D330A 0%,#211507 100%);
+    border-radius: 7px;
+    display: inline-block;
+    font-size: 20px;
+    color:#E6C69B;
+    position: relative;
+    box-shadow: inset 1px 1px 0 #BC9054,inset 1px -1px 0 #BC9054,inset -1px 1px 0 #BC9054,inset -1px -1px 0 #BC9054;
+    &:before{
+        content:"";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-left: 5px solid #BC9054;
+        border-top: 5px solid #BC9054;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+    &:after{
+        content:"";
+        position: absolute;
+        right: 4px;
+        bottom: 4px;
+        border-right: 5px solid #BC9054;
+        border-bottom: 5px solid #BC9054;
+        border-left: 5px solid transparent;
+        border-top: 5px solid transparent;
+    }
+    span{
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 14px 52px;
+        // border:2px solid #BC9054;
+        border-radius: 7px;
+        background-image: linear-gradient(to bottom,rgba(169,129,29,.2) 0%,rgba(169,129,29,0) 70%);
+        background-position: 0 0,1px 1px;
+        background-repeat: no-repeat;
+        text-shadow: 0px 3px 5px rgba(0,0,0,.75);
+        &:before{
+            content:"";
+            width: 332px;
+            height: 75px;
+            background-image: url('../images/pc-btn-l.png');
+            background-position: 0 0;
+            position: absolute;
+            top: -39px;
+            left: -108px;
+        }
+    }
+}
