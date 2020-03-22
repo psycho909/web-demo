@@ -1,3 +1,125 @@
 .part1{
+    width: 100%;
+    height: 940px;
+    background-image: url('../images/part1-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    &:before{
+        content:"";
+        width: 925px;
+        height: 823px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: url('../images/part1-bg-light.png');
+        background-repeat: no-repeat;
+    }
+    &-title{
+        width: 463px;
+        margin: 0 auto;
+        padding-top: 100px;
+        img{
+            width: 100%;
+            display: block;
+        }
+    }
+    &-content{
+        &__left{
+
+        }
+        &__right{
+
+        }
+        &__slogan{
+
+        }
+        &__role2{
+
+        }
+    }
+    &-phone{
+        &-box{
+
+        }
+        &-area{
+            &-group{
+
+            }
+            &__select{
+
+            }
+            &__style{
+
+            }
+        }
+        &-num{
+            &-group{
+
+            }
+            &__input{
+
+            }
+        }
+    }
     
+    &-email{
+
+    }
+    &-agree{
+        &-group{
+
+        }
+        &__label{
+
+        }
+        &__checkbox{
+
+        }
+        &__style{
+
+        }
+        &__text{
+
+        }
+    }
+    &-btn{
+        &-group{
+
+        }
+        &__submit{
+            &[diabled]{
+
+            }
+        }
+        &__search{
+
+        }
+    }
+    &-fb{
+        &-group{
+
+        }
+        &__icon{
+
+        }
+        &__text{
+
+        }
+    }
+}
+@media screen and (max-width:750px){
+	.part1{
+        height: 1624px;
+        background-image: url('../images/part1-m-bg.jpg');
+        &-title{
+            width: 463px;
+            margin: 0 auto;
+            padding-top: 100px;
+            img{
+                width: 100%;
+                display: block;
+            }
+        }
+	}
 }

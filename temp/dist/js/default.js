@@ -6,3 +6,17 @@
     hasActionBtn: true,
 }); */
 
+// 影片播放
+$("#myVideo").YTPlayer();
+
+// 第一屏隨高度縮放
+$(window).on('resize',function(){
+    var h=$(window).height();
+    var i = h/1080;
+    // $(".main-box").css({
+    //     "-ms-transform": "translate(-50%,-50%) scale(" + i + ")",
+    //     "-moz-transform": "translate(-50%,-50%) scale(" + i + ")",
+    //     "-webkit-transform": "translate(-50%,-50%) scale(" + i + ")",
+    //     transform: "translate(-50%,-50%) scale(" + i + ")"
+    // })
+}).resize()

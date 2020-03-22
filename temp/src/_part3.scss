@@ -1,3 +1,110 @@
-.part1{
-    
+.part3{
+    width: 100%;
+    height: 940px;
+    background-image: url('../images/part3-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    &-title{
+        width: 601px;
+        margin: 0 auto;
+        padding-top: 100px;
+        img{
+            width: 100%;
+            display: block;
+        }
+    }
+    &-content{
+        &__left{
+
+        }
+        &__right{
+
+        }
+    }
+    &-imgbox{
+
+    }
+    &-text{
+
+    }
+    &-btn{
+        &-group{
+            
+        }
+        &__pcicon{
+
+        }
+        &__download{
+
+        }
+    }
+    &-logos{
+
+    }
+    &-task{
+        &-box{
+
+        }
+        &__title{
+
+        }
+        &__content{
+            & > div{
+                span{
+
+                }
+            }
+        }
+        &--red{
+
+        }
+        &--switch{
+            
+        }
+        &--m{
+            &-hide{
+
+            }
+            &-show{
+
+            }
+        }
+    }
+    &-task2{
+        &-box{
+
+        }
+        &__title{
+            span{
+
+            }
+        }
+    }
+    &-btn{
+        &-group{
+
+        }
+        &__notice{
+
+        }
+        &__search{
+
+        }
+    }
+}
+@media screen and (max-width:750px){
+	.part3{
+        height: 3350px;
+        background-image: url('../images/part3-m-bg.jpg');
+        &-title{
+            width: 601px;
+            margin: 0 auto;
+        padding-top: 100px;
+            img{
+                width: 100%;
+                display: block;
+            }
+        }
+	}
 }

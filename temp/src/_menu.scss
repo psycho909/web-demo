@@ -1,0 +1,91 @@
+.menu{
+    &-wrap{
+        width: 360px;
+        height: 100vh;
+        background-color: #1a1919;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        display: none;
+    }
+    &-btn{
+        &-group{
+
+        }
+        &__open{
+            width: 80px;
+            height: 80px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-image: url('../images/menu-open.png');
+            background-color: #1a1919;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 44px 37px;
+            z-index: 998;
+            cursor: pointer;
+        }
+        &__close{
+            width: 42px;
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            img{
+                width: 100%;
+                display: block;
+            }
+        }
+        &__googleplay{
+
+        }
+        &__appstore{
+
+        }
+    }
+    &-logo{
+        width: 273px;
+        display: block;
+        margin: 97px auto 0;
+        img{
+            width: 100%;
+            display: block;
+        }
+    }
+    &-list{
+        list-style-type: none;
+        width: 100%;
+        height: calc(100vh - 276px);
+        overflow: auto;
+        li{
+            a{
+                border-top: 1px solid #4D4D4D;
+                border-bottom: 1px solid #000;
+                display: block;
+                text-decoration: none;
+                color:#fff;
+                font-size: 20px;
+                padding: 36px 0px 36px 72px;
+            }
+            &.menu-fb{
+                a{
+                    font-size: 0;
+                    background-image: url('../images/menu-fb.png');
+                    background-repeat: no-repeat;
+                    background-position: 72px center;
+                    border-bottom:none;
+                }
+            }
+            &.menu-btn-group{
+                display: none;
+            }
+        }
+    }
+
+}
+@media screen and (max-width:750px){
+    .menu{
+
+    }
+}

@@ -13,14 +13,65 @@
             margin: 0;
             box-sizing: border-box;
         }
+        body{
+            min-width: 1200px;
+        }
+        .app{
+            width: 100%;
+            background-color: gray;
+        }
+        .box{
+            max-width: 1200px;
+            width: 100%;
+            height: 600px;
+            background-color: yellow;
+            margin: 0 auto;
+            position: relative;
+        }
+        .role{
+            width: 300px;
+            height: 400px;
+            position: absolute;
+            left: -80px;
+            bottom: 0;
+            background-color: red;
+        }
         .btn{
-            
+            padding: 12px 20px;
+            background-color: green;
+            color:#fff;
+            border-radius: 12px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn[disabled]{
+            background-color: gray;
+        }
+        .btn2{
+            padding: 12px 20px;
+            background-color: green;
+            color:#fff;
+            border-radius: 12px;
+            display: inline-block;
+            border:none;
+        }
+        .btn2[disabled]{
+            background-color: gray;
+        }
+        .btn2::disabled{
+            background-color: gray;
         }
     </style>
 </head>
 
 <body>
-    <div class="btn"></div>
+    <div class="app">
+        <div class="box">
+            <a href="javascript:;" class="btn" disabled>按鈕</a>
+            <button class="btn2" disabled>按鈕2</button>
+            <div class="role"></div>
+        </div>
+    </div>
 
     <script type="text/javascript">
         var tree = [

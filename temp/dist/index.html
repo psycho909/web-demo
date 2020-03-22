@@ -24,13 +24,14 @@
 
     <title>「龍之谷：新世界」-事前預約網站</title>
     <!-- CSS -->
+    <link rel="stylesheet" href="https://pupunzi.com/mb.components/mb.YTPlayer/demo/style/jquery.mb.YTPlayer.min.css">
     <link rel="stylesheet" href="css/default.css">
 
     <!-- JS -->
     <!-- jQuery -->
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.3.1/jquery.mb.YTPlayer.min.js"></script>
     <!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
     <script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
     <!-- GTM -->
@@ -48,20 +49,228 @@
 
     <!-- 內容開始 -->
     <div id="app">
+        <div class="menu-btn__open"></div>
+        <div class="menu-wrap">
+            <a class="menu-btn__close" href="javascript:;">
+                <img src="images/menu-close.png" alt="">
+            </a>
+            <a class="menu-logo" href="javascript:;" target="_blank">
+                <img src="images/menu-logo.png" alt="">
+            </a>
+            <ul class="menu-list">
+                <li><a href="javascript:;" target="_blank">前往官方網站</a></li>
+                <li data-target="#part1"><a href="javascript:;">刪檔封測預先創</a></li>
+                <li data-target="#part4"><a href="javascript:;">中華電信合作活動</a></li>
+                <li class="menu-fb"><a href="javascript:;" target="_blank">前往FB粉絲團</a></li>
+                <li class="menu-btn-group">
+                    <a class="menu-btn__googleplay" href="javascript:;" target="_blank">google play</a>
+                    <a class="menu-btn__appstore" href="javascript:;" target="_blank">app store</a>
+                </li>
+            </ul>
+        </div>
         <div class="main">
-            
+            <div id="myPlayer"></div>
+            <div id="myVideo" class="player" data-property="{videoURL:'http://youtu.be/l_tHTmd5pgk',containment:'#myPlayer',showControls:false,autoPlay:true, mute:true, startAt:0, opacity:1}"></div>
+            <div class="main-box">
+                <a href="javascript:;" class="main-logo"></a>
+                <div class="main-brave">
+                    已召集<span class="main-brave__count">888888</span>勇士
+                </div>
+                <button type="button" class="main-btn__reg"></button>
+                <div class="main-slogan">雙平台預先註冊全面開放</div>
+                <div class="main-btn-group">
+                    <a href="javascript:;" class="main-btn__appstore" target="_blank"></a>
+                    <a href="javascript:;" class="main-btn__googleplay" target="_blank"></a>
+                </div>
+                <a href="javascript:;" class="main-btn__mouse"></a>
+            </div>
         </div>
-        <div class="part1">
-            
+
+        <!-- 事先預約 -->
+        <div id="part1" class="part1">
+            <div class="part-wrap">
+                <div class="part1-title">
+                    <img src="images/part1-title.png" alt="">
+                </div>
+                <div class="part1-content">
+                    <div class="part1-content__left">
+                        <img class="part1-content__slogan" src="images/part1-slogan.png" alt="">
+                        <img class="part1-content__role2" src="images/part1-role2.png" alt="">
+                    </div>
+                    <div class="part1-content__right">
+                        <div class="part1-phone-box">
+                            <div class="part1-phone-area-group">
+                                <select class="part1-phone-area__select">
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                </select>
+                                <div class="part1-phone-area__style"></div>
+                            </div>
+                            <div class="part1-phone-num-group">
+                                <input type="text" name="phone" class="part1-phone-num__input">
+                            </div>
+                        </div>
+                        <input class="part1-email" name="email" type="text">
+                        <div class="part1-agree-group">
+                            <label class="part1-agree__label" for="agree">
+                                <input id="agree" class="part1-agree__checkbox" type="checkbox" name="agree">
+                                <span class="part1-agree__style"></span>
+                                <span class="part1-agree__text">同意個資資料蒐集使用及接收獎勵</span>
+                            </label>
+                        </div>
+                        <div class="part1-btn-group">
+                            <a href="javascript:;" class="part1-btn__submit"></a>
+                            <a href="javascript:;" class="part1-btn__info"></a>
+                        </div>
+                        <div class="part1-fb-group">
+                            <img src="images/part1-fb-icon.png" class="part1-fb__icon">
+                            <span class="part1-fb__text">按讚官方粉絲團隨時關注最新遊戲動態</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="part2">
-            
+
+        <!-- 天選之人 -->
+        <div id="part2" class="part2">
+            <div class="part-wrap">
+                <div class="part2-title">
+                    <img src="images/part2-title.png" alt="">
+                </div>
+                <div class="part2-slogan-box">
+                    <img class="part2-slogan-1" src="images/part2-slogan1.png" alt="">
+                    <img class="part2-slogan-2" src="images/part2-slogan2.png" alt="">
+                </div>
+                <div class="part2-item-box1">
+                    <img src="images/part2-item01.png" alt="">
+                    <a href="javascript:;" class="part2-btn__iphone" target="_blanl"></a>
+                </div>
+                <div class="part2-item-box2">
+                    <img src="images/part2-item02.png" alt="">
+                    <a href="javascript:;" class="part2-btn__hourse" target="_blanl"></a>
+                </div>
+                <a href="javascript:;" class="part2-notice">注意事項說明</a>
+            </div>
         </div>
-        <div class="part3">
-            
+
+        <!-- 雙龍之力大放送 -->
+        <div id="part3" class="part3">
+            <div class="part-wrap">
+                <div class="part3-title">
+                    <img src="images/part3-title.png" alt="">
+                </div>
+                <div class="part3-content">
+                    <div class="part3-content__left">
+                        <div class="part3-imgbox"><img src="images/part3-imgbox.jpg" alt=""></div>
+                        <div class="part3-text">
+                            <span>歷久不衰的ARPG經典之作！</span>
+                            <span>立即體驗屠龍的爽快打擊感</span>
+                        </div>
+                        <div class="part3-btn-group">
+                            <img class="part3-btn__pcicon" src="images/part3-pc-icon.png" alt="">
+                            <a href="javascript:;" class="part3-btn__download"></a>
+                        </div>
+                    </div>
+                    <div class="part3-content__right">
+                        <div class="part3-logos"></div>
+                        <div class="part3-task-box">
+                            <div class="part3-task__title"></div>
+                            <div class="part3-task__content">
+                                <div>2020/4/15~上市前</div>
+                                <div><span>完成【龍之谷 : 新世界】</span><span>手遊事前預約，可獲得雙重獎勵。</span></div>
+                                <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
+                                <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：<span class="part3-task--m-hide">新手禮包</span></div>
+                                <div class="part3-task--red"><span class="part3-task--m-show">新手禮包</span>內容物 : 體力恢復藥水*10、一般復活書*2、坐騎抽獎卷*1</div>
+                            </div>
+                        </div>
+                        <div class="part3-task-box">
+                            <div class="part3-task__title"></div>
+                            <div class="part3-task__content">
+                                <div>2020/4/15~2020/6/30 23:59</div>
+                                <div>完成任務1，並於【新龍之谷】PC Online</div>
+                                <div>聯動活動完成第五階段任務箱</div>
+                                <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：</div>
+                                <div class="part3-task--red"><span>專屬稱號</span><span>〝乂穿越異世界的保龍一族乂〞</span></div>
+                            </div>
+                        </div>
+                        <div class="part3-task-box">
+                            <div class="part3-task__title"></div>
+                            <div class="part3-task__content">
+                                <div><span>於【龍之谷 : 新世界】手遊上市後</span><span>完成EP1主線劇情</span></div>
+                                <div class="part3-task--switch">(活動詳細時間上市後公布)</div>
+                                <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
+                                <div class="part3-task--red part3-task--m-hide"> *聯動活動任務箱內容物：優雅九尾坐騎、史詩執事女僕時裝</div>
+                                <div class="part3-task--red part3-task--m-hide">、土豪金武器、超狂紀念稱號等豪華支援禮包等</div>
+                            </div>
+                        </div>
+                        <div class="part3-task2-box">
+                            <div class="part3-task2__title"><span>【聯動活動任務箱】</span><span>內容物</span></div>
+                            <div class="part3-task2">
+                                <p>優雅九尾坐騎、史詩執</p>
+                                <p>事女僕時裝、土豪金武</p>
+                                <p>器、超狂紀念稱號等豪</p>
+                                <p>華支援禮包等</p>
+                            </div>
+                        </div>
+                        <div class="part3-btn-group">
+                            <a href="javascript:;" class="part3-btn__notice"></a>
+                            <a href="javascript:;" class="part3-btn__search"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="part4">
-            
+
+        <!-- 中華電信 -->
+        <div id="part4" class="part4">
+            <div class="part-wrap">
+                <div class="part4-title">
+                    <img src="images/part4-title.png" alt="">
+                </div>
+                <div class="part4-role-box">
+                    <div class="part4-role">
+                        <img src="images/part4-role.png" alt="">
+                    </div>
+                    <div class="part4-slogan">
+                        <img src="images/part4-slogan.png" alt="">
+                    </div>
+                    <a href="javascript:;" class="part4-btn__cht" target="_blank"></a>
+                </div>
+                <div class="part4-content">
+                    <div class="part4-content__title">
+                        <img src="images/part4-slogan2.png" alt="">
+                    </div>
+                    <div class="part4-goal-box">
+                        <div class="part4-goal__head">預約人數10萬</div>
+                        <div class="part4-goal__img">
+                            <img src="images/part4-goal1.jpg" alt="">
+                        </div>
+                        <div class="part4-goal__footer">Hami Video 七天免費x1萬名</div>
+                    </div>
+                    <div class="part4-goal-box">
+                        <div class="part4-goal__head">預約人數20萬</div>
+                        <div class="part4-goal__img">
+                            <img src="images/part4-goal2.jpg" alt="">
+                        </div>
+                        <div class="part4-goal__footer">Hami 書城閱讀包x1萬名 </div>
+                    </div>
+                    <div class="part4-goal-box">
+                        <div class="part4-goal__head">預約人數50萬</div>
+                        <div class="part4-goal__img">
+                            <img src="images/part4-goal3.jpg" alt="">
+                        </div>
+                        <div class="part4-goal__footer">Hami Point購物金 100點x500名(可抵電信費)</div>
+                    </div>
+                    <div class="part4-goal-box">
+                        <div class="part4-goal__head">預約人數80萬</div>
+                        <div class="part4-goal__img">
+                            <img src="images/part4-goal4.jpg" alt="">
+                        </div>
+                        <div class="part4-goal__footer">超狂資費方案438吃到飽x3名</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

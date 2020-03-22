@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap{
+            width: 100%;
+            height: 100vh;
+            background-color: yellow;
+        }
+
+        .box{
+            width: 300px;
+            height: 300px;
+            background-color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .part1{
+            width: 100%;
+            height: 600px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap">
+            <div class="box"></div>
+        </div>
+        <div class="part1"></div>
+    </div>
+    <script>
+        $(window).on('resize',function(){
+            var h=$(window).height();
+            var i = h/767;
+            $(".box").css({
+                "-ms-transform": "translate(-50%,-50%) scale(" + i + ")",
+                "-moz-transform": "translate(-50%,-50%) scale(" + i + ")",
+                "-webkit-transform": "translate(-50%,-50%) scale(" + i + ")",
+                transform: "translate(-50%,-50%) scale(" + i + ")"
+            })
+        }).resize()
+    </script>
+</body>
+
+</html>
