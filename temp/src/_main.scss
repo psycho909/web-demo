@@ -1,10 +1,11 @@
 .main{
     width: 100%;
-    height: 100vh;
+    height: 940px;
+    // height: 100vh;
     position: relative;
     #myPlayer{
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background-image: url('../images/main-bg.jpg');
         background-position: center center;
         background-size: cover;
@@ -16,36 +17,102 @@
     &-box{
         position: absolute;
         z-index: 1;
+        top: 17%;
+        left: 50%;
+        transform: translate(-50%,0);
     }
     &-logo{
-
+        width: 463px;
+        margin: 0 auto;
+        img{
+            display: block;
+            width: 100%;
+        }
     }
     &-brave{
+        color:#000;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 6px;
+        text-align: center;
+        margin-top: 24px;
+        text-shadow: 
+            2px 2px 0 #a6ceec, 
+            2px -2px 0 #a6ceec, 
+            -2px -2px 0 #a6ceec, 
+            -2px 2px 0 #a6ceec,
+            2px 1px 0 #a6ceec, 
+            2px -1px 0 #a6ceec, 
+            -2px -1px 0 #a6ceec, 
+            -2px 1px 0 #a6ceec,
+            2px 0px 0 #a6ceec,
+            1px 3px 0 #a6ceec, 
+            1px -3px 0 #a6ceec, 
+            -1px -3px 0 #a6ceec, 
+            -1px 3px 0 #a6ceec, 
+            1px 2px 0 #a6ceec, 
+            1px -2px 0 #a6ceec, 
+            -1px -2px 0 #a6ceec, 
+            -1px 2px 0 #a6ceec,
+            1px 1px 0 #a6ceec, 
+            1px -1px 0 #a6ceec, 
+            -1px -1px 0 #a6ceec, 
+            -1px 1px 0 #a6ceec,
+            1px 0px 0 #a6ceec;
         &__count{
-
+            font-size: 40px;
         }
     }
     &-btn{
         &-group{
-
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 14px;
         }
         &__reg{
+            width: 270px;
+            height: 69px;
+            margin-top: 26px;
             &[disabled]{
 
             }
         }
         &__appstore{
-
+            display: inline-block;
+            width: 205px;
+            margin-right: 20px;
+            img{
+                width: 100%;
+                display: block;
+            }
         }
         &__googleplay{
-            
+            display: inline-block;
+            width: 205px;
+            img{
+                width: 100%;
+                display: block;
+            }
         }
         &__mouse{
-
+            width: 41px;
+            height: 66px;
+            background-image: url('../images/scroll1-icon.png');
+            background-repeat: no-repeat;
+            position: relative;
+            margin: 0 auto;
+            display: block;
+            margin-top: 36px;
         }
     }
     &-slogan{
-
+        width: 475px;
+        height: 43px;
+        background-image: url('../images/main-slogan.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        font-size: 0;
+        margin-top: 36px;
     }
 }
 @media screen and (max-width:750px){

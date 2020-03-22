@@ -49,7 +49,9 @@
 
     <!-- 內容開始 -->
     <div id="app">
+        <!-- 選單按鈕 -->
         <div class="menu-btn__open"></div>
+        <!-- 選單 -->
         <div class="menu-wrap">
             <a class="menu-btn__close" href="javascript:;">
                 <img src="images/menu-close.png" alt="">
@@ -68,19 +70,27 @@
                 </li>
             </ul>
         </div>
+
+        <!-- 第一屏 -->
         <div class="main">
             <div id="myPlayer"></div>
-            <div id="myVideo" class="player" data-property="{videoURL:'http://youtu.be/l_tHTmd5pgk',containment:'#myPlayer',showControls:false,autoPlay:true, mute:true, startAt:0, opacity:1}"></div>
+            <!-- <div id="myVideo" class="player" data-property="{videoURL:'http://youtu.be/l_tHTmd5pgk',containment:'#myPlayer',showControls:false,autoPlay:true, mute:true, startAt:0, opacity:1}"></div> -->
             <div class="main-box">
-                <a href="javascript:;" class="main-logo"></a>
+                <a href="javascript:;" class="main-logo">
+                    <img src="images/main-logo.png" alt="">
+                </a>
                 <div class="main-brave">
-                    已召集<span class="main-brave__count">888888</span>勇士
+                    已召集<span class="main-brave__count">888888</span>位勇士
                 </div>
-                <button type="button" class="main-btn__reg"></button>
+                <button type="button" class="main-btn__reg btn"></button>
                 <div class="main-slogan">雙平台預先註冊全面開放</div>
                 <div class="main-btn-group">
-                    <a href="javascript:;" class="main-btn__appstore" target="_blank"></a>
-                    <a href="javascript:;" class="main-btn__googleplay" target="_blank"></a>
+                    <a href="javascript:;" class="main-btn__appstore" target="_blank">
+                        <img src="images/appstore-btn.png" alt="">
+                    </a>
+                    <a href="javascript:;" class="main-btn__googleplay" target="_blank">
+                        <img src="images/googleplay-btn.png" alt="">
+                    </a>
                 </div>
                 <a href="javascript:;" class="main-btn__mouse"></a>
             </div>
