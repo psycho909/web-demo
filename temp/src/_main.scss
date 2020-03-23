@@ -67,14 +67,45 @@
         &-group{
             margin: 0 auto;
             text-align: center;
-            margin-top: 14px;
+            margin-top: 9px;
         }
         &__reg{
             width: 270px;
             height: 69px;
             margin-top: 26px;
+            display: block;
+            margin: 0 auto;
+            font-size: 31px;
+            text-shadow: 0px 3px 6px rgba(0,0,0,.65);
+            margin-top: 24px;
+            span{
+                &:before{
+                    content:"立即事先預約";
+                    width: 100%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                }
+                &:after{
+                    content:"";
+                    width: 270px;
+                    height: 37px;
+                    position: absolute;
+                    top: -18px;
+                    left: 0;
+                    background-image: url('../images/main-btn-l1.png');
+                }
+            }
             &[disabled]{
-
+                span{
+                    &:before{
+                        content:"事前預約已結束";
+                    }
+                    &:after{
+                        background-image: url('../images/main-btn-l2.png');
+                    }
+                }
             }
         }
         &__appstore{
@@ -103,6 +134,15 @@
             margin: 0 auto;
             display: block;
             margin-top: 36px;
+            span{
+                width: 32px;
+                height: 20px;
+                background-image: url('../images/scroll2-icon.png');
+                position: absolute;
+                bottom: -31px;
+                left: 50%;
+                transform: translate(-50%,0);
+            }
         }
     }
     &-slogan{
@@ -112,12 +152,90 @@
         background-repeat: no-repeat;
         background-size: 100%;
         font-size: 0;
+        margin: 0 auto;
         margin-top: 36px;
+        visibility: hidden;
     }
 }
 @media screen and (max-width:750px){
     .main{
         height: 1624px;
         background-image: url('../images/main-m-bg.jpg');
+        #myPlayer{
+            display: none;
+        }
+        #myVideo{
+            display: none;
+        }
+        &-box{
+            height: 100%;
+            top: 0;
+        }
+        &-logo{
+            width: 678px;
+            margin-top: 136px;
+        }
+        &-brave{
+            letter-spacing: 10px;
+            margin-top: 483px;
+            font-size: 29px;
+            text-shadow: 
+            2px 2px 0 #C4C4C4, 
+            2px -2px 0 #C4C4C4, 
+            -2px -2px 0 #C4C4C4, 
+            -2px 2px 0 #C4C4C4,
+            2px 1px 0 #C4C4C4, 
+            2px -1px 0 #C4C4C4, 
+            -2px -1px 0 #C4C4C4, 
+            -2px 1px 0 #C4C4C4,
+            2px 0px 0 #C4C4C4,
+            1px 3px 0 #C4C4C4, 
+            1px -3px 0 #C4C4C4, 
+            -1px -3px 0 #C4C4C4, 
+            -1px 3px 0 #C4C4C4, 
+            1px 2px 0 #C4C4C4, 
+            1px -2px 0 #C4C4C4, 
+            -1px -2px 0 #C4C4C4, 
+            -1px 2px 0 #C4C4C4,
+            1px 1px 0 #C4C4C4, 
+            1px -1px 0 #C4C4C4, 
+            -1px -1px 0 #C4C4C4, 
+            -1px 1px 0 #C4C4C4,
+            1px 0px 0 #C4C4C4;
+            &__count{
+                font-size: 58px;
+            }
+        }
+        &-slogan{
+            width: 529px;
+            height: 55px;
+            background-image: url('../images/main-m-slogan.png');
+            margin-top: 18px;
+        }
+        &-btn{
+            &-group{
+                margin-top: 25px;
+            }
+            &__reg{
+                width: 349px;
+                height: 99px;
+                font-size: 45px;
+                margin-top: 21px;
+            }
+            &__appstore{
+                display: block;
+                width: 367px;
+                margin: 0 auto;
+                margin-bottom: 9px;
+            }
+            &__googleplay{
+                display: block;
+                width: 367px;
+                margin: 0 auto;
+            }
+            &__mouse{
+                display: none;
+            }
+        }
     }
 }

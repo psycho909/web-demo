@@ -24,28 +24,29 @@
 
     <title>「龍之谷：新世界」-事前預約網站</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="https://pupunzi.com/mb.components/mb.YTPlayer/demo/style/jquery.mb.YTPlayer.min.css">
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/YTPlayer/jquery.mb.YTPlayer.min.css">
     <link rel="stylesheet" href="css/default.css">
 
     <!-- JS -->
     <!-- jQuery -->
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.3.1/jquery.mb.YTPlayer.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/YTPlayer/jquery.mb.YTPlayer.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
     <!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
-    <script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+    <!-- <script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script> -->
     <!-- GTM -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5JLF5B7');</script>
+    })(window,document,'script','dataLayer','GTM-5JLF5B7');</script> -->
 </head>
 
 <body>
 	<!-- GTM -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JLF5B7"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JLF5B7"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
     <!-- 內容開始 -->
     <div id="app">
@@ -82,7 +83,10 @@
                 <div class="main-brave">
                     已召集<span class="main-brave__count">888888</span>位勇士
                 </div>
-                <button type="button" class="main-btn__reg btn"></button>
+                <button type="button" class="main-btn__reg btn">
+                    <span></span>
+                </button>
+                
                 <div class="main-slogan">雙平台預先註冊全面開放</div>
                 <div class="main-btn-group">
                     <a href="javascript:;" class="main-btn__appstore" target="_blank">
@@ -92,7 +96,9 @@
                         <img src="images/googleplay-btn.png" alt="">
                     </a>
                 </div>
-                <a href="javascript:;" class="main-btn__mouse"></a>
+                <a href="javascript:;" class="main-btn__mouse">
+                    <span></span>
+                </a>
             </div>
         </div>
 
@@ -104,24 +110,28 @@
                 </div>
                 <div class="part1-content">
                     <div class="part1-content__left">
-                        <img class="part1-content__slogan" src="images/part1-slogan.png" alt="">
+                        <div class="part1-content__slogan">
+                            <span>事前預約就送</span>
+                            <span>鴨霸好吃包</span>
+                            <span>(高級)</span>
+                        </div>
                         <img class="part1-content__role2" src="images/part1-role2.png" alt="">
                     </div>
                     <div class="part1-content__right">
                         <div class="part1-phone-box">
                             <div class="part1-phone-area-group">
                                 <select class="part1-phone-area__select">
-                                    <option value=""></option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="">台灣+886</option>
+                                    <option value="">香港+852</option>
+                                    <option value="">澳門+853</option>
                                 </select>
-                                <div class="part1-phone-area__style"></div>
+                                <div class="part1-phone-area__style"><p>台灣+886</p></div>
                             </div>
                             <div class="part1-phone-num-group">
-                                <input type="text" name="phone" class="part1-phone-num__input">
+                                <input type="text" name="phone" class="part1-phone-num__input ie-place" placeholder="0919000000">
                             </div>
                         </div>
-                        <input class="part1-email" name="email" type="text">
+                        <input class="part1-email ie-place" name="email" type="text" placeholder="xxxx@yahoo.con.tw">
                         <div class="part1-agree-group">
                             <label class="part1-agree__label" for="agree">
                                 <input id="agree" class="part1-agree__checkbox" type="checkbox" name="agree">
@@ -130,15 +140,25 @@
                             </label>
                         </div>
                         <div class="part1-btn-group">
-                            <a href="javascript:;" class="part1-btn__submit"></a>
-                            <a href="javascript:;" class="part1-btn__info"></a>
+                            <a href="javascript:;" class="part1-btn__submit btn">確認送出</a>
+                            <a href="javascript:;" class="part1-btn__info btn">獎勵查詢說明</a>
                         </div>
-                        <div class="part1-fb-group">
+                        <a class="part1-fb-group" href="javascript:;" target="_blank">
                             <img src="images/part1-fb-icon.png" class="part1-fb__icon">
                             <span class="part1-fb__text">按讚官方粉絲團隨時關注最新遊戲動態</span>
-                        </div>
+                        </a>
                     </div>
                 </div>
+            </div>
+
+            <div class="dot-wrap">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
         </div>
 
@@ -149,16 +169,28 @@
                     <img src="images/part2-title.png" alt="">
                 </div>
                 <div class="part2-slogan-box">
-                    <img class="part2-slogan-1" src="images/part2-slogan1.png" alt="">
-                    <img class="part2-slogan-2" src="images/part2-slogan2.png" alt="">
+                    <div class="part2-slogan-1">
+                        完成事前預約到
+                        <img src="images/part2-bf.png" alt="">
+                    </div>
+                    <div class="part2-slogan-2">
+                        <span>馬上抽iPhone、實體獎勵</span>
+                        <span>遊戲上市領永久坐騎</span>
+                    </div>
                 </div>
-                <div class="part2-item-box1">
-                    <img src="images/part2-item01.png" alt="">
-                    <a href="javascript:;" class="part2-btn__iphone" target="_blanl"></a>
-                </div>
-                <div class="part2-item-box2">
-                    <img src="images/part2-item02.png" alt="">
-                    <a href="javascript:;" class="part2-btn__hourse" target="_blanl"></a>
+                <div class="part2-item-wrap">
+                    <div class="part2-item-box1">
+                        <img src="images/part2-item01.png" alt="">
+                        <a href="javascript:;" class="part2-btn__iphone btn" target="_blanl">
+                            <span>前往抽iPhone11</span>
+                        </a>
+                    </div>
+                    <div class="part2-item-box2">
+                        <img src="images/part2-item02.png" alt="">
+                        <a href="javascript:;" class="part2-btn__hourse btn" target="_blanl">
+                            <span>歡樂上市領寶馬</span>
+                        </a>
+                    </div>
                 </div>
                 <a href="javascript:;" class="part2-notice">注意事項說明</a>
             </div>
@@ -171,61 +203,75 @@
                     <img src="images/part3-title.png" alt="">
                 </div>
                 <div class="part3-content">
+                    <div class="part3-logos"></div>
                     <div class="part3-content__left">
                         <div class="part3-imgbox"><img src="images/part3-imgbox.jpg" alt=""></div>
                         <div class="part3-text">
-                            <span>歷久不衰的ARPG經典之作！</span>
-                            <span>立即體驗屠龍的爽快打擊感</span>
+                            <span class="m-hide">歷久不衰的ARPG經典之作！</span>
+                            <span class="m-hide">立即體驗屠龍的爽快打擊感</span>
+                            <span class="m-show">【新龍之谷】PC Online</span>
+                            <span class="m-show">歷久不衰的ARPG經典之作</span>
                         </div>
                         <div class="part3-btn-group">
                             <img class="part3-btn__pcicon" src="images/part3-pc-icon.png" alt="">
-                            <a href="javascript:;" class="part3-btn__download"></a>
+                            <a href="javascript:;" class="part3-btn__download btn">
+                                <span>遊戲下載</span>
+                            </a>
+                            <div class="part3-btn__text">
+                                <span>請透過手機或網頁瀏覽器</span>
+                                <span>進行登錄綁定與獎勵查詢</span>
+                            </div>
                         </div>
                     </div>
                     <div class="part3-content__right">
-                        <div class="part3-logos"></div>
-                        <div class="part3-task-box">
-                            <div class="part3-task__title"></div>
-                            <div class="part3-task__content">
-                                <div>2020/4/15~上市前</div>
-                                <div><span>完成【龍之谷 : 新世界】</span><span>手遊事前預約，可獲得雙重獎勵。</span></div>
-                                <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
-                                <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：<span class="part3-task--m-hide">新手禮包</span></div>
-                                <div class="part3-task--red"><span class="part3-task--m-show">新手禮包</span>內容物 : 體力恢復藥水*10、一般復活書*2、坐騎抽獎卷*1</div>
+                        <div class="part3-task-wrap">
+                            <div class="part3-task-box">
+                                <div class="part3-task__title"></div>
+                                <div class="part3-task__content">
+                                    <p>2020/4/15~上市前</p>
+                                    <p><span>完成【龍之谷 : 新世界】</span><span>手遊事前預約，可獲得雙重獎勵。</span></p>
+                                    <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
+                                    <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：<span class="m-hide">新手禮包</span></div>
+                                    <div class="part3-task--red"><span class="m-show">新手禮包</span>內容物 : 體力恢復藥水*10、一般復活書*2、坐騎抽獎卷*1</div>
+                                </div>
+                            </div>
+                            <div class="part3-task-box">
+                                <div class="part3-task__title"></div>
+                                <div class="part3-task__content">
+                                    <p>2020/4/15~2020/6/30 23:59</p>
+                                    <p>完成任務1，並於【新龍之谷】<span class="m-hide">PC Online</span></p>
+                                    <p><span class="m-show">PC Online</span>聯動活動完成第五階段任務箱</p>
+                                    <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：</div>
+                                    <div class="part3-task--red"><span>專屬稱號</span><span>〝乂穿越異世界的保龍一族乂〞</span></div>
+                                </div>
+                            </div>
+                            <div class="part3-task-box">
+                                <div class="part3-task__title"></div>
+                                <div class="part3-task__content">
+                                    <p><span>於【龍之谷 : 新世界】手遊上市後</span><span>完成EP1主線劇情</span></p>
+                                    <p class="m-switch">(活動詳細時間上市後公布)</p>
+                                    <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
+                                    <div class="part3-task--red m-hide"> *聯動活動任務箱內容物：優雅九尾坐騎、史詩執事女僕時裝</div>
+                                    <div class="part3-task--red m-hide">、土豪金武器、超狂紀念稱號等豪華支援禮包等</div>
+                                </div>
+                            </div>
+                            <div class="part3-task2-box">
+                                <div class="part3-task2__title"><span>【聯動活動任務箱】</span><span>內容物</span></div>
+                                <div class="part3-task2__content">
+                                    <p>優雅九尾坐騎、史詩執</p>
+                                    <p>事女僕時裝、土豪金武</p>
+                                    <p>器、超狂紀念稱號等豪</p>
+                                    <p>華支援禮包等</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="part3-task-box">
-                            <div class="part3-task__title"></div>
-                            <div class="part3-task__content">
-                                <div>2020/4/15~2020/6/30 23:59</div>
-                                <div>完成任務1，並於【新龍之谷】PC Online</div>
-                                <div>聯動活動完成第五階段任務箱</div>
-                                <div class="part3-task--red">【龍之谷 : 新世界】手遊獎勵：</div>
-                                <div class="part3-task--red"><span>專屬稱號</span><span>〝乂穿越異世界的保龍一族乂〞</span></div>
-                            </div>
-                        </div>
-                        <div class="part3-task-box">
-                            <div class="part3-task__title"></div>
-                            <div class="part3-task__content">
-                                <div><span>於【龍之谷 : 新世界】手遊上市後</span><span>完成EP1主線劇情</span></div>
-                                <div class="part3-task--switch">(活動詳細時間上市後公布)</div>
-                                <div class="part3-task--red"><span>【新龍之谷】PC Online獎勵：</span><span>聯動活動任務箱</span></div>
-                                <div class="part3-task--red part3-task--m-hide"> *聯動活動任務箱內容物：優雅九尾坐騎、史詩執事女僕時裝</div>
-                                <div class="part3-task--red part3-task--m-hide">、土豪金武器、超狂紀念稱號等豪華支援禮包等</div>
-                            </div>
-                        </div>
-                        <div class="part3-task2-box">
-                            <div class="part3-task2__title"><span>【聯動活動任務箱】</span><span>內容物</span></div>
-                            <div class="part3-task2">
-                                <p>優雅九尾坐騎、史詩執</p>
-                                <p>事女僕時裝、土豪金武</p>
-                                <p>器、超狂紀念稱號等豪</p>
-                                <p>華支援禮包等</p>
-                            </div>
-                        </div>
-                        <div class="part3-btn-group">
-                            <a href="javascript:;" class="part3-btn__notice"></a>
-                            <a href="javascript:;" class="part3-btn__search"></a>
+                        <div class="part3-btn-group2">
+                            <a href="javascript:;" class="part3-btn__notice btn">
+                                <span>注意事項</span>
+                            </a>
+                            <a href="javascript:;" class="part3-btn__search btn">
+                                <span>登錄/獎勵查詢</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -234,60 +280,83 @@
 
         <!-- 中華電信 -->
         <div id="part4" class="part4">
-            <div class="part-wrap">
+            <div class="part-wrap clear">
                 <div class="part4-title">
                     <img src="images/part4-title.png" alt="">
                 </div>
-                <div class="part4-role-box">
-                    <div class="part4-role">
-                        <img src="images/part4-role.png" alt="">
-                    </div>
-                    <div class="part4-slogan">
-                        <img src="images/part4-slogan.png" alt="">
-                    </div>
-                    <a href="javascript:;" class="part4-btn__cht" target="_blank"></a>
+                <div class="part4-role">
+                    <img src="images/part4-role.png" alt="">
+                </div>
+                <a href="javascript:;" class="part4-btn__cht btn" target="_blank">
+                    <span>
+                        <b>立即前往中華電信數位門市</b>
+                        <b>更多好康虛寶等你拿</b>
+                    </span>
+                </a>
+                <div class="part4-btn__cht-m">
+                    <span>請至中華電信數位門市</span>
+                    <span>查看更多虛寶好康</span>
                 </div>
                 <div class="part4-content">
-                    <div class="part4-content__title">
-                        <img src="images/part4-slogan2.png" alt="">
-                    </div>
-                    <div class="part4-goal-box">
-                        <div class="part4-goal__head">預約人數10萬</div>
-                        <div class="part4-goal__img">
-                            <img src="images/part4-goal1.jpg" alt="">
+                    <div class="part4-content__title">光之禮包達成盛宴</div>
+                    <div class="part4-goal-wrap">
+                        <div class="part4-goal">
+                            <div class="part4-goal-card">
+                                <div class="part4-goal__head">預約人數10萬</div>
+                                <div class="part4-goal__img"></div>
+                                <div class="part4-goal__footer"><div>Hami Video 七天免費x1萬名</div></div>
+                            </div>
                         </div>
-                        <div class="part4-goal__footer">Hami Video 七天免費x1萬名</div>
-                    </div>
-                    <div class="part4-goal-box">
-                        <div class="part4-goal__head">預約人數20萬</div>
-                        <div class="part4-goal__img">
-                            <img src="images/part4-goal2.jpg" alt="">
+                        <div class="part4-goal">
+                            <div class="part4-goal-card">
+                                <div class="part4-goal__head">預約人數20萬</div>
+                                <div class="part4-goal__img"></div>
+                                <div class="part4-goal__footer"><div>Hami 書城閱讀包x1萬名</div></div>
+                            </div>
                         </div>
-                        <div class="part4-goal__footer">Hami 書城閱讀包x1萬名 </div>
-                    </div>
-                    <div class="part4-goal-box">
-                        <div class="part4-goal__head">預約人數50萬</div>
-                        <div class="part4-goal__img">
-                            <img src="images/part4-goal3.jpg" alt="">
+                        <div class="part4-goal">
+                            <div class="part4-goal-card">
+                                <div class="part4-goal__head">預約人數50萬</div>
+                                <div class="part4-goal__img"></div>
+                                <div class="part4-goal__footer">
+                                    <div>
+                                        <span>Hami Point購物金 100點<span class="m-hide">x500名</span></span>
+                                        <span><span class="m-show">x500名</span>(可抵電信費)</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="part4-goal__footer">Hami Point購物金 100點x500名(可抵電信費)</div>
-                    </div>
-                    <div class="part4-goal-box">
-                        <div class="part4-goal__head">預約人數80萬</div>
-                        <div class="part4-goal__img">
-                            <img src="images/part4-goal4.jpg" alt="">
+                        <div class="part4-goal">
+                            <div class="part4-goal-card">
+                                <div class="part4-goal__head">預約人數80萬</div>
+                                <div class="part4-goal__img"></div>
+                                <div class="part4-goal__footer"><div>超狂資費方案438吃到飽x3名</div></div>
+                            </div>
                         </div>
-                        <div class="part4-goal__footer">超狂資費方案438吃到飽x3名</div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="top">
+            <img src="images/btn_top.png" alt="">
         </div>
     </div>
 
     <!-- footer -->
     <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer"
         prod="龍之谷新世界" theme="dark"></script>
+    <script src="js/ieplacehoder.js"></script>
+    <script src="js/select.js"></script>
     <script src="js/default.js"></script>
+    <script>
+        selectStyle.init(".part1-phone-area__select",".part1-phone-area__style")
+    </script>
+    <!--[if IE]>
+    <script>
+        add_placeholder("ie-place");
+    </script>
+    <![endif]-->
 </body>
 
 </html>

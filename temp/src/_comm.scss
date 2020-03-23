@@ -5,20 +5,32 @@ body{
 #app{
 	width: 100%;
 }
-.btn{
-	
-}
 .part{
 	&-wrap{
 		max-width: 1200px;
 		width: 100%;
+		height: 100%;
 		margin: 0 auto;
 		position: relative;
 		z-index: 1;
 	}
 }
+#top{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
+	z-index: 2;
+	display: none;
+}
 
 @media screen and (max-width:750px){
+	body {
+		min-width: 750px;
+	}
+	#app{
+		overflow: hidden;
+	}
 	.part{
 		&-wrap{
 	

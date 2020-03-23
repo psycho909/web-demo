@@ -5,7 +5,6 @@
         background-color: #1a1919;
         position: fixed;
         top: 0;
-        left: 0;
         z-index: 999;
         display: none;
     }
@@ -86,6 +85,69 @@
 }
 @media screen and (max-width:750px){
     .menu{
-
+        &-btn{
+            &__open{
+                width: 89px;
+                height: 79px;
+                background-color: transparent;
+                left: calc(100% - 89px);
+                background-size: 59px 49px;
+            }
+            &__googleplay{
+                width: 358px;
+                height: 117px;
+                font-size: 0 !important;
+                background-image: url('../images/googleplay-btn.png');
+                background-repeat: no-repeat;
+                background-size: 100%;
+                margin: 0 auto;
+                margin-bottom: 12px;
+            }
+            &__appstore{
+                width: 358px;
+                height: 117px;
+                font-size: 0 !important;
+                background-image: url('../images/appstore-btn.png');
+                background-repeat: no-repeat;
+                background-size: 100%;
+                margin: 0 auto;
+            }
+        }
+        &-logo{
+            width: 383px;
+            margin: 0 auto;
+            padding: 34px 0 40px;
+        }
+        &-wrap{
+            width: 650px;
+            background-image: url('../images/menu-light.png');
+            background-repeat: no-repeat;
+        }
+        &-list{
+            height: calc(100vh - 324px);
+            li{
+                a{
+                    font-size: 32px;
+                    padding: 43px 0px 43px 123px;
+                }
+                &.menu-fb{
+                    a{
+                        background-image: none;
+                        font-size: 32px;
+                        border-bottom: 1px solid #000;
+                    }
+                }
+                &.menu-btn-group{
+                    display: block;
+                    padding-top: 61px;
+                    border-top: 1px solid #4D4D4D;
+                    a{
+                        border-top: none;
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+        
     }
 }
