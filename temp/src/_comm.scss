@@ -23,13 +23,48 @@ body{
 	z-index: 2;
 	display: none;
 }
-
+.watermark{
+	position: fixed;
+	top: 10%;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	z-index: 999;
+	&.beta{
+		width: 332px;
+		height: 297px;
+		background-image: url('../images/fixed-beta.png');
+		right: 158px;
+	}
+	&.cht{
+		width: 340px;
+		height: 297px;
+		background-image: url('../images/fixed-cht.png');
+		right: 150px;
+	}
+	&.happydone{
+		width: 300px;
+		height: 290px;
+		background-image: url('../images/fixed-happydone.png');
+		top: 52px;
+		right: 158px;
+	}
+	&.iphone{
+		width: 294px;
+		height: 308px;
+		background-image: url('../images/fixed-iphone.png');
+		right: 158px;
+		top: 34px;
+	}
+}
 @media screen and (max-width:750px){
 	body {
 		min-width: 750px;
 	}
 	#app{
 		overflow: hidden;
+	}
+	.watermark{
+		display: none;
 	}
 	.part{
 		&-wrap{

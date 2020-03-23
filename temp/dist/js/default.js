@@ -5,95 +5,95 @@
 $("#myVideo").YTPlayer();
 
 $(function(){
-    resizePage()
-    // part1Anim()
+    if(!isMobile.any){
+        animDot()
+        animLight()
+        resizePage()
+    }
 })
 // 首頁隨高度縮放
 function resizePage(){
     var h=$(window).height();
-    var i = h/1080;
+    var i = h/940;
     $(".main-box").css({
         "-ms-transform": "translate(-50%,0%) scale(" + i + ")",
         "-moz-transform": "translate(-50%,0%) scale(" + i + ")",
-        "-webkit-transform": "translate(-50%,ㄢ%) scale(" + i + ")",
-        transform: "translate(-50%,0%) scale(" + i + ")"
+        "-webkit-transform": "translate(-50%,0%) scale(" + i + ")",
+        transform: "translate(-50%,0%) scale(" + i + ")",
+        "transform-origin":"center 0"
     })
 }
 $(window).on('resize',function(){
     resizePage()
 })
 
-// 事前預約頁動畫
-function part1Anim(){
-    var falling = true;
-
-    TweenLite.set("#part1", { perspective: 600 })
-    // TweenLite.set("img", { xPercent: "-50%", yPercent: "-50%" })
-
-    var total = 8;
-    var container = document.getElementById("part1"), w = container.clientWidth, h = container.clientHeight;
-
-    for (i = 0; i < total; i++) {
-        var Div = document.createElement('div');
-        TweenLite.set(Div, { attr: { class: 'dot' }, x: R(0, w), y: R(0, -150), z: R(-200, 200) });
-        container.appendChild(Div);
-        animm(Div);
-    }
-
-    function animm(elm) {
-        TweenMax.to(elm, R(6, 15), { y: h + 100, ease: Linear.easeNone, delay: -15 });
-        TweenMax.to(elm, R(4, 8), { x: '-=150', rotationZ: R(0, 180), yoyo: true, ease: Sine.easeInOut });
-        TweenMax.to(elm, R(2, 8), { rotationX: R(0, 360), rotationY: R(0, 360), yoyo: true, ease: Sine.easeInOut, delay: -5 });
-    };
-
-    function R(min, max) { return min + Math.random() * (max - min) };
+function animLight(){
+    var tl = new TimelineMax({repeat:-1});
+    tl.to(".anim-light",8,{ scale:1, ease: Linear.easeInOut }).to('.anim-light',1,{ autoAlpha:0,delay:2 })
 }
 
+function animDot(){
+    var t1 = new TimelineMax({repeat:-1,ease: Linear.easeInOut});
+    t1.to(".dot1",1,{autoAlpha:1}).to(".dot1",8,{ x:'-=300',y:300 }).to(".dot1",1,{autoAlpha:0})
+
+    var t2 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:2});
+    t2.to(".dot2",1,{autoAlpha:1}).to(".dot2",10,{ x:'+=600',y:400 }).to(".dot2",1,{autoAlpha:0})
+
+    var t3 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:1});
+    t3.to(".dot3",1,{autoAlpha:1}).to(".dot3",12,{ x:'-=150',y:500 }).to(".dot3",1,{autoAlpha:0})
+
+    var t4 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:3});
+    t4.to(".dot4",1,{autoAlpha:1}).to(".dot4",12,{ x:'-=400',y:600 }).to(".dot4",1,{autoAlpha:0})
+
+    var t5 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:2});
+    t5.to(".dot5",1,{autoAlpha:1}).to(".dot5",12,{ x:'-=850',y:300 }).to(".dot5",1,{autoAlpha:0})
+
+    var t6 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:1});
+    t6.to(".dot6",1,{autoAlpha:1}).to(".dot6",12,{ x:'+=350',y:300 }).to(".dot6",1,{autoAlpha:0})
+
+    var t7 = new TimelineMax({repeat:-1,ease: Linear.easeInOut,repeatDelay:3});
+    t7.to(".dot7",1,{autoAlpha:1}).to(".dot7",10,{ x:'+=900',y:-200 }).to(".dot7",1,{autoAlpha:0})
+}
 
 // 判斷是否手機版本設置 menu 的初始位置
 if(isMobile.any){
-    TweenMax.set(".menu-wrap", {
-        right: 0,
-        x:"100%"
-    });
+    TweenMax.set(".menu-wrap", { right: 0, x:"100%" });
 }else{
-    TweenMax.set(".menu-wrap", {
-        left: 0,
-        x:"-100%"
-    });
-
-    TweenMax.to(".main-btn__mouse span",.4,{
-        y:4,
-        yoyo:true,
-        repeat:-1
-    })
+    TweenMax.set(".menu-wrap", { left: 0, x:"-100%" });
+    TweenMax.to(".main-btn__mouse span",.4,{ y:4, yoyo:true, repeat:-1 })
 }
 
 // menu 開
 $(".menu-btn__open").on("click",function(){
     if(isMobile.any){
-        TweenMax.to(".menu-wrap", .6,{
-            right: 0,
-            x:"0%",
-            display:"block"
-        });
+        $("body").append("<div class='menu-module'></div>")
+        $("html").css("overflow","hidden")
+        TweenMax.to(".menu-wrap", .6,{ right: 0, x:"0%", display:"block" });
+        TweenMax.to(".menu-module", .6,{ autoAlpha: 1, display:"block" });
         return;
     }
-    TweenMax.to(".menu-wrap", .6,{
-        left: 0,
-        x:"0%",
-        display:"block"
-    });
+    TweenMax.to(".menu-wrap", .6,{ left: 0, x:"0%", display:"block" });
 })
+
+function menuClose(){
+    TweenMax.to(".menu-module", .6,{
+        autoAlpha: 0, display:"none",
+        onComplete:function(){
+            $(".menu-module").remove()
+        }
+    });
+    TweenMax.to(".menu-wrap", .6,{
+        right: 0, x:"100%", display:"none",
+        onComplete:function(){
+            $("html").css("overflow","auto")
+        }
+    });
+}
 
 // menu 關
 $(".menu-btn__close").on("click",function(){
     if(isMobile.any){
-        TweenMax.to(".menu-wrap", .6,{
-            right: 0,
-            x:"100%",
-            display:"none"
-        });
+        menuClose()
         return;
     }
     TweenMax.to(".menu-wrap", .6,{
@@ -137,4 +137,17 @@ $(".main-btn__reg,.main-btn__mouse").on('click',function(){
     $("html,body").animate({
         scrollTop:$("#part1").offset().top
     },700)
+})
+
+// 選單點及滾動
+$(".menu-list li").on("click",function(){
+    var t=$(this).attr("data-target");
+    if(t){
+        $("html,body").animate({
+            scrollTop:$(t).offset().top
+        },700)
+    }
+    if(isMobile.any){
+        menuClose()
+    }
 })
