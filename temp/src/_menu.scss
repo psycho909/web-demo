@@ -7,6 +7,8 @@
         top: 0;
         z-index: 999;
         display: none;
+        background-image: url('images/menu-light2.png');
+        background-repeat: no-repeat;
     }
     &-btn{
         &-group{
@@ -18,7 +20,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-image: url('../images/menu-open.png');
+            background-image: url('images/menu-open.png');
             background-color: #1a1919;
             background-position: center center;
             background-repeat: no-repeat;
@@ -70,7 +72,7 @@
             &.menu-fb{
                 a{
                     font-size: 0;
-                    background-image: url('../images/menu-fb.png');
+                    background-image: url('images/menu-fb.png');
                     background-repeat: no-repeat;
                     background-position: 72px center;
                     border-bottom:none;
@@ -89,7 +91,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: rgba(0,0,0,.45);
+        background: rgba(0,0,0,.65);
         height: 100%;
         z-index: 997;
         opacity: 0;
@@ -98,17 +100,17 @@
     .menu{
         &-btn{
             &__open{
-                width: 89px;
-                height: 79px;
+                width: 100px;
+                height: 100px;
                 background-color: transparent;
-                left: calc(100% - 89px);
+                left: calc(100% - 100px);
                 background-size: 59px 49px;
             }
             &__googleplay{
                 width: 358px;
                 height: 117px;
                 font-size: 0 !important;
-                background-image: url('../images/googleplay-btn.png');
+                background-image: url('images/googleplay-btn.png');
                 background-repeat: no-repeat;
                 background-size: 100%;
                 margin: 0 auto;
@@ -118,7 +120,7 @@
                 width: 358px;
                 height: 117px;
                 font-size: 0 !important;
-                background-image: url('../images/appstore-btn.png');
+                background-image: url('images/appstore-btn.png');
                 background-repeat: no-repeat;
                 background-size: 100%;
                 margin: 0 auto;
@@ -131,8 +133,7 @@
         }
         &-wrap{
             width: 650px;
-            background-image: url('../images/menu-light.png');
-            background-repeat: no-repeat;
+            background-image: url('images/menu-light.png');
         }
         &-list{
             height: calc(100vh - 324px);
