@@ -1,7 +1,7 @@
 .part4{
     width: 100%;
     height: 940px;
-    background-image: url('../images/part4-bg.jpg');
+    background-image: url('images/part4-bg.jpg');
     background-size: cover;
     background-position: center center;
     position: relative;
@@ -34,7 +34,7 @@
             content:"";
             width: 314px;
             height: 282px;
-            background-image: url('../images/part4-slogan.png');
+            background-image: url('images/part4-slogan.png');
             background-repeat: no-repeat;
             background-size: 100%;
             position: absolute;
@@ -74,7 +74,7 @@
                     left: 0;
                     width: 296px;
                     height: 37px;
-                    background-image: url('../images/part4-btn-l1.png');
+                    background-image: url('images/part4-btn-l1.png');
                 }
             }
         }
@@ -86,7 +86,7 @@
         width: 860px;
         height: 711px;
         position: relative;
-        background-image: url('../images/part4-scroll-bg.png');
+        background-image: url('images/part4-scroll-bg.png');
         background-repeat: no-repeat;
         background-size: 100%;
         float: right;
@@ -109,24 +109,74 @@
         &:nth-of-type(1){
             margin-bottom: 31px;
             .part4-goal__img{
-                background-image: url('../images/part4-goal1.jpg');
+                background-image: url('images/part4-goal1.jpg');
                 background-size: 326px 153px;
             }
         }
         &:nth-of-type(2){
             margin-bottom: 31px;
             .part4-goal__img{
-                background-image: url('../images/part4-goal2.jpg');
+                background-image: url('images/part4-goal2.jpg');
             }
         }
         &:nth-of-type(3){
             .part4-goal__img{
-                background-image: url('../images/part4-goal3.jpg');
+                background-image: url('images/part4-goal3.jpg');
             }
         }
         &:nth-of-type(4){
             .part4-goal__img{
-                background-image: url('../images/part4-goal4.jpg');
+                background-image: url('images/part4-goal4.jpg');
+            }
+        }
+        &.done{
+            &:nth-of-type(1){
+                .part4-goal__img{
+                    background-image: url('images/part4-goal1d.jpg');
+                }
+            }
+            &:nth-of-type(2){
+                .part4-goal__img{
+                    background-image: url('images/part4-goal2d.jpg');
+                }
+            }
+            &:nth-of-type(3){
+                .part4-goal__img{
+                    background-image: url('images/part4-goal3d.jpg');
+                }
+            }
+            &:nth-of-type(4){
+                .part4-goal__img{
+                    background-image: url('images/part4-goal4d.jpg');
+                }
+            }
+            .part4-goal-card{
+                color:#fff;
+                border-color:#222;
+                background-image: linear-gradient(to bottom,#818181 0%,#222323 100%);
+                background-color: #717171;
+                box-shadow: 0px 3px 6px rgba(0,0,0,.65),inset 1px 1px 0 #A9A9A9,inset 1px -1px 0 #A9A9A9,inset -1px 1px 0 #A9A9A9,inset -1px -1px 0 #A9A9A9;
+                .part4-goal__img{
+                    border-top: 1px solid #b2a8a8;
+                    border-bottom: 1px solid #b2a8a8;
+                }
+                &:before{
+                    content:none;
+                }
+                .part4-goal__head{
+                    &:before{
+                        border-color:#AFAFAF;
+                        border-right: 5px solid transparent;
+                        border-bottom: 5px solid transparent;
+                    }
+                }
+                .part4-goal__footer{
+                    &:after{
+                        border-color:#AFAFAF;
+                        border-left: 5px solid transparent;
+                        border-top: 5px solid transparent;
+                    }
+                }
             }
         }
         &-card{
@@ -134,6 +184,7 @@
             margin: 0 auto;
             border:3px solid #231707;
             background-image: linear-gradient(to bottom,#5D330A 0%,#211507 100%);
+            background-color: #4E2D09;
             border-radius: 7px;
             color:#E6C69B;
             position: relative;
@@ -141,7 +192,6 @@
             font-size: 20px;
             text-shadow: 0px 3px 8px rgba(0,0,0,.55);
             text-align: center;
-            cursor: pointer;
             text-decoration: none;
             &:before{
                 content:"";
@@ -150,7 +200,7 @@
                 left: 0;
                 width: 333px;
                 height: 45px;
-                background-image: url('../images/part4-btn-l2.png');
+                background-image: url('images/part4-btn-l2.png');
             }
         }
         &__head{
@@ -211,14 +261,44 @@
         }
     }
 }
+.part4-h5-text{
+    position: absolute;
+    bottom: 42px;
+    left: 38px;
+    z-index: 1;
+    width: 297px;
+    height: 69px;
+    line-height: 63px;
+    display: none;
+    @media screen and (max-width:750px){
+        font-size: 40px;
+        position: absolute;
+        bottom: 132px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: red;
+        font-weight: bold;
+        z-index: 1;
+        text-align: center;
+        width: 100%;
+        background-color: transparent;
+        background-image: none;
+        border:none;
+        box-shadow: none;
+        text-shadow: none;
+        &:before,&:after{
+            content:none;
+        }
+    }
+}
 @media screen and (max-width:750px){
 	.part4{
         height: 3350px;
-        background-image: url('../images/part4-m-bg.jpg');
+        background-image: url('images/part4-m-bg.jpg');
         &-title{
             width: 587px;
             height: 206px;
-            background-image: url('../images/part4-m-title.png');
+            background-image: url('images/part4-m-title.png');
             margin: 0 auto;
             padding-top: 0;
             margin-top: 85px;
@@ -244,7 +324,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-image: url('../images/part4-role-m.png');
+                background-image: url('images/part4-role-m.png');
             }
             img{
                 display: none;
@@ -307,7 +387,7 @@
                 &:before{
                     width: 539px;
                     height: 56px;
-                    background-image: url('../images/part4-m-btn-l2.png');
+                    background-image: url('images/part4-m-btn-l2.png');
                     top: -26px;
                 }
             }

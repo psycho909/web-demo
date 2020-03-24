@@ -24,41 +24,37 @@
 
     <title>「龍之谷：新世界」-事前預約網站</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/YTPlayer/jquery.mb.YTPlayer.min.css">
     <link rel="stylesheet" href="css/default.css">
 
     <!-- JS -->
     <!-- jQuery -->
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    <script src="https://tw.hicdn.beanfun.com/plugins/YTPlayer/jquery.mb.YTPlayer.min.js"></script>
     <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
     <!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
-    <!-- <script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script> -->
+    <script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
     <!-- GTM -->
-    <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5JLF5B7');</script> -->
+    })(window,document,'script','dataLayer','GTM-5JLF5B7');</script>
 </head>
 
 <body>
 	<!-- GTM -->
-    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JLF5B7"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JLF5B7"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- 內容開始 -->
     <div id="app">
         <!-- 浮水印 -->
-        <!-- 刪檔封測 搶先創繳 -->
-        <!-- <div class="watermark beta"></div> -->
-        <!-- 中華電信追光任務 -->
-        <!-- <div class="watermark cht"></div> -->
-        <!-- 慶祝預約百萬達成送 -->
-        <!-- <div class="watermark happydone"></div> -->
-        <!-- 天選之人抽iPhone11 -->
-        <!-- <div class="watermark iphone"></div> -->
+        <!-- 刪檔封測 搶先創繳 class:beta -->
+        <!-- 中華電信追光任務 class:cht -->
+        <!-- 慶祝預約百萬達成送 class:happydone -->
+        <!-- 天選之人抽iPhone11 class:iphone-->
+        <div class="watermark beta"></div>
+
         <!-- 選單按鈕 -->
         <div class="menu-btn__open"></div>
         <!-- 選單 -->
@@ -84,7 +80,10 @@
         <!-- 第一屏 -->
         <div class="main">
             <div id="myPlayer"></div>
-            <!-- <div id="myVideo" class="player" data-property="{videoURL:'http://youtu.be/l_tHTmd5pgk',containment:'#myPlayer',showControls:false,autoPlay:true, mute:true, startAt:0, opacity:1}"></div> -->
+            <div class="home-video-container">
+                <div id="home-video" data-video="W0LHTWG-UmQ"></div>
+            </div>
+            <!-- <div id="myVideo" class="player" data-property="{videoURL:'http://youtu.be/3hpzzOktyX0',containment:'#myPlayer',showControls:false,autoPlay:true, mute:true, startAt:0, opacity:1}"></div> -->
             <div class="main-box">
                 <a href="javascript:;" class="main-logo">
                     <img src="images/main-logo.png" alt="">
@@ -96,6 +95,7 @@
                     <span></span>
                 </button>
                 
+                <!-- v-hide 隱藏並占位 -->
                 <div class="main-slogan">雙平台預先註冊全面開放</div>
                 <div class="main-btn-group">
                     <a href="javascript:;" class="main-btn__appstore" target="_blank">
@@ -137,7 +137,7 @@
                                 <div class="part1-phone-area__style"><p>台灣+886</p></div>
                             </div>
                             <div class="part1-phone-num-group">
-                                <input type="text" name="phone" class="part1-phone-num__input ie-place" placeholder="0919000000">
+                                <input type="tel" name="phone" class="part1-phone-num__input ie-place" placeholder="0919000000">
                             </div>
                         </div>
                         <input class="part1-email ie-place" name="email" type="text" placeholder="xxxx@yahoo.con.tw" autocomplete="off">
@@ -222,10 +222,11 @@
                         <div class="part3-btn-group">
                             <img class="part3-btn__pcicon" src="images/part3-pc-icon.png" alt="">
                             <!-- H5時隱藏 Show 詳細參加方式請參閱官網-->
-                            <a href="javascript:;" class="part3-btn__download btn">
+                            <a href="javascript:;" class="part3-btn__download btn h5-hide">
                                 <span>遊戲下載</span>
                             </a>
-                            <div class="part3-btn__text">
+                            <div class="part3-h5-text part3-h5-text--md">詳細參加方式請參閱官網</div>
+                            <div class="part3-btn__text h5-hide">
                                 <span>請透過手機或網頁瀏覽器</span>
                                 <span>進行登錄綁定與獎勵查詢</span>
                             </div>
@@ -278,9 +279,10 @@
                                 <span>注意事項</span>
                             </a>
                             <!-- H5時隱藏 Show 詳細參加方式請參閱官網-->
-                            <a href="javascript:;" class="part3-btn__search btn">
+                            <a href="javascript:;" class="part3-btn__search btn h5-hide">
                                 <span>登錄/獎勵查詢</span>
                             </a>
+                            <div class="part3-h5-text part3-h5-text--big">詳細參加方式請參閱官網</div>
                         </div>
                     </div>
                 </div>
@@ -297,20 +299,22 @@
                     <img src="images/part4-role.png" alt="">
                 </div>
                 <!-- H5內開啟時，隱藏[中華電信合作活動] ，顯示「詳細參加方式請參閱官網」 -->
-                <a href="javascript:;" class="part4-btn__cht btn" target="_blank">
+                <a href="javascript:;" class="part4-btn__cht btn h5-hide" target="_blank">
                     <span>
                         <b>立即前往中華電信數位門市</b>
                         <b>更多好康虛寶等你拿</b>
                     </span>
                 </a>
-                <div class="part4-btn__cht-m">
+                <div class="part4-btn__cht-m h5-hide">
                     <span>請至中華電信數位門市</span>
                     <span>查看更多虛寶好康</span>
                 </div>
+                <div class="part4-h5-text btn part3-h5-text--big">詳細參加方式請參閱官網</div>
+
                 <div class="part4-content">
                     <div class="part4-content__title">光之禮包達成盛宴</div>
                     <div class="part4-goal-wrap">
-                        <div class="part4-goal">
+                        <div class="part4-goal done">
                             <div class="part4-goal-card">
                                 <div class="part4-goal__head">預約人數10萬</div>
                                 <div class="part4-goal__img"></div>
@@ -356,12 +360,7 @@
     <!-- footer -->
     <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer"
         prod="龍之谷新世界" theme="dark"></script>
-    <script src="js/ieplacehoder.js"></script>
-    <script src="js/select.js"></script>
     <script src="js/default.js"></script>
-    <script>
-        selectStyle.init(".part1-phone-area__select",".part1-phone-area__style")
-    </script>
     <!--[if IE]>
     <script>
         add_placeholder("ie-place");
