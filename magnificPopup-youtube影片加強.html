@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+</head>
+
+<body>
+    <a class=" video__box-href" href="https://www.youtube.com/watch?v=3hpzzOktyX0&list=PLdx0KfWWDNjwZKo50s3ho3kK6iaxcXrXC&rel=0&autoplay=1&loop=1">影片</a>
+    <script>
+        // 影片 lightbox
+        $('.video__box-href').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: false,
+            fixedContentPos: false,
+            // 更換開始
+            iframe: {
+                patterns: {
+                    youtube: {
+                        index: 'youtube.com',
+                        id: function (src) {
+                            // link pattern
+                            var mt = src.match(/v=([^&]+)(&(.*))?/)
+                            if (mt) return mt[1] + '?' + mt[3]
+
+                            // embed pattern
+                            mt = src.match(/embed\/([^\?\/]+)(\?(.*))?/)
+                            if (mt) return mt[1] + '?' + mt[3]
+                        },
+                        src: '//www.youtube.com/embed/%id%&autoplay=1&rel=0'
+                    }
+                }
+            },
+            // 更換結束
+            closeMarkup:
+                '<button title="%title%" class="mfp-close"><img class="video-modal-close" src="images/video-close.png"/></button>'
+        })
+        // 影片 lightbox 關閉
+        $('body').on('click', '.video-modal-close', function () {
+            $.magnificPopup.close()
+        })
+    </script>
+</body>
+
+</html>

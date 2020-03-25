@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child :value.sync="person"></child>
+        <p>{{person.firstName}} {{person.lastName}}</p>
+    </div>
+    <script>
+        Vue.component("child", {
+            inheritAttrs: false,
+            props: ["value"],
+            template: `          
+                <button @click='$emit("update:value", {firstName:"Joe",lastName:"Smith"})'>Generate Person</button>   
+            `
+        });
+
+        
+        new Vue({
+            el: "#app",
+            data: {
+                person:""
+            }
+        });
+    </script>
+</body>
+
+</html>

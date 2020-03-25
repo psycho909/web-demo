@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="content">
+    <p id="show-txt"></p>
+    <button id="btn1" onclick="storedata()">PUSH</button>
+    <button id="btn2" onclick="getdata()">GET</button>
+    <button id="btn3" onclick="updatedata()">UPDATE</button>
+
+    <ul id="list"></ul>
+
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBnOBsoi2HmOugBMrVjy-fUitluv9r7GTo",
+            authDomain: "node-todolist-11347.firebaseapp.com",
+            databaseURL: "https://node-todolist-11347.firebaseio.com",
+            projectId: "node-todolist-11347",
+            storageBucket: "node-todolist-11347.appspot.com",
+            messagingSenderId: "1039784937600",
+            appId: "1:1039784937600:web:49079e9aa4bc6b3880be65"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.database();
+
+        var obj={};
+        Object.defineProperties(obj,{
+            _content:{
+                writable:true,
+                value:""
+            },
+            content:{
+                get(){
+                    return obj
+                },
+                set(newValue){
+                    document.getElementById("content").value = newValue
+                    document.getElementById("show-txt").innerHTML = newValue;
+                    this._content=newValue;
+                }
+            }
+        })
+
+        document.getElementById("content").addEventListener("keyup",function(e){
+            obj.content = e.target.value
+        })
+        function storedata(){
+            var setChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var setLength=8;
+            var now=new Date();
+            var y=now.getFullYear();
+            var m=now.getMonth()+1;
+            var d=now.getDate();
+            var h=now.getHours();
+            var mm=now.getMinutes();
+            var s=now.getSeconds();
+            var p="";
+            for(var i=0;i<setLength;i++){
+                p+=setChars.charAt(Math.random()*setChars.length)
+            }
+            p+=`${y}${m}${d}${h}${mm}${s}`;
+
+            // db.ref("todos/"+p).set({
+            //     content:obj._content,
+            //     id:p
+            // })
+
+            db.ref("todos/DReaj7rf2020325154234").remove()
+
+            // db.ref("todos/").push().set({
+            //     content:obj._content,
+            //     id:p
+            // }).then(()=>{
+            //     console.log("success",obj._content)
+            // })
+        }
+
+
+        var list=document.getElementById("list");
+        document.addEventListener("DOMContentLoaded",function(){
+            db.ref("todos/").on("value",function(snapshot){
+                var total=snapshot.val();
+                var fragment=document.createDocumentFragment();
+                var liHTML="";
+                for(var i in total){
+                    liHTML+='<li>'+total[i].content+'</li>'
+                }
+                list.innerHTML=liHTML;
+            })
+        })
+        function getdata(){
+            db.ref("todos/").on("value",function(e){
+                console.log(e.val())
+            })
+        }
+        function updatedata(){
+            var todos={
+                content:"BBBBBBB"
+            }
+            var updates={};
+            updates['todos/YQ6cjKZ42020325153444']=todos;
+            db.ref().update(updates);
+        }
+    </script>
+</body>
+
+</html>
