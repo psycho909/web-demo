@@ -78,10 +78,12 @@
         }
         var routes = [{
             path: "/",
-            component: home
+            component: home,
+            name:"home"
         },{
             path: "/news",
             component: news,
+            name:"news",
             meta:{
                 breadcrumb:[
                     {name:"首頁",link:"/"},{name:"最新消息"}
@@ -90,6 +92,7 @@
         },{
             path: "/about",
             component: about,
+            name:"about",
             meta:{
                 breadcrumb:[
                     {name:"首頁",link:"/"},{name:"關於我"}
@@ -98,6 +101,16 @@
         }];
         var router = new VueRouter({
             routes
+        })
+
+        router.beforeEach((to,from,next)=>{
+            console.log("beforeEach")
+            console.log(to,from)
+            next()
+        })
+        router.afterEach((to,from)=>{
+            console.log("afterEach")
+            console.log(to,from)
         })
         new Vue({
             el: "#app",

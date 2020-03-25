@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        :root {
+            --size: 90vw;
+        }
+
+        h1 {
+            --fluid-type-min-size: calc(30 / var(--char-total));
+            --fluid-type-max-size: calc(60 / var(--char-total));
+            --fluid-type-min-screen: 20;
+            --fluid-type-max-screen: 60;
+            font-size: calc((var(--fluid-type-min-size) * 1rem) + (var(--fluid-type-max-size) - var(--fluid-type-min-size)) * (100vw - (var(--fluid-type-min-screen) * 1rem)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)));
+            background: radial-gradient(orchid, slateBlue);
+            color: white;
+            letter-spacing: 1rem;
+            width: var(--size);
+            height: var(--size);
+            max-width: 45rem;
+            max-height: 45rem;
+            position: relative;
+            border-radius: 50%;
+            text-transform: uppercase;
+        }
+
+        .char {
+            --units: 1;
+            --l: calc(var(--char-total) + 1);
+            --rotationUnit: calc((1turn / var(--l)) * var(--char-index, 1));
+            transform: rotate(var(--rotationUnit));
+            transform-origin: center;
+            width: calc(100% - 2rem);
+            height: calc(100% - 2rem);
+            top: 1rem;
+            left: 1rem;
+            text-align: center;
+            display: block !important;
+            position: absolute !important;
+        }
+
+        .char::before,
+        .char::after {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 data-splitting>
+        Text in a circle with Splitting
+    </h1>
+    <script>
+        const results = Splitting({ by: 'chars', whitespace: true })
+    </script>
+</body>
+
+</html>

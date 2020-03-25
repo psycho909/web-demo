@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1" onclick="storedata()">PUSH</button>
+    <button id="btn2" onclick="getdata()">GET</button>
+
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBnOBsoi2HmOugBMrVjy-fUitluv9r7GTo",
+            authDomain: "node-todolist-11347.firebaseapp.com",
+            databaseURL: "https://node-todolist-11347.firebaseio.com",
+            projectId: "node-todolist-11347",
+            storageBucket: "node-todolist-11347.appspot.com",
+            messagingSenderId: "1039784937600",
+            appId: "1:1039784937600:web:49079e9aa4bc6b3880be65"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.firestore();
+
+        function storedata() {
+            db.collection("movies").doc("復仇者聯盟").set({
+                name: "復仇者聯盟",
+                date: "2019",
+                description: "就是復仇者聯盟...",
+                actors: ["A", "B"]
+            })
+        }
+
+        function getdata(){
+            var docRef=db.collection("movies").doc("復仇者聯盟");
+            docRef.get().then((doc)=>{
+                if(doc.exists){
+                    console.log(doc.data())
+                }else{
+                    console.log("cant find")
+                }
+            }).catch((error)=>{
+                console.log("error")
+            })
+        }
+    </script>
+</body>
+
+</html>
