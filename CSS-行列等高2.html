@@ -1,37 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-        .parent{
+
+        .parent {
             width: 100%;
             display: table;
         }
-        .child{
+
+        .child {
             display: table-cell;
             width: 25%;
-            background:tomato;
+            background: rgb(214, 214, 214);
+            vertical-align: middle;
+            color: rgb(48, 48, 48);
+            position: relative;
+        }
+
+        .child2 div:nth-child(1) {
+            position: absolute;
+            top: 25%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .child2 div:nth-child(2) {
+            position: absolute;
+            top: 75%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        @media screen and (max-width:750px) {
+            .parent {
+                display: block;
+                width: 100%;
+            }
+
+            .child {
+                display: block;
+                width: 100%;
+            }
+
+            .child2 div:nth-child(1) {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: translateY(0%);
+            }
+
+            .child2 div:nth-child(2) {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: translateY(0%);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="parent">
         <div class="child">
             <p>Child</p>
-            <p>Child</p>
-            <p>Child</p>
-            <p>Child</p>
         </div>
-        <div class="child">Child</div>
-        <div class="child">Child</div>
-        <div class="child">Child</div>
+        <div class="child">
+            <div>2020/4/15~上市前</div>
+            <div>完成龍之谷 : 新世界事前預約</div>
+            <div>可獲得雙重獎勵</div>
+        </div>
+        <div class="child">
+            <div>
+                <p>【第一重獎勵 : 聯動活動任務箱】</p>
+                <p>優雅九尾坐騎、史詩執事女僕時裝、</p>
+                <p>土豪金武器、超狂紀念稱號等豪華支援禮包等</p>
+            </div>
+            <div>
+                <p>【第一重獎勵 : 聯動活動任務箱】</p>
+                <p>優雅九尾坐騎、史詩執事女僕時裝、</p>
+            </div>
+        </div>
+        <div class="child child2">
+            <div>Child</div>
+            <div>Child</div>
+        </div>
     </div>
 </body>
+
 </html>

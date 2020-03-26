@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Swiper demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+	<!-- Demo styles -->
+	<style>
+		html,
+		body {
+			position: relative;
+			height: 100%;
+		}
+
+		body {
+			background: #eee;
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			color: #000;
+			margin: 0;
+			padding: 0;
+		}
+
+		.swiper-wrapper {
+			height: auto;
+		}
+
+		.swiper-slide {
+			background-color: rgba(0, 0, 0, 0.5);
+			font-weight: normal;
+			font-size: 1.1rem;
+			padding: .6rem 1.2rem;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.swiper-slide.active {
+			color: #000;
+			background-color: rgba(255, 255, 255, 0.25);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="box col-9 swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">任选一</div>
+				<div class="swiper-slide">任选二</div>
+				<div class="swiper-slide">任选三</div>
+				<div class="swiper-slide">任选四</div>
+				<div class="swiper-slide">任选五</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-wrap active">
+					<div class="card">
+						<div class="card-body">
+							AAAAA
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-wrap">
+					<div class="card">
+						<div class="card-body">
+							BBBBB
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-wrap">
+					<div class="card">
+						<div class="card-body">
+							CCCCc
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-wrap">
+					<div class="card">
+						<div class="card-body">
+							DDDDD
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-wrap">
+					<div class="card">
+						<div class="card-body">
+							EEEE
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script>
+		var mySwiper = new Swiper('.swiper-container', {
+			autoplay: {
+				delay:500,
+				reverseDirection: true,
+			},
+		})
+	</script>
+</body>
+
+</html>

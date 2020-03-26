@@ -138,8 +138,12 @@
 			var _index=$(this).index()
 			$('.box').eq(_index).addClass('active').siblings().removeClass('active')
 			var swiper = new Swiper('.swiper-container', {
-				slidesPerView: 3,
-				spaceBetween: 2
+				slidesPerView: 1,
+				spaceBetween: 2,
+				autoplay:{
+					delay:500,
+					reverseDirection:true
+				}
 			});
 		})
 		$('.swiper-slide').on('click',function(){
