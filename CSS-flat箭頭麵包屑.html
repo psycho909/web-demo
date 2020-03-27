@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        body {
+            text-align: center;
+            background-color: #f3f3f3;
+        }
+        #breadcrumb {
+            list-style: none;
+            display: inline-block;
+        }
+
+        #breadcrumb .fa {
+            font-size: 14px;
+        }
+
+        #breadcrumb li{
+            float: left;
+        }
+
+        #breadcrumb li a{
+            color:#fff;
+            display: block;
+            background-color: #3498db;
+            text-decoration: none;
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 10px 0 5px;
+            text-align: center;
+            margin-right: 23px;
+            margin-top: 10px;
+        }
+
+        #breadcrumb li a:before,#breadcrumb li a:after{
+            content:"";
+            position: absolute;
+            top: 0;
+            border:0px solid #3498db;
+            border-width: 20px 10px;
+            width: 0;
+            height: 0;
+        }
+
+        #breadcrumb li a:before{
+            left: -20px;
+            border-left-color:transparent;
+        }
+        #breadcrumb li a:after{
+            left: 100%;
+            border-color:transparent;
+            border-left-color:#3498db;
+        }
+
+        #breadcrumb li:first-child a{
+            padding-left: 15px;
+            border-radius: 4px 0 0 4px;
+        }
+        #breadcrumb li:first-child a:before{
+            border:none;
+        }
+        #breadcrumb li:last-child a{
+            padding-right: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        #breadcrumb li:last-child a:after{
+            border:none;
+        }
+
+        #breadcrumb li:nth-child(even) a{
+            background-color: #2980b9;
+        }
+        #breadcrumb li:nth-child(even) a:before{
+            border-color:#2980b9;
+            border-left-color: transparent;
+        }
+        #breadcrumb li:nth-child(even) a:after{
+            border-left-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="breadcrumb">
+        <li><a href="#"><span class="fa fa-home"> </span></a></li>
+        <li><a href="#"><span class=" fa fa-info-circle"> </span> Web Kit</a></li>
+        <li><a href="#"><span class="fa fa-snowflake-o"></span> UI Design</a></li>
+        <li><a href="#"><span class="fa fa-desktop"> </span> Web Design</a></li>
+        <li><a href="#"><span class="fa fa-paint-brush"> </span> Style</a></li>
+        <li><a href="#"><span class="fa fa-css3"> </span> CSS3</a></li>
+    </ul>
+</body>
+
+</html>
