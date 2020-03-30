@@ -39,6 +39,9 @@
                     msg:""
                 }
             }
+            handleClick=(x,e)=>{
+                console.log(x,e.clientX,e.pageX)
+            }
             render(){
                 var arr=[{name:"A"},{name:"B"}]
                 var obj={
@@ -48,6 +51,7 @@
                 return (
                     <div>
                         <Tank {...obj} name="程咬金"></Tank>
+                        <button onClick={(e)=>this.handleClick("a",e)}>按鈕</button>
                     </div>
                 )
             }

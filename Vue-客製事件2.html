@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        #app{
+            z-index: 5;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>Default Size Text</p>
+        <p v-font-size:small>SMALL font-size directive</p>
+        <p v-font-size:medium>MEDIUM font-size directive</p>
+        <p v-font-size:large>LARGE font-size directive</p>
+        <p v-font-size.large>LARGE font-size directive</p>
+    </div>
+
+    <script>
+        // Sending arguments to directives
+        Vue.directive("font-size", {
+            bind: (el, binding, vnode) => {
+                console.log(binding)
+                var defaultSize=16;
+                switch(binding.arg){
+                    case "small":
+                        defaultSize=12;
+                        break;
+                    case "large":
+                        defaultSize=32;
+                        break;
+                    default:
+                        defaultSize=16;
+                        break;
+                }
+                if(binding.modifiers.large){
+                    defaultSize=42;
+                }
+                el.style.fontSize = defaultSize + 'px';
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
