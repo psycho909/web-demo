@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <child-component :name="name" @onclick="handleClick"></child-component>
+    </div>
+    <script>
+        Vue.component("childComponent",{
+            template:`
+                <div>
+                    <div>childComponent</div>
+                    <div>{{this.$attrs.name}}</div>
+                    <button @click="this.$listeners.onclick">按鈕</button>
+                </div>
+            `,
+            created(){
+                console.log(this.$attrs)
+                console.log(this.$listeners)
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            created(){
+
+            },
+            data:{
+                name:"LBJ"
+            },
+            methods:{
+                handleClick(){
+                    console.log("HandleClick")
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
