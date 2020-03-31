@@ -24,7 +24,9 @@
     <script>
         const store = new Vuex.Store({
             state: {
-                result: {},
+                result: {
+                    name:"LBJ"
+                },
                 count: 0
             },
             getters: {
@@ -60,7 +62,13 @@
             el: "#app",
             store,
             computed: {
-                ...Vuex.mapGetters(['result', "count"])
+                // ...Vuex.mapGetters(['result', "count"])
+                result(){
+                    return this.$store.getters.result;
+                },
+                count(){
+                    return this.$store.getters.count;
+                }
             },
             methods: {
                 async fetch() {
