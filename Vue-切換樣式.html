@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        button:focus {
+            outline: none;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            display: grid;
+            grid-template-rows: 120px 1fr;
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 10px;
+            background: #f6f6f6;
+        }
+
+        header {
+            display: grid;
+            color: black;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+            background: white;
+        }
+
+        header h1 {
+            place-self: center;
+            font-size: 42px;
+            font-weight: lighter;
+        }
+
+        #app-gridview {
+            place-self: center;
+            margin-top: 30px;
+            display: grid;
+            justify-items: center;
+        }
+
+        .grid-wrapper {
+            display: table;
+            border: 4px solid #336699;
+            border-radius: 6px;
+            transition: all ease 0.5s;
+        }
+
+        .list-wrapper {
+            transition: all ease 0.5s;
+        }
+
+        .grid-header {
+            font-weight: bold;
+            background: #336699;
+            color: white;
+            border-bottom: 4px solid #f6f6f6;
+        }
+
+        .grid-row {
+            display: table-row;
+        }
+
+        .grid-row>div {
+            display: table-cell;
+            padding: 10px 20px;
+        }
+
+        .grid-wrapper>div:nth-child(even) {
+            background: #f6f6f6;
+            transition: all ease 0.4s;
+        }
+
+        .grid-wrapper>div:nth-child(odd) {
+            background: #fafafa;
+            transition: all ease 0.4s;
+        }
+
+        .grid-wrapper>div:hover {
+            background: #a9d6ff;
+            transition: all ease 0.4s;
+        }
+
+        .list-row {
+            padding: 10px;
+            margin: 10px;
+            background: white;
+            border-radius: 6px;
+            -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.37);
+            -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.37);
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.37);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            width: 600px;
+        }
+
+        .list-row-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            padding: 4px;
+            transition: all 0.5s;
+        }
+
+        .list-property {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .list-property-name {
+            font-weight: bold;
+            transition: all 0.5s;
+        }
+
+        .list-image {
+            width: 150px;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            border-radius: 6px;
+            background-color: #0095ff;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+            width: 230px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 0px 0px 25px 0px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button class="button" v-on:click="switchView()"><span>{{ buttonSwitchViewText }}</span></button>
+            <button class="button" v-on:click="switchData()"><span>{{ buttonSwitchDataText }}</span></button>
+        </div>
+
+        <div :class="[isGridView?'grid-wrapper':'list-wrapper']">
+
+            <div class="grid-row" v-if="isGridView">
+                <div class="grid-header" v-for="name in gridData.columns">{{name}}</div>
+            </div>
+
+            <!-- GridView structure -->
+            <div v-if="isGridView" class="grid-row" v-for="row in gridData.data">
+                <div class="list-row-item" v-for="name in gridData.columns">
+                    <div>{{row[name]}}</div>
+                </div>
+            </div>
+
+            <!-- ListView structure -->
+            <div v-if="!isGridView" class="list-row" v-for="row in gridData.data">
+                <div class="list-property">
+                    <div class="list-row-item" v-for="name in gridData.columns">
+                        <div class="list-property-name">{{name}}</div>
+                        <div>{{row[name]}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var cartData = {
+            columns: [
+                "Id",
+                "Quantity",
+                "Name",
+                "Seller",
+                "Price"
+            ],
+            data: [
+                { Id: 1, Quantity: 1, Name: "SSD Super Fast 1TB", Seller: "Elektro Sell", Price: "123.00$", ImagePath: "images/a.jpg" },
+                { Id: 2, Quantity: 1, Name: "Bottle of 1998 Barolo", Seller: "Very Nice Shop", Price: "50.00$", ImagePath: "images/b.jpg" },
+                { Id: 3, Quantity: 3, Name: "Car Radio Player", Seller: "Elektro Sell", Price: "78.10$", ImagePath: "images/c.jpg" },
+                { Id: 4, Quantity: 1, Name: "Video Game Console Super Powerful", Seller: "Elektro Sell", Price: "99.99$", ImagePath: "images/d.jpg" },
+                { Id: 5, Quantity: 5, Name: "Book about vegetarianism", Seller: "Your Library", Price: "41.20$", ImagePath: "images/e.jpg" }
+            ]
+        };
+        var booksData = {
+            columns: [
+                "Id",
+                "Name",
+                "Author",
+                "Theme",
+                "Rating"
+            ],
+            data: [
+                { Id: 1, Name: "The look of love", Author: "George Blue", Theme: "Drama", Rating: "*****", ImagePath: "images/a.jpg" },
+                { Id: 2, Name: "20 vegetarian dishes", Author: "Francesco Bonizzi", Theme: "Cooking", Rating: "****", ImagePath: "images/b.jpg" },
+                { Id: 3, Name: "How to be happy", Author: "Asdrubale Anselmi", Theme: "Self help", Rating: "*", ImagePath: "images/c.jpg" },
+                { Id: 4, Name: "The last bee", Author: "John Dorian", Theme: "Nature", Rating: "****", ImagePath: "images/d.jpg" }
+            ]
+        };
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                gridData: cartData,
+                buttonSwitchViewText: "Switch to ListView",
+                buttonSwitchDataText: "Switch to books data",
+                isGridView: true,
+                isBookData: false
+            },
+            methods:{
+                switchView:function(){
+                    if(this.isGridView){
+                        this.buttonSwitchViewText = "Switch to GridView";
+                    }else{
+                        this.buttonSwitchViewText = "Switch to ListView";
+                    }
+                    this.isGridView=!this.isGridView
+                },
+                switchData:function(){
+                    if(this.isBookData){
+                        this.buttonSwitchDataText = "Switch to books data";
+                        this.gridData = cartData;
+                    }else{
+                        this.buttonSwitchDataText = "Switch to shop data";
+                        this.gridData = booksData;
+                    }
+                    this.isBookData=!this.isBookData
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
