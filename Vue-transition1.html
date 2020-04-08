@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        .fade-enter-active {
+            transition: all 0.3s ease;
+        }
+
+        .fade-leave-active {
+            transition: all 0.8s cubic-bezier(0.3, 0.5, 0.8, 1);
+        }
+
+        .fade-enter,
+        .fade-leave-to {
+            transform: translateX(15px);
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hi</p>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                show:false
+            }
+        })
+    </script>
+</body>
+
+</html>

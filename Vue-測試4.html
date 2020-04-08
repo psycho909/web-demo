@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div ref="msgDiv">{{msg}}</div>
+        <button @click="changeMsg($event,'a','b')">nextTick</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                msg:"MSG",
+                msg1:"MSG1",
+                msg2:"MSG2",
+                msg3:"MSG3"
+            },
+            methods: {
+                changeMsg(e,a,b) {
+                    this.msg = "Hello world."
+                    this.msg1 = this.$refs.msgDiv.innerHTML; // 此时innerHTML未更新
+                    this.$nextTick(() => {
+                        this.msg2 = this.$refs.msgDiv.innerHTML // 在nextTick中，innerHTML内容更新，我们得到新的值
+                    })
+                    this.msg3 = this.$refs.msgDiv.innerHTML
+                    console.log(e,a,b)
+                }
+            }
+
+        });
+    </script>
+</body>
+
+</html>

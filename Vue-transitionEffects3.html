@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>App</title>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+    <style>
+        .color-preview {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model.number="num1" type="number" />
+        <input v-model.number="num2" type="number" />
+        <p>
+            <num-transition :num="num1"></num-transition> +
+            <num-transition :num="num2"></num-transition> =
+            <num-transition :num="result"></num-transition>
+        </p>
+    </div>
+    <script>
+        Vue.component("num-transition", {
+            props: ["num"],
+            data() {
+                return {
+                    tweenedNumber: 0
+                };
+            },
+            computed: {
+                animatedNumber() {
+                    return this.tweenedNumber.toFixed(0);
+                }
+            },
+            watch: {
+                num(newValue) {
+                    TweenLite.to(this.$data, 0.5, { tweenedNumber: newValue });
+                }
+            },
+            template: `<span>{{animatedNumber}}</span>`
+        });
+        new Vue({
+            el: "#app",
+            data: {
+                num1: 0,
+                num2: 0
+            },
+            computed: {
+                result() {
+                    return this.num1 + this.num2;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -17,56 +17,21 @@
             width: 100%;
             display: block;
         }
-
-        .picture {
-            --bgi: url("https://placehold.it/1200x300");
-            --width:1200px;
-            width: var(--width);
-            height: 300px;
-            background-image: var(--bgi);
-            background-position: center center;
-            background-size: cover;
-        }
-
-        @media screen and (max-width:1000px) {
-            .picture{
-                --width:1000px;
-                --bgi: url("https://placehold.it/1000x300");
-            }
-        }
-
-        @media screen and (max-width:900px) {
-            .picture{
-                --width:900px;
-                --bgi: url("https://placehold.it/900x300");
-            }
-        }
-
-        @media screen and (max-width:768px) {
-            .picture{
-                --width:100%;
-                --bgi: url("https://placehold.it/768x300");
-            }
-        }
     </style>
 </head>
 
 <body>
     <div class="box">
         <picture>
+            <!--[if IE 9]><video style="display: none;"><![endif]-->
             <source media="(min-width:1001px)" srcset="https://placehold.it/1200">
             <source media="(max-width:768px)" srcset="https://placehold.it/768">
             <source media="(max-width:900px)" srcset="https://placehold.it/900">
             <source media="(max-width:1000px)" srcset="https://placehold.it/1000">
-            
+            <!--[if IE 9]></video><![endif]-->
             <img srcset="https://placehold.it/1600" src="https://placehold.it/1600" alt="">
         </picture>
-        <div class="picture"></div>
     </div>
-
-    <script>
-    picturefill();
-    </script>
 </body>
 
 </html>

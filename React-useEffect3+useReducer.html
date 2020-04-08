@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script type="text/babel">
+        const { useState, useEffect,useReducer } = React;
+        
+        const dataFetchReducer=(state,action)=>{
+            switch(action.type){
+                case "FETCH_INIT":
+                    return {
+                        ...state,
+                        isLoading:true,
+                        isError:false
+                    };
+                case "FETCH_SUCCESS":
+                    return {
+                        ...state,
+                        isLoading:false,
+                        isError:false,
+                        data:action.payload
+                    };
+                case "FETCH_FAILURE":
+                    return {
+                        ...state,
+                        isLoading:false,
+                        isError:true
+                    };
+                default:throw new Error();
+            }
+        }
+        const useDataApi =(initialUrl,initialData)=>{
+            const [url, setUrl] = useState(initialUrl);
+            const [state,dispatch]=useReducer(dataFetchReducer,{
+                isLoading:false,
+                isError:false,
+                data:initialData
+            })
+
+            useEffect( () => {
+                let didCancel=false;
+                const fetchData=async()=>{
+                    dispatch({type:"FETCH_INIT"})
+                    try{
+                        const result = await axios(url);
+                        if(!didCancel){
+                            dispatch({type:"FETCH_SUCCESS",payload:result.data})
+                        }
+                    }catch(err){
+                        if(!didCancel){
+                            dispatch({type:"FETCH_FAILURE"})
+                        }
+                    }
+                }
+                fetchData()
+                return ()=>{
+                    didCancel=true
+                }
+            },[url]);
+
+            return [state,setUrl]
+        }
+        function App() {
+            const [query, setQuery] = useState('redux');
+            const [{ data, isLoading, isError }, doFetch] = useDataApi(
+                'https://hn.algolia.com/api/v1/search?query=redux',
+                { hits: [] },
+            );
+
+            return (
+                <>
+                    <form
+                        onSubmit={event=>{
+                            doFetch(`http://hn.algolia.com/api/v1/search?query=${query}`);
+                            event.preventDefault();
+                        }}
+                    >
+                        <input 
+                        type="text"
+                        value={query}
+                        onChange={e=>setQuery(e.target.value)}
+                        />
+                        <button type="submit">Search</button>
+                    </form>
+                    
+                    {isError && <div>Something went wrong...</div>}
+                    {isLoading?(<div>Loading...</div>):(
+                        <ul>
+                            {data.hits.map(item => (
+                                <li key={item.objectID}>
+                                    <a href={item.url}>{item.title}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

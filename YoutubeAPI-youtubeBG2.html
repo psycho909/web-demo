@@ -10,16 +10,20 @@
         </style>
     </head>
     <body>
-        <div id="player" class="videobox"></div>
+        <div id="player" class="videobox" data-video="aJg4OJxp-co"></div>
 
         <script async src="https://www.youtube.com/iframe_api"></script>
         <script>
             var player;
             function onYouTubeIframeAPIReady() {
+                var videoId=document.getElementById("player").getAttribute("data-video")
+                if(!videoId){
+                    return
+                }
                 player = new YT.Player('player', {
                     height: '1080',
                     width: '1090',
-                    videoId: 'aJg4OJxp-co',
+                    videoId: videoId,
                     playerVars:{
                         controls:0,
                         loop:1,

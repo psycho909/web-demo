@@ -16,7 +16,8 @@
             <p>{{result.name}}</p>
         </div>
         <div>
-            <button @click="increment">increment</button>
+            <!-- <button @click="increment">increment</button> -->
+            <button @click="add">Add</button>
             <p>{{count}}</p>
         </div>
     </div>
@@ -76,7 +77,10 @@
                     const result = await res.json();
                     this.$store.commit("FETCH", result)
                 },
-                ...Vuex.mapActions(["increment"]),
+                add(){
+                    this.$store.dispatch("increment")
+                }
+                // ...Vuex.mapActions(["increment"]),
                 // increment(){
                 //     this.$store.commit({
                 //         type:"INCREMENT",

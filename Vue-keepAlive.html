@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <tabs></tabs>
+    </div>
+    <script>
+        Vue.component("about",{
+            template:`
+            <div>
+                Hello From the About Page!
+            </div>
+            `,
+            mounted(){
+                console.log('About has been mounted')
+            }
+        })
+        Vue.component("contact",{
+            template:`
+            <div>
+                <input type='text' placeholder='Enter your Message' />
+                <input type='button' value="Send" />
+            </div>
+            `,
+            mounted() {
+                console.log('Contact has been mounted')
+            }
+        })
+        Vue.component("tabs",{
+            template:`
+            <div>
+                <button v-for='tab in tabs' :key='tab' @click='component = tab'>
+                {{tab}}
+                </button>
+                <keep-alive>
+                    <component :is='component' />
+                </keep-alive>
+            </div>
+            `,
+            data(){
+                return {
+                    tabs:["about","contact"],
+                    component:"about"
+                }
+            }
+        })
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                
+            }
+        })
+    </script>
+</body>
+</html>

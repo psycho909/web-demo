@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input:required+div::before {
+            content: "(required)";
+            color: red;
+        }
+
+        input:required+div::before {
+            display: none;
+        }
+
+        input:placeholder-shown+div::before {
+            display: block;
+        }
+
+        input:out-of-range+div::before {
+            content: "(out-of-range)";
+            color: red;
+        }
+
+        button:before {
+            content: "Ready to Submit";
+        }
+
+        form:invalid>button {
+            background: darkgray;
+        }
+
+        form:invalid>button:before {
+            content: "Not Ready";
+        }
+
+        input:default+div::before {
+            content: "(default)";
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <label>
+        <span>Name</span>
+        <input type="text" name="name" placeholder="your name" required />
+        <div></div>
+    </label>
+    <label>
+        <span>Years of Experience</span>
+        <input type="number" min="0" max="100" />
+        <div></div>
+    </label>
+    <form>
+        <label>
+            <span>Name</span>
+            <input type="text" name="name" placeholder="your name" required />
+            <div></div>
+        </label>
+        <button type="submit"></button>
+    </form>
+    <div>
+        <span>Fields</span>
+        <label>
+            <input type="checkbox" value="fe" checked />
+            Front-End Developer
+            <div></div>
+        </label>
+        <label>
+            <input type="checkbox" value="be" />
+            Back-End Developer
+            <div></div>
+        </label>
+    </div>
+</body>
+
+</html>

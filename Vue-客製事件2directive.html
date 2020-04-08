@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        #app{
+            z-index: 5;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>Default Size Text</p>
+        <p v-font-size:small>SMALL font-size directive</p>
+        <p v-font-size:medium>MEDIUM font-size directive</p>
+        <p v-font-size:large>LARGE font-size directive</p>
+        <p v-font-size.large>LARGE font-size directive</p>
+        <input type="text" v-focus>
+        <input type="text" v-model="msg">
+        <div v-input>{{msg}}</div>
+    </div>
+
+    <script>
+        // Sending arguments to directives
+        // el:指令所綁定的元素，可以用來操作DOM
+        // binding:一個對象包含以下屬性 (name:指令名；value:指令的綁定值)
+        // vnode:Vue編譯生成的虛擬節點
+        // bind只調用一次，指定第一次綁定到元素時調用，在這裡可以進行一次的初始化設置
+        Vue.directive("font-size", {
+            bind: (el, binding, vnode) => {
+                var defaultSize=16;
+                switch(binding.arg){
+                    case "small":
+                        defaultSize=12;
+                        break;
+                    case "large":
+                        defaultSize=32;
+                        break;
+                    default:
+                        defaultSize=16;
+                        break;
+                }
+                if(binding.modifiers.large){
+                    defaultSize=42;
+                }
+                el.style.fontSize = defaultSize + 'px';
+            }
+        })
+        // inserted被綁定元素調用父節點調用(僅保證父節點存在，但不一定已被插入文檔中)
+        Vue.directive("focus",{
+            inserted:function(el){
+                console.log(el)
+                el.focus()
+            }
+        })
+        // update所在組件的VNode更新時調用，但是可能發生在其子VNode更新之前，指定的值可能發生了改變，也可能沒有
+        Vue.directive("input",{
+            update:function(el,name){
+                console.log(name)
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg:"Hello"
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
