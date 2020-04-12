@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+        setTimeout(() => {
+            console.log("SETTIMEOUT 1")
+        }, 0);
+        let runPromise = (someone, timer, success = true) => {
+            return new Promise((resolve, reject) => {
+                // 傳入 resolve 與 reject，表示資料成功與失敗
+                console.log(`${someone} 開始跑開始`);
+                if (success) {
+                    // setTimeout(function () {
+                    //     // 3 秒時間後，透過 resolve 來表示完成
+                    //     resolve(`${someone} 跑 ${timer / 1000} 秒時間(fulfilled)`);
+                    // }, timer);
+                    resolve(`${someone} 跑 ${timer / 1000} 秒時間(fulfilled)`);
+                } else {
+                    // 回傳失敗
+                    reject(`${someone} 跌倒失敗(rejected)`)
+                }
+            });
+        }
+        runPromise('小明', 2000).then((data)=>{
+            console.log(data)
+        })
+        // async function a(){
+        //     console.log("Async")
+        //     let mingRun = await runPromise('小明', 500)
+        //     console.log('跑完了:', mingRun);
+        //     let mingRuna = await runPromise('小明', 2000)
+        //     console.log('跑完了:', mingRuna);
+        // }
+        // a()
+        console.log("console.log Start")
+        setTimeout(() => {
+            console.log("SETTIMEOUT 2")
+        }, 0);
+        console.log("console.log End")
+    </script>
+
+</body>
+
+</html>

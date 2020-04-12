@@ -64,10 +64,30 @@
         .img{
             transform: scaleX(-1);
         }
+        .select{
+            width: 100px;
+            overflow: hidden;
+        }
+        select{
+            width: 120px;
+        }
+        select::-ms-expand {
+            /* display: none;  */
+        }
+        option{
+            width: 100px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="select">
+        <select name="" id="">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+    </div>
     <div class="app">
         <div class="box">
             <a href="javascript:;" class="btn" disabled>按鈕</a>

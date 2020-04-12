@@ -21,25 +21,30 @@
         <div>
             <router-link to="/">Home</router-link>
             <router-link to="/about/123">About</router-link>
+            <router-link :to="{
+                name:'contact',
+                params:{id:321},
+                query:{local:'en'},
+                hash:'#text'
+            }">Contact</router-link>
         </div>
         <router-view></router-view>
     </div>
     <script>
-        // Vue.component("home",{
-        //     template:"#home"
-        // })
-        // Vue.component("about",{
-        //     template:"#about"
-        // })
         var home={
             template:"<div>home</div>"
         }
         var about={
             template:"<div>about {{$route.params.id}}</div>"
         }
+        var contact={
+            template:"<div>contact {{$route.params.id}} {{$route.query.local}}</div>"
+        }
         var routes=[
+            {path:"*",redirect:"/"},
             {path:"/",component:home},
-            {path:"/about/:id",component:about}
+            {path:"/about/:id",component:about},
+            {path:"/contact/:id",name:"contact",component:contact}
         ];
         var router=new VueRouter({
             routes
@@ -47,6 +52,12 @@
         new Vue({
             el: "#app",
             router,
+            scrollBehavior(to,from,savePosition){
+                console.log(to,from,savePosition)
+                return {
+                    x:0,y:0
+                }
+            },
             created(){
                 // $route 可以查找 meta、hash、params、query
                 // $router 可以用push、replace跳頁功能
