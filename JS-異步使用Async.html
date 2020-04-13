@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js"></script>
+</head>
+<body>
+    <script>
+        const step1 = function(){
+            console.log(1)
+        }
+        const step3 = function(){
+            console.log(2)
+        }
+        const step4 = function(){
+            console.log(3)
+        }
+        const step2 = function(){
+            return new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    console.log(2)
+                    resolve("STEP2")
+                },1000)
+            })
+        }
+
+        const syncExcute=async function(){
+            step1();
+            var s2=await step2();
+            step3();
+            step4();
+            return s2;
+        }
+
+        syncExcute().then(function(data){
+            console.log(data)
+        })
+    </script>
+</body>
+</html>
