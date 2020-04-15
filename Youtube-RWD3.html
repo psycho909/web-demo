@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <title>Document</title>
   <style>
-	*{
-	  margin: 0;
-	  padding: 0;
-    box-sizing: border-box;
-	}
-  .video-box,.calendar-box{
-    border:1px solid #000;
-    position: relative;
-    max-width: 800px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  }
-  .video-container{
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-  }
-  .video-container iframe{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .page1{
-    width: 100%;
-    background-color: #333;
-  }
-  .page1 .wrapper{
-    padding: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .page-video-container{
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-  }
-  .page-video-container iframe{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+    .video-box,
+    .calendar-box {
+      border: 1px solid #000;
+      position: relative;
+      max-width: 800px;
+
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .page1 {
+      width: 100%;
+      background-color: #333;
+    }
+
+    .page1 .wrapper {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .page-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
+
 <body>
-<div class="video-box">
-  <div class="video-container">
-    <iframe src="http://www.youtube.com/embed/4aQwT3n2c1Q" width="560" height="315" allowfullscreen="" frameborder="0"> </iframe>
-  </div>
-</div>
-<section class="page1">
-  <div class="wrapper">
-    <div class="page-video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/fd6lFMDWfWc?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <div class="video-box">
+    <div class="video-container">
+      <iframe src="http://www.youtube.com/embed/4aQwT3n2c1Q" width="560" height="315" allowfullscreen=""
+        frameborder="0"> </iframe>
     </div>
   </div>
-</section>
+  <section class="page1">
+    <div class="wrapper">
+      <div class="page-video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/fd6lFMDWfWc?rel=0" frameborder="0"
+          allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
 </body>
 <script>
 
 </script>
+
 </html>
