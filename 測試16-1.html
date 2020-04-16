@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-        .box{
+
+        .box {
             width: 100px;
             height: 100px;
             background-color: #000;
@@ -21,7 +23,17 @@
         }
     </style>
 </head>
+
 <body>
     <div class="box"></div>
+    <div id="div"></div>
+    <script>
+        if (!window.name) { //第一次进页面
+            window.name = "myname";
+        } else { //非第一次进页面
+            document.getElementById("div").style.display = 'none'; //隐藏
+        }
+    </script>
 </body>
+
 </html>
