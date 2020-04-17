@@ -38,6 +38,7 @@
                     handler(newVal,oldVal){
                         console.group('watch');
                         console.log("watch: ",newVal,oldVal)
+                        console.groupEnd();
                     }
                 }
             },
@@ -46,48 +47,56 @@
                 console.log("el: " + this.$el);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             created: function () {
                 console.group('created 创建完毕');
                 console.log("el: " + this.$el);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             beforeMount: function () {
                 console.group('beforeMount 挂载前');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             mounted: function () {
                 console.group('mounted 挂载结束');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             beforeUpdate: function () {
                 console.group('beforeUpdate 更新前');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             updated: function () {
                 console.group('updated 更新完成');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             beforeDestroy: function () {
                 console.group('beforeDestroy 销毁前');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             destroyed: function () {
                 console.group('destroyed 销毁完成');
                 console.log("el: " + this.$el.innerHTML);
                 console.log("data: " + JSON.stringify(this.$data));
                 console.log("message: " + this.message)
+                console.groupEnd();
             },
             methods: {
                 change() {

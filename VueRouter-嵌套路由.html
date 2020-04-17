@@ -140,14 +140,18 @@
                 </div>
             `
         }
-        var AutoPage = {
-            name:"AutoPage",
+        var AboutPage = {
+            name:"AboutPage",
             template: `
             <div>
                 <h2>About</h2>
                 <p>Alligators were around during the time of the dinosaurs.</p>
             </div>
-            `
+            `,
+            beforeRouteEnter (to,from,next){
+                console.log("beforeRouteEnter")
+                next()
+            }
         };
         var TravelPage = {
             name:"TravelPage",
@@ -191,14 +195,14 @@
                     { path: "america",name:"america", component: TravelAmericaPage }
                 ]
             },
-            { path: "/about",name:"about", component: AutoPage }
+            { path: "/about",name:"about", component: AboutPage }
         ]
         var router = new VueRouter({
             routes
         })
 
         router.beforeEach((to,from,next)=>{
-            console.log(to,from,next)
+            console.log("beforeEach")
             next()
         })
 
@@ -210,9 +214,9 @@
             },
             watch:{
                 "$route"(to,from){
-                    console.log(to,from)
+                    console.log("$route")
                 }
-            }
+            },
         })
     </script>
 </body>
