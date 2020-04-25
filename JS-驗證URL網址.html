@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js"></script>
+</head>
+<body>
+    <script>
+        var url="213123";
+        // IE 不支持
+        const validateURL=function(url){
+            try{
+                new URL(url)
+                return true
+            }catch(err){
+                return false;
+            }
+        }
+
+        if(validateURL(url)){
+            console.log("u")
+        }else{
+            console.log("no u")
+        }
+    </script>
+</body>
+</html>

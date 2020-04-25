@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!-- Code By Webdevtrick ( https://webdevtrick.com ) -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Image Cards Scrolling | Webdevtrick.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Hind:wght@400&amp;display=swap'>
+    <style>
+        * {
+            border: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #e5e5e5;
+            --cardBg: #f1f1f1;
+            --fg: #171717;
+            --linkFg: #2762f3;
+            --transDur: 0.25s;
+            font-size: calc(16px + (20 - 16)*(100vw - 320px)/(2560 - 320));
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font: 1em/1.5 "Hind", sans-serif;
+        }
+
+        a {
+            color: var(--linkFg);
+        }
+
+        /* Grid */
+        .image-grid {
+            display: grid;
+            grid-gap: 1.5em;
+            margin: 1.5em 1.5em 13.5em 1.5em;
+        }
+
+        .image-grid__card {
+            animation: flyIn var(--transDur) ease-in;
+            background: var(--cardBg);
+            border-radius: 0.25em;
+            box-shadow: 0 0 0.375em #0003;
+            width: 100%;
+        }
+
+        .image-grid__card a {
+            background: #0003;
+            border-radius: 0.25em 0.25em 0 0;
+            display: block;
+            overflow: hidden;
+            position: relative;
+            height: 9.75em;
+            will-change: transform;
+        }
+
+        .image-grid__card a:focus {
+            outline: transparent;
+        }
+
+        .image-grid__card a:focus .image-grid__card-thumb,
+        .image-grid__card a:hover .image-grid__card-thumb {
+            opacity: 0.5;
+        }
+
+        .image-grid__card-thumb {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: auto;
+            height: 100%;
+            transition: all var(--transDur) linear;
+            transform: translate(-50%, -50%);
+        }
+
+        .image-grid__card-thumb--portrait {
+            width: 100%;
+            height: auto;
+        }
+
+        .image-grid__card-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 0.375em 0.75em;
+        }
+
+        .image-grid__status {
+            animation: fadeIn var(--transDur) linear;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+
+        /* Preloader */
+        .pl,
+        .pl:before,
+        .pl:after {
+            animation-duration: 2s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .pl {
+            margin: 0 auto 1.5em auto;
+            position: relative;
+            width: 3em;
+            height: 3em;
+        }
+
+        .pl:before,
+        .pl:after {
+            background: currentColor;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            transform-origin: 50% 100%;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .pl-fade:before {
+            animation-name: fadeA;
+        }
+
+        .pl-fade:after {
+            animation-name: fadeB;
+        }
+
+        /* Animations */
+        @keyframes flyIn {
+            from {
+                opacity: 0;
+                transform: translateY(3em);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeA {
+
+            from,
+            to {
+                opacity: 1;
+                transform: rotate(0deg)
+            }
+
+            25%,
+            75.1% {
+                opacity: 0;
+                transform: rotate(0deg)
+            }
+
+            25.1%,
+            75% {
+                opacity: 0;
+                transform: rotate(180deg)
+            }
+
+            50% {
+                opacity: 1;
+                transform: rotate(180deg)
+            }
+        }
+
+        @keyframes fadeB {
+
+            from,
+            50% {
+                opacity: 0;
+                transform: rotate(90deg)
+            }
+
+            25% {
+                opacity: 1;
+                transform: rotate(90deg)
+            }
+
+            50.1%,
+            to {
+                opacity: 0;
+                transform: rotate(270deg)
+            }
+
+            75% {
+                opacity: 1;
+                transform: rotate(270deg)
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #171717;
+                --cardBg: #242424;
+                --fg: #f1f1f1;
+                --linkFg: #5785f6;
+            }
+        }
+
+        @media (min-width: 512px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .image-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .image-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .image-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1536px) {
+            .image-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="one" class="image-grid"></div>
+
+    <script>
+        // Code By Webdevtrick ( https://webdevtrick.com )
+        document.addEventListener("DOMContentLoaded", () => {
+            let imgGrid = new ImageGrid({
+                id: "one"
+            });
+        });
+
+        class ImageGrid {
+            constructor(args) {
+                this.container = document.querySelector(`#${args.id}`);
+                this.blockClass = "image-grid";
+                this.cardContent = null;
+                this.status = null;
+                this.page = 1;
+                this.imagesPerRequest = 100;
+                this.observer = new IntersectionObserver(
+                    (entries, self) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // since only the last loaded image should be observed, there will be “baton passing” of being observed
+                                self.unobserve(entry.target);
+
+                                // keep adding cards until all images on have been loaded
+                                let cards = this.getCards(),
+                                    cardCount = cards.length,
+                                    cardsAtPageStart = (this.page - 1) * this.imagesPerRequest,
+                                    contentIndex = cardCount - cardsAtPageStart;
+
+                                if (cardCount < cardsAtPageStart + this.cardContent.length) {
+                                    this.addCard(this.cardContent[contentIndex]);
+                                    // observe the next card
+                                    cards = this.getCards();
+                                    self.observe(cards[cardCount]);
+
+                                } else {
+                                    ++this.page;
+                                    this.requestImages(this.imagesPerRequest, this.page);
+                                }
+                            }
+                        });
+                    }, {
+                        root: null,
+                        rootMargin: "0px 0px 0px 0px",
+                        threshold: 0.99
+                    }
+                );
+                this.createStatus();
+                this.requestImages(this.imagesPerRequest);
+            }
+            createStatus() {
+                // status container
+                this.status = document.createElement("div");
+                this.status.className = `${this.blockClass}__status`;
+                this.container.appendChild(this.status);
+
+                // preloader and status text
+                let preloader = document.createElement("div"),
+                    statusMsg = document.createElement("p"),
+                    statusMsgText = document.createTextNode("Loading…");
+
+                preloader.className = "pl pl-fade";
+                this.status.appendChild(preloader);
+                this.status.appendChild(statusMsg);
+                statusMsg.appendChild(statusMsgText);
+            }
+            setStatus(msg) {
+                if (this.status !== null) {
+                    let preloader = this.status.querySelector(".pl"),
+                        statusMsg = this.status.querySelector("p");
+
+                    // remove the preloader
+                    this.status.removeChild(this.status.firstChild);
+
+                    // set the status text
+                    statusMsg.innerHTML = msg;
+                }
+            }
+            killStatus() {
+                // remove both the preloader and status text
+                if (this.status !== null) {
+                    let parent = this.status.parentElement;
+                    parent.removeChild(parent.firstChild);
+                    this.status = null;
+                }
+            }
+            requestImages(perPage = 20, page = 1) {
+                // hard limits set by the Pixabay API
+                if (perPage < 3)
+                    perPage = 3;
+                else if (perPage > 200)
+                    perPage = 200;
+
+                if (page < 1)
+                    page = 1;
+
+                // parameters of request
+                let APIKey = "2913992-c926292594f754c09b7f796ad",
+                    query = "castle",
+                    minWidth = 270,
+                    minHeight = 180,
+                    url =
+                    `https://pixabay.com/api/?key=${APIKey}&q=${query}&image_type=photo&min_width=${minWidth}&min_height=${minHeight}&per_page=${perPage}&page=${page}&safesearch=true`;
+
+                // send request
+                this.requestJSON(url).then(items => {
+                    this.cardContent = items;
+                    // first card of request, removing status if necessary
+                    if (this.cardContent !== null && this.cardContent.length) {
+                        this.killStatus();
+                        this.addCard(this.cardContent[0]);
+
+                        let firstCard = this.container.lastChild;
+                        this.observer.observe(firstCard);
+
+                    } else {
+                        // …or no cards (set status if first request)
+                        this.setStatus("Nothing to show here…");
+                    }
+
+                }).catch(msg => {
+                    this.setStatus(msg);
+                });
+            }
+            requestJSON(resource) {
+                return new Promise((resolve, reject) => {
+                    let request = new XMLHttpRequest();
+
+                    request.open("GET", resource, true);
+                    request.onload = function () {
+                        let items = null;
+                        // atttempt to supply items
+                        try {
+                            let response = JSON.parse(this.response);
+                            items = [...response.hits];
+
+                        } catch (err) {
+                            items = [];
+                        }
+                        resolve(items);
+                    };
+                    request.onerror = () => {
+                        reject("It appears you’re offline. Check your connection and try again.");
+                    };
+                    request.send();
+                });
+            }
+            addCard(content) {
+                let data = {
+                        title: content.tags || "untitled",
+                        link: content.pageURL || "#0",
+                        thumbnail: content.webformatURL.replace("640.jpg", "180.jpg") ||
+                            "https://i.ibb.co/6Whjrmx/placeholder.png",
+                        thumbWidth: content.webformatWidth / 2 || 1,
+                        thumbHeight: content.webformatHeight / 2 || 1
+                    },
+                    card = document.createElement("div"),
+                    thumbLink = document.createElement("a"),
+                    thumb = document.createElement("img"),
+                    cardTitle = document.createElement("span"),
+                    cardTitleText = document.createTextNode(data.title);
+
+                // card itself
+                card.className = `${this.blockClass}__card`;
+                this.container.appendChild(card);
+
+                // thumbnail link
+                thumbLink.href = data.link;
+                thumbLink.rel = "noopener noreferrer";
+                thumbLink.target = "_blank";
+                card.appendChild(thumbLink);
+
+                thumb.className = `${this.blockClass}__card-thumb`;
+                // allow portrait images to touch the left and right side of cards
+                if (data.thumbWidth < data.thumbHeight)
+                    thumb.classList.add(`${this.blockClass}__card-thumb--portrait`);
+
+                thumb.src = data.thumbnail;
+                thumb.width = data.thumbWidth;
+                thumb.height = data.thumbHeight;
+                thumb.alt = data.title;
+                thumbLink.appendChild(thumb);
+
+                // card title
+                cardTitle.className = `${this.blockClass}__card-title`;
+                cardTitle.title = data.title;
+                card.appendChild(cardTitle);
+                cardTitle.appendChild(cardTitleText);
+            }
+            getCards() {
+                return this.container.querySelectorAll(`.${this.blockClass}__card`);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

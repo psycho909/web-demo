@@ -34,10 +34,13 @@
 
         var xhr=new XMLHttpRequest();
         xhr.open("get","https://jsonplaceholder.typicode.com/todos/1")
-        xhr.send();
         xhr.onload=function(){
+            let response=JSON.parse(this.response)
+            console.log(response)
+            console.log(xhr.response)
             console.log(xhr.responseText)
         }
+        xhr.send()
     </script>
 </body>
 

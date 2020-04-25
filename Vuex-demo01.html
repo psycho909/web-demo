@@ -9,21 +9,14 @@
 </head>
 <body>
     <div id="app">
-        <title-world level="1"></title-world>
-        <h1>{{welcome}}</h1>
-        <h2>{{message}}</h2>
+        <h2>{{welcome2}}</h2>
         <h3>{{count}}</h3>
+        <input type="text" v-model="welcome">
+        <button @click="submitMessage">submit</button>
         <button @click="pressed">Increment Counter</button>
         <button @click="deincrement">Deincrement Counter</button>
     </div>
     <script>
-        Vue.component("title-world",{
-            props:["level"],
-            template:`<h1>Hello {{this.level}}</h1>`,
-            created(){
-                console.log(this.level)
-            }
-        })
         const store=new Vuex.Store({
             state:{
                 message:"Hello From Vuex",
@@ -35,6 +28,9 @@
                 },
                 DEINCREMENT(state,payload){
                     state.count-=payload
+                },
+                changeMessage(state,payload){
+                    state.message=payload
                 }
             },
             actions:{
@@ -43,6 +39,9 @@
                 },
                 deincrement(state,payload){
                     state.commit("DEINCREMENT",payload)
+                },
+                changeMessage({commit},payload){
+                    commit("changeMessage",payload)
                 }
             },
             getters:{
@@ -59,13 +58,12 @@
             store:store,
             data(){
                 return {
-                    welcome:"Hello World"
+                    welcome:"Hello World",
+                    welcome2:""
                 }
             },
             computed:{
-                message(){
-                    return this.$store.getters.message
-                },
+                ...Vuex.mapGetters(["message"]),
                 count(){
                     return this.$store.getters.counter
                 }
@@ -76,6 +74,14 @@
                 },
                 deincrement(){
                     store.dispatch("deincrement",1)
+                },
+                submitMessage(){
+                    store.dispatch("changeMessage",this.welcome)
+                }
+            },
+            watch:{
+                message(){
+                    this.welcome2=this.message;
                 }
             }
         })

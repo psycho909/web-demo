@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>IntersectionObserver Lazy Image</title>
+        <style>
+            body {
+                font-family: 'Averia serif libre';
+                text-align: center;
+                color: aliceblue;
+                background-color: crimson;
+            }
+            img {
+                width: 600px;
+                height: 420px;
+                display: inline-block;
+                margin: 50px;
+                box-shadow: 0 0 20px #333;
+            }
+            h1 {
+                margin-bottom: 0;
+                text-transform: uppercase;
+                font-size: 14pt;
+            }
+            #mark {
+                width: 100%;
+                position: fixed;
+                bottom: 200px;
+                font-size: 16pt;
+                border-bottom: dashed 2px currentColor;
+                text-shadow: 0 0 10px black;
+            }
+            #warning {
+                padding: 10px;
+                color: beige;
+                background-color: red;
+            }
+            #box-img{
+                position: absolute;
+                top: 2000px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- some warnings, for demo purposes -->
+        <strong id="warning" hidden
+            >IntersectionObserver is not supported by your browser, so you can't
+            see the effect. Check its browser support
+            <a
+                href="https://caniuse.com/#feat=intersectionobserver"
+                target="_blank"
+                >here</a
+            >.</strong
+        >
+        <noscript>⚠️ JAVASCRIPT IS DISABLED IN YOUR BROWSER!</noscript>
+
+        <h1>Scroll down and see images lazy load at the mark</h1>
+
+        <div id="box-img">
+            <img
+                src="https://via.placeholder.com/600"
+                data-src="https://images.unsplash.com/photo-1504272017915-32d1bd315a59?fit=crop&w=600&q=80"
+            />
+        </div>
+
+        <div id="mark">200px above viewport</div>
+
+        <script>
+            if(!!window.IntersectionObserver){
+                let observer = new IntersectionObserver((entries, observer) => { 
+                    entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        console.log(entry);
+                        entry.target.src = entry.target.dataset.src;
+                        observer.unobserve(entry.target);
+                    }
+                    });
+                }, {rootMargin: "0px 0px -200px 0px"});
+                observer.observe(document.querySelector("#box-img img"));
+            }else{
+                document.querySelector('#warning').style.display = 'block';
+            }
+        </script>
+    </body>
+</html>

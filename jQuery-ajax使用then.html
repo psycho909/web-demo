@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
 </head>
+
 <body>
-    
+    <a href="#" title="123">13</a>
+    <button id="example" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+        Tooltip on top
+    </button>
     <script>
-        var promise=$.ajax({
-            url:"https://randomuser.me/api/?results=10",
-            dataType:"JSON",
-            method:"GET"
+        $('#example').tooltip({ boundary: 'window' })
+        var promise = $.ajax({
+            url: "https://randomuser.me/api/?results=10",
+            dataType: "JSON",
+            method: "GET"
         })
-        promise.then(function(data){
+        promise.then(function (data) {
             console.log(data.results)
-        },function(error){
+        }, function (error) {
             console.log("ERROR")
         })
 
@@ -36,4 +43,5 @@
         // })
     </script>
 </body>
+
 </html>

@@ -101,9 +101,9 @@
             });
         }, {threshold: 1});
         document.querySelectorAll('article > p:last-child').forEach(p => { observer.observe(p) });
+    }else{
+        document.querySelector('#warning').style.display = 'block';
     }
-
-    else document.querySelector('#warning').style.display = 'block';
     </script>
 </body>
 </html>
