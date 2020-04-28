@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>tooltipster</title>
+    <link rel="stylesheet" href="css/tooltipster.bundle.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/tooltipster.bundle.js"></script>
+    <style>
+        .tooltip_templates {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="tooltip" data-tooltip-content="#tooltip_content">This span has a tooltip with HTML when you hover over
+        it!</span>
+
+    <div class="tooltip_templates">
+        <span id="tooltip_content">
+            <img src="myimage.png" /> <strong>This is the content of my tooltip!</strong>
+        </span>
+    </div>
+
+    <script>
+        $('.tooltip').tooltipster({
+            animation: 'fade',
+            arrow: false,
+            side: "left",
+            trackOrigin: true,
+            trigger: 'custom',
+            triggerOpen: {
+                click: true
+            },
+            triggerClose: {
+                click: true,
+                originClick: true
+            }
+        });
+    </script>
+</body>
+
+</html>

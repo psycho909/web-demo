@@ -32,7 +32,8 @@
             margin: 50px auto 0 auto;
             width: 400px;
             height: 120px;
-            background-color: #666;
+            --bg:#666;
+            background-color: var(--bg);
         }
 
         .child {
@@ -53,10 +54,15 @@
         <div class="box"></div>
         <div class="box"></div>
     </div>
-    <div class="parent">
+    <div class="parent" id="parent">
         <div class="child">I'm the child element</div>
     </div>
-    <input type="text" id="text" value="123" readonly="true">
+
+    <script>
+        var p=document.getElementById("parent");
+        console.log(window.getComputedStyle(p).getPropertyValue("--bg"))
+        p.style.setProperty("--bg","#000")
+    </script>
 </body>
 
 </html>

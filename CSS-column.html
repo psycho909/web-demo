@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .list-wrapper{
+            width: 840px;
+            padding: .4rem;
+            /* 列數量 */
+            columns: 2;
+            column-gap:.4rem;
+        }
+        .list-item{
+            text-align: center;
+            padding-bottom: 24px;
+            /* 可不斷行 */
+            height: 100%;
+            overflow: auto;
+        }
+        .list-item img{
+            display: inline-block;
+        }
+        .list-item p{
+            font-size: 24px;
+            font-weight: bold;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="list-wrapper">
+            <div class="list-item" v-for="item in List">
+                <img :src="item.img" alt="">
+                <p>{{item.text}}</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+                    List:[]
+                }
+            },
+            mounted(){
+                for(var i=0;i<10;i++){
+                    this.List.push({
+                        img:`https://i.picsum.photos/id/${Math.ceil(Math.random()*300)}/400/${Math.ceil(Math.random()*300+300)}.jpg`,
+                        text:`https://i.picsum.photos/id/${Math.ceil(Math.random()*300)}/400/${Math.ceil(Math.random()*300+300)}.jpg`
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

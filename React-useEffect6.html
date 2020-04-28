@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+    <script type="text/babel">
+        const { useState, useEffect,useReducer } = React;
+        const initialState = {
+            count: 0,
+            step: 1,
+        }
+        function reducer(state,action){
+            const {count,step}=state;
+            if(action.type === 'tick'){
+                return {
+                    count:count+step,step
+                }
+            }else if(action.type === 'step'){
+                return {
+                    count,step:action.step
+                }
+            }else{
+                throw new Error();
+            }
+        }
+        function Counter() {
+            const [state,dispatch]=useReducer(reducer,initialState);
+            const {count,step}=state;
+
+            useEffect(()=>{
+                const id=setInterval(()=>{
+                    dispatch({type:"tick"})
+                },1000)
+                return ()=>clearInterval(id)
+            },[dispatch])
+
+            return (
+                <>
+                <h1>{count}</h1>
+                <input value={step} onChange={e => dispatch({type:"step",step:Number(e.target.value)})} />
+                </>
+            )
+        }
+
+        function Example() {
+            const [count, setCount] = useState(0)
+
+            useEffect(() => {
+                setCount(99)
+                console.log(`You clicked ${count} times`)
+                return() => {
+                console.log('销毁')
+                }
+            })
+            console.log('我肯定最先执行！')
+            return (
+                <div>
+                <p>You clicked {count} times</p>
+                <button onClick={() => setCount(count + 1)}>
+                    Click me
+                </button>
+                </div>
+            )
+        }
+
+        function App() {
+            return (
+                <div className="App">
+                    <Counter/>
+                    <Example/>
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app{
+            height: 6000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button id="btn">scrollTo</button>
+    </div>
+    <!-- 讓IE 之前此屬性 -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/iamdustan-smoothscroll/0.4.0/smoothscroll.min.js'></script>
+    <script>
+        document.getElementById("btn").addEventListener("click",function(){
+            window.scroll({
+                top:2500,
+                left:0,
+                behavior:"smooth"
+            })
+        })
+    </script>
+</body>
+</html>
