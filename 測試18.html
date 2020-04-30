@@ -5,94 +5,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <style>
         * {
             padding: 0;
             margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 100px;
+            position: relative;
+        }
+        .card{
+            width: calc(1200px / 3);
+            height: 450px;
+            background-color: #666;
+            position: relative;
+            padding: .5rem;
+        }
+        .card.active .card-body{
+            transform: scale(1.05);
+        }
+        .card-body{
+            background-color: #eee;
+            width: 100%;
+            height: 100%;
+            transition: all .3s;
+            position: relative;
+            z-index: 1;
+        }
+        .card-body:hover{
+            transform: scale(1.05);
+        }
+        #prev{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-100%,-50%);
+        }
+        #next{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(100%,-50%);
+        }
+        #btn{
+            position: relative;
+            width: 312px;
+            height: 344px;
+            display: block;
+            margin: 60px;
+        }
+        #btn:before{
+            content:"";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 312px;
+            height: 344px;
+            background-image: url('video/btn-border.png');
+            z-index: 1;
+        }
+        .btn-box{
+            width: 285px;
+            height: 285px;
+            display: block;
+            font-size: 0;
+            overflow: hidden;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .btn-box:before{
+            content:"";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 2px;
+            left: 1px;
+            background-image: url('video/video.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        .btn-box video{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .btn-box video.hide{
+            visibility: hidden;
         }
     </style>
 </head>
 
 <body>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Country</th>
-                <th>Cases</th>
-                <th>Deaths</th>
-                <th>Recovered</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/af.png" alt="AF" title="AF">Afghanistan</td>
-                <td>1,703</td>
-                <td>57</td>
-                <td>220</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/al.png" alt="AL" title="AL">Albania</td>
-                <td>736</td>
-                <td>28</td>
-                <td>422</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/dz.png" alt="DZ" title="DZ">Algeria</td>
-                <td>3,517</td>
-                <td>432</td>
-                <td>1,558</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/ad.png" alt="AD" title="AD">Andorra</td>
-                <td>743</td>
-                <td>40</td>
-                <td>385</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/ao.png" alt="AO" title="AO">Angola</td>
-                <td>27</td>
-                <td>2</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/ai.png" alt="AI" title="AI">Anguilla</td>
-                <td>3</td>
-                <td>0</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/ag.png" alt="AG" title="AG">Antigua and Barbuda
-                </td>
-                <td>24</td>
-                <td>3</td>
-                <td>11</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/ar.png" alt="AR" title="AR">Argentina</td>
-                <td>4,003</td>
-                <td>197</td>
-                <td>1,140</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/am.png" alt="AM" title="AM">Armenia</td>
-                <td>1,808</td>
-                <td>29</td>
-                <td>848</td>
-            </tr>
-            <tr>
-                <td><img src="https://corona.lmao.ninja/assets/img/flags/aw.png" alt="AW" title="AW">Aruba</td>
-                <td>100</td>
-                <td>2</td>
-                <td>73</td>
-            </tr>
-        </tbody>
-    </table>
+    <a id="btn" href="javascript:;">
+        <div class="btn-box">
+            <video src="video/btn01.mp4" loop autoplay ></video>
+            <video class="hide" src="video/btn02.mp4" loop autoplay ></video>
+        </div>
+    </a>
+    <div class="box">
+        <div class="card active">
+            <div class="card-body"></div>
+        </div>
+        <div class="card">
+            <div class="card-body"></div>
+        </div>
+        <div class="card">
+            <div class="card-body"></div>
+        </div>
+        <div class="card">
+            <div class="card-body"></div>
+        </div>
+        <div class="card">
+            <div class="card-body"></div>
+        </div>
+        <div class="card">
+            <div class="card-body"></div>
+        </div>
+        <a id="prev" href="javascript:;">上一個</a>
+        <a id="next" href="javascript:;">下一個</a>
+    </div>
 
+    
     <script>
-        var p = document.getElementById("parent");
-        console.log(window.getComputedStyle(p).getPropertyValue("--bg"))
-        p.style.setProperty("--bg", "#000")
+        var index=0;
+        $("#prev").on("click",function(){
+            index--;
+            $('.card').eq(index).addClass("active").siblings().removeClass("active");
+        })
+        $("#next").on("click",function(){
+            index++;
+            $('.card').eq(index).addClass("active").siblings().removeClass("active");
+        })
+
+        var videoArr=["btn01","btn02"];
+        $("#btn").hover(function(){
+            // $(this).find("video")[0].src="video/btn02.mp4"
+            $(this).find("video").eq(0).addClass("hide")
+            $(this).find("video").eq(1).removeClass("hide")
+        },function(){
+            // $(this).find("video")[0].src="video/btn01.mp4"
+            $(this).find("video").eq(1).addClass("hide")
+            $(this).find("video").eq(0).removeClass("hide")
+        })
     </script>
 </body>
 
