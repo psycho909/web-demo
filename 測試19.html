@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="search" onclick="changeFun(textAllData,4)">换一批</div>
+    <script>
+        var textAllData=[1,2,3,4,5,6,7,8,9,10]
+        var page=0;
+
+        function changeFun(allData,n){
+            let len=allData.length;
+            let result=len - page;
+            let newArr=[];
+            console.log("result:",result)
+            if(result > 0 && result < n){
+                newArr = [...allData.slice(length - result, length), ...allData.slice(0, n - result)]
+                page = n - result
+            }else if(result >= n){
+                newArr=allData.slice(page,page+n)
+                page+=n;
+            }else{
+                page=0;
+                newArr=allData.slice(page,page+n)
+            }
+            console.log("page:",page)
+            console.log(newArr)
+            return newArr;
+        }
+    </script>
+</body>
+</html>
