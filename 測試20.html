@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Dealer A
+        DealerA = {};
+        DealerA.title = function title() {
+            return "Dealer A";
+        };
+        DealerA.pay = function pay(amount) {
+            console.log(
+                `set up configuration using username: ${this.username} and password: ${this.password}`
+            );
+            console.log(this)
+            return `Payment for service ${amount} is successful using ${this.title()}`;
+        };
+
+        //@param {*} DealerOption
+        //@param {*} config
+
+        function DealerFactory(DealerOption, config = {}) {
+            const dealer = Object.create(DealerOption);
+            Object.assign(dealer, config);
+            return dealer;
+        }
+
+        const dealerFactory = DealerFactory(DealerA, {
+            username: "user",
+            password: "pass"
+        });
+        console.log(dealerFactory.title());
+        console.log(dealerFactory.pay(12));
+    </script>
+</body>
+
+</html>

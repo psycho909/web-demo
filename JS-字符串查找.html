@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a="abbcefgh";
+        var b="cef";
+
+        for(var i=0;i<a.length;i++){
+            var d=0;
+            var k=i;
+            var c=[];
+            for(var j=0;j<b.length;j++){
+                if(a[k].indexOf(b[j]) <= -1){
+                    break
+                }else{
+                    d++;
+                    c.push(k)
+                }
+                k++;
+            }
+            if(d == b.length) break;
+        }
+
+        var search=["NBA 2K20","三國志12","三國志12 加強版","騎馬與砍殺2"]
+    </script>
+</body>
+
+</html>

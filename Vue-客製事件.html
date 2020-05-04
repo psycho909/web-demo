@@ -27,20 +27,24 @@
         <base-input-with-label @focus="onFocus" v-model="inputModel" label="test2"></base-input-with-label>{{inputModel}}
         <br>
         <br>
-        <base-button :title="title" @update:title="title=$event"></base-button>
+        <base-button head="title" :title="title" @update:title="title=$event"></base-button>
         <br>
         <br>
-        <base-button :title.sync="title"></base-button>
+        <base-button head="sync title" :title.sync="title"></base-button>
         <br>
         <br>
-        <base-button v-bind.sync="obj"></base-button>
+        <base-button head="sync obj" :title.sync="obj.title"></base-button>
     </div>
 
     <script>
         Vue.component('base-button', {
-            props: ['title'],
+            props: ['title','head','heads'],
             template: `
-                <button @click="click">{{title}}</button>
+                <div>
+                    <h3>{{head}}</h3>
+                    <h3>{{heads}}</h3>
+                    <button @click="click">{{title}}</button>
+                </div>
             `,
             methods: {
                 click() {
@@ -120,9 +124,9 @@
                 count: 5,
                 checkboxValue: true,
                 inputModel: '',
-                title: 'I Love Vue.js',
+                title: 'I Love Vue.js !!',
                 obj: {
-                    title: 'I am in obj'
+                    title: 'I am in obj !'
                 }
             },
             methods: {

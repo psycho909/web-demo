@@ -6,21 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        .card{
+            width: 300px;
+            border:1px solid #000;
+            border-radius: 8px;
+        }
+        .card .head{
+            padding: 1rem;
+            text-align: center;
+            background-color: #eee;
+            border-radius: 8px 8px 0 0;
+        }
+        .card .footer{
+            padding: 1rem;
+            text-align: center;
+            background-color: #eee;
+            border-radius: 0 0 8px 8px;
+        }
+        .card .body{
+            padding: 1rem;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <child @get="getValue">
-            <template #footer={user}>
-                <div>
-                    <span>{{user}}</span>
-                </div>
+            <template v-slot:head="{head}">
+                <div>{{head}}</div>
+            </template>
+            <template>
+                <div>這是內容</div>
+            </template>
+            <template #footer={footer}>
+                <div>{{footer}}</div>
             </template>
         </child>
     </div>
     <template id="child">
-        <div class="content">
-            <div class="text">
-                <slot name="footer" :user="user2"></slot>
+        <div class="card">
+            <div class="head">
+                <slot name="head" :head="head"></slot>
+            </div>
+            <div class="body">
+                <slot></slot>
+            </div>
+            <div class="footer">
+                <slot name="footer" :footer="footer"></slot>
             </div>
         </div>
     </template>
@@ -29,29 +61,18 @@
             template:"#child",
             data(){
                 return {
-                    user: {
-                        title: '測試 title',
-                        name: '測試 name'
-                    },
-                    user2: {
-                        title: 'LBJ',
-                        name: 'King'
-                    }
+                    head:"我是標題",
+                    footer:"我是copyright"
                 }
             },
             methods:{
-                testclick(){
-                    this.$emit("get","get value")
-                    console.log("child testclick")
-                }
+
             }
         })
         new Vue({
             el:"#app",
             methods:{
-                getValue(val){
-                    console.log("get emit "+val)
-                }
+                
             }
         })
     </script>

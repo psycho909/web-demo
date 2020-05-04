@@ -14,10 +14,11 @@
     <div id="app">
         <div>
             {{message}}
-            <input type="text" v-model="message" :value="message">
+            <br>
+            <input type="text" v-model="message">
             <titled>
                 <template #header="slotProps">
-                    <div>{{slotProps.user.firstname}}</div>
+                    <div>{{slotProps.user.firstname}} {{slotProps.user.lastname}}</div>
                 </template>
                 <template #btn="{alertText}">
                     <button @click="alertText">Click ME!</button>
@@ -29,7 +30,7 @@
     <script type="text/x-template" id="titled">
         <div>
             <header>
-                <slot name="header" :user="user">{{user.lastname}}</slot>
+                <slot name="header" :user="user"></slot>
             </header>
             <slot name="btn" :alertText="alertText"></slot>
         </div>
@@ -53,8 +54,19 @@
         })
         var app=new Vue({
             el:"#app",
+            created(){
+                this.username=function(){
+                    console.log("Username")
+                }
+            },
             data:{
                 message:"Hello"
+            },
+            watch:{
+                message(){
+                    if(!this.message) return;
+                    this.username()
+                }
             }
         })
     </script>
