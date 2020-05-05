@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        
+        
+        document.addEventListener("DOMContentLoaded",function(){
+            console.log("DOMContentLoaded")
+        })
+        window.onload=function(){
+            console.log("ONLOAD")
+        }
+        $.ajax({
+            url:"https://randomuser.me/api/",
+            method:"GET",
+            timeout:3000,
+            success:function(data){
+                console.log(data)
+            }
+        })
+        setTimeout(() => {
+            console.log("SETTIMEOUT")
+        }, 0);
+        
+    </script>
+</body>
+</html>

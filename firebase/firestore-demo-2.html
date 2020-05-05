@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1" onclick="storedata()">PUSH</button>
+    <button id="btn2" onclick="getdata()">GET</button>
+
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDMCLgUZj5NfLaeaxJqbVTNQbMn8igkHTM",
+            authDomain: "avid-sunset-151512.firebaseapp.com",
+            databaseURL: "https://avid-sunset-151512.firebaseio.com",
+            projectId: "avid-sunset-151512",
+            storageBucket: "avid-sunset-151512.appspot.com",
+            messagingSenderId: "113999778014",
+            appId: "1:113999778014:web:f5e976c451d9519429724f",
+            measurementId: "G-VFNGMT2DVW"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.firestore();
+
+        function storedata() {
+            db.collection("movies").doc("復仇者聯盟3").set({
+                name: "復仇者聯盟3",
+                date: "2019",
+                description: "就是復仇者聯盟...",
+                actors: ["A", "B","C"]
+            }).then(()=>{
+                console.log("Document successfully writtem!")
+            })
+        }
+
+        function getdata() {
+            var docRef = db.collection("Blog");
+            docRef.get().then((doc) => {
+                doc.forEach((d)=>{
+                    console.log(d.id,"=>",d.data())
+                })
+                if (doc.exists) {
+                    console.log(doc.data())
+                } else {
+                    console.log("cant find")
+                }
+            }).catch((error) => {
+                console.log("error")
+            })
+        }
+    </script>
+</body>
+
+</html>

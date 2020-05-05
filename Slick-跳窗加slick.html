@@ -82,10 +82,7 @@
         $('.btn-box').append(btnHTML)
         $('.multiple-items').append(slickHTML)
 
-        // $('.multiple-items').slick({
-        //     infinite: true,
-        //     slidesToShow: 1
-        // });
+
         $('body .btn').magnificPopup({
             type: 'inline',
             preloader: false,
@@ -105,21 +102,11 @@
                     console.log("elementParse")
                 },
                 open: function () {
-                    // $('.multiple-items').on('setPosition', function (event, slick) {
-                    //     $(this).css({
-                    //         "visibility":"initial",
-                    //         "opacity":1
-                    //     })
-                    // });
                     $('.multiple-items').slick('setPosition');
                     console.log("open")
                 }
             }
         })
-        // $('.multiple-items').slick({
-        //                     infinite: true,
-        //                     slidesToShow: 1
-        //                 });
         $('body').on('click', '.btn', function () {
             var index = $(this).index()
             $('.multiple-items').slick("slickGoTo", parseInt(index))
