@@ -1,34 +1,146 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
+        .tags {
+            display: flex;
+            list-style-type: none;
+        }
+
+        .tags li {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 100px;
+            background-color: rgb(207, 207, 207);
+            cursor: pointer;
+        }
+
+        .box {
+            width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .card-box {
+            padding: 12px;
+            width: 33.333%;
+            animation: slideIn ease 1s;
+            transform: translateY(0);
+        }
+
+        .card__head {
+            padding: 12px;
+            text-align: center;
+            background-color: rgb(255, 234, 142);
+        }
+
+        .card__body {
+            padding: 12px;
+            background-color: rgb(241, 241, 241);
+        }
+
+        .card__footer {
+            padding: 12px;
+            text-align: center;
+            background-color: rgb(214, 214, 214);
+        }
+
+        .hide {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="tags">
+        <li data-tag="ride">騎車</li>
+        <li data-tag="mount">爬山</li>
+        <li data-tag="city">都會</li>
+    </ul>
+    <div class="box">
+        <div class="card-box ride">
+            <div class="card">
+                <div class="card__head">台東</div>
+                <div class="card__body">台東 普通自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box city">
+            <div class="card">
+                <div class="card__head">嘉義</div>
+                <div class="card__body">嘉義 都會自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box ride">
+            <div class="card">
+                <div class="card__head">高雄</div>
+                <div class="card__body">高雄 普通自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box city">
+            <div class="card">
+                <div class="card__head">宜蘭</div>
+                <div class="card__body">宜蘭 都會自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box mount">
+            <div class="card">
+                <div class="card__head">台北</div>
+                <div class="card__body">台北 山線自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box mount">
+            <div class="card">
+                <div class="card__head">新北</div>
+                <div class="card__body">新北 山線自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+        <div class="card-box city">
+            <div class="card">
+                <div class="card__head">苗栗</div>
+                <div class="card__body">苗栗 都會自行車道</div>
+                <div class="card__footer">自行車道</div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        
-        
-        document.addEventListener("DOMContentLoaded",function(){
-            console.log("DOMContentLoaded")
+        $(".tags li").on("click", function () {
+            var data = $(this).attr("data-tag");
+
+            $(".card-box").not("." + data).addClass("hide")
+            $(".card-box." + data).removeClass("hide");
         })
-        window.onload=function(){
-            console.log("ONLOAD")
-        }
-        $.ajax({
-            url:"https://randomuser.me/api/",
-            method:"GET",
-            timeout:3000,
-            success:function(data){
-                console.log(data)
-            }
-        })
-        setTimeout(() => {
-            console.log("SETTIMEOUT")
-        }, 0);
-        
     </script>
 </body>
+
 </html>

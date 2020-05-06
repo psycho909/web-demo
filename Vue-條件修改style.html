@@ -16,7 +16,9 @@
             height: 100px;
             background-color: #666;
         }
-
+        .box2{
+            background-color: yellow;
+        }
         .active {
             background-color: red;
         }
@@ -40,6 +42,12 @@
         .light-theme {
             background-color: #999;
         }
+        .bg{
+            text-align: center;
+        }
+        .b{
+            color:red;
+        }
     </style>
 </head>
 
@@ -54,8 +62,8 @@
         }">背景</div>
         <div class="box" :class="bgg">背景</div>
         <div :class="['box',bgcolor ? 'red' : 'green']">This is how you add static classess</div>
-        <div :class="['box',{b:true}]">This is how you add static classess</div>
-        <div class="box" :class="{bg:true}">This is how you add static classess</div>
+        <div :class="['box','box2',{b:true}]">This is how you add static classess 1</div>
+        <div class="box" :class="{bg:true}">This is how you add static classess 2</div>
         <input type="text" v-model="theme">
         <Btn class="btn" txt="按鈕" @click="bclick"></Btn>
     </div>
