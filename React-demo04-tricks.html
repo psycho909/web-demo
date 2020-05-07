@@ -38,7 +38,12 @@
                 </div>
             )
         }
-
+        const Test=(props)=>{
+            console.log(props)
+            return (
+                <div>Test</div>
+            )
+        }
         class App extends React.Component {
             constructor(props) {
                 super(props);
@@ -68,6 +73,8 @@
             render() {
                 return (
                     <div>
+                        <Test name="CHen"></Test>
+                        <Test name={this.state.date}></Test>
                         <Button>按鈕</Button>
                         <Button as="a" style={{color:"blue"}}>按鈕</Button>
                         <p>It is {this.state.date.toLocaleTimeString()}.</p>
