@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #333;
+        }
+
+        .grid {
+            margin: 100px 50px;
+            position: relative;
+        }
+
+        .grid-list {
+            top: 0;
+            left: 0;
+            color: #666;
+            display: -webkit-box;
+            display: flex;
+            flex-wrap: wrap;
+            position: absolute;
+        }
+
+        .grid-item {
+            width: 80px;
+            height: 80px;
+            border: 1px solid transparent;
+            margin-top: 4px;
+            margin-left: 4px;
+            display: -webkit-box;
+            display: flex;
+            font-size: 40px;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            outline: none;
+            -webkit-transition: 300ms;
+            transition: 300ms;
+        }
+
+        .grid-border {
+            position: absolute;
+            -webkit-mask-size: 240px 240px;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-image: radial-gradient(circle, #fff, transparent 120px);
+            -webkit-position: 0 0;
+        }
+
+        .grid-border .grid-item {
+            border-color: #2bf;
+        }
+
+        .grid-num .grid-item {
+            cursor: pointer;
+        }
+
+        .grid-num .grid-item:hover {
+            color: #fff;
+        }
+
+        .grid-num .grid-item:focus {
+            color: #666;
+            background-color: #fe2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div class="grid">
+            <ul class="grid-list grid-border" style="position:"></ul>
+            <ul class="grid-list grid-num"></ul>
+        </div>
+    </div>
+    <script>
+        var $border=document.querySelector(".grid-border")
+        var list=Array.from({length:60},function(_,i){
+            return i+1
+        })
+        var liHTMLa="";
+        var liHTMLb="";
+        list.map(function(item){
+            liHTMLa+="<li class='grid-item'>"+item+"</li>"
+            liHTMLb+="<li class='grid-item' tabindex='0'>"+item+"</li>"
+        })
+        document.querySelector(".grid-list").innerHTML=liHTMLb;
+        $border.innerHTML=liHTMLa
+        var mouse={
+            x:0,
+            y:0,
+            border:null
+        }
+
+        function handleMouseMove(e){
+            e.stopPropagation();
+            mouse.x=(e.pageX-(mouse.border?mouse.border.x:-500)-150)
+            mouse.y=(e.pageY-(mouse.border?mouse.border.y:-500)-150)
+        }
+    </script>
+</body>
+
+</html>

@@ -143,7 +143,7 @@
             var gameHTML='';
             for (var i = 0; i < 8; i++) {
                 var bingo = winList[i].every(function (v, i) {
-                    return bingoItem.eq(v).attr('class').indexOf('active') > -1 || bingoItem.eq(v).attr('class').indexOf('bingo') > -1
+                    return bingoItem.eq(v).hasClass("active") || bingoItem.eq(v).hasClass("bingo")
                 })
                 if (bingo) {
                     connectGet[i] = connect[i];
