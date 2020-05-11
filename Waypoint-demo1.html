@@ -37,23 +37,31 @@
         .box.In {
             background-color: black;
         }
+        [data-top$="top"]{
+            border:6px solid #000;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box" id="waypoint"></div>
+        <div class="box" data-top="top"></div>
+        <div class="box" data-top="top bottom"></div>
+        <div class="box" id="waypoint" data-left="left"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script>
+        /*
+        offset:"100%" 百分比是視窗可視範圍
+        offset:"bottom-in-view" 目標的最底部露出時觸發
+        offset:100 目標距離視窗可視範圍number
+        */
         var waypoint = new Waypoint({
             element: document.getElementById('waypoint'),
             handler: function (direction) {
                 console.log('Scrolled to waypoint!', direction)
-            }
+            },offset:'100%'
         })
     </script>
 </body>
