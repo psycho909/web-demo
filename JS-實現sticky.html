@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing:border-box;
+        }
+        .main{
+            height: 2000px;
+            background-color: rgb(253, 248, 221);
+        }
+        .top{
+            width: 100%;
+            height: 60px;
+            background-color: red;
+        }
+        .sticky{
+            position: fixed;
+            top: 0;
+        }
+        .pd-60{
+            padding-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="top" class="top"></div>
+        <div id="main" class="main">
+            <h3>這是標題</h3>
+            <p>這是內容</p>
+        </div>
+    </div>
+
+    <script>
+        var oTop=document.getElementById("top")
+        var oMin=document.getElementById("main")
+        
+        window.addEventListener("scroll",function(){
+            var t=oTop.getBoundingClientRect().top
+            if(this.pageYOffset > t){
+                oTop.classList.add("sticky")
+                oMin.classList.add("pd-60")
+            }else{
+                oTop.classList.remove("sticky")
+                oMin.classList.remove("pd-60")
+            }
+        })
+    </script>
+</body>
+
+</html>

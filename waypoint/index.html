@@ -38,6 +38,7 @@
             padding: 1rem;
             width: 20%;
             opacity: 0;
+            transition: all .3s;
         }
         .box-wrap.active{
             opacity: 1;
@@ -97,10 +98,10 @@
         var waypoints = $('.waypoint-a').waypoint({
             handler: function (direction) {
                 if(direction == 'down'){
-                    $(this.element).find('.box-wrap').addClass('active animated flipInX')
+                    $(this.element).find('.box-wrap').removeClass('fadeOut').addClass('active animated fadeIn')
                 }
                 if(direction == 'up'){
-                    $(this.element).find('.box-wrap').removeClass('active animated flipInX')
+                    $(this.element).find('.box-wrap').removeClass('fadeIn').addClass("fadeOut")
                 }
             },
             offset: 100
@@ -108,10 +109,10 @@
         var waypoints = $('.waypoint-b').waypoint({
             handler: function (direction) {
                 if(direction == 'down'){
-                    $(this.element).find('.box-wrap').addClass('active animated flipInX')
+                    $(this.element).find('.box-wrap').removeClass('flipOutX').addClass('active animated flipInX')
                 }
                 if(direction == 'up'){
-                    $(this.element).find('.box-wrap').removeClass('active animated flipInX')
+                    $(this.element).find('.box-wrap').removeClass('flipInX').addClass("flipOutX")
                 }
             },
             offset: 100
