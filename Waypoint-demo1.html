@@ -60,8 +60,9 @@
         var waypoint = new Waypoint({
             element: document.getElementById('waypoint'),
             handler: function (direction) {
+                this.element.innerHTML='Scrolled to waypoint! '+ direction
                 console.log('Scrolled to waypoint!', direction)
-            },offset:'100%'
+            },offset:100
         })
     </script>
 </body>
