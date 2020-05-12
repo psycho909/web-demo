@@ -32,8 +32,8 @@
 <body>
     <div id="app">
         <child @get="getValue">
-            <template v-slot:head="{head}">
-                <div>{{head}}</div>
+            <template v-slot:head="{heads={head:'head default'}}">
+                <div>{{heads}}</div>
             </template>
             <template>
                 <div>這是內容</div>
@@ -46,7 +46,7 @@
     <template id="child">
         <div class="card">
             <div class="head">
-                <slot name="head" :head="head"></slot>
+                <slot name="head" :heads="head"></slot>
             </div>
             <div class="body">
                 <slot></slot>
