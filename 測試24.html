@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .boxs{
+            width: 600px;
+            display: flex;
+        }
+        .box{
+            height: 200px;
+            flex-basis: 200px;
+        }
+        .box:nth-child(2n){
+            background-color: blue;
+        }
+        .box:nth-child(2n+1){
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="boxs">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>
