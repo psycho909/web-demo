@@ -6,26 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-        .boxs{
+
+        .boxs {
             width: 600px;
             display: flex;
         }
-        .box{
+
+        .box {
             height: 200px;
             flex-basis: 200px;
         }
-        .box:nth-child(2n){
+
+        .box:nth-child(2n) {
             background-color: rgb(54, 54, 219);
         }
-        .box:nth-child(2n+1){
+
+        .box:nth-child(2n+1) {
             background-color: green;
         }
-        #textarea{
+
+        #textarea {
             width: 300px;
             height: 300px;
             resize: none;
@@ -34,17 +39,43 @@
 </head>
 
 <body>
-    <div class="boxs">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
+    <div class="container">
+        <canvas id="canvas" width="600px" height="600px"></canvas>
     </div>
 
-    <textarea id="textarea"></textarea>
     <script>
+        let angle = 0;
+        let getPosition = ((centerX, centerY, radius) => {
+            return (angle) => {
+                return {
+                    x: +centerX + Math.cos(angle) * radius,
+                    y: +centerY + Math.sin(angle) * radius,
+                    a:angle
+                };
+            };
+        })(300, 300, 275);
 
+        let $canvas = document.querySelector('#canvas');
+        let ctx = $canvas.getContext('2d');
+        // 设置填充色
+        ctx.fillStyle = 'coral';
+
+        run();
+
+        function run() {
+            angle += 1;
+            let position = getPosition((angle * Math.PI) / 180);
+
+            //清空画布
+            ctx.clearRect(0, 0, 600, 600);
+            ctx.beginPath();
+            // 画圆
+            ctx.arc(position.x, position.y, 25, 0, 2 * Math.PI, true);
+            //填充
+            ctx.fill();
+            ctx.closePath();
+            window.requestAnimationFrame(run);
+        }
     </script>
 </body>
 

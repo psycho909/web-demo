@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #app {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #000;
+            overflow: hidden;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .box1 {
+            background-color: rgb(211, 211, 211);
+            padding: 12px;
+            position: absolute;
+            top: 0;
+            left: 0%;
+            white-space: nowrap;
+            -ms-transform: translateX(0%);
+            transform: translateX(0%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box" class="box1">(1) 預留五個Banner版位，且需同天M後台，讓營運能隨時或是預約進行更換</div>
+    </div>
+
+    <script>
+        var box = document.getElementById("box");
+        var app = document.getElementById("app");
+
+        function runText(el) {
+            var elW = el.offsetWidth;
+            var appW = app.offsetWidth;
+            var cloneEl=el.cloneNode(true)
+            var move1=0;
+            var move2=0;
+            // el.style.cssText="-ms-transform:translateX(10%);transform:translateX(10%)"
+            setInterval(function(){
+                if(move1 <= -120) {
+                    move1=100
+                }
+                el.style.cssText="-ms-transform:translateX("+move1+"%);transform:translateX("+move1+"%)"
+                move1--;
+            }, 10);
+        }
+        // runText(box)
+    </script>
+</body>
+
+</html>

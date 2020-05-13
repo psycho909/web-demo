@@ -127,7 +127,7 @@
 <body>
     <div id="app">
         <router-link to="/" class="row1 col12">Alligator Nest</router-link>
-        <router-link to="/about" class="row1 col3">About</router-link>
+        <router-link to="/about?name=Hardik&email=hd@gmail.com" class="row1 col3">About</router-link>
         <router-link to="/travel" class="row1 col4">Travel</router-link>
         <router-view class="row2 col234"></router-view>
     </div>
@@ -137,8 +137,12 @@
             template:`
                 <div>
                     <h2>Home</h2>
+                    <p>{{$route.meta}}</p>
                 </div>
-            `
+            `,
+            mounted(){
+                console.log(this.$route)
+            }
         }
         var AboutPage = {
             name:"AboutPage",
@@ -149,8 +153,15 @@
             </div>
             `,
             beforeRouteEnter (to,from,next){
-                console.log("beforeRouteEnter")
+                console.log("AboutPage beforeRouteEnter")
                 next()
+            },
+            beforeRouteLeave (to,from,next){
+                console.log("AboutPage beforeRouteLeave")
+                next()
+            },
+            mounted(){
+                console.log(this.$route)
             }
         };
         var TravelPage = {
@@ -186,7 +197,7 @@
         }
         var routes = [
             { 
-                path:"/",name:"Home",component:Home },
+                path:"/",name:"Home",component:Home,meta:{title:"HOME"} },
             {
                 path: "/travel",name:"travel", component: TravelPage,
                 children: [
@@ -205,7 +216,9 @@
             console.log("beforeEach")
             next()
         })
-
+        router.afterEach((to,from)=>{
+            console.log("afterEach")
+        })
         var vm = new Vue({
             el: "#app",
             router,
@@ -214,7 +227,7 @@
             },
             watch:{
                 "$route"(to,from){
-                    console.log("$route")
+                    console.log("$route APP")
                 }
             },
         })
