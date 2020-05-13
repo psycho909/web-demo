@@ -38,7 +38,8 @@
 </head>
 
 <body>
-    <button id="switch">切換</button>
+    <button id="run">RUN</button>
+    <button id="stop">STOP</button>
     <div id="app">
         <div id="box" class="box1">(1) 預留五個Banner版位，且需同天M後台，讓營運能隨時或是預約進行更換</div>
     </div>
@@ -46,25 +47,34 @@
     <script>
         var box = document.getElementById("box");
         var app = document.getElementById("app");
-        document.getElementById("switch").addEventListener("click",function(){
-            console.log(123)
-        })
-        function runText(el) {
-            var elW = el.offsetWidth;
-            var appW = app.offsetWidth;
-            var cloneEl=el.cloneNode(true)
-            var move1=0;
-            var move2=0;
-            // el.style.cssText="-ms-transform:translateX(10%);transform:translateX(10%)"
-            setInterval(function(){
-                if(move1 <= -120) {
-                    move1=100
-                }
-                el.style.cssText="-ms-transform:translateX("+move1+"%);transform:translateX("+move1+"%)"
-                move1--;
-            }, 10);
+        
+        
+        var RunText=function(app,el){
+            this.elW=el.offsetWidth
+            this.app=app.offsetWidth
+            this.clone=el.cloneNode(true)
+            this.runTimes=null;
         }
-        // runText(box)
+        RunText.prototype.init=function(){
+            console.log(this.clone)
+        }
+        RunText.prototype.runTime=function(){
+            this.runTimes=setInterval(function(){
+                console.log(1)
+            }, 500);
+        }
+
+        RunText.prototype.clearRun=function(){
+            clearInterval(this.runTimes)
+        }
+        var run=new RunText(app,box);
+
+        document.getElementById("run").addEventListener("click",function(){
+            run.runTime()
+        })
+        document.getElementById("stop").addEventListener("click",function(){
+            run.clearRun()
+        })
     </script>
 </body>
 
