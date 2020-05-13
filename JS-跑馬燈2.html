@@ -38,6 +38,7 @@
 </head>
 
 <body>
+    <button id="switch">切換</button>
     <div id="app">
         <div id="box" class="box1">(1) 預留五個Banner版位，且需同天M後台，讓營運能隨時或是預約進行更換</div>
     </div>
@@ -45,7 +46,9 @@
     <script>
         var box = document.getElementById("box");
         var app = document.getElementById("app");
-
+        document.getElementById("switch").addEventListener("click",function(){
+            console.log(123)
+        })
         function runText(el) {
             var elW = el.offsetWidth;
             var appW = app.offsetWidth;
