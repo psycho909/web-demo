@@ -76,6 +76,21 @@
             ctx.closePath();
             window.requestAnimationFrame(run);
         }
+
+        function simulateInterval(callback,interval){
+            let timeId=null;
+            function fn(){
+                callback();
+                const prevTimmerId=timeId;
+                timeId=setTimeout(fn,interval);
+                clearTimeout(prevTimmerId)
+            }
+            return setTimeout(fn,interval);
+        }
+
+        simulateInterval(function(){
+            console.log("text")
+        },500)
     </script>
 </body>
 

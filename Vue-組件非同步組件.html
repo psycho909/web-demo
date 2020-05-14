@@ -40,6 +40,11 @@
         const ErrorComponent = {
             template: '<div>Error!!!</div>'
         };
+
+        const HTMLComponent={
+            template: '<div>Async Component Object</div>'
+        }
+        
         Vue.component('async-component-object', () => ({
             component: new Promise((resolve, reject) => {
                 setTimeout(() => {

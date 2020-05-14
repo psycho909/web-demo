@@ -51,7 +51,12 @@
             width: 100%;
             height: 600px;
         }
-
+        #mute{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99999999;
+        }
         @media (min-aspect-ratio: 16/9) {
             .home__video-container {
                 height: 300%;
@@ -69,13 +74,14 @@
 </head>
 
 <body>
+    <button id="mute">Mute</button>
     <div class="home">
         <div class="home__video">
             <!-- 修改 -->
             <div class="home__video-container video">
                 <!-- 版頭youtube背景影片使用 -->
                 <!-- 把data-video="" 空值就不會放影片 -->
-                <div id="home-video" data-video="oRuepst08QU"></div>
+                <div id="home-video" data-video="UgPujyXPM84"></div>
             </div>
             <!-- 修改end -->
         </div>
@@ -123,6 +129,14 @@
                 }
             })
         }
+
+        document.getElementById("mute").addEventListener("click",function(){
+            if(player.isMuted()){
+                player.unMute()
+            }else{
+                player.mute();
+            }
+        })
     </script>
 </body>
 

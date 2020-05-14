@@ -14,6 +14,7 @@
 
 <body>
     <div id="app">
+        <div>{{message}}</div>
         <div v-for='item of list' :key='item' class='list-item'>
             {{ item }}
         </div>
@@ -28,7 +29,8 @@
                 })
             },
             data: {
-                list: [1, 2, 3, 4]
+                list: [1, 2, 3, 4],
+                message:"Hello"
             },
             methods: {
 

@@ -48,20 +48,27 @@
         var box = document.getElementById("box");
         var app = document.getElementById("app");
         
-        
         var RunText=function(app,el){
-            this.elW=el.offsetWidth
-            this.app=app.offsetWidth
-            this.clone=el.cloneNode(true)
+            this.el=el;
+            this.app=app;
+            this.elW=this.el.offsetWidth
             this.runTimes=null;
+            this.move=0;
+            this.cloneEl=this.el.cloneNode(true);
         }
-        RunText.prototype.init=function(){
-            console.log(this.clone)
+        RunText.prototype.clone=function(){
+            this.app.append(cloneEl)
         }
         RunText.prototype.runTime=function(){
+            var _this=this;
             this.runTimes=setInterval(function(){
-                console.log(1)
-            }, 500);
+                if(_this.move <= -120){
+                    _this.move=100
+                }
+                _this.el.style.cssText="transform:translateX("+_this.move+"%)";
+                _this.move--;
+                _this.clone()
+            }, 10);
         }
 
         RunText.prototype.clearRun=function(){
@@ -74,7 +81,7 @@
         })
         document.getElementById("stop").addEventListener("click",function(){
             run.clearRun()
-        })
+        });
     </script>
 </body>
 

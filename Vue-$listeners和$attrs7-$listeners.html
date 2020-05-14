@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <app-parent @app-button-clicked="hanldeClick" title="I am title"></app-parent>
+    </div>
+    <script>
+        Vue.component("app-button",{
+            template:`<button @click='$emit("app-button-clicked","app-button")'>Click Me</button>`,
+            created(){
+                console.log(this.$listeners)
+                console.log(this.$attrs)
+            }
+        })
+        Vue.component("app-parent",{
+            template:`<app-button v-on="$listeners" v-bind="$attrs"></app-button>`,
+            created(){
+                console.log(this.$listeners)
+                console.log(this.$attrs)
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            methods:{
+                hanldeClick(v){
+                    console.log("HandleClick: ",v)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
