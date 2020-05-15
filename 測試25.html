@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .boxs {
+            width: 600px;
+            display: flex;
+        }
+
+        .box {
+            height: 200px;
+            flex-basis: 200px;
+        }
+
+        .box:nth-child(2n) {
+            background-color: rgb(54, 54, 219);
+        }
+
+        .box:nth-child(2n+1) {
+            background-color: green;
+        }
+
+        #textarea {
+            width: 300px;
+            height: 300px;
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <script>
+        var num=[0, 2, 4, 6, 8, 8];
+        var num2=[1, 2, 3, 4, 5, 6];
+        var num3=num.filter(item=>num2.includes(item))
+        console.log(num3)
+    </script>
+</body>
+
+</html>

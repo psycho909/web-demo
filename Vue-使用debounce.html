@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{message}}</div>
+        <button id="btn" @click="getMessage">click me</button>
+        <!-- <button id="btn">click me</button> -->
+    </div>
+    <script>
+        var oBtn=document.getElementById("btn");
+        function debounce(fn){
+            var timer=null;
+            return function(){
+                clearTimeout(timer)
+                timer=setTimeout(function(){
+                    fn.apply(this,arguments)
+                    timer=null;
+                },1000)
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            mounted() {
+
+            },
+            data: {
+                message:"Hello"
+            },
+            methods: {
+                getMessage:debounce(function(){
+                    console.log(1)
+                })
+            }
+
+        });
+    </script>
+</body>
+
+</html>
