@@ -44,7 +44,28 @@
         var num=[0, 2, 4, 6, 8, 8];
         var num2=[1, 2, 3, 4, 5, 6];
         var num3=num.filter(item=>num2.includes(item))
-        console.log(num3)
+        
+        class Father{
+            say(){
+                return "I am father"
+            }
+            sing(){
+                return "Father Sing"
+            }
+        }
+
+        class Son extends Father{
+            say(){
+                return "I am Son"
+            }
+            sing(){
+                return super.sing();
+            }
+        }
+
+        var son=new Son();
+        console.log(son.say())
+        console.log(son.sing())
     </script>
 </body>
 
