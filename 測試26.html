@@ -208,12 +208,22 @@
             height: 100%;
             padding: 20px;
         }
+        .box{
+            width: 300px;
+            border:1px solid #000;
+            height: auto;
+            transition: all .3s;
+        }
     </style>
 </head>
 
 <body>
+    <div class="box"></div>
     <div class="main">
         <h2>js面向对象 动态添加标签页</h2>
+        <a href="#" alt="123">
+            TItle
+        </a>
         <div class="tabsbox" id="tab">
             <nav class="firstnav">
                 <ul>
@@ -241,61 +251,46 @@
             </div>
         </div>
     </div>
+    <input id="fileInput" type="file">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
     <script>
-        let that;
-        class Tab {
-            constructor(id) {
-                that = this;
-                this.main = document.getElementById("tab");
-                this.ul = this.main.querySelector(".firstnav ul:first-child");
-                this.fSection = this.main.querySelector(".tabscon")
-                this.add = this.main.querySelector(".tabadd")
-                this.remove = this.main.querySelectorAll("i")
-                this.init()
-            }
-            init() {
-                this.updateNode();
-                this.add.onclick = this.addTab;
-                for (var i = 0; i < this.lis.length; i++) {
-                    this.lis[i].index = i;
-                    this.lis[i].onclick = this.toggleTab;
-                    this.remove[i].onclick = this.removeTab;
-                    this.spans[i].ondblclick = this.editTab;
-                    this.sections[i].ondblclick = this.editTab
-                }
-            }
-            updateNode() {
-                this.lis = this.main.querySelectorAll('li');
-                this.sections = this.main.querySelectorAll('section')
-                this.remove = this.main.querySelectorAll('i')
-                this.spans = this.main.querySelectorAll('span')
-            }
-            toggleTab() {
+        // class Jsonp {
+        //     constructor(req) {
+        //         this.url = req.url;
+        //         this.callbackName = req.callbackName;
+        //     }
+        //     create() {
+        //         const script = document.createElement("script");
+        //         const url = `${this.url}?callback=${this.callbackName}`;
+        //         script.src = url;
+        //         document.getElementsByTagName("head")[0].appendChild(script);
+        //     }
+        // }
 
-            }
-            clearClass() {
-                for (var i = 0; i < this.lis.length; i++) {
-                    this.lis[i].className = '';
-                    this.sections[i].className = "";
-                }
-            }
-            addTab() {
-                that.clearClass()
-                let li = ' <li class="liactive" ><span>新选项卡</span><i>X</i></li>'
-                let section = '<section class="conactive">新内容区</setion>'
-                that.ul.insertAdjacentHTML('beforeend', li)
-                that.fSection.insertAdjacentHTML('beforeend', section)
-                that.init()
-            }
-            removeTab(e) {
+        // new Jsonp({
+        //     url: "http://127.0.0.1:8000/",
+        //     callbackName: "getMsg"
+        // }).create();
 
-            }
-            editTab() {
-
-            }
+        function Jsonp(req) {
+            this.url = req.url;
+            this.callback = req.callback;
+        }
+        Jsonp.prototype.create = function () {
+            var script = document.createElement("script");
+            var url = this.url + "?callback=" + this.callback;
+            script.src = url;
+            document.getElementsByTagName("head")[0].appendChild(script)
         }
 
-        let tab = new Tab("#tab")
+        function getMsg(data) {
+            data = JSON.parse(data);
+            console.log(`My name is ${data.name}, and ${data.age} years old.`);
+        }
+        new Jsonp({
+            url: "http://127.0.0.1:8000",
+            callback: "getMsg"
+        }).create()
     </script>
 </body>
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script>
+        // function Jsonp(req){
+        //     this.url=req.url;
+        //     this.callback=req.callback;
+        // }
+        // Jsonp.prototype.create=function(){
+        //     var script=document.createElement("script");
+        //     var url=this.url+"?callback="+this.callback;
+        //     script.src=url;
+        //     document.getElementsByTagName("head")[0].appendChild(script)
+        // }
+        // function getMsg(data) {
+        //     data = JSON.parse(data);
+        //     console.log(`My name is ${data.name}, and ${data.age} years old.`);
+        // }
+        // new Jsonp({
+        //     url:"http://127.0.0.1:8000",
+        //     callback: "getMsg"
+        // }).create()
+
+        // $.ajax({
+        //     url:"http://127.0.0.1:8000",
+        //     async:false,
+        //     method:"get",
+        //     dataType:"jsonp",
+        //     jsonp:"callback",
+        //     jsonpCallback:"getData",
+        //     success:function(data){
+        //         data=JSON.parse(data);
+        //         console.log(data)
+        //     }
+        // })
+
+        $.ajax({
+            url:"http://127.0.0.1:8000",
+            method:"post",
+            data:{
+                name:"chen"
+            },
+            success:function(data){
+                data=JSON.parse(data);
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+
+</html>
