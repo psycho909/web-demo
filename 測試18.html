@@ -108,7 +108,7 @@
 <body>
     <a id="btn" href="javascript:;">
         <div class="btn-box">
-            <video loop autoplay playsinline>
+            <video loop autoplay playsinline muted>
                 <source src="video/btn01.mp4">
             </video>
             <!-- <video class="hide" src="video/btn02.mp4" loop autoplay playsinline></video> -->
@@ -161,6 +161,10 @@
             $(this).find("video")[0].play();
             // $(this).find("video").eq(1).addClass("hide")
             // $(this).find("video").eq(0).removeClass("hide")
+        })
+
+        $("video")[0].addEventListener("loadeddata",function(){
+            console.log("loadeddata")
         })
     </script>
 </body>

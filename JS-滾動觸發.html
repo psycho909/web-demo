@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Active Table Of Contents | Webdevtrick.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-flow: space-between;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            color: #333344;
+            line-height: 1.53em;
+            font-size: 1.2rem;
+            background-color: #efeeff;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Teko', sans-serif;
+            font-weight: 300;
+            margin-top: 3rem;
+            color: #484866;
+        }
+
+        main {
+            flex: 3 3 100%;
+            overflow: auto;
+            padding: 2rem 3rem;
+        }
+
+        nav {
+            flex: 1 1 300px;
+            background-color: #333344;
+            min-width: 240px;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        h1,
+        h2,
+        p {
+            max-width: 700px;
+        }
+
+        a {
+            color: #eeeeff;
+            text-decoration: none;
+        }
+
+        .active {
+            color: #ff8888;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 1.25rem;
+        }
+
+        ul li::before {
+            content: "\2022";
+            color: #eeeeff;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="toc">
+    </nav>
+    <main>
+        <h1>New Horizons</h1>
+        <p>
+            Live life at your own pace as you garden, fish, decorate, hunt for bugs and fossils, get to know the animal
+            residents, and more. The time of day and seasons match real life, so something is happening on your island
+            whether you’re there or not.
+        </p>
+        <p>Oh--just watch out for those shifty racoons.</p>
+        <h2>Tools</h2>
+        <p>New Horizons has all sorts of tools that you can use to your disposal!</p>
+        <h3>Shovel</h3>
+        <p>This tool's versatility knows no bounds! Hole digging, rock smacking, tree uprooting goodness!</p>
+        <h3>Bug Net</h3>
+        <p>Catch some bugs--if you are into that kind of thing.</p>
+        <h3>Slingshot</h3>
+        <p>Make presents fall from the sky! Just watch out for the river!</p>
+        <h3>Fishing Rod</h3>
+        <p>After all that shovel work its nice to take a load of, craft a nice coconut juice, and fish.</p>
+        <h3>Ladder</h3>
+        <p>For those annoying cliffs.</p>
+        <h3>Axe</h3>
+        <p>For choppin' trees--just watch out for them bees!</p>
+        <h3>Vaulting Pole</h3>
+        <p>For those like me, that are too poor to afford a bridge.</p>
+        <h3>Watering Can</h3>
+        <p>Those flowers won't crossbreed themselves.</p>
+        <h2>Flower Crossbreeding</h2>
+        <h3>Lilies</h3>
+        <ul>
+            <li>Red + Red = Black</li>
+            <li>Yellow + Red = Orange</li>
+            <li>Red + White = Pink</li>
+        </ul>
+        <h3>Roses</h3>
+        <ul>
+            <li>Red + Red = Black</li>
+            <li>Red + White = Pink</li>
+            <li>Yellow + Red = Orange</li>
+            <li>White + White = Purple</li>
+        </ul>
+        <h3>Mums</h3>
+        <ul>
+            <li>White + Red = Pink</li>
+            <li>White + White = Purple</li>
+            <li>Purple + Purple = Green</li>
+        </ul>
+        <h3>Pansies</h3>
+        <ul>
+            <li>Red + Red = Purple</li>
+            <li>White + White = Blue</li>
+            <li>Yellow + Red = Orange</li>
+            <li>Blue + Blue = Purple</li>
+            <li>Red + Red = Purple</li>
+        </ul>
+        <h3>Windflower</h3>
+        <ul>
+            <li>Orange + Red = Pink</li>
+            <li>Orange + White = Blue</li>
+            <li>White + White = Blue</li>
+            <li>Blue + Pink = Purple</li>
+            <li>Blue + Blue = Purple</li>
+        </ul>
+        <h3>Hyacinths</h3>
+        <ul>
+            <li>Red + White = Pink</li>
+            <li>White + White = Blue</li>
+            <li>Red + Yellow = Orange</li>
+            <li>Blue + Blue = Purple</li>
+        </ul>
+        <h3>Cosmos</h3>
+        <ul>
+            <li>Yellow + Red = Orange</li>
+            <li>Red + White = Pink</li>
+            <li>Red + Red = Black</li>
+        </ul>
+        <h3>Tulips</h3>
+        <ul>
+            <li>Red + Red = Black</li>
+            <li>Red + Yellow = Orange</li>
+            <li>Red + White = Pink</li>
+            <li>Black + Black = Purple</li>
+        </ul>
+    </main>
+    <script>
+        let tocId = "toc";
+
+        let headings;
+        let headingIds = [];
+        let headingIntersectionData = {};
+        let headerObserver;
+
+        function setLinkActive(link) {
+            const links = document.querySelectorAll(`#${tocId} a`);
+            links.forEach((link) => link.classList.remove("active"));
+            if (link) {
+                link.classList.add("active");
+            }
+        }
+
+        function getProperListSection(heading, previousHeading, currentListElement) {
+            let listSection = currentListElement;
+            if (previousHeading) {
+                if (heading.tagName.slice(-1) > previousHeading.tagName.slice(-1)) {
+                    let nextSection = document.createElement("ul");
+                    listSection.appendChild(nextSection);
+                    return nextSection;
+                } else if (heading.tagName.slice(-1) < previousHeading.tagName.slice(-1)) {
+                    let indentationDiff =
+                        parseInt(previousHeading.tagName.slice(-1)) -
+                        parseInt(heading.tagName.slice(-1));
+                    while (indentationDiff > 0) {
+                        listSection = listSection.parentElement;
+                        indentationDiff--;
+                    }
+                }
+            }
+            return listSection;
+        }
+
+        function setIdFromContent(element, appendedId) {
+            if (!element.id) {
+                element.id = `${element.innerHTML
+       .replace(/:/g, "")
+       .trim()
+       .toLowerCase()
+       .split(" ")
+       .join("-")}-${appendedId}`;
+            }
+        }
+
+        function addNavigationLinkForHeading(heading, currentSectionList) {
+            let listItem = document.createElement("li");
+            let anchor = document.createElement("a");
+            anchor.innerHTML = heading.innerHTML;
+            anchor.id = `${heading.id}-link`;
+            anchor.href = `#${heading.id}`;
+            anchor.onclick = (e) => {
+                setTimeout(() => {
+                    setLinkActive(anchor);
+                });
+            };
+            listItem.appendChild(anchor);
+            currentSectionList.appendChild(listItem);
+        }
+
+        function buildTableOfContentsFromHeadings() {
+            const tocElement = document.querySelector(`#${tocId}`);
+            const main = document.querySelector("main");
+            if (!main) {
+                throw Error("A `main` tag section is required to query headings from.");
+            }
+            headings = main.querySelectorAll("h1, h2, h3, h4, h5, h6");
+            let previousHeading;
+            let currentSectionList = document.createElement("ul");
+            tocElement.appendChild(currentSectionList);
+
+            headings.forEach((heading, index) => {
+                currentSectionList = getProperListSection(
+                    heading,
+                    previousHeading,
+                    currentSectionList
+                );
+                setIdFromContent(heading, index);
+                addNavigationLinkForHeading(heading, currentSectionList);
+
+                headingIds.push(heading.id);
+                headingIntersectionData[heading.id] = {
+                    y: 0
+                };
+                previousHeading = heading;
+            });
+        }
+
+        function updateActiveHeadingOnIntersection(entry) {
+            const previousY = headingIntersectionData[entry.target.id].y;
+            const currentY = entry.boundingClientRect.y;
+            const id = `#${entry.target.id}`;
+            const link = document.querySelector(id + "-link");
+            const index = headingIds.indexOf(entry.target.id);
+
+            if (entry.isIntersecting) {
+                if (currentY > previousY && index !== 0) {
+                    console.log(id + ":1 enter top");
+                } else {
+                    console.log(id + ":2 enter bottom");
+                    setLinkActive(link);
+                }
+            } else {
+                if (currentY > previousY) {
+                    console.log(id + ":3 leave bottom");
+                    const lastLink = document.querySelector(`#${headingIds[index - 1]}-link`);
+                    setLinkActive(lastLink);
+                } else {
+                    console.log(id + ":4 leave top");
+                }
+            }
+
+            headingIntersectionData[entry.target.id].y = currentY;
+        }
+
+        function observeHeadings() {
+            let options = {
+                root: document.querySelector("main"),
+                threshold: 0.1
+            };
+            headerObserver = new IntersectionObserver((entries) => entries.forEach(updateActiveHeadingOnIntersection), options);
+            
+            Array.from(headings).reverse().forEach((heading) => headerObserver.observe(heading));
+        }
+
+        window.addEventListener("load", (event) => {
+            buildTableOfContentsFromHeadings();
+            if ("IntersectionObserver" in window) {
+                observeHeadings();
+            }
+        });
+
+        window.addEventListener("unload", (event) => {
+            headerObserver.disconnect();
+        });
+    </script>
+</body>
+
+</html>
