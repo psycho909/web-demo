@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .grid{
+            width: 100%;
+        }
+        .header{
+            background: rgb(124, 124, 124);
+        }
+        .main-box{
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(6,minmax(300px,1fr));
+            grid-gap: 12px;
+        }
+        .main-li{
+            height: 100px;
+            background: rgb(201, 201, 201);
+            list-style: none;
+            grid-column: 2 / span 2;
+        }
+
+        .footer{
+            background: rgb(131, 131, 131);
+        }
+        @media screen and (max-width:900px){
+
+
+        }
+        @media screen and (max-width:768px){
+
+
+        }
+        @media screen and (max-width:576px){
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="grid-box header">HEADER</div>
+        <ul class="grid-box main-box">
+            <li class="main-li">LI</li>
+        </ul>
+        <div class="grid-box footer">FOOTER</div>
+    </div>
+</body>
+</html>

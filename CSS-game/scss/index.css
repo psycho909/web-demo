@@ -1,0 +1,8 @@
+@media (min-width: 768px) {
+  .div {
+    display: block;
+  }
+  .div .child {
+    width: 100%;
+  }
+}

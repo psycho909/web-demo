@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.bfm-error-wrap {
+  display: none;
+}
+
+@media screen and (max-width: 750px) {
+  body > table {
+    display: none;
+  }
+  .bfm > table {
+    display: none;
+  }
+  .bfm-error-wrap {
+    display: block;
+    padding: 0 calc(32 / 750 * 100vw);
+    height: 100vh;
+    background-color: #fff;
+  }
+  .bfm-error__img {
+    width: 100%;
+    padding: calc(48 / 750 * 100vw) 0;
+    overflow: hidden;
+  }
+  .bfm-error__img img {
+    width: 100%;
+    max-width: 350px;
+    display: block;
+    margin: 0 auto;
+    -webkit-transform: translateX(20%);
+        -ms-transform: translateX(20%);
+            transform: translateX(20%);
+  }
+  .bfm-error__content {
+    width: 100%;
+    padding: calc(48 / 750 * 100vw) 0;
+    font-family: "微軟正黑體","新細明體";
+    font-size: calc(48 / 750 * 100vw);
+    color: #000;
+    line-height: 1.5;
+    font-weight: bold;
+  }
+  .bfm-error__content p {
+    font-size: inherit;
+    font-family: "微軟正黑體","新細明體";
+  }
+  .bfm-error__sub-content {
+    width: 100%;
+    padding: calc(48 / 750 * 100vw) 0;
+    font-family: "微軟正黑體","新細明體",Arial, Helvetica, sans-serif;
+    font-size: calc(28 / 750 * 100vw);
+    color: #666;
+    line-height: 1.5;
+  }
+  .bfm-error__sub-content p {
+    font-size: inherit;
+    font-family: "微軟正黑體","新細明體";
+  }
+}

@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <video width="320" height="240" controls id='video'>
-        <source src="https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4" type="video/mp4">
+    <video width="320" height="240" autoplay controls id='video'>
+        <source src="video/btn01.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     <p id='duration'>
@@ -29,6 +29,9 @@
         // 媒體被清空（初始化）時觸發。
         video.addEventListener('emptied', function (e) {
             console.dir(e.srcElement);
+        });
+        video.addEventListener('ended', function (e) {
+            console.dir("ended");
         });
     </script>
 </body>

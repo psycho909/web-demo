@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // const proxyObj = new Proxy(target, handler);
+        /*
+        target  就是你想要代理的對象
+        handler 則是一個物件，其中定義了所有你想替 target 代為管理的操作定義
+        */
+        const smartArray =target=>new Proxy(target,{
+            get(object,property){
+                // if(+property >= 0){
+                //     return Reflect.get(...arguments)
+                // }else{
+                //     return object[object.length+ +property]
+                // }
+                return Reflect.get(object,property)
+            },
+            set(object,property,value){
+                return Reflect.set(...arguments)
+            }
+        })
+        
+        var m=smartArray(['🍩', '🍰', '🍪']);
+        m[0]="KSK"
+        console.log(m[0])
+    </script>
+</body>
+
+</html>

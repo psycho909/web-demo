@@ -1,0 +1,51 @@
+body {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body h3, body p {
+  margin: 0;
+}
+
+body > table {
+  display: none;
+}
+
+.bfm-err-page {
+  padding: 0 24px;
+  padding-top: calc(200 / 750 * 100vw);
+}
+
+.bfm-err-page-wrap {
+  text-align: center;
+  height: 100vh;
+}
+
+.bfm-err-page-wrap h3 {
+  font-size: calc(42 / 750 * 100vw);
+}
+
+.bfm-err-page-wrap p {
+  font-size: calc(32 / 750 * 100vw);
+}
+
+@media screen and (min-width: 751px) {
+  body > table {
+    display: table;
+  }
+  .bfm-err-page {
+    padding-top: 200px;
+  }
+  .bfm-err-page-wrap {
+    display: none;
+    height: 100vh;
+  }
+  .bfm-err-page-wrap h3 {
+    font-size: 36px;
+  }
+  .bfm-err-page-wrap p {
+    font-size: 28px;
+  }
+}
