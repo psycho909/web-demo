@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .common-mask {
+            font-family: 'PingFangTC-Regular', arial, '微軟正黑體', 'sans-serif';
+            color: #000;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 9000;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        .common-mask:before {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .common-module {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+        }
+
+        .common-content {
+            max-width: 650px;
+            width: 600px;
+            height: auto;
+            background-color: #fff;
+            margin: 60px auto;
+            position: relative;
+            left: auto;
+            top: auto;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        .common-head {
+            background-color: rgb(226, 226, 226);
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .common-body {
+            padding: 12px;
+            height: 2000px;
+        }
+
+        .common-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="common-mask">
+            <div class="common-module"></div>
+            <div class="common-content">
+                <div class="common-head">Head</div>
+                <div class="common-body">body</div> <button class="common-btn">Close</button>
+            </div>
+        </div> -->
+        <vue-modal :visible="visible">
+            <template v-slot:head>
+                <div class="common-head">Head</div>
+            </template>
+            <template v-slot:body>
+                <div class="common-body">body</div>
+            </template>
+            <template v-slot:foot>
+                <button class="common-btn" @click="close">Close</button>
+            </template>
+        </vue-modal>
+    </div>
+    <template id="vue-modal">
+        <div class="common-mask" v-if="visible">
+            <div class="common-module"></div>
+            <div class="common-content">
+                <slot name="head"></slot>
+                <slot name="body"></slot>
+                <slot name="foot"></slot>
+            </div>
+        </div>
+    </template>
+    <script>
+        Vue.component("vue-modal", {
+            props: ["visible"],
+            template: "#vue-modal"
+        })
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                visible: true
+            }
+        })
+    </script>
+</body>
+
+</html>
