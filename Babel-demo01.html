@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+        }
+        .red{
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
+    <div class="box"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
     <script type="text/babel" data-presets="es2015,stage-2">
     var HTML=`HH`;
+    document.querySelector(".box").classList.add("red");
     console.log(HTML)
     </script>
 </body>

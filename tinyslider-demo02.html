@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        body {
+            background-color: #3498db;
+        }
+
+        #app {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width:750px) {
+            .wrap {
+                width: 100%;
+            }
+        }
+
+        .box {
+            width: 100%;
+            height: 400px;
+            background-color: #D6D65C;
+            color: #fff;
+            font-size: 72px;
+            text-align: center;
+            line-height: 400px;
+        }
+
+        .box:nth-child(n+1) {
+            background-color: #5C99D6;
+        }
+
+        .box:nth-child(2n+1) {
+            background-color: #5CD6AD;
+        }
+
+        .box:nth-child(3n+1) {
+            background-color: #D65CC2;
+        }
+
+        .wrap .tns-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        .wrap .tns-nav button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .control-btn__list {
+            text-align: center;
+        }
+
+        .control-btn__list li {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 12px;
+        }
+
+        .control-btn__list li:nth-child(n+1) {
+            background-color: #5C99D6;
+        }
+
+        .control-btn__list li:nth-child(2n+1) {
+            background-color: #5CD6AD;
+        }
+
+        .control-btn__list li:nth-child(3n+1) {
+            background-color: #D65CC2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="wrap" class="wrap mfp-hide">
+            <div class="my-slider">
+                <!-- <div class="box">0</div>
+                <div class="box">1</div>
+                <div class="box">2</div>
+                <div class="box">3</div>
+                <div class="box">4</div>
+                <div class="box">5</div> -->
+            </div>
+        </div>
+
+        <div class="control-btn__list"></div>
+    </div>
+    <!-- <div class="wrap">
+        <div class="my-slider">
+            <div class="box">0</div>
+            <div class="box">1</div>
+            <div class="box">2</div>
+            <div class="box">3</div>
+            <div class="box">4</div>
+            <div class="box">5</div>
+        </div>
+    </div>
+
+    <div class="control-btn-group">
+        <ul class="control-btn__list">
+            <li data-page="0">0</li>
+            <li data-page="1">1</li>
+            <li data-page="2">2</li>
+            <li data-page="3">3</li>
+            <li data-page="4">4</li>
+            <li data-page="5">5</li>
+        </ul>
+    </div> -->
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        var arr = [1, 2, 3, 4, 5, 6];
+        var slickHTML = "";
+        var slickSTR = "<h3 class='box' data-page='{{page}}'>{{slick}}</h3>";
+        var btnHTML = "";
+        var btnSTR = '<li class="btn" href="#wrap">{{btn}}</li>';
+        var opneSlick = true;
+        var slider;
+        arr.forEach(function (v, i) {
+            slickHTML += slickSTR.replace("{{slick}}", v).replace("{{page}}", v);
+            btnHTML += btnSTR.replace('{{btn}}', v);
+        })
+        $('.control-btn__list').append(btnHTML)
+        $('.my-slider').append(slickHTML)
+
+        $('body .control-btn__list li').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            focus: '#name',
+            callbacks: {
+                beforeOpen: function () {
+                    console.log("beforeOpen")
+                },
+                elementParse: function () {
+                    if (opneSlick) {
+                        slider = tns({
+                            container: '.my-slider',
+                            items: 1,
+                            slideBy: 'page',
+                            "mouseDrag": true,
+                            autoplay: false,
+                            autoplayButtonOutput: false,
+                            navPosition: "bottom",
+                            controlsPosition: "bottom",
+                            responsive: {
+                                750: {
+
+                                }
+                            },
+                            onInit: function () {
+                                console.log("done")
+                            }
+                        });
+                        opneSlick = false
+                    }
+                    console.log("elementParse")
+                },
+                open: function () {
+                    // $('.multiple-items').slick('setPosition');
+                    console.log("open")
+                }
+            }
+        })
+        $('body').on('click', '.control-btn__list li', function () {
+            var index = $(this).index()
+            slider.goTo(index)
+            var info = slider.getInfo(),
+                indexPrev = info.indexCached,
+                indexCurrent = info.index;
+            
+            console.log(info,indexPrev,indexCurrent)
+        })
+        // $(".control-btn__list li").on("click",function(){
+        //     var type=$(this).attr("data-page");
+        //     console.log(type)
+        //     slider.goTo(type)
+        // })
+    </script>
+</body>
+
+</html>

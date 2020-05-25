@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/clipboard/clipboard.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {}
+
+        .app {
+            width: 100%;
+            background-color: gray;
+        }
+
+        .box {
+            width: 1200px;
+            height: 600px;
+            background-color: yellow;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- data-clipboard-target -->
+    <!-- <input type="text" id="shareLink" value="sada"> -->
+    <div id="shareLink">aaaaa</div>
+    <!-- 底部按鈕 -->
+    <div class="menu">
+        <ul class="menu__ul">
+            <li><a class="copy" id="btnShare" href="javascript:;">分享本活動</a></li>
+        </ul>
+    </div>
+    <script>
+        function copyRichText(text) {
+            const listener = function (ev) {
+                ev.preventDefault();
+                ev.clipboardData.setData('text/html', text);
+                ev.clipboardData.setData('text/plain', text);
+            };
+            document.addEventListener('copy', listener);
+            document.execCommand('copy');
+            document.removeEventListener('copy', listener);
+        }
+        
+
+        document.getElementById("btnShare").addEventListener("click", function (e) {
+            e.preventDefault();
+            copyRichText('<i>Markup</i> <b>text</b>. Paste me into a rich text editor.');
+        })
+    </script>
+</body>
+
+</html>
