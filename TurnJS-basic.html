@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Turn JS 翻頁效果</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="./js/turn.min.js"></script>
+    <style>
+        /* Basic sample */
+
+        body {
+            background-color: #fcfcfc;
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            width: 100%;
+            background-image: url('images/bg.jpg');
+            padding: 48px 0;
+            height: 1200px;
+        }
+
+        .turn-book {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        #flipbook {
+            width: 1200px;
+            height: 920px;
+            z-index: 1;
+            margin: 0 auto;
+        }
+
+        .page {
+            background-size: auto;
+            background-position-y: center;
+            background-repeat: no-repeat;
+        }
+
+        .top.page.p1 {
+            background-image: url('images/p_Top.png');
+            width: 600px;
+            height: 920px;
+        }
+
+        .page.p2 {
+            background-image: url('images/p2.jpg');
+        }
+
+        .page.p3 {
+            background-image: url('images/p3_7.jpg');
+        }
+
+        .page.p4 {
+            background-image: url('images/p4.jpg');
+        }
+
+        .page.p5 {
+            background-image: url('images/p5_1.jpg');
+        }
+
+        .page.p6 {
+            background-image: url('images/p6.jpg');
+        }
+
+        .page.p7 {
+            background-image: url('images/p15.jpg');
+        }
+
+        .page.p8 {
+            background-image: url('images/p_Bottom.jpg');
+        }
+
+        .size {
+            /* width: 580px !important;
+            height: 886px !important; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="ani_bg"></div>
+        <div class="turn-book">
+            <div id="flipbook">
+                <div class="hard top"></div>
+                <div class="hard start"></div>
+                <div class="size"></div>
+                <div class="size"></div>
+                <div class="size"></div>
+                <div class="size"></div>
+                <div class="hard backside fixed"></div>
+                <div class="hard"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $("#flipbook").turn({
+            elevation: 50,
+            acceleration: true,
+            autoCenter: true,
+            gradients: true,
+            duration: 500,
+            when: {
+                turning: function (e, page, view) {
+                    if (page >= 2) { //�𤐄摰𡁜椰��𡃏�峕踎
+                        $('#flipbook .p2').addClass('fixed');
+                        $('.book_index').show();
+                    } else {
+                        $('#flipbook .p2').removeClass('fixed');
+                        // $('.fwrap .index_list li').removeClass('on');
+                        // $('.book_index, .index_list').hide();
+                    }
+                    if (page < $(this).turn('pages')) {
+                        $('#flipbook .backside').addClass('fixed');
+                        $('.ani_bg').fadeIn();
+                        if (page == 1) {
+                            $('.ani_bg').fadeOut();
+                        }
+                    } else {
+                        $('#flipbook .backside').removeClass('fixed');
+                        // $('.book_index, .index_list').hide();
+                        $('.ani_bg').fadeOut();
+                    }
+
+                    // if (page >= 2 && page < 4) {
+                    //     $('.fwrap .index_list li').eq(0).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 4 && page < 6) {
+                    //     $('.fwrap .index_list li').eq(1).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 6 && page < 8) {
+                    //     $('.fwrap .index_list li').eq(2).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 8 && page < 10) {
+                    //     $('.fwrap .index_list li').eq(3).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 10 && page < 12) {
+                    //     $('.fwrap .index_list li').eq(4).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 12 && page < 14) {
+                    //     $('.fwrap .index_list li').eq(5).addClass('on').siblings().removeClass('on');
+                    // }
+                    // if (page >= 14) {
+                    //     $('.fwrap .index_list li').eq(6).addClass('on').siblings().removeClass('on');
+                    // }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
