@@ -6,9 +6,13 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app"></div>
     <script>
         var a=10;
         let b=10;
+        var img="images/p_Bottom.png"
+        var HTML=`<div style="background:url(${img});width:600px;height:886px"></div>`;
+        document.getElementById("app").insertAdjacentHTML("beforeend",HTML)
     </script>
 </body>
 </html>

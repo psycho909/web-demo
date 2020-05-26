@@ -15,6 +15,7 @@
             background-color: #fcfcfc;
             margin: 0;
             padding: 0;
+            /* overflow-x: hidden; */
         }
 
         #app {
@@ -27,6 +28,7 @@
         .turn-book {
             width: 1200px;
             margin: 0 auto;
+            overflow: hidden;
         }
 
         #flipbook {
@@ -42,7 +44,7 @@
             background-repeat: no-repeat;
         }
 
-        .top.page.p1 {
+        .page.p1 {
             background-image: url('images/p_Top.png');
             width: 600px;
             height: 920px;
@@ -73,12 +75,12 @@
         }
 
         .page.p8 {
-            background-image: url('images/p_Bottom.jpg');
+            background-image: url('images/p_Bottom.png');
         }
 
-        .size {
-            /* width: 580px !important;
-            height: 886px !important; */
+        .own-size {
+            width: 580px;
+            height: 886px;
         }
     </style>
 </head>
@@ -88,13 +90,13 @@
         <div class="ani_bg"></div>
         <div class="turn-book">
             <div id="flipbook">
-                <div class="hard top"></div>
-                <div class="hard start"></div>
-                <div class="size"></div>
-                <div class="size"></div>
-                <div class="size"></div>
-                <div class="size"></div>
-                <div class="hard backside fixed"></div>
+                <div class="hard"></div>
+                <div class="hard"></div>
+                <div class="own-size"></div>
+                <div class="own-size"></div>
+                <div class="own-size"></div>
+                <div class="own-size"></div>
+                <div class="hard fixed"></div>
                 <div class="hard"></div>
             </div>
         </div>
@@ -103,54 +105,22 @@
 
     <script>
         $("#flipbook").turn({
-            elevation: 50,
-            acceleration: true,
+            // elevation: 50000,
+            acceleration: false,
             autoCenter: true,
             gradients: true,
             duration: 500,
             when: {
                 turning: function (e, page, view) {
-                    if (page >= 2) { //�𤐄摰𡁜椰��𡃏�峕踎
-                        $('#flipbook .p2').addClass('fixed');
-                        $('.book_index').show();
-                    } else {
-                        $('#flipbook .p2').removeClass('fixed');
-                        // $('.fwrap .index_list li').removeClass('on');
-                        // $('.book_index, .index_list').hide();
+                    console.log(page)
+                    if(page >= 2){
+                        $(".page.p2").addClass("fixed")
                     }
-                    if (page < $(this).turn('pages')) {
-                        $('#flipbook .backside').addClass('fixed');
-                        $('.ani_bg').fadeIn();
-                        if (page == 1) {
-                            $('.ani_bg').fadeOut();
-                        }
-                    } else {
-                        $('#flipbook .backside').removeClass('fixed');
-                        // $('.book_index, .index_list').hide();
-                        $('.ani_bg').fadeOut();
+                    if(page >= 8){
+                        $(".page.p7").removeClass("fixed")
+                    }else{
+                        $(".page.p7").addClass("fixed")
                     }
-
-                    // if (page >= 2 && page < 4) {
-                    //     $('.fwrap .index_list li').eq(0).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 4 && page < 6) {
-                    //     $('.fwrap .index_list li').eq(1).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 6 && page < 8) {
-                    //     $('.fwrap .index_list li').eq(2).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 8 && page < 10) {
-                    //     $('.fwrap .index_list li').eq(3).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 10 && page < 12) {
-                    //     $('.fwrap .index_list li').eq(4).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 12 && page < 14) {
-                    //     $('.fwrap .index_list li').eq(5).addClass('on').siblings().removeClass('on');
-                    // }
-                    // if (page >= 14) {
-                    //     $('.fwrap .index_list li').eq(6).addClass('on').siblings().removeClass('on');
-                    // }
                 }
             }
         });
