@@ -10,6 +10,8 @@
 <body>
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
     <script>
+
+        var url="https://tw.news.yahoo.com/_td-news/api/resource/content;fetchNewAttribution=true;getDetailView=true;getFullLcp=false;imageResizer=null;relatedContent=%7B%22enabled%22%3Atrue%7D;site=news;uuids=%5B%224646ce9c-efb9-3280-9123-2bf3f7c185ef%22%2C%225cef24f4-0dd0-3b8a-9e32-75ef2b5a4a35%22%2C%225069ee13-29e4-345b-84f6-35032b3fb665%22%2C%2269465b8f-ed4d-38e1-9b6f-79759b210f3a%22%2C%229956112d-b927-31f4-b712-b37b1df240e8%22%2C%228d5847e3-59a6-39d6-be66-955535a4b2cc%22%2C%2200267cb0-8971-300b-9166-217a39cf9ac9%22%2C%22db65132f-a875-3fdc-947a-db834f32ccdf%22%2C%22501f3381-8291-3fd7-a05d-eb179e1442e6%22%2C%22e7ba3f45-4ac9-35a5-b747-9717e08b94fa%22%2C%221ddee210-7904-3cda-b49e-df7f85776952%22%2C%2256bb8aaf-d209-3962-a89d-e9aa4888c6ea%22%2C%223f27520b-dd38-3dc9-ae7d-2181e49ffe95%22%2C%22f1be4226-cce6-30d9-8f04-a28745bb18b1%22%2C%22f366ca17-13f6-3fb2-9723-fc027f07812f%22%2C%22316b3802-f841-3b99-99dc-6150773a0eb3%22%2C%22f2fa925f-19b1-3af0-8b49-4ac05f0c0b92%22%2C%22a389aaa5-65fa-3505-9a8d-ba937903eea4%22%5D?bkt=news-TW-zh-Hant-TW-def&device=desktop&ecma=modern&feature=videoDocking&intl=tw&lang=zh-Hant-TW&partner=none&prid=1s7j3l1fcs8ol&region=TW&site=news&tz=Asia%2FTaipei&ver=2.3.1411&returnMeta=true";
         // function Jsonp(req){
         //     this.url=req.url;
         //     this.callback=req.callback;
@@ -25,7 +27,7 @@
         //     console.log(data);
         // }
         // new Jsonp({
-        //     url:"http://localhost:3000/items",
+        //     url:url,
         //     callback: "getMsg"
         // }).create()
         
@@ -43,11 +45,12 @@
         // })
 
         $.ajax({
-            url:"http://localhost:3000/items",
+            url:url,
             method:"get",
-            // dataType:"jsonp",
-            // jsonp:"callback",
-            // jsonpCallback:"getData",
+            dataType:"jsonp",
+            jsonp:"callback",
+            jsonpCallback:"getData",
+            contentType : 'application/json; charset=utf-8',
             success:function(data){
                 // data=JSON.parse(data);
                 console.log(data)
