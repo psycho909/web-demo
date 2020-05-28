@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #allstar {
+            width: 300px;
+        }
     </style>
 </head>
 
@@ -43,6 +50,9 @@
                     clip-path: url(#clip-path-6);
                 }
             </style>
+            <filter id="grayscale">
+                <feColorMatrix type="saturate" values="0.01" />
+            </filter>
             <clipPath id="clip-path">
                 <polygon class="cls-1" points="281.19 102.15 184.04 88.03 210.89 170.67 281.19 102.15" />
             </clipPath>
@@ -65,45 +75,56 @@
         </defs>
         <title>photo-1590574508715-ed8fa0346f92</title>
         <g id="group">
-            <g id="lbj">
+            <g class="group-star" id="lbj">
                 <g class="cls-2">
                     <image width="936" height="472" transform="translate(76.59 77.81) scale(0.27)"
-                        xlink:href="images/12345678.jpg" />
+                        xlink:href="images/12345678.jpg" filter="url(#grayscale)" />
                 </g>
             </g>
-            <g id="jordan">
+            <g class="group-star" id="jordan">
                 <g class="cls-3">
                     <image width="1200" height="628" transform="translate(70.3 162.18) scale(0.22)"
-                        xlink:href="images/fit-HueH1XGHfC-1200x628.jpg" />
+                        xlink:href="images/fit-HueH1XGHfC-1200x628.jpg" filter="url(#grayscale)" />
                 </g>
             </g>
-            <g id="wade">
+            <g class="group-star" id="wade">
                 <g class="cls-4">
                     <image width="840" height="473" transform="translate(-21.41 165.82) scale(0.26)"
-                        xlink:href="images/下載.jpg" />
+                        xlink:href="images/下載.jpg" filter="url(#grayscale)" />
                 </g>
             </g>
-            <g id="nba">
+            <g class="group-star" id="nba">
                 <g class="cls-5">
                     <image width="1200" height="673" transform="translate(20.08 87.3) scale(0.2)"
-                        xlink:href="images/How-the-NBA-Playoffs-would-look-if-season-resumes-by-jumping-right-into-postseason.jpg" />
+                        xlink:href="images/How-the-NBA-Playoffs-would-look-if-season-resumes-by-jumping-right-into-postseason.jpg"
+                        filter="url(#grayscale)" />
                 </g>
             </g>
-            <g id="duncan">
+            <g class="group-star" id="duncan">
                 <g class="cls-6">
                     <image width="399" height="224" transform="translate(-40.95 76.21) scale(0.47)"
-                        xlink:href="images/032615-NBA-Oklahoma-Duncan-PI-CD.vadapt.664.high.6.jpg" />
+                        xlink:href="images/032615-NBA-Oklahoma-Duncan-PI-CD.vadapt.664.high.6.jpg"
+                        filter="url(#grayscale)" />
                 </g>
             </g>
-            <g id="kobe">
+            <g class="group-star" id="kobe">
                 <g class="cls-7">
                     <image width="1400" height="950" transform="translate(37.48 -1.28) scale(0.14)"
-                        xlink:href="images/f2858292d139e5680c53ce6b19df63aa.jpg" />
+                        xlink:href="images/f2858292d139e5680c53ce6b19df63aa.jpg" filter="url(#grayscale)" />
                 </g>
             </g>
         </g>
     </svg>
-
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script>
+        $("#allstar .group-star").hover(function () {
+            $(this).find("image").attr("filter", "")
+            console.log($(this).attr("id"))
+        }, function () {
+            $(this).find("image").attr("filter", "url(#grayscale)")
+        })
+    </script>
 </body>
 
 </html>

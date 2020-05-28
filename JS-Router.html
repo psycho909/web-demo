@@ -1,52 +1,64 @@
 <html>
-    <head>
-        <title>Hello</title>
-        <style>
-            * { /* global font */
-                font-family: Verdana;
-                font-size: 18px;
-            }
-            #root { display: flex; flex-direction: row; }
-            #content { display: flex;
-                display: block;
-                width: 800px;
-                height: 250px;
-                /* vertically centered text */
-                line-height: 250px;
-                border: 2px solid #555;
-                margin: 32px;
-                text-align: center;
-            }
-            .route {
-                cursor: pointer;
-                justify-content: center;
-                width: 150px;
-                height: 50px;
-                /* vertically centered text */
-                line-height: 50px;
-                position: relative;
-                border: 2px solid #555;
-                background: white;
-                text-align: center;
-                margin: 16px;
-            }
-            .route.selected { background: yellow; }
-        </style>
-    </head>
 
-    <body>
+<head>
+    <title>Hello</title>
+    <style>
+        * {
+            /* global font */
+            font-family: Verdana;
+            font-size: 18px;
+        }
 
-        <section id="root">
-            <section class="route" id="home">/home</section>
-            <section class="route" id="about">/about</section>
-            <section class="route" id="gallery">/gallery</section>
-            <section class="route" id="contact">/contact</section>
-            <section class="route" id="help">/help</section>
-        </section>
+        #root {
+            display: flex;
+            flex-direction: row;
+        }
 
-        <main id = "content">Content loading...</main>
-        <script type = "module">
-            function select_tab(id) {
+        #content {
+            display: flex;
+            display: block;
+            width: 800px;
+            height: 250px;
+            /* vertically centered text */
+            line-height: 250px;
+            border: 2px solid #555;
+            margin: 32px;
+            text-align: center;
+        }
+
+        .route {
+            cursor: pointer;
+            justify-content: center;
+            width: 150px;
+            height: 50px;
+            /* vertically centered text */
+            line-height: 50px;
+            position: relative;
+            border: 2px solid #555;
+            background: white;
+            text-align: center;
+            margin: 16px;
+        }
+
+        .route.selected {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="root">
+        <section class="route" id="home">/home</section>
+        <section class="route" id="about">/about</section>
+        <section class="route" id="gallery">/gallery</section>
+        <section class="route" id="contact">/contact</section>
+        <section class="route" id="help">/help</section>
+    </section>
+
+    <main id="content">Content loading...</main>
+    <script type="module">
+        function select_tab(id) {
                 // remove selected class from all buttons
                 document.querySelectorAll(".route").forEach(function(item){
                     item.classList.remove('selected')
@@ -72,7 +84,8 @@
                 // Load content for this tab/page
                 loadContent(id);
                 // Finally push state change to the address bar
-                window.history.pushState({id}, `${id}`, `/page/${id}`);
+                // window.history.pushState({id}, `${id}`, `/page/${id}`);
+                window.history.pushState({id}, `${id}`, `?page=${id}`);
             }
             window.onload = function(event) {
                 // Add history push() event when boxes are clicked
@@ -91,9 +104,9 @@
                 // Visually select the clicked button/tab/box
                 select_tab(stateId);
                 // Load content for this tab/page
-                loadContent(id);
+                loadContent(stateId);
             });
         </script>
-    </body>
+</body>
 
 </html>
