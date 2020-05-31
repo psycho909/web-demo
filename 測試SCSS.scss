@@ -1,0 +1,42 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.box{
+    width: 300px;
+    height: 300px;
+    margin: 60px auto;
+    background-color: #dddddd;
+    position: relative;
+    .close{
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 10px;
+        right: 10px;
+        border-radius: 50%;
+        background-color: orange;
+        cursor: pointer;
+    }
+}
+
+%default{
+    width: 600px;
+    height: 200px;
+}
+
+.typea.box{
+    @extend %default;
+    .close{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+.typeb.box{
+    @extend %default;
+    .close{
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: red;
+    }
+}

@@ -41,6 +41,26 @@
     <script>
         var box=document.getElementById("box");
         var boxInfo=box.getBoundingClientRect();
+
+        var personModule=(function(){
+            var firstName;
+            var lastName;
+            function setName(f,l){
+                firstName=f;
+                lastName=l;
+            }
+            function getName(){
+                return firstName + "" + lastName
+            }
+
+            return {
+                setName:setName,
+                getName:getName
+            }
+        })()
+
+        personModule.setName("C","K")
+        console.log(personModule.getName())
     </script>
 </body>
 </html>
