@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <style>
+        .wrap {
+            display: flex;
+        }
+
+        .box {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 88px;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box" data-type="1">1</div>
+        <div class="box" data-type="2">2</div>
+        <div class="box" data-type="3">3</div>
+        <div class="box" data-type="4">4</div>
+        <div class="box" data-type="5">5</div>
+        <div class="box" data-type="6">6</div>
+        <div class="box" data-type="7">7</div>
+        <div class="box" data-type="8">8</div>
+        <div class="box" data-type="9">9</div>
+        <div class="box" data-type="10">10</div>
+    </div>
+    <div class="data-box">亂數</div>
+    <script>
+        var arr = Array(10);
+        $(".data-box").on("click",function(){
+            arr.sort(()=>Math.random()-0.5)
+            console.log(arr)
+        })
+        $('.box').on("click", function () {
+            var _index=$(this).index();
+            var _this=$(this)
+            if($(this).data("data") && arr[_index]){
+                console.log(arr[_index].name)
+                return
+            }
+            $.ajax({
+                url: 'https://randomuser.me/api/',
+                dataType: 'json',
+                success: function (data) {
+                    arr[_index]=data.results[0]
+                    _this.data("data",true)
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
