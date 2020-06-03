@@ -7,22 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-    <script type="text/javascript"
-        src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js">
+    </script>
 
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
+
         #box {
             width: 400px;
             height: 400px;
             position: relative;
             font-size: 0;
         }
-        #box ul{
+
+        #box ul {
             width: 200px;
             background-color: red;
             font-size: 14px;
@@ -30,7 +32,8 @@
             list-style: none;
             vertical-align: top;
         }
-        .wrap{
+
+        .wrap {
             width: 200px;
             height: 150px;
             display: inline-block;
@@ -40,6 +43,7 @@
 </head>
 
 <body>
+    <a class="popupbox" href="#"><br>點擊開啟</a>
     <div id="box">
         <ul>
             <li>A</li>
@@ -47,18 +51,27 @@
             <li>C</li>
         </ul>
         <div class="wrap"></div>
-        <p>請確認以下道具....</p><p><b>一二三四五六七八</b></p>
+        <p>請確認以下道具....</p>
+        <p><b>一二三四五六七八</b></p>
     </div>
     <script>
-        $.gbox.open("<p>請確認以下道具....</p><p><b>一二三四五六七八</b></p>",{
-            addClass:"default",
+        $('.popupbox').gbox('內容文字：帶入參數', {
+            titleBar: '標題文字',
+            fixedPos: false,
+            hasCloseBtn: true,
+            hasActionBtn: true,
+            clickBgclose: true,
+        });
+        $.gbox.open("<p>請確認以下道具....</p><p><b>一二三四五六七八</b></p>", {
+            addClass: "default",
+            clickBgclose: true,
             actionBtns: [{
                 text: '確定',
                 id: '',
                 click: function () {
                     $.gbox.close();
                 }
-            },{
+            }, {
                 text: '取消',
                 id: '',
                 click: function () {
