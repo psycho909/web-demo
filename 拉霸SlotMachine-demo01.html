@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .slotMachineNoTransition {
+            transition: none !important;
+        }
+
+        .slotMachineBlurFast {
+            filter: blur(5px);
+        }
+
+        .slotMachineBlurMedium {
+            filter: blur(3px);
+        }
+
+        .slotMachineBlurSlow {
+            filter: blur(2px);
+        }
+
+        .slotMachineBlurTurtle {
+            filter: blur(1px);
+        }
+
+        .machine {
+            padding: 84px 0;
+            background: #242627;
+        }
+
+        .machine .wrap {
+            margin: 0 auto;
+            max-width: 1440px;
+        }
+
+        .machine .column {
+            display: inline-block;
+            width: 40%;
+            padding: 0 5%;
+            float: left;
+        }
+
+        .machine .row {
+            clear: both;
+        }
+
+        .machine .optionContainer,
+        .machine .option {
+            height: 140px;
+        }
+
+        .machine .optionContainer {
+            color: #fefefe;
+            background: #05CC47;
+            border-radius: 5px;
+            margin: 0 auto 56px;
+        }
+
+        .machine .option {
+            box-sizing: border-box;
+            display: block;
+            padding: 28px;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .machine .option span {
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .machine .mashupButton {
+            position: relative;
+            padding: 28px 0 0;
+            text-align: center;
+        }
+
+        .machine .mashupButton .button {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 28px 56px;
+            font-size: 32px;
+            box-shadow: 0 7px 16px black;
+        }
+
+        .machine .mashupButton .button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .machine .mashupButton .button:active {
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="machine">
+        <div class="wrap">
+            <div class="column">
+                <div id="machine1" class="optionContainer">
+                    <span class="option">
+                        <span>Example A</span>
+                    </span>
+                    <span class="option">
+                        <span>Example B</span>
+                    </span>
+                </div>
+            </div>
+            <div class="column">
+                <div id="machine2" class="optionContainer">
+                    <span class="option">
+                        <span>Example C</span>
+                    </span>
+                    <span class="option">
+                        <span>Example D</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mashupButton">
+                    <button id="randomizeButton" class="button">Go</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="results">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1411288/jquery.slotmachine.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var machine1 = $("#machine1").slotMachine({
+                active: 0,
+                delay: 500
+            });
+
+            var machine2 = $("#machine2").slotMachine({
+                active: 1,
+                delay: 500,
+                direction: "down"
+            });
+
+            var results;
+
+            function onComplete(active) {
+                switch (this.element[0].id) {
+                    case "machine1":
+                        $("#machine1Result").text(this.active);
+                        results[0] = getMachineResult($('#machine1'), this.active);
+                        break;
+                    case "machine2":
+                        $("#machine2Result").text(this.active);
+                        results[1] = getMachineResult($('#machine2'), this.active);
+                        break;
+                }
+                $("#results").text(results.join(", "));
+            }
+
+            function getMachineResult(i_jqMachine, i_iActive) {
+                return i_jqMachine.find('span.option > span').eq(i_iActive + 1).text();
+            }
+
+            $("#randomizeButton").click(function () {
+                results = [];
+                $("#results").css('color', 'white').text("");
+                machine1.shuffle(5, onComplete);
+                setTimeout(function () {
+                    machine2.shuffle(5, onComplete);
+                }, 500);
+            });
+        });
+    </script>
+</body>
+
+</html>

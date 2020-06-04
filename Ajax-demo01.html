@@ -9,9 +9,14 @@
 </head>
 <body>
     <script>
+        window.onload=function(){
+            console.log("onload")
+        }
+        console.log(1)
         $.ajax({
             url:location.href,
             method:"get",
+            async:false,
             complete:function(req, textStatus){
                 var serverTime=req.getResponseHeader("Date");
                 var now=new Date(serverTime);
@@ -20,6 +25,7 @@
                 console.log(snow)
             }
         })
+        console.log(2)
     </script>
 </body>
 </html>

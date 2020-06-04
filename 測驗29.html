@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        .tooltip {
+            width: 200px;
+            background: #59c7f9;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 20px 10px 20px;
+            border-radius: 10px;
+            position: absolute;
+            top: calc(100% + 11px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .tooltip-box {
+            position: relative;
+            width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .triangle {
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+            border-bottom: 6px solid #59c7f9;
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tooltip-box">
+        <a href="#">Hover</a>
+        <div class="tooltip">
+            <span class="triangle"></span>
+            Tooltip
+        </div>
+    </div>
+    <script>
+        switch("A"){
+            case "A":
+                if(true){
+                    console.log("Start")
+                }else{
+                    console.log("Stop")
+                }
+                break;
+            case "B":
+                console.log("BBBB")
+                console.log(123123)
+                console.log(123123)
+                break;
+        }
+    </script>
+</body>
+
+</html>
