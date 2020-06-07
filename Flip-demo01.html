@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/flip.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="tick" data-value="1234" data-did-init="setupFlip">
+
+        <!-- Hide visual content from screenreaders with `aria-hidden` -->
+        <div data-repeat="true" aria-hidden="true">
+            <span data-view="flip"></span>
+        </div>
+
+    </div>
+    <script src="js/flip.min.js"></script>
+    <script>
+        function setupFlip(tick) {
+
+            Tick.helper.interval(function () {
+
+                tick.value++;
+
+                // Set `aria-label` attribute which screenreaders will read instead of HTML content
+                tick.root.setAttribute('aria-label', tick.value);
+
+            }, 1000);
+
+        }
+    </script>
+</body>
+
+</html>
