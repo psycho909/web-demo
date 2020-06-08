@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .about {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #000;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .message-list{
+            position: absolute;
+            top: 0;
+        }
+        .message-item {
+            padding: 6px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="about">
+            <div class="message-list" ref="messageListRef" :style="{top:`${topValue}px`}">
+                <div class="message-item" @click='goLink(item.value)' @mouseover="messageItemMouseover"
+                    @mouseout="messageItemMouseout" v-for="(item,index) in messageList" :key='index+item.label'>
+                    <span>{{item.label}}</span>
+                    <span>{{item.date}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    messageList: [{
+                            label: '这是一个动态滚动的公告1',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告2',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告3',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告1',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告4',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告5',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告6',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告7',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告8',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告9',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告10',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告11',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                        {
+                            label: '这是一个动态滚动的公告12',
+                            value: 'https://www.baidu.com',
+                            date: '2020-01-01'
+                        },
+                    ],
+                    topValue:0,
+                    scrollFlag:true
+                }
+            },
+            mounted(){
+                window.requestAnimationFrame(this.beginScroll)
+            },
+            methods:{
+                goLink(url){
+                    window.open(url)
+                },
+                beginScroll(){
+                    if(this.scrollFlag){
+                        this.topValue=this.topValue-0.5;
+                        if(this.topValue <= -this.$refs.messageListRef.offsetHeight){
+                            this.topValue=0
+                        }
+                        window.requestAnimationFrame(this.beginScroll)
+                    }
+                },
+                messageItemMouseover(){
+                    this.scrollFlag=false;
+                },
+                messageItemMouseout(){
+                    clearTimeout(this.t)
+                    this.t=setTimeout(function(){
+                        this.scrollFlag=true
+                        window.requestAnimationFrame(this.beginScroll)
+                    },200)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
