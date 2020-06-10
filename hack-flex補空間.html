@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /* relevant styles */
+        .grid--thumbs {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .grid--thumbs a,
+        .grid--thumbs div:empty {
+            flex: 1;
+            box-shadow: 0 0 0 2px purple;
+        }
+
+        .grid--thumbs img {
+            margin: auto;
+        }
+
+        /* prettifying styles */
+        .post__content {
+            margin: 0 auto;
+            padding: .5em;
+            max-width: 61em;
+            background: gainsboro;
+            font: 1em/ 1.375em trebuchet ms, sans-serif;
+        }
+
+        .post__content>*+* {
+            margin-top: 1em;
+        }
+
+        .grid--thumbs {
+            margin-left: -.125em;
+            margin-right: -.125em;
+        }
+
+        .grid--thumbs a {
+            margin: 0.125em;
+        }
+
+        .grid--thumbs div:empty {
+            margin: 0 .125em;
+            min-width: 8em;
+        }
+
+        .grid--thumbs img {
+            display: block;
+            width: 8em;
+            box-shadow: 0 0 0 1px #000;
+        }
+    </style>
+</head>
+
+<body>
+    <section class='post__content'>
+        <p>Problem: we have a grid of fixed size thumbnails. For a nicer look, we want this grid to be middle aligned
+            with respect to the paragraphs above and below, and, at the same time, we want the last grid row to be
+            left-aligned with respect to the grid.</p>
+        <div class='grid--thumbs'>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_21.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_10.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_31.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_32.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_25.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_20.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_27.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_11.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_9.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_2.jpg' />
+            </a>
+            <a href='#'>
+                <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_05_a_amur_leopard_34.jpg' />
+            </a>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+            <div aria-hidden='true'></div>
+        </div>
+        <p>⚠️ This demo serves the sole purpose of illustrating why the flexbox approach is not a less than ideal
+            solution to this problem: leaving aside the fact that we don't really have a middle-aligned grid anymore,
+            the technique is really hacky and requires adding a bunch of empty divs. You may not want to copy and use
+            this CSS in your own projects. ⚠️</p>
+    </section>
+</body>
+
+</html>
