@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .slotMachineNoTransition {
+            transition: none !important;
+        }
+        .machine-group{
+            display: grid;
+            grid-template-columns: repeat(4,300px);
+            grid-gap: 10px;
+        }
+        .machine {
+            width: 300px;
+            height: 60px;
+            overflow: hidden;
+            background-color: #eee;
+        }
+
+        .machine div {
+            text-align: center;
+            font-size: 42px;
+            height: 60px;
+            line-height: 60px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            cursor: pointer;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="machine-group">
+        <div id="machine1" class="machine">
+            <div>AAA</div>
+            <div>BBB</div>
+            <div>CCC</div>
+            <div>DDD</div>
+            <div>EEE</div>
+            <div>FFF</div>
+            <div>GGG</div>
+            <div>HHH</div>
+        </div>
+        <div id="machine2" class="machine">
+            <div>AAA</div>
+            <div>BBB</div>
+            <div>CCC</div>
+            <div>DDD</div>
+            <div>EEE</div>
+            <div>FFF</div>
+            <div>GGG</div>
+            <div>HHH</div>
+        </div>
+        <div id="machine3" class="machine">
+            <div>AAA</div>
+            <div>BBB</div>
+            <div>CCC</div>
+            <div>DDD</div>
+            <div>EEE</div>
+            <div>FFF</div>
+            <div>GGG</div>
+            <div>HHH</div>
+        </div>
+        <div id="machine4" class="machine">
+            <div>頭獎A</div>
+            <div>頭獎B</div>
+            <div>頭獎C</div>
+        </div>
+    </div>
+    <button id="btn" class="btn btn-danger ">shuffle</button>
+    <button id="stop" class="btn btn-danger ">stop</button>
+    <script src="js/slotmachine.min.js"></script>
+    <script>
+        const btn = document.getElementById("btn");
+        const stop = document.getElementById("stop");
+        const m1 = document.querySelector('#machine1');
+        const m2 = document.querySelector('#machine2');
+        const m3 = document.querySelector('#machine3');
+        const m4 = document.querySelector('#machine4');
+        var arr=[];
+        const machine1 = new SlotMachine(m1, {
+            active:0,
+            delay:500
+        });
+        const machine2 = new SlotMachine(m2, {
+            active:1,
+            delay:500
+        });
+        const machine3 = new SlotMachine(m3, {
+            active:2,
+            delay:500
+        });
+        const machine4 = new SlotMachine(m4, {
+            active:0,
+            delay:500
+        });
+        btn.addEventListener("click", function () {
+            setTimeout(function(){
+                machine1.shuffle(9999)
+            }, 100);
+            setTimeout(function(){
+                machine2.shuffle(9999)
+            }, 200);
+            setTimeout(function(){
+                machine3.shuffle(9999)
+            }, 300);
+        })
+        stop.addEventListener("click", function () {
+            arr=[];
+            machine1.stop(function(active){
+                arr.push(active)
+            })
+            setTimeout(function(){
+                machine2.stop(function(active){
+                    arr.push(active)
+            })
+            }, 1000);
+            setTimeout(function(){
+                machine3.stop(function(active){
+                    arr.push(active)
+                    var check=arr.every(function(v,i){
+                        return arr[0] == v
+                    })
+                    if(check){
+                        machine4.changeSettings({
+                            randomize:function(){
+                                return 2
+                            }
+                        })
+                        machine4.shuffle(6)
+                    }
+                })
+            }, 2000);
+        })
+    </script>
+</body>
+
+</html>
