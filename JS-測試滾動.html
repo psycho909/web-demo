@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=750,user-scalable=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: Arial;
+        }
+        .menu{
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            list-style-type: none;
+            background-color: rgba(0,0,0,.3);
+        }
+        .menu li{
+            padding: 16px 48px;
+            cursor: pointer;
+            border-bottom: 1px solid #fff;
+        }
+        .menu li.active{
+            color:#fff;
+        }
+        .menu li:last-child{
+            border-bottom: none;
+        }
+        .section{
+            width: 100%;
+            height: 1200px;
+        }
+        .section:nth-of-type(2){
+            background-color: rgb(110, 237, 241);
+        }
+        .section:nth-of-type(3){
+            background-color: rgb(255, 246, 163);
+        }
+        .section:nth-of-type(4){
+            background-color: rgb(251, 203, 247);
+        }
+        .section:nth-of-type(5){
+            height: 400px;
+            background-color: rgb(226, 226, 226);
+        }
+        .menu-icon{
+            width: 60px;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            z-index: 3;
+            border-radius: 50%;
+        }
+        .menu-icon.open{
+            border-radius: 0;
+        }
+        @media screen and (max-width:750px) {
+            .menu{
+                top: 60px;
+                /* display: none; */
+            }
+            .menu-icon.open + .menu{
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-icon"></div>
+    <ul class="menu">
+        <li class="active" data-type="type1">Type1</li>
+        <li data-type="type2">Type2</li>
+        <li data-type="type3">Type3</li>
+        <li data-type="type4">Type4</li>
+    </ul>
+    <div id="type1" class="section">Type1</div>
+    <div id="type2" class="section">Type2</div>
+    <div id="type3" class="section">Type3</div>
+    <div id="type4" class="section">Type4</div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script>
+        $(window).on("scroll",function(){
+            var top=$(window).scrollTop();
+            $(".section").each(function(i,v){
+                var t=$(this).offset().top;
+                var h=$(this).outerHeight(true);
+                if(t-300 <= top && (t+h-300) > top){
+                    var type=$(this).attr("id");
+                    $('.menu li[data-type='+type+']').addClass("active")
+                }else{
+                    var type=$(this).attr("id");
+                    $('.menu li[data-type='+type+']').removeClass("active")
+                }
+            })
+        })
+        $(".menu li").on("click",function(){
+            var type=$(this).attr("data-type");
+            $(".menu-icon").removeClass("open")
+            $("body,html").animate({
+                scrollTop:$("#"+type).offset().top
+            },600)
+        })
+        $(".menu-icon").on("click",function(){
+            $(this).toggleClass("open")
+        })
+    </script>
+</body>
+</html>
