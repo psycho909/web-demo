@@ -33,7 +33,7 @@ var game = (function() {
     var rotate=0;
     var isRunning = false
     var targetDegArr = []
-    var arr=[];
+    var bingoArr=[];
     var config = [
         {
             gifts: Array.from(new Array(10), (val, index) => {
@@ -109,15 +109,22 @@ var game = (function() {
         disabled=false;
         targetDegArr=[];
         handlerClass(active,disabled);
+        var bingoCheck=bingoArr.some(function(v,i){
+            return bingoArr[0] == v
+        })
         if(!autoTurn.length){
-            fn()
+            fn();
+            if(bingoCheck){
+                console.log("中獎")
+            }else{
+                console.log("沒有中獎")
+            }
         }
     }
 
     var autoTurn=function (i){
         // let randomDeg=(Math.random() * 360) + (360 * 5);
-        let randomDeg=arr[i] + (360 * 5);
-    
+        let randomDeg=bingoArr[i] + (360 * 5);
         randomDeg -= randomDeg % rotate;
         var targetDeg=randomDeg;
         targetDegArr.push(targetDeg)
@@ -173,7 +180,7 @@ var game = (function() {
     var init = function(bingo,callback) {
         // config=configs;
         fn=callback;
-        arr=bingo;
+        bingoArr=bingo;
         setRotate();
         initHTML();
         $('.ball').on('click',function(){
@@ -189,7 +196,8 @@ var game = (function() {
 })()
 
 // 0 1 2 3 4 5 6 7 8 9
-var x=[0,36,72,108,144,180,216,252,288,324]
-game.init([0,0,0],function(){
+var x=[0,36,72,108,144,180,216,252,288,324];
+
+game.init([36,72,108],function(){
     console.log(123)
 })
