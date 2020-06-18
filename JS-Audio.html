@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">PLAY</button>
+    <audio id="audio" src="./sounds/coin.mp3" controls preload></audio>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script>
+        var oAd=document.getElementById("audio");
+        // oAd.addEventListener("loadeddata",function(){
+        //     $("#btn").trigger("touchstart")
+        // })
+        // document.getElementById("audio").play()
+        $("#btn").on("click touchstart",function(){
+            oAd.play()
+        })
+
+        $(function(){
+            $("#btn").trigger("touchstart")
+        })
+    </script>
+</body>
+</html>

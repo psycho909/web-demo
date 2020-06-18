@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        #area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            padding-left: 2px;
+        }
+
+        .fortun {
+            width: 30px;
+            height: 30px;
+            perspective: 500px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .use {
+            transition: 3s;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            --r: 0deg;
+            --t: 28.5px;
+            text-align: center;
+            line-height: 30px;
+            transform: rotateX(calc(var(--b) + var(--r))) translateZ(var(--t));
+        }
+
+        #area.win {
+            animation: 2s blink infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                background-color: #f004;
+            }
+
+            33% {
+                background-color: #0f04;
+            }
+
+            67% {
+                background-color: #00f4;
+            }
+
+            100% {
+                background-color: #f004;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="area"></div>
+    <script>
+        let fruits = ['🍓', '🥝', '🍍', '🍇', '🍉', '🍌'];
+        let el = (e, i) => `<span class="use" style="--b:${i*60}deg">${fruits[i]}</span>`;
+
+        function slot() {
+            area.innerHTML += `<div data-angle=0 class="fortun">${Array(6).fill(0).map(el).join('')}</div>`
+        }
+
+        slot();
+        slot();
+        slot();
+
+        let fortun = document.querySelectorAll('.fortun');
+        let angle = 0,
+            timeout;
+
+        addEventListener('click', r)
+        addEventListener('touchstart', r)
+
+        function r() {
+            area.classList.remove('win');
+            fortun.forEach(f => {
+                f.dataset.angle -= Math.floor(6 + Math.random() * 12) * 120;
+                f.querySelectorAll(".use").forEach(d => {
+                    d.style.setProperty('--r', f.dataset.angle + 'deg');
+                });
+            })
+            timeout && clearTimeout(timeout);
+            timeout = setTimeout(e => {
+                if (new Set([...fortun].map(f => (+f.dataset.angle / 60) % 6)).size === 1)
+                    area.classList.add('win');
+            }, 3000)
+        }
+    </script>
+</body>
+
+</html>
