@@ -1,32 +1,3 @@
-var configs = [
-    {
-        gifts: Array.from(new Array(10), (val, index) => {
-            return {type: 'text', name: index}
-        }),
-        duration: 4000,
-        fontSize: 150,
-        height: 200,
-        width: 200
-    },
-    {
-        gifts: Array.from(new Array(10), (val, index) => {
-            return {type: 'text', name: index}
-        }),
-        duration: 5000,
-        fontSize: 150,
-        height: 200,
-        width: 200
-    },
-    {
-        gifts: Array.from(new Array(10), (val, index) => {
-            return {type: 'text', name: index}
-        }),
-        duration: 6000,
-        fontSize: 150,
-        height: 200,
-        width: 200
-    }
-]
 var game = (function() {
     var active = false
     var disabled = false
