@@ -5,7 +5,7 @@ var game = (function() {
     var isRunning = false
     var targetDegArr = []
     var bingoArr=[];
-    var config = [
+    var configs = [
         {
             gifts: Array.from(new Array(10), (val, index) => {
                 return {type: 'text', name: index}
@@ -67,7 +67,7 @@ var game = (function() {
     }
 
     var setRotate=function (){
-        rotate = 360/config[0].gifts.length;
+        rotate = 360/configs[0].gifts.length;
     }
 
     var handlerClass=function (active,disabled){
@@ -121,6 +121,7 @@ var game = (function() {
     }
     
     var autoTurnStop = function (i){
+        console.log(targetDegArr)
         var currentDeg=targetDegArr[i]%360;
         $('.gift-container').eq(i).css("--currentDeg","-"+currentDeg+"deg")
         $('.gift-container').eq(i).removeClass('autoTurn')
@@ -128,7 +129,7 @@ var game = (function() {
         // var endDeg=currentDeg+(rotate/2);
         isRunning=false;
         autoTurnClass(isRunning)
-        if(i == config.length-1){
+        if(i == configs.length-1){
             isFinished()
         }
         
@@ -141,7 +142,6 @@ var game = (function() {
             handlerClass(active,disabled)
         },500)
         disabled=true;
-        trigger=new Date();
         handlerClass(active,disabled)
     
         for(var i=0;i<configs.length;i++){
