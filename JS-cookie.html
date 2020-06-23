@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Setting cookies
+        // document.cookie="userId=nick123"
+
+        // Set cookie expiration time
+        // document.cookie="userId=nick123;expires = Wed,15 July 2020 12:00:00 UTC"
+
+        // Set cookie path
+        // document.cookie="userId=nick123;expires = Wed,15 July 2020 12:00:00 UTC;path=/user;domain=mysite.com";
+
+        // Read Cookies
+        // Read all cookies
+        // const cookies=document.cookie;
+
+        // Read cookies width a specific name
+        function getCookieValue(name){
+            const nameString=name+"=";
+            const value=document.cookie.split(";").filter(item=>{
+                return item.includes(nameString)
+            })
+            if(value.length){
+                return value[0].trim().substring(nameString.length,value[0].length)
+            }else{
+                return "";
+            }
+        }
+
+        // Update Cookies
+        document.cookie="userId=new_value";
+
+        // Delete Cookies
+        document.cookie="userId=;expires=Thu,01 Jan 1970 00:00:00 UTC;"
+        console.log(getCookieValue("userId"))
+    </script>
+</body>
+</html>

@@ -103,67 +103,67 @@
     <button id="stop" class="btn btn-danger ">stop</button>
     <script src="js/slotmachine.min.js"></script>
     <script>
-        // const btn = document.getElementById("btn");
-        // const stop = document.getElementById("stop");
-        // const m1 = document.querySelector('#machine1');
-        // const m2 = document.querySelector('#machine2');
-        // const m3 = document.querySelector('#machine3');
-        // const m4 = document.querySelector('#machine4');
-        // var arr=[];
-        // const machine1 = new SlotMachine(m1, {
-        //     active:0,
-        //     delay:500
-        // });
-        // const machine2 = new SlotMachine(m2, {
-        //     active:1,
-        //     delay:500
-        // });
-        // const machine3 = new SlotMachine(m3, {
-        //     active:2,
-        //     delay:500
-        // });
-        // const machine4 = new SlotMachine(m4, {
-        //     active:0,
-        //     delay:500
-        // });
-        // btn.addEventListener("click", function () {
-        //     setTimeout(function(){
-        //         machine1.shuffle(9999)
-        //     }, 100);
-        //     setTimeout(function(){
-        //         machine2.shuffle(9999)
-        //     }, 200);
-        //     setTimeout(function(){
-        //         machine3.shuffle(9999)
-        //     }, 300);
-        // })
-        // stop.addEventListener("click", function () {
-        //     arr=[];
-        //     machine1.stop(function(active){
-        //         arr.push(active)
-        //     })
-        //     setTimeout(function(){
-        //         machine2.stop(function(active){
-        //             arr.push(active)
-        //     })
-        //     }, 1000);
-        //     setTimeout(function(){
-        //         machine3.stop(function(active){
-        //             arr.push(active)
-        //             var check=arr.every(function(v,i){
-        //                 return arr[0] == v
-        //             })
-        //             if(check){
-        //                 machine4.changeSettings({
-        //                     randomize:function(){
-        //                         return 2
-        //                     }
-        //                 })
-        //                 machine4.shuffle(6)
-        //             }
-        //         })
-        //     }, 2000);
-        // })
+        const btn = document.getElementById("btn");
+        const stop = document.getElementById("stop");
+        const m1 = document.querySelector('#machine1');
+        const m2 = document.querySelector('#machine2');
+        const m3 = document.querySelector('#machine3');
+        const m4 = document.querySelector('#machine4');
+        var arr=[];
+        const machine1 = new SlotMachine(m1, {
+            active:0,
+            delay:500
+        });
+        const machine2 = new SlotMachine(m2, {
+            active:1,
+            delay:500
+        });
+        const machine3 = new SlotMachine(m3, {
+            active:2,
+            delay:500
+        });
+        const machine4 = new SlotMachine(m4, {
+            active:0,
+            delay:500
+        });
+        btn.addEventListener("click", function () {
+            setTimeout(function(){
+                machine1.shuffle(9999)
+            }, 100);
+            setTimeout(function(){
+                machine2.shuffle(9999)
+            }, 200);
+            setTimeout(function(){
+                machine3.shuffle(9999)
+            }, 300);
+        })
+        stop.addEventListener("click", function () {
+            arr=[];
+            machine1.stop(function(active){
+                arr.push(active)
+            })
+            setTimeout(function(){
+                machine2.stop(function(active){
+                    arr.push(active)
+            })
+            }, 1000);
+            setTimeout(function(){
+                machine3.stop(function(active){
+                    arr.push(active)
+                    var check=arr.every(function(v,i){
+                        return arr[0] == v
+                    })
+                    if(check){
+                        machine4.changeSettings({
+                            randomize:function(){
+                                return 2
+                            }
+                        })
+                        machine4.shuffle(6)
+                    }
+                })
+            }, 2000);
+        })
     </script>
 </body>
 

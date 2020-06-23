@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="900" height="600" style="background-color: black;"></canvas>
+    <script>
+        let img=new Image();
+        img.src="https://cdn.yinhengli.com/canvas-example.jpeg";
+        let canvas=document.getElementById("myCanvas");
+        let context=canvas.getContext("2d");
+        let boxWidth,boxHeight;
+        let rows=10,columns=20,counter=0;
+
+        img.onload=function(){
+            boxWidth=img.width/columns;
+            boxHeight=img.height/rows;
+            requestAnimationFrame(animate)
+            // context.drawImage(img,0,0)
+        }
+
+        function animate(){
+            let x=Math.floor(Math.random()*columns);
+            let y=Math.floor(Math.random()*rows);
+            context.drawImage(
+                img,
+                x*boxWidth,
+                y*boxHeight,
+                boxWidth,
+                boxHeight,
+                x*boxWidth,
+                y*boxHeight,
+                boxWidth,
+                boxHeight
+            )
+            counter++;
+            if(counter > columns*rows*0.9){
+                context.drawImage(img,0,0)
+            }else{
+                requestAnimationFrame(animate)
+            }
+        }
+
+        var num=8;
+        var numDegCurrent=0;
+        var numDeg=360/num;
+        var numArrLen=num/2;
+        var numArr=[]
+        for(var i=0;i<numArrLen;i++){
+            numArr.push([])
+        }
+        for(var i=0;i<numArrLen;i++){
+            numArr[i].push(i*numDeg);
+        }
+        numDegCurrent=Math.max.apply(null,numArr.slice(-1)[0]);
+        for(var i=0;i<numArrLen;i++){
+            numDegCurrent+=numDeg
+            numArr[i].push(numDegCurrent);
+        }
+        console.log(numArr)
+    </script>
+</body>
+
+</html>
