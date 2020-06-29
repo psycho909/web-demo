@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var url =
+            "https://inline.app/api/booking-capacities?companyId=-M3J_RCCRpHisvRHR5B7%3Ainline-live-1&branchId=-M3J_RGIzVcfZGHU_9rj";
+
+        function run(url) {
+            var date=new Date();
+            function formateDate(date){
+                var date=new Date();
+                var now=`${date.getFullYear()}-${date.getDate()}-${date.getMonth()+1} ${date.getHours()}:${date.getMinutes()}`
+                console.log(now)
+            }
+            formateDate(date)
+            $.ajax({
+                url: url,
+                method: "get",
+                success: function (data) {
+                    var obj = data["default"];
+                    for (var [key, value] of Object.entries(obj)) {
+                        for (var [key2, value2] of Object.entries(value)) {
+                            if (value2.length > 0) {
+                                document.getElementById("app").innerHTML = `${key} ${key2} ${value2}`
+                                console.log(`${key} ${key2} ${value2}`)
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        setInterval(() => {
+            run(url)
+        }, 5000);
+    </script>
+</body>
+
+</html>
