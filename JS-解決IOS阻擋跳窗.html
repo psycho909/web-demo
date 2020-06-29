@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        .tooltip {
+            width: 200px;
+            background: #59c7f9;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 20px 10px 20px;
+            border-radius: 10px;
+            position: absolute;
+            top: calc(100% + 11px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .tooltip-box {
+            position: relative;
+            width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            --color: red;
+            color: var(--color);
+        }
+
+        .triangle {
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+            border-bottom: 6px solid #59c7f9;
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+    <script>
+        
+        var openWin = function () {
+            var winRef = window.open("url", "_blank");
+            var fbhtml_url = window.location.toString();
+            winRef.location='http://www.facebook.com/sharer/sharer.php?u=' + fbhtml_url
+        };
+    </script>
+</head>
+
+<body>
+    <div class="tooltip-box">
+        <a href="javascript:void(0);" onclick="openWin()">FB分享</a>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>
