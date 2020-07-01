@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #app {
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/promo/LineageM/E20200701/css/img/bg.jpg');
+            background-position: center 0;
+            background-size: 1920px auto;
+            background-repeat: no-repeat;
+        }
+
+        #smokeBg {
+            position: fixed;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .smoke__inner {
+            background-image: url('images/smoke.png');
+            width: 600px;
+            height: 344px;
+            background-position: 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="smokeBg">
+        <div class="smoke__inner"></div>
+    </div>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <script>
+        var imgW = 600;
+        var imgH = 344;
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var s = 0;
+        if (vw / vh > imgW / imgH) {
+            s = vw / imgW;
+        } else {
+            s = vh / imgH;
+        }
+        TweenMax.set($('#smokeBg'), {
+            scale: s,
+            x: '-50%',
+            y: '-50%'
+        });
+    </script>
+</body>
+
+</html>
