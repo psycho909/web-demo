@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        <label for="name">
+            <input type="text" name="name">
+        </label>
+        <label for="phone">
+            <input type="tel" name="phone">
+        </label>
+        <label for="email">
+            <input type="text" name="email">
+        </label>
+        <button id="submit" type="button">送出</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $("#submit").on("click", function () {
+            var form=document.getElementById("form");
+            var name=form["name"];
+            var phone=form["phone"];
+            var email=form["email"];
+            var user={
+                name:name,
+                phone:phone,
+                email:email
+            }
+            function validName(user) {
+                return user.name.value.trim().length > 0
+            }
+
+            function validPhone(user) {
+                var v = /^(09)\d{8}$/;
+                return v.test(user.phone.value)
+            }
+
+            function validEmail(user) {
+                var v = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+                return v.test(user.email.value)
+            }
+
+            function validate(obj, fn) {
+                for (var i = 0; i < fn.length; i++) {
+                    if (fn[i](obj) === false) {
+                        return false
+                    }
+                }
+                return true;
+            }
+            console.log(validate(user, [validName, validPhone, validEmail]))
+        })
+    </script>
+</body>
+
+</html>
