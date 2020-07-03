@@ -22,31 +22,38 @@
 <body>
     <button id="btn">Click</button>
     <p id="r"></p>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        var r=document.getElementById("r");
-        var btn=document.getElementById("btn")
-        function insertHello(){
+        var r = document.getElementById("r");
+        var btn = document.getElementById("btn")
+
+        function insertHello() {
             r.textContent += 'hello!';
         }
 
-        var debounce=function(fn,interval){
-            var timer=null;
-            return function(){
-                if(timer){
+        var debounce = function (fn, interval) {
+            var timer = null;
+            return function () {
+                if (timer) {
                     clearTimeout(timer)
                 }
-                timer=setTimeout(function(){
-                    fn.apply(this,arguments)
-                    timer=null;
-                },interval)
+                timer = setTimeout(function () {
+                    fn.apply(this, arguments)
+                    timer = null;
+                }, interval)
             }
         }
 
-        btn.addEventListener('click',debounce(function(e){
-            insertHello()
-        },600));
+        btn.addEventListener('click', debounce(function (e) {
+            $.ajax({
+                url: 'https://randomuser.me/api/',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        }, 600));
     </script>
 </body>
 

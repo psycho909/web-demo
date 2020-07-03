@@ -49,14 +49,9 @@
         var imgH = 344;
         var vw = window.innerWidth;
         var vh = window.innerHeight;
-        var s = 0;
-        if (vw / vh > imgW / imgH) {
-            s = vw / imgW;
-        } else {
-            s = vh / imgH;
-        }
+        var ss=Math.max(vw/imgW,vh/imgH)
         TweenMax.set($('#smokeBg'), {
-            scale: s,
+            scale: ss,
             x: '-50%',
             y: '-50%'
         });
