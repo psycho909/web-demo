@@ -19,10 +19,15 @@
         cursor: pointer;
     }
 }
-
+@function getvw($size,$breakpoint:750){
+    @return ($size / $breakpoint) * 100vw;
+}
 %default{
-    width: 600px;
+    width: getvw(600,1920);
     height: 200px;
+    @media screen and (max-width:750px){
+        width: getvw(600);
+    }
 }
 
 .typea.box{

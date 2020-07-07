@@ -23,8 +23,14 @@
 }
 
 .typea.box, .typeb.box {
-  width: 600px;
+  width: 31.25vw;
   height: 200px;
+}
+
+@media screen and (max-width: 750px) {
+  .typea.box, .typeb.box {
+    width: 80vw;
+  }
 }
 
 .typea.box .close {
