@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.4/localforage.min.js"></script>
+    <script>
+        // IE 9可以用
+        // 設置
+        // localforage.setItem("name","Banana",function(err,value){
+        //     console.log(value)
+        // })
+        // 獲取
+        localforage.getItem("name").then(function(value){
+            // if(!value){
+            //     localforage.setItem("name","Banana").then(function(value){
+            //         console.log("SetItem")
+            //     })
+            // }
+            console.log("getItem",value)
+        })
+        // 移除特定
+        // localforage.removeItem("name").then(function(){
+        //     console.log("Remove")
+        // })
+
+        // 全部清除
+        // localforage.clear().then(function(){
+        //     console.log("Remove")
+        // })
+
+        // 獲取所有keys
+        // localforage.keys().then(function(keys){
+        //     console.log(keys)
+        // })
+
+        // 獲取長度
+        // localforage.length().then(function(numberKeys){
+        //     console.log(numberKeys)
+        // })
+
+        // 可以同時獲取 key value 長度
+        // localforage.iterate(function(value,key,iterationNumber){
+        //     console.log([key,value],iterationNumber)
+        // })
+    </script>
+</body>
+</html>
