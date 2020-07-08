@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #btn {
+            padding: 16px 32px;
+            background-color: rgb(0, 174, 255);
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 18px;
+            font-family: "微軟正黑體";
+            font-weight: bold;
+        }
+
+        #btn.disabled {
+            background-color: #c0c0c0;
+            color: rgb(140, 140, 140);
+            /* pointer-events: none;
+            user-select: none; */
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按鈕</button>
+    <script>
+        var oBtn = document.getElementById("btn");
+        var countdown=0;
+
+        oBtn.addEventListener("click", function () {
+            oBtn.classList.add("disabled")
+            if(countdown == 0){
+                countdown=5;
+                (function cycle(){
+                    console.log(countdown)
+                    if(countdown <= 0){
+                        oBtn.classList.remove("disabled")
+                        return;
+                    }
+                    countdown--;
+                    setTimeout(cycle, 1000);
+                })()
+            }else{
+                console.log(countdown)
+            }
+            
+        })
+    </script>
+</body>
+
+</html>

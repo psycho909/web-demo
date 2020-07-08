@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            border: 0;
+            background: #a5d6a7;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        button.active {
+            background: #43a047;
+        }
+
+        body {
+            font: 110% system-ui;
+            background: #eceff1;
+            text-align: center;
+        }
+
+        .message {
+            padding: 1rem;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .steps {
+            margin: 0 0 3rem 0;
+        }
+
+        .steps {
+            counter-reset: currentStep 0 remainder 0 totalStep 0;
+        }
+
+        button {
+            counter-increment: totalStep;
+        }
+
+        button::before {
+            content: "";
+            counter-increment: currentStep;
+        }
+
+        button.active~button:before {
+            counter-increment: remainder;
+        }
+
+        .message::before {
+            content: "Step: "counter(currentStep) " / "counter(totalStep);
+        }
+
+        .steps-2 .message::before {
+            content: "Step: "counter(currentStep) " / "counter(totalStep) " ("
+                counter(remainder) " to go!)";
+        }
+    </style>
+</head>
+
+<body>
+    <div class="steps">
+        <button>Shop</button>
+        <button>Cart</button>
+        <button class="active">Shipping</button>
+        <button>Checkout</button>
+        <button>Thank You</button>
+
+        <div class="message"></div>
+
+    </div>
+    <div class="steps steps-2">
+
+        <button class="active">Shop</button>
+        <button>Cart</button>
+        <button>Shipping</button>
+        <button>Checkout</button>
+        <button>Thank You</button>
+
+        <div class="message"></div>
+    </div>
+    <script>
+        var buttons = document.querySelectorAll("button");
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var siblings = button.parentNode.querySelectorAll("button");
+                siblings.forEach(function (button) {
+                    button.classList.remove("active");
+                })
+                this.classList.add("active")
+            })
+        })
+    </script>
+</body>
+
+</html>
