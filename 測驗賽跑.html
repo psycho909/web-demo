@@ -70,6 +70,10 @@
             right:0,
             speeder:300,
             cycle:1700,
+            win:"player1",
+            player1:0.01,
+            player2:0.01,
+            player3:0.01,
             init:function(){
                 this.right=0;
                 this.speed=0.5;
@@ -78,8 +82,13 @@
             },
             move:function(){
                 $(".playground").css("right",-this.right+"px")
-                $(".player1").css("transform","translateX("+-this.right+"px)")
+                $(".player1").css("transform","translateX("+-this.player1+"px)")
+                $(".player2").css("transform","translateX("+-this.player2+"px)")
+                $(".player3").css("transform","translateX("+-this.player3+"px)")
             }
+        }
+        function randomSpeed(max,min){
+            return Math.floor(Math.random()*(max-min))+min
         }
 
         function move(){
@@ -91,10 +100,19 @@
             }else{
                 if(playground.speed < 1){
                     playground.speed+=0.01
+                    playground.player1+=playground.speed;
+                    playground.player2+=playground.speed;
+                    playground.player3+=playground.speed;
                 }else if(playground.speed < 2){
                     playground.speed+=0.05
+                    playground.player1+=playground.speed;
+                    playground.player2+=playground.speed;
+                    playground.player3+=playground.speed;
                 }else{
                     playground.speed = 2
+                    playground.player1+=playground.speed;
+                    playground.player2+=playground.speed;
+                    playground.player3+=playground.speed;
                 }
                 playground.timer=setTimeout(move,10)
             }
@@ -109,10 +127,7 @@
                 move()
             }, 100);
         })
-        function randomNum(max,min){
-            return Math.floor(Math.random()*(max-min))+min
-        }
-        console.log(randomNum(7,5))
+
     </script>
 </body>
 </html>

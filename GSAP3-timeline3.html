@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box-wrap {
+            width: 600px;
+            height: 260px;
+            border: 2px solid #eee;
+            margin: 0 auto;
+            position: relative;
+            perspective: 660px;
+            perspective-origin: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(13, 223, 238);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateX(40deg) translateX(0px) translateY(0px) translateZ(-100px);
+        }
+        .box:hover{
+            transform: rotateX(39deg) translateX(15px) translateY(0px) translateZ(-86px) !important;
+        }
+        .box1 {
+            top: 5px;
+            left: 5px;
+        }
+
+        .box2 {
+            top: 5px;
+            left: 146px;
+        }
+
+        .box3 {
+            top: 5px;
+            left: 288px;
+        }
+
+        .box4 {
+            top: 110px;
+            left: 5px;
+        }
+
+        .box5 {
+            top: 110px;
+            left: 146px;
+        }
+
+        .box6 {
+            top: 110px;
+            left: 288px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">click</button>
+    <div class="box-wrap">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+        <div class="box box4"></div>
+        <div class="box box5"></div>
+        <div class="box box6"></div>
+    </div>
+
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script> -->
+    <script src="http://js.nx.com/s1/kart_v2/common/TweenMax.js"></script>
+    <script>
+        var $boxList = $(".box-wrap");
+        var $box = $(".box");
+
+        document.getElementById("btn").addEventListener('click', function () {
+            var shuffleTl = new TimelineMax();
+            shuffleTl
+                .staggerFrom($('.box'), 0.8, {
+                    left: 146,
+                    top: -58,
+                    ease: Back.easeOut.config(1.5)
+                }, 0.05)
+            // .add(disabled, "+=0.5");
+        })
+        $box.hover(function () {
+            if (!$boxList.hasClass('off')) {
+                $(this).addClass('hover');
+            }
+        }, function () {
+            $(this).removeClass('hover');
+        });
+        // $boxList.hover(function () {
+        //     $boxList.on("mousemove", function () {
+
+        //     })
+        // }, function () {
+
+        // })
+    </script>
+</body>
+
+</html>

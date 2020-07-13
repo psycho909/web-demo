@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .section {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 0;
+        }
+        .drag-wrap{
+            overflow: hidden!important;
+            width: 100%;
+            height: 100vh;
+        }
+        .draggable{
+
+        }
+        .video {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            visibility: inherit;
+            opacity: 1;
+            transform: matrix(1, 0, 0, 1, 0, 0);
+            z-index: 2;
+        }
+        .btn-general{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            z-index: 6;
+            margin: 183px auto 0;
+            width: 307px;
+            height: 78px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section section-gate">
+        <div class="drag-wrap">
+            <div class="draggable">
+                <video class="secGateloop" src="https://vod.plaync.com/lineageM/new/1_castlerooping_PC_low.mp4" autoplay muted loop></video>
+            </div>
+        </div>
+        <div class="section-contents">
+            <button type="button" class="btn-general" data-name="banquet" style="visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">입장하기</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/utils/Draggable.min.js"></script>
+    <script>
+        var videoList = {
+            gate:{
+                mobile:{
+                    loop: {
+                        url:"https://vod.plaync.com/lineageM/new/1_castlerooping_MO_low.mp4",
+                        width: 1920*0.7,height: 1080*0.7
+                    },
+                    out:{
+                        url:"https://vod.plaync.com/lineageM/castle/2_enter_MO_low.mp4",
+                        width: 1920*0.7,height: 1080*0.7
+                    }
+                },
+                pc:{
+                    loop: {
+                        url:"https://vod.plaync.com/lineageM/new/1_castlerooping_PC_low.mp4",
+                        width: 2276, height: 1280
+                    },
+                    out:{
+                        url:"https://vod.plaync.com/lineageM/castle/2_enter_PC_low.mp4",
+                        width: 2276, height: 1280
+                    }
+                }
+            },
+            banquet:{
+                mobile: {
+                    intro: {
+                        url: 'https://vod.plaync.com/lineageM/new/sujungapear_MO_high.mp4',
+                        width: 1920*0.7, height: 1080*0.7
+                    },
+                    loop: {
+                        url: 'https://vod.plaync.com/lineageM/party/2_rooping_MO_low2.mp4',
+                        width: 1920*0.7, height: 1080*0.7
+                    },
+                    loop2: {
+                        url: 'https://vod.plaync.com/lineageM/new/3_afterkey_MO_low.mp4',
+                        width: 1920*0.7, height: 1080*0.7
+                    },
+                    out: {
+                        url: 'https://vod.plaync.com/lineageM/party/4_golobby_MO_low2.mp4',
+                        width: 1920*0.7, height: 1080*0.7
+                    }
+                },
+                pc: {
+                    intro: {
+                        url: 'https://vod.plaync.com/lineageM/new/1_partyenter_PC_low.mp4',
+                        width: 2276, height: 1280
+                    },
+                    loop: {
+                        url: 'https://vod.plaync.com/lineageM/party/2_rooping_PC_low2.mp4',
+                        width: 2276, height: 1280
+                    },
+                    loop2: {
+                        url: 'https://vod.plaync.com/lineageM/new/3_afterkey_PC_low.mp4',
+                        width: 2276, height: 1280
+                    },
+                    out: {
+                        url: 'https://vod.plaync.com/lineageM/party/4_golobby_PC_low2.mp4',
+                        width: 2276, height: 1280
+                    }
+                }
+            }
+        };
+
+        function initVideo(part){
+            var $win = $(window);
+            var scrTop = -Math.round(($win.height() - videoList[part].pc.loop.height) / 2);
+            var scrLeft = -Math.round(($win.width() - videoList[part].pc.loop.width) / 2);
+            $(".section-"+part+" .secGateloop").css({
+                width:videoList[part].pc.loop.width+"px",
+                height:videoList[part].pc.loop.height+"px",
+            })
+            var drag = Draggable.create(".section-"+part+" .drag-wrap", {
+                type: "scroll",
+                edgeResistance: 1,
+                throwProps: true
+            })[0]
+            TweenMax.set(drag.scrollProxy, {
+                scrollLeft: (scrLeft < 0 ? 0 : scrLeft),
+                scrollTop: (scrTop < 0 ? 0 : scrTop)
+            })
+        }
+        
+
+        function videoRest(video,zindex,isShow){
+            video.toggle(isShow)
+            video.css("zIndex",zindex);
+            return video;
+        }
+        initVideo("gate")
+
+        $(".btn-general").on("click",function(){
+
+        })
+
+        // TweenMax.to(this.vidLoop.node, 1.3, {
+        //     autoAlpha: 0, scale: 1.3, ease: Expo.easeIn, transformOrigin: tOrigin, onComplete: () => {
+        //         this.transitionEnd();
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
