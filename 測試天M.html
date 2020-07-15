@@ -376,18 +376,36 @@
         videoRest($(".secGateloop"), 2, true)
         videoRest($(".secGateOut"), 1, false)
 
-        function end1() {
-            videoRest($(".secGateloop"), 1, true).pause()
-            setTimeout(function () {
-                videoRest($(".secGateloop"), 0, false)
-            }, 1000);
-            videoRest($(".secGateOut"), 2, true).play(0)
-            TweenMax.to($(".btn-general"), 1.2, {
-                autoAlpha: 0,
-                scale: 1.3,
-                y: 50,
-                ease: Quint.easeIn
+        function end1(part) {
+            var $win=$(window);
+
+            var scrTop = -Math.round(($win.height() - videoList[part].pc.loop.height) / 2);
+            var scrLeft = -Math.round(($win.width() - videoList[part].pc.loop.width) / 2);
+            // 改 可以重複使用
+            var drag = Draggable.create(".section-" + part + " .drag-wrap", {
+                type: "scroll",
+                edgeResistance: 1,
+                throwProps: true
+            })[0]
+            TweenMax.to(drag.scrollProxy, 0.6, { 
+                scrollLeft: (scrLeft<0? 0: scrLeft), 
+                scrollTop: (scrTop<0? 0: scrTop), 
+                ease: Quint.easeOut
             });
+            
+            // videoRest($(".secGateloop"), 1, true).pause()
+            // setTimeout(function () {
+            //     videoRest($(".secGateloop"), 0, false)
+            // }, 1000);
+            // videoRest($(".secGateOut"), 2, true).play(0)
+
+            // TweenMax.to($(".btn-general"), 1.2, {
+            //     autoAlpha: 0,
+            //     scale: 1.3,
+            //     y: 50,
+            //     ease: Quint.easeIn
+            // });
+            
         }
 
         function end2() {
@@ -468,7 +486,7 @@
         }
 
         $(".btn-general").on("click", function () {
-            end1()
+            end1("gate")
         })
 
         $(".btn-next[data-name=livingroom]").on("click", function () {
