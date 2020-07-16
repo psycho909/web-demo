@@ -287,6 +287,76 @@
                 }
             }
         };
+        function MoviePlayer(_option){
+            this.option={
+                url:"",
+                id:"",
+                movieW:640,
+                movieH:360,
+                videoControl:'autoplay="true" loop="true" preload="auto"',
+                isBgType:false,
+            }
+            $.extend(true,this.option,_option)
+            return this.optionW
+        }
+        function Common(obj,part){
+            this.part=part;
+            this.videoList=obj;
+            this.wind=$(window);
+            this.scrTop=0;
+            this.scrLeft=0;
+            this.drag;
+            this.device="pc";
+        };
+        Common.prototype.deviceCheck=function(){
+            this.device="pc";
+            this.videoList=this.videoList[this.device];
+        }
+        Common.prototype.init=function(){
+            this.deviceCheck();
+            this.setTopLeft();
+            this.setDrag();
+        }
+        Comon.prototype.setTopLeft=function(){
+            var _this=this;
+            $(".section-" + this.part + " .video").each(function(i,v){
+                $(v).css({
+                    width: _this.videoList.loop.width + "px",
+                    height: _this.videoList.loop.height + "px",
+                })
+            })
+            
+        }
+        Common.prototype.setDrag=function(){
+            var _this=this;
+            var drag = Draggable.create(".section-" + this.part + " .drag-wrap", {
+                type: "scroll",
+                edgeResistance: 1,
+                throwProps: true
+            })[0];
+            TweenMax.set(this.drag.scrollProxy, {
+                scrollLeft: (_this.scrLeft < 0 ? 0 : _this.scrLeft),
+                scrollTop: (_this.scrTop < 0 ? 0 : _this.scrTop)
+            })
+        }
+        Common.prototype.videoRest=function(video, zindex, isShow){
+            video.toggle(isShow)
+            video.css("zIndex", zindex);
+            return video[0];
+        }
+
+        Common.prototype.setAniObj=function(){
+            var _this=this;
+            TweenMax.to(this.drag.scrollProxy, 0.6, { 
+                scrollLeft: (_this.scrLeft<0? 0: _this.scrLeft), 
+                scrollTop: (_this.scrTop<0? 0: _this.scrTop), 
+                ease: Quint.easeOut
+            });
+        }
+
+        Common.prototype.reset=function(){
+            this.setAniObj();
+        }
 
         function initVideo(part) {
             var $win = $(window);
@@ -382,11 +452,11 @@
             var scrTop = -Math.round(($win.height() - videoList[part].pc.loop.height) / 2);
             var scrLeft = -Math.round(($win.width() - videoList[part].pc.loop.width) / 2);
             // 改 可以重複使用
-            var drag = Draggable.create(".section-" + part + " .drag-wrap", {
-                type: "scroll",
-                edgeResistance: 1,
-                throwProps: true
-            })[0]
+            // var drag = Draggable.create(".section-" + "gate" + " .drag-wrap", {
+            //     type: "scroll",
+            //     edgeResistance: 1,
+            //     throwProps: true
+            // })[0]
             TweenMax.to(drag.scrollProxy, 0.6, { 
                 scrollLeft: (scrLeft<0? 0: scrLeft), 
                 scrollTop: (scrTop<0? 0: scrTop), 
