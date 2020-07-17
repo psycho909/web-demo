@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: -410px;
+            width: 2100px;
+            height: 1500px;
+            background: url('http://s.nx.com/s2/game/elsword/2020/event/0625_summer3svw5/bg/bg.jpg') center 0 no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <script>
+        var bg=$(".bg")
+        var speed = 2;
+        var a1 = TweenMax.to(bg, 0.01, {
+            x: '-=10',
+            delay: 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: Power4.easeOut
+        });
+        TweenMax.to(bg, speed, {
+            y: -319,
+            delay: 1,
+            onComplete: function () {
+                a1.kill();
+            }
+        });
+    </script>
+</body>
+
+</html>
