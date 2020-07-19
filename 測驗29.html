@@ -64,7 +64,22 @@
         <button class="btn">button</button>
     </div>
     <script>
-
+        function fn(o){
+            var obj={
+                name:""
+            };
+            var d = o || false;
+            if(d){
+                for(var v in o){
+                    obj.name=o[v];
+                }
+                return obj
+            }
+            
+            return d
+        }
+        var o = {}
+        console.log(fn())
     </script>
 </body>
 

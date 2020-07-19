@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas= document.getElementById("canvas")
+        canvas.width=300;
+        canvas.height=300;
+        var ctx=canvas.getContext("2d");
+        var p1 = {x:285,y:0};
+        var ball = {x:p1.x, y:p1.y};
+
+        var angle = 135;
+        var radians = 0;
+        var xunits = 0;
+        var yunits = 0;
+        var speed=0.5;
+
+        var y=0;
+        const img = new Image()
+        img.src = "./images/bg2.jpg"
+        img.onload=drawBg;
+        updateBall()
+        var x=0
+        var dir = "bottom";
+        function drawBall(){
+            if(x > 50){
+                ball.x += xunits;
+                ball.y += yunits;
+            }else{
+                x++;
+            }
+            if(speed > 0.5){
+                speed = 0.1
+            }
+            if(ball.y > 150 && dir == "bottom"){
+                angle=315;
+                dir="top"
+                speed+=0.1
+                updateBall()
+                x=0;
+                console.log(1)
+            }
+            if(ball.y < 120 && dir == "top"){
+                angle=135;
+                dir="bottom"
+                updateBall()
+                x=0;
+                console.log(2)
+            }
+            // if(xx == 0 && dir == "bottom"){
+            //     ball.x += xunits;
+            //     ball.y += yunits;
+            //     console.log(1)
+            // }
+            // if(ball.y > 150 && dir == "bottom"){
+            //     ball.x += xunits;
+            //     ball.y += yunits;
+            //     angle=315;
+            //     dir="top"
+            //     speed=0.5
+            //     updateBall()
+            //     console.log(2)
+            // }
+            // if(ball.y < 120 && dir == "top"){
+            //     if(xx < 50){
+            //         xx++;
+            //     }
+            //     if(xx > 50){
+            //         ball.x += xunits;
+            //         ball.y += yunits;
+            //         xx = 0
+            //         angle=135;
+            //         dir="bottom"
+            //         speed=0.6
+            //         updateBall()
+            //     }
+            //     console.log(3)
+            // }
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.beginPath();
+            drawBg(-ball.y)
+            ctx.arc(ball.x,ball.y,15,0,2*Math.PI);
+            ctx.fillStyle="black";
+            ctx.fill();
+        }
+        function drawBg(y){
+            ctx.drawImage(img, 0, y)
+        }
+        function updateBall() {
+            radians = angle * Math.PI/ 180;
+            xunits = Math.cos(radians) * speed;
+            yunits = Math.sin(radians) * speed;
+        }
+        var timer=setInterval(() => {
+            drawBall();
+        }, 10);
+    </script>
+</body>
+</html>
