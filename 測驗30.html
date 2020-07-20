@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .section{
+            width: 100%;
+            height: 600px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+        .section:nth-of-type(odd){
+            background-color:pink;
+        }
+        .title{
+            width: 600px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: #000;
+        }
+        .text{
+            text-align: center;
+            margin-top: 120px;
+        }
+        .line-text{
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <section class="section"></section>
+        <section class="section">
+            <div class="title">
+                <div class="line-text">JIIJIJOJIJOJOJOJOJOJ</div>
+            </div>
+            <p class="text">JIIJIJOJIJOJOJOJOJOJ</p>
+        </section>
+        <section class="section"></section>
+    </div>
+</body>
+</html>
