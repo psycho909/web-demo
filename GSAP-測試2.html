@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: #666;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按鈕</button>
+    <div class="box"></div>
+    <script>
+        var tl = new TimelineLite();
+        $("#btn").on("click",function(){
+            tl.to(".box", 1, {x:"+=100",ease: Power0.easeNone})
+            .to(".box", 1, {x:"+=100",ease: RoughEase.ease.config({ template:  Power0.easeOut, strength: 1, points: 20, taper: "none", randomize: true, clamp: false}),onComplete:function(){
+                tl.to(".box",1,{x:"+=100",repeat:1,yoyo:true})
+            } });
+            // TweenMax.to(".box", 1, {x:"+=100",ease: Power0.easeNone,repeat:1,yoyo:true})
+        })
+    </script>
+</body>
+
+</html>
