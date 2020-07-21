@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box-wrap {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            margin: 0 auto;
+            border: 1px solid #000;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .box-bg {
+            width: 1077px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-image: url('../images/bgg.jpg');
+            transform: translateX(0px);
+        }
+
+        .box {
+            width: 60px;
+            height: 60px;
+            background-color: #666;
+            position: relative;
+        }
+        #bg-line{
+            width: 1077px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">按鈕</button>
+    <div class="box-wrap">
+        <div class="box-bg">
+            <div class="box box1"></div>
+        </div>
+        <svg version="1.1" id="bg-line" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px" y="0px" viewBox="0 0 1077 600" style="enable-background:new 0 0 1077 600;" xml:space="preserve">
+            <line id="line" x1="651" y1="180" x2="73" y2="479" />
+        </svg>
+
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <script>
+        var angle = 135;
+        var xunits = 0;
+        var yunits = 0;
+        var speed = 0.5;
+        var radians = 0;
+        var ball = {
+            x: 285,
+            y: 0
+        };
+
+        var tl = new TimelineLite();
+        var t2 = new TimelineLite();
+        TweenMax.set(".box1", {
+            x: "300"
+        })
+
+        function updateBall(ball, angle, speed) {
+            var radians = angle * Math.PI / 180;
+            var xunits = Math.cos(radians) * speed;
+            var yunits = Math.sin(radians) * speed;
+            while (ball.y < 300) {
+                ball.x += xunits;
+                ball.y += yunits;
+            }
+            return ball;
+        }
+
+        $("#btn").on("click", function () {
+            var ball = updateBall({
+                x: Math.round(Math.random() * 100),
+                y: 0
+            }, 90, 0.5)
+            tl.to(".box1", 1, {
+                x: ball.x,
+                y: ball.y,
+                ease: RoughEase.ease.config({
+                    template: Power0.easeOut,
+                    strength: 1,
+                    points: 20,
+                    taper: "none",
+                    randomize: true,
+                    clamp: false
+                })
+            })
+            // tl.to(".box1", 1, {x:"+=100",ease: Power0.easeNone,repeat:2,yoyo:true}).to(".box1", 1, {x:"+=120",ease: Power0.easeNone}).to(".box1", 1, {x:"+=140",ease: RoughEase.ease.config({ template:  Power0.easeOut, strength: 1, points: 20, taper: "none", randomize: true, clamp: false})})
+            //     .to(".box1", 1, {x:"+=140",ease: Power0.easeNone})
+            // t2.to(".box2", 1, {x:"+=120",ease: Power0.easeNone,repeat:2,yoyo:true}).to(".box2", 1, {x:"+=120",ease: Power0.easeNone}).to(".box2", 1, {x:"+=100",ease: Power0.easeNone})
+        })
+    </script>
+</body>
+
+</html>

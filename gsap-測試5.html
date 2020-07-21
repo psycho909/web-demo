@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box-wrap {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            margin: 0 auto;
+            border: 1px solid #000;
+            text-align: center;
+            overflow: hidden;
+        }
+        .box-bg{
+            width: 1200px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-image: url('../images/bgg.jpg');
+            /* background-image:linear-gradient(to bottom, #000 0%,#000 30%  ,gray 30%,gray 60%,#000 60%, #000 100%); */
+        }
+        .box {
+            width: 30px;
+            height: 30px;
+            background-color: rgb(255, 255, 255);
+            position: absolute;
+            top: 30%;
+            right: 0;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-wrap">
+        <div class="box-bg">
+            <div class="box box1" id="ball"></div>
+        </div>
+        
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+    <script>
+        var tl = new TimelineLite();
+        var t2 = new TimelineLite();
+        tl.to(".box1",5,{x:-1100,onUpdate:function(event){
+            if($(".box1").position().left <= (1170-300)){
+                t2.to(".box-bg",5,{xPercent:"50%"})
+            }
+        }})
+        
+    </script>
+</body>
+
+</html>
