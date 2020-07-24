@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            width: 60vw;
+            height: 300px;
+            border:1px solid #000;
+        }
+        .box{
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .box:before{
+            content:"";
+            width: 30%;
+            height: 1px;
+            background-color: #666;
+            margin-right: 1rem;
+            flex:1;
+        }
+        .box:after{
+            content:"";
+            width: 30%;
+            height: 1px;
+            background-color: #666;
+            margin-left: 1rem;
+            flex:1;
+        }
+        .box span:nth-of-type(1){
+            flex:1 1 0%;
+        }
+        .box span:nth-of-type(2){
+            flex:2 1 0%;
+        }
+        .box span:nth-of-type(3){
+            flex:3 1 0%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            <span>我是</span>
+            <span>我是</span>
+            <span>我是</span>
+        </div>
+    </div>
+</body>
+</html>
