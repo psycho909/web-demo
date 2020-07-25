@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function fbs_click() {
+            u = 'https://www.newtaipei-summer.tw/';
+            t = '';
+            window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent(u) + '&t=' + encodeURIComponent(t),
+                'sharer', 'toolbar=0,status=0,width=626,height=436');
+        }
+
+
+        function line_share() {
+            window.open('http://line.naver.jp/R/msg/text/?' + encodeURIComponent("2020新北市兒童藝術節怪獸訓練場") +
+                ' https://www.newtaipei-summer.tw/');
+        }
+
+        function twitter_click() {
+            u = 'https://www.newtaipei-summer.tw/';
+            t = '2020新北市兒童藝術節怪獸訓練場';
+            window.open('http://twitter.com/share?url=' + encodeURIComponent(u) + '&text=' + encodeURIComponent(t),
+                'sharer', 'toolbar=0,status=0,width=626,height=436')
+        }
+    </script>
+</body>
+
+</html>
