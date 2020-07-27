@@ -33,7 +33,9 @@
             gsap.to('.box',{
                 duration:1,
                 x:100,
-                stagger:0.5
+                stagger:function(index,traget,list){
+                    console.log(index,traget,list)
+                }
             })
         })
     </script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; maximum-scale=1.0;">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+
+        #app {
+            width: 600px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: 0 auto;
+            font-size: 0;
+            text-align: center;
+        }
+        .link-box{
+            display: inline-block;
+            padding: 0 2rem;
+            position: relative;
+        }
+        .link{
+            display: inline-block;
+            background-color: blue;
+            padding: 1rem 2rem;
+            /* margin: 0 24px; */
+            position: relative;
+        }
+        .link-box:before{
+            content:"";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #000;
+        }
+        .link:before{
+            content:"";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="link-box"><a class="link" href="javascript:;">A</a></div>
+        <div class="link-box"><a class="link" href="javascript:;">B</a></div>
+        <div class="link-box"><a class="link" href="javascript:;">C</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        
+    </script>
+</body>
+
+</html>

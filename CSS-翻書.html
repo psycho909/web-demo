@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+
+        .book-gallery {
+            position: relative;
+            width: 50%;
+            height: 60%;
+            padding: 10px;
+            margin: auto;
+            background-color: orange;
+            perspective: 1800px;
+            transform: rotateY(0);
+            transform-style: preserve-3d;
+            /* transform: rotateZ(-26.4deg) skewY(0deg); */
+        }
+
+        .page {
+            counter-increment: page-count;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            -webkit-transform-origin: bottom left;
+            -webkit-transform: rotateY(0);
+            -webkit-transition: -webkit-transform 1s ease-out;
+            -webkit-transform-style: preserve-3d;
+        }
+
+        .page:hover {
+            -webkit-transform: rotateY(-30deg);
+            -webkit-transition: -webkit-transform 0.5s ease-out;
+        }
+
+        input:checked+.page {
+            -webkit-transform: rotateY(-180deg);
+        }
+
+        .front-page,
+        .back-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .front-page {
+            background-color: red;
+            z-index: 200;
+        }
+
+        .back-page {
+            z-index: 100;
+            background-color: green;
+            -webkit-transform: rotateY(-180deg);
+        }
+
+        .page figure {
+            width: 60%;
+            max-height: 80%;
+            overflow: hidden;
+        }
+
+        .page figure img {
+            width: 100%;
+
+        }
+
+        .page figure figcaption {
+            backgroung-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .chk-flip {
+            position: absolute;
+            display: none;
+        }
+
+        .lbl-flip {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="book-gallery">
+        <input type="checkbox" class="chk-flip" id="page-1" name="page-1" />
+        <section class="page">
+            <label class="lbl-flip" for="page-1"></label>
+            <article class="front-page">
+                <figure>
+                    <figcaption>נטלי פורטמן</figcaption>
+                    <img src="http://www.thewrap.com/sites/default/files/NataliePortman.jpeg" />
+                </figure>
+            </article>
+            <article class="back-page">
+                <figure>
+                    <figcaption>נטלי פורטמן</figcaption>
+                    <img
+                        src="http://media.melty.fr/article-1374201-ajust_930/natalie-portman-coproductrice-du-film.jpg" />
+                </figure>
+            </article>
+        </section>
+        <input type="checkbox" class="chk-flip" id="page-2" name="page-2" />
+        <section class="page">
+            <label class="lbl-flip" for="page-2"></label>
+            <article class="front-page">
+                <figure>
+                    <figcaption>נטלי פורטמן</figcaption>
+                    <img
+                        src="http://images.classicalite.com/data/images/full/950/natalie-portman-holds-her-oscar-for-best-actress-in-a-leading-role-for-her-part-in-black-swan-backstage-at-the-83rd-academy-awards-in-hollywood-california.jpg?w=600" />
+                </figure>
+            </article>
+            <article class="back-page">
+                <figure>
+                    <figcaption>נטלי פורטמן</figcaption>
+                    <img
+                        src="https://4.bp.blogspot.com/-Arh91aVLe9A/T5WNF57HIuI/AAAAAAAAAsI/VkrSygmhw3U/s1600/Natalie+Portman+-+Israeli+Shill+2.gif" />
+                </figure>
+            </article>
+        </section>
+    </div>
+</body>
+
+</html>
