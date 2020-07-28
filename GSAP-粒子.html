@@ -24,6 +24,7 @@
             overflow: hidden;
             min-width: 1340px;
             max-width: 1920px;
+            height: 600px;
             margin: 0 auto;
             z-index: 2
         }
@@ -41,7 +42,7 @@
 
         .inner {
             position: relative;
-            width: 1280px;
+            width: 100%;
             height: 100%;
             margin: 0 auto
         }
@@ -56,16 +57,16 @@
             position: relative;
             display: block;
             width: 100%;
-            height: 1141px;
+            height: 100%;
             z-index: 1;
         }
 
         #particles {
             position: absolute;
-            top: 0;
-            left: -240px;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            height: 840px;
+            height: 440px;
             z-index: 1
         }
 
@@ -73,21 +74,23 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 55px;
-            height: 55px;
-            background: url('http://s.nx.com/s2/game/elsword/2020/event/0716_sum83rup1/visual/particle1.png') no-repeat center center
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255,255,25,.6),0 0 6px rgba(255,255,25,.6),0 0 8px rgba(255,255,25,.6),0 0 15px rgba(255,255,25,.6);
         }
 
         #particles .dot:nth-child(2n+1) {
-            background: url('http://s.nx.com/s2/game/elsword/2020/event/0716_sum83rup1/visual/particle2.png') no-repeat 0 0
+            box-shadow: 0 0 3px rgba(25, 255, 197, 0.6),0 0 6px rgba(25, 255, 197, 0.6),0 0 8px rgba(25, 255, 197, 0.6),0 0 15px rgba(25, 255, 197, 0.6);
         }
 
         #particles .dot:nth-child(3n+1) {
-            background: url('http://s.nx.com/s2/game/elsword/2020/event/0716_sum83rup1/visual/particle3.png') no-repeat 0 0
+            box-shadow: 0 0 3px rgba(196, 255, 34, 0.6),0 0 6px rgba(196, 255, 34, 0.6),0 0 8px rgba(196, 255, 34, 0.6),0 0 15px rgba(196, 255, 34, 0.6);
         }
 
         #particles .dot:nth-child(4n+1) {
-            background: url('http://s.nx.com/s2/game/elsword/2020/event/0716_sum83rup1/visual/particle4.png') no-repeat 0 0
+            box-shadow: 0 0 3px rgba(246, 94, 234, 0.6),0 0 6px rgba(246, 94, 234, 0.6),0 0 8px rgba(246, 94, 234, 0.6),0 0 15px rgba(246, 94, 234, 0.6);
         }
     </style>
 </head>
@@ -96,7 +99,9 @@
     <div id="contents">
         <div id="visual">
             <div class="inner">
-                <div id="particles"></div>
+                <div id="particles">
+                    <!-- <div class="dot"></div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -111,40 +116,40 @@
 
         function particleMotion() {
             var $particles = $("#particles"),
-                total = 30;
+                total = 60;
             for (i = 0; i < total; i++) {
                 $particles.append('<div class="dot"></div>');
                 var $target = $particles.find(".dot").eq(i);
                 TweenMax.set($target, {
                     opacity: getRandomInt(7, 10) / 10,
-                    x: getRandomInt(400, 750),
-                    y: 700,
+                    x: getRandomInt(0, 1920),
+                    y: 440,
                     scale: getRandomInt(.5) + .55
                 });
                 animm($target)
             }
 
             function animm(e) {
-                TweenMax.to(e, Random(5) + 1, {
+                TweenMax.to(e, Random(16) + 1, {
                     delay: -1,
                     repeat: -1,
-                    x: "+=300",
+                    x: "+=100",
                     y: -850,
                     scale: .1,
                     ease: Linear.easeNone
                 })
-                TweenMax.to(e, Random(3) + 1, {
-                    x: "+=300",
+                TweenMax.to(e, Random(12) + 1, {
+                    x: "-=100",
                     opacity: 1,
                     repeat: -1,
                     yoyo: !0,
                     ease: Sine.easeInOut
                 })
-                TweenMax.to(e, Random(1) + .5, {
-                    opacity: .3,
+                TweenMax.to(e, Random(8) + .5, {
+                    opacity: 0,
                     scale: Random(.3) + .1,
                     repeat: -1,
-                    x: "-=150",
+                    x: "+=50",
                     yoyo: !0,
                     ease: Sine.easeInOut
                 })
