@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap {
+            position: relative;
+            width: 150px;
+            overflow: hidden;
+            background-color: rgb(194, 194, 194);
+        }
+
+        p {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        p:hover {
+            animation: move 1.5s infinite alternate linear;
+        }
+
+        @keyframes move {
+            0% {
+                left: 0;
+                transform: translate(0, 0);
+            }
+
+            100% {
+                left: 100%;
+                transform: translate(-100%, 0);
+            }
+        }
+
+        /* @keyframes move {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(calc(-100% + 150px), 0);
+            }
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <p title="我的宽度是正常宽度">我的宽度是正常宽度</p>
+        <p class="scroll" title="我的宽度是溢出了一小部分">我的宽度是溢出了一小部分</p>
+        <p class="scroll" title="我的宽度是溢出了溢出了很大一部分">我的宽度是溢出了溢出了很大一部分</p>
+    </div>
+
+</body>
+
+</html>

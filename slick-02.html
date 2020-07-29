@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        .slick-box{
+            width: 600px;
+            margin: 0 auto;
+        }
+        .slick-item{
+            background-color: #666;
+            text-align: center;
+        }
+        .slick-next:before, .slick-prev:before{
+            color:#000;
+        }
+    </style>
+</head>
+<body>
+    <div class="slick-box">
+        <div class="slick-item" title="first"><h3>1</h3></div>
+        <div class="slick-item"><h3>2</h3></div>
+        <div class="slick-item"><h3>3</h3></div>
+        <div class="slick-item"><h3>4</h3></div>
+        <div class="slick-item"><h3>5</h3></div>
+        <div class="slick-item"><h3>6</h3></div>
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $('.slick-box').slick({
+            arrows:true
+        });
+    </script>
+</body>
+</html>
