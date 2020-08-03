@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: 0 auto;
+        }
+        .tab{
+            width: 100%;
+            list-style: none;
+            display: flex;
+        }
+        .tab li{
+            width: calc(100% / 3);
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            border:1px solid #000
+        }
+        .tab li.active{
+            background-color: #eee;
+        }
+        .tiny-wrap{
+            width: 100%;
+            height: 300px;
+            border:1px solid #000;
+        }
+        .tiny-box{
+            display: none;
+            opacity: 0;
+            transition: all .3s;
+        }
+        .tiny-box.show{
+            display: block;
+        }
+        .tiny1-slide{
+            height: 300px;
+        }
+        .tiny2-slide{
+            height: 300px;
+        }
+        .tiny3-slide{
+            height: 300px;
+        }
+        .op{
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="tab">
+            <li class="active" data-tab="tiny1">tiny1</li>
+            <li data-tab="tiny2">tiny2</li>
+            <li data-tab="tiny3">tiny3</li>
+        </ul>
+        <div class="tiny-wrap">
+            <div id="tiny1" class="tiny-box show">
+                <div class="tiny1-slide-box">
+                    <div class="tiny1-slide">tiny1 - 1</div>
+                    <div class="tiny1-slide">tiny1 - 2</div>
+                    <div class="tiny1-slide">tiny1 - 3</div>
+                    <div class="tiny1-slide">tiny1 - 4</div>
+                    <div class="tiny1-slide">tiny1 - 5</div>
+                    <div class="tiny1-slide">tiny1 - 6</div>
+                </div>
+            </div>
+            <div id="tiny2" class="tiny-box">
+                <div class="tiny2-slide-box">
+                    <div class="tiny2-slide">tiny2 - 1</div>
+                    <div class="tiny2-slide">tiny2 - 2</div>
+                    <div class="tiny2-slide">tiny2 - 3</div>
+                    <div class="tiny2-slide">tiny2 - 4</div>
+                    <div class="tiny2-slide">tiny2 - 5</div>
+                    <div class="tiny2-slide">tiny2 - 6</div>
+                </div>
+            </div>
+            <div id="tiny3" class="tiny-box">
+                <div class="tiny3-slide-box">
+                    <div class="tiny3-slide">tiny3 - 1</div>
+                    <div class="tiny3-slide">tiny3 - 2</div>
+                    <div class="tiny3-slide">tiny3 - 3</div>
+                    <div class="tiny3-slide">tiny3 - 4</div>
+                    <div class="tiny3-slide">tiny3 - 5</div>
+                    <div class="tiny3-slide">tiny3 - 6</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script>
+        var tiny1Slide,tiny2Slide,tiny3Slide;
+        tiny1Slide = tns({
+            container: '.tiny1-slide-box',
+            items: 1,
+            touch:true,
+            slideBy: "page",
+            "mouseDrag": true,
+            nav:false,
+            controls:false,
+            onInit:function(e){
+                setTimeout(() => {
+                    $("#tiny1").addClass("op")
+                }, 500);
+            }
+        });
+        tiny2Slide = tns({
+            container: '.tiny2-slide-box',
+            items: 1,
+            touch:true,
+            slideBy: "page",
+            "mouseDrag": true,
+            nav:false,
+            controls:false,
+            onInit:function(e){
+                setTimeout(() => {
+                    $("#tiny2").addClass("op")
+                }, 500);
+            }
+        });
+        tiny3Slide = tns({
+            container: '.tiny3-slide-box',
+            items: 1,
+            touch:true,
+            slideBy: "page",
+            "mouseDrag": true,
+            nav:false,
+            controls:false,
+            onInit:function(e){
+                setTimeout(() => {
+                    $("#tiny3").addClass("op")
+                }, 500);
+            }
+        });
+        $(".tab li").on("click",function(){
+            var tab=$(this).attr("data-tab");
+            $(this).addClass("active").siblings().removeClass("active")
+            $(".tiny-box").removeClass("show");
+            $("#"+tab).addClass("show");
+        })
+    </script>
+</body>
+
+</html>

@@ -59,53 +59,60 @@
     <main id="content">Content loading...</main>
     <script type="module">
         function select_tab(id) {
-                // remove selected class from all buttons
-                document.querySelectorAll(".route").forEach(function(item){
-                    item.classList.remove('selected')
-                });
-                // select clicked element (visually)
-                document.querySelectorAll("#" + id).forEach(function(item){
-                    item.classList.add('selected')
-                });
-            }
-            function loadContent(id) {
-                // Update text "Content loading for {id}..."
-                // Of course, here you would do you content loading magic
-                // Perhaps run Fetch API to update resources
-                document.querySelector("#content").innerHTML = 'Content loading for /' + id + '...';
-            }
-            function push(event) {
-                // Get id attribute of the box or button or link clicked
-                let id = event.target.id;
-                // Visually select the clicked button/tab/box
-                select_tab(id);
-                // Update Title in Window's Tab
-                document.title = id;
-                // Load content for this tab/page
-                loadContent(id);
-                // Finally push state change to the address bar
-                // window.history.pushState({id}, `${id}`, `/page/${id}`);
-                window.history.pushState({id}, `${id}`, `?page=${id}`);
-            }
-            window.onload = function(event) {
-                // Add history push() event when boxes are clicked
-                window["home"].addEventListener("click", event => push(event))
-                window["about"].addEventListener("click", event => push(event))
-                window["gallery"].addEventListener("click", event => push(event))
-                window["contact"].addEventListener("click", event => push(event))
-                window["help"].addEventListener("click", event => push(event))
-            }
-            // Listen for PopStateEvent (Back or Forward buttons are clicked)
-            window.addEventListener("popstate", function(event){
-                // Grab the history state id
-                let stateId = event.state.id;
-                // Show clicked id in console (just for fun)
-                console.log("stateId = ", stateId);
-                // Visually select the clicked button/tab/box
-                select_tab(stateId);
-                // Load content for this tab/page
-                loadContent(stateId);
+            // remove selected class from all buttons
+            document.querySelectorAll(".route").forEach(function(item){
+                item.classList.remove('selected')
             });
+            // select clicked element (visually)
+            document.querySelectorAll("#" + id).forEach(function(item){
+                item.classList.add('selected')
+            });
+        }
+        function loadContent(id) {
+            // Update text "Content loading for {id}..."
+            // Of course, here you would do you content loading magic
+            // Perhaps run Fetch API to update resources
+            document.querySelector("#content").innerHTML = 'Content loading for /' + id + '...';
+        }
+        function push(event) {
+            // Get id attribute of the box or button or link clicked
+            let id = event.target.id;
+            // Visually select the clicked button/tab/box
+            select_tab(id);
+            // Update Title in Window's Tab
+            document.title = id;
+            // Load content for this tab/page
+            loadContent(id);
+            // Finally push state change to the address bar
+            // pushState(state,title,[url])
+            // window.history.pushState({id}, `${id}`, `/page/${id}`);
+            console.log(id)
+            window.history.pushState({id}, `${id}`, `?page=${id}`);
+        }
+        window.onload = function(event) {
+            console.log("onload")
+            // Add history push() event when boxes are clicked
+            window["home"].addEventListener("click", event => push(event))
+            window["about"].addEventListener("click", event => push(event))
+            window["gallery"].addEventListener("click", event => push(event))
+            window["contact"].addEventListener("click", event => push(event))
+            window["help"].addEventListener("click", event => push(event))
+        }
+        // Listen for PopStateEvent (Back or Forward buttons are clicked)
+        // 直接呼叫 history.pushState() 或 history.replaceState() 不會觸發popstate事件
+        // popstate 的事件驅動 由 上一頁或 透過 JavaScript 呼叫 history.back()
+        // 可以呼叫pushState()修改過的state
+        window.addEventListener("popstate", function(event){
+            console.log(event)
+            // Grab the history state id
+            let stateId = event.state.id;
+            // Show clicked id in console (just for fun)
+            console.log("stateId = ", stateId);
+            // Visually select the clicked button/tab/box
+            select_tab(stateId);
+            // Load content for this tab/page
+            loadContent(stateId);
+        });
         </script>
 </body>
 
