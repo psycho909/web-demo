@@ -1,0 +1,189 @@
+@media screen and (max-width: 768PX) {
+  #conditionForm {
+    margin-bottom: .75rem;
+  }
+  #conditionForm .form-group {
+    margin-bottom: 0;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(1) {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    max-width: 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(1) .form-group {
+    width: 100%;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+    max-width: 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group {
+    width: 100%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 12px 1fr 1fr;
+        grid-template-columns: 1fr 1fr 12px 1fr 1fr;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group label[for="PatientUID"] {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1/3;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1/2;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group input[name="PatientUID"] {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1/3;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2/3;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group label[for="SearchGroupMember"] {
+    grid-column: 4/end;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    grid-row: 1/2;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group select[name="SearchGroupMember"] {
+    grid-column: 4/end;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2/3;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group label[for="DiagnosisTypeList"] {
+    grid-column: 1/end;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(2) .form-group select[name="DiagnosisTypeList"] + span {
+    grid-column: 1/end;
+    -ms-grid-row: 4;
+    grid-row: 4;
+    width: 100%;
+  }
+  #conditionForm .row:nth-of-type(2) .col-4:nth-of-type(3) {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    max-width: 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+  #conditionForm + .row .col-8 {
+    max-width: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: .75rem;
+  }
+  #conditionForm + .row .col-8 .btn {
+    width: 50%;
+    padding: .5rem;
+    font-size: 18px;
+  }
+  #conditionForm + .row .col-4 {
+    max-width: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  #conditionForm + .row .col-4 .btn {
+    width: 100%;
+    padding: .5rem;
+    font-size: 18px;
+  }
+  .jsgrid-grid-body {
+    overflow: hidden;
+    border: none;
+  }
+  .jsgrid-grid-header {
+    display: none;
+  }
+  .jsgrid-table {
+    display: block;
+  }
+  .jsgrid-table thead {
+    display: none;
+  }
+  .jsgrid-table tbody {
+    display: block;
+    width: 100%;
+  }
+  .jsgrid-row,
+  .jsgrid-alt-row {
+    display: -ms-grid;
+    display: grid;
+    width: 100%;
+    margin-bottom: 1rem;
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "code code code" "photo name name" "photo date date" "photo info info" "btn btn btn";
+    border: 2px solid #eee;
+    border-radius: 6px;
+    padding: .5rem;
+  }
+  .jsgrid-cell {
+    border: none;
+  }
+  .jsgrid-cell:nth-of-type(1) {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 3;
+    -ms-grid-column: 1;
+    grid-area: photo;
+  }
+  .jsgrid-cell:nth-of-type(1) img {
+    display: block;
+    margin: 0 auto;
+  }
+  .jsgrid-cell:nth-of-type(2) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 3;
+    grid-area: code;
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
+  .jsgrid-cell:nth-of-type(3) {
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-area: name;
+  }
+  .jsgrid-cell:nth-of-type(4) {
+    -ms-grid-row: 3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-area: date;
+  }
+  .jsgrid-cell:nth-of-type(5) {
+    -ms-grid-row: 4;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-area: info;
+  }
+  .jsgrid-cell:nth-of-type(6) {
+    -ms-grid-row: 5;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 3;
+    grid-area: btn;
+    -ms-grid-column-align: center;
+        justify-self: center;
+    width: 100%;
+  }
+  .jsgrid-cell .btn {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+}
