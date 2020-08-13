@@ -170,6 +170,7 @@
 
             <link rel="stylesheet" href="/Content/jsgrid.min.css" type="text/css">
             <link rel="stylesheet" href="/Content/jsgrid-theme.min.css" type="text/css">
+            <link rel="stylesheet" href="/Content/ching.css">
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -248,8 +249,65 @@
                     <div id="resultCard" class="card" style="min-height: 200px;">
                         <div id="alertMessage">
                         </div>
-                        <div class="card-header border-0">
-                            <div id="jsGrid" class="jsgrid" style="position: relative; height: 100%; width: 100%;"><div class="jsgrid-grid-header"><table class="jsgrid-table"><tr class="jsgrid-header-row"><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 15%;">病歷號碼</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">姓名</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 5%;">性別</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">照片</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">生日</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 20%;">診斷</th><th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 5%;">操作</th></tr><tr class="jsgrid-filter-row" style="display: none;"><td class="jsgrid-cell" style="width: 15%;"></td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 5%;"><input type="text"></td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;"><input type="text"></td><td class="jsgrid-cell" style="width: 20%;"><input type="text"></td><td class="jsgrid-cell" style="width: 5%;"></td></tr><tr class="jsgrid-insert-row" style="display: none;"><td class="jsgrid-cell" style="width: 15%;"></td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 5%;"><input type="text"></td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;"><input type="text"></td><td class="jsgrid-cell" style="width: 20%;"><input type="text"></td><td class="jsgrid-cell" style="width: 5%;"></td></tr></table></div><div class="jsgrid-grid-body" style="height: inherit;"><table class="jsgrid-table"><tbody><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;16&quot;)">576</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;16&quot;)">Ke,Teng-Yuan 柯登元</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2009/4/3</td><td class="jsgrid-cell" style="width: 20%;">Other/其他</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(16)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;13&quot;)">496</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;13&quot;)">Kao,Yu-Feng 高郁峰</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2010/4/16</td><td class="jsgrid-cell" style="width: 20%;">ASD/自閉症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(13)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;24&quot;)">638</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;24&quot;)">Zheng,Hong-Quan 鄭紘權</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2009/1/26</td><td class="jsgrid-cell" style="width: 20%;">ASD/自閉症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(24)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;23&quot;)">001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;23&quot;)">test test</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2020/7/28</td><td class="jsgrid-cell" style="width: 20%;">/</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(23)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;2&quot;)">TW_TC_002_20dafdafsafas</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;2&quot;)">王 大名</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2020/11/12</td><td class="jsgrid-cell" style="width: 20%;">TBI/腦外傷</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(2)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;1&quot;)">TW_000</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;1&quot;)">BRC 王</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"><img height="100" width="75" src="..\PImages\1598788341911605721350437963.png"></td><td class="jsgrid-cell" style="width: 10%;">2020/6/21</td><td class="jsgrid-cell" style="width: 20%;">Other/其他</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(1)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;3&quot;)">TW_TP_003_20200623_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;3&quot;)">張 美美</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2020/6/23</td><td class="jsgrid-cell" style="width: 20%;">ASD/自閉症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(3)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;18&quot;)">TW_TP_003_20200707_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;18&quot;)">Liu,Tsun-Tien 劉尊天</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2011/5/28</td><td class="jsgrid-cell" style="width: 20%;">ASD/自閉症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(18)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;19&quot;)">TW_TP_003_20200708_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;19&quot;)">Wu,Hsuan-Yao 吳宣瑤</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"><img height="100" width="75" src="..\PImages\-1334361303410477454548044725.jpeg"></td><td class="jsgrid-cell" style="width: 10%;">1990/11/16</td><td class="jsgrid-cell" style="width: 20%;">Other/其他</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(19)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;14&quot;)">TW_TP_003_20200706_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;14&quot;)">林 小明</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2020/7/6</td><td class="jsgrid-cell" style="width: 20%;">ASD/自閉症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(14)" value="EEG"></td></tr><tr class="jsgrid-row jsgrid-selected-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;21&quot;)">TW_TP_003_20200708_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;21&quot;)">Huang,Mao-Sui 黃茂穗</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"><img height="100" width="75" src="..\PImages\-2133927984-620554192762734117.jpeg"></td><td class="jsgrid-cell" style="width: 10%;">1949/10/18</td><td class="jsgrid-cell" style="width: 20%;">Major Depression/憂鬱症</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(21)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;15&quot;)">TW_TP_003_20200707_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;15&quot;)">Hsieh,Pei-Lin 謝佩霖</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"><img height="100" width="75" src="..\PImages\2076604329-1620350301090191078.jpeg"></td><td class="jsgrid-cell" style="width: 10%;">1983/12/1</td><td class="jsgrid-cell" style="width: 20%;">Stroke/腦中風</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(15)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;17&quot;)">TW_TP_003_20200707_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;17&quot;)">Huang,Bi-Ru 黃苾茹</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">1977/8/4</td><td class="jsgrid-cell" style="width: 20%;">Schizophrenia/精神分裂</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(17)" value="EEG"></td></tr><tr class="jsgrid-alt-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;5&quot;)">TW_TP_003_20200703_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;5&quot;)">Wang,Pei-Ling 王佩琳</a></td><td class="jsgrid-cell" style="width: 5%;">F</td><td class="jsgrid-cell" style="width: 10%;"><img height="100" width="75" src="..\PImages\419197682-13842059651977826261.jpeg"></td><td class="jsgrid-cell" style="width: 10%;">1976/5/6</td><td class="jsgrid-cell" style="width: 20%;">Other/其他</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(5)" value="EEG"></td></tr><tr class="jsgrid-row"><td class="jsgrid-cell" style="width: 15%;"><a onclick="_editData(&quot;8&quot;)">TW_TP_003_20200703_001</a></td><td class="jsgrid-cell" style="width: 10%;"><a onclick="_editData(&quot;8&quot;)">Kao,Yu-Feng 高郁峰</a></td><td class="jsgrid-cell" style="width: 5%;">M</td><td class="jsgrid-cell" style="width: 10%;"></td><td class="jsgrid-cell" style="width: 10%;">2010/4/16</td><td class="jsgrid-cell" style="width: 20%;">/</td><td class="jsgrid-cell" style="width: 5%;"><input type="button" class="btn btn-outline-default btn-sm" onclick="_addNewEEG(8)" value="EEG"></td></tr></tbody></table></div><div class="jsgrid-pager-container"><div class="jsgrid-pager">共 : 19 筆  &nbsp; 2 頁 &nbsp; <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button"><a href="javascript:void(0);">第一頁</a></span> <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button"><a href="javascript:void(0);">上一頁</a></span> <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span><span class="jsgrid-pager-page"><a href="javascript:void(0);">2</a></span> <span class="jsgrid-pager-nav-button"><a href="javascript:void(0);">下一頁</a></span> <span class="jsgrid-pager-nav-button"><a href="javascript:void(0);">最後一頁</a></span> &nbsp;   </div></div><div class="jsgrid-load-shader" style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;"></div><div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">請稍候...</div></div>
+                        <div id="app" class="card-header border-0">
+                            <div id="jsGrid" class="jsgrid" style="position: relative; height: 100%; width: 100%;">
+                                <div class="jsgrid-grid-header">
+                                    <table class="jsgrid-table">
+                                        <tr class="jsgrid-header-row">
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">照片</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 15%;">病歷號碼</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 15%;">姓名/性別</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">生日</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 20%;">診斷</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 5%;">操作</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="jsgrid-grid-body" style="height: inherit;">
+                                    <table class="jsgrid-table">
+                                        <!-- <thead>
+                                            <tr class="jsgrid-header-row">
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">照片</th>
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">病歷號碼</th>
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">姓名/性別</th>
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">生日</th>
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">診斷</th>
+                                                <th class="jsgrid-header-cell jsgrid-header-sortable">操作</th>
+                                            </tr>
+                                        </thead> -->
+                                        <tbody>
+                                            <tr :class="[index%2 == 0?'jsgrid-row':'jsgrid-alt-row']" v-for="(p,index) in people" :key="index">
+                                                <td class="jsgrid-cell"><img height="100" width="75" :src="p.photo"></td>
+                                                <td class="jsgrid-cell"><a>{{p.code}}</a></td>
+                                                <td class="jsgrid-cell"><a>{{p.name}}/{{p.gender}}</a></td>
+                                                <td class="jsgrid-cell">{{p.date}}</td>
+                                                <td class="jsgrid-cell">{{p.info}}</td>
+                                                <td class="jsgrid-cell"><input type="button"
+                                                        class="btn btn-outline-default btn-sm"
+                                                        value="EEG"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="jsgrid-pager-container">
+                                    <div class="jsgrid-pager">共 : 19 筆 &nbsp; 2 頁 &nbsp; <span
+                                            class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button"><a
+                                                href="javascript:void(0);">第一頁</a></span> <span
+                                            class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button"><a
+                                                href="javascript:void(0);">上一頁</a></span> <span
+                                            class="jsgrid-pager-page jsgrid-pager-current-page">1</span><span
+                                            class="jsgrid-pager-page"><a href="javascript:void(0);">2</a></span> <span
+                                            class="jsgrid-pager-nav-button"><a href="javascript:void(0);">下一頁</a></span>
+                                        <span class="jsgrid-pager-nav-button"><a
+                                                href="javascript:void(0);">最後一頁</a></span> &nbsp; </div>
+                                </div>
+                                <div class="jsgrid-load-shader"
+                                    style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;">
+                                </div>
+                                <div class="jsgrid-load-panel"
+                                    style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">
+                                    請稍候...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -650,12 +708,123 @@
             <script src="/Scripts/jsgrid.min.js"></script>
             <script src="/Scripts/i18n/jsgrid-zh-tw.js"></script>
             <script src="/Scripts/View/Patient.js"></script>
-
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         </div>
     </div>
     <!-- Argon Scripts -->
     <!-- Core -->
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var obj=[
+            {
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":"TW_TC_002_20dafdafsafas",
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":"TW_TC_002_20dafdafsafas",
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            },{
+                "photo":"PImages/-1334361303410477454548044725.jpeg",
+                "code":496,
+                "name":"Kao,Yu-Feng 高郁峰",
+                "gender":"M",
+                "date":"2009/1/26",
+                "info":"ASD/自閉症"
+            }
+        ]
+        var app=new Vue({
+            el:"#app",
+            data(){
+                return {
+                    people:obj
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
