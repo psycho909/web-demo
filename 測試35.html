@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #000;
+        }
+
+        .perspective {
+            margin-top: 100px;
+            perspective: 800px;
+            transform-style: preserve-3d;
+        }
+
+        .book-wrap {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            transform-origin: -1px top;
+            transition: all .6s;
+            animation: turn 6s ease 0s 2 alternate;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #1976D2;
+            backface-visibility: hidden;
+            transition: all .6s;
+        }
+        .front{
+            transform: rotateY(0deg);
+            /* animation: front 6s ease 0s 2 alternate; */
+        }
+        .back {
+            transform: rotateY(180deg);
+            /* animation: back 6s ease 0s 2 alternate; */
+        }
+
+        .book-cover {
+            background-color: #1976D2;
+            color: #fff;
+        }
+
+        .book-content {
+            background-color: #fff;
+            color: #33363C;
+        }
+        .book-wrap.turn{
+            transform: rotateY(180deg);
+        }
+        /* .book-wrap.turn .front{
+            transform: rotateY(180deg);
+        }
+        .book-wrap.turn .back{
+            transform: rotateY(0deg);
+        } */
+        @keyframes turn {
+            from {
+                transform: rotateY(0)
+            }
+
+            to {
+                transform: rotateY(-180deg);
+            }
+        }
+        @keyframes front {
+            from {
+                transform: rotateY(0)
+            }
+
+            to {
+                transform: rotateY(180deg);
+            }
+        }
+        @keyframes back {
+            from {
+                transform: rotateY(180deg)
+            }
+
+            to {
+                transform: rotateY(0deg);
+            }
+        }
+
+        @keyframes roll {
+            from {
+                transform: rotateY(0)
+            }
+
+            to {
+                transform: rotateY(-180deg)
+            }
+        }
+
+        @keyframes return {
+            from {
+                transform: rotateY(180)
+            }
+
+            to {
+                transform: rotateY(-180deg)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="perspective">
+        <div class="book-wrap">
+            <div class="page book-cover front">封面</div>
+            <div class="page book-cover back">封面背面</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
