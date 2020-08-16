@@ -233,16 +233,13 @@
                             </form>
                             <div class="row">
                                 <div class="col-8">
-                                    <button type="button" class="btn btn-outline-default btn-sm"
-                                        onclick="_search()">查詢</button>
-                                    <button type="button" class="btn btn-outline-default btn-sm"
-                                        onclick="_clearSearchCondition()">清除查詢條件</button>
+                                    <button type="button" class="btn btn-primary" onclick="_search()">查詢</button>
+                                    <button type="button" class="btn btn-default" onclick="_clearSearchCondition()">清除查詢條件</button>
                                 </div>
-                                <div class="col-4">
-                                    <button type="button" class="btn btn-outline-primary btn-sm"
-                                        onclick="_showNewPatientModal()">新增病患資料</button>
+                                <div class="col-4 text-lg-right">
+                                    <button type="button" class="btn btn-info" onclick="_showNewPatientModal()">新增病患資料</button>
                                 </div>
-
+            
                             </div>
                         </div>
                     </div>
@@ -254,12 +251,12 @@
                                 <div class="jsgrid-grid-header">
                                     <table class="jsgrid-table">
                                         <tr class="jsgrid-header-row">
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">照片</th>
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 15%;">病歷號碼</th>
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 15%;">姓名/性別</th>
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 10%;">生日</th>
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 20%;">診斷</th>
-                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 5%;">操作</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">照片</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">病歷號碼</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">姓名/性別</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">生日</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">診斷</th>
+                                            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">操作</th>
                                         </tr>
                                     </table>
                                 </div>
@@ -279,12 +276,10 @@
                                             <tr :class="[index%2 == 0?'jsgrid-row':'jsgrid-alt-row']" v-for="(p,index) in people" :key="index">
                                                 <td class="jsgrid-cell"><img height="100" width="75" :src="p.photo"></td>
                                                 <td class="jsgrid-cell"><a>{{p.code}}</a></td>
-                                                <td class="jsgrid-cell"><a>{{p.name}}/{{p.gender}}</a></td>
+                                                <td class="jsgrid-cell"><a><span class="table-cell__gender">{{p.gender}}</span>{{p.name}}</a></td>
                                                 <td class="jsgrid-cell">{{p.date}}</td>
                                                 <td class="jsgrid-cell">{{p.info}}</td>
-                                                <td class="jsgrid-cell"><input type="button"
-                                                        class="btn btn-outline-default btn-sm"
-                                                        value="EEG"></td>
+                                                <td class="jsgrid-cell"><input type="button" class="btn btn-primary" onclick="_addNewEEG(18)" value="EEG"></td>
                                             </tr>
                                         </tbody>
                                     </table>

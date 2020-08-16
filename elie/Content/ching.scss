@@ -1,3 +1,8 @@
+.jsgrid-cell>img {
+    width: 65%;
+    max-width: 65%;
+    height: auto;
+}
 @media screen and (max-width:768PX) {
 
     // 以下是表單
@@ -168,16 +173,22 @@
         // 姓名/性別
         &:nth-of-type(3) {
             grid-area: name;
+            padding: 0;
+            align-self: center;
         }
 
         // 生日
         &:nth-of-type(4) {
             grid-area: date;
+            padding: 0;
+            align-self: center;
         }
 
         // 診斷
         &:nth-of-type(5) {
             grid-area: info;
+            padding: 0;
+            align-self: center;
         }
 
         // 操作
@@ -192,5 +203,26 @@
             margin: 0 auto;
             display: block;
         }
+    }
+    .jsgrid-cell>img {
+        width: 100%;
+        max-width: 100%;
+    }
+    .jsgrid-cell a {
+        white-space: nowrap;
+    }
+    .form-control-label {
+        font-size: 16px;
+    }
+    .table-cell__gender{
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 29px;
+        background: #9C5EBF;
+        color: #fff;
+        margin-right: 6px;
     }
 }

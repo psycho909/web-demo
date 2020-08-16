@@ -1,3 +1,9 @@
+.jsgrid-cell > img {
+  width: 65%;
+  max-width: 65%;
+  height: auto;
+}
+
 @media screen and (max-width: 768PX) {
   #conditionForm {
     margin-bottom: .75rem;
@@ -159,18 +165,30 @@
     -ms-grid-column: 2;
     -ms-grid-column-span: 2;
     grid-area: name;
+    padding: 0;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
   .jsgrid-cell:nth-of-type(4) {
     -ms-grid-row: 3;
     -ms-grid-column: 2;
     -ms-grid-column-span: 2;
     grid-area: date;
+    padding: 0;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
   .jsgrid-cell:nth-of-type(5) {
     -ms-grid-row: 4;
     -ms-grid-column: 2;
     -ms-grid-column-span: 2;
     grid-area: info;
+    padding: 0;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
   .jsgrid-cell:nth-of-type(6) {
     -ms-grid-row: 5;
@@ -185,5 +203,26 @@
     width: 80%;
     margin: 0 auto;
     display: block;
+  }
+  .jsgrid-cell > img {
+    width: 100%;
+    max-width: 100%;
+  }
+  .jsgrid-cell a {
+    white-space: nowrap;
+  }
+  .form-control-label {
+    font-size: 16px;
+  }
+  .table-cell__gender {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 29px;
+    background: #9C5EBF;
+    color: #fff;
+    margin-right: 6px;
   }
 }
