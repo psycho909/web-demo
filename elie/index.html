@@ -276,6 +276,8 @@
                                             <tr :class="[index%2 == 0?'jsgrid-row':'jsgrid-alt-row']" v-for="(p,index) in people" :key="index">
                                                 <td class="jsgrid-cell"><img height="100" width="75" :src="p.photo"></td>
                                                 <td class="jsgrid-cell"><a>{{p.code}}</a></td>
+                                                <!-- ching 新增 -->
+                                                <!-- 修改 性別 -->
                                                 <td class="jsgrid-cell"><a><span class="table-cell__gender">{{p.gender}}</span>{{p.name}}</a></td>
                                                 <td class="jsgrid-cell">{{p.date}}</td>
                                                 <td class="jsgrid-cell">{{p.info}}</td>

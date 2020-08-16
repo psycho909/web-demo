@@ -174,6 +174,7 @@
 
             <link rel="stylesheet" href="/Content/jsgrid.min.css" type="text/css">
             <link rel="stylesheet" href="/Content/jsgrid-theme.min.css" type="text/css">
+            <!-- ching 新增 -->
             <link rel="stylesheet" href="/Content/eegs.css">
             <div class="row">
                 <div class="col">
@@ -329,6 +330,7 @@
                                 <div class="jsgrid-grid-body" style="height: inherit;">
                                     <table class="jsgrid-table">
                                         <tbody>
+                                            <!-- ching 新增 -->
                                             <tr class="jsgrid-row" v-for="(e,index) in eegs" :key="index">
                                                 <td class="jsgrid-cell jsgrid-align-center" style="width: 30px;"><input
                                                         type="checkbox" class="singleCheckbox"></td>
@@ -339,28 +341,40 @@
                                                     <i class="ni ni-circle-08" onclick="_showPatient(25)"></i></td>
                                                 <td class="jsgrid-cell" style="width: 15%;">{{e.Data}}</td>
                                                 <td class="jsgrid-cell" style="width: 10%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>報告上傳時間</span>
                                                     <span>{{e.updateDate}}</span>
                                                 </td>
                                                 <td class="jsgrid-cell" style="width: 10%;">PANSS</td>
                                                 <td class="jsgrid-cell jsgrid-align-right" style="width: 10%;">{{e.point}}</td>
                                                 <td class="jsgrid-cell" style="width: 10%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>上傳時間</span>
                                                     <span>{{e.updateTime}}</span>
                                                 </td>
                                                 <td class="jsgrid-cell" style="width: 5.5%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>Po.</span>
                                                     <span>{{e.position}}</span>
                                                 </td>
                                                 <td class="jsgrid-cell" style="width: 5.5%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>HZ</span>
                                                     <span>{{e.HZ}}</span>
                                                 </td>
                                                 <td class="jsgrid-cell" style="width: 5.5%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>Po.1</span>
                                                     <span>NONE</span>
                                                 </td>
                                                 <td class="jsgrid-cell" style="width: 5.5%;">
+                                                    <!-- ching 新增 -->
+                                                    <!-- 使用span包起來，在手機板時增加標題 -->
                                                     <span>Po.2</span>
                                                     <span>NONE</span>
                                                 </td>
@@ -586,6 +600,7 @@
     </div>
     <!-- Argon Scripts -->
     <!-- Core -->
+    <!-- ching 新增 -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var obj=[

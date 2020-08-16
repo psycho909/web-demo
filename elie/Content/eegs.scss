@@ -1,3 +1,10 @@
+.jsgrid-cell{
+    span{
+        &:first-child{
+            display: none;
+        }
+    }
+}
 @media screen and (max-width: 768PX) {
     // 以下是表單
     #conditionForm {
@@ -123,6 +130,7 @@
             width: 100%;
             padding: .5rem;
             &:first-child{
+                display: block;
                 background-color: #EEEEEE;
                 color:#000;
             }

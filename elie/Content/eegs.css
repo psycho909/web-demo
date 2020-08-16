@@ -1,3 +1,7 @@
+.jsgrid-cell span:first-child {
+  display: none;
+}
+
 @media screen and (max-width: 768PX) {
   #conditionForm {
     margin-bottom: .75rem;
@@ -107,6 +111,7 @@
     padding: .5rem;
   }
   .jsgrid-cell span:first-child {
+    display: block;
     background-color: #EEEEEE;
     color: #000;
   }
