@@ -1,34 +1,67 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant-TW">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="天堂月免服改版事前登錄！限時天堂REMASTERED領取最強免費死騎碑石。官方正服進化！轉職開放、Full HD、自動狩獵系統、角色技能模組全面重製，預先登錄、事前預約、預先創角" />
+
+    <!-- 除了H5活動頁以外都要加上 -->
+    <meta name="open-default-browser" content="true" />
+    <meta name="keywords" content="天堂REMASTERED,天堂R,天堂改版,月免服改版,天堂事前登錄,事前預約?,預先註冊,預先登錄?,天堂, " />
+
+    <!-- fb meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="《天堂月免服REMASTERED》事前登錄贈禮｜天堂R" />
+    <meta property="og:description"
+        content="天堂月免服改版事前登錄！限時天堂REMASTERED領取最強免費死騎碑石。官方正服進化！轉職開放、Full HD、自動狩獵系統、角色技能模組全面重製，預先登錄、事前預約、預先創角" />
+
+    <!-- Safari 數字過常會變成可撥打電話 -->
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>
+        《天堂月免伺服Remastered》預先登錄贈禮
+    </title>
 </head>
 
 <body>
-
+    <a id="line" href="javascript:;">分享按鈕</a>
     <script>
         function fbs_click() {
-            u = 'https://www.newtaipei-summer.tw/';
-            t = '';
-            window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent(u) + '&t=' + encodeURIComponent(t),
+            var url = location.href;
+            var t=getMeta("description");
+            window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent(url) + '&t=' + encodeURIComponent(
+                    t),
                 'sharer', 'toolbar=0,status=0,width=626,height=436');
         }
 
+        function getMeta(name){
+            var meta=document.getElementsByTagName("meta");
+            var desc;
+            for(var i=0;i<meta.length;i++){
+                if(meta[i].name == name){
+                    desc=meta[i].content
+                }
+            }
+            return desc;
+        }
 
         function line_share() {
-            window.open('http://line.naver.jp/R/msg/text/?' + encodeURIComponent("2020新北市兒童藝術節怪獸訓練場") +
+            var t=getMeta("description");
+            window.open('http://line.naver.jp/R/msg/text/?' + encodeURIComponent(t) +
                 ' https://www.newtaipei-summer.tw/');
         }
 
         function twitter_click() {
-            u = 'https://www.newtaipei-summer.tw/';
-            t = '2020新北市兒童藝術節怪獸訓練場';
+            var url = location.href;
+            var t=getMeta("description");
             window.open('http://twitter.com/share?url=' + encodeURIComponent(u) + '&text=' + encodeURIComponent(t),
                 'sharer', 'toolbar=0,status=0,width=626,height=436')
         }
+
+        document.getElementById("line").addEventListener("click", fbs_click)
     </script>
 </body>
 

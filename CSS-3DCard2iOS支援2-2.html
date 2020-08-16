@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #eee;
+        }
+        .passbook-container{
+            width: 150px;
+            perspective: 600px;
+        }
+        .passbook {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            
+            -webkit-transition: 0.5s;
+            -moz-transition: 0.5s;
+            transition: 0.5s;
+        }
+        .passbook:hover{
+            transform: rotateY(-180deg);
+        }
+        .passbook:hover .front{
+            transform: rotateY(-180deg);
+        }
+        .passbook:hover .back{
+            transform: rotateY(0deg);
+        }
+        .card {
+            position: absolute;
+
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .front {
+            z-index: 1;
+            transition: 0.6s;
+            transform: rotateY(0deg);
+        }
+
+        .back {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            transition: 0.6s;
+        }
+
+        .rotate-3d {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="passbook">
+        <div class="card front">
+            <img src="https://api.adorable.io/avatars/150/1">
+        </div>
+        <div class="card back">
+            <img src="https://api.adorable.io/avatars/150/2">
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var flipped = false;
+            $('.passbook').on('click', function () {
+                if (!flipped) {
+                    $('.back').css('transform', 'rotateY(0deg)');
+                    $('.front').css('transform', 'rotateY(180deg)');
+                    flipped = true;
+                }
+                else {
+                    $('.back').css('transform', 'rotateY(180deg)');
+                    $('.front').css('transform', 'rotateY(0deg)');
+                    flipped = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
