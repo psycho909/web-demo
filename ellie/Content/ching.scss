@@ -3,6 +3,17 @@
     max-width: 65%;
     height: auto;
 }
+.table-cell__gender{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 29px;
+    background: #9C5EBF;
+    color: #fff;
+    margin-right: 6px;
+}
 @media screen and (max-width:768PX) {
 
     // 以下是表單
@@ -213,16 +224,5 @@
     }
     .form-control-label {
         font-size: 16px;
-    }
-    .table-cell__gender{
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 29px;
-        background: #9C5EBF;
-        color: #fff;
-        margin-right: 6px;
     }
 }
