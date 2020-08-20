@@ -98,7 +98,8 @@
         }
     }
     // 一塊
-    .jsgrid-row{
+    .jsgrid-row,
+    .jsgrid-alt-row{
         display: grid;
         width: 100%;
         // flex-wrap: wrap;
@@ -218,6 +219,8 @@
                 width: 100%;
                 background-color: #11CDF0;
                 color:#fff;
+                padding: 10px 0;
+                box-sizing: border-box;
             }
         }
     }

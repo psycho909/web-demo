@@ -331,7 +331,7 @@
                                     <table class="jsgrid-table">
                                         <tbody>
                                             <!-- ching 新增 -->
-                                            <tr class="jsgrid-row" v-for="(e,index) in eegs" :key="index">
+                                            <tr :class="[index%2 == 0?'jsgrid-row':'jsgrid-alt-row']" v-for="(e,index) in eegs" :key="index">
                                                 <td class="jsgrid-cell jsgrid-align-center" style="width: 30px;"><input
                                                         type="checkbox" class="singleCheckbox"></td>
                                                 <td class="jsgrid-cell" style="width: 15%;"><a

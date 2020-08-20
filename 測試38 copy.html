@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .btn{
+            cursor: pointer;
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            position: relative;
+        }
+        .box.move{
+            animation: move 10s linear forwards;
+        }
+        .box.speed{
+            animation: move 1s ease forwards;
+        }
+        .box + .box{
+            margin-top: 10px;
+        }
+        @keyframes move{
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <div class="box-wrap">
+            <div class="box box1"></div>
+            <div class="box box2"></div>
+            <div class="box box3"></div>
+            <div class="box box4"></div>
+            <div class="box box5"></div>
+            <div class="box box6"></div>
+            <div class="box box7"></div>
+            <div class="box box8"></div>
+        </div>
+        <div class="btn">按鈕</div>
+    </div>
+    <script>
+        
+        var i=0;
+        var timer;
+        var speed=false;
+        function move(){
+            i++
+            if(!speed){
+                $(".box"+i).addClass("move")
+            }else{
+                $(".box"+i).addClass("speed")
+            }
+            
+            timer=setTimeout(move, 400*i);
+        }
+        move()
+        $(".btn").on("click",function(){
+            speed=true
+            if(speed){
+                clearTimeout(timer)
+                move()
+            }
+        })
+    </script>
+</body>
+</html>

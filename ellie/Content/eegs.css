@@ -87,7 +87,8 @@
     display: block;
     width: 100%;
   }
-  .jsgrid-row {
+  .jsgrid-row,
+  .jsgrid-alt-row {
     display: -ms-grid;
     display: grid;
     width: 100%;
@@ -214,6 +215,8 @@
     width: 100%;
     background-color: #11CDF0;
     color: #fff;
+    padding: 10px 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
   }
 }
-/*# sourceMappingURL=eegs.css.map */

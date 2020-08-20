@@ -11,22 +11,6 @@
             padding: 0;
             margin: 0;
         }
-        #app{
-            height: 2000px;
-        }
-        .ul-wrap{
-            width: 300px;
-            padding: 1rem;
-            border:1px solid #eee;
-            font-size: 1rem;
-        }
-        .ul{
-            list-style: none;
-        }
-        .btn{
-            margin-top: 2rem;
-            width: 100%;
-        }
         .fixed-right{
             position: fixed;
             top: calc(50% - 181px);
@@ -67,37 +51,24 @@
 
     
     <div id="app">
-        <div class="ul-wrap">
-            <ul class="ul">
-                <li>AAAAAAAAa</li>
-                <li>BBBBBBBBB</li>
-            </ul>
-            <button class="btn" type="button">更多</button>
-        </div>
+
     </div>
-    <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fvarietyshow44%2Fvideos%2F641940706362807%2F&show_text=0&width=560" width="560" height="315" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
     <script>
-        var obj={
-            value:1,
-            addValue:function(value){
-                return atom.value+value
-            }
+        
+        var i=0;
+        var timer;
+        var speed=false;
+        function move(){
+            i++
+            console.log(i)
+            timer=setTimeout(move, 400*i);
         }
+        move()
         $(".btn").on("click",function(){
-            $.ajax({
-                url:"https://randomuser.me/api/?results=5",
-                dataType:"JSON",
-                method:"GET",
-                success:function(data){
-                    var users=data.results;
-                    var userList=users.map(function(v,i){
-                        return "<li>"+v.email+"</li>"
-                    })
-                    userList.forEach(function(v,i){
-                        $(".ul").append(v)
-                    })
-                }
-            })
+            speed=true
+            if(speed){
+                clearTimeout(timer)
+            }
         })
     </script>
 </body>
