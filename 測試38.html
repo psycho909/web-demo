@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #app{
+            height: 2000px;
+        }
+        .ul-wrap{
+            width: 300px;
+            padding: 1rem;
+            border:1px solid #eee;
+            font-size: 1rem;
+        }
+        .ul{
+            list-style: none;
+        }
+        .btn{
+            margin-top: 2rem;
+            width: 100%;
+        }
+        .fixed-right{
+            position: fixed;
+            top: calc(50% - 181px);
+            right: 0;
+            z-index: 3;
+        }
+        .fixed-btn{
+            display: block;
+            width: 169px;
+            height: 181px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-size: 0;
+            background-color: #000;
+        }
+        .fixed-btn + .fixed-btn{
+            margin-top: 18px;
+        }
+        .fixed-btn__about{
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/GamaWWW/lineage/images/banner/update-about-off.png');
+        }
+        .fixed-btn__about:hover{
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/GamaWWW/lineage/images/banner/update-about-on.png');
+        }
+        .fixed-btn__event{
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/GamaWWW/lineage/images/banner/update-event-off.png');
+        }
+        .fixed-btn__event:hover{
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/GamaWWW/lineage/images/banner/update-event-on.png');
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-right">
+        <a class="fixed-btn fixed-btn__about" href="https://tw.hicdn.beanfun.com/beanfun/promo/Lineage/E20200826/index.html" target="_blank">改版介紹</a>
+        <a class="fixed-btn fixed-btn__event" href="https://tw.hicdn.beanfun.com/beanfun/promo/Lineage/E20200812/master.html" target="_blank">改版活動</a>
+    </div>
+
+    
+    <div id="app">
+        <div class="ul-wrap">
+            <ul class="ul">
+                <li>AAAAAAAAa</li>
+                <li>BBBBBBBBB</li>
+            </ul>
+            <button class="btn" type="button">更多</button>
+        </div>
+    </div>
+    <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fvarietyshow44%2Fvideos%2F641940706362807%2F&show_text=0&width=560" width="560" height="315" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
+    <script>
+        var obj={
+            value:1,
+            addValue:function(value){
+                return atom.value+value
+            }
+        }
+        $(".btn").on("click",function(){
+            $.ajax({
+                url:"https://randomuser.me/api/?results=5",
+                dataType:"JSON",
+                method:"GET",
+                success:function(data){
+                    var users=data.results;
+                    var userList=users.map(function(v,i){
+                        return "<li>"+v.email+"</li>"
+                    })
+                    userList.forEach(function(v,i){
+                        $(".ul").append(v)
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+</html>
