@@ -6,16 +6,28 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="time"></div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
     <script>
-        var config={
-            name:"Chen"
+        // var end=Date.now()+(60*1000);
+        var m=parseInt(Date.now(),10);// 一開始
+        function timeout(){
+            var i=Date.now();// 倒數計算
+            // var extime=Math.floor((end-now)/1000)
+
+            var k=(i-m)/parseInt("1000",10); 
+            var l=parseInt("30",10);// 倒數300s
+            var j=Math.round(l-k);
+
+            document.getElementById("time").innerHTML=j;
+            
+            if(j == 25){
+                $.gbox.open("時間到25S了")
+            }
+            setTimeout(timeout, 1000);
         }
-
-        ;(function(root){
-            root.config.name="CCCC"
-        })(window)
-
-        console.log(config)
+        timeout();
     </script>
 </body>
 </html>
