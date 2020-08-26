@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width:750px) {
+            .wrap {
+                width: 100%;
+            }
+
+            #tns1>.tns-item {}
+        }
+
+        .box {
+            width: 100%;
+            height: 400px;
+            background-color: #D6D65C;
+            color: #fff;
+            font-size: 72px;
+            text-align: center;
+            line-height: 400px;
+        }
+        .box a{
+            text-decoration: none;
+            width: 100%;
+            height: 100%;
+            color:#fff;
+            display: block;
+        }
+        .box:nth-child(n+1) div{
+            background-color: #5C99D6;
+        }
+
+        .box:nth-child(2n+1) div{
+            background-color: #5CD6AD;
+        }
+
+        .box:nth-child(3n+1) div{
+            background-color: #D65CC2;
+        }
+
+        .wrap .tns-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+        .wrap .tns-nav button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .control-btn__list {
+            text-align: center;
+        }
+
+        .control-btn__list li {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 12px;
+        }
+
+        .control-btn__list li:nth-child(n+1) {
+            background-color: #5C99D6;
+        }
+
+        .control-btn__list li:nth-child(2n+1) {
+            background-color: #5CD6AD;
+        }
+
+        .control-btn__list li:nth-child(3n+1) {
+            background-color: #D65CC2;
+        }
+        .tns-item{
+            transition: all .3s;
+        }
+        .back{
+            transform: scale(0.8);
+        }
+        .front{
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="my-slider">
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>1</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>2</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>3</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>4</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>5</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>6</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>7</div></a>
+            <a class="box back" href="https://tinyjpg.com/" target="_blank"><div>8</div></a>
+        </div>
+        <!-- <ul class="control-btn__list">
+            <li data-page="1">1</li>
+            <li data-page="2">2</li>
+            <li data-page="3">3</li>
+            <li data-page="4">4</li>
+            <li data-page="5">5</li>
+            <li data-page="6">6</li>
+            <li data-page="7">7</li>
+            <li data-page="8">8</li>
+        </ul> -->
+    </div>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script>
+        var slider = tns({
+            container: '.my-slider',
+            "loop": true,
+            "responsive": {
+                "350": {
+                "items": 2
+                },
+                "500": {
+                "items": 3
+                }
+            },
+            "swipeAngle": false,
+            "speed": 400
+        });
+        slider.events.on('transitionStart', function(){
+            $(".tns-item").removeClass("front")
+        });
+        slider.events.on('transitionEnd', function(){
+            $(".tns-item").removeClass("front")
+            $(".tns-slide-active").eq(1).addClass("front")
+        });
+    </script>
+</body>
+
+</html>

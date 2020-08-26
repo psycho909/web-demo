@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+    <script>
+        var showtime="";
+        var istimeout=false;
+        var timer;
+        var expiredTime=0;
+
+        function CheckTimer(islogin){
+            if(!islogin){
+                StartTimer()
+            }else{
+                // StopTimer()
+            }
+        }
+
+        function StartTimer(){
+            istimeout=false;
+            expiredTime=Date.now()+(60*1000);
+            CountDown();
+        }
+
+        function CountDown(){
+            if(!istimeout){
+                var tmpCnt=Math.floor((expiredTime-Date.now())/1000);
+
+                // var mm=(tmpCnt/60) || 0;
+                if(tmpCnt == 30){
+                    $.gbox.open("已過了30秒")
+                }
+                if(tmpCnt == 0){
+                    $.gbox.open("重新計時")
+                }
+                setTimeout(CountDown, 1000);
+            }
+        }
+
+        CheckTimer(istimeout)
+    </script>
+</body>
+</html>
