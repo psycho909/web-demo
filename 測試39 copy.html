@@ -15,7 +15,7 @@
             this.showtime="";
             this.istimeout=false;
             this.timer;
-            this.l=parseInt("30",10);
+            this.l=parseInt("10",10);
             this.m=0;
         }
         ChecktimeService.prototype.CheckTimer=function(islogin){
@@ -31,10 +31,11 @@
                 var j=Math.round(this.l-k);
                 document.getElementById("time").innerHTML=j;
                 console.log(this.l-k)
-                if(j == 22){
-                    $.gbox.open("時間到25S了")
+                if(j <= 0){
+                    $.gbox.open("時間到0S了")
+                    this.StopTimer()
                 }
-                setTimeout(() => {
+                this.timer=setTimeout(() => {
                     this.CountDown()
                 }, 1000);
             }
@@ -45,7 +46,10 @@
             this.m=parseInt(Date.now(),10);
             this.CountDown();
         }
-
+        ChecktimeService.prototype.StopTimer=function(){
+            this.istimeout=true;
+            clearTimeout(this.timer)
+        }
         var t=new ChecktimeService();
         t.CheckTimer(true)    
 
