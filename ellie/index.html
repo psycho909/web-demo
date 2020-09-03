@@ -180,24 +180,33 @@
                                     <h6 class="h2 text-blue mb-4">病患資料查詢</h6>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
+                                    <!-- 20200903 修改地方 -->
+                                    <div class="col-12 d-flex flex-wrap mb-3">
+                                        <div class="form-group form-Name" data-order="1" data-col="1">
                                             <label class="form-control-label" for="Name">姓名：</label>
                                             <input type="text" class="form-control" id="Name" name="Name">
-                                            <label for="birthday" class="form-control-label">生日</label>
-                                            <input class="form-control" type="date" id="Birthday" name="Birthday">
-                                            <label for="SearchGroup" class="form-control-label">區域</label>
-                                            <select class="form-control" id="SearchGroup" name="SearchGroup">
-                                                <option value="">請選擇</option>
-                                                <option value="1">台灣</option>
-                                                <option value="3">中國</option>
-                                            </select>
                                         </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
+
+                                        <div class="form-group form-PatientUID" data-order="4" data-col="1">
                                             <label class="form-control-label" for="PatientUID">診所病歷號碼：</label>
                                             <input type="text" class="form-control" id="PatientUID" name="PatientUID">
+                                        </div>
+
+                                        <div class="form-group form-Sex" data-order="5" data-col="1">
+                                            <label class="form-control-label" for="Sex">性別</label>
+                                            <select class="form-control" id="Sex" name="Sex">
+                                                <option value="">不限</option>
+                                                <option value="M">男性</option>
+                                                <option value="F">女性</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-Birthday" data-order="2" data-col="1">
+                                            <label for="birthday" class="form-control-label">生日</label>
+                                            <input class="form-control" type="date" id="Birthday" name="Birthday">
+                                        </div>
+
+                                        <div class="form-group form-DiagnosisTypeList" data-order="8" data-col="1">
                                             <label for="DiagnosisTypeList" class="form-control-label">診斷</label>
                                             <select id="DiagnosisTypeList" multiple="multiple" name="DiagnosisTypeList">
                                                 <option value="1">ASD / 自閉症</option>
@@ -213,21 +222,29 @@
                                                 <option value="12">ADHD / 注意力不足過動症</option>
                                                 <option value="11">Other / 其他</option>
                                             </select>
+                                        </div>
+
+                                        <div class="form-group form-Id_Number" data-order="3" data-col="1">
+                                            <label class="form-control-label" for="Id_Number">身份證字號：</label>
+                                            <input type="text" class="form-control" id="Id_Number" name="Id_Number">
+                                        </div>
+
+
+                                        <div class="form-group form-SearchGroup" data-order="6" data-col="2">
+                                            <label for="SearchGroup" class="form-control-label">區域</label>
+                                            <select class="form-control" id="SearchGroup" name="SearchGroup">
+                                                <option value="">請選擇</option>
+                                                <option value="1">台灣</option>
+                                                <option value="3">中國</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-SearchGroupMember" data-order="7" data-col="2">
                                             <label for="SearchGroupMember" class="form-control-label">診所</label>
                                             <select class="form-control" id="SearchGroupMember"
                                                 name="SearchGroupMember"></select>
-
                                         </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-control-label" for="Sex">性別</label>
-                                        <select class="form-control" id="Sex" name="Sex">
-                                            <option value="">不限</option>
-                                            <option value="M">男性</option>
-                                            <option value="F">女性</option>
-                                        </select>
-                                        <label class="form-control-label" for="Id_Number">身份證字號：</label>
-                                        <input type="text" class="form-control" id="Id_Number" name="Id_Number">
+
                                     </div>
                                 </div>
                             </form>
