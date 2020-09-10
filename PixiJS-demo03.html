@@ -21,7 +21,7 @@
         });
         
         PIXI.loader.add("images/cat.png").on("progress",loadProgressHandler).load(steup)
-        let cat;
+        let cat,state;
 
         function loadProgressHandler(loader,resource){
             console.log("progress: "+loader.progress)
@@ -40,7 +40,11 @@
         }
 
         function gameLoop(delta){
-            cat.x += 1;
+            cat.vx=1;
+            cat.vy=1;
+            
+            cat.x += cat.vx;
+            cat.y += cat.vy;
         }
 
         document.body.appendChild(app.view)
