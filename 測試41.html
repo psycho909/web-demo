@@ -1,68 +1,61 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<<<<<<< HEAD
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
         }
-        .bg{
+
+        .bg {
             width: 100%;
         }
-        .bg img{
+
+        .bg img {
             display: block;
             width: 100%;
         }
     </style>
 </head>
+
 <body>
-    <div class="bg">
-        <img src="images/beanfun.jpg" alt="">
-    </div>
-    <div style="position:absolute;top:1vw;right:1vw;width:9vw;height:9vw;background-color:transparent;cursor: pointer;" onclick="closeWebView()"></div>
-    <script>
-        function closeWebView(){
-            console.log(1)
-        }
-=======
-</head>
-<body>
+
     <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
     <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
     <script>
-        var showtime="";
-        var istimeout=false;
+        var showtime = "";
+        var istimeout = false;
         var timer;
-        var expiredTime=0;
+        var expiredTime = 0;
 
-        function CheckTimer(islogin){
-            if(!islogin){
+        function CheckTimer(islogin) {
+            if (!islogin) {
                 StartTimer()
-            }else{
+            } else {
                 // StopTimer()
             }
         }
 
-        function StartTimer(){
-            istimeout=false;
-            expiredTime=Date.now()+(60*1000);
+        function StartTimer() {
+            istimeout = false;
+            expiredTime = Date.now() + (60 * 1000);
             CountDown();
         }
 
-        function CountDown(){
-            if(!istimeout){
-                var tmpCnt=Math.floor((expiredTime-Date.now())/1000);
+        function CountDown() {
+            if (!istimeout) {
+                var tmpCnt = Math.floor((expiredTime - Date.now()) / 1000);
 
                 // var mm=(tmpCnt/60) || 0;
-                if(tmpCnt == 30){
+                if (tmpCnt == 30) {
                     $.gbox.open("已過了30秒")
                 }
-                if(tmpCnt == 0){
+                if (tmpCnt == 0) {
                     $.gbox.open("重新計時")
                 }
                 setTimeout(CountDown, 1000);
@@ -70,7 +63,7 @@
         }
 
         CheckTimer(istimeout)
->>>>>>> 83144e473108a301892983cbd622be5983413cc5
     </script>
 </body>
+
 </html>

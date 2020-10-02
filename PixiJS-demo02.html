@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.8/pixi.min.js" integrity="sha512-sSAdD5F4KTNhbn+dNCMjsF5SUcDgjrJnYUnrM3rSngcABsDQ0iO3bdeDjguwsNyVtkMGamiDEb6v6xgVMLqy3A==" crossorigin="anonymous"></script>
+    <script>
+        let app=new PIXI.Application({
+            width:512,
+            height:512,
+            antialias:true
+        });
+        
+        PIXI.loader.add("images/treasureHunter.json").on("progress",loadProgressHandler).load(steup)
+        
+        function loadProgressHandler(loader,resource){
+            console.log("progress: "+loader.progress)
+        }
+        let dungeon,explorer,treasure,id;
+
+        function steup(){
+            dungeon=new PIXI.Sprite(
+                PIXI.loader.resources["images/treasureHunter.json"].textures["dungeon.png"]
+            )
+            app.stage.addChild(dungeon);
+            explorer=new PIXI.Sprite(
+                PIXI.loader.resources["images/treasureHunter.json"].textures["explorer.png"]
+            )
+            explorer.x=68;
+            explorer.y=app.stage.height/2-explorer.height/2;
+            app.stage.addChild(explorer)
+
+            id = PIXI.loader.resources["images/treasureHunter.json"].textures;
+
+            treasure=new PIXI.Sprite(id["treasure.png"])
+            app.stage.addChild(treasure)
+
+            treasure.x = app.stage.width - treasure.width - 48;
+            treasure.y = app.stage.height / 2 - treasure.height / 2;
+            app.stage.addChild(treasure);
+
+            door=new PIXI.Sprite(
+                PIXI.loader.resources["images/treasureHunter.json"].textures["door.png"]
+            )
+            door.position.set(32,0)
+            let numberOfBlobs=6,
+                spacing=48,
+                xOffset=150;
+            
+            for(let i=0;i<numberOfBlobs;i++){
+                let blob=new PIXI.Sprite(
+                    PIXI.loader.resources["images/treasureHunter.json"].textures["blob.png"]
+                );
+                let x=spacing*i+xOffset;
+                let y=randomInt(0,app.stage.height-blob.height);
+
+                blob.x=x;
+                blob.y=y;
+
+                app.stage.addChild(blob)
+            }
+        }
+
+        function randomInt(min,max){
+            return Math.floor(Math.random()*(max-min+1))+min;
+        }
+
+        document.body.appendChild(app.view)
+    </script>
+</body>
+</html>
