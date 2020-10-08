@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var zoombieArr=[];
+        var winW=window.innerWidth;
+        var winH=window.innerHeight;
+        var itemW=80;
+        var itemH=80;
+        var score=0;
+        var timer=null;
+        var gameTime=20;
+
+        function gameStart(){
+            timer=setInterval(function(){
+                gameTime++;
+            },500)
+        }
+        function gameStop(){
+            clearInterval(timer)
+        }
+
+        function initZoombie(){
+            for(var i=0;i<10;i++){
+                if(i >= 9){
+                    zoombieArr.reverse()
+                }
+                addZoombie(i)
+            }
+        }
+        function addZoombie(z){
+            var zoombie=Array.from(Array(3),x=>false);
+            var r=Math.floor(Math.random()*3);
+            zoombie[r]={
+                x:itemW*r,
+                y:itemH*z,
+                t:r
+            };
+            zoombieArr.push(zoombie)
+        }
+        
+        function updaeZoombie(t){
+            if(zoombieArr[0][t]){
+                delZoombie()
+                if(zoombieArr.length < 10){
+                    addZoombie(zoombieArr.length)
+                }
+                zoombieArr.forEach(function(v,i){
+                    zoombieArr[i].y+=itemH;
+                })
+            }
+        }
+
+        function delZoombie(){
+            score++;
+            zoombieArr=zoombieArr.slice(1)
+        }
+    </script>
+</body>
+</html>
