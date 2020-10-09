@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <img data-src="https://picsum.photos/id/237/200/300" alt="lazylaod" class="lazyload" loading="lazy">
+    <img data-src="https://picsum.photos/id/1/200/300" alt="lazyload" class="lazyload" loading="lazy">
+    <img data-src="https://picsum.photos/id/2/200/300" alt="lazyload" class="lazyload" loading="lazy">
+
+    <script>
+        if("loading" in HTMLImageElement.prototype){
+            const images=document.querySelectorAll("img[loading='lazy']");
+            images.forEach(img=>{
+                img.src=img.dataset.src
+            })
+        }else{
+            const script=document.createElement("script");
+            script.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js"
+            document.body.appendChild(script)
+        }
+    </script>
+</body>
+</html>
