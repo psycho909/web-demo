@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js">
+    </script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #app{
+            height: 3000px;
+        }
+        #box {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            font-size: 0;
+        }
+
+        #box ul {
+            width: 200px;
+            background-color: red;
+            font-size: 14px;
+            display: inline-block;
+            list-style: none;
+            vertical-align: top;
+        }
+
+        .wrap {
+            width: 200px;
+            height: 150px;
+            display: inline-block;
+            background-color: green;
+        }
+        .noscroll{
+            position: fixed;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a class="popupbox" href="#"><br>點擊開啟</a>
+        <div id="box">
+            <ul>
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+            </ul>
+            <div class="wrap"></div>
+            <p>請確認以下道具....</p>
+            <p><b>一二三四五六七八</b></p>
+        </div>
+    </div>
+    <script>
+        $(".popupbox").on("click",function(){
+            $.gbox.open(html, {
+                addClass: "default",
+                clickBgclose: true,
+                actionBtns: [{
+                    text: '確定',
+                    id: '',
+                    click: function () {
+                        $.gbox.close();
+                    }
+                }, {
+                    text: '取消',
+                    id: '',
+                    click: function () {
+                        $.gbox.close();
+                        $("body").removeClass("noscroll")
+                    }
+                }],
+                afterOpen:function(){
+                    var dH=$(".gbox-wrap").outerHeight(true)
+                    var wh=window.innerHeight;
+                    $(".gbox").animate({
+                        scrollTop:dH-wh
+                    },0)
+                    // setTimeout(() => {
+                    //     $(".gbox").animate({
+                    //         scrollTop:0
+                    //     })
+                    // }, 0);
+                },
+                afterClose:function(){
+
+                }
+            })
+        })
+        
+        var html=`
+            <p>請確認以下道具....</p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+            <p><b>一二三四五六七八</b></p>
+        `;
+        
+        // const getFrogs = new Promise((resolve) => {
+        //     resolve([
+        //         { id: 'mlo29naz', name: 'larry', born: '2016-02-22' },
+        //         { id: 'lp2qmsmw', name: 'sally', born: '2018-09-13' },
+        //     ])
+        // })
+
+        // const getLizards = new Promise((resolve) => {
+        //     resolve([
+        //         { id: 'aom39d', name: 'john', born: '2017-08-11' },
+        //         { id: '20fja93', name: 'chris', born: '2017-01-30' },
+        //     ])
+        // })
+
+        // function addToStorage(item) {
+        //     if (item) {
+        //         let prevItems = localStorage.getItem('items')
+
+        //         if (typeof prevItems === 'string') {
+        //             prevItems = JSON.parse(prevItems)
+        //         } else {
+        //             prevItems = []
+        //         }
+
+        //         const newItems = [...prevItems, item]
+        //         localStorage.setItem('items', JSON.stringify(newItems))
+        //     }
+        // }
+
+        // let allItems = []
+
+        // Promise.all([getFrogs, getLizards])
+        //     .then(([frogs, lizards]) => {
+        //         console.log(frogs)
+        //         localStorage.clear()
+
+        //         frogs.forEach((frog) => {
+        //             allItems.push(frog)
+        //         })
+
+        //         lizards.forEach((lizard) => {
+        //             allItems.push(lizard)
+        //         })
+
+        //         allItems.forEach((item) => {
+        //             addToStorage(item)
+        //         })
+        //     })
+        //     .catch((error) => {
+        //         console.error(error)
+        //     })
+
+        // console.log(localStorage.getItem('items'))
+    </script>
+</body>
+
+</html>

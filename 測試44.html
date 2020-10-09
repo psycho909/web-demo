@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box div{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            <div>
+                <h3>Case1</h3>
+                <p>sadasd</p>
+            </div>
+        </div>
+        <button class="start">START</button>
+        <button class="stop">STOP</button>
+    </div>
+    <script>
+        var timer=null;
+        var score=0;
+
+        function start(){
+            timer=setInterval(function(){
+                score++;
+                console.log(score)
+            },500)
+        }
+        function stop(){
+            clearInterval(timer)
+        }
+        $(".start").on("click",function(){
+            start()
+        })
+        $(".stop").on("click",function(){
+            stop()
+        })
+    </script>
+</body>
+</html>
