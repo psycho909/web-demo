@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        var canvas=document.getElementById("myCanvas");
+        canvas.width=750;
+        canvas.height=812;
+        var ctx=canvas.getContext("2d");
+        
+        var zombieArr=[];
+        var winW=window.innerWidth;
+        var winH=window.innerHeight;
+        var canvasW=canvas.width;
+        var canvasH=canvas.height;
+        var itemW=200;
+        var itemH=200;
+        var itemCol=3;
+        var itemColW=canvasW/itemCol;
+        var itemOffetTop=itemH;
+        var itemOffetLeft=itemColW;
+        var itemPadding=(itemColW-itemW)/2
+        var score=0;
+        var timer=null;
+        var gameTime=20;
+
+        initZombie()
+        drawZombie()
+
+        function drawZombie(){
+            console.log(zombieArr)
+            for(var i=0;i<zombieArr.length;i++){
+                for(var z=0;z<zombieArr[i].length;z++){
+                    if(zombieArr[i][z]){
+                        ctx.beginPath();
+                        ctx.rect(zombieArr[i][z].x,zombieArr[i][z].y,itemW,itemH);
+                        ctx.fillStyle="#09D";
+                        ctx.fill();
+                        ctx.closePath()
+                    }
+                }
+            }
+        }
+
+        function gameStart(){
+            timer=setInterval(function(){
+                gameTime++;
+            },500)
+        }
+        function gameStop(){
+            clearInterval(timer)
+        }
+
+        function initZombie(){
+            for(var i=0;i<10;i++){
+                if(i >= 9){
+                    zombieArr.reverse()
+                }
+                addZombie(i)
+            }
+        }
+        function addZombie(z){
+            var zombie=Array.from(Array(3),x=>false);
+            var r=Math.floor(Math.random()*3);
+            var itemX=(((r*itemColW)+itemOffetLeft)-itemW)+itemPadding
+            var itemY=itemOffetTop*z
+            zombie[r]={
+                x:itemX,
+                y:itemY,
+                t:r
+            };
+            zombieArr.push(zombie)
+        }
+        
+        function updaeZombie(t){
+            if(zombieArr[0][t]){
+                delZombie()
+                if(zombieArr.length < 10){
+                    addZombie(zombieArr.length)
+                }
+                zombieArr.forEach(function(v,i){
+                    zombieArr[i].y+=itemH;
+                })
+            }
+        }
+
+        function delZombie(){
+            score++;
+            zombieArr=zombieArr.slice(1)
+        }
+    </script>
+</body>
+</html>
