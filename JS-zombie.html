@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        var zoombieArr=[];
+        var zombieArr=[];
         var winW=window.innerWidth;
         var winH=window.innerHeight;
         var itemW=80;
@@ -28,7 +28,7 @@
         function initZoombie(){
             for(var i=0;i<10;i++){
                 if(i >= 9){
-                    zoombieArr.reverse()
+                    zombieArr.reverse()
                 }
                 addZoombie(i)
             }
@@ -36,29 +36,31 @@
         function addZoombie(z){
             var zoombie=Array.from(Array(3),x=>false);
             var r=Math.floor(Math.random()*3);
+            var itemX;
+            var itemY;
             zoombie[r]={
                 x:itemW*r,
                 y:itemH*z,
                 t:r
             };
-            zoombieArr.push(zoombie)
+            zombieArr.push(zoombie)
         }
         
         function updaeZoombie(t){
-            if(zoombieArr[0][t]){
+            if(zombieArr[0][t]){
                 delZoombie()
-                if(zoombieArr.length < 10){
-                    addZoombie(zoombieArr.length)
+                if(zombieArr.length < 10){
+                    addZoombie(zombieArr.length)
                 }
-                zoombieArr.forEach(function(v,i){
-                    zoombieArr[i].y+=itemH;
+                zombieArr.forEach(function(v,i){
+                    zombieArr[i].y+=itemH;
                 })
             }
         }
 
         function delZoombie(){
             score++;
-            zoombieArr=zoombieArr.slice(1)
+            zombieArr=zombieArr.slice(1)
         }
     </script>
 </body>
