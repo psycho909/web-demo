@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: #666;
+        }
+        .bg--black{
+            background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), 
+            linear-gradient(45deg, #000 26%, transparent 26%, transparent 74%, #000 74%, #000);
+            background-color: #58574F;
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+        .bg--blue{
+            background-image: linear-gradient(45deg, #1E5A75 25%, transparent 25%, transparent 75%, #1E5A75 75%, #1E5A75), 
+            linear-gradient(45deg, #1E5A75 26%, transparent 26%, transparent 74%, #1E5A75 74%, #1E5A75);
+            background-color: #004668;
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+        .bg--yellow{
+            background-image: linear-gradient(45deg, #96801C 25%, transparent 25%, transparent 75%, #96801C 75%, #96801C), 
+            linear-gradient(45deg, #96801C 26%, transparent 26%, transparent 74%, #96801C 74%, #96801C);
+            background-color: #8A7101;
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+        .box1{
+            width: 300px;
+            height: 300px;
+            border:1px solid #000;
+        }
+        .btn--blue{
+            width: 627px;
+            height: 124px;
+            position: relative;
+            display: inline-block;
+            background-color: #004668;
+            border-radius: 19px;
+            box-shadow: 0 -7px 0 0 #003752,inset 0 3px 0 0 #3D728C;
+        }
+        .btn--brown{
+            width: 375px;
+            height: 126px;
+            margin: 0 auto;
+            position: relative;
+            display: block;
+            background-color: #FCBA0B;
+            border-radius: 19px;
+            box-shadow:0 -7px 0 0 #A67900, 0 0 0 5px #643F00, 0 -7px 0 5px #643F00, inset 0 3px 0 0 #FEE9B1;
+        }
+        .btn--on{
+            width: 313px;
+            height: 121px;
+            position: relative;
+            display: inline-block;
+            background-color: #004668;
+            border-radius: 19px;
+            box-shadow: 0 -7px 0 0 #003752, 0 0 0 5px #fff, 0 -7px 0 5px #fff,inset 0 3px 0 0 #3D728C;
+        }
+        .btn--off{
+            width: 313px;
+            height: 121px;
+            text-decoration: none;
+            font-size: 46px;
+            color:#fff;
+            text-align: center;
+            line-height: 121px;
+            position: relative;
+            display: inline-block;
+            background-color: #004668;
+            border-radius: 19px;
+            box-shadow: 0 -7px 0 0 #002A3E,inset 0 3px 0 0 #3D728C;
+        }
+        .btn--off:before{
+            content:"";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.2);
+            border-radius: 19px;
+        }
+        .title-gameinfo{
+            margin: 50px;
+            display: block;
+            filter: drop-shadow(0 0 18px #000);
+        }
+        .week-1st{
+            margin: 50px;
+            display: block;
+            filter: drop-shadow(3px 3px 2px rgba(51,0,2,.8));
+        }
+    </style>
+</head>
+<body>
+    <h3 class="title-gameinfo"><img src="images/title-gameinfo.png" alt=""></h3>
+    <div class="week-1st"><img src="images/week-1st.png" alt=""></div>
+    <div class="box1 bg--black"></div>
+    <div class="box1 bg--blue"></div>
+    <div class="box1 bg--yellow"></div>
+    <h3 class="btn--brown">Menu</h3>
+    <a href="javascript:;" class="btn--blue"></a>
+    <a href="javascript:;" class="btn--on"></a>
+    <a href="javascript:;" class="btn--off">前100名</a>
+</body>
+</html>

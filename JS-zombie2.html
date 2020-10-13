@@ -38,6 +38,7 @@
             margin: 0 auto;
             cursor: pointer;
             font-size: 16px;
+            user-select: none;
         }
         .score{
             position: fixed;
@@ -92,10 +93,14 @@
             <div id="gamestart" class="gametime-btn">開始</div>
             <div id="gamestop" class="gametime-btn">暫停</div>
         </div>
+
+        <audio id="music-bg" src="audio/music.mp3"></audio>
     </div>
     <script>
         var canvas=document.getElementById("canvas");
         var ctx=canvas.getContext("2d");
+        var musicBg=document.getElementById("music-bg");
+
         canvas.width=750;
         canvas.height=2000;
 
@@ -117,20 +122,11 @@
         var gameTime=10;
         var jump=0;
         var jumpStatus=false;
+        var jumpControl=false;
         var jumpCount=0;
-        function gameStart(){
-            timer=setInterval(function(){
-                gameTime--;
-                if(gameTime == 0){
-                    clearInterval(timer)
-                    document.getElementById("time").innerHTML=gameTime
-                }
-                document.getElementById("time").innerHTML=gameTime
-            },500)
-        }
-        function gameStop(){
-            clearInterval(timer)
-        }
+        var sound;
+        var soundLink="audio/du.mp3";
+
         initZombie();
         drawZombie()
 
@@ -151,6 +147,54 @@
             gameStop()
         })
         
+        function playSound(){
+            if(sound){
+                sound.pause();
+                sound.currentTime = 0;
+                sound=null;
+                sound=new Audio(soundLink);
+                sound.play();
+            }else{
+                sound=new Audio(soundLink);
+                sound.play();
+            }
+        }
+        function stopSound(){
+            sound.pause();
+            sound.currentTime = 0;
+            sound=null;
+        }
+
+        function playMusicBg(){
+            musicBg.play();
+            musicBg.loop=true;
+        }
+        function pauseMusicBg(){
+            musicBg.pause();
+        }
+        function stopMusicBg(){
+            musicBg.pause();
+            musicBg.currentTime = 0;
+        }
+        function gameStart(){
+            timer=setInterval(function(){
+                gameTime--;
+                if(gameTime == 0){
+                    clearInterval(timer)
+                    document.getElementById("time").innerHTML=gameTime
+                }
+                document.getElementById("time").innerHTML=gameTime
+            },500)
+        }
+        function gameStop(){
+            clearInterval(timer)
+            pauseMusicBg()
+        }
+        function gamePause(){
+            clearInterval(timer)
+            stopMusicBg()
+        }
+
         function scaleImage(img){
             var scale=Math.min(canvasW/img.width,canvasH/img.height);
             var x=(canvasW/2)-(img.width/2)*scale;
@@ -180,10 +224,14 @@
             }
         }
         function drawZombie2(){
+            if(jumpControl){
+                jumpCount=0;
+                jumpControl=false;
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for(var i=0;i<zombieArr[0].length;i++){
                 if(zombieArr[0][i]){
-                    drawItem(i+" "+j,zombieArr[i][j].x,zombieArr[i][j].y)
+                    drawItem("0 "+i,zombieArr[0][i].x,zombieArr[0][i].y-jump)
                 }
             }
             for(var i=1;i<zombieArr.length;i++){
@@ -208,13 +256,15 @@
             }
             if(jumpCount != 1){
                 requestAnimationFrame(drawZombie2);
+            }else{
+                jumpControl=true;
             }
             
         }
         function initZombie(){
             for(var i=0;i<initCount;i++){
-                if(i >=initCount){
-                    zombieArr.reverse()
+                if(i >=(initCount-1)){
+                    playMusicBg()
                 }
                 addZombie(i)
             }
@@ -254,7 +304,8 @@
         function delZombie(){
             score++;
             zombieArr=zombieArr.slice(1)
-            document.getElementById("score").innerHTML=score
+            document.getElementById("score").innerHTML=score;
+            playSound()
         }
     </script>
 </body>
