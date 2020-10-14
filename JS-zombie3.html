@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .game-box{
+            width: 750px;
+            position: relative;
+            font-size: 0;
+        }
+        #canvas{
+            background-color: #eee;
+        }
+        .btn-group{
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+        }
+        .btn-box{
+            width: 100%;
+        }
+        .btn{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: blue;
+            text-align: center;
+            line-height: 60px;
+            color:#fff;
+            margin: 0 auto;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+        .score{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            border:3px solid #000;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #fff;
+            font-size: 16px;
+            line-height: 60px;
+        }
+        .time{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            border:3px solid red;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #fff;
+            font-size: 16px;
+            line-height: 60px;
+        }
+        .gametime-btn-box{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            font-size: 16px;
+            display: flex;
+        }
+        .gametime-btn{
+            padding: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <canvas id="canvas"></canvas>
+        <div class="btn-group">
+            <div class="btn-box"><div id="btn1" class="btn">左</div></div>
+            <div class="btn-box"><div id="btn2" class="btn">中</div></div>
+            <div class="btn-box"><div id="btn3" class="btn">右</div></div>
+        </div>
+        <div id="score" class="score">0</div>
+        <div id="time" class="time">30</div>
+        <div class="gametime-btn-box">
+            <div id="gamestart" class="gametime-btn">開始</div>
+            <div id="gamestop" class="gametime-btn">暫停</div>
+        </div>
+
+        <audio id="music-bg" src="audio/music.mp3"></audio>
+    </div>
+    <script>
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        var musicBg=document.getElementById("music-bg");
+
+        canvas.width=750;
+        canvas.height=2000;
+
+        var zombieArr=[];
+        var winW=window.innerWidth;
+        var winH=window.innerHeight;
+        var canvasW=canvas.width;
+        var canvasH=canvas.height;
+        var initCount=100;
+        var itemW=200;
+        var itemH=200;
+        var itemCol=3;
+        var colWidth=canvasW/itemCol;
+        var itemPadding=(colWidth-itemW)/2;
+        var itemOffsetLeft=colWidth;
+        var itemOffsetTop=itemH;
+        var score=0;
+        var timer=null;
+        var gameTime=10;
+        var jump=0;
+        var jumpStatus=false;
+        var jumpControl=false;
+        var jumpCount=0;
+        var sound;
+        var soundLink="audio/du.mp3";
+        var head=["images/blue.png","images/green.png","images/red.png","images/pink.png"];
+        
+        // var img=new Image();
+        // img.onload=function(){
+        //     ctx.drawImage(img,120,120);
+        // }
+        // img.src="images/blue.png";
+        initZombie();
+        // drawZombie()
+        updateLoop()
+
+        document.getElementById("btn1").addEventListener("click",function(){
+            updaeZombie(0)
+        })
+        document.getElementById("btn2").addEventListener("click",function(){
+            updaeZombie(1)
+        })
+        document.getElementById("btn3").addEventListener("click",function(){
+            updaeZombie(2)
+        })
+
+        document.getElementById("gamestart").addEventListener("click",function(){
+            gameStart()
+        })
+        document.getElementById("gamestop").addEventListener("click",function(){
+            gameStop()
+        })
+        
+        function playSound(){
+            if(sound){
+                sound.pause();
+                sound.currentTime = 0;
+                sound=null;
+                sound=new Audio(soundLink);
+                sound.play();
+            }else{
+                sound=new Audio(soundLink);
+                sound.play();
+            }
+        }
+        function stopSound(){
+            sound.pause();
+            sound.currentTime = 0;
+            sound=null;
+        }
+
+        function playMusicBg(){
+            musicBg.play();
+            musicBg.loop=true;
+        }
+        function pauseMusicBg(){
+            musicBg.pause();
+        }
+        function stopMusicBg(){
+            musicBg.pause();
+            musicBg.currentTime = 0;
+        }
+        function gameStart(){
+            timer=setInterval(function(){
+                gameTime--;
+                if(gameTime == 0){
+                    clearInterval(timer)
+                    document.getElementById("time").innerHTML=gameTime
+                }
+                document.getElementById("time").innerHTML=gameTime
+            },500)
+        }
+        function gameStop(){
+            clearInterval(timer)
+            pauseMusicBg()
+        }
+        function gamePause(){
+            clearInterval(timer)
+            stopMusicBg()
+        }
+
+        function scaleImage(img){
+            var scale=Math.min(canvasW/img.width,canvasH/img.height);
+            var x=(canvasW/2)-(img.width/2)*scale;
+            var y=(canvasH/2)-(img.height/2)*scale;
+            ctx.drawImage(img,x,y,img.width*scale,img.height*scale)
+        }
+        
+
+        function drawItem(text,x,y){
+            var img=new Image();
+            img.src="images/blue.png";
+            ctx.drawImage(img,x,y);
+        }
+
+        function updateLoop(){
+            setInterval(drawZombie, 20);
+        }
+
+        function drawZombie(move){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(var i=0;i<zombieArr.length;i++){
+                for(var j=0;j<zombieArr[i].length;j++){
+                    if(zombieArr[i][j]){
+                        drawItem(i+" "+j,zombieArr[i][j].x,zombieArr[i][j].y)
+                    }
+                }
+            }
+        }
+        function drawZombie2(){
+            if(jumpControl){
+                jumpCount=0;
+                jumpControl=false;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(var i=0;i<zombieArr[0].length;i++){
+                if(zombieArr[0][i]){
+                    drawItem("0 "+i,zombieArr[0][i].x,zombieArr[0][i].y-jump)
+                }
+            }
+            for(var i=1;i<zombieArr.length;i++){
+                for(var j=0;j<zombieArr[i].length;j++){
+                    if(zombieArr[i][j]){
+                        drawItem(i+" "+j,zombieArr[i][j].x,zombieArr[i][j].y)
+                    }
+                }
+            }
+            if(jump > 25 || jumpStatus){
+                jump-=3;
+                if(jump < 0){
+                    jumpStatus=false
+                    jumpCount=1;
+                    jump=0
+                }
+            }else{
+                jump+=3;
+                if(jump > 25){
+                    jumpStatus=true
+                }
+            }
+            if(jumpCount != 1){
+                requestAnimationFrame(drawZombie2);
+            }else{
+                jumpControl=true;
+            }
+            
+        }
+        function initZombie(){
+            for(var i=0;i<initCount;i++){
+                if(i >=(initCount-1)){
+                    playMusicBg()
+                }
+                addZombie(i)
+            }
+        }
+        function addZombie(z){
+            var zombie=Array.from(Array(3),x=>false);
+            var r=Math.floor(Math.random()*3);
+            var itemX=(r*itemOffsetLeft)+itemPadding;
+            var itemY=canvasH-(itemOffsetTop*z)-itemH-60;
+            zombie[r]={
+                x:itemX,
+                y:itemY,
+                head:head[Math.floor(Math.random()*head.length)]
+            };
+            zombieArr.push(zombie)
+        }
+        
+        function updaeZombie(t){
+            if(zombieArr[0][t]){
+                delZombie()
+                if(zombieArr.length < 10){
+                    addZombie(zombieArr.length)
+                }
+                for(var i=0;i<zombieArr.length;i++){
+                    for(var j=0;j<zombieArr[i].length;j++){
+                        if(zombieArr[i][j]){
+                            zombieArr[i][j].y+=itemH
+                        }
+                    }
+                }
+                drawZombie()
+            }else{
+                drawZombie2()
+            }
+        }
+
+        function delZombie(){
+            score++;
+            zombieArr=zombieArr.slice(1)
+            document.getElementById("score").innerHTML=score;
+            playSound()
+        }
+    </script>
+</body>
+</html>

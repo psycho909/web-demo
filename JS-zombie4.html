@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .game-box{
+            width: 750px;
+            position: relative;
+            font-size: 0;
+        }
+        #canvas{
+            background-color: #eee;
+        }
+        .btn-group{
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+        }
+        .btn-box{
+            width: 100%;
+        }
+        .btn{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: blue;
+            text-align: center;
+            line-height: 60px;
+            color:#fff;
+            margin: 0 auto;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+        .score{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            border:3px solid #000;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #fff;
+            font-size: 16px;
+            line-height: 60px;
+        }
+        .time{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            border:3px solid red;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #fff;
+            font-size: 16px;
+            line-height: 60px;
+        }
+        .gametime-btn-box{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            font-size: 16px;
+            display: flex;
+        }
+        .gametime-btn{
+            padding: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <canvas id="canvas"></canvas>
+        <div class="btn-group">
+            <div class="btn-box"><div id="btn1" class="btn">左</div></div>
+            <div class="btn-box"><div id="btn2" class="btn">中</div></div>
+            <div class="btn-box"><div id="btn3" class="btn">右</div></div>
+        </div>
+        <div id="score" class="score">0</div>
+        <div id="time" class="time">30</div>
+        <div class="gametime-btn-box">
+            <div id="gamestart" class="gametime-btn">開始</div>
+            <div id="gamestop" class="gametime-btn">暫停</div>
+        </div>
+
+        <audio id="music-bg" src="audio/music.mp3"></audio>
+    </div>
+    <script>
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        var musicBg=document.getElementById("music-bg");
+
+        canvas.width=750;
+        canvas.height=2000;
+
+        var krArr=[];
+        var canvasW=canvas.width;
+        var canvasH=canvas.height;
+        var initCount=20;
+        var itemW=215;
+        var itemH=149;
+        var itemCol=3;
+        var colWidth=canvasW/itemCol;
+        var itemPadding=(colWidth-itemW)/2;
+        var itemOffsetLeft=colWidth;
+        var itemOffsetTop=itemH;
+        var score=0;
+        var timer=null;
+        var gameTime=10;
+        var sound;
+        var soundLink="audio/du.mp3";
+        var imgs=["images/blue.png","images/green.png","images/red.png","images/pink.png"];
+        
+        var myGameArea={
+            start:function(){
+                this.interval = setInterval(updateGameArea, 20);
+            },
+            clear:function(){
+                ctx.clearRect(0,0,canvas.width,canvas.height)
+            }
+        }
+
+        initKR();
+        startGame();
+
+        document.getElementById("btn1").addEventListener("click",function(){
+            updaeKR(0)
+        })
+        document.getElementById("btn2").addEventListener("click",function(){
+            updaeKR(1)
+        })
+        document.getElementById("btn3").addEventListener("click",function(){
+            updaeKR(2)
+        })
+
+        document.getElementById("gamestart").addEventListener("click",function(){
+            gameStart()
+        })
+        document.getElementById("gamestop").addEventListener("click",function(){
+            gameStop()
+        })
+        
+        function playSound(){
+            if(sound){
+                sound.pause();
+                sound.currentTime = 0;
+                sound=null;
+                sound=new Audio(soundLink);
+                sound.play();
+            }else{
+                sound=new Audio(soundLink);
+                sound.play();
+            }
+        }
+        function stopSound(){
+            sound.pause();
+            sound.currentTime = 0;
+            sound=null;
+        }
+        function playMusicBg(){
+            musicBg.play();
+            musicBg.loop=true;
+        }
+        function pauseMusicBg(){
+            musicBg.pause();
+        }
+        function stopMusicBg(){
+            musicBg.pause();
+            musicBg.currentTime = 0;
+        }
+        function gameStart(){
+            timer=setInterval(function(){
+                gameTime--;
+                if(gameTime == 0){
+                    clearInterval(timer)
+                    document.getElementById("time").innerHTML=gameTime
+                }
+                document.getElementById("time").innerHTML=gameTime
+            },500)
+        }
+        function gameStop(){
+            clearInterval(timer)
+            pauseMusicBg()
+        }
+        function gamePause(){
+            clearInterval(timer)
+            stopMusicBg()
+        }
+
+        function component(width, height, img, x, y) {
+            this.image = new Image();
+            this.image.src = img;
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.jumpStatus=false;
+            this.jumpCount=0;
+            this.jumpControl=false;
+            this.x = x;
+            this.y = y;    
+            this.update = function() {
+                ctx.drawImage(this.image, 
+                        this.x, 
+                        this.y,
+                        this.width, this.height);
+            };
+            this.jumpMove=function(){
+                if(this.jumpCount){
+                    this.jumpCount=0;
+                    this.jumpControl=false;
+                }
+                
+                if(this.jumpCount != 1){
+                    if(this.speedY > 25 || this.jumpStatus){
+                        this.speedY-=3;
+                        if(this.speedY < 0){
+                            this.jumpStatus=false;
+                        }
+                    }else{
+                        this.speedY+=3;
+                        if(this.speedY > 25){
+                            this.jumpStatus=true
+                        }
+                    }
+                }else{
+                    this.jumpControl=true;
+                }
+            }
+            this.newPos = function() {
+                
+                this.x += this.speedX;
+                this.y += this.speedY;        
+            }
+        }
+        function initKR(){
+            for(var i=0;i<initCount;i++){
+                if(i >=(initCount-1)){
+                    playMusicBg()
+                }
+                addKR(i)
+            }
+        }
+        function addKR(z){
+            var kr=Array.from(Array(3),x=>false);
+            var r=Math.floor(Math.random()*3);
+            var itemX=(r*itemOffsetLeft)+itemPadding;
+            var itemY=canvasH-(itemOffsetTop*z)-itemH-60;
+            kr[r]={
+                x:itemX,
+                y:itemY,
+                img:imgs[Math.floor(Math.random()*imgs.length)],
+                head:new component(itemW, itemH, "images/blue.png", itemX, itemY)
+            };
+            krArr.push(kr)
+        }
+        
+        function updateGameArea(){
+            myGameArea.clear();
+            for(var i=0;i<krArr.length;i++){
+                for(var j=0;j<krArr[i].length;j++){
+                    if(krArr[i][j]){
+                        krArr[i][j].head.newPos();
+                        krArr[i][j].head.update();
+                    }
+                }
+            }
+        }
+
+        function startGame(){
+            myGameArea.start();
+        }
+
+
+        function updaeKR(t){
+            if(krArr[0][t]){
+                delKR()
+                if(krArr.length < (initCount)){
+                    addKR(krArr.length+1)
+                }
+                for(var i=0;i<krArr.length;i++){
+                    for(var j=0;j<krArr[i].length;j++){
+                        if(krArr[i][j]){
+                            krArr[i][j].head.y+=itemH
+                        }
+                    }
+                }
+            }else{
+                for(var i=0;i<krArr[0].length;i++){
+                    if(krArr[0][i]){
+                        krArr[0][i].head.speedY=-1
+                    }
+                }
+                
+            }
+        }
+
+        function delKR(){
+            score++;
+            krArr=krArr.slice(1)
+            document.getElementById("score").innerHTML=score;
+            playSound()
+        }
+    </script>
+</body>
+</html>
