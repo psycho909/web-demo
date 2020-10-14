@@ -104,14 +104,12 @@
         canvas.width=750;
         canvas.height=2000;
 
-        var zombieArr=[];
-        var winW=window.innerWidth;
-        var winH=window.innerHeight;
+        var krArr=[];
         var canvasW=canvas.width;
         var canvasH=canvas.height;
-        var initCount=1000;
-        var itemW=200;
-        var itemH=200;
+        var initCount=20;
+        var itemW=215;
+        var itemH=149;
         var itemCol=3;
         var colWidth=canvasW/itemCol;
         var itemPadding=(colWidth-itemW)/2;
@@ -120,24 +118,30 @@
         var score=0;
         var timer=null;
         var gameTime=10;
-        var jump=0;
-        var jumpStatus=false;
-        var jumpControl=false;
-        var jumpCount=0;
         var sound;
         var soundLink="audio/du.mp3";
+        var imgs=["images/blue.png","images/green.png","images/red.png","images/pink.png"];
+        
+        var myGameArea={
+            start:function(){
+                this.interval = setInterval(updateGameArea, 20);
+            },
+            clear:function(){
+                ctx.clearRect(0,0,canvas.width,canvas.height)
+            }
+        }
 
-        initZombie();
-        drawZombie()
+        initKR();
+        startGame();
 
         document.getElementById("btn1").addEventListener("click",function(){
-            updaeZombie(0)
+            updaeKR(0)
         })
         document.getElementById("btn2").addEventListener("click",function(){
-            updaeZombie(1)
+            updaeKR(1)
         })
         document.getElementById("btn3").addEventListener("click",function(){
-            updaeZombie(2)
+            updaeKR(2)
         })
 
         document.getElementById("gamestart").addEventListener("click",function(){
@@ -164,7 +168,6 @@
             sound.currentTime = 0;
             sound=null;
         }
-
         function playMusicBg(){
             musicBg.play();
             musicBg.loop=true;
@@ -195,115 +198,117 @@
             stopMusicBg()
         }
 
-        function scaleImage(img){
-            var scale=Math.min(canvasW/img.width,canvasH/img.height);
-            var x=(canvasW/2)-(img.width/2)*scale;
-            var y=(canvasH/2)-(img.height/2)*scale;
-            ctx.drawImage(img,x,y,img.width*scale,img.height*scale)
-        }
-        function drawItem(text,x,y){
-            ctx.beginPath();
-            ctx.lineWidth=4;
-            ctx.strokeStyle="#000";
-            ctx.fillStyle="#09D";
-            ctx.font="20px Arial";
-            ctx.textAlign="center";
-            ctx.textBaseline="middle";
-            ctx.strokeRect(x,y,itemW,itemH);
-            ctx.fillText(text,x,y);
-            ctx.closePath()
-        }
-        function drawZombie(move){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for(var i=0;i<zombieArr.length;i++){
-                for(var j=0;j<zombieArr[i].length;j++){
-                    if(zombieArr[i][j]){
-                        drawItem(i+" "+j,zombieArr[i][j].x,zombieArr[i][j].y)
+        function component(width, height, img, x, y) {
+            this.image = new Image();
+            this.image.src = img;
+            this.width = width;
+            this.height = height;
+            this.speedX = 0;
+            this.speedY = 0;
+            this.jumpStatus=false;
+            this.jumpCount=0;
+            this.jumpControl=false;
+            this.x = x;
+            this.y = y;    
+            this.update = function() {
+                ctx.drawImage(this.image, 
+                        this.x, 
+                        this.y,
+                        this.width, this.height);
+            };
+            this.jumpMove=function(){
+                if(this.jumpCount){
+                    this.jumpCount=0;
+                    this.jumpControl=false;
+                }
+                
+                if(this.jumpCount != 1){
+                    if(this.speedY > 25 || this.jumpStatus){
+                        this.speedY-=3;
+                        if(this.speedY < 0){
+                            this.jumpStatus=false;
+                        }
+                    }else{
+                        this.speedY+=3;
+                        if(this.speedY > 25){
+                            this.jumpStatus=true
+                        }
                     }
+                }else{
+                    this.jumpControl=true;
                 }
+            }
+            this.newPos = function() {
+                
+                this.x += this.speedX;
+                this.y += this.speedY;        
             }
         }
-        function drawZombie2(){
-            if(jumpControl){
-                jumpCount=0;
-                jumpControl=false;
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for(var i=0;i<zombieArr[0].length;i++){
-                if(zombieArr[0][i]){
-                    drawItem("0 "+i,zombieArr[0][i].x,zombieArr[0][i].y-jump)
-                }
-            }
-            for(var i=1;i<zombieArr.length;i++){
-                for(var j=0;j<zombieArr[i].length;j++){
-                    if(zombieArr[i][j]){
-                        drawItem(i+" "+j,zombieArr[i][j].x,zombieArr[i][j].y)
-                    }
-                }
-            }
-            if(jump > 25 || jumpStatus){
-                jump-=3;
-                if(jump < 0){
-                    jumpStatus=false
-                    jumpCount=1;
-                    jump=0
-                }
-            }else{
-                jump+=3;
-                if(jump > 25){
-                    jumpStatus=true
-                }
-            }
-            if(jumpCount != 1){
-                requestAnimationFrame(drawZombie2);
-            }else{
-                jumpControl=true;
-            }
-            
-        }
-        function initZombie(){
+        function initKR(){
             for(var i=0;i<initCount;i++){
                 if(i >=(initCount-1)){
                     playMusicBg()
                 }
-                addZombie(i)
+                addKR(i)
             }
         }
-        function addZombie(z){
-            var zombie=Array.from(Array(3),x=>false);
+        function addKR(z){
+            var kr=Array.from(Array(3),x=>false);
             var r=Math.floor(Math.random()*3);
             var itemX=(r*itemOffsetLeft)+itemPadding;
             var itemY=canvasH-(itemOffsetTop*z)-itemH-60;
-            zombie[r]={
+            kr[r]={
                 x:itemX,
                 y:itemY,
-                t:r
+                img:imgs[Math.floor(Math.random()*imgs.length)],
+                head:new component(itemW, itemH, "images/blue.png", itemX, itemY)
             };
-            zombieArr.push(zombie)
+            krArr.push(kr)
         }
         
-        function updaeZombie(t){
-            if(zombieArr[0][t]){
-                delZombie()
-                if(zombieArr.length < 10){
-                    addZombie(zombieArr.length)
-                }
-                for(var i=0;i<zombieArr.length;i++){
-                    for(var j=0;j<zombieArr[i].length;j++){
-                        if(zombieArr[i][j]){
-                            zombieArr[i][j].y+=itemH
-                        }
+        function updateGameArea(){
+            myGameArea.clear();
+            for(var i=0;i<krArr.length;i++){
+                for(var j=0;j<krArr[i].length;j++){
+                    if(krArr[i][j]){
+                        krArr[i][j].head.newPos();
+                        krArr[i][j].head.update();
                     }
                 }
-                drawZombie()
-            }else{
-                drawZombie2()
             }
         }
 
-        function delZombie(){
+        function startGame(){
+            myGameArea.start();
+        }
+
+
+        function updaeKR(t){
+            if(krArr[0][t]){
+                delKR()
+                if(krArr.length < (initCount)){
+                    addKR(krArr.length+1)
+                }
+                for(var i=0;i<krArr.length;i++){
+                    for(var j=0;j<krArr[i].length;j++){
+                        if(krArr[i][j]){
+                            krArr[i][j].head.y+=itemH
+                        }
+                    }
+                }
+            }else{
+                for(var i=0;i<krArr[0].length;i++){
+                    if(krArr[0][i]){
+                        krArr[0][i].head.speedY=-1
+                    }
+                }
+                
+            }
+        }
+
+        function delKR(){
             score++;
-            zombieArr=zombieArr.slice(1)
+            krArr=krArr.slice(1)
             document.getElementById("score").innerHTML=score;
             playSound()
         }

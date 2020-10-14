@@ -109,7 +109,7 @@
         var winH=window.innerHeight;
         var canvasW=canvas.width;
         var canvasH=canvas.height;
-        var initCount=1000;
+        var initCount=100;
         var itemW=200;
         var itemH=200;
         var itemCol=3;
@@ -126,9 +126,16 @@
         var jumpCount=0;
         var sound;
         var soundLink="audio/du.mp3";
-
+        var head=["images/blue.png","images/green.png","images/red.png","images/pink.png"];
+        
+        // var img=new Image();
+        // img.onload=function(){
+        //     ctx.drawImage(img,120,120);
+        // }
+        // img.src="images/blue.png";
         initZombie();
-        drawZombie()
+        // drawZombie()
+        updateLoop()
 
         document.getElementById("btn1").addEventListener("click",function(){
             updaeZombie(0)
@@ -201,18 +208,18 @@
             var y=(canvasH/2)-(img.height/2)*scale;
             ctx.drawImage(img,x,y,img.width*scale,img.height*scale)
         }
+        
+
         function drawItem(text,x,y){
-            ctx.beginPath();
-            ctx.lineWidth=4;
-            ctx.strokeStyle="#000";
-            ctx.fillStyle="#09D";
-            ctx.font="20px Arial";
-            ctx.textAlign="center";
-            ctx.textBaseline="middle";
-            ctx.strokeRect(x,y,itemW,itemH);
-            ctx.fillText(text,x,y);
-            ctx.closePath()
+            var img=new Image();
+            img.src="images/blue.png";
+            ctx.drawImage(img,x,y);
         }
+
+        function updateLoop(){
+            setInterval(drawZombie, 20);
+        }
+
         function drawZombie(move){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for(var i=0;i<zombieArr.length;i++){
@@ -277,7 +284,7 @@
             zombie[r]={
                 x:itemX,
                 y:itemY,
-                t:r
+                head:head[Math.floor(Math.random()*head.length)]
             };
             zombieArr.push(zombie)
         }
