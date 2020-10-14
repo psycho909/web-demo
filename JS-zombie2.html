@@ -231,6 +231,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for(var i=0;i<zombieArr[0].length;i++){
                 if(zombieArr[0][i]){
+                    console.log(zombieArr[0][i].y-jump,jump)
                     drawItem("0 "+i,zombieArr[0][i].x,zombieArr[0][i].y-jump)
                 }
             }
