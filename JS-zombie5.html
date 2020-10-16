@@ -1,316 +1,313 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js" integrity="sha512-J7UHpLx39bpqtP+aWP6yIuXroFk0XPkDQaS9zDthM4TVeaXstWYh556gxsXwwIwpAPSoKqVHW+eqz3B93SpyKg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"
+        integrity="sha512-J7UHpLx39bpqtP+aWP6yIuXroFk0XPkDQaS9zDthM4TVeaXstWYh556gxsXwwIwpAPSoKqVHW+eqz3B93SpyKg=="
+        crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
         }
-        .game-box{
+
+        .game-box {
             width: 750px;
             position: relative;
             font-size: 0;
         }
-        #canvas{
+
+        #canvas {
             background-color: #eee;
         }
-        .btn-group{
+
+        .btn-group {
             width: 100%;
             position: absolute;
             bottom: 0;
             left: 0;
             display: flex;
+            z-index: 999;
         }
-        .btn-box{
+
+        .btn-box {
             width: 100%;
         }
-        .btn{
+
+        .btn {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             background-color: blue;
             text-align: center;
             line-height: 60px;
-            color:#fff;
+            color: #fff;
             margin: 0 auto;
             cursor: pointer;
             font-size: 16px;
             user-select: none;
         }
-        .score{
+
+        .score {
             position: fixed;
             top: 0;
             left: 0;
             width: 60px;
             height: 60px;
-            border:3px solid #000;
+            border: 3px solid #000;
             border-radius: 50%;
             text-align: center;
             background-color: #fff;
             font-size: 16px;
             line-height: 60px;
         }
-        .time{
+
+        .time {
             position: fixed;
             top: 0;
             right: 0;
             width: 60px;
             height: 60px;
-            border:3px solid red;
+            border: 3px solid red;
             border-radius: 50%;
             text-align: center;
             background-color: #fff;
             font-size: 16px;
             line-height: 60px;
         }
-        .gametime-btn-box{
+
+        .gametime-btn-box {
             position: fixed;
             bottom: 0;
             right: 0;
             font-size: 16px;
             display: flex;
         }
-        .gametime-btn{
+
+        .gametime-btn {
             padding: 1rem;
             cursor: pointer;
         }
+
+        .bg {
+            width: 100%;
+            height: 100vh;
+            background-image: url("images/game-bg.jpg");
+        }
     </style>
 </head>
-<body>
-    <div class="game-box">
-        <canvas id="canvas"></canvas>
-        <div class="btn-group">
-            <div class="btn-box"><div id="btn1" class="btn">左</div></div>
-            <div class="btn-box"><div id="btn2" class="btn">中</div></div>
-            <div class="btn-box"><div id="btn3" class="btn">右</div></div>
-        </div>
-        <div id="score" class="score">0</div>
-        <div id="time" class="time">30</div>
-        <div class="gametime-btn-box">
-            <div id="gamestart" class="gametime-btn">開始</div>
-            <div id="gamestop" class="gametime-btn">暫停</div>
-        </div>
 
-        <audio id="music-bg" src="audio/music.mp3"></audio>
+<body>
+    <!-- <div class="bg"></div> -->
+    <div class="btn-group">
+        <div class="btn-box"><div id="btn1" class="btn">左</div></div>
+        <div class="btn-box"><div id="btn2" class="btn">中</div></div>
+        <div class="btn-box"><div id="btn3" class="btn">右</div></div>
     </div>
     <script>
-        var canvas=document.getElementById("canvas");
-        var ctx=canvas.getContext("2d");
-        var musicBg=document.getElementById("music-bg");
+        var canvas = {};
+        var scale = (window.innerWidth / 768)
+        var scalePadding = scale * 38 * 2;
+        var scalePadding2 = scale * 38;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.itemWidth = 669*scale;
+        canvas.itemHeight = window.innerHeight;
 
-        canvas.width=750;
-        canvas.height=2000;
-
-        var krArr=[];
-        var canvasW=canvas.width;
-        var canvasH=canvas.height;
-        var initCount=20;
-        var itemW=215;
-        var itemH=149;
-        var itemCol=3;
-        var colWidth=canvasW/itemCol;
-        var itemPadding=(colWidth-itemW)/2;
-        var itemOffsetLeft=colWidth;
-        var itemOffsetTop=itemH;
-        var score=0;
-        var timer=null;
-        var gameTime=10;
+        var krArr = [];
+        var canvasW = canvas.itemWidth;
+        var canvasH = canvas.height;
+        var initCount = 10;
+        var itemW = 215 * scale;
+        var itemH = 149 * scale;
+        var itemCol = 3;
+        var colWidth = canvasW / itemCol;
+        var itemPadding = (colWidth - itemW) / 2;
+        var itemOffsetLeft = colWidth;
+        var itemOffsetTop = itemH;
+        var score = 0;
+        var timer = null;
+        var gameTime = 10;
         var sound;
-        var soundLink="audio/du.mp3";
-        var imgs=["images/blue.png","images/green.png","images/red.png","images/pink.png"];
-        
-        var myGameArea={
-            start:function(){
-                this.interval = setInterval(updateGameArea, 20);
-            },
-            clear:function(){
-                ctx.clearRect(0,0,canvas.width,canvas.height)
-            }
-        }
-
-        initKR();
-        startGame();
+        var soundLink = "audio/du.mp3";
+        var speedY=0;
+        var jumpStatus=false;
+        var jumpControl=false;
+        var jumpCount=0;
+        var tempY=0;
 
         document.getElementById("btn1").addEventListener("click",function(){
-            updaeKR(0)
+            updateKR(0)
         })
         document.getElementById("btn2").addEventListener("click",function(){
-            updaeKR(1)
+            updateKR(1)
         })
         document.getElementById("btn3").addEventListener("click",function(){
-            updaeKR(2)
+            updateKR(2)
         })
 
-        document.getElementById("gamestart").addEventListener("click",function(){
-            gameStart()
-        })
-        document.getElementById("gamestop").addEventListener("click",function(){
-            gameStop()
-        })
-        
-        function playSound(){
-            if(sound){
-                sound.pause();
-                sound.currentTime = 0;
-                sound=null;
-                sound=new Audio(soundLink);
-                sound.play();
-            }else{
-                sound=new Audio(soundLink);
-                sound.play();
-            }
-        }
-        function stopSound(){
-            sound.pause();
-            sound.currentTime = 0;
-            sound=null;
-        }
-        function playMusicBg(){
-            musicBg.play();
-            musicBg.loop=true;
-        }
-        function pauseMusicBg(){
-            musicBg.pause();
-        }
-        function stopMusicBg(){
-            musicBg.pause();
-            musicBg.currentTime = 0;
-        }
-        function gameStart(){
-            timer=setInterval(function(){
-                gameTime--;
-                if(gameTime == 0){
-                    clearInterval(timer)
-                    document.getElementById("time").innerHTML=gameTime
-                }
-                document.getElementById("time").innerHTML=gameTime
-            },500)
-        }
-        function gameStop(){
-            clearInterval(timer)
-            pauseMusicBg()
-        }
-        function gamePause(){
-            clearInterval(timer)
-            stopMusicBg()
-        }
+        let Application = PIXI.Application;
+        let loader = PIXI.loader;
+        let Sprite = PIXI.Sprite;
+        let resources = PIXI.loader.resources;
+        let Container = PIXI.Container;
 
-        function component(width, height, img, x, y) {
-            this.image = new Image();
-            this.image.src = img;
-            this.width = width;
-            this.height = height;
-            this.speedY = 0;
-            this.jumpStatus=false;
-            this.jumpCount=0;
-            this.jumpControl=false;
-            this.x = x;
-            this.y = y;
-            this.tempY=0;
-            this.update = function() {
-                ctx.drawImage(this.image, 
-                        this.x, 
-                        this.y,
-                        this.width, this.height);
-            };
-            this.jumpMove=function(){
-                this.jumpControl=true;
-                this.tempY=this.y;
-            }
-            this.newPos = function() {
-                if(this.jumpControl){
-                    if(this.speedY > 25 || this.jumpStatus){
-                        this.speedY-=3;
-                        if(this.speedY < 0){
-                            this.jumpStatus=false;
-                            this.jumpCount=1;
-                            this.speedY=0;
-                            this.jumpControl=false;
-                        }
-                    }else{
-                        this.speedY+=3;
-                        if(this.speedY > 25){
-                            // console.log(2)
-                            this.jumpStatus=true
-                        }
-                    }
-                    this.y=this.tempY
-                }
-                this.y = this.y-this.speedY;        
-            }
-        }
-        function initKR(){
-            for(var i=0;i<initCount;i++){
-                if(i >=(initCount-1)){
-                    // playMusicBg()
-                }
-                addKR(i)
-            }
-        }
-        function addKR(z){
-            var kr=Array.from(Array(3),x=>false);
-            var r=Math.floor(Math.random()*3);
-            var itemX=(r*itemOffsetLeft)+itemPadding;
-            var itemY=canvasH-(itemOffsetTop*z)-itemH-60;
-            kr[r]={
-                x:itemX,
-                y:itemY,
-                img:imgs[Math.floor(Math.random()*imgs.length)],
-                head:new component(itemW, itemH, "images/blue.png", itemX, itemY)
-            };
-            krArr.push(kr)
-        }
-        
-        function updateGameArea(){
-            myGameArea.clear();
+        let app = new Application({
+            width: canvas.width,
+            height: canvas.height,
+            transparent: true
+        });
+        document.body.appendChild(app.view);
+
+        loader
+            .add([
+                {name:"bg",url:"images/game-bg.jpg"},
+                {name: "blue",url: "images/blue.png"},
+                {name: "yellow",url: "images/yellow.png"},
+                {name: "red",url: "images/red.png"},
+                {name: "green",url: "images/green.png"},
+                {name: "pink",url: "images/pink.png"}
+            ])
+            .load(setup);
+
+        let head;
+        let heads=[];
+        let state;
+        let gameScene;
+        let gameHead;
+
+        function setup() {
+            initKR();
+            gameScene=new Container();
+            app.stage.addChild(gameScene);
+
+            let bg = new Sprite(
+                resources.bg.texture
+            );
+            gameScene.addChild(bg);
+            gameScene.width=canvas.width;
+            gameScene.height=canvas.height;
+
+            gameHead=new Container();
+            app.stage.addChild(gameHead);
+
+            gameHead.width=canvas.itemWidth;
+            gameHead.height=canvas.itemHeight;
+            gameHead.x=50*scale;
             for(var i=0;i<krArr.length;i++){
                 for(var j=0;j<krArr[i].length;j++){
                     if(krArr[i][j]){
-                        krArr[i][j].head.newPos();
-                        krArr[i][j].head.update();
+                        head = new Sprite(resources.blue.texture);
+                        head.width=itemW;
+                        head.height=itemH;
+                        head.x=krArr[i][j].x;
+                        head.y=krArr[i][j].y;
+
+                        heads.push(head);
+
+                        gameHead.addChild(head);
                     }
                 }
             }
         }
 
-        function startGame(){
-            myGameArea.start();
+        function initKR() {
+            for (var i = 0; i < initCount; i++) {
+                addKR(i)
+            }
         }
 
-
-        function updaeKR(t){
-            if(krArr[0][t]){
-                delKR()
-                if(krArr.length < (initCount)){
-                    addKR(krArr.length+1)
+        function addKR(z,action) {
+            var kr = Array.from(Array(3), x => false);
+            var r = Math.floor(Math.random() * 3);
+            var itemX = (r * itemOffsetLeft) + itemPadding;
+            var itemY = canvasH - (itemOffsetTop * z) - itemH - 60;
+            kr[r] = {
+                x: itemX,
+                y: itemY
+            };
+            krArr.push(kr)
+            if(action){
+                if(score < 10){
+                    head = new Sprite(resources.blue.texture);
                 }
-                for(var i=0;i<krArr.length;i++){
-                    for(var j=0;j<krArr[i].length;j++){
-                        if(krArr[i][j]){
-                            krArr[i][j].head.y+=itemH
-                        }
-                    }
+                if(score >= 10){
+                    head = new Sprite(resources.red.texture);
                 }
-            }else{
-                for(var i=0;i<krArr[0].length;i++){
-                    if(krArr[0][i]){
-                        krArr[0][i].head.jumpMove()
-                    }
+                if(score >= 20){
+                    head = new Sprite(resources.pink.texture);
+                }
+                if(score >= 30){
+                    head = new Sprite(resources.yellow.texture);
+                }
+                if(score >= 40){
+                    head = new Sprite(resources.green.texture);
                 }
                 
+                head.width=itemW;
+                head.height=itemH;
+                head.x=kr[r].x;
+                head.y=kr[r].y;
+
+                heads.push(head);
+
+                gameHead.addChild(head);
             }
         }
 
-        function delKR(){
+        function updateKR(t) {
+            if (krArr[0][t]) {
+                delKR()
+                heads.forEach(function(head){
+                    head.y+=itemH;
+                })
+                if (krArr.length < (initCount)) {
+                    addKR(krArr.length,"add")
+                }
+            } else {
+                if(!jumpControl){
+                    jumpControl=true;
+                    jumpCount=0;
+                    tempY=heads[0].y;
+                    gameLoop();
+                }
+            }
+        }
+
+        function gameLoop() {
+            if(jumpControl){
+                if(speedY > 25 || jumpStatus){
+                    speedY-=3;
+                    if(speedY < 0){
+                        jumpStatus=false;
+                        jumpCount=1;
+                        speedY=0;
+                        jumpControl=false;
+                    }
+                }else{
+                    speedY+=3;
+                    if(speedY > 25){
+                        jumpStatus=true
+                    }
+                }
+                heads[0].y=tempY
+            }
+            heads[0].y -= speedY;
+
+            if(jumpCount != 1){
+                requestAnimationFrame(gameLoop);
+            }
+        }
+        function delKR() {
             score++;
-            krArr=krArr.slice(1)
-            document.getElementById("score").innerHTML=score;
-            playSound()
+            krArr = krArr.slice(1)
+            gameHead.removeChild(heads[0]);
+            heads=heads.slice(1)
         }
     </script>
 </body>
+
 </html>
