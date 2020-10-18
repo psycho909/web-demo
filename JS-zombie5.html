@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"
         integrity="sha512-J7UHpLx39bpqtP+aWP6yIuXroFk0XPkDQaS9zDthM4TVeaXstWYh556gxsXwwIwpAPSoKqVHW+eqz3B93SpyKg=="
         crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js" integrity="sha512-ALoawPS0JxHQ+8dGL7htZIlVNRaE/SN9gHD4G8pJJTi9H4BQ/3PjdvhggSGR34g00mvTPFkxQuveQUsJA5664Q==" crossorigin="anonymous"></script>
     <title>Document</title>
     <style>
         * {
@@ -26,6 +28,7 @@
 
         .btn-group {
             width: 100%;
+            height: 60px;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -116,7 +119,6 @@
         canvas.height = window.innerHeight;
         canvas.itemWidth = 669*scale;
         canvas.itemHeight = window.innerHeight;
-
         var krArr = [];
         var canvasW = canvas.itemWidth;
         var canvasH = canvas.height;
@@ -149,6 +151,20 @@
             updateKR(2)
         })
 
+        var bgMusic = new Howl({
+            src: ['audio/music.mp3'],
+            loop:true,
+            volume:0.2
+        });
+        bgMusic.once('load', function(){
+            bgMusic.play();
+        });
+        var attack = new Howl({
+            src: ['audio/attack.mp3']
+        });
+        // bgMusic.once('load', function(){
+        //     bgMusic.play();
+        // });
         let Application = PIXI.Application;
         let loader = PIXI.loader;
         let Sprite = PIXI.Sprite;
@@ -306,6 +322,7 @@
             krArr = krArr.slice(1)
             gameHead.removeChild(heads[0]);
             heads=heads.slice(1)
+            attack.play()
         }
     </script>
 </body>
