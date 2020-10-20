@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.8/pixi.min.js" integrity="sha512-sSAdD5F4KTNhbn+dNCMjsF5SUcDgjrJnYUnrM3rSngcABsDQ0iO3bdeDjguwsNyVtkMGamiDEb6v6xgVMLqy3A==" crossorigin="anonymous"></script>
+    <script>
+        let Application = PIXI.Application,
+            Text = PIXI.Text,
+            TextStyle = PIXI.TextStyle;
+
+        //Create a Pixi Application
+        let app = new Application({ 
+                width: 256, 
+                height: 256,                       
+                antialiasing: true, 
+                transparent: false, 
+                resolution: 1,
+                backgroundColor: 0x6699ff
+            }
+        );
+        let loader = PIXI.loader;
+        var time=30;
+        var timer;
+        var message;
+        document.body.appendChild(app.view)
+        loader.load(setup);
+        function setup(){
+            let style = new TextStyle({
+                fontFamily: "Arial",
+                fontSize: 36,
+                fill: "white"
+            });
+            message = new Text(time, style);
+            // countDown()
+            message.position.set(54, 128);
+            app.stage.addChild(message);
+        }
+
+        function countDown(){
+            timer=setInterval(() => {
+                time--;
+                if(time <= 0){
+                    message.text=0;
+                    return;
+                }
+                message.text=time;
+            }, 1000);
+        }
+        function stopCountDown(){
+            clearInterval(timer)
+        }
+    </script>
+</body>
+</html>
