@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            width: 100%;
+            background: #111;
+            padding: 100px 0px;
+            text-align: center;
+        }
+        .header h1{
+            color:#eee;
+            font-family: "Arial";
+        }
+        .header h1 span{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Webiste Header</h1>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        var header=document.querySelector(".header h1");
+        header.innerHTML=header.innerText.split("").map(function(char,i){
+            if(char == ""){
+                char="&nbsp;";
+            }
+            return "<span>"+char+"</span>"
+        }).join("");
+
+        anime.timeline({loop:true})
+        .add({
+            targets:".header h1 span",
+            translateY:["50px",0],
+            scale:[5,1],
+            opacity:[0,1],
+            delay:function(el,i){
+                return i*50
+            }
+        })
+    </script>
+</body>
+</html>
