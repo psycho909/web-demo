@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .tip{
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 44px;
+            color:#000;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            background-color: #fff;
+        }
+        #app{
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-image: url('https://tw.hicdn.beanfun.com/beanfun/GamaWWW/Moonlight/main/assets/style/img/bg.jpg');
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <video class="bg-video" loop muted autoplay playsinline>
+            <source src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/Moonlight/main/assets/media/bg.mp4" type="video/mp4">
+            <source src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/Moonlight/main/assets/media/bg.mov" type="video/mp4">
+        </video>
+        <div class="tip"></div>
+    </div>
+    <script>
+        var video=document.querySelector(".bg-video");
+        video.addEventListener("loadeddata",function(e){
+            console.log(1)
+            document.querySelector(".tip").innerHTML="1"
+            if(video.paused){
+                video.play()
+                // do
+                document.querySelector(".tip").innerHTML="暫停播放"
+            }
+        })
+        video.addEventListener("loadstart",function(){
+            if(video.paused){
+                video.play()
+                // do
+                document.querySelector(".tip").innerHTML="暫停播放"
+            }
+        })
+    </script>
+</body>
+</html>

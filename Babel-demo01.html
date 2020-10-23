@@ -16,18 +16,47 @@
     </style>
 </head>
 <body>
-    <div class="box"></div>
+    <div class="box" data-name="box"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-    <script type="text/babel" data-presets="es2015,stage-2">
+    <script src="https://polyfill.io/v3/polyfill.min.js"></script>
+    <script type="text/babel">
     var HTML=`HH`;
     document.querySelector(".box").classList.add("red");
     console.log(HTML)
-    axios("https://randomuser.me/api/")
-    .then((res)=>{
-        console.log(res.data.results[0])
+    // console.log(document.querySelector(".box").dataset.name)
+    var getObj=({name}={name:"Chen"})=>{
+        console.log(name)
+    }
+    getObj({name:"CS"})
+    var s=new Set()
+    s.add(1)
+    console.log(s.size)
+    console.log([...[1,2,3]][0])
+    var m=new Map();
+    m.set("name","Chen")
+    console.log(m.get("name"))
+    // axios("https://randomuser.me/api/")
+    // .then((res)=>{
+    //     console.log(res)
+    // })
+
+    function logWord(word){
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                console.log(word)
+                res(word)
+            },Math.floor(Math.random()*120)+1)
+        })
+    }
+    logWord("A").then((data)=>{
+        console.log(data)
     })
+    // async function logAll(){
+    //     await logWord("A");
+    //     await logWord("B");
+    // }
+    // logAll()
     </script>
 </body>
 </html>
