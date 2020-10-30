@@ -317,7 +317,7 @@
             this.setTopLeft();
             this.setDrag();
         }
-        Comon.prototype.setTopLeft=function(){
+        Common.prototype.setTopLeft=function(){
             var _this=this;
             $(".section-" + this.part + " .video").each(function(i,v){
                 $(v).css({
@@ -446,39 +446,55 @@
         videoRest($(".secGateloop"), 2, true)
         videoRest($(".secGateOut"), 1, false)
 
+        // 要先初始化 並一開始定位於畫面中間
+        var drag = Draggable.create(".section-" + "gate" + " .drag-wrap", {
+                type: "scroll",
+                edgeResistance: 1,
+                throwProps: true
+            })[0]
+        var $win=$(window);
+        var scrTop = -Math.round(($win.height() - videoList["gate"].pc.loop.height) / 2);
+        var scrLeft = Math.abs(Math.round(($win.width() - videoList["gate"].pc.loop.width) / 2));
+        TweenMax.to(drag.scrollProxy, 0.6, { 
+            scrollLeft: (scrLeft<0? 0: scrLeft), 
+            scrollTop: (scrTop<0? 0: scrTop), 
+            ease: Quint.easeOut
+        });
         function end1(part) {
             var $win=$(window);
 
             var scrTop = -Math.round(($win.height() - videoList[part].pc.loop.height) / 2);
-            var scrLeft = -Math.round(($win.width() - videoList[part].pc.loop.width) / 2);
+            // var scrLeft = -Math.round(($win.width() - videoList[part].pc.loop.width) / 2);
+            var scrLeft = Math.abs(Math.round(($win.width() - videoList[part].pc.loop.width) / 2));
             // 改 可以重複使用
             // var drag = Draggable.create(".section-" + "gate" + " .drag-wrap", {
             //     type: "scroll",
             //     edgeResistance: 1,
             //     throwProps: true
             // })[0]
+
             TweenMax.to(drag.scrollProxy, 0.6, { 
                 scrollLeft: (scrLeft<0? 0: scrLeft), 
                 scrollTop: (scrTop<0? 0: scrTop), 
                 ease: Quint.easeOut
             });
-            
-            // videoRest($(".secGateloop"), 1, true).pause()
-            // setTimeout(function () {
-            //     videoRest($(".secGateloop"), 0, false)
-            // }, 1000);
-            // videoRest($(".secGateOut"), 2, true).play(0)
 
-            // TweenMax.to($(".btn-general"), 1.2, {
-            //     autoAlpha: 0,
-            //     scale: 1.3,
-            //     y: 50,
-            //     ease: Quint.easeIn
-            // });
+            videoRest($(".secGateloop"), 1, true).pause()
+            setTimeout(function () {
+                videoRest($(".secGateloop"), 0, false)
+            }, 1000);
+            videoRest($(".secGateOut"), 2, true).play(0)
+
+            TweenMax.to($(".btn-general"), 1.2, {
+                autoAlpha: 0,
+                scale: 1.3,
+                y: 50,
+                ease: Quint.easeIn
+            });
             
         }
 
-        function end2() {
+        function end2(part) {
             var nextName = "livingroom";
             videoRest($(".secBanquetIntro"), 0, false).pause()
             if (nextName === "livingroom") {
@@ -489,7 +505,9 @@
                     videoRest($(".secBanquetLoop2"), 0, false)
                 }, 1000);
                 videoRest($(".secBanquetOut"), 2, true).play(0)
-
+                var scrLeft = Math.abs(Math.round(($win.width() - videoList[part].pc.width) / 2));
+                var scrTop = -Math.round(($win.height() - videoList[part].pc.height) / 2);
+                TweenMax.to(drag.scrollProxy, 0.6, { scrollLeft: scrLeft, scrollTop: (scrTop < 0 ? 0 : scrTop), ease: Quint.easeOut });
                 TweenMax.to($(".btn-next[data-name=livingroom]"), 1.2, {
                     autoAlpha: 0,
                     scale: 0.7,
@@ -509,11 +527,11 @@
                 scrLeft = Math.abs(Math.round(($win.width() - videoList[part].pc.width)));
                 tOrigin = 'right';
             }
-            var drag = Draggable.create(".section-" + part + " .drag-wrap", {
-                type: "scroll",
-                edgeResistance: 1,
-                throwProps: true
-            })[0]
+            // var drag = Draggable.create(".section-" + part + " .drag-wrap", {
+            //     type: "scroll",
+            //     edgeResistance: 1,
+            //     throwProps: true
+            // })[0]
             TweenMax.to(drag.scrollProxy, 0.6, { scrollLeft: scrLeft, scrollTop: (scrTop < 0 ? 0 : scrTop), ease: Quint.easeOut });
             videoRest($(".secLivingroomloop"), 1, true).pause();
             TweenMax.to($(".secLivingroomloop"), 1.3, {
@@ -560,7 +578,7 @@
         })
 
         $(".btn-next[data-name=livingroom]").on("click", function () {
-            end2()
+            end2("banquet")
         })
         $(".btn-next[data-name=passage]").on("click", function () {
             end3("livingroom")
