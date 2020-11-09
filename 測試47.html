@@ -29,5 +29,13 @@
         <div class="box"></div>
         <div class="box"></div>
     </div>
+    <script>
+        function getPathName(){
+            var href=location.href;
+            var last=href.lastIndexOf("/")
+            var pathName=href.substring(0,last)+"/";
+            return pathName;
+        }
+    </script>
 </body>
 </html>
