@@ -197,7 +197,7 @@ var defaultObj={
     hasCloseBtn: true,
     hasActionBtn: false,
     afterOpen:function(){
-        $(".gbox").prepend("<div class='layer-frame'></div>")
+        // $(".gbox").prepend("<div class='layer-frame'></div>")
     },
     afterClose:function(){
         $.gbox.close();
@@ -223,7 +223,61 @@ function rewardListRender(data){
     for(var i=0;i<itemArr.length;i+=2){
         itemArrGroup.push(itemArr.slice(i,i+2))
     }
-    console.log(itemArr)
+    
+
+    for(var i=0;i<itemArrGroup.length;i++){
+        if(itemArrGroup[i][0]>itemArrGroup[i][1]){
+            var length=itemArrGroup[i][0].length-itemArrGroup[i][1].length;
+            for(var j=0;j<length;j++){
+                itemArrGroup[i][1].push({type:"",name:"",num:""})
+            }
+        }else{
+            var length=itemArrGroup[i][1].length-itemArrGroup[i][0].length;
+            for(var j=0;j<length;j++){
+                itemArrGroup[i][0].push({type:"",name:"",num:""})
+            }
+        }
+    }
+    
+    var aa=`
+        <table class="reward-list__table">\
+            <thead class="reward-list__thead">\
+                <tr>\
+                    <th>S賞</th><th>獎勵數量</th><th>A賞</th><th>獎勵數量</th>\
+                </tr>\
+            </thead>\
+            <tbody class="reward-list__tbody">\
+                <tr>\
+                    <td>傳說製作秘笈(刻印)X1</td><td>1</td>\
+                    <td>英雄製作秘笈(刻印)X1</td><td>50</td>\
+                </tr>\
+            </tbody>\
+        </table>\
+    `;
+    var table1HTML="";
+    for(var i=0;i<itemArrGroup.length;i++){
+        var thead1HTML=`
+            <thead class="reward-list__thead">
+                <tr>
+                    <th>${itemArrGroup[i][0][0].type}賞</th><th>獎勵數量</th><th>${itemArrGroup[i][1][0].type}賞</th><th>獎勵數量</th>
+                </tr>
+            </thead>
+        `;
+        var trHTML="";
+        var tdArr=[];
+        for(var j=0;j<itemArrGroup[i].length;j++){
+            if(tdArr[j]){
+                tdArr[j].push(itemArrGroup[i][j])
+            }else{
+                tdArr[j]=[];
+            }
+        }
+        console.log(tdArr)
+        var tbody1HTML='<tbody class="reward-list__tbody">'+trHTML+'</tbody>'
+        var table1='<table class="reward-list__table">'+thead1HTML+tbody1HTML+'</table>';
+        table1HTML+=table1;
+    }
+    
 
     var mobileGroupHTML="";
     for(var i=0;i<itemArr.length;i++){
@@ -268,30 +322,6 @@ function rewardListRender(data){
                 <tr>\
                     <td>傳說製作秘笈(刻印)X1</td><td>1</td>\
                     <td>英雄製作秘笈(刻印)X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td>英雄製作秘笈(刻印)X2</td><td>1</td>\
-                    <td>祝福聖水(大)X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td>祝福聖水(特大)X1</td><td>1</td>\
-                    <td>守護石X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td>[神秘變身卡]英雄X1</td><td>1</td>\
-                    <td>受祝福的 對武器施法的卷軸X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td>[神秘魔法娃娃卡]英雄X1</td><td>1</td>\
-                    <td>受祝福的 對盔甲施法的卷軸X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td></td><td></td>\
-                    <td>[神秘變身卡]稀有X1</td><td>50</td>\
-                </tr>\
-                <tr>\
-                    <td></td><td></td>\
-                    <td>[神秘魔法娃娃卡]稀有X1</td><td>50</td>\
                 </tr>\
             </tbody>\
         </table>\
@@ -344,7 +374,6 @@ function rewardListRender(data){
                 </tr>\
             </tbody>\
         </table>
-        ${mobileGroupHTML}
     `;
 
     return rewardListHTML;
