@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+</head>
+<body>
+    <button id="open">開啟</button>
+    <script src="js/privacy-box.js" ></script>
+    <script>
+        var html=`
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vzITtkDEArE?rel=0&autoplay=1&loop=1&playlist=AlmpV91w5qU&amp;showinfo=0" frameborder="0" allow="accelerometer;autoplay; encrypted-media;clipboard-write; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        `;
+
+        $("#open").on("click",function(){
+            $.gbox.open(html)
+        })
+        
+    </script>
+</body>
+</html>

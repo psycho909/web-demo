@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            min-width: 300px;
+            height: 300px;
+            border:1px solid #000;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .box:before{
+            content:"";
+            vertical-align: middle;
+            height: 100%;
+            display: inline-block;
+        }
+        span{
+            vertical-align: middle;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <span>123</span>
+    </div>
+    <script>
+        var list = [{
+                seq: 1,
+                title: "Title1"
+            },
+            {
+                seq: 2,
+                title: "Title2"
+            },
+            {
+                seq: 3,
+                title: "Title3"
+            },
+            {
+                seq: 1,
+                title: "Title1"
+            },
+            {
+                seq: 4,
+                title: "Title4"
+            },
+            {
+                seq: 2,
+                title: "Title2"
+            },
+        ]
+        
+        var obj = {};
+        var result = [];
+
+        for (var i = 0; i < list.length; i++) {
+            if (!obj[list[i].seq]) {
+                result.push(list[i]);
+                obj[list[i].seq] = true;
+            }
+        }
+
+        console.log(result)
+    </script>
+</body>
+
+</html>
