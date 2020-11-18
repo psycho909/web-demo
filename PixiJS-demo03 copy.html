@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/pixi.js/5.3.3/pixi.min.js"></script>
+    <script>
+        let app=new PIXI.Application({
+            width:512,
+            height:512,
+            antialias:true
+        });
+        
+        PIXI.loader.add("images/cat.png").load(setup)
+        let cat,state;
+
+
+        function setup(){ 
+            cat=new PIXI.Sprite(
+                PIXI.loader.resources["images/cat.png"].texture
+            )
+            cat.y=96
+            cat.vx=0;
+            cat.vy=0;
+            cat.buttonMode=true;
+            cat.interactive=true;
+            cat.on("pointertap",()=>{
+                console.log(1)
+            })
+            app.stage.addChild(cat);
+        }
+
+        document.body.appendChild(app.view)
+    </script>
+</body>
+</html>
