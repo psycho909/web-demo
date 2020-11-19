@@ -270,7 +270,9 @@ function rewardListRender(data){
                 tdArr[j].push(itemArrGroup[i][j])
             }else{
                 tdArr[j]=[];
+                tdArr[j].push(itemArrGroup[i][j])
             }
+            console.log(itemArrGroup[i])
         }
         console.log(tdArr)
         var tbody1HTML='<tbody class="reward-list__tbody">'+trHTML+'</tbody>'
