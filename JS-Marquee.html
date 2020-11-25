@@ -42,9 +42,7 @@
     <div id="app">
         <button class="btn">Add</button>
         <button class="clear">Clear</button>
-        <div class="gashapon__marquee-box">
-            <span class="gashapon__marquees"></span>
-        </div>
+        <div class="gashapon__marquee-box"></div>
     </div>
     <script>
         var Marquee=[
@@ -60,11 +58,11 @@
                 x: "100%",
                 y: "-50%"
             })
-            TweenMax.to($(".gashapon__marquees").eq(i), 5, {
+            TweenMax.to($(".gashapon__marquees").eq(i), 1, {
                 x: "0%",
                 y: "-50%",
                 onComplete: function () {
-                    TweenMax.to($(".gashapon__marquees").eq(i), 5, {
+                    TweenMax.to($(".gashapon__marquees").eq(i), 1, {
                         x: "-100%",
                         y: "-50%",
                         delay: 1,
@@ -87,7 +85,7 @@
                 spanHTML += "<span class='gashapon__marquees'>"+data[i].Content + "</span>"
             }
             $(".gashapon__marquee-box").html(spanHTML)
-            TweenMax.killTweensOf($(".gashapon__marquees"));
+            // TweenMax.killTweensOf($(".gashapon__marquees"));
             MarqueeAnim(marqueeIndex)
         }
         // TweenMax.killTweensOf($(".gashapon__marquees"));
