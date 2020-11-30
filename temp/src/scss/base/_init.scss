@@ -146,11 +146,3 @@ button {
         border: vw(10) solid #fff;
     }
 }
-.UNI-footer.fixed{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    @include media{
-        position: relative;
-    }
-}

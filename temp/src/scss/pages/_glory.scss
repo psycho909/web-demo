@@ -7,6 +7,13 @@
     // position: relative;
     // overflow: hidden;
     background-color: #000;
+    width: 100%;
+    height: 100%;
+    .drag-wrap {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: 100%;
+    }
     .draggable{
         width: 1920px;
         height: 1100px;

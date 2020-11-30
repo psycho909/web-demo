@@ -180,7 +180,7 @@ function HallofFameLoad() {
 
             IsAjax = true;
             if(!data.IsSuccess){
-                ErrorText(data.ErrorText,data.Url)
+                // ErrorText(data.ErrorText,data.Url)
                 return;
             }
             var ShareCnt=data.ShareCnt;
@@ -520,7 +520,7 @@ function Initialize() {
         success: function (data) {
             IsAjax = true;
             if(!data.Success){
-                ErrorText(data.ErrorText,data.Url)
+                // ErrorText(data.ErrorText,data.Url)
                 return;
             }
             var data=data.Data;

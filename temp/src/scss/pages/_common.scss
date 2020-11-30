@@ -44,6 +44,14 @@ form{
 .UNI-footer{
     position: relative;
     z-index: 91;
+    width: 100%;
+    &.fixed{
+        position: absolute;
+        bottom: 0;
+        @include media{
+            position: relative;
+        }
+    }
 }
 .nav-mobile{
     display: none;

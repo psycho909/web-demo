@@ -35,6 +35,9 @@
             pointer-events: none;
         }
     }
+    .drag-wrap{
+        height: 100%;
+    }
     .draggable{
         width: 1920px;
         height: 1080px;
@@ -81,11 +84,11 @@
         // margin: 0 auto;
         // position: relative;
         position: absolute;
-        top: 50%;
-        left: 0;
+        // top: 50%;
         left: 0;
         right: 0;
-        margin: -333px auto 0;
+        // margin: -333px auto 0;
+        margin: 0 auto 0;
         z-index: 3;
         @include media{
             top: 0;
@@ -117,7 +120,8 @@
             top: 0;
             left: 50%;
             margin-left: -370px;
-            margin-top: 280px;
+            // margin-top: 280px;
+            margin-top: -436px;
             // right: 0;
             &2{
                 margin-left: -491px;

@@ -31,13 +31,9 @@
             pointer-events: none;
         }
     }
-    &__drag{
-        &-wrap{
-
-        }
-    }
     .drag-wrap{
         position: relative;
+        height: 100%;
     }
     .draggable{
         // width: 2000px;
@@ -91,8 +87,7 @@
         // height: 100%;
         // margin: 0 auto;
         position: absolute;
-        top: 50%;
-        left: 0;
+        // top: 50%;
         left: 0;
         right: 0;
         margin: 0 auto 0;
@@ -111,7 +106,8 @@
         top: 50%;
         left: 0;
         right: 0;
-        margin: -390px auto 0;
+        // margin: -390px auto 0;
+        margin: -773px auto 0;
         // top: 17/1100*100%;
         // left: 50%;
         // transform: translateX(-50%);
@@ -133,7 +129,8 @@
         top: 50%;
         left: 0;
         right: 0;
-        margin: 26px auto 0;
+        // margin: 26px auto 0;
+        margin: -357px auto 0;
         // top: 553/1100*100%;
         // left: 50%;
         // transform: translateX(-50%);
@@ -155,7 +152,8 @@
         top: 50%;
         left: 0;
         right: 0;
-        margin: 160px auto 0;
+        // margin: 160px auto 0;
+        margin: -223px auto 0;
         // top: 673/1100*100%;
         // left: 50%;
         // transform: translateX(-50%);

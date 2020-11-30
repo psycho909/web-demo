@@ -1,6 +1,7 @@
 var smoking = false;
 var smokingInit= false;
 var mouseScroll=true;
+var changePage=false;
 var scrollPage=[];
 // var scrollPage=["main","gashapon","glory","info","event"];
 // var scrollPage=["main","gashapon","glory","info"];
@@ -184,6 +185,7 @@ TweenMax.set($(".main__btn-group"), {
 $(".entry__btn").on("click",function(){
     var change=$(this).attr("data-change");
     $("#app").attr("data-current",change);
+    mouseScroll=false;
     end(function(){
         videoEnded(".entry__video2",function(){
             $(".entry").fadeOut()
@@ -205,16 +207,13 @@ $(".entry__btn").on("click",function(){
                     autoAlpha: 1,
                     onComplete:function(){
                         mouseScroll=true;
+                        changePage=true;
                     }
                 });
             })
         })
     })
 })
-
-
-
-var changePage=true;
 
 $(".nav-li").on("click",function(){
     if($(this).hasClass("coming")){
@@ -227,7 +226,7 @@ $(".nav-li").on("click",function(){
         mouseScroll=false;
         $("#app").attr("data-current",page);
         scrollPage.forEach(function(v,i){
-            if(v.page == "info"){
+            if(v.page == page){
                 scrollPageIndex=i;
             }
         })
@@ -256,7 +255,7 @@ $(".main__btn").on("click",function(){
         mouseScroll=false;
         $("#app").attr("data-current",page);
         scrollPage.forEach(function(v,i){
-            if(v.page == "info"){
+            if(v.page == page){
                 scrollPageIndex=i;
             }
         })
@@ -498,27 +497,56 @@ function checkLogin(v) {
 
 loadingProgress({
 	loadedFN: function(){
-        var footer=$(".UNI-footer").clone()
+        var footer=$(".UNI-footer").html();
+        var footerHTML="<div class='UNI-footer dark'>"+footer+"</div>"
         $(".UNI-footer").remove()
-        $("#app").append(footer)
+        if(isMobile.any){
+            $("#app").append(footerHTML)
+        }else{
+            $(".entry").append(footerHTML)
+            $(".main").append(footerHTML)
+            $(".gashapon .section-contents").append(footerHTML)
+            $(".glory .section-contents").append(footerHTML)
+            if($(".event").length){
+                $(".event").append(footerHTML)
+            }
+        }
+        
         $(".UNI-footer").addClass("fixed")
 	},
 	detectVideo: true
 });
 
-function checkScrollEnd(){
+function checkScrollEnd(e){
     var pageObj=scrollPage[scrollPageIndex];
     var h=$(document.body).height();
-    var t=$("#app").scrollTop();
-    var pageHeight=$("."+pageObj.page).outerHeight();
     var footer=$(".UNI-footer").outerHeight(true);
+    if(pageObj.page == "main"){
+        return true;
+    }
+    if($("."+pageObj.page).find(".draggable").length){
+        var pageHeight=$("."+pageObj.page).find(".draggable").outerHeight();
+        var t=$("."+pageObj.page).find(".drag-wrap").scrollTop();
+    }else{
+        var pageHeight=$("."+pageObj.page).outerHeight();
+        var t=$("#app").scrollTop();
+    }
     var total=pageHeight-h+footer;
     if(h >= pageHeight){
         return true;
     }
-    if(Math.floor(t/total)){
-        return true;
+    
+    if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0){
+        if(Math.floor(t/total)){
+            return true;
+        }
     }
+    if(e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0){
+        if(t == 0){
+            return true;
+        }
+    }
+    
     return false;
 }
 
@@ -536,6 +564,7 @@ function scrollPageRun(){
 $(window).on('mousewheel DOMMouseScroll', function (e) {
     if(!isMobile.any){
         if(!mouseScroll) return;
+        // 滑鼠往下滾
         if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0) {
             var currentPage=$("#app").attr("data-current");
             if(currentPage == "entry"){
@@ -568,7 +597,7 @@ $(window).on('mousewheel DOMMouseScroll', function (e) {
                     })
                 })
             }else{
-                if(!checkScrollEnd()){
+                if(!checkScrollEnd(e)){
                     return false;
                 }
                 mouseScroll=false;
@@ -579,11 +608,11 @@ $(window).on('mousewheel DOMMouseScroll', function (e) {
                 scrollPageRun()
             }
         }
-    
+        // 滑鼠往上滾
         if(e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0){
             var currentPage=$("#app").attr("data-current");
             if(currentPage != "entry"){
-                if(!checkScrollEnd()){
+                if(!checkScrollEnd(e)){
                     return false;
                 }
                 mouseScroll=false;
