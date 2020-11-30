@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <title>Document</title>
     <style>
         *{
@@ -46,6 +47,19 @@
             <span>⌜活動期間累積賺取30萬金幣⌟</span>
             <span>再送90萬金幣</span>
         </div>
+        
     </div>
+    <script>
+        function eventForm(data){
+            console.log(data)
+        }
+        var a="SSS"
+        var data=[{"name":"Chen"}]
+        $("#app").append('<a id="btn" class="btn" data-obj='+JSON.stringify(data[0])+'>COPY</a>')
+
+        $("body").on("click","#btn",function(){
+            console.log($(this).attr("data-obj"))
+        })
+    </script>
 </body>
 </html>

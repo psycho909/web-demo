@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.css" rel="stylesheet">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">A</div>
+                <div class="swiper-slide">B</div>
+                <div class="swiper-slide">C</div>
+                <div class="swiper-slide">D</div>
+                <div class="swiper-slide">E</div>
+                <div class="swiper-slide">F</div>
+                <div class="swiper-slide">G</div>
+                <div class="swiper-slide">H</div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            centeredSlides: true,
+            loop: true,
+            noSwiping : false,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+</body>
+</html>

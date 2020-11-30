@@ -1,0 +1,93 @@
+.info,.event{
+    width: 100%;
+    height: 100%;
+    min-height: 1100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 0;
+    background-image: url('../images/info-bg.jpg');
+    position: relative;
+    overflow: hidden;
+    @include media{
+        min-height: vw(1366);
+        background-image: url('../images/m-info-bg.jpg');
+    }
+    &__title{
+        width: $logo-pc2-w;
+        height: $logo-pc2-h;
+        margin: 30px auto 16px;
+        background-image: url('../images/logo-3th.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        @include media{
+            width: $logo-m2-w;
+            height: $logo-m2-h;
+            margin: vw(26) auto vw(16);
+        }
+    }
+    &__content{
+        max-width: 880px;
+        width: 100%;
+        height: 720px;
+        margin: 0 auto;
+        position: relative;
+        background-image: url('../images/info-content-bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-top: 11px;
+        border: 1px solid #4a3425;
+        .mCSB_scrollTools{
+            z-index: 2;
+        }
+        .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+            background-color: rgba(153,119,84,.3);
+            width: 6px;
+        }
+        .mCSB_scrollTools .mCSB_draggerRail{
+            background-color: transparent;
+        }
+        .mCSB_inside>.mCSB_container{
+            margin-right: 0;
+        }
+        @include media{
+            width: vw(750);
+            height: vw(880);
+            background-image: url('../images/m-info-content-bg.jpg');
+            padding-top: vw(11);
+        }
+        &:before{
+            content:"";
+            width: 898px;
+            height: 116px;
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-image: url('../images/info-content-border.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 1;
+            @include media{
+                width: vw(768);
+                height: vw(116);
+                top: vw(-13);
+                background-image: url('../images/m-info-content-border.png');
+            }
+        }
+        &-img{
+            width: 100%;
+            height: 707px;
+            margin: 0 auto;
+            overflow: hidden;
+            @include media{
+                width: 100%;
+                height: vw(866);
+            }
+            img{
+                max-width: 100%;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+}

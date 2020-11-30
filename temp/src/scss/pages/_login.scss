@@ -1,0 +1,68 @@
+.login{
+    width: 100%;
+    background-size: cover;
+    background-image: url('../images/login-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center 0;
+    @include media{
+        background-image: url('../images/m-login-bg.jpg');
+    }
+    &__contents{
+        max-width: 1200px;
+        width: 100%;
+        min-height: 1100px;
+        margin: 0 auto;
+        position: relative;
+        padding-top: 20px;
+        @include media{
+            min-height: vw(1366);
+            padding-top: vw(111);
+        }
+    }
+    &__title{
+        width: $logo-pc-w;
+        height: $logo-pc-h;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url('../images/logo-3th.png');
+        margin: 0 auto 20px;
+        @include media{
+            width: $logo-m-w;
+            height: $logo-m-h;
+            margin: 0 auto vw(50);
+        }
+    }
+    &__text{
+        font-size: 34px;
+        color:#fff;
+        position: relative;
+        margin: 0 auto 30px;
+        text-align: center;
+        text-shadow: 0 2px 3px rgba(0,0,0,.6),0 3px 4px rgba(0,0,0,.6),0 4px 5px rgba(0,0,0,.6),0 5px 6px rgba(0,0,0,.6),0 6px 7px rgba(0,0,0,.6),0 7px 8px rgba(0,0,0,.6);
+        @include media{
+            font-size: vw(50);
+            margin-bottom: vw(20);
+        }
+    }
+    &__btn{
+        &-group{
+            font-size: 0;
+            text-align: center;
+            @include media{
+                top:vw(884);
+            }
+        }
+        display: inline-block;
+        & + .login__btn{
+            margin-left: 55px;
+        }
+        @include media{
+            img{
+                width: vw(109);
+            }
+            & + .login__btn{
+                margin-left: vw(55);
+            }
+        }
+    }
+}

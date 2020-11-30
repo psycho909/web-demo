@@ -1,0 +1,156 @@
+$font-size:16px;
+$font-color:#000;
+$font-family: "PingFangTC-Regular", "Heiti TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$body-bg:#fff;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: $font-family;
+    box-sizing: border-box;
+}
+body{
+    background-color: $body-bg;
+    // min-width: 1200px;
+	position: relative;
+	@media screen and (max-width:768px){
+	    // min-width: 750px;
+	}
+}
+@supports (-webkit-touch-callout: none) {
+    body {
+        /* The hack for Safari */
+        height: -webkit-fill-available;
+    }
+}
+// 防止ios double tap螢幕放大
+html, body {
+    touch-action: manipulation;
+}
+a{
+	display: inline-block;
+}
+a[href]{
+    cursor: pointer;
+}
+.cur-p{
+	cursor: pointer
+}
+[hidden]{
+    display: none !important;
+}
+.d-hide,.d-hidden,.d-none,.hide,.hidden{
+    display: none !important;
+}
+.v-hide{
+    visibility: hidden;
+}
+
+[data-open="true"]{
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0);
+    transition: all .6s;
+}
+[data-open="false"]{
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0);
+    transition: all .6s;
+}
+.clearfix{
+	overflow:hidden;
+	&::after{
+		content:"";
+		clear:both;
+		display:table;
+	}
+}
+.w-100{
+	width: 100%;
+}
+.w-100vw{
+	width: 100vw;
+}
+.h-100{
+	height: 100%;
+}
+.h-100vh{
+	height: 100vh;
+}
+.red{
+	color:red;
+}
+.blue{
+	color:blue;
+}
+.green{
+	color:green;
+}
+.yellow{
+	color:yellow;
+}
+.text-30{
+	font-size: 30px;
+	@include media{
+		font-size: vw(30);
+	}
+}
+.ttext-36{
+	font-size: 36px;
+	@include media{
+		font-size: vw(36);
+	}
+}
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    outline: none;
+    padding: 0;
+}
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.loadding{
+    &-module{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background-color:rgba(0,0,0,.6);
+    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    margin-top: -40px;
+    margin-left: -40px;
+    border-radius: 50%;
+    border: 10px solid #fff;
+    border-top-color: transparent;
+    transform:rotate(0deg);
+    @media screen and (max-width: 768px){
+        width: vw(80);
+        height: vw(80);
+        margin-top: vw(-40);
+        margin-left: vw(-40);
+        border-radius: 50%;
+        border: vw(10) solid #fff;
+    }
+}
+.UNI-footer.fixed{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    @include media{
+        position: relative;
+    }
+}
