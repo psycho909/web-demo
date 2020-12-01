@@ -9,8 +9,8 @@
     <script>
         
         $("#app").scroll(function(){
-            var t=$(this).height()-$(".UNI-footer").offset().top - $(this).scrollTop();
-            if($(".UNI-footer").offset().top - $(this).scrollTop() <= $(this).height()){
+            var t=$(window).height()-$(".UNI-footer").offset().top - $(window).scrollTop();
+            if($(".UNI-footer").offset().top - $(window).scrollTop() <= $(window).height()){
                 $(".nav-wrap").css("bottom",t+"px")
             }
         })
