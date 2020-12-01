@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        $("#app").scroll(function(){
+            var t=$(this).height()-$(".UNI-footer").offset().top - $(this).scrollTop();
+            if($(".UNI-footer").offset().top - $(this).scrollTop() <= $(this).height()){
+                $(".nav-wrap").css("bottom",t+"px")
+            }
+        })
+    </script>
+</body>
+</html>
