@@ -1,9 +1,12 @@
 {
-    "useTabs":true,
-    "bracketSpacing": true,
-    "singleQuote": false,
-    "jsxSingleQuote":false,
-    "tabWidth":4,
-    "jsxBracketSameLine":false,
-    "requirePragma":true
+	"printWidth": 160,
+	"useTabs": true,
+	"bracketSpacing": true,
+	"singleQuote": false,
+	"jsxSingleQuote": false,
+	"tabWidth": 4,
+	"jsxBracketSameLine": false,
+	"trailingComma": "es5",
+	"semi": true,
+	"disableLanguages": ["vue"]
 }
