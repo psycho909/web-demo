@@ -1,114 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-        #app{
-            width: 100%;
-            height: 600px;
-            background-color: #eee;
-            position: relative;
-        }
-        .btn-group{
-            display: flex;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
-        .btn{
-            width: 100%;
-            height: 200px;
-        }
-        .num-group{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            width: 400px;
-            height: 400px;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .btn-num{
-            width: 50%;
-            font-size: 40px;
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <div class="num-group">
-            <div class="btn-num num1">0</div>
-            <div class="btn-num num2">0</div>
-            <div class="btn-num num3">0</div>
-            <div class="btn-num num4">0</div>
-            <div class="btn-num num5">0</div>
-            <div class="btn-num num6">0</div>
-        </div>
-        <div class="btn-group">
-            <button id="btn1" class="btn">BTN1</button>
-            <button id="btn2" class="btn">BTN2</button>
-        </div>
-    </div>
-    <script>
-        var num1=0;
-        var num2=0;
-        var num3=0;
-        var num4=0;
-        var num5=0;
-        var num6=0;
-        function add(num){
-            console.log(num)
-            num+=1;
-            document.querySelector(`.${num}`).innerHTML=num;
-        }
-        $("#btn1").on("touchstart",function(){
-            num1++;
-            $(".btn1").text(num1);
-        })
-        $("#btn2").on("touchstart",function(){
-            num2++;
-            $(".btn2").text(num2);
-        });
-
-        setInterval(() => {
-            num1++;
-            document.querySelector('.num1').innerHTML=num1;
-        }, 100);
-        setInterval(() => {
-            num2++;
-            document.querySelector('.num2').innerHTML=num2;
-        }, 100);
-        setInterval(() => {
-            num3++;
-            document.querySelector('.num3').innerHTML=num3;
-        }, 100);
-        setInterval(() => {
-            num4++;
-            document.querySelector('.num4').innerHTML=num4;
-        }, 100);
-        setInterval(() => {
-            num5++;
-            document.querySelector('.num5').innerHTML=num5;
-        }, 100);
-        setInterval(() => {
-            num6++;
-            document.querySelector('.num6').innerHTML=num6;
-        }, 10);
-        (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<template id="counter">
+			<style>
+				button {
+					background-color: red;
+					color: #fff;
+					padding: 4px;
+				}
+			</style>
+			<button>Click me</button>
+			<span id="times">0</span>
+		</template>
+		<script>
+			var template = document.querySelector("template");
+			var node = document.importNode(template.content, true);
+			document.body.appendChild(node);
+		</script>
+	</body>
 </html>
