@@ -29,6 +29,22 @@
 			var template = document.querySelector("template");
 			var node = document.importNode(template.content, true);
 			document.body.appendChild(node);
+
+			const valueToValidate = 3;
+			function ss(value) {
+				switch (true) {
+					case value < 1:
+						console.log("Given string is too short!");
+						return;
+					case value < 2:
+						console.log("No numeric allowed!");
+						return;
+					default:
+						console.log("No");
+						return;
+				}
+			}
+			console.log(ss(valueToValidate));
 		</script>
 	</body>
 </html>
