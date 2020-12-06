@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <!-- <link href="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.css" rel="stylesheet">
+    <script src="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css" integrity="sha512-M7lSx+nRqgTHiSD3EvOgkz6nDl7mzPaiQnsFsBeO0IsJt40WAaHMrFHXiWdm1/W6FhueJvZfXHLLQwKQN8iZBQ==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js" integrity="sha512-e5+6GpPHJLxT4d1OJ+WVNEMAdjRt3HOyT8txybfLgxMhpw/6OHlxhfcQjuZKGPH6CM8rfM8tv8A+dnsjGHgUxQ==" crossorigin="anonymous"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="glory__slider">
+            <div class="glory__slider-container swiper-container">
+                <div class="glory__slider-wrapper swiper-wrapper"></div>
+            </div>
+            <a href="javascript:;" class="glory__slider-next">next</a>
+            <a href="javascript:;" class="glory__slider-prev">prev</a>
+            <div class="glory__slider-btn-group">
+                <!-- <a href="javascript:;" class="glory__slider-btn-like">點讚</a> -->
+                <a href="javascript:;" class="glory__slider-btn-sup">支持</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        var HallofFameList=[
+            {"Seq":1,"Class":1,"Characteristic":"騎士"},
+            {"Seq":2,"Class":2,"Characteristic":"王子"},
+            {"Seq":3,"Class":3,"Characteristic":"公主"},
+            {"Seq":4,"Class":4,"Characteristic":"龍騎士"},
+            {"Seq":5,"Class":5,"Characteristic":"法師"},
+            {"Seq":6,"Class":6,"Characteristic":"精靈"},
+            {"Seq":7,"Class":7,"Characteristic":"夜精靈"},
+            {"Seq":8,"Class":8,"Characteristic":"半獸人"},
+            {"Seq":9,"Class":9,"Characteristic":"牛頭人"},
+        ]
+        var slideHTML="";
+        for(var i=0;i<HallofFameList.length;i++){
+            var slide=
+            '<div class="glory__slider-slide swiper-slide swiper-no-swiping">\
+                <div class="glory__slider-role" data-seq="'+HallofFameList[i].Seq+'" data-char="'+HallofFameList[i].Class+'">\
+                    <div class="glory__slider-role-glory">'+HallofFameList[i].Characteristic+'</div>\
+                </div>\
+            </div>';
+            slideHTML+=slide;
+        }
+        $(".glory__slider-wrapper").html(slideHTML);
+        var swiper = new Swiper('.glory__slider-container', {
+            slidesPerView: 3,
+            centeredSlides: true,
+            loop: true,
+            noSwiping : true,
+            nextButton: '.glory__slider-next',
+            prevButton: '.glory__slider-prev',
+        });
+    </script>
+</body>
+</html>

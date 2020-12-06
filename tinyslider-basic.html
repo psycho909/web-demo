@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .slider{
+            height: 300px;
+            text-align: center;
+            font-size: 100px;
+            line-height: 300px;
+        }
+        .slider:nth-child(even){
+            background-color: rgb(255, 253, 151);
+        }
+        .slider:nth-child(odd){
+            background-color: rgb(151, 255, 255);
+        }
+
+        /* tiny style */
+        .tns-outer{
+            width: 600px;
+            margin: 0 auto;
+        }
+        .tns-ovh{
+
+        }
+        .tns-inner{
+
+        }
+        .tns-slider{
+
+        }
+        .tns-item{
+
+        }
+        .tns-slide-active{
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="my-slider">
+            <div class="slider slider-1">1</div>
+            <div class="slider slider-2">2</div>
+            <div class="slider slider-3">3</div>
+            <div class="slider slider-4">4</div>
+            <div class="slider slider-5">5</div>
+            <div class="slider slider-6">6</div>
+            <div class="slider slider-7">7</div>
+            <div class="slider slider-8">8</div>
+            <div class="slider slider-9">9</div>
+        </div>
+        <div class="controls">
+            <a href="javascript:;" class="my-slider__prev">prev</a>
+            <a href="javascript:;" class="my-slider__next">next</a>
+        </div>
+    </div>
+    <script>
+        var tinyInit={
+            "container": '.my-slider',
+            "items": 3,
+            "center": true,
+            "loop": true,
+            "mouseDrag": true,
+            "swipeAngle": false,
+            "speed": 400,
+            "nav":false,
+            "controlsContainer": ".controls",
+            "prevButton":".my-slider__prev",
+            "nextButton":".my-slider__next",
+        }
+        var slider = tns(tinyInit);
+    </script>
+</body>
+
+</html>
