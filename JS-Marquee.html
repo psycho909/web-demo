@@ -1,103 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.gashapon__marquee-box {
+				width: 300px;
+				height: 30px;
+				display: flex;
+				background-color: #000;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				overflow: hidden;
+			}
+			.gashapon__marquees {
+				display: inline-block;
+				width: 300px;
+				height: 30px;
+				line-height: 30px;
+				color: #fff;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateX(100%);
+				text-align: center;
+			}
+		</style>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    <script src="https://tw.hicdn.beanfun.com/plugins/gsap/TweenMax.min.js"></script>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-        .gashapon__marquee-box{
-            width: 300px;
-            height: 30px;
-            display: flex;
-            background-color: #000;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            overflow: hidden;
-        }
-        .gashapon__marquees{
-            display: inline-block;
-            width: 300px;
-            height: 30px;
-            line-height: 30px;
-            color:#fff;
-            position: absolute;
-            top:50%;
-            left: 0;
-            transform: translateX(100%);
-            text-align: center;
-        }
-    </style>
-</head>
+	<body>
+		<div id="app">
+			<button class="btn">Add</button>
+			<button class="clear">Clear</button>
+			<div class="gashapon__marquee-box"></div>
+		</div>
+		<script>
+			var Marquee = [{ Content: "AAAAAAAAAAAAA" }, { Content: "BBBBBBBBBBBBB" }, { Content: "CCCCCCCCCCCCC" }, { Content: "DDDDDDDDDDDDD" }];
+			var marqueeIndex = 0;
+			function MarqueeAnim(i) {
+				TweenMax.set($(".gashapon__marquees").eq(i), {
+					x: "100%",
+					y: "-50%",
+				});
+				TweenMax.to($(".gashapon__marquees").eq(i), 5, {
+					x: "0%",
+					y: "-50%",
+					onComplete: function () {
+						TweenMax.to($(".gashapon__marquees").eq(i), 5, {
+							x: "-100%",
+							y: "-50%",
+							delay: 1,
+							onComplete: function () {
+								marqueeIndex++;
+								if (marqueeIndex >= Marquee.length) {
+									marqueeIndex = 0;
+								}
+								MarqueeAnim(marqueeIndex);
+							},
+						});
+					},
+				});
+			}
 
-<body>
-    <div id="app">
-        <button class="btn">Add</button>
-        <button class="clear">Clear</button>
-        <div class="gashapon__marquee-box"></div>
-    </div>
-    <script>
-        var Marquee=[
-            {"Content":"AAAAAAAAAAAAA"},
-            {"Content":"BBBBBBBBBBBBB"},
-            {"Content":"CCCCCCCCCCCCC"},
-            {"Content":"DDDDDDDDDDDDD"},
-        ]
-        var marqueeIndex=0;
-        function MarqueeAnim(i) {
-            MarqueeRun = true;
-            TweenMax.set($(".gashapon__marquees").eq(i), {
-                x: "100%",
-                y: "-50%"
-            })
-            TweenMax.to($(".gashapon__marquees").eq(i), 1, {
-                x: "0%",
-                y: "-50%",
-                onComplete: function () {
-                    TweenMax.to($(".gashapon__marquees").eq(i), 1, {
-                        x: "-100%",
-                        y: "-50%",
-                        delay: 1,
-                        onComplete: function () {
-                            marqueeIndex++;
-                            if (marqueeIndex >= Marquee.length) {
-                                marqueeIndex = 0;
-                            }
-                            MarqueeAnim(marqueeIndex)
-                        }
-                    })
-                }
-            })
-        }
-
-        function MarqueeInit(data) {
-            marqueeIndex = 0;
-            var spanHTML = "";
-            for (var i = 0; i < data.length; i++) {
-                spanHTML += "<span class='gashapon__marquees'>"+data[i].Content + "</span>"
-            }
-            $(".gashapon__marquee-box").html(spanHTML)
-            // TweenMax.killTweensOf($(".gashapon__marquees"));
-            MarqueeAnim(marqueeIndex)
-        }
-        // TweenMax.killTweensOf($(".gashapon__marquees"));
-        MarqueeInit(Marquee)
-        $(".btn").on("click",function(){
-            MarqueeInit(Marquee)
-        })
-        $(".clear").on("click",function(){
-            TweenMax.killTweensOf($(".gashapon__marquees"));
-            MarqueeInit(Marquee)
-        })
-    </script>
-</body>
-
+			function MarqueeInit(data) {
+				marqueeIndex = 0;
+				var spanHTML = "";
+				for (var i = 0; i < data.length; i++) {
+					spanHTML += '<span class="gashapon__marquees">' + data[i].Content + "</span>";
+				}
+				$(".gashapon__marquee-box").html(spanHTML);
+				MarqueeAnim(marqueeIndex);
+			}
+			// TweenMax.killTweensOf($(".gashapon__marquees"));
+			MarqueeInit(Marquee);
+			$(".btn").on("click", function () {
+				MarqueeInit(Marquee);
+			});
+			$(".clear").on("click", function () {
+				TweenMax.killTweensOf($(".gashapon__marquees"));
+				MarqueeInit(Marquee);
+			});
+		</script>
+	</body>
 </html>
