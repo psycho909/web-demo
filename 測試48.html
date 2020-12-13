@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.table {
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				border: 1px solid #000;
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var t = `<table class="table">
+			<thead>
+				<tr>
+					<th>標題1</th>
+					<th>標題2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>內容1</td>
+					<td>內容2</td>
+				</tr>
+			</tbody>
+        </table>`;
+			$.gbox.open(t);
+		</script>
+	</body>
+</html>

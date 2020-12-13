@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.main__video2 {
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<video class="main__video2" src="video/main-2.mp4" muted loop autoplay playsinline preload="auto" controls></video>
+
+		<script>
+			var video = document.querySelector(".main__video2");
+			video.play();
+		</script>
+	</body>
+</html>
