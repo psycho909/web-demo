@@ -1,431 +1,922 @@
-var defaultObj={
-    addClass:"default",
-    hasCloseBtn: true,
-	hasActionBtn: true,
-	afterOpen:function(){
-		$(".gbox").prepend("<div class='layer-frame'></div>")
-	},
-    afterClose:function(){
-        $.gbox.close();
-    },
-    actionBtns: [{
-        text: '下一步',
-        id:'shot',
-        addClass:"btn",
-        click:function(){
-			$.gbox.close();
-        }
-    },{
-        text: '下一步',
-        id:'shot',
-        class:"btn",
-        click:function(){
-			$.gbox.close();
-        }
-    }]
-}
-var defaultHTML=
-    '<div class="popup-title"><span>活動個人任務完成紀錄</span></div>\
-    <div class="part1__body">\
-        <div class="part1__list-box">\
-            <div class="part1__list-title">Remastered全新Buff效果說明</div>\
-            <div class="part1__list-text">近距離命中+5</div>\
-            <div class="part1__list-text">遠距離命中+5</div>\
-            <div class="part1__list-text">魔法命中+5</div>\
-            <div class="part1__list-text">體力恢復量+5</div>\
-            <div class="part1__list-text">魔力恢復量+5</div>\
-            <div class="part1__list-text">HP藥水恢復量增加+8%+10</div>\
-            <div class="part1__list-text">體力上限+120</div>\
-            <div class="part1__list-text">魔力上限+100</div>\
-        </div>\
-    </div>\
-';
-
-// $.gbox.open(defaultHTML,defaultObj);
-
-// 千萬轉蛋 - 活動個人任務
-var defaultObj={
-    addClass:"default",
-    hasCloseBtn: true,
-	hasActionBtn: false,
-	afterOpen:function(){
-        $(".gbox").prepend("<div class='layer-frame'></div>")
-	},
-    afterClose:function(){
-        $.gbox.close();
-    }
-}
-
-var taskPersonHTML=
-    '<div class="popup-title"><span>活動個人任務完成紀錄</span></div>\
-    <table class="task-person__table">\
-        <thead class="task-person__thead">\
-            <tr>\
-                <th>任務名稱</th>\
-                <th>完成狀況</th>\
-            </tr>\
-        </thead>\
-        <tbody class="task-person__tbody">\
-            <tr>\
-                <td>每日於(伊娃王國地監、古魯丁地監、修練地監、龍之古地監)合計擊殺1,000隻怪物</td>\
-                <td>900隻</td>\
-            </tr>\
-            <tr>\
-                <td>完成每日任務</td>\
-                <td class="done">完成</td>\
-            </tr>\
-        </tbody>\
-    </table>\
-';
-// $.gbox.open(taskPersonHTML,defaultObj);
-
-// 千萬轉蛋 - 活動世界任務
-var defaultObj={
-    addClass:"default",
-    hasCloseBtn: true,
-	hasActionBtn: false,
-	afterOpen:function(){
-        $(".gbox").prepend("<div class='layer-frame'></div>")
-	},
-    afterClose:function(){
-        $.gbox.close();
-    }
-}
-
-var taskPersonHTML=
-    '<div class="popup-title"><span>活動世界任務完成紀錄</span></div>\
-    <table class="task-world__table">\
-        <thead class="task-world__thead">\
-            <tr>\
-                <th>任務名稱</th>\
-                <th>完成狀況</th>\
-            </tr>\
-        </thead>\
-        <tbody class="task-world__tbody">\
-            <tr>\
-                <td>每日於(伊娃王國地監、古魯丁地監、修練地監、龍之古地監)合計擊殺1,000隻怪物</td>\
-                <td>900隻</td>\
-            </tr>\
-            <tr>\
-                <td>完成每日任務</td>\
-                <td class="done">完成</td>\
-            </tr>\
-        </tbody>\
-    </table>\
-';
-// $.gbox.open(taskPersonHTML,defaultObj);
-
-// 千萬轉蛋 - 獲取訊息
-var defaultObj={
-    addClass:"default",
-    hasCloseBtn: true,
-	hasActionBtn: false,
-	afterOpen:function(){
-		$(".gbox").prepend("<div class='layer-frame'></div>")
-	},
-    afterClose:function(){
-        $.gbox.close();
-    }
-}
-
-function gashaponGetRender(item){
-    var gashaponGetHTML=
-        '<div class="popup-slogan"></div>\
-        <div class="gashapon-get__text">\
-            <p>恭喜你在一番賞獲得了</p>\
-            <p>'+item+'</p>\
-        </div>\
-    ';
-
-    return gashaponGetHTML;
-}
-
-// $.gbox.open(gashaponGetRender("XXXXXXX"),defaultObj);
-
-// 千萬轉蛋 - 獎勵清單查詢
-var rewardListJSON=[
-    {type:"S",name:"傳說製作秘笈(刻印)X1",num:1},
-    {type:"S",name:"英雄製作秘笈(刻印)X2",num:1},
-    {type:"S",name:"祝福聖水(特大)X1",num:1},
-    {type:"S",name:"[神秘變身卡]英雄X1", num:1},
-    {type:"S",name:"[神秘魔法娃娃卡]英雄X1",num:1},
-    {type:"A",name:"英雄製作秘笈(刻印)X1",num:50},
-    {type:"A",name:"祝福聖水(大)X1",num:50},
-    {type:"A",name:"守護石X1",num:50},
-    {type:"A",name:"受祝福的 對武器施法的卷軸X1",num:50},
-    {type:"A",name:"受祝福的 對盔甲施法的卷軸X1",num:50},
-    {type:"A",name:"[神秘變身卡]稀有X1", num:50},
-    {type:"A", name:"[神秘魔法娃娃卡]稀有X1",num:50},
-    {type:"B",name:"稀有製作秘笈(刻印)X1",num:3000},
-    {type:"B",name:"祝福賦予卷軸X1",num:3000},
-    {type:"B",name:"潘朵拉的蒐藏品碎片X1",num:3000},
-    {type:"B",name:"龍之聖水X1",num:3000},
-    {type:"B",name:"名譽金幣箱X1",num:3000},
-    {type:"B",name:"魔法娃娃製作硬幣箱X1",num:3000},
-    {type:"B",name:"變身製作硬幣箱X1",num:3000},
-    {type:"B",name:"光之肩甲交換證書X",num:3000},
-    {type:"B",name:"光之皮夾克交換證書X1",num:3000},
-    {type:"B",name:"光之手環交換證書X1",num:3000},
-    {type:"B",name:"名譽金幣X5,000",num:3000},
-    {type:"C",name:"強化戰鬥卷軸(活動)X2",num:20000},
-    {type:"C",name:"祝福聖水(小)X1",num:20000},
-    {type:"C",name:"史奈普戒指交換證書X1",num:20000},
-    {type:"C",name:"倫提斯耳環交換證書X1",num:20000},
-    {type:"C",name:"殷海薩的祝福X50",num:50000},
-    {type:"C",name:"龍之珍珠(活動)X2",num:50000},
-    {type:"C",name:"名譽金幣X50",num:50000},
-    {type:"C",name:"變身製作硬幣X50",num:100000},
-    {type:"C",name:"魔法娃娃製作硬幣X50",num:100000},
-    {type:"D",name:"殷海薩的祝福X20",num:1000000},
-    {type:"D",name:"龍之珍珠(活動)X1",num:1000000},
-    {type:"D",name:"金幣X50,000",num:2000000},
-    {type:"D",name:"名譽金幣X20",num:2000000},
-    {type:"D",name:"變身製作硬幣X20",num:4800000},
-    {type:"D",name:"魔法娃娃製作硬幣X20",num:4800000},
-    {type:"特殊獎項",name:"稀有製作秘笈(刻印)",con:"首抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第1000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第10000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第50000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第100000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第200000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第500000抽",num:1},
-    {type:"特殊獎項",name:"名譽金幣箱",con:"第1000000抽",num:1},
-    {type:"特殊獎項",name:"英雄製作秘笈",con:"最後一抽",num:1},
-]
-var defaultObj={
-    addClass:"default",
-    hasCloseBtn: true,
-    hasActionBtn: false,
-    afterOpen:function(){
-        // $(".gbox").prepend("<div class='layer-frame'></div>")
-    },
-    afterClose:function(){
-        $.gbox.close();
-    }
-}
-
-function rewardListRender(data){
-    var itemGroup={};
-    var itemArr=[];
-    var itemArrGroup=[];
-
-    data.forEach(function(item){
-        itemGroup[item.type]=itemGroup[item.type] || [];
-        itemGroup[item.type].push(item)
-    })
-
-    var itemKeys=Object.keys(itemGroup);
-
-    for(var i=0;i<itemKeys.length;i++){
-        itemArr.push(itemGroup[itemKeys[i]])
-    }
-
-    for(var i=0;i<itemArr.length;i+=2){
-        itemArrGroup.push(itemArr.slice(i,i+2))
-    }
-    
-
-    for(var i=0;i<itemArrGroup.length;i++){
-        if(itemArrGroup[i][0]>itemArrGroup[i][1]){
-            var length=itemArrGroup[i][0].length-itemArrGroup[i][1].length;
-            for(var j=0;j<length;j++){
-                itemArrGroup[i][1].push({type:"",name:"",num:""})
-            }
-        }else{
-            var length=itemArrGroup[i][1].length-itemArrGroup[i][0].length;
-            for(var j=0;j<length;j++){
-                itemArrGroup[i][0].push({type:"",name:"",num:""})
-            }
-        }
-    }
-    
-    var aa=`
-        <table class="reward-list__table">\
-            <thead class="reward-list__thead">\
-                <tr>\
-                    <th>S賞</th><th>獎勵數量</th><th>A賞</th><th>獎勵數量</th>\
-                </tr>\
-            </thead>\
-            <tbody class="reward-list__tbody">\
-                <tr>\
-                    <td>傳說製作秘笈(刻印)X1</td><td>1</td>\
-                    <td>英雄製作秘笈(刻印)X1</td><td>50</td>\
-                </tr>\
-            </tbody>\
-        </table>\
-    `;
-    var table1HTML="";
-    for(var i=0;i<itemArrGroup.length;i++){
-        var thead1HTML=`
-            <thead class="reward-list__thead">
-                <tr>
-                    <th>${itemArrGroup[i][0][0].type}賞</th><th>獎勵數量</th><th>${itemArrGroup[i][1][0].type}賞</th><th>獎勵數量</th>
-                </tr>
-            </thead>
-        `;
-        var trHTML="";
-        var tdArr=[];
-        for(var j=0;j<itemArrGroup[i].length;j++){
-            if(tdArr[j]){
-                tdArr[j].push(itemArrGroup[i][j])
-            }else{
-                tdArr[j]=[];
-                tdArr[j].push(itemArrGroup[i][j])
-            }
-            console.log(itemArrGroup[i])
-        }
-        console.log(tdArr)
-        var tbody1HTML='<tbody class="reward-list__tbody">'+trHTML+'</tbody>'
-        var table1='<table class="reward-list__table">'+thead1HTML+tbody1HTML+'</table>';
-        table1HTML+=table1;
-    }
-    
-
-    var mobileGroupHTML="";
-    for(var i=0;i<itemArr.length;i++){
-        var rolHTML="";
-        var type=itemArr[i][0].type;
-        if(type == "特殊獎項"){
-            rolHTML+='<div class="reward-list__row"><div class="reward-list__col reward-list__col--name">'+type+'賞</div><div class="reward-list__col">條件</div><div class="reward-list__col reward-list__col--num">獎勵數量</div></div>';
-        }else{
-            rolHTML+='<div class="reward-list__row"><div class="reward-list__col">'+type+'賞</div><div class="reward-list__col reward-list__col--num">獎勵數量</div></div>';
-        }
-        for(var j=0;j<itemArr[i].length;j++){
-            if(type == "特殊獎項"){
-                rolHTML+=
-                    '<div class="reward-list__row">\
-                        <div class="reward-list__col reward-list__col--name">'+itemArr[i][j].name+'</div>\
-                        <div class="reward-list__col">'+itemArr[i][j].con+'</div>\
-                        <div class="reward-list__col reward-list__col--num">'+itemArr[i][j].num+'</div>\
-                    </div>\
-                ';
-            }else{
-                rolHTML+=
-                    '<div class="reward-list__row">\
-                        <div class="reward-list__col">'+itemArr[i][j].name+'</div>\
-                        <div class="reward-list__col reward-list__col--num">'+itemArr[i][j].num+'</div>\
-                    </div>\
-                ';
-            }
-        }
-        var mobileHTML='<div class="reward-list__box">'+rolHTML+'</div>';
-        mobileGroupHTML+=mobileHTML;
-    }
-
-    var rewardListHTML=
-    `<div class="popup-title"><span>獎勵清單查詢</span></div>\
-        <table class="reward-list__table">\
-            <thead class="reward-list__thead">\
-                <tr>\
-                    <th>S賞</th><th>獎勵數量</th><th>A賞</th><th>獎勵數量</th>\
-                </tr>\
-            </thead>\
-            <tbody class="reward-list__tbody">\
-                <tr>\
-                    <td>傳說製作秘笈(刻印)X1</td><td>1</td>\
-                    <td>英雄製作秘笈(刻印)X1</td><td>50</td>\
-                </tr>\
-            </tbody>\
-        </table>\
-        <table class="reward-list__table">\
-            <thead class="reward-list__thead">\
-                <tr>\
-                    <th>B賞</th><th>獎勵數量</th><th>C賞</th><th>獎勵數量</th>\
-                </tr>\
-            </thead>\
-            <tbody class="reward-list__tbody">\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-                <tr>\
-                    <td>稀有製作秘笈(刻印)X1</td><td>3000</td>\
-                    <td>強化戰鬥卷軸(活動)X2</td><td>20000</td>\
-                </tr>\
-            </tbody>\
-        </table>\
-        <table class="reward-list__table2">\
-            <thead class="reward-list__thead2">\
-                <tr>\
-                    <th>D賞</th><th>獎勵數量</th><th>特殊獎項</th><th>條件</th><th>獎勵數量</th>\
-                </tr>\
-            </thead>\
-            <tbody class="reward-list__tbody2">\
-                <tr>\
-                    <td>殷海薩的祝福X20</td>\
-                    <td>1000000</td>\
-                    <td>稀有製作秘笈(刻印)</td>\
-                    <td>首抽</td>\
-                    <td>1</td>\
-                </tr>\
-            </tbody>\
-        </table>
-    `;
-
-    return rewardListHTML;
-}
-
-
-$.gbox.open(rewardListRender(rewardListJSON),defaultObj);
-
-
 var smoking = false;
+var smokingInit = false;
+var mouseScroll = true;
+var changePage = false;
+var scrollPageIndex = 0;
+var weekList = {
+	一: "2020年12/16~12/23",
+	二: "2020年12/23~12/30",
+	三: "2020年12/30~01/06",
+	四: "2021年01/06~01/13",
+};
+var scrollPage = [];
+var $win = $(window);
+if (isMobile.any) {
+	var scrLeft = Math.abs(($win.width() - 1344) / 2);
+} else {
+	var scrLeft = Math.abs(($win.width() - 1920) / 2);
+}
+var mbOpen = false;
+
+function checkH5() {
+	var useragent = navigator.userAgent;
+	var reg = /BeaGo/gi;
+	if (useragent.indexOf("BeaGo") > -1 || reg.test(useragent)) {
+		return true;
+	}
+}
+
+function InitScrollPageArr() {
+	$(".nav-li").each(function (v, i) {
+		if ($(this).attr("data-page")) {
+			var obj = { page: "", status: true };
+			if ($(this).hasClass("coming")) {
+				obj.status = false;
+			}
+			obj.page = $(this).attr("data-page");
+			scrollPage.push(obj);
+		}
+	});
+	scrollPage = scrollPage.filter(function (v) {
+		return v.status;
+	});
+}
+
+function getScrollIndex(page) {
+	scrollPage.forEach(function (v, i) {
+		if (v.page == page) {
+			scrollPageIndex = i;
+		}
+	});
+}
+
+InitScrollPageArr();
 
 //動態部分
-function InitAnimate() {  
-    $("#smokeBg").show()
-    $(window).resize(function () {
-        var imgW = 600;
-        var imgH = 344;
-        var ww = window.innerWidth;
-        var vh = window.innerHeight;
-        var s;
-        if (ww / vh > imgW / imgH) {
-            s = ww / imgW;
-        } else {
-            s = vh / imgH;
-        }
-        TweenMax.set($('#smokeBg'), {
-            scale: s,
-            x: '-50%',
-            y: '-50%'
-        });
-    }).resize();
+// 修改20201126
+function InitAnimate(page) {
+	$("#smokeBg").show();
+	$(window)
+		.resize(function () {
+			var imgW = 600;
+			var imgH = 344;
+			var ww = window.innerWidth;
+			var vh = window.innerHeight;
+			var s;
+			if (ww / vh > imgW / imgH) {
+				s = ww / imgW;
+			} else {
+				s = vh / imgH;
+			}
+			if (isMobile.any) {
+				s = s * 1.5;
+			}
+			TweenMax.set($("#smokeBg"), {
+				scale: s,
+				x: "-50%",
+				y: "-50%",
+			});
+		})
+		.resize();
 
-    $(".smoke_inner").animateSprite({
-        fps: 20,
-        loop: false,
-        complete: function () {
-            // use complete only when you set animations with 'loop: false'
-            if ($('.smoke_inner').css('background-position') !== '0px 0px') {
-                $('#smokeBg').css('display', 'none');
-                smoking = false;
-            }
-        }
-    });
-}  
-
+	$(".smoke_inner").animateSprite({
+		fps: 20,
+		loop: false,
+		complete: function () {
+			// use complete only when you set animations with 'loop: false'
+			if ($(".smoke_inner").css("background-position") !== "0px 0px") {
+				$("#smokeBg").css("display", "none");
+				smoking = false;
+				smokingInit = true;
+				mouseScroll = true;
+				changePage = true;
+				var currPage = $("#app").attr("data-current");
+				if (currPage != "main") {
+					if (!$(".nav-wrap").hasClass("show")) {
+						$(".nav-wrap").fadeIn();
+						$(".nav-wrap").addClass("show");
+					}
+				} else {
+					$(".nav-wrap").removeClass("show");
+					$(".nav-wrap").hide();
+				}
+			}
+		},
+	});
+	if (page) {
+		contentOpacity(page);
+	}
+}
 
 //----------煙霧特效
-function smokeAniMotion() {
-    $(".smoke_inner").css('background-position', '0 0');
-    $('#smokeBg').css('display', 'block');
-    smoking = true;
-    $(".smoke_inner").animateSprite('restart');
+function smokeAniMotion(page) {
+	$(".smoke_inner").css("background-position", "0 0");
+	$("#smokeBg").css("display", "block");
+	smoking = true;
+	$(".smoke_inner").animateSprite("restart");
+	if (page) {
+		contentOpacity(page);
+	}
+}
+
+function contentOpacity(page) {
+	TweenMax.to($("." + page + " .section-contents"), 1.2, {
+		autoAlpha: 1,
+		delay: 1,
+	});
+}
+
+var drag;
+// 拖曳效果
+function dragPage(page) {
+	drag = Draggable.create(page + " .drag-wrap", {
+		type: "scroll",
+		edgeResistance: 1,
+		throwProps: true,
+	})[0];
+
+	TweenMax.set(drag.scrollProxy, {
+		scrollLeft: scrLeft,
+		scrollTop: 0,
+	});
+}
+
+function end(fn) {
+	TweenMax.to(drag.scrollProxy, 0.6, {
+		scrollLeft: scrLeft,
+		scrollTop: 0,
+		ease: Quint.easeOut,
+	});
+
+	videoRest($(".entry__video1"), 1, true).pause();
+	// videoRest($(".entry__video1"), 0, false);
+	videoRest($(".entry__video2"), 2, true).load();
+	videoRest($(".entry__video2"), 2, true).play();
+	elementScale($(".entry__contents"));
+	if (fn) {
+		fn();
+	}
+}
+
+function entryEnd() {
+	end(function () {
+		videoEnded(".entry__video2", function () {
+			dragPage(".main");
+			$(".main").show();
+			$(".entry").fadeOut();
+			videoRest($(".main__video1"), 2, true).load();
+			videoRest($(".main__video1"), 2, true).play();
+			videoEnded(".main__video1", function () {
+				videoRest($(".main__video1"), 2, true).pause();
+				TweenMax.to($(".main__title"), 2, {
+					autoAlpha: 1,
+					scale: 1,
+				});
+				setTimeout(function () {
+					videoRest($(".main__video1"), 0, false);
+				}, 1000);
+				videoRest($(".main__video2"), 2, true).load();
+				videoRest($(".main__video2"), 2, true).play();
+				TweenMax.to($(".main__btn-group"), 1, {
+					y: "0",
+					autoAlpha: 1,
+					onComplete: function () {
+						mouseScroll = true;
+						changePage = true;
+					},
+				});
+			});
+		});
+	});
+}
+
+function videoEnded(video, callback) {
+	$(video)[0].onended = callback;
+}
+function videoPlaying(video, callback) {
+	$(video)[0].onplaying = callback;
+}
+function elementScale(target) {
+	TweenMax.to(target, 1.2, {
+		autoAlpha: 0,
+		scale: 1.3,
+		ease: Quint.easeIn,
+	});
+}
+
+function videoRest(video, zindex, isShow) {
+	TweenMax.set(drag.scrollProxy, {
+		scrollLeft: scrLeft,
+		scrollTop: top || 0,
+	});
+	if (isShow) {
+		video.show();
+	} else {
+		video.hide();
+	}
+	video.css("zIndex", zindex);
+	return video[0];
+}
+
+dragPage(".entry");
+
+TweenMax.set($(".main__title"), {
+	scale: 2,
+	autoAlpha: 0,
+});
+
+TweenMax.set($(".main__btn-group"), {
+	y: "100",
+	autoAlpha: 0,
+});
+
+// 調整20201126
+$(".entry__btn").on("click", function () {
+	BGO.check_app_exist(function (res) {
+		if (res.result != undefined) {
+			if ($("#AccountToken").val() === "") {
+				ErrorText("查無天堂M帳號，請重新輸入", "Logout.aspx");
+			}
+		}
+	});
+
+	var change = $(this).attr("data-change");
+	$("#app").attr("data-current", change);
+	mouseScroll = false;
+	if (isMobile.any && mbOpen) {
+		dragPage(".main");
+		$(".main").show();
+		$(".entry").fadeOut();
+		TweenMax.to($(".main__title"), 2, {
+			autoAlpha: 1,
+			scale: 1,
+		});
+		TweenMax.to($(".main__btn-group"), 1, {
+			y: "0",
+			autoAlpha: 1,
+			onComplete: function () {
+				mouseScroll = true;
+				changePage = true;
+			},
+		});
+	} else {
+		entryEnd();
+	}
+});
+
+$("body").on("click", ".nav-li", function () {
+	if ($(this).hasClass("coming")) {
+		return;
+	}
+	var current = $("#app").attr("data-current");
+	var page = $(this).attr("data-page");
+	if (page && changePage) {
+		changePage = false;
+		mouseScroll = false;
+		$("#app").attr("data-current", page);
+		$(this).addClass("current").siblings().removeClass("current");
+		if (current == "entry") {
+			end(function () {
+				videoEnded(".entry__video2", function () {
+					$(".entry").hide();
+					pageAnim(page);
+				});
+			});
+		} else {
+			pageAnim(page);
+		}
+	}
+});
+
+$(".main__btn").on("click", function () {
+	if ($(this).hasClass("coming")) {
+		return;
+	}
+	var current = $("#app").attr("data-current");
+	var page = $(this).attr("data-page");
+	if (page && changePage) {
+		changePage = false;
+		mouseScroll = false;
+		$("#app").attr("data-current", page);
+		$(".nav-li[data-page=" + page + "]")
+			.addClass("current")
+			.siblings()
+			.removeClass("current");
+		if (current == "entry") {
+			end(function () {
+				videoEnded(".entry__video2", function () {
+					$(".entry").hide();
+					pageAnim(page);
+				});
+			});
+		} else {
+			pageAnim(page);
+		}
+	}
+});
+
+function pageAnim(page) {
+	location.hash = "#" + page;
+	getScrollIndex(page);
+	if (smokingInit) {
+		smokeAniMotion(page);
+	} else {
+		InitAnimate(page);
+	}
+	$(".section[data-page=" + page + "]")
+		.css("zIndex", 5)
+		.show();
+	$(".section")
+		.not($(".section[data-page=" + page + "]"))
+		.css("zIndex", 1)
+		.hide();
+
+	var currPage = $("#app").attr("data-current");
+	if (currPage != "main") {
+		if (!$(".nav-wrap").hasClass("show")) {
+			$(".nav-wrap").fadeIn();
+			$(".nav-wrap").addClass("show");
+		}
+	} else {
+		$(".nav-wrap").removeClass("show");
+		$(".nav-wrap").hide();
+	}
+	if ($("." + page).find(".drag-wrap").length) {
+		$("#app").css("overflow", "hiddden");
+		if ($("#game-footer").length) {
+			$(".UNI-footer").addClass("fixed");
+		}
+		if (isMobile.any) {
+			if (page == "main") {
+				dragPage("." + page);
+			} else {
+				if ($("#game-footer").length) {
+					$(".UNI-footer").removeClass("fixed");
+				}
+			}
+		} else {
+			dragPage("." + page);
+		}
+	} else {
+		$("#app").css("overflow", "auto");
+		if ($("#game-footer").length) {
+			$(".UNI-footer").removeClass("fixed");
+		}
+	}
+
+	BGO.check_app_exist(function (res) {
+		if (res.result == undefined) {
+			checkLogin($("#AccountToken"));
+		}
+	});
+
+	if (page == "glory") {
+		unSwiper();
+		HallofFameLoad();
+		var gloryRankLikeNotice = '<div class="glory-popup-box">\
+		<div class="glory-popup-text">每日點讚！獲得每日抽獎次數1次！</div>\
+		<div class="glory-popup-text">選擇一個想投票的名人堂玩家，預測成功可獲得更多轉蛋次數。</div>\
+		<div class="glory-popup-close"></div>\
+		</div>\
+		';
+		if (!getCookieValue("LMReady")) {
+			$(".glory .section-contents").append(gloryRankLikeNotice);
+		}
+	}
+	if (page == "main") {
+		if (isMobile.any && mbOpen) {
+			TweenMax.to($(".main__title"), 2, {
+				autoAlpha: 1,
+				scale: 1,
+			});
+			TweenMax.to($(".main__btn-group"), 1, {
+				y: "0",
+				autoAlpha: 1,
+			});
+		} else {
+			videoRest($(".main__video1"), 2, true).play();
+			videoEnded(".main__video1", function () {
+				videoRest($(".main__video1"), 2, true).pause();
+				TweenMax.to($(".main__title"), 2, {
+					autoAlpha: 1,
+					scale: 1,
+				});
+				setTimeout(function () {
+					videoRest($(".main__video1"), 0, false);
+				}, 1000);
+				videoRest($(".main__video2"), 2, true).play(0);
+				TweenMax.to($(".main__btn-group"), 1, {
+					y: "0",
+					autoAlpha: 1,
+				});
+			});
+		}
+	}
+	if (page == "gashapon") {
+		TweenMax.killTweensOf($(".gashapon__marquees"));
+		marqueeIndex = 0;
+		Initialize();
+	}
+}
+
+if ($(".info__content-img").length) {
+	$(".info__content-img").mCustomScrollbar({
+		theme: "light",
+	});
+}
+if ($(".event__content-img").length) {
+	$(".event__content-img").mCustomScrollbar({
+		theme: "light",
+	});
+}
+
+// 千萬轉蛋按鈕區
+$(".gashapon__btn").on("click", function () {
+	var btn = $(this).data().btn;
+	switch (btn) {
+		case "info":
+			$.gbox.open(gashaponNoticeHTML, gashaponNoticeObj);
+			return;
+		case "list":
+			$.gbox.open(rewardListRender(ItemRewardInit), rewardListObj);
+			return;
+		case "search":
+			FindRewardLog();
+			return;
+		case "person":
+			GetMission("person");
+			return;
+		case "world":
+			GetMission("world");
+			return;
+		case "glory":
+			GetSupportLog();
+			return;
+	}
+});
+
+// 千萬轉蛋按鈕區
+$(".gashapon__menu-btn2").on("click", function () {
+	var btn = $(this).data().btn;
+	switch (btn) {
+		case "info":
+			$.gbox.open(gashaponNoticeHTML, gashaponNoticeObj);
+			return;
+		case "list":
+			$.gbox.open(rewardListRender(ItemRewardInit), rewardListObj);
+			return;
+		case "search":
+			FindRewardLog();
+			return;
+	}
+});
+
+$(".gashapon__menu-btn1").on("click", function () {
+	var btn = $(this).data().btn;
+	switch (btn) {
+		case "person":
+			GetMission("person");
+			return;
+		case "world":
+			GetMission("world");
+			return;
+		case "glory":
+			GetSupportLog();
+			return;
+	}
+});
+
+// 名人堂按鈕區
+$(".glory__btn").on("click", function () {
+	var btn = $(this).data().btn;
+	switch (btn) {
+		case "like":
+			$.gbox.open(gloryLikeNoticeHTML, gloryNoticeObj);
+			return;
+		case "sup":
+			$.gbox.open(gloryYYNoticeHTML, gloryNoticeObj);
+			return;
+		case "share":
+			$.gbox.open(gloryShareNoticeHTML, gloryNoticeObj);
+			return;
+	}
+});
+
+$(".glory__menu-btn").on("click", function () {
+	var btn = $(this).data().btn;
+	switch (btn) {
+		case "like":
+			$.gbox.open(gloryLikeNoticeHTML, gloryNoticeObj);
+			return;
+		case "sup":
+			$.gbox.open(gloryYYNoticeHTML, gloryNoticeObj);
+			return;
+		case "share":
+			$.gbox.open(gloryShareNoticeHTML, gloryNoticeObj);
+			return;
+		case "rank":
+			$.gbox.open(gloryRankRender(HalloFameRankList), gloryRankObj);
+			return;
+	}
+});
+
+var currTarget = {
+	x: 0,
+	y: 0,
+};
+function dragStop() {
+	if(!isMobile.any){
+		if (drag.endY != undefined) {
+			currTarget.x = drag.endX;
+			currTarget.y = drag.endY;
+		} else {
+			currTarget.x = -scrLeft;
+			currTarget.y = -$(".gashapon .drag-wrap").scrollTop();
+		}
+
+		drag.disable();
+		$(".gashapon .draggabled").css({
+			top: currTarget.y,
+			left: currTarget.x,
+		});
+	}
+}
+function dragStart() {
+	if(!isMobile.any){
+		drag.enable();
+		$(".gashapon .draggabled").css({
+			top: 0,
+			left: 0,
+		});
+		TweenMax.set(drag.scrollProxy, {
+			scrollLeft: Math.abs(currTarget.x),
+			scrollTop: Math.abs(currTarget.y),
+		});
+		drag.enable();
+	}
+}
+
+var ball = true;
+// 轉蛋轉下去
+$(".gashapon__main-btn").on("click", function () {
+	if (ball) {
+		dragStop();
+		ball = false;
+		var actionArr = ["action1", "action2", "action3"];
+		var randomAction = Math.floor(Math.random() * actionArr.length);
+		$(".gashapon__main-btn").parent().addClass(actionArr[randomAction]);
+		setTimeout(function () {
+			$(".gashapon__main-btn").parent().removeClass(actionArr[randomAction]);
+			$.gbox.open(gashaponGetRender("12312"), gashaponGetObj);
+			ball = true;
+		}, 1800);
+	}
+	// AddRewardLog();
+});
+
+$(".gashapon__menu-open").on("click", function () {
+	$(".gashapon__menu").addClass("show");
+	$(".gashapon__menu-wrap").addClass("show");
+	$("body").css("overflow", "hidden");
+	$("#app").css("overflow", "hidden");
+});
+$(".gashapon__menu-close").on("click", function () {
+	$(".gashapon__menu").removeClass("show");
+	$(".gashapon__menu-wrap").removeClass("show");
+	$("body").css("overflow", "auto");
+	$("#app").css("overflow", "auto");
+});
+
+$(".glory__menu-open").on("click", function () {
+	$(".glory__menu").addClass("show");
+	$(".glory__menu-wrap").addClass("show");
+	$("body").css("overflow", "hidden");
+	$("#app").css("overflow", "hidden");
+});
+$(".glory__menu-close").on("click", function () {
+	$(".glory__menu").removeClass("show");
+	$(".glory__menu-wrap").removeClass("show");
+	$("body").css("overflow", "auto");
+	$("#app").css("overflow", "auto");
+});
+
+// 點讚
+$("body").on("click", ".glory__slider-btn-like", function () {
+	var seq = $(".slick-current").find(".glory__slider-role").attr("data-seq");
+	Like(seq);
+});
+
+// 分享按鈕
+$(".glory__share-btn").on("click", function () {
+	Share();
+});
+
+// 支持
+$(".glory__rank-sup").on("click", function () {
+	GetHallofFame();
+});
+
+$(".glory__slider-btn-sup").on("click", function () {
+	GetHallofFame();
+});
+
+// 判斷登入登出
+function checkLogin(v) {
+	var Logout = "Logout.aspx";
+	var Login = "Login.aspx";
+
+	if (v.val()) {
+		$(".nav-li:not([data-page])").find("a").text("登出").attr("href", Logout);
+	} else {
+		$(".nav-li:not([data-page])").find("a").text("登入").attr("href", Login);
+	}
+}
+
+function checkScrollEnd(e, page) {
+	if ($("#gbox").length) {
+		return false;
+	}
+	var page = page || scrollPage[scrollPageIndex].page;
+	// var pageObj = scrollPage[scrollPageIndex];
+	var h = $(document.body).height();
+	var footer = $(".UNI-footer").outerHeight(true);
+	if ($("." + page).find(".draggabled").length) {
+		var pageHeight = $("." + page)
+			.find(".draggabled")
+			.outerHeight();
+		var t = $("." + page)
+			.find(".drag-wrap")
+			.scrollTop();
+		var total = pageHeight - h;
+	} else {
+		var pageHeight = $("." + page).outerHeight();
+		var t = $("#app").scrollTop();
+		var total = pageHeight - h + footer;
+	}
+	if (h >= pageHeight) {
+		return true;
+	}
+
+	if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0) {
+		if (Math.floor(t / total)) {
+			return true;
+		}
+	}
+	if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+		if (t == 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function scrollPageRun() {
+	var pageObj = scrollPage[scrollPageIndex];
+	if (!pageObj.status) {
+		return false;
+	}
+	$(".nav-li[data-page=" + pageObj.page + "]")
+		.addClass("current")
+		.siblings()
+		.removeClass("current");
+	$("#app").attr("data-current", pageObj.page);
+	$(this).addClass("current").siblings().removeClass("current");
+	pageAnim(pageObj.page);
+}
+
+$(window).on("mousewheel DOMMouseScroll", function (e) {
+	if (!isMobile.any) {
+		if (!mouseScroll) return;
+		// 滑鼠往下滾
+		if (e.originalEvent.wheelDelta < 0 || e.originalEvent.detail > 0) {
+			var currentPage = $("#app").attr("data-current");
+			if (currentPage == "entry") {
+				if (!checkScrollEnd(e, currentPage)) {
+					return false;
+				}
+				mouseScroll = false;
+				entryEnd();
+			} else {
+				if (!checkScrollEnd(e)) {
+					return false;
+				}
+				if (scrollPageIndex == scrollPage.length - 1) {
+					return false;
+				}
+				mouseScroll = false;
+				scrollPageIndex++;
+				if (scrollPageIndex == scrollPage.length) {
+					scrollPageIndex = 0;
+				}
+				scrollPageRun();
+			}
+		}
+		// 滑鼠往上滾
+		if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+			var currentPage = $("#app").attr("data-current");
+			if (currentPage != "entry") {
+				if (!checkScrollEnd(e)) {
+					return false;
+				}
+				if (scrollPageIndex == 0) {
+					return false;
+				}
+				mouseScroll = false;
+				scrollPageIndex--;
+				if (scrollPageIndex < 0) {
+					scrollPageIndex = scrollPage.length - 1;
+				}
+				scrollPageRun();
+			}
+		}
+	}
+});
+
+function setCookieValue(name) {
+	document.cookie = name + "=true";
+}
+
+function getCookieValue(name) {
+	var nameString = name + "=";
+	var value = document.cookie.split(";").filter(function (item) {
+		return item.indexOf(nameString) > -1;
+	});
+	if (value.length) {
+		return value[0].trim().substring(nameString.length, value[0].length);
+	} else {
+		return "";
+	}
+}
+
+// 我知道了
+$("body").on("click", ".privacy-btn__agree", function () {
+	setCookieValue("LM");
+	$(".privacy").remove();
+});
+
+// 獎勵清單查詢 - 全選
+var checkAll = true;
+$("body").on("change", ".reward-search-a__checkbox-all", function () {
+	if (checkAll) {
+		checkAll = false;
+		$(".reward-search-a__checkbox").each(function (i, v) {
+			if (!$(this).prop("disabled")) {
+				$(this).prop("checked", true);
+			}
+		});
+	} else {
+		checkAll = true;
+		$(".reward-search-a__checkbox").each(function (i, v) {
+			if (!$(this).prop("disabled")) {
+				$(this).prop("checked", false);
+			}
+		});
+	}
+});
+$("body").on("click", ".reward-search-a__checkbox-all-btn", function () {
+	if (checkAll) {
+		checkAll = false;
+		$(this).text("取消全選");
+		$(".reward-search-a__checkbox").each(function (i, v) {
+			if (!$(this).prop("disabled")) {
+				$(this).prop("checked", true);
+			}
+		});
+	} else {
+		checkAll = true;
+		$(this).text("全選");
+		$(".reward-search-a__checkbox").each(function (i, v) {
+			if (!$(this).prop("disabled")) {
+				$(this).prop("checked", false);
+			}
+		});
+	}
+});
+
+// 獲取hash
+function getTarget(hash) {
+	var h = hash;
+	var page = h.slice(1);
+	var findPage = scrollPage.filter(function (v) {
+		return v.page == page;
+	});
+	if (findPage.length) {
+		goPage(page);
+	}
+}
+
+function goPage(page) {
+	$("#app").attr("data-current", page);
+	$(".entry").hide();
+	$(".nav-li[data-page=" + page + "]")
+		.addClass("current")
+		.siblings()
+		.removeClass("current");
+	pageAnim(page);
+}
+
+// hash改變時
+window.addEventListener("hashchange", function () {
+	var hash = location.hash;
+	if (hash) {
+		getTarget(hash);
+	}
+});
+
+function privacyAppend() {
+	privacyHTML = "";
+	if (isMobile.any) {
+		privacyHTML = '<div class="privacy">\
+			<div class="privacy-box">\
+				<div class="privacy-text">\
+					<span>本網站使用瀏覽器紀錄(Cookie)為您提供更好的使用體驗，繼續瀏覽本網站表示您</span>\
+					<span>閱讀並同意我們的隱私權保護政策。閱讀我們的<a href="https://event.beanfun.com/LineageM/PrivacyM/index.aspx" class="pricacy-text__pop" target="_blank">隱私權保護政策</a>以了解更多詳情。</span>\
+				</div>\
+				<a href="javascript:;" class="privacy-btn__agree">我知道了</a>\
+			</div>\
+		</div>\
+		';
+	} else {
+		privacyHTML = '<div class="privacy">\
+			<div class="privacy-box">\
+				<div class="privacy-text">\
+					<span>本網站最適合Chrome/IE11以上瀏覽器，顯示器建議1920x1080解析度，文字、應用程式，與其他項目的</span>\
+					<span>建議大小100%瀏覽器紀錄(Cookie)為您提供更好的使用體驗， 繼續瀏覽本網站表示您閱讀並同意我們的</span>\
+					<span>隱私權保護政策。閱讀我們的<a href="https://event.beanfun.com/LineageM/PrivacyM/index.aspx" class="pricacy-text__pop" target="_blank">隱私權保護政策</a>以了解更多詳情。</span>\
+				</div>\
+				<a href="javascript:;" class="privacy-btn__agree">我知道了</a>\
+			</div>\
+		</div>\
+		';
+	}
+	if (!getCookieValue("LM")) {
+		$("#app").append(privacyHTML);
+	}
+}
+
+// loading讀取時
+loadingProgress({
+	loadedFN: function () {
+		var hash = location.hash;
+		if (hash) {
+			getTarget(hash);
+		}
+		if(isMobile.any){
+			$(".section-contents").css("height",$(window).height()+"px")
+		}
+		var footerHTML = "";
+		privacyAppend();
+		if ($("#game-footer").length) {
+			var footer = $(".UNI-footer").html();
+			var footerHTML = "<div class='UNI-footer dark'>" + footer + "</div>";
+			$(".UNI-footer").remove();
+		}
+		if (isMobile.any) {
+			var nav = $(".nav-wrap").html();
+			var navHTML = "<div class='nav-wrap'>" + nav + "</div>";
+			$(".nav-wrap").remove();
+			$(".gashapon .section-contents").append(navHTML);
+			$(".glory .section-contents").append(navHTML);
+			if ($(".info").length) {
+				$(".info .info__contents").append(navHTML);
+			}
+			if ($(".event").length) {
+				$(".event .event__contents").append(navHTML);
+			}
+			$("#app").append(footerHTML);
+		} else {
+			$(".entry .draggabled").append(footerHTML);
+			$(".main .draggabled").append(footerHTML);
+			$(".gashapon .draggabled").append(footerHTML);
+			$(".glory .draggabled").append(footerHTML);
+			if ($(".info").length) {
+				$(".info .info__contents").append(footerHTML);
+			}
+			if ($(".event").length) {
+				$(".event .event__contents").append(footerHTML);
+			}
+		}
+		if ($("#game-footer").length) {
+			$(".UNI-footer").addClass("fixed");
+		}
+	},
+});
+
+$("body").on("click", ".glory-popup-close", function () {
+	setCookieValue("LMReady");
+	$(".glory-popup-box").remove();
+});
+
+$(".entry__video1")[0].onplay  =function(){
+	$(".entry__video1").addClass("show")
+}
+$(".entry__video2")[0].onplay  =function(){
+	$(".entry__video2").addClass("show")
+}
+$(".main__video1")[0].onplay  =function(){
+	$(".main__video1").addClass("show")
+}
+$(".main__video2")[0].onplay  =function(){
+	$(".main__video2").addClass("show")
 }
