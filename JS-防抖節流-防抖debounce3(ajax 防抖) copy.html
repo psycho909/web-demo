@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				height: 99999px;
+				background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
+			}
+
+			#r {
+				position: fixed;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			input 防抖:
+			<!-- <input type="text" id="inputb"> -->
+			<button id="inputb">按鈕</button>
+		</div>
+		<p id="r"></p>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+
+		<script>
+			var delay = 1000;
+			var inputb = document.getElementById("inputb");
+			function ajax(content) {
+				console.log("ajax request " + content);
+			}
+
+			function debounce(fn, delay) {
+				var timeoutID = null;
+
+				return function (args) {
+					var that = this;
+					var _args = args;
+					clearTimeout(timeoutID);
+					timeoutID = setTimeout(function () {
+						fn.call(that, _args);
+					}, delay);
+				};
+			}
+
+			var debouncedLog = debounce(ajax, delay);
+			inputb.addEventListener("click", function (e) {
+				debouncedLog("12312312");
+			});
+		</script>
+	</body>
+</html>

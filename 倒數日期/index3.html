@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="content3">
+			<div class="time"><span id="LeftTime"></span></div>
+		</div>
+		<script>
+			function Time(time, callback1, callback2) {
+				var endtime = +new Date(time);
+				var timeinterval = setInterval(function () {
+					var nowtime = +new Date();
+					var lefttime = parseInt(endtime - nowtime);
+					d = Math.ceil(lefttime / (24 * 60 * 60 * 1000));
+					// d = parseInt(lefttime / (24 * 60 * 60 * 1000));
+					h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
+					m = parseInt((lefttime / (60 * 1000)) % 60);
+					s = parseInt((lefttime / 1000) % 60);
+					if (lefttime <= 0) {
+						if (callback2) {
+							callback2();
+						}
+						clearInterval(timeinterval);
+					} else {
+						if (callback1) {
+							callback1();
+						}
+					}
+				}, 1000);
+			}
+			Time(
+				"2020/12/17 00:00:00",
+				function () {
+					// 倒數時
+					document.getElementById("LeftTime").innerHTML = d + "天";
+				},
+				function () {
+					// 時間到了
+					document.getElementById("LeftTime").innerHTML = "時間結束";
+				}
+			);
+		</script>
+	</body>
+</html>
