@@ -67,7 +67,7 @@
 
 			var line7Obj = lineObj(202 + xx, 12 + xx, 26 + yy, 314 + yy, 2);
 			var line8Obj = lineObj(202 + xx, 12 + xx, 375 + yy, 314 + yy, 2);
-			var line9Obj = lineObj(28 + xx, 313 + xx, 375 + yy, 115 + yy, 2);
+			var line9Obj = lineObj(28 + xx, 313 + xx, 375 + yy, 115 + yy, 4);
 			var line10Obj = lineObj(26 + xx, 115 + xx, 115 + yy, 163 + yy);
 			var line11Obj = lineObj(165 + xx, 193 + xx, 375 + yy, 314 + yy);
 
@@ -87,6 +87,12 @@
 				this.y = y;
 				this.target = target;
 				this.update = function () {
+					this.target.shadowBlur = 22;
+					this.target.shadowColor = "#9A948B";
+					this.target.drawImage(this.image, this.x, this.y);
+				};
+				this.fadeOut = function () {
+					this.target.globalAlpha = 0;
 					this.target.shadowBlur = 22;
 					this.target.shadowColor = "#9A948B";
 					this.target.drawImage(this.image, this.x, this.y);
@@ -128,15 +134,16 @@
 					magic.update();
 					$("#canvas2").fadeIn();
 					$("#canvas").fadeOut(function () {
-						circleRotate();
+						circleRotate(2);
 					});
 				}
 			}
 
-			function circleRotate() {
+			function circleRotate(speed) {
+				var s = speed || 1;
 				var i = 0;
 				setInterval(function () {
-					i++;
+					i += s;
 					$("#canvas2").css("-ms-transform", "rotate(" + i + "deg)");
 					$("#canvas2").css("-webkit-transform", "rotate(" + i + "deg)");
 					$("#canvas2").css("transform", "rotate(" + i + "deg)");
