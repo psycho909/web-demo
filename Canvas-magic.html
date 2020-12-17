@@ -4,113 +4,276 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
 			body {
-				background-color: #999;
+				background-color: #000;
 			}
 			.magic {
-				width: 402px;
-				height: 428px;
-				background-image: url("./images/magic.png");
+				width: 455px;
+				height: 480px;
+				/* background-image: url("./images/magic-complete.png"); */
+				/* background-image: url("./images/magic.png"); */
+				background-position: center;
+				background-repeat: no-repeat;
 			}
-			#canvas {
+			.canvas {
 				position: absolute;
 				top: 0;
 				left: 0;
+			}
+			#canvas {
+				z-index: 1;
+			}
+			#canvas2 {
+				z-index: 0;
+				display: none;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="magic"></div>
-		<canvas id="canvas"></canvas>
+		<!-- <canvas id="canvas" width="402" height="428"></canvas> -->
+		<canvas id="canvas" class="canvas" width="455" height="480"></canvas>
+		<canvas id="canvas2" class="canvas" width="455" height="480"></canvas>
+		<!-- 27 26 -->
 		<script>
 			var canvas = document.getElementById("canvas");
-			canvas.width = 402;
-			canvas.height = 428;
+			var canvas2 = document.getElementById("canvas2");
 
+			var width = canvas.width;
+			var height = canvas.height;
 			var ctx = canvas.getContext("2d");
-			ctx.beginPath();
-			ctx.arc(402 / 2, 428 / 2, 201, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.closePath();
+			var ctx2 = canvas2.getContext("2d");
+			var xx = 27;
+			var yy = 26;
 
-			ctx.beginPath();
-			ctx.arc(402 / 2, 428 / 2, 160, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.closePath();
+			var circle1Obj = circleObj(width / 2, height / 2, 201, 0.5, 3);
+			var circle2Obj = circleObj(width / 2, height / 2, 160, 1);
+			var circle3Obj = circleObj(163, 212, 30, 1);
+			var circle4Obj = circleObj(265 + xx, 287 + yy, 18, 1);
 
-			ctx.beginPath();
-			ctx.arc(136, 186, 30, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.closePath();
+			var line1Obj = lineObj(201 + xx, 12 + xx, 201 + yy, 416 + yy, 3);
+			var line2Obj = lineObj(26 + xx, 115 + xx, 375 + yy, 115 + yy, 2);
+			var line3Obj = lineObj(28 + xx, 115 + xx, 201 + yy, 416 + yy, 2);
+			var line4Obj = lineObj(375 + xx, 116 + xx, 280 + yy, 274 + yy, 4);
+			var line5Obj = lineObj(264 + xx, 305 + xx, 201 + yy, 416 + yy);
+			var line6Obj = lineObj(26 + xx, 314 + xx, 375 + yy, 314 + yy, 4);
 
-			ctx.beginPath();
-			ctx.arc(265, 287, 18, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.closePath();
+			var line7Obj = lineObj(202 + xx, 12 + xx, 26 + yy, 314 + yy, 2);
+			var line8Obj = lineObj(202 + xx, 12 + xx, 375 + yy, 314 + yy, 2);
+			var line9Obj = lineObj(28 + xx, 313 + xx, 375 + yy, 115 + yy, 2);
+			var line10Obj = lineObj(26 + xx, 115 + xx, 115 + yy, 163 + yy);
+			var line11Obj = lineObj(165 + xx, 193 + xx, 375 + yy, 314 + yy);
 
-			ctx.beginPath();
-			ctx.moveTo(402 / 2, 12);
-			ctx.lineTo(402 / 2, 416);
-			ctx.stroke();
-			ctx.closePath();
+			var red = new componentImage(ctx, "red", 213, 25);
+			var green = new componentImage(ctx, "green", 213, 425);
+			var purple = new componentImage(ctx, "purple", 39, 125);
+			var orange = new componentImage(ctx, "orange", 386, 125);
+			var blue = new componentImage(ctx, "blue", 39, 325);
+			var yellow = new componentImage(ctx, "yellow", 386, 325);
 
-			// 下三角形
-			ctx.beginPath();
-			ctx.moveTo(26, 115);
-			ctx.lineTo(375, 115);
-			ctx.stroke();
-			ctx.closePath();
+			var magic = new componentImage(ctx2, "magic-complete", 0, 0);
 
-			ctx.beginPath();
-			ctx.moveTo(28, 115);
-			ctx.lineTo(402 / 2, 416);
-			ctx.stroke();
-			ctx.closePath();
+			function componentImage(target, name, x, y, w, h) {
+				this.image = new Image();
+				this.image.src = "./images/" + name + ".png";
+				this.x = x;
+				this.y = y;
+				this.target = target;
+				this.update = function () {
+					this.target.shadowBlur = 22;
+					this.target.shadowColor = "#9A948B";
+					this.target.drawImage(this.image, this.x, this.y);
+				};
+			}
 
-			// 有兩段
-			ctx.beginPath();
-			ctx.moveTo(375, 114);
-			ctx.lineTo(402 / 2, 416);
-			ctx.stroke();
-			ctx.closePath();
+			function animate() {
+				ctx.clearRect(0, 0, width, height);
 
-			// 上三角形
-			ctx.beginPath();
-			ctx.moveTo(26, 314);
-			ctx.lineTo(375, 314);
-			ctx.stroke();
-			ctx.closePath();
+				circleAnim(circle1Obj);
+				circleAnim(circle2Obj);
+				circleAnim(circle3Obj);
+				circleAnim(circle4Obj);
 
-			ctx.beginPath();
-			ctx.moveTo(26, 314);
-			ctx.lineTo(202, 12);
-			ctx.stroke();
-			ctx.closePath();
+				lineAnim(line1Obj);
+				lineAnim(line2Obj);
+				lineAnim(line3Obj);
+				lineAnim(line4Obj);
+				lineAnim(line5Obj);
+				lineAnim(line6Obj);
+				lineAnim(line7Obj);
+				lineAnim(line8Obj);
+				lineAnim(line9Obj);
+				lineAnim(line10Obj);
+				lineAnim(line11Obj);
 
-			ctx.beginPath();
-			ctx.moveTo(375, 314);
-			ctx.lineTo(202, 12);
-			ctx.stroke();
-			ctx.closePath();
+				red.update();
+				green.update();
+				purple.update();
+				orange.update();
+				blue.update();
+				yellow.update();
 
-			// 斜對角
-			ctx.beginPath();
-			ctx.moveTo(26, 115);
-			ctx.lineTo(375, 313);
-			ctx.stroke();
-			ctx.closePath();
+				if (!checkObj([circle1Obj, circle2Obj, circle3Obj, circle4Obj, line1Obj, line2Obj, line3Obj, line4Obj, line5Obj, line6Obj, line7Obj, line8Obj, line9Obj, line10Obj, line11Obj])) {
+					setTimeout(function () {
+						animate();
+					}, 1000 / 60);
+				} else {
+					magic.update();
+					$("#canvas2").fadeIn();
+					$("#canvas").fadeOut(function () {
+						circleRotate();
+					});
+				}
+			}
 
-			// 斜對角 有兩段
-			ctx.beginPath();
-			ctx.moveTo(375, 115);
-			ctx.lineTo(28, 313);
-			ctx.stroke();
-			ctx.closePath();
+			function circleRotate() {
+				var i = 0;
+				setInterval(function () {
+					i++;
+					$("#canvas2").css("-ms-transform", "rotate(" + i + "deg)");
+					$("#canvas2").css("-webkit-transform", "rotate(" + i + "deg)");
+					$("#canvas2").css("transform", "rotate(" + i + "deg)");
+				}, 1000 / 60);
+			}
+			function circleObj(x, y, r, speed, w) {
+				var circle = {
+					x: x,
+					y: y,
+					r: r,
+					crr: 0,
+					circum: Math.PI * 2,
+					start: Math.PI / -2,
+					stroke: w || 1,
+					speed: speed || 1,
+					status: false,
+				};
+				return circle;
+			}
+			function circleAnim(circle) {
+				var grad = ctx.createLinearGradient(0, 0, 455, 480);
+				grad.addColorStop(0, "#c2b19d");
+				grad.addColorStop(0.5, "#66615a");
+				grad.addColorStop(1, "#c7beb3");
+
+				ctx.shadowBlur = 12;
+				ctx.shadowColor = "#9A948B";
+				ctx.beginPath();
+				ctx.arc(circle.x, circle.y, circle.r, circle.start, (circle.circum * circle.crr) / 100 + circle.start, false);
+				ctx.lineWidth = circle.stroke;
+				ctx.stroke();
+				ctx.closePath();
+
+				if (circle.crr <= 100) {
+					circle.crr += circle.speed;
+				} else {
+					circle.crr += 0;
+					circle.status = true;
+				}
+
+				return;
+			}
+			function lineObj(x, y, xEnd, yEnd, speed) {
+				var line = {
+					x: x,
+					y: y,
+					xEnd: xEnd,
+					yEnd: yEnd,
+					xD: xEnd - x,
+					yD: yEnd - y,
+					xAdd: 1,
+					xCrr: x,
+					yAdd: 1,
+					yCrr: y,
+					xStatus: false,
+					yStatus: false,
+					status: false,
+					color: "black",
+				};
+				if (Math.abs(line.xD) > Math.abs(line.yD)) {
+					if (speed) {
+						line.yAdd = (line.yD / line.xD) * speed;
+						line.xAdd = line.xAdd * speed;
+					} else {
+						line.yAdd = line.yD / line.xD;
+					}
+				} else {
+					if (speed) {
+						line.xAdd = (line.xD / line.yD) * speed;
+						line.yAdd = line.yAdd * speed;
+					} else {
+						line.xAdd = line.xD / line.yD;
+					}
+				}
+
+				return line;
+			}
+			function lineAnim(line) {
+				var grad = ctx.createLinearGradient(0, 0, 455, 480);
+				grad.addColorStop(0, "#c2b19d");
+				grad.addColorStop(0.5, "#66615a");
+				grad.addColorStop(1, "#c7beb3");
+				ctx.strokeStyle = grad;
+
+				ctx.shadowBlur = 22;
+				ctx.shadowColor = "#9A948B";
+				ctx.beginPath();
+				ctx.moveTo(line.x, line.y);
+				ctx.lineTo(line.xCrr, line.yCrr);
+				ctx.stroke();
+				ctx.closePath();
+
+				if (line.xAdd < 0) {
+					if (line.xCrr <= line.xEnd) {
+						line.xCrr += 0;
+						line.xStatus = true;
+					} else {
+						line.xCrr += line.xAdd;
+					}
+				} else {
+					if (line.xCrr >= line.xEnd) {
+						line.xCrr += 0;
+						line.xStatus = true;
+					} else {
+						line.xCrr += line.xAdd;
+					}
+				}
+
+				if (line.yAdd < 0) {
+					if (line.yCrr <= line.yEnd) {
+						line.yCrr += 0;
+						line.yStatus = true;
+					} else {
+						line.yCrr += line.yAdd;
+					}
+				} else {
+					if (line.yCrr > line.yEnd) {
+						line.yCrr += 0;
+						line.yStatus = true;
+					} else {
+						line.yCrr += line.yAdd;
+					}
+				}
+
+				if (line.xStatus && line.yStatus) {
+					line.status = true;
+				}
+				return line;
+			}
+
+			function checkObj() {
+				return arguments[0].every(function (v) {
+					return v.status === true;
+				});
+			}
+
+			animate();
 		</script>
 	</body>
 </html>

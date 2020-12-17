@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #999;
+			}
+			.magic {
+				width: 402px;
+				height: 428px;
+				background-image: url("./images/magic.png");
+			}
+			#canvas {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="magic"></div>
+		<canvas id="canvas" width="402" height="428"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var width = canvas.width;
+			var height = canvas.height;
+			var x = width / 2;
+			var y = height / 2;
+			var radius = 201;
+			var radius2 = 160;
+			var ctx = canvas.getContext("2d");
+
+			// ctx.beginPath();
+			// ctx.arc(402 / 2, 428 / 2, 201, 0, 2 * Math.PI);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.arc(402 / 2, 428 / 2, 160, 0, 2 * Math.PI);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.arc(136, 186, 30, 0, 2 * Math.PI);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.arc(265, 287, 18, 0, 2 * Math.PI);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(402 / 2, 12);
+			// ctx.lineTo(402 / 2, 416);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(26, 115);
+			// ctx.lineTo(375, 115);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(28, 115);
+			// ctx.lineTo(201, 416);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(375, 114);
+			// ctx.lineTo(280, 276);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(264, 305);
+			// ctx.lineTo(201, 416);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(26, 314);
+			// ctx.lineTo(375, 314);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(26, 314);
+			// ctx.lineTo(202, 12);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(375, 314);
+			// ctx.lineTo(202, 12);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(375, 115);
+			// ctx.lineTo(28, 313);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(26, 115);
+			// ctx.lineTo(115, 163);
+			// ctx.stroke();
+			// ctx.closePath();
+
+			// ctx.beginPath();
+			// ctx.moveTo(165, 193);
+			// ctx.lineTo(375, 314);
+			// ctx.stroke();
+			// ctx.closePath();
+		</script>
+	</body>
+</html>
