@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			h3 {
+				color: white;
+				font-size: 3em;
+				font-family: Helvetica, Arial, sans-serif;
+			}
+			.main-text {
+				position: absolute;
+				width: 300px;
+				height: 50px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-150px, -25px);
+			}
+			.box {
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				background-color: #777;
+				margin: 20px;
+			}
+
+			.wrapper {
+				width: 500px;
+				perspective: 300px;
+				margin: auto auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>move mouse</h1>
+		<div class="wrapper">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+		<script>
+			$(document).mousemove(function (event) {
+				$(".box").each(function (index, element) {
+					var xPos = event.clientX / $(window).width() - 0.5,
+						yPos = event.clientY / $(window).height() - 0.5,
+						box = element;
+
+					gsap.to(box, 1, {
+						rotationY: -xPos * 100,
+						rotationX: yPos * 100,
+						ease: Power1.easeOut,
+					});
+				});
+			});
+
+			// $(document).mousemove(function (event) {
+			// 	$(".box").each(function (index, element) {
+			// 		var cursorX = event.clientX - $(document).offset().left;
+			// 		var cursorY = event.clientY - $(document).offset().top;
+			// 		var i = 0.5;
+			// 		var a_imgCentetX = $(element).offset().left + $(element).width() / 2;
+			// 		var a_imgCentetY = $(element).offset().top + $(element).height() / 2;
+
+			// 		var a_distX = ((cursorX - a_imgCentetX) * i) / 20;
+			// 		var a_distY = ((cursorY - a_imgCentetY) * i) / 20;
+
+			// 		gsap.to(element, 1, {
+			// 			x: a_distX,
+			// 			y: a_distY,
+			// 		});
+			// 	});
+			// });
+		</script>
+	</body>
+</html>
