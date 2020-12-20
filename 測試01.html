@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				padding: 120px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<textarea name="" id="field1" cols="30" rows="10"></textarea>
+			<button id="submit">Focus</button>
+		</div>
+		<script>
+			$("#field1").focus();
+			$(document).ready(function () {
+				$("#submit").click();
+			});
+
+			$("#submit").on("click", function () {
+				$("#field1").focus();
+			});
+		</script>
+	</body>
+</html>
