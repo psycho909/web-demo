@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			.box {
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				background-color: #777;
+				margin: 20px;
+			}
+
+			.wrapper {
+				width: 500px;
+				perspective: 300px;
+				margin: auto auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="box"></div>
+		</div>
+		<button id="btn">按鈕</button>
+		<script>
+			$("#btn").on("click", function () {
+				bb();
+			});
+			// 脈衝
+			function aa() {
+				gsap.to(".box", 0.3, {
+					opacity: 0.3,
+					scale: 1.1,
+					yoyo: true,
+					repeat: 1,
+				});
+			}
+			// 蹺蹺板
+			function bb() {
+				var tl = gsap.timeline();
+				tl.to(".box", {
+					rotation: 6,
+					duration: 0.24,
+				})
+					.to(".box", {
+						rotation: -6,
+						duration: 0.24,
+					})
+					.to(".box", {
+						rotation: 4,
+						duration: 0.2,
+					})
+					.to(".box", {
+						rotation: -4,
+						duration: 0.2,
+					})
+					.to(".box", {
+						rotation: 0,
+						duration: 0.16,
+					});
+			}
+		</script>
+	</body>
+</html>
