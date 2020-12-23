@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="content3">
+			<div class="time"><span id="LeftTime"></span></div>
+		</div>
+		<script>
+			function Time(end) {
+				this.end = +new Date(end);
+				this.now = +new Date();
+				this.timeinterval;
+				this.d;
+				this.h;
+				this.m;
+				this.s;
+				this.start = function () {
+					var _this = this;
+					this.timeinterval = setInterval(function () {
+						var nowtime = +new Date();
+						var lefttime = parseInt(_this.end - nowtime);
+						_this.d = Math.ceil(lefttime / (24 * 60 * 60 * 1000));
+						_this.h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
+						_this.m = parseInt((lefttime / (60 * 1000)) % 60);
+						_this.s = parseInt((lefttime / 1000) % 60);
+						console.log(lefttime);
+						if (lefttime <= 0) {
+							document.getElementById("LeftTime").innerHTML = "時間結束";
+							clearInterval(_this.timeinterval);
+						} else {
+							document.getElementById("LeftTime").innerHTML = _this.d + "天" + _this.h + "小时" + _this.m + "分" + _this.s + "秒";
+						}
+					}, 1000);
+				};
+			}
+			var time = new Time("2021/01/05 00:00:00");
+			// time.setNow("2020/12/30 00:00:00");
+			time.start();
+		</script>
+	</body>
+</html>
