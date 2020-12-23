@@ -15,7 +15,7 @@
 			function Time(time, callback1, callback2) {
 				var endtime = +new Date(time);
 				var timeinterval = setInterval(function () {
-					var nowtime = +new Date();
+					var nowtime = +new Date("2020/12/30 18:00:00");
 					var lefttime = parseInt(endtime - nowtime);
 					d = Math.ceil(lefttime / (24 * 60 * 60 * 1000));
 					// d = parseInt(lefttime / (24 * 60 * 60 * 1000));
@@ -35,14 +35,14 @@
 				}, 1000);
 			}
 			Time(
-				"2020/12/17 00:00:00",
+				"2021/01/13 10:00:00",
 				function () {
 					// 倒數時
-					document.getElementById("LeftTime").innerHTML = d + "天";
+					document.getElementById("LeftTime").innerHTML = d + 1 + "天";
 				},
 				function () {
 					// 時間到了
-					document.getElementById("LeftTime").innerHTML = "時間結束";
+					document.getElementById("LeftTime").innerHTML = d + 1 + "天";
 				}
 			);
 		</script>

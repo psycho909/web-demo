@@ -28,11 +28,18 @@
 				perspective: 300px;
 				margin: auto auto;
 			}
+			.light {
+				width: 263px;
+				height: 153px;
+				background-image: url("images/light1.png");
+				transform-origin: 0% 100%;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="wrapper">
 			<div class="box"></div>
+			<div class="light"></div>
 		</div>
 		<button id="btn">按鈕</button>
 		<script>
@@ -52,25 +59,30 @@
 			function bb() {
 				var tl = gsap.timeline();
 				tl.to(".box", {
-					rotation: 6,
+					rotation: 4,
 					duration: 0.24,
 				})
 					.to(".box", {
-						rotation: -6,
+						rotation: -4,
 						duration: 0.24,
 					})
 					.to(".box", {
-						rotation: 4,
+						rotation: 3,
 						duration: 0.2,
 					})
 					.to(".box", {
-						rotation: -4,
+						rotation: -3,
 						duration: 0.2,
 					})
 					.to(".box", {
 						rotation: 0,
 						duration: 0.16,
 					});
+			}
+
+			function lightMove() {
+				var tl = new TimelineMax();
+				tl.fromTo(".light", 1, { transformOrigin: "0 100%", rotation: -10 }, { transformOrigin: "0 100%", rotation: 10, repeat: -1, yoyo: true, ease: Linear.easeNone });
 			}
 		</script>
 	</body>

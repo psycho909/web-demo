@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- <link href="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.css" rel="stylesheet">
+    <script src="https://tw.hicdn.beanfun.com/plugins/swiper/4.4.2/swiper.min.js"></script> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" integrity="sha512-dLc41mqdowYwgVPGg7/h/HhL3zQWZJLrTnbqAVwyvfHwHF+Xpsfu5UWcE7BOjcY/f/0gV55oCP7UZ+CJar5Lqg==" crossorigin="anonymous" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js" integrity="sha512-e5+6GpPHJLxT4d1OJ+WVNEMAdjRt3HOyT8txybfLgxMhpw/6OHlxhfcQjuZKGPH6CM8rfM8tv8A+dnsjGHgUxQ==" crossorigin="anonymous"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			/* .container {
+				position: relative;
+				width: 1280px;
+				height: 100%;
+				box-sizing: border-box;
+				margin: 0 auto;
+			}
+			.slide_wrap {
+				position: absolute;
+				top: 237px;
+				left: 209px;
+				width: 864px;
+				height: 648px;
+			}
+			.slide_wrap .swiper-wrapper {
+				display: flex;
+				list-sytle: none;
+			}
+			.swiper-slide__i1 {
+				background-color: red;
+			}
+			.swiper-slide__i2 {
+				background-color: green;
+			}
+			.swiper-slide__i3 {
+				background-color: yellow;
+			}
+			.swiper-slide__i4 {
+				background-color: blue;
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="slide_wrap">
+				<ul class="swiper-wrapper">
+					<li class="swiper-slide swiper-slide__i1">A</li>
+					<li class="swiper-slide swiper-slide__i2">B</li>
+					<li class="swiper-slide swiper-slide__i3">C</li>
+					<li class="swiper-slide swiper-slide__i4">D</li>
+				</ul>
+			</div>
+		</div>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">Slide 1</div>
+				<div class="swiper-slide">Slide 2</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">Slide 5</div>
+				<div class="swiper-slide">Slide 6</div>
+				<div class="swiper-slide">Slide 7</div>
+				<div class="swiper-slide">Slide 8</div>
+				<div class="swiper-slide">Slide 9</div>
+				<div class="swiper-slide">Slide 10</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+		<script>
+			// var swiper = new Swiper(".slide_wrap", {
+			// 	loop: true,
+			// 	loopedSlides: 2,
+			// 	spaceBetween: 90,
+			// });
+			var swiper = new Swiper(".swiper-container", {
+				slidesPerView: 3,
+				spaceBetween: 30,
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+			});
+		</script>
+	</body>
+</html>
