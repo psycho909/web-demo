@@ -40,6 +40,15 @@
 			</tbody>
         </table>`;
 			$.gbox.open(t);
+
+			function handlerCallback(fn) {
+				if (fn) {
+					fn();
+				} else {
+					console.log("no");
+				}
+			}
+			handlerCallback();
 		</script>
 	</body>
 </html>
