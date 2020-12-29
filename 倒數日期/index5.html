@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="content3">
+			<div class="time"><span id="LeftTime"></span></div>
+		</div>
+		<script>
+			function Time(end) {
+				this.end = +new Date(end);
+				this.timeinterval;
+				this.d = 0;
+				this.h = 0;
+				this.m = 0;
+				this.s = 0;
+				this.endCallback;
+				this.runCallback;
+			}
+			Time.prototype.start = function () {
+				var _this = this;
+				this.timeinterval = setInterval(function () {
+					var nowtime = +new Date();
+					var lefttime = parseInt(_this.end - nowtime);
+					_this.d = parseInt(lefttime / (24 * 60 * 60 * 1000));
+					_this.h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
+					_this.m = parseInt((lefttime / (60 * 1000)) % 60);
+					_this.s = parseInt((lefttime / 1000) % 60);
+					if (lefttime <= 0) {
+						_this.endCallback();
+						clearInterval(_this.timeinterval);
+					} else {
+						_this.runCallback();
+					}
+				}, 1000);
+				return this;
+			};
+			Time.prototype.getAll = function () {
+				return {
+					d: this.d,
+					h: this.h,
+					m: this.m,
+					s: this.s,
+				};
+			};
+			Time.prototype.run = function (fn) {
+				this.runCallback = fn;
+				return this;
+			};
+			Time.prototype.endRun = function (fn) {
+				this.endCallback = fn;
+				return this;
+			};
+			var time = new Time("2020/12/29 10:30:00");
+			time.start()
+				.run(function () {
+					console.log(this.s);
+				})
+				.endRun(function () {
+					console.log("end");
+				});
+		</script>
+	</body>
+</html>

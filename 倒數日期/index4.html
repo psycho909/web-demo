@@ -14,7 +14,6 @@
 		<script>
 			function Time(end) {
 				this.end = +new Date(end);
-				this.now = +new Date();
 				this.timeinterval;
 				this.d;
 				this.h;
@@ -25,7 +24,7 @@
 					this.timeinterval = setInterval(function () {
 						var nowtime = +new Date();
 						var lefttime = parseInt(_this.end - nowtime);
-						_this.d = Math.ceil(lefttime / (24 * 60 * 60 * 1000));
+						_this.d = parseInt(lefttime / (24 * 60 * 60 * 1000));
 						_this.h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
 						_this.m = parseInt((lefttime / (60 * 1000)) % 60);
 						_this.s = parseInt((lefttime / 1000) % 60);

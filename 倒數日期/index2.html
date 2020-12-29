@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+	<body>
+		<div class="content3">
+			<div class="time">
+				還剩
+				<span id="LeftTime"></span>
+			</div>
+		</div>
+		<script>
+			function FreshTime() {
+				var endtime = +new Date("2020/12/29 10:30:00");
+				var nowtime = +new Date();
+				var lefttime = parseInt(endtime - nowtime);
+				d = parseInt(lefttime / (24 * 60 * 60 * 1000));
+				h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
+				m = parseInt((lefttime / (60 * 1000)) % 60);
+				s = parseInt((lefttime / 1000) % 60);
 
-<body>
-    <div class="content3">
-        <div class="time">還剩
-            <span id="LeftTime"></span>
-        </div>
-    </div>
-    <script>
-        function FreshTime() {
-            var endtime = +new Date("2020/6/13 12:00:00");
-            var nowtime = +new Date();
-            var lefttime = parseInt(endtime - nowtime);
-            d = parseInt(lefttime / (24 * 60 * 60 * 1000));
-            h = parseInt(lefttime / (60 * 60 * 1000) % 24);
-            m = parseInt(lefttime / (60 * 1000) % 60);
-            s = parseInt(lefttime / 1000 % 60);
+				if (lefttime <= 0) {
+					document.getElementById("LeftTime").innerHTML = "時間結束";
+					clearInterval(sh);
+				} else {
+					document.getElementById("LeftTime").innerHTML = d + "天" + h + "小时" + m + "分" + s + "秒";
+				}
+			}
+			FreshTime();
+			var sh;
+			sh = setInterval(FreshTime, 1000);
 
-            
-            if (lefttime <= 0) {
-                document.getElementById("LeftTime").innerHTML = "時間結束";
-                clearInterval(sh);
-            }else{
-                document.getElementById("LeftTime").innerHTML = d + "天" + h + "小时" + m + "分" + s + "秒";
-            }
-        }
-        FreshTime()
-        var sh;
-        sh=setInterval(FreshTime,1000);
+			var _endtime = +new Date("2020/12/29 10:30:00");
+			var _nowtime = +new Date();
+			var _lefttime = _endtime - _nowtime;
+			var d = parseInt(_lefttime / (24 * 60 * 60 * 1000));
+			var h = parseInt((_lefttime - d * 24 * 60 * 60 * 1000) / (60 * 60 * 1000));
+			var m = parseInt((_lefttime - d * 24 * 60 * 60 * 1000 - h * 60 * 60 * 1000) / (60 * 1000));
+			var s = parseInt((_lefttime - d * 24 * 60 * 60 * 1000 - h * 60 * 60 * 1000 - m * 60 * 1000) / 1000);
 
-        var _endtime = +new Date("2019/1/13 12:00:00");
-        var _nowtime = +new Date();
-        var _lefttime=_endtime-_nowtime
-        var d=parseInt(_lefttime/(24 * 60 * 60 * 1000))
-        var h=parseInt((_lefttime-(d*24 * 60 * 60 * 1000))/(60 * 60 * 1000))
-        var m=parseInt((_lefttime-(d*24 * 60 * 60 * 1000)-(h*60 * 60 * 1000) )/(60 * 1000))
-        var s=parseInt((_lefttime-(d*24 * 60 * 60 * 1000)-(h*60 * 60 * 1000)-(m*60*1000) )/(1000))
-
-        console.log(d,h,m,s)
-    </script>
-</body>
-
+			console.log(d, h, m, s);
+		</script>
+	</body>
 </html>
