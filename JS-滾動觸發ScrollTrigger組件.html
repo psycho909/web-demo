@@ -119,32 +119,57 @@
 				);
 			});
 
-			$(window)
-				.scroll(function () {
+			function ScrollTrigger(target, offset) {
+				this.target = target;
+				this.curr;
+				this.offset = 150 || offset;
+				this.enterCallback;
+				this.leaveCallback;
+			}
+			ScrollTrigger.prototype.scroll = function () {
+				var _this = this;
+				$(window).scroll(function () {
 					var _top = $(document).scrollTop();
-					var offset = 150;
-					$(".tab").each(function (i, v) {
-						offset = $(this).outerHeight() / 2;
-						if ($(this).offset().top - offset <= _top && $(this).offset().top + $(this).outerHeight() - offset > _top) {
+					$(_this.target).each(function (i, v) {
+						_this.offset = $(this).outerHeight() / 2;
+						if ($(this).offset().top - _this.offset <= _top && $(this).offset().top + $(this).outerHeight() - _this.offset > _top) {
 							if (!$(this).data("trigger")) {
-								var data_name = $(this).attr("data-name");
 								$(this).data("trigger", true);
-								$(".nav li[data-name=" + data_name + "]").addClass("active");
-								console.log("enter", data_name);
+								_this.curr = $(this)[0];
+								_this.enterCallback();
 							}
 							return true;
 						} else {
 							if ($(this).data("trigger")) {
-								var data_name = $(this).attr("data-name");
 								$(this).data("trigger", false);
-								$(".nav li[data-name=" + data_name + "]").removeClass("active");
-								console.log("leave", data_name);
+								_this.curr = $(this)[0];
+								_this.leaveCallback();
 							}
 							return true;
 						}
 					});
+				});
+				return this;
+			};
+			ScrollTrigger.prototype.enter = function (fn) {
+				this.enterCallback = fn;
+				return this;
+			};
+			ScrollTrigger.prototype.leave = function (fn) {
+				this.leaveCallback = fn;
+				return this;
+			};
+
+			var s = new ScrollTrigger(".tab", 150);
+			s.scroll()
+				.enter(function () {
+					$(".nav li[data-name=" + $(this.curr).attr("data-name") + "]").addClass("active");
+					console.log("enter", this.curr);
 				})
-				.scroll();
+				.leave(function () {
+					$(".nav li[data-name=" + $(this.curr).attr("data-name") + "]").removeClass("active");
+					console.log("leave", this.curr);
+				});
 		});
 	</script>
 </html>

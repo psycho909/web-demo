@@ -119,32 +119,57 @@
 				);
 			});
 
-			$(window)
-				.scroll(function () {
-					var _top = $(document).scrollTop();
-					var offset = 150;
-					$(".tab").each(function (i, v) {
-						offset = $(this).outerHeight() / 2;
-						if ($(this).offset().top - offset <= _top && $(this).offset().top + $(this).outerHeight() - offset > _top) {
-							if (!$(this).data("trigger")) {
-								var data_name = $(this).attr("data-name");
-								$(this).data("trigger", true);
-								$(".nav li[data-name=" + data_name + "]").addClass("active");
-								console.log("enter", data_name);
-							}
-							return true;
-						} else {
-							if ($(this).data("trigger")) {
-								var data_name = $(this).attr("data-name");
-								$(this).data("trigger", false);
-								$(".nav li[data-name=" + data_name + "]").removeClass("active");
-								console.log("leave", data_name);
-							}
-							return true;
-						}
-					});
+			function ScrollTrigger(target, offset) {
+				var target = target;
+				var offset = 150 || offset;
+				var enterCallback;
+				var leaveCallback;
+				var scrollObj = {
+					curr: "",
+					scroll() {
+						$(window).scroll(function () {
+							var _top = $(document).scrollTop();
+							$(target).each(function (i, v) {
+								offset = $(this).outerHeight() / 2;
+								if ($(this).offset().top - offset <= _top && $(this).offset().top + $(this).outerHeight() - offset > _top) {
+									if (!$(this).data("trigger")) {
+										$(this).data("trigger", true);
+										curr = $(this)[0];
+										enterCallback();
+									}
+									return true;
+								} else {
+									if ($(this).data("trigger")) {
+										$(this).data("trigger", false);
+										curr = $(this)[0];
+										leaveCallback();
+									}
+									return true;
+								}
+							});
+						});
+						return this;
+					},
+					enter(fn) {
+						enterCallback = fn;
+						return this;
+					},
+					leave(fn) {
+						leaveCallback = fn;
+						return this;
+					},
+				};
+
+				return scrollObj;
+			}
+			ScrollTrigger(".tab", 150)
+				.scroll()
+				.enter(function () {
+					$(".nav li[data-name=" + $(curr).attr("data-name") + "]").addClass("active");
 				})
-				.scroll();
+				.leave(function () {
+					$(".nav li[data-name=" + $(curr).attr("data-name") + "]").removeClass("active");
+				});
 		});
 	</script>
 </html>

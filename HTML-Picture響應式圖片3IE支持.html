@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/picturefill/3.0.3/picturefill.min.js"></script>
+		<style>
+			.box {
+				max-width: 1200px;
+				width: 100%;
+			}
+
+			.box img {
+				width: 100%;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<picture>
+				<source media="(max-width:1000px)" srcset="images/3.jpg" />
+				<source media="(max-width:1200px)" srcset="images/2.jpg" />
+
+				<img srcset="images/1.jpg" src="images/1.jpg" alt="" />
+			</picture>
+		</div>
+	</body>
+</html>

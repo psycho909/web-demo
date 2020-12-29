@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="content3">
+			<div class="time"><span id="LeftTime"></span></div>
+		</div>
+		<script>
+			function Time(time) {
+				var end = +new Date(time);
+				var timeinterval;
+				var endCallback;
+				var runCallback;
+				var timeinterval;
+				var timeObj = {
+					d: 0,
+					h: 0,
+					m: 0,
+					s: 0,
+					start() {
+						timeinterval = setInterval(function () {
+							var nowtime = +new Date();
+							var lefttime = parseInt(end - nowtime);
+							d = parseInt(lefttime / (24 * 60 * 60 * 1000));
+							h = parseInt((lefttime / (60 * 60 * 1000)) % 24);
+							m = parseInt((lefttime / (60 * 1000)) % 60);
+							s = parseInt((lefttime / 1000) % 60);
+							if (lefttime <= 0) {
+								endCallback();
+								clearInterval(timeinterval);
+							} else {
+								runCallback();
+							}
+						}, 1000);
+						return this;
+					},
+					run(fn) {
+						runCallback = fn;
+						return this;
+					},
+					endRun(fn) {
+						endCallback = fn;
+						return this;
+					},
+				};
+				return timeObj;
+			}
+			Time("2020/12/30 10:30:00")
+				.start()
+				.run(function () {
+					console.log(s);
+				})
+				.endRun(function () {
+					console.log("end");
+				});
+		</script>
+	</body>
+</html>
