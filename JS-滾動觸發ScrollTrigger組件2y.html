@@ -107,6 +107,9 @@
 		<div class="totop">top</div>
 	</body>
 	<script>
+		function add(c) {
+			console.log(c);
+		}
 		$(function () {
 			$(".nav li").on("click", function () {
 				var _index = $(this).index();
@@ -118,7 +121,12 @@
 					500
 				);
 			});
-
+			var arr = {
+				name: "Chen",
+			};
+			arr = JSON.stringify(arr);
+			var str = "<li onclick='add(" + arr + ")'>5</li>";
+			$(".nav").append(str);
 			function ScrollTrigger(target, offset) {
 				var target = target;
 				var offset = 150 || offset;
