@@ -107,71 +107,66 @@
 		<div class="totop">top</div>
 	</body>
 	<script>
-		function add(c) {
-			console.log(c);
-		}
-		$(function () {
-			$(".nav li").on("click", function () {
-				var _index = $(this).index();
-				var _top = $("#tab" + (_index + 1)).offset().top;
-				$("body,html").animate(
-					{
-						scrollTop: _top,
-					},
-					500
-				);
-			});
-			function ScrollTrigger(target, offset) {
-				var target = target;
-				var offset = 150 || offset;
-				var enterCallback;
-				var leaveCallback;
-				var scrollObj = {
-					curr: "",
-					scroll() {
-						$(window).scroll(function () {
-							var _top = $(document).scrollTop();
-							$(target).each(function (i, v) {
-								offset = $(this).outerHeight() / 2;
-								if ($(this).offset().top - offset <= _top && $(this).offset().top + $(this).outerHeight() - offset > _top) {
-									if (!$(this).data("trigger")) {
-										$(this).data("trigger", true);
-										curr = $(this)[0];
-										enterCallback();
-									}
-									return true;
-								} else {
-									if ($(this).data("trigger")) {
-										$(this).data("trigger", false);
-										curr = $(this)[0];
-										leaveCallback();
-									}
-									return true;
-								}
-							});
-						});
-						return this;
-					},
-					enter(fn) {
-						enterCallback = fn;
-						return this;
-					},
-					leave(fn) {
-						leaveCallback = fn;
-						return this;
-					},
-				};
-
-				return scrollObj;
-			}
-			ScrollTrigger(".tab", 150)
-				.scroll()
-				.enter(function () {
-					$(".nav li[data-name=" + $(curr).attr("data-name") + "]").addClass("active");
-				})
-				.leave(function () {
-					$(".nav li[data-name=" + $(curr).attr("data-name") + "]").removeClass("active");
-				});
+		$(".nav li").on("click", function () {
+			var _index = $(this).index();
+			var _top = $("#tab" + (_index + 1)).offset().top;
+			$("body,html").animate(
+				{
+					scrollTop: _top,
+				},
+				500
+			);
 		});
+
+		function ScrollTrigger(target, offset) {
+			var target = target;
+			var offset = 150 || offset;
+			var enterCallback;
+			var leaveCallback;
+			var scrollObj = {
+				curr: "",
+				scroll() {
+					window.addEventListener("scroll", function () {
+						var _top = window.pageYOffset;
+						var $target = document.querySelectorAll(target);
+						$target.forEach(function (elem, i) {
+							offset = elem.offsetHeight / 2;
+							if (elem.offsetTop - offset <= _top && elem.offsetTop + elem.offsetHeight - offset > _top) {
+								if (!elem.getAttribute("data-trigger") || elem.getAttribute("data-trigger") === "false") {
+									curr = elem;
+									enterCallback();
+									elem.setAttribute("data-trigger", true);
+								}
+							} else {
+								if (elem.getAttribute("data-trigger")) {
+									curr = elem;
+									leaveCallback();
+									elem.setAttribute("data-trigger", false);
+								}
+							}
+						});
+					});
+					return this;
+				},
+				enter(fn) {
+					enterCallback = fn;
+					return this;
+				},
+				leave(fn) {
+					leaveCallback = fn;
+					return this;
+				},
+			};
+
+			return scrollObj;
+		}
+		ScrollTrigger(".tab", 150)
+			.scroll()
+			.enter(function () {
+				$(".nav li[data-name=" + $(curr).attr("data-name") + "]").addClass("active");
+			})
+			.leave(function () {
+				$(".nav li[data-name=" + $(curr).attr("data-name") + "]").removeClass("active");
+			});
 	</script>
 </html>

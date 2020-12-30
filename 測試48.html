@@ -49,6 +49,25 @@
 				}
 			}
 			handlerCallback();
+
+			function create() {
+				var b = 3;
+				var parent = {
+					a: 1,
+					b() {
+						console.log(this.a);
+					},
+					set(v) {
+						console.log(b);
+					},
+				};
+
+				return Object.create(parent);
+			}
+
+			create().set(3);
+			console.log(create());
+			create().b();
 		</script>
 	</body>
 </html>
