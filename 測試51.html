@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link href="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.css" rel="stylesheet" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.item-slider-box {
+				width: 680px;
+				position: relative;
+				margin: 0 auto;
+			}
+			.item-slider {
+				width: 680px;
+				text-align: center;
+				height: 300px;
+			}
+			.item-box {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 24px;
+				font-family: Arial;
+			}
+			.red {
+				background-color: red;
+			}
+			.green {
+				background-color: green;
+			}
+			.blue {
+				background-color: blue;
+			}
+			.yellow {
+				background-color: yellow;
+			}
+			.item-slider-box .tns-ovh {
+				overflow: visible;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="item-slider-box">
+				<div class="item-slider-wrap">
+					<div class="item-slider">
+						<div class="item-box red">1</div>
+					</div>
+					<div class="item-slider">
+						<div class="item-box green">2</div>
+					</div>
+					<div class="item-slider">
+						<div class="item-box blue">3</div>
+					</div>
+					<div class="item-slider">
+						<div class="item-box yellow">4</div>
+					</div>
+				</div>
+				<button class="item-slider__prev">prev</button>
+				<button class="item-slider__next">next</button>
+			</div>
+		</div>
+		<script>
+			var slider = tns({
+				container: ".item-slider-wrap", //
+				loop: true,
+				autoplay: false,
+				autoplayButtonOutput: false,
+				items: 1,
+				mouseDrag: true,
+				slideBy: "page",
+				nav: false,
+				prevButton: ".item-slider__prev",
+				nextButton: ".item-slider__next",
+				responsive: {
+					768: {
+						fixedWidth: 680,
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
