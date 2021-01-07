@@ -112,16 +112,19 @@
 			var indexOfFirstItem = 0;
 			var pageDecrementBtn = "";
 			var pageIncrementBtn = "";
-
-			function renderData(data) {
-				var ulHTML = "";
-				var liHTML = "";
-				for (var i = 0; i < data.length; i++) {
-					liHTML += "<li>" + data[i].title + "</li>";
-				}
-				ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
-				return ulHTML;
+			var renderDataFun;
+			function renderData(callback) {
+				renderDataFun = callback;
 			}
+			// function renderData(data) {
+			// var ulHTML = "";
+			// var liHTML = "";
+			// for (var i = 0; i < data.length; i++) {
+			// 	liHTML += "<li>" + data[i].title + "</li>";
+			// }
+			// ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
+			// return ulHTML;
+			// }
 
 			function renderPageNumbers() {
 				setpageDecrementBtn();
@@ -187,7 +190,7 @@
 
 			function handleClick(event) {
 				setcurrentPage(Number(event.id));
-				document.querySelector(".items-box").innerHTML = renderData(currentItems());
+				renderDataFun();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 
@@ -197,7 +200,7 @@
 					setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
 				}
-				document.querySelector(".items-box").innerHTML = renderData(currentItems());
+				renderDataFun();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 			function handlePrevbtn() {
@@ -206,7 +209,7 @@
 					setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
 				}
-				document.querySelector(".items-box").innerHTML = renderData(currentItems());
+				renderDataFun();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 
@@ -215,7 +218,19 @@
 					.then((response) => response.json())
 					.then((json) => {
 						data = json;
-						document.querySelector(".items-box").innerHTML = renderData(currentItems());
+						renderData(function () {
+							var pageData = currentItems();
+							var ulHTML = "";
+							var liHTML = "";
+							for (var i = 0; i < pageData.length; i++) {
+								liHTML += "<li>" + pageData[i].title + "</li>";
+							}
+							ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
+
+							document.querySelector(".items-box").innerHTML = ulHTML;
+						});
+						renderDataFun();
+						// document.querySelector(".items-box").innerHTML = renderData(currentItems());
 						setpages();
 						document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 					});

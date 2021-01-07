@@ -71,6 +71,13 @@
 			</div>
 		</div>
 		<script>
+			var btn = `<button id="btn" data-type="1" onclick="getType(this)">Click</button>`;
+			document.getElementById("app").insertAdjacentHTML("beforeend", btn);
+
+			function getType(self) {
+				console.log(self.dataset.type);
+			}
+
 			var slider = tns({
 				container: ".item-slider-wrap", //
 				loop: true,

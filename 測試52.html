@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.flex-box {
+				width: 600px;
+				display: flex;
+				background-color: #999;
+				justify-content: space-between;
+			}
+			.flex-box:before {
+				content: "";
+				display: block;
+			}
+			.flex-box:after {
+				content: "";
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box">
+			<div class="flex">1</div>
+			<div class="flex">2</div>
+			<div class="flex">3</div>
+			<div class="flex">4</div>
+		</div>
+	</body>
+</html>
