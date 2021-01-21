@@ -4,30 +4,89 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script type="text/javascript" src="js/game-footer.js" id="game-footer" prod="跑跑卡丁車" theme="light"></script>
 		<style>
-			#app {
-				height: 100vh;
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			main {
+				background: #3f51b5;
+				/* padding: 15px calc((100vw - min(900px, calc(100vw - 50px))) / 2); */
+				width: clamp(600px, 50vw, 1200px);
+				color: #fff;
+			}
+			.wrapper {
+				margin: 0 auto;
+				padding: 15px 25px;
+				/* max-width: 900px; */
+			}
+			.box {
+				display: inline-block;
+			}
+			.box ~ .box:before {
+				content: ",";
 			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
-			<input type="password" id="ps" data-pass="123" />
-		</div>
+		<main>
+			<div id="wrap" class="wrapper">
+				<div class="box">BanananA</div>
+				<div class="box">BanananB</div>
+				<div class="box">BanananC</div>
+				<div class="box">BanananD</div>
+				<div class="box">BanananE</div>
+			</div>
+		</main>
 
 		<script>
-			// var imgA = "images/food4.jpg";
-			// var imgB = "images/food2.jpg";
+			// Create original person object.
+			const person = {
+				name: "Jack Doer",
+				age: 41,
+				state: null,
+				logState() {
+					// Log the whole object.
+					console.log(this);
+				},
+				drink: () => {
+					person.state = "Drinking.";
 
-			// var img = new Image();
-			// img.src = imgA;
+					person.logState();
 
-			// img.onerror = function () {
-			// 	img.src = imgB;
-			// };
+					return person;
+				},
+				eat: () => {
+					person.state = "Eating.";
 
-			// document.getElementById("app").appendChild(img);
+					person.logState();
+
+					return person;
+				},
+			};
+
+			// Let person eat.
+			person.eat();
+			// Output:
+			// {
+			//   name: 'Jack Doer',
+			//   age: 41,
+			//   state: 'Eating.',
+			//   logState: ƒ,
+			//   drink: ƒ,
+			//   eat: ƒ
+			// }
+
+			// Create new object based on person object.
+			const newPerson = new Object(person);
+
+			// Change the "name" and "age" properties.
+			newPerson.name = "Jackie Holmes";
+			newPerson.age = 33;
+
+			// Let newPerson drink.
+			// This will print Jack Doer not Jackie Holmes.
+			newPerson.drink();
 		</script>
 	</body>
 </html>
