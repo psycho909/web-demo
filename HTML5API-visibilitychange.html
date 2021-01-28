@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				width: 976px;
+				height: 1000px;
+				border-image: url(images/border.png) 98 98 98 98 repeat repeat;
+				border-radius: 18px;
+				border-width: 98px;
+				border-style: solid;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="box"></div>
+			<audio id="audio" src="audio/music.mp3" controls></audio>
+		</div>
+		<script>
+			var audioElement = document.getElementById("audio");
+
+			window.onload = function () {
+				audioElement.play();
+				audioElement.loop = true;
+				document.addEventListener("visibilitychange", function (e) {
+					var hidden = event.target.webkitHidden;
+					console.log(event.target);
+					if (hidden) {
+						audioElement.pause();
+					} else {
+						audioElement.play();
+					}
+				});
+			};
+		</script>
+	</body>
+</html>
