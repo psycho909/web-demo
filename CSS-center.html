@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 600px;
+				height: 600px;
+				border: 1px solid #000;
+			}
+			.center {
+				display: flex;
+			}
+			.center > * {
+				margin: auto;
+			}
+			.inner {
+				width: 100px;
+				height: 100px;
+				border: 1px solid red;
+			}
+			.fluffy-center {
+				padding: 10ch;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="box center">
+				<div class="inner">CENTER</div>
+			</div>
+			<div class="box fluffy-center">
+				<div class="inner">CENTER</div>
+			</div>
+		</div>
+	</body>
+</html>
