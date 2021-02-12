@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<img src="" alt="" id="img" />
+		</div>
+		<script>
+			function getBase64(url, callback) {
+				var Img = new Image();
+				var dataURL = "";
+				Img.src = url;
+				Img.onload = function () {
+					var canvas = document.createElement("canvas");
+					var width = Img.width;
+					var height = Img.height;
+					canvas.width = width;
+					canvas.height = height;
+					canvas.getContext("2d").drawImage(Img, 0, 0, width, height);
+					dataURL = canvas.toDataURL("image/jpeg");
+					callback && callback(dataURL);
+				};
+			}
+			getBase64("images/border.png", function (dataURL) {
+				document.getElementById("img").src = dataURL;
+				console.log(dataURL);
+			});
+		</script>
+	</body>
+</html>

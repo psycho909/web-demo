@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta property="fb:app_id" content="1361927494169720" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script>
+			window.fbAsyncInit = function () {
+				FB.init({
+					appId: "1361927494169720",
+					autoLogAppEvents: true,
+					xfbml: true,
+					version: "v9.0",
+				});
+			};
+		</script>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div id="fb-root"></div>
+			<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&autoLogAppEvents=1&version=v9.0&appId=1361927494169720" nonce="lV7PI7Jq"></script> -->
+			<div class="fb-comments" data-href="https://www.facebook.com/TEST.DEMO01123123/" data-width="" data-numposts="5"></div>
+		</div>
+		<script>
+			window.onload = function () {
+				// var finished_rendering = function () {
+				// 	console.log("finished rendering plugins");
+				// };
+				// // In your onload handler
+				// FB.Event.subscribe("xfbml.render", finished_rendering);
+			};
+		</script>
+	</body>
+</html>
