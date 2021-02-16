@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>App</title>
+		<meta charset="UTF-8" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child foo="Foo" :bar="1" baz="baz" :num="1" msg="success"></child>
+		</div>
+		<script>
+			Vue.component("child", {
+				props: {
+					foo: String,
+					bar: [String, Number],
+					baz: {
+						type: String,
+						required: true,
+					},
+					num: {
+						type: Number,
+						default: 1,
+					},
+					obj: {
+						type: Object,
+						default() {
+							return { message: "hello" };
+						},
+					},
+					msg: {
+						validator(value) {
+							return ["success", "warning", "danger"].includes(value);
+						},
+					},
+				},
+				template: `
+                        <div>
+                            <div>{{foo}}</div>
+                            <div>{{bar}}</div>
+                            <div>{{baz}}</div>
+                            <div>{{num}}</div>
+                            <div>{{obj}}</div>
+                            <div>{{msg}}</div>
+                        </div>
+                    `,
+			});
+			new Vue({
+				el: "#app",
+			});
+		</script>
+	</body>
+</html>
