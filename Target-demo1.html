@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				width: 100%;
+				height: 600px;
+			}
+			.pink {
+				background-color: pink;
+			}
+			.lightblue {
+				background-color: lightblue;
+			}
+			.black {
+				background-color: #000;
+			}
+			.nav {
+				position: fixed;
+				top: 0;
+				right: 0;
+			}
+			.nav li {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box pink" data-target="box1">box1</div>
+		<div id="box2" class="box lightblue" data-target="box2">box2</div>
+		<div class="box black" data-target="box3">box3</div>
+		<ul class="nav">
+			<li data-target="box1">box1</li>
+			<li data-target="box2">box2</li>
+			<li data-target="box3">box3</li>
+		</ul>
+		<script>
+			function targetScroll(target) {
+				var _location = window.location;
+				var _hash = _location.hash;
+				var _query = _location.search;
+				var query_obj = {};
+				// 自己定義要滾到哪裡
+				if (target) {
+					$("html,boy").animate({
+						scrollTop: $("[data-target=" + target + "]").offset().top,
+					});
+				}
+				if (_hash) {
+					var _id = _hash.replace("#", "");
+				}
+				// 設定query滾到哪裡
+				if (_query) {
+					var query = _query.substr(1).split("&");
+					for (var i = 0; i < query.length; i++) {
+						var query_pair = query[i].split("=");
+						query_obj[query_pair[0]] = query_pair[1];
+					}
+					$("html,boy").animate({
+						scrollTop: $("[data-target=" + query_obj["id"] + "]").offset().top,
+					});
+				}
+			}
+			targetScroll();
+			$(".nav li").on("click", function () {
+				var target = $(this).attr("data-target");
+				targetScroll(target);
+			});
+		</script>
+	</body>
+</html>

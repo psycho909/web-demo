@@ -12,9 +12,18 @@
 				margin: 0;
 			}
 			.box {
-				/* width: clamp(400px, 60vw, 600px); */
-				/* width: max(1000px, 60vw); */
-				width: min(400px, 60vw);
+				/* clamp(MIN,VAL,MAX) */
+				/* 如果VAL在MIN和MAX範圍之間，則使用VAL */
+				/* 當VAL > MAX = MAX,當VAL < MIN = MIN */
+				/* width: clamp(400px, 50vw, 600px); */
+
+				/* max(VAL,MAX) */
+				/* 當VAL > MAX = VAL */
+				/* width: max(50vw, 1000px); */
+
+				/* min(VAL,MIN) */
+				/* 當VAL < MIN = VAL */
+				width: min(50vw, 600px);
 				height: 300px;
 				background-color: #eee;
 			}
@@ -22,7 +31,22 @@
 	</head>
 	<body>
 		<div id="app">
-			<div class="box"></div>
+			<div class="box">
+				<pre>
+					clamp(MIN,VAL,MAX)
+					如果VAL在MIN和MAX範圍之間，則使用VAL
+					當VAL > MAX = MAX,當VAL < MIN = MIN
+					width: clamp(400px, 50vw, 600px);
+
+					max(VAL,MAX)
+					當VAL > MAX = VAL
+					width: max(50vw, 1000px);
+
+					min(VAL,MIN)
+					當VAL < MIN = VAL
+				</pre
+				>
+			</div>
 		</div>
 		<script></script>
 	</body>
