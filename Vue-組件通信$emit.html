@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-    <style>
-    
-    </style>
-</head>
-<body>
-    <div id="app">
-        <div>{{msg}}</div>
-        <bus @shot="getShot"></bus>
-    </div>
-    <template id="Bus">
-        <div>
-            <p>BUS</p>
-            <button @click="handleEmit">按鈕</button>
-        </div>
-    </template>
-    <script>
-        Vue.component("bus",{
-            template:"#Bus",
-            data(){
-                return {
-                    txt:"DDD"
-                }
-            },
-            methods:{
-                handleEmit(){
-                    console.log("handleEmit")
-                    this.$emit("shot")
-                }
-            }
-        })
-        new Vue({
-            el:"#app",
-            data:{
-                msg:"Hello"
-            },
-            methods:{
-                getShot(data){
-                    this.msg=data
-                    console.log(data)
-                }
-            }
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{msg}}</div>
+			<bus @shot="getShot"></bus>
+		</div>
+		<template id="Bus">
+			<div>
+				<p>BUS</p>
+				<button @click="handleEmit">按鈕</button>
+			</div>
+		</template>
+		<script>
+			Vue.component("bus", {
+				template: "#Bus",
+				data() {
+					return {
+						txt: "DDD",
+					};
+				},
+				methods: {
+					handleEmit() {
+						console.log("handleEmit");
+						this.$emit("shot", "EMIT");
+					},
+				},
+			});
+			new Vue({
+				el: "#app",
+				data: {
+					msg: "Hello",
+				},
+				methods: {
+					getShot(data) {
+						this.msg = data;
+						console.log(data);
+					},
+				},
+			});
+		</script>
+	</body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/animateSprite/1.3.4/animatesprite.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.sprite {
+				width: 515px;
+				height: 305px;
+				position: relative;
+				background-image: url("images/bg_kart1_content2.png");
+				background-position: 0 0;
+				background-size: cover;
+			}
+			@media screen and (max-width: 768px) {
+				.sprite {
+					width: calc((515 / 768) * 100vw);
+					height: calc((305 / 768) * 100vw);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="sprite"></div>
+			<button class="start">Start</button>
+		</div>
+		<script>
+			var time = null;
+			var fps = 0;
+			var times = 0;
+			function animRun() {
+				fps++;
+				if (fps >= 22) {
+					clearTimeout(time);
+				} else {
+					time = setTimeout(() => {
+						times -= +$(".sprite").css("height").replace("px", "");
+						$(".sprite").css("backgroundPosition", "0px " + times + "px");
+						animRun();
+					}, 1000 / 22);
+				}
+			}
+
+			// animRun();
+			$(".start").on("click", function () {});
+		</script>
+	</body>
+</html>

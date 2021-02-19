@@ -12,7 +12,7 @@
 		<div id="app">
 			<p>This is Component in Parent <span style="color: red">{{ counter }}</span></p>
 			<!-- <child :counter="counter" @counter-update="updateCounter"></child> -->
-			<child :counter.sync="counter">
+			<child @counter="updateCounter">
 				<template #title>
 					<div>Child 1</div>
 				</template>
@@ -29,21 +29,15 @@
 		<script>
 			Vue.component("child", {
 				template: "#child",
-				props: {
-					counter: {
-						type: Number,
-						default: 0,
-					},
-				},
 				methods: {
 					add() {
 						// this.$emit("counter-update",this.counter+1)
 						// <!-- We use 'update:"props-name"' to emit a update event, and pass the change value. -->
-						this.$emit("update:counter", this.counter + 1);
+						this.$emit("counter", this.counter + 1);
 					},
 					increment() {
 						// <!-- We use 'update:"props-name"' to emit a update event, and pass the change value. -->
-						this.$emit("update:counter", this.counter - 1);
+						this.$emit("counter", this.counter - 1);
 					},
 				},
 			});
