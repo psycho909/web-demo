@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				position: relative;
+				width: 200px;
+				height: 120px;
+				background-color: firebrick;
+				cursor: pointer;
+			}
+			.box:before {
+				content: "";
+				width: 300px;
+				height: 150px;
+				background-color: #eee;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				opacity: 0.5;
+				user-select: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box"></div>
+		</div>
+		<script></script>
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #000;
+			}
+			#canvas {
+				z-index: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" class="canvas"></canvas>
+		<script>
+			var box = 125;
+			var canvas = document.getElementById("canvas");
+			canvas.width = 718;
+			canvas.height = 922;
+			var width = canvas.width;
+			var height = canvas.height;
+			var ctx = canvas.getContext("2d");
+
+			var bg = new componentImage(ctx, "m-lb-share-bg", 0, 0, (768 / 768) * 718, (768 / 768) * 922);
+			var lock1 = new componentImage(ctx, "btn-lock-off", 45, 160, 22, 30);
+			var lock2 = new componentImage(ctx, "btn-lock-off", 565, 160, 22, 30);
+			var lock3 = new componentImage(ctx, "btn-lock-off", 45, 390, 22, 30);
+			var lock4 = new componentImage(ctx, "btn-lock-off", 565, 390, 22, 30);
+			var lock5 = new componentImage(ctx, "btn-lock-off", 45, 628, 22, 30);
+			var lock6 = new componentImage(ctx, "btn-lock-off", 565, 628, 22, 30);
+			var item1 = new componentImage(ctx, "8673", (768 / 768) * 64, (768 / 768) * 186, (768 / 768) * 66, (768 / 768) * 65);
+
+			var item1Text = new componentText(ctx, "裝備一一", 93, 310);
+			var item2Text = new componentText(ctx, "裝備一二", 606, 310);
+			var item3Text = new componentText(ctx, "裝備一三", 93, 545);
+			var item4Text = new componentText(ctx, "裝備一四", 606, 545);
+			var item5Text = new componentText(ctx, "裝備一五", 93, 778);
+			var item6Text = new componentText(ctx, "裝備一六", 606, 778);
+
+			function componentImage(target, name, x, y, w, h) {
+				this.image = new Image();
+				this.image.src = "./images/" + name + ".png";
+				this.x = x;
+				this.y = y;
+				this.w = w;
+				this.h = h;
+				this.target = target;
+				this.update = function () {
+					this.target.drawImage(this.image, this.x, this.y, this.w, this.h);
+				};
+			}
+
+			function componentText(target, text, x, y) {
+				this.x = x;
+				this.y = y;
+				this.text = text;
+				this.target = target;
+				this.update = function () {
+					this.target.fillText(this.text, this.x, this.y);
+				};
+			}
+
+			function drawShare() {
+				ctx.clearRect(0, 0, width, height);
+				ctx.font = "28px 微軟正黑體";
+				ctx.fillStyle = "#5ed0ff";
+				ctx.textAlign = "center";
+				bg.update();
+				lock1.update();
+				lock2.update();
+				lock3.update();
+				lock4.update();
+				lock5.update();
+				lock6.update();
+				item1.update();
+				item1Text.update();
+				item2Text.update();
+				item3Text.update();
+				item4Text.update();
+				item5Text.update();
+				item6Text.update();
+
+				var text = ctx.measureText("一");
+				setTimeout(function () {
+					drawShare();
+				}, 1000 / 60);
+			}
+			drawShare();
+		</script>
+	</body>
+</html>
