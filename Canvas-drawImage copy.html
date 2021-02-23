@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #000;
+			}
+			#canvas {
+				z-index: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" class="canvas"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			var s = window.innerWidth / 768;
+			var box = 125 * s;
+			var fz = 28 * s;
+			var paddingTop = 14 * s;
+			var itemMaxWidth = 81 * s;
+			canvas.width = 718 * s;
+			canvas.height = (922 + paddingTop) * s;
+			var width = canvas.width;
+			var height = canvas.height;
+			var bgW = 718 * s;
+			var bgH = 922 * s;
+			var lockW = 22 * s;
+			var lockH = 30 * s;
+			var timesBgW = 193 * s;
+			var timesBgH = 136 * s;
+
+			var shareList = [
+				{ type: 1, name: "頭盔1", lock: true, img: "images/8673.png" },
+				{ type: 2, name: "披風", lock: false, img: "images/12345.png" },
+				{ type: 3, name: "盔甲", lock: false, img: "images/1234.png" },
+				{ type: 4, name: "脛甲", lock: false, img: "images/8673.png" },
+				{ type: 5, name: "武器", lock: false, img: "images/8673.png" },
+				{ type: 6, name: "鞋子", lock: true, img: "images/8673.png" },
+			];
+
+			var lockXY = {
+				pc: [[]],
+				mb: [
+					[s * 45, s * 160 + paddingTop],
+					[s * 575, s * 160 + paddingTop],
+					[s * 45, s * 395 + paddingTop],
+					[s * 575, s * 395 + paddingTop],
+					[s * 45, s * 638 + paddingTop],
+					[s * 575, s * 638 + paddingTop],
+				],
+			};
+			var lockGroup = [];
+
+			shareList.forEach(function (v, i) {
+				var lockImg = v.lock ? "btn-lock-on" : "btn-lock-off";
+				lockGroup.push(new drawImage(ctx, lockImg, lockXY["mb"][i][0], lockXY["mb"][i][1] + paddingTop, lockW, lockH));
+			});
+
+			var bg = new drawImage(ctx, "m-lb-share-bg", 0, 0 + paddingTop, bgW, bgH);
+			// var lock1 = new drawImage(ctx, "btn-lock-off", s * 45, s * 160 + paddingTop, lockW, lockH);
+			// var lock2 = new drawImage(ctx, "btn-lock-off", s * 575, s * 160 + paddingTop, lockW, lockH);
+			// var lock3 = new drawImage(ctx, "btn-lock-off", s * 45, s * 395 + paddingTop, lockW, lockH);
+			// var lock4 = new drawImage(ctx, "btn-lock-off", s * 575, s * 395 + paddingTop, lockW, lockH);
+			// var lock5 = new drawImage(ctx, "btn-lock-off", s * 45, s * 638 + paddingTop, lockW, lockH);
+			// var lock6 = new drawImage(ctx, "btn-lock-off", s * 575, s * 638 + paddingTop, lockW, lockH);
+			var item1 = new drawImage(ctx, "8673", s * 56, s * 182 + paddingTop);
+			var item2 = new drawImage(ctx, "1234", s * 586, s * 182 + paddingTop);
+			var item3 = new drawImage(ctx, "12345", s * 56, s * 420 + paddingTop);
+			var item4 = new drawImage(ctx, "12345", s * 586, s * 420 + paddingTop);
+			var item5 = new drawImage(ctx, "12345", s * 56, s * 660 + paddingTop);
+			var item6 = new drawImage(ctx, "12345", s * 586, s * 660 + paddingTop);
+			var timesBg = new drawImage(ctx, "m-lb-times-bg", s * 0, s * 0, timesBgW, timesBgH);
+			var timesNum = new drawText(ctx, "20", s * 93, s * 90, "#fff");
+
+			var item1Text = new drawText(ctx, "裝備一一", 93 * s, 310 * s + paddingTop);
+			var item2Text = new drawText(ctx, "+6底比斯歐西里斯雙手劍", 623 * s, 310 * s + paddingTop);
+			var item3Text = new drawText(ctx, "裝備一三", 93 * s, 545 * s + paddingTop);
+			var item4Text = new drawText(ctx, "裝備一四", 623 * s, 545 * s + paddingTop);
+			var item5Text = new drawText(ctx, "裝備一五", 93 * s, 788 * s + paddingTop);
+			var item6Text = new drawText(ctx, "裝備一六", 623 * s, 788 * s + paddingTop);
+
+			function drawImage(target, name, x, y, w, h) {
+				this.image = new Image();
+				this.image.src = "./images/" + name + ".png";
+				this.x = x;
+				this.y = y;
+				this.w = w;
+				this.h = h;
+				this.target = target;
+				this.update = function () {
+					if (this.w) {
+						this.target.drawImage(this.image, this.x, this.y, this.w, this.h);
+					} else {
+						var itemW = this.image.naturalWidth;
+						var itemH = this.image.naturalHeight;
+						if (itemW > itemMaxWidth) {
+							// console.log(itemW, itemH);
+							this.target.drawImage(this.image, this.x, this.y, (itemMaxWidth / itemW) * itemW, (itemMaxWidth / itemH) * itemH);
+						} else {
+							this.target.drawImage(this.image, this.x, this.y, itemW * s, itemH * s);
+						}
+					}
+				};
+			}
+
+			function drawText(target, text, x, y, color) {
+				this.x = x;
+				this.y = y;
+				this.text = text;
+				this.target = target;
+				this.color = color;
+				this.update = function () {
+					var totalSize = this.target.measureText(this.text).width;
+					var line = "";
+					if (this.color) {
+						this.target.fillStyle = this.color;
+					}
+					if (totalSize > box) {
+						var t = Math.floor(box / fz);
+						var len = Math.ceil(this.text.length / t);
+						for (var i = 0; i < len; i++) {
+							line = this.text.substr(t * i, t);
+							this.target.fillText(line, this.x, this.y + i * fz);
+						}
+					} else {
+						this.target.fillText(this.text, this.x, this.y);
+					}
+				};
+			}
+
+			function drawShare() {
+				ctx.clearRect(0, 0, width, height);
+				ctx.font = fz + "px 微軟正黑體";
+				ctx.fillStyle = "#5ed0ff";
+				ctx.textAlign = "center";
+				bg.update();
+
+				for (var i = 0; i < lockGroup.length; i++) {
+					lockGroup[i].update();
+				}
+				// lock1.update();
+				// lock2.update();
+				// lock3.update();
+				// lock4.update();
+				// lock5.update();
+				// lock6.update();
+
+				item1.update();
+				item2.update();
+				item3.update();
+				item4.update();
+				item5.update();
+				item6.update();
+
+				item1Text.update();
+				item2Text.update();
+				item3Text.update();
+				item4Text.update();
+				item5Text.update();
+				item6Text.update();
+
+				timesBg.update();
+				timesNum.update();
+
+				setTimeout(function () {
+					drawShare();
+				}, 1000 / 60);
+			}
+			drawShare();
+		</script>
+	</body>
+</html>

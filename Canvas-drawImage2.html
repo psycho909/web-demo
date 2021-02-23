@@ -6,6 +6,7 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -30,13 +31,15 @@
 				{ type: 5, name: "裝備一五", lock: false, img: "images/8673.png" },
 				{ type: 6, name: "裝備一", lock: true, img: "images/8673.png" },
 			];
-			drawShareWrap(shareList);
-			function drawShareWrap(shareList) {
+			var t = new drawShare(shareList);
+			t.draw();
+			function drawShare(shareList) {
 				var canvas = document.getElementById("canvas");
 				var ctx = canvas.getContext("2d");
 				var timer;
+				var stop = false;
 				var device = "";
-				if (true) {
+				if (isMobile.any) {
 					device = "mb";
 					var s = window.innerWidth / 768;
 					var box = 125 * s;
@@ -51,6 +54,8 @@
 					var lockH = 30 * s;
 					var timesBgW = 193 * s;
 					var timesBgH = 136 * s;
+					var diceBgW = 200 * s;
+					var diceBgH = 284 * s;
 				} else {
 					device = "pc";
 					var box = 157;
@@ -65,6 +70,8 @@
 					var lockH = 38;
 					var timesBgW = 193;
 					var timesBgH = 136;
+					var diceBgW = 200;
+					var diceBgH = 284;
 				}
 				var width = canvas.width;
 				var height = canvas.height;
@@ -135,13 +142,15 @@
 				});
 
 				if (device == "mb") {
-					var bg = new drawImage(ctx, "images/m-lb-share-bg.png", 0, 0 + paddingTop, bgW, bgH);
+					var bg = new drawImage(ctx, "images/m-lb-sh_are-bg.png", 0, 0 + paddingTop, bgW, bgH);
 					var timesBg = new drawImage(ctx, "images/m-lb-times-bg.png", s * 0, s * 0, timesBgW, timesBgH);
 					var timesNum = new drawText(ctx, "20", s * 93, s * 90, "#fff", 30 * s);
+					var diceBg = new drawImage(ctx, "images/dice1.png", s * 260, s * 520, diceBgW, diceBgH);
 				} else {
 					var bg = new drawImage(ctx, "images/lb-sh_are-bg.png", 0, 0 + paddingTop, bgW, bgH);
 					var timesBg = new drawImage(ctx, "images/lb-times-bg.png", 0, 0, timesBgW, timesBgH);
 					var timesNum = new drawText(ctx, "20", 93, 95, "#fff", 25);
+					var diceBg = new drawImage(ctx, "images/dice1.png", 350, 540, diceBgW, diceBgH);
 				}
 
 				function drawImage(target, name, x, y, w, h) {
@@ -198,7 +207,7 @@
 					};
 				}
 
-				function drawShare() {
+				this.draw = function () {
 					ctx.clearRect(0, 0, width, height);
 					ctx.font = fz + "px 微軟正黑體";
 					ctx.fillStyle = "#5ed0ff";
@@ -212,18 +221,19 @@
 					}
 					timesBg.update();
 					timesNum.update();
-					timer = setTimeout(function () {
-						drawShare();
-					}, 1000 / 60);
-				}
-
-				function stopDraw() {
-					clearTimeout();
-				}
-
-				return {
-					drawShare: drawShare,
-					stopDraw: stopDraw,
+					diceBg.update();
+					var _this = this;
+					if (stop) {
+						ctx.clearRect(0, 0, width, height);
+						clearTimeout(timer);
+					} else {
+						timer = setTimeout(function () {
+							_this.draw();
+						}, 1000 / 60);
+					}
+				};
+				this.stopDraw = function () {
+					stop = true;
 				};
 			}
 		</script>
