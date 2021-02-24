@@ -22,19 +22,14 @@
 </body>
 
 <script>
-	var url="http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1";
+	var url="https://randomuser.me/api/";
 	var xhr=new XMLHttpRequest();
 	xhr.open('GET',url)
 	xhr.send();
 	xhr.onload=function(){
 		if(xhr.readyState == 4){
 			var data=JSON.parse(xhr.responseText)
-			document.querySelector('#loading').style.display="none";
-			data.results.forEach(function(v,i){
-				var image=document.createElement('img')
-				image.src=v.url;
-				document.querySelector('#result').appendChild(image)
-			})
+			console.log(data)
 		}
 	}
 	

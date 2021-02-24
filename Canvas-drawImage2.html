@@ -34,45 +34,26 @@
 			var t = new drawShare(shareList);
 			t.draw();
 			function drawShare(shareList) {
-				var canvas = document.getElementById("canvas");
-				var ctx = canvas.getContext("2d");
+				var device = isMobile.any ? "mb" : "pc";
+				var s = isMobile.any ? window.innerWidth / 768 : 1;
 				var timer;
 				var stop = false;
-				var device = "";
-				if (isMobile.any) {
-					device = "mb";
-					var s = window.innerWidth / 768;
-					var box = 125 * s;
-					var fz = 28 * s;
-					var paddingTop = 14 * s;
-					var itemMaxWidth = 81 * s;
-					canvas.width = 718 * s;
-					canvas.height = (922 + paddingTop) * s;
-					var bgW = 718 * s;
-					var bgH = 922 * s;
-					var lockW = 22 * s;
-					var lockH = 30 * s;
-					var timesBgW = 193 * s;
-					var timesBgH = 136 * s;
-					var diceBgW = 200 * s;
-					var diceBgH = 284 * s;
-				} else {
-					device = "pc";
-					var box = 157;
-					var fz = 18;
-					var paddingTop = 16;
-					var itemMaxWidth = 100;
-					canvas.width = 898;
-					canvas.height = 913 + paddingTop;
-					var bgW = 898;
-					var bgH = 913;
-					var lockW = 27;
-					var lockH = 38;
-					var timesBgW = 193;
-					var timesBgH = 136;
-					var diceBgW = 200;
-					var diceBgH = 284;
-				}
+				var box = isMobile.any ? 125 * s : 157;
+				var fz = isMobile.any ? 28 * s : 18;
+				var paddingTop = isMobile.any ? 14 * s : 16;
+				var itemMaxWidth = isMobile.any ? 81 * s : 100;
+				var bgW = isMobile.any ? 718 * s : 898;
+				var bgH = isMobile.any ? 922 * s : 913;
+				var lockW = isMobile.any ? 22 * s : 27;
+				var lockH = isMobile.any ? 30 * s : 38;
+				var timesBgW = 193 * s;
+				var timesBgH = 136 * s;
+				var diceBgW = 200 * s;
+				var diceBgH = 284 * s;
+				var canvas = document.getElementById("canvas");
+				var ctx = canvas.getContext("2d");
+				canvas.width = isMobile.any ? 718 * s : 898;
+				canvas.height = isMobile.any ? (922 + paddingTop) * s : 913 + paddingTop;
 				var width = canvas.width;
 				var height = canvas.height;
 
