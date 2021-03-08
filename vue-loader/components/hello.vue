@@ -1,17 +1,18 @@
 <template>
 	<div>
         <world :fruits="fruitsOfTheNinja">
-            <template #fruit="fruit">
-                {{fruit.fruit.name}}
-                <button @click="fruit.slice(fruit.fruit.id)">⚔️ Style Slicing</button>
+            <template #fruit="slotProps">
+                {{slotProps.fruit.name}}
+                <button @click="slotProps.slice(slotProps.fruit.id)">⚔️ Style Slicing</button>
             </template>
         </world>
         <div>hello {{result}}</div>
-        <input type="text" v-model="name">
+        <div>請查找<input type="text" v-model="findName"></div>
+        <div>請輸入<input type="text" v-model="name"></div>
         <ul>
             <li v-for="(m,index) in member">
                 <span>{{m}}</span>
-                <input type="text" v-model="rename">
+                <input type="text" :ref="'m_'+index" :value="m.name">
                 <button @click="edit(index)">EDIT</button>
                 <button @click="del(index)">DEL</button>
             </li>
@@ -22,14 +23,10 @@
 <script>
 
 module.exports={
-    props:["title"],
-    components:{
-
-    },
     data: function() {
         return {
+            findName:"",
             name: "",
-            rename: "",
             fruitsOfTheNinja: [
                 {
                     id: 1,
@@ -60,11 +57,18 @@ module.exports={
     },
     computed:{
         member:function(){
-            return this.$store.getters.member
+            var _this=this;
+            if(this.findName != ""){
+                return this.$store.getters.member.filter(function(m,i){
+                    return m.name == _this.findName 
+                })
+            }else{
+                return this.$store.getters.member
+            }
         },
         result:function(){
             return this.$store.getters.result
-        }
+        },
     },
     methods:{
         add:function(){
@@ -83,9 +87,8 @@ module.exports={
             })
         },
         edit:function(index){
-            var _name=this.rename;
             this.$store.dispatch({
-                type:"edit",index:index,user:{name:_name}
+                type:"edit",index:index,user:{name:this.$refs["m_"+index][0].value}
             })
         }
     }

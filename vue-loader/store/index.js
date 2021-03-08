@@ -4,7 +4,6 @@ var store = new Vuex.Store({
 	state: {
 		member: [],
 		count: 0,
-		findMember: [],
 	},
 	getters: {
 		result: function (state) {
@@ -24,7 +23,6 @@ var store = new Vuex.Store({
 		EDIT_USER: function (state, payload) {
 			Vue.set(state.member, payload.index, payload.user);
 		},
-		SEARCH_USER: function (state, payload) {},
 	},
 	actions: actions,
 });
