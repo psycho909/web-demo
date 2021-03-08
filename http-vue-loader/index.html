@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/http-vue-loader"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script>
+			Vue.use(httpVueLoader);
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					"my-component": "url:my-component.vue",
+				},
+			});
+		</script>
+	</body>
+</html>
