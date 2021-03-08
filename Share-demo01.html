@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<a href="javascript:;" id="share-btn">分享</a>
+		</div>
+		<script>
+			var Share = {
+				getMeta: function () {
+					var meta = document.getElementsByTagName("meta");
+					var desc;
+					for (var i = 0; i < meta.length; i++) {
+						if (meta[i].name === "description") {
+							desc = meta[i].content;
+						}
+					}
+					return desc;
+				},
+				fb: function () {
+					var url = location.href;
+					var t = "";
+					if (isMobile.any) {
+						var winRef = window.open(url, "_blank");
+						var fbHtml_url = window.location.toString();
+						winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + fbHtml_url;
+					} else {
+						window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url) + "&t=" + encodeURIComponent(t), "sharer", "toolbar=0,status=0,width=626,height=436");
+					}
+				},
+				mobileShare: function () {
+					var url = location.href;
+					var t = this.getMeta();
+					var title = document.getElementsByTagName("title")[0].innerHTML;
+					var shareData = {
+						url: url, // 要分享的 URL
+						title: title, // 要分享的標題
+						text: t, // 要分享的文字內容
+					};
+					if (isMobile.any) {
+						if (navigator.share) {
+							navigator.share(shareData);
+						} else {
+							this.fb();
+						}
+					} else {
+						this.fb();
+					}
+				},
+			};
+
+			$("#share-btn").on("click", function () {
+				Share.mobileShare();
+			});
+		</script>
+	</body>
+</html>

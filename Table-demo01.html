@@ -11,32 +11,41 @@
 				padding: 0;
 				margin: 0;
 			}
-			.box {
-				position: relative;
-				height: 120px;
-				background-color: firebrick;
-				cursor: pointer;
-				font-size: 100px;
-				font-weight: bold;
-				font-family: Verdana, Geneva, Tahoma, sans-serif;
+			table {
+				border-collapse: collapse;
+				width: 600px;
+				border: 1px solid red;
+				/* border-style: hidden; */
 			}
-			.box:before {
-				content: "";
-				width: 150%;
-				height: 150px;
-				background-color: #eee;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				opacity: 0.5;
-				user-select: none;
+			td,
+			th {
+				border: 1px solid green;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<div class="box">DAY-07</div>
+			<table>
+				<thead>
+					<tr>
+						<th>A</th>
+						<th>B</th>
+						<th>C</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>E</td>
+						<td>E</td>
+						<td>E</td>
+					</tr>
+					<tr>
+						<td>E</td>
+						<td>E</td>
+						<td>E</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<script></script>
 	</body>

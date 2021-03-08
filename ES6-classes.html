@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			class User {
+				constructor(firstName, lastName) {
+					this.firstName = firstName;
+					this.lastName = lastName;
+				}
+				get userName() {
+					return this.firstName;
+				}
+				set userName(first) {
+					this.firstName = first;
+				}
+				fullName() {
+					return `${this.firstName} ${this.lastName}`;
+				}
+			}
+			class UserAge extends User {
+				constructor(firstName, lastName, age) {
+					super(firstName, lastName, age);
+					this.age = age;
+				}
+			}
+			var user = new UserAge("Chen", "Ching", 32);
+			user.userName = "Super";
+			console.log(user.fullName());
+		</script>
+	</body>
+</html>

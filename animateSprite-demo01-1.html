@@ -13,18 +13,18 @@
 				margin: 0;
 			}
 			.sprite {
-				width: calc(1536px / 6);
-				height: 256px;
+				width: 254px;
+				height: 562px;
 				position: relative;
-				background-image: url("images/sprite2.png");
+				background-image: url("images/knight.png");
 				background-position: 0 0;
-				background-size: 1536px 256px;
+				background-size: 3048px 562px;
 			}
 			@media screen and (max-width: 768px) {
 				.sprite {
-					width: calc((256 / 768) * 100vw);
-					height: calc((256 / 768) * 100vw);
-					background-size: calc((1536 / 768) * 100vw) calc((256 / 768) * 100vw);
+					width: calc((254 / 768) * 100vw);
+					height: calc((562 / 768) * 100vw);
+					background-size: calc((3048 / 768) * 100vw) calc((562 / 768) * 100vw);
 				}
 			}
 		</style>
@@ -36,7 +36,7 @@
 		</div>
 		<script>
 			$(".start").on("click", function () {
-				animSprite($(".sprite"), 6, function () {
+				animSprite($(".sprite"), 12, function () {
 					console.log("done");
 				});
 			});

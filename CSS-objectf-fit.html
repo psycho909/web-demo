@@ -11,32 +11,42 @@
 				padding: 0;
 				margin: 0;
 			}
-			.box {
-				position: relative;
-				height: 120px;
-				background-color: firebrick;
-				cursor: pointer;
-				font-size: 100px;
-				font-weight: bold;
-				font-family: Verdana, Geneva, Tahoma, sans-serif;
+			.box img {
+				width: 400px;
+				object-fit: cover;
+				/* aspect-ratio: 16/9; */
+				aspect-ratio: 4/3;
 			}
-			.box:before {
+			.btn {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				background-color: #eee;
+				display: inline-block;
+				text-decoration: none;
+				color: #000;
+				text-align: center;
+				line-height: 40px;
+				margin: 40px;
+				position: relative;
+			}
+			.btn:before {
 				content: "";
 				width: 150%;
-				height: 150px;
-				background-color: #eee;
+				height: 150%;
 				position: absolute;
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				opacity: 0.5;
-				user-select: none;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<div class="box">DAY-07</div>
+			<div class="box">
+				<img src="images/bg.jpg" alt="" />
+			</div>
+			<a href="javascript:;" class="btn" target="_blank">按鈕</a>
 		</div>
 		<script></script>
 	</body>

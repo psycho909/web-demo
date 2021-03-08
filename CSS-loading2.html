@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js" integrity="sha512-jKxp7JHEN6peEmzmg6a7XJBORNTB0ITD2Pi+6FUkc16PCaNAJX2ahZ1ejn1p1uY37Pxyirn/0OMNZbITbEg3jw==" crossorigin="anonymous"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.loading-wrap {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				background-color: rgba(0, 0, 0, 0.6);
+			}
+			.loading {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				border: 10px solid #000;
+				border-top-color: transparent;
+				border-right-color: transparent;
+				border-left-color: transparent;
+				animation: run 2s infinite linear;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%) rotate(0deg);
+			}
+			@keyframes run {
+				100% {
+					transform: translate(-50%, -50%) rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loading-wrap">
+			<div class="loading"></div>
+		</div>
+		<script></script>
+	</body>
+</html>

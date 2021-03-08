@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			function getServerDate() {
+				var xhr = null;
+				if (window.XMLHttpRequest) {
+					xhr = new window.XMLHttpRequest();
+				} else {
+					// ie
+					xhr = new ActiveObject("Microsoft");
+				}
+				xhr.open("GET", "/", false); //false不可變
+				xhr.send(null);
+				var date = xhr.getResponseHeader("Date");
+				return new Date(date);
+			}
+			console.log(getServerDate());
+			var serverTime = new Date($.ajax({ async: false }).getResponseHeader("Date"));
+			console.log(serverTime);
+			var localTime = new Date();
+			console.log(localTime);
+
+			function GetServerTime() {
+				var serverTime = +new Date($.ajax({ async: false }).getResponseHeader("Date"));
+				return serverTime;
+			}
+		</script>
+	</body>
+</html>
