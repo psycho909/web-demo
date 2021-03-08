@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://polyfill.io/v3/polyfill.min.js"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/http-vue-loader"></script>
+	</head>
+	<body>
+		<div id="app">
+			<hello></hello>
+		</div>
+
+		<script>
+			Vue.use(httpVueLoader);
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					hello: "url:hello.vue",
+				},
+			});
+		</script>
+	</body>
+</html>
