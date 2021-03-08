@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-</head>
+	<body>
+		<div id="app">
+			<fruitlist :fruits="fruitsOfTheNinja">
+				<template #fruit="{fruit,slice}">
+					{{fruit.name}}
+					<button @click="slice(fruit.id)">⚔️ Style Slicing</button>
+				</template>
 
-<body>
-    <div id="app">
-        <fruitlist :fruits="fruitsOfTheNinja">
-            <template #fruit="{fruit,slice}">
-                {{fruit.name}}
-                <button @click="slice(fruit.id)">
-                    ⚔️ Style Slicing
-                </button>
-            </template>
+				<template #recipe="{fruit}">
+					<div v-if="fruit.recipe">{{fruit.recipe}}</div>
+				</template>
+			</fruitlist>
+		</div>
+		<template id="fruitlist">
+			<ul>
+				<li v-for="f in fruits" :key="f.id">
+					<slot name="fruit" :fruit="f" :slice="slices"></slot>
+					<slot name="recipe" :fruit="f"></slot>
+				</li>
+			</ul>
+		</template>
 
-            <template #recipe="{fruit}">
-                <div v-if="fruit.recipe">{{fruit.recipe}}</div>
-            </template>
-        </fruitlist>
-    </div>
-    <template id="fruitlist">
-        <ul>
-            <li v-for="f in fruits" :key="f.id">
-                <slot name="fruit" :fruit="f" :slice="slices"></slot>
-                <slot name="recipe" :fruit="f"></slot>
-            </li>
-        </ul>
-    </template>
-
-    <script>
-        Vue.component('fruitlist', {
-            template: "#fruitlist",
-            props: {
-                fruits: {
-                    type: Array,
-                    required: true
-                }
-            },
-            methods: {
-                slices(id) {
-                    console.log(id)
-                }
-            }
-        })
-        new Vue({
-            el: "#app",
-            data: {
-                fruitsOfTheNinja: [
-                    {
-                        id: 1,
-                        name: '🍋Lemon'
-                    },
-                    {
-                        id: 2,
-                        name: '🥝Kiwi',
-                        recipe: 'Kiwi, Baijiu & Red Date Yoghurt Cocktail 🍸'
-                    },
-                    {
-                        id: 3,
-                        name: '🍑Peach'
-                    },
-                    {
-                        id: 4,
-                        name: '🍌Banana'
-                    },
-                    {
-                        id: 5,
-                        name: '🍎Apple'
-                    }
-                ]
-            }
-        })
-    </script>
-</body>
-
+		<script>
+			Vue.component("fruitlist", {
+				template: "#fruitlist",
+				props: {
+					fruits: {
+						type: Array,
+						required: true,
+					},
+				},
+				methods: {
+					slices(id) {
+						console.log(id);
+					},
+				},
+			});
+			new Vue({
+				el: "#app",
+				data: {
+					fruitsOfTheNinja: [
+						{
+							id: 1,
+							name: "🍋Lemon",
+						},
+						{
+							id: 2,
+							name: "🥝Kiwi",
+							recipe: "Kiwi, Baijiu & Red Date Yoghurt Cocktail 🍸",
+						},
+						{
+							id: 3,
+							name: "🍑Peach",
+						},
+						{
+							id: 4,
+							name: "🍌Banana",
+						},
+						{
+							id: 5,
+							name: "🍎Apple",
+						},
+					],
+				},
+			});
+		</script>
+	</body>
 </html>

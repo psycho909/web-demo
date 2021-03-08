@@ -7,21 +7,35 @@
 		<title>Document</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-		<script src="https://polyfill.io/v3/polyfill.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/promise-polyfill/8.2.0/polyfill.min.js"></script>
 		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 		<script src="https://unpkg.com/http-vue-loader"></script>
+
+		<script src="./store/actions.js"></script>
+		<script src="./store/index.js"></script>
+
+		<script src="./router/index.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<hello></hello>
+			<!-- <hello :title="title"></hello> -->
+			<router-link to="/">Home</router-link>
+			<router-link to="/about">Go to Foo</router-link>
+			<router-link to="/hello">Go to Hello</router-link>
+			<router-view></router-view>
 		</div>
 
 		<script>
 			Vue.use(httpVueLoader);
+
 			var vm = new Vue({
 				el: "#app",
-				components: {
-					hello: "url:hello.vue",
+				router: router,
+				store: store,
+				data: function () {
+					return {};
 				},
 			});
 		</script>
