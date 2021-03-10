@@ -1,0 +1,11 @@
+{
+	"data": {
+		"results": [
+			{ "id": 1, "gender": "female" },
+			{ "id": 2, "gender": "male" },
+			{ "id": 3, "gender": "female" },
+			{ "id": 4, "gender": "female" },
+			{ "id": 5, "gender": "female" }
+		]
+	}
+}

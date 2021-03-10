@@ -1,5 +1,6 @@
 <template>
 	<div>
+        <loading :status="this.$store.state.loading"></loading>
         <world :fruits="fruitsOfTheNinja">
             <template #fruit="slotProps">
                 {{slotProps.fruit.name}}
@@ -7,16 +8,18 @@
             </template>
         </world>
         <div>hello {{result}}</div>
+        <button @click="init">INIT MEMBER</button>
         <div>請查找<input type="text" v-model="findName"></div>
-        <div>請輸入<input type="text" v-model="name"></div>
-        <ul>
+        <div>請輸入<input type="text" v-model="first"><input type="text" v-model="last"></div>
+        <ul v-if="member.length">
             <li v-for="(m,index) in member">
-                <span>{{m}}</span>
-                <input type="text" :ref="'m_'+index" :value="m.name">
-                <button @click="edit(index)">EDIT</button>
+                <span>{{m.name.first}} {{m.name.last}}</span>
+                <!-- <input type="text" :ref="'m_'+index" :value="m.name"> -->
+                <!-- <button @click="edit(index)">EDIT</button> -->
                 <button @click="del(index)">DEL</button>
             </li>
         </ul>
+        <div v-if="this.$store.state.error">{{this.$store.state.error}}</div>
         <button @click="add()">Add</button>
 	</div>
 </template>
@@ -26,7 +29,8 @@ module.exports={
     data: function() {
         return {
             findName:"",
-            name: "",
+            first: "",
+            last: "",
             fruitsOfTheNinja: [
                 {
                     id: 1,
@@ -72,14 +76,19 @@ module.exports={
     },
     methods:{
         add:function(){
-            var _name=this.name;
+            var _first=this.first;
+            var _last=this.last;
             this.$store.dispatch({
                 type:"add",
                 user:{
-                    name:_name
+                    name:{
+                        first:_first,
+                        last:_last
+                    }
                 }
             })
-            this.name="";
+            this.first="";
+            this.last="";
         },
         del:function(index){
             this.$store.dispatch({
@@ -89,6 +98,11 @@ module.exports={
         edit:function(index){
             this.$store.dispatch({
                 type:"edit",index:index,user:{name:this.$refs["m_"+index][0].value}
+            })
+        },
+        init:function(){
+            this.$store.dispatch({
+                type:"init"
             })
         }
     }

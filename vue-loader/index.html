@@ -5,39 +5,32 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/promise-polyfill/8.2.0/polyfill.min.js"></script>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vuex"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-		<script src="https://unpkg.com/http-vue-loader"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/promise-polyfill/8.2.0/polyfill.min.js"></script> -->
+		<script src="js/vue.js"></script>
+		<script src="js/vuex.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/httpVueLoader.js"></script>
 
-		<script src="./store/actions.js"></script>
-		<script src="./store/index.js"></script>
-
-		<script src="./router/index.js"></script>
+		<script type="text/babel" src="./store/mutations.js"></script>
+		<script type="text/babel" src="./store/actions.js"></script>
+		<script type="text/babel" src="./store/index.js"></script>
+		<script type="text/babel" src="./router/index.js"></script>
+		<script type="text/babel" src="./Bus.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<!-- <hello :title="title"></hello> -->
+			<top></top>
 			<router-link to="/">Home</router-link>
-			<router-link to="/about">Go to Foo</router-link>
-			<router-link to="/hello">Go to Hello</router-link>
+			<router-link :to="{name:'about',params:{id:123}}">About</router-link>
+			<router-link to="/vuex">Vuex</router-link>
 			<router-view></router-view>
 		</div>
 
-		<script>
-			Vue.use(httpVueLoader);
-
-			var vm = new Vue({
-				el: "#app",
-				router: router,
-				store: store,
-				data: function () {
-					return {};
-				},
-			});
-		</script>
+		<script type="text/babel" src="./main.js"></script>
 	</body>
 </html>

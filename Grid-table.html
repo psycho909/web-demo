@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			table {
+				width: 100%;
+			}
+			tr {
+				display: grid;
+				grid-template-columns: 35px 1fr 25% 10%;
+				grid-template-rows: auto;
+				grid-template-areas:
+					". doc . ."
+					"icon number price invoice";
+				align-items: center;
+			}
+			.td-type-icon {
+				grid-area: icon;
+				grid-row: span 2;
+			}
+			.td-type {
+				grid-area: doc;
+			}
+			.td-number {
+				grid-area: number;
+			}
+			.td-price {
+				grid-area: price;
+				grid-row: span 2;
+			}
+			.td-invoice {
+				grid-area: invoice;
+				grid-row: span 2;
+			}
+			.icon-invoice {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background-color: #000;
+				display: block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<table class="invoices-table">
+				<tbody>
+					<tr>
+						<td class="td-type-icon">
+							<span class="icon-invoice"></span>
+						</td>
+						<td class="td-type">Invoice</td>
+						<td class="td-number">#479508274018573</td>
+						<td class="td-price">25 EUR</td>
+						<td class="td-invoice">
+							<a href="" class="download-icon">Download invoice</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-type-icon">
+							<span class="icon-invoice"></span>
+						</td>
+						<td class="td-type">Invoice</td>
+						<td class="td-number">#479508274018573</td>
+						<td class="td-price">25 EUR</td>
+						<td class="td-invoice">
+							<a href="" class="download-icon">Download invoice</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/cookie-bar/cookie-bar.js" id="cookie-bar"></script>
+		<script>
+			function copy(mainObj) {
+				var objCopy = {}; // objCopy will store a copy of the mainObj
+				var key;
+
+				for (key in mainObj) {
+					objCopy[key] = mainObj[key]; // copies each property to the objCopy object
+				}
+				return objCopy;
+			}
+			var mainObj = {
+				a: 2,
+				b: 5,
+				c: {
+					x: 7,
+					y: 4,
+				},
+			};
+
+			var newObj = copy(mainObj);
+			newObj.c.x = 3;
+
+			console.log(mainObj);
+			console.log(newObj);
+		</script>
+	</body>
+</html>

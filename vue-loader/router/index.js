@@ -1,7 +1,11 @@
+var Home = httpVueLoader("./components/home.vue");
+var about = httpVueLoader("./components/about.vue");
+var vuex = httpVueLoader("./components/vuex.vue");
+
 var routes = [
-	{ path: "/", component: httpVueLoader("./components/home.vue") },
-	{ path: "/about", component: httpVueLoader("./components/about.vue") },
-	{ path: "/hello", component: httpVueLoader("./components/hello.vue") },
+	{ path: "/", component: Home },
+	{ path: "/about/:id", name: "about", component: about },
+	{ path: "/vuex", component: vuex },
 ];
 
 var router = new VueRouter({

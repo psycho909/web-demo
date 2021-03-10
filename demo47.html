@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-    <script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <input type="text" id="input">
-    </div>
-    <script>
-        function checkEnNum(val){
-            var text=val.replace(/[^a-zA-Z0-9]/g,"")
-            return text;
-        }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" id="input" />
+		</div>
+		<script>
+			function Person(name, age) {
+				this.name = name;
+				this.age = age;
+			}
+			Person.prototype = {
+				constructor: Person,
+				sayName: function () {
+					console.log(this.name);
+				},
+			};
 
-
-        $("#input").on("keyup",function(){
-            var val=$(this).val()
-
-            $(this).val(checkEnNum(val))
-        })
-    </script>
-</body>
+			var o1 = new Person(1, 11);
+			var o2 = new Person(2, 11);
+			o1.sayName();
+			o2.sayName();
+		</script>
+	</body>
 </html>

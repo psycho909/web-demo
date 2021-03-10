@@ -15,7 +15,17 @@
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
-		<script></script>
+		<div id="app">
+			<input type="text" id="initials" />
+		</div>
+		<script>
+			document.getElementById("initials").addEventListener("keydown", (event) => {
+				if (event.key.match(/[a-zA-Z]+/g)) {
+					return event;
+				} else {
+					event.preventDefault();
+				}
+			});
+		</script>
 	</body>
 </html>
