@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			if (isMobile.apple.device) {
+				window.location.href = "data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0APRODID:Calendar%0AVERSION:2.0%0ABEGIN:VEVENT%0ACLASS:PUBLIC%0ADESCRIPTION:Get%20on%20the%20front%20page%20of%20HN,%20then%20prepare%20for%20world%20domination.%0ADTSTART:20130615T110000Z%0ADTEND:20130615T150000Z%0ASUMMARY:Get%20on%20the%20front%20page%20of%20HN%0ATRANSP:TRANSPARENT%0ABEGIN:VALARM%0AACTION:DISPLAY%0ASUMMARY:Get%20on%20the%20front%20page%20of%20HN%0ADESCRIPTION:Get%20on%20the%20front%20page%20of%20HN,%20then%20prepare%20for%20world%20domination.%0ATRIGGER:-PT10M%0AEND:VALARM%0AEND:VEVENT%0AEND:VCALENDAR";
+			} else {
+				window.location.href = "https://www.google.com/calendar/render?action=TEMPLATE&text=Get%20on%20the%20front%20page%20of%20HN&dates=20130615T110000Z/20130615T150000Z&details=Get%20on%20the%20front%20page%20of%20HN,%20then%20prepare%20for%20world%20domination.&sprop=&sprop=name:";
+			}
+		</script>
+	</body>
+</html>

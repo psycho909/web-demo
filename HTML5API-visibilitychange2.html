@@ -6,7 +6,6 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="js/lifecycle.es5.js"></script>
 
 		<style>
 			* {
@@ -19,47 +18,68 @@
 	</head>
 
 	<body>
-		<h1>測試2</h1>
-		<div id="app"></div>
+		<div id="app">
+			<iframe src="https://netlify.rptyy.xyz/" frameborder="0"></iframe>
+		</div>
 		<script>
-			// lifecycle.addEventListener("statechange", function (event) {
-			// 	$("#app").append(event.oldState, event.newState);
-			// 	if (event.newState == "hidden") {
-			// 		$("#app").append("<div>Hide</div>");
+			// function ShowUser(status) {
+			// 	$.ajax({
+			// 		url: "https://randomuser.me/api/",
+			// 		dataType: "json",
+			// 		success: function (data) {
+			// 			$("#app").append(`<div>${status} : ${data.results[0].email}</div>`);
+			// 		},
+			// 	});
+			// }
+			// var timer;
+			// function run(status) {
+			// 	timer = setTimeout(() => {
+			// 		ShowUser(status);
+			// 	}, 3000);
+			// }
+			// document.addEventListener("visibilitychange", function () {
+			// 	clearTimeout(timer);
+			// 	if (document.visibilityState == "hidden") {
+			// 		run("hidden");
 			// 	}
-			// 	if (event.newState == "active") {
-			// 		$("#app").append("<div>show</div>");
+			// 	if (document.visibilityState == "visible") {
+			// 		run("show");
 			// 	}
 			// });
-			// document.addEventListener("visibilitychange", function (e) {
-			// 	var hidden = event.target.webkitHidden;
-			// 	if (hidden) {
-			// 		$("#app").append("<div>Hide</div>");
-			// 	} else {
-			// 		$("#app").append("<div>show</div>");
-			// 	}
-			// });
-			var timer;
-			var i = 0;
-			function run() {
-				i++;
-				timer = setTimeout(() => {
-					document.title = "RUN " + i;
-				}, 1000);
-			}
-			document.addEventListener("visibilitychange", function () {
-				if (document.visibilityState == "hidden") {
-					$("#app").append("<div>Hide " + i + "</div>");
-					run();
-				}
+			// var id = window.setTimeout(function () {
+			// 	$("#app").append(`<div>STOP</div>`);
+			// }, 3000);
 
-				if (document.visibilityState == "visible") {
-					i = 0;
-					$("#app").append("<div>Show " + i + "</div>");
-					clearTimeout(timer);
-					run();
-				}
-			});
+			// while (id--) {
+			// 	window.clearTimeout(id); // will do nothing if no timeout with id is present
+			// }
+			console.log("RUN");
+
+			function SetData() {
+				$.ajax({
+					type: "post",
+					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
+					data: {
+						order_booktime: "AAAAA",
+					},
+					success: function (response) {
+						if (response == "成功") {
+							console.log("成功");
+						}
+					},
+				});
+			}
+			// var url="https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}"
+			function GetData() {
+				$.ajax({
+					type: "GET",
+					url: "https://spreadsheets.google.com/feeds/list/12cG3pGQBRkL3FNgKti-BIK3TEWq1VnrhMHdPa4DVMNA/od6/public/full?alt=json",
+					success: function (res) {
+						console.log(res.feed.entry);
+					},
+				});
+			}
+			GetData();
 		</script>
 	</body>
 </html>
