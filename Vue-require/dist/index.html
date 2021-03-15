@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./css/index.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<style>
+			.loading {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div ref="loading" class="loading">
+				<Modal v-if="isShow" :title="title" @close="close"></Modal>
+				<Home @set_modal="showModal"></Home>
+				<Home2 @set_modal="showModal"></Home2>
+				<list-view @set_modal="showModal"></list-view>
+			</div>
+		</div>
+
+		<script src="js/require.js" data-main="js/main" defer async="true"></script>
+	</body>
+</html>

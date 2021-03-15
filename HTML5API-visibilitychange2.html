@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="js/lifecycle.es5.js"></script>
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+				font-size: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>測試2</h1>
+		<div id="app"></div>
+		<script>
+			// lifecycle.addEventListener("statechange", function (event) {
+			// 	$("#app").append(event.oldState, event.newState);
+			// 	if (event.newState == "hidden") {
+			// 		$("#app").append("<div>Hide</div>");
+			// 	}
+			// 	if (event.newState == "active") {
+			// 		$("#app").append("<div>show</div>");
+			// 	}
+			// });
+			// document.addEventListener("visibilitychange", function (e) {
+			// 	var hidden = event.target.webkitHidden;
+			// 	if (hidden) {
+			// 		$("#app").append("<div>Hide</div>");
+			// 	} else {
+			// 		$("#app").append("<div>show</div>");
+			// 	}
+			// });
+			var timer;
+			var i = 0;
+			function run() {
+				i++;
+				timer = setTimeout(() => {
+					document.title = "RUN " + i;
+				}, 1000);
+			}
+			document.addEventListener("visibilitychange", function () {
+				if (document.visibilityState == "hidden") {
+					$("#app").append("<div>Hide " + i + "</div>");
+					run();
+				}
+
+				if (document.visibilityState == "visible") {
+					i = 0;
+					$("#app").append("<div>Show " + i + "</div>");
+					clearTimeout(timer);
+					run();
+				}
+			});
+		</script>
+	</body>
+</html>
