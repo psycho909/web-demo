@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			.main {
+				position: relative;
+				height: 1680px;
+			}
+			.box {
+				width: 800px;
+				height: 692px;
+				position: absolute;
+				bottom: 140px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.btn-open {
+				width: 194px;
+				height: 437px;
+				background-color: green;
+				border: none;
+				margin: 0 auto;
+				display: block;
+				margin-top: -100px;
+				transition: all 0.3s;
+				cursor: pointer;
+			}
+			.btn-open:hover {
+				margin-top: -200px;
+			}
+			.cover {
+				width: 100%;
+				height: 100%;
+				background-color: red;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.sub_book {
+				width: 965px;
+				height: 1280px;
+				position: absolute;
+				top: 200px;
+				left: 50%;
+				transform: translateX(-50%);
+				background-color: lightblue;
+				margin-top: 100px;
+				opacity: 0;
+				display: none;
+			}
+			.btn-close {
+				width: 30px;
+				height: 30px;
+				background-color: yellow;
+				position: absolute;
+				top: 0;
+				left: 0;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div class="box">
+				<button class="btn btn-open"></button>
+				<div class="cover"></div>
+			</div>
+			<div class="sub_book">
+				<button class="btn btn-close"></button>
+			</div>
+		</div>
+		<script>
+			$(".btn-open").on("click", function () {
+				$("body,html").animate({
+					scrollTop: 50,
+				});
+				gsap.to(".sub_book", 0, {
+					display: "block",
+					onComplete: function () {
+						gsap.to(".sub_book", 0.8, {
+							opacity: 1,
+							marginTop: 0,
+						});
+					},
+				});
+			});
+			$(".btn-close").on("click", function () {
+				gsap.to(".sub_book", 0, {
+					display: "none",
+					onComplete: function () {
+						gsap.set(".sub_book", {
+							opacity: 0,
+							marginTop: "100px",
+						});
+					},
+				});
+			});
+		</script>
+	</body>
+</html>
