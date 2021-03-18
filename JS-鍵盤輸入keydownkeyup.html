@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" id="initials" />
+			<span class="counter"></span>
+		</div>
+		<script>
+			$("#initials").on("keydown", function (e) {
+				var max = 9;
+				var len = $(this).val().length;
+				if (len > max - 1) {
+					if (e.keyCode != 46 && e.keyCode != 8) return false;
+				} else {
+					return true;
+				}
+			});
+			$("#initials").on("keyup", function () {
+				var max = 9;
+				var len = $(this).val().length;
+				var char = max - len;
+				$(".counter").text(char + "/" + max);
+			});
+			// document.getElementById("initials").addEventListener("keydown", (event) => {
+			// 	var max = 9;
+			// 	var len = $(this).val().length;
+			// 	var char = max - len;
+			// 	$(".counter").text(char + "/" + max);
+			// 	// if (event.key.match(/[0-9]+/g)) {
+			// 	// 	return event;
+			// 	// } else {
+			// 	// 	event.preventDefault();
+			// 	// }
+			// });
+			$("#initials").on("paste", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				if (e.originalEvent.clipboardData.getData("text").length >= 9) {
+					console.log(e.originalEvent.clipboardData.getData("text").slice(0, 8));
+					document.getElementById("initials").value = e.originalEvent.clipboardData.getData("text").slice(0, 8);
+				}
+			});
+		</script>
+	</body>
+</html>
