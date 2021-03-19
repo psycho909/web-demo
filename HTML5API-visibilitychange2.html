@@ -5,8 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/ouical/ouical.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -19,49 +20,15 @@
 
 	<body>
 		<div id="app">
-			<iframe src="https://netlify.rptyy.xyz/" frameborder="0" sandbox="allow-same-origin allow-scripts"></iframe>
+			<button id="btn">Add</button>
 		</div>
 		<script>
-			// window.location.replace("https://www.websiteB.com/_safari_fix.html");
-			// function ShowUser(status) {
-			// 	$.ajax({
-			// 		url: "https://randomuser.me/api/",
-			// 		dataType: "json",
-			// 		success: function (data) {
-			// 			$("#app").append(`<div>${status} : ${data.results[0].email}</div>`);
-			// 		},
-			// 	});
-			// }
-			// var timer;
-			// function run(status) {
-			// 	timer = setTimeout(() => {
-			// 		ShowUser(status);
-			// 	}, 3000);
-			// }
-			// document.addEventListener("visibilitychange", function () {
-			// 	clearTimeout(timer);
-			// 	if (document.visibilityState == "hidden") {
-			// 		run("hidden");
-			// 	}
-			// 	if (document.visibilityState == "visible") {
-			// 		run("show");
-			// 	}
-			// });
-			// var id = window.setTimeout(function () {
-			// 	$("#app").append(`<div>STOP</div>`);
-			// }, 3000);
-
-			// while (id--) {
-			// 	window.clearTimeout(id); // will do nothing if no timeout with id is present
-			// }
-			console.log("RUN");
-
-			function SetData() {
+			function SetData(data) {
 				$.ajax({
 					type: "post",
 					url: "https://script.google.com/macros/s/AKfycbzntPWIUmJJHGtVaUzcapu_52OP4hQaYrhSE0-3qcRCLseS0e1j/exec",
 					data: {
-						order_booktime: "AAAAA",
+						order_booktime: data,
 					},
 					success: function (response) {
 						if (response == "成功") {
@@ -80,7 +47,56 @@
 					},
 				});
 			}
-			// GetData();
+
+			$("#btn").on("click", function () {
+				SetData(navigator.userAgent);
+				calenderCall(data);
+			});
+
+			function calenderCall(data) {
+				var _default = {
+					title: "",
+					start: new Date("2020/08/18 16:00:00"),
+					duration: 120,
+					end: new Date("2020/08/18 18:00:00"),
+					description: "",
+				};
+				var calenderData = $.extend(_default, data);
+				var myCalendar = createCalendar({
+					data: calenderData,
+				});
+				var calenderEvent = "";
+
+				if (isMobile.android.device) {
+					calenderEvent = myCalendar.google;
+				}
+				if (isMobile.apple.device) {
+					if (navigator.userAgent.match("CriOS")) {
+						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						return;
+					}
+					if (navigator.userAgent.match("Line")) {
+						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						return;
+					}
+					if (navigator.userAgent.match("FB")) {
+						alert("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						$("#app").html("IOS玩家使用Safari開啟頁面即可獲此提醒。");
+						return;
+					}
+					calenderEvent = myCalendar.ical;
+				}
+				window.location.href = calenderEvent;
+			}
+
+			var data = {
+				title: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 標題 (可輸入可不輸入)
+				start: new Date("2021/04/08 16:30:00"), // 行事曆 什麼時候開始
+				end: new Date("2021/05/20 10:30:00"), // 行事曆 什麼時候結束
+				description: "天堂R 勇士誕生祭壇 領獎提醒 | 國際服", // 行事曆 描述 (可輸入可不輸入)
+			};
 		</script>
 	</body>
 </html>

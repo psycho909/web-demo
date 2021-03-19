@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<main>
+				<my-menu>I work without v-model.</my-menu>
+				<hr />
+				<button @click="open != open">Toggle using v-model</button>
+				<my-menu v-model="open">I work without v-model.</my-menu>
+			</main>
+		</div>
+		<script>
+			var MyMenu = {
+				template: `
+                    <div class="my-menu">
+                        <button @click="toggleMenu">Toggle Menu</button>
+                        <menu v-show="open">
+                            <slot />
+                        </menu>
+                    </div>
+                `,
+				name: "MyMenu",
+				emits: ["update:modelValue"],
+				props: {
+					modelValue: {
+						type: Boolean,
+						default: false,
+					},
+				},
+				data: function () {
+					return {
+						open: this.modelValue,
+					};
+				},
+				methods: {
+					toggleMenu: function () {
+						this.open = !this.open;
+						this.$emit("update:modelValue", this.open);
+					},
+				},
+			};
+
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					"my-menu": MyMenu,
+				},
+				data: function () {
+					return {
+						open: false,
+					};
+				},
+			});
+		</script>
+	</body>
+</html>
