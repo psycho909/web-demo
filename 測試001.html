@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button id="btn">按鈕</button>
+		</div>
+		<script>
+			function a(con) {
+				if (con) {
+					b();
+				} else {
+					c();
+				}
+			}
+
+			function b() {
+				console.log("b");
+			}
+			function c() {
+				console.log("c");
+			}
+			$("#btn").on("click", function () {
+				a(true);
+			});
+		</script>
+	</body>
+</html>
