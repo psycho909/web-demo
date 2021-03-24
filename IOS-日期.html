@@ -11,13 +11,43 @@
 				padding: 0;
 				margin: 0;
 			}
+			main {
+				width: 100%;
+				padding: 80px 0px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+			}
+			.coupon-card {
+				width: 200px;
+				height: 120px;
+				background-image: radial-gradient(circle at 100px -8px, transparent 20px, #b4a078 21px);
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<p date="2021/03/24 中午12:00 ~ 2021/4/6 晚上23:59">2021/03/24 中午12:00 ~ 2021/4/6 晚上23:59</p>
-			<p>12312313@gmail.com</p>
+			<main>
+				<div class="coupon-card"></div>
+			</main>
 		</div>
-		<script></script>
+		<script>
+			// var code = "0050";
+			// var url = "http://mis.tse.com.tw/stock/api/getStock.jsp?ch=" + code + ".tw&json=1&_=";
+			// var url1 = "https://www.twse.com.tw/exchangeReport/BWIBBU?response=csv&date=20210324&stockNo=2330";
+
+			// var apiToken = "apiToken=376254e7420c0c00d591668303706448";
+			// var url2 = `https://api.fugle.tw/realtime/v0/intraday/quote?symbolId=2884&${apiToken}`;
+
+			// var url3 = "https://mis.twse.com.tw/stock/api/getStock.jsp?ch=2884.tw&json=1&_=1616575109363";
+			// $.ajax({
+			// 	url: url3,
+			// 	contentType: "application/json; charset=utf-8",
+			// 	method: "GET",
+			// 	success: function (data) {
+			// 		console.log(data);
+			// 	},
+			// });
+		</script>
 	</body>
 </html>
