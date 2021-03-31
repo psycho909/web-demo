@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+			<div>{{count}}</div>
+			<div>{{fullName}}</div>
+			<button @click="add">+</button>
+			<button @click="open = !open">Toggle v-model</button>
+			<my-menu v-model="open">MENU</my-menu>
+		</div>
+		<script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						open: false,
+						count: 0,
+						firstName: "Chen",
+						lastName: "Ching",
+						errorClass: "err",
+						isActive: true,
+					};
+				},
+				computed: {
+					fullName: {
+						get() {
+							return this.firstName + " " + this.lastName;
+						},
+						set(newValue) {
+							const names = newValue.split(" ");
+							this.firstName = names[0];
+							this.lastName = names[names.length - 1];
+						},
+					},
+				},
+				methods: {
+					add() {
+						this.count += 1;
+					},
+				},
+			});
+
+			app.component("my-menu", {
+				template: `
+                    <div class="my-menu">
+                        <menu v-show="open">
+                            <slot/>    
+                        </menu>
+                    </div>
+                `,
+				emits: ["update:modelValue"],
+				props: {
+					modelValue: {
+						type: Boolean,
+						default: false,
+					},
+				},
+				data() {
+					return {
+						open: this.modelValue,
+					};
+				},
+				watch: {
+					modelValue(value) {
+						this.open = value;
+					},
+				},
+			});
+
+			var vm = app.mount("#app");
+		</script>
+	</body>
+</html>

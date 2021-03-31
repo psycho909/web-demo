@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				font-family: "Oswald", Impact, Charcoal, sans-serif;
+				text-transform: uppercase;
+			}
+
+			svg {
+				/* max-height: 90vh; */
+				/* margin: 5vh auto; */
+				display: block;
+				background-color: yellow;
+				/* width: 300px;
+				height: 300px; */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<svg viewBox="0 0 300 150">
+				<defs>
+					<linearGradient id="rainbow" x1="0" x2="0" y1="0" y2="100%" gradientUnits="userSpaceOnUse">
+						<stop stop-color="#FF5B99" offset="0%" />
+						<stop stop-color="#FF5447" offset="20%" />
+						<stop stop-color="#FF7B21" offset="40%" />
+						<stop stop-color="#EAFC37" offset="60%" />
+						<stop stop-color="#4FCB6B" offset="80%" />
+						<stop stop-color="#51F7FE" offset="100%" />
+					</linearGradient>
+				</defs>
+				<text x="30" y="30" fill="url(#rainbow)">
+					gradient
+					<tspan font-size="30" x="0" dy="30">gradient</tspan>
+					<tspan font-size="65" x="0" dy="60">text</tspan>
+					<tspan font-size="20" x="0" dy="20">all up in here</tspan>
+				</text>
+			</svg>
+		</div>
+		<script></script>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			.box {
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				background-color: #777;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="box"></div>
+		</div>
+		<button id="btn">按鈕</button>
+		<script>
+			$("#btn").on("click", function () {
+				bb();
+			});
+			// 蹺蹺板
+			function bb() {
+				var x = gsap.utils.random(0, 250);
+				var y = gsap.utils.random(0, 250);
+				gsap.to(
+					".box",
+					1,
+					{
+						y: gsap.utils.random(0, 250),
+						x: gsap.utils.random(0, 250),
+						repeatDelay: 2 * Math.random(),
+						repeat: 10,
+					},
+					100
+				);
+			}
+		</script>
+	</body>
+</html>

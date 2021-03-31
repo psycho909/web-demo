@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/promo/LineageNew/E20210311/css/default.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			main {
+				width: 100%;
+				padding: 80px 0px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+			}
+			.play-box {
+				position: relative;
+				z-index: 3;
+				width: 900px;
+				height: 900px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="play-box"></div>
+		</div>
+		<script>
+			var userItemArr = [
+				{ id: 30, flag: 0, name: "+4騎士團的頭盔(刻印)", img: "items/1/30.png", type: 1 },
+				{ id: 34, flag: 0, name: "+4騎士團的斗篷(刻印)", img: "items/2/34.png", type: 2 },
+				{ id: 46, flag: 0, name: "+5騎士團的小藤甲(刻印)", img: "items/3/46.png", type: 3 },
+				{ id: 56, flag: 0, name: "+5騎士團的脛甲(刻印)", img: "items/4/56.png", type: 4 },
+				{ id: 24, flag: 0, name: "+6騎士團的奇古獸(刻印)", img: "items/5/24.png", type: 5 },
+				{ id: 61, flag: 0, name: "+4騎士團的手套(刻印)", img: "items/6/61.png", type: 6 },
+			];
+			var imgPath = "https://tw.hicdn.beanfun.com/beanfun/promo/LineageNew/E20210311/images/";
+			function ItemRender(Items) {
+				var slotList = "";
+				var itemName = "";
+				var lockShow = "";
+				Items.forEach(function (v, i) {
+					if (v.name != null) {
+						itemName = v.name;
+						lockShow = '<a href="javascript:;" class="play-slot__lock"></a>';
+					}
+					var slot = '<div id="' + v.id + '" class="play-slot" data-type="' + v.type + '" data-flag="' + v.flag + '">\
+				' + lockShow + '\
+				<div class="play-slot__light"></div>\
+				<div class="play-slot__item-img ' + (v.img ? "" : "default-img") + '">\
+					<img src="' + imgPath + v.img + '" alt="" onerror="ErrorImage(this)" class="' + (v.img == "" ? "hide" : "") + '" />\
+				</div>\
+				<div class="play-slot__item-name">' + itemName + "</div>\
+			</div>";
+					slotList += slot;
+				});
+				$(".play-box").html(slotList);
+			}
+			function ErrorImage(t) {
+				var _type = $(t).closest(".play-slot").attr("data-type");
+				console.log(1);
+				userItemArr.forEach(function (v, i) {
+					if (v.type == _type) {
+						v.imgError = "true";
+					}
+				});
+			}
+			ItemRender(userItemArr);
+		</script>
+	</body>
+</html>

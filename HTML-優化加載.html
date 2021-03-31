@@ -20,10 +20,72 @@
 				padding: 0;
 				margin: 0;
 			}
+			#searchResults {
+				width: 1500px;
+				margin: 0 auto;
+				background-color: #f6f6f6;
+				padding: 35px;
+				border-radius: 10px;
+			}
+			.jsgrid-table {
+				border-collapse: collapse;
+			}
+			.jsgrid-row,
+			.jsgrid-alt-row {
+				background-color: #fff;
+				display: block;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
+		<div id="searchResults">
+			<table class="jsgrid-table">
+				<tbody>
+					<tr class="jsgrid-row">
+						<td class="jsgrid-cell jsgrid-align-center" style="width: 3%"><input type="checkbox" class="singleCheckbox" /></td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 5%">107</td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 10%">107-02-178-00K000-L-01</td>
+						<td class="jsgrid-cell" style="width: 100px">瓦窯溝排水分線</td>
+						<td class="jsgrid-cell" style="width: 100px">定期</td>
+						<td class="jsgrid-cell" style="width: 100px">正常</td>
+						<td class="jsgrid-cell" style="width: 100px">
+							<div class="improvement-sight-normal" style="font-size: x-large">●</div>
+							<input type="hidden" class="inspectionID" value="107-02-178-00K000-L-01" />
+						</td>
+						<td class="jsgrid-cell" style="width: 100px"></td>
+						<td class="jsgrid-cell" style="width: 100px"><input type="button" class="btn btn-round btn-primary" onclick='_downloadOneWord("107-02-178-00K000-L-01")' value="Word" /><input type="button" class="btn btn-round btn-success" onclick='_downloadOnePDF("107-02-178-00K000-L-01")' value="PDF" /></td>
+					</tr>
+					<tr class="jsgrid-alt-row">
+						<td class="jsgrid-cell jsgrid-align-center" style="width: 3%"><input type="checkbox" class="singleCheckbox" /></td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 5%">107</td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 10%">107-02-178-00K100-L-01</td>
+						<td class="jsgrid-cell" style="width: 100px">瓦窯溝排水分線</td>
+						<td class="jsgrid-cell" style="width: 100px">定期</td>
+						<td class="jsgrid-cell" style="width: 100px">正常</td>
+						<td class="jsgrid-cell" style="width: 100px">
+							<div class="improvement-sight-normal" style="font-size: x-large">●</div>
+							<input type="hidden" class="inspectionID" value="107-02-178-00K100-L-01" />
+						</td>
+						<td class="jsgrid-cell" style="width: 100px"></td>
+						<td class="jsgrid-cell" style="width: 100px"><input type="button" class="btn btn-round btn-primary" onclick='_downloadOneWord("107-02-178-00K100-L-01")' value="Word" /><input type="button" class="btn btn-round btn-success" onclick='_downloadOnePDF("107-02-178-00K100-L-01")' value="PDF" /></td>
+					</tr>
+					<tr class="jsgrid-row">
+						<td class="jsgrid-cell jsgrid-align-center" style="width: 3%"><input type="checkbox" class="singleCheckbox" /></td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 5%">107</td>
+						<td class="jsgrid-cell jsgrid-align-right" style="width: 10%">107-02-178-00K200-L-01</td>
+						<td class="jsgrid-cell" style="width: 100px">瓦窯溝排水分線</td>
+						<td class="jsgrid-cell" style="width: 100px">定期</td>
+						<td class="jsgrid-cell" style="width: 100px">正常</td>
+						<td class="jsgrid-cell" style="width: 100px">
+							<div class="improvement-sight-normal" style="font-size: x-large">●</div>
+							<input type="hidden" class="inspectionID" value="107-02-178-00K200-L-01" />
+						</td>
+						<td class="jsgrid-cell" style="width: 100px"></td>
+						<td class="jsgrid-cell" style="width: 100px"><input type="button" class="btn btn-round btn-primary" onclick='_downloadOneWord("107-02-178-00K200-L-01")' value="Word" /><input type="button" class="btn btn-round btn-success" onclick='_downloadOnePDF("107-02-178-00K200-L-01")' value="PDF" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<script></script>
 	</body>
 </html>

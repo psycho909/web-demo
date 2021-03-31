@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/twbs-pagination1.4.2/twbsPagination.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div id="page-content"></div>
+			<ul id="pagination-demo" class="pagination-sm"></ul>
+		</div>
+		<script>
+			$("#pagination-demo").twbsPagination({
+				totalPages: 35,
+				visiblePages: 7,
+				onPageClick: function (event, page) {
+					$("#page-content").text("Page " + page);
+				},
+			});
+		</script>
+	</body>
+</html>

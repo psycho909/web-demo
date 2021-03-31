@@ -6,6 +6,18 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- <script type="text/javascript" src="js/loadingProgress.js" defer></script> -->
+		<script>
+			var _gbox = document.createElement("script");
+			_gbox.setAttribute("src", "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js");
+			_gbox.setAttribute("async", "false");
+			let head = document.head;
+			head.insertBefore(_gbox, head.firstElementChild);
+
+			_gbox.addEventListener("load", function () {
+				// $.gbox.open("<div>123</div>");
+			});
+		</script>
 		<style>
 			* {
 				padding: 0;
@@ -17,24 +29,5 @@
 		<div id="app">
 			<button id="btn">按鈕</button>
 		</div>
-		<script>
-			function a(con) {
-				if (con) {
-					b();
-				} else {
-					c();
-				}
-			}
-
-			function b() {
-				console.log("b");
-			}
-			function c() {
-				console.log("c");
-			}
-			$("#btn").on("click", function () {
-				a(true);
-			});
-		</script>
 	</body>
 </html>
