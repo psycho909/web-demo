@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			.box {
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				margin: 20px;
+				/* border-radius: 50%; */
+			}
+			span {
+				width: 100%;
+				height: 100%;
+				background-color: #777;
+				display: block;
+			}
+			.fz {
+				font-size: 3vw;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="fz">GSAP</div>
+		<div class="wrapper">
+			<div class="box"><span></span></div>
+			<div class="box"><span></span></div>
+			<div class="box"><span></span></div>
+			<div class="box"><span></span></div>
+			<div class="box"><span></span></div>
+		</div>
+		<button id="btn">按鈕</button>
+		<script>
+			$("#btn").on("click", function () {
+				FF();
+			});
+			function FF() {
+				gsap.from(".box", {
+					duration: 5,
+					x: 100,
+					opacity: 0,
+				});
+			}
+			function FT() {
+				gsap.fromTo(
+					".box",
+					{
+						duration: 1,
+						x: 100,
+					},
+					{
+						x: 200,
+					}
+				);
+			}
+			function KF() {
+				gsap.to(".box span", {
+					keyframes: [
+						{ duration: 0.3, height: "10%" },
+						{ duration: 0.3, height: "40%" },
+						{ duration: 0.3, height: "70%" },
+						{ duration: 0.3, height: "20%" },
+						{ duration: 0.3, height: "10%" },
+					],
+					repeat: -1,
+				});
+			}
+			function R() {
+				gsap.set(".box", {
+					x: 50,
+					rotate: "30deg",
+					scale: 0,
+				});
+				gsap.to(".box", {
+					x: 0,
+					rotate: 0,
+					duration: 0.4,
+					scale: 1,
+					stagger: 0.3,
+					ease: "back.out(2)",
+				});
+			}
+			// 蹺蹺板
+			function S() {
+				gsap.set(".box", {
+					scale: 0,
+				});
+				gsap.to(".box", {
+					scale: 1,
+					duration: 0.4,
+					stagger: 0.1,
+					ease: "back.out(2)",
+				});
+			}
+		</script>
+	</body>
+</html>

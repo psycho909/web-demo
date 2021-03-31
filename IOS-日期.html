@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/promo/LineageNew/E20210311/css/default.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
@@ -18,36 +20,59 @@
 				flex-wrap: wrap;
 				justify-content: space-around;
 			}
-			.coupon-card {
-				width: 200px;
-				height: 120px;
-				background-image: radial-gradient(circle at 100px -8px, transparent 20px, #b4a078 21px);
+			.play-box {
+				position: relative;
+				z-index: 3;
+				width: 900px;
+				height: 900px;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<main>
-				<div class="coupon-card"></div>
-			</main>
+			<div class="play-box"></div>
 		</div>
 		<script>
-			// var code = "0050";
-			// var url = "http://mis.tse.com.tw/stock/api/getStock.jsp?ch=" + code + ".tw&json=1&_=";
-			// var url1 = "https://www.twse.com.tw/exchangeReport/BWIBBU?response=csv&date=20210324&stockNo=2330";
-
-			// var apiToken = "apiToken=376254e7420c0c00d591668303706448";
-			// var url2 = `https://api.fugle.tw/realtime/v0/intraday/quote?symbolId=2884&${apiToken}`;
-
-			// var url3 = "https://mis.twse.com.tw/stock/api/getStock.jsp?ch=2884.tw&json=1&_=1616575109363";
-			// $.ajax({
-			// 	url: url3,
-			// 	contentType: "application/json; charset=utf-8",
-			// 	method: "GET",
-			// 	success: function (data) {
-			// 		console.log(data);
-			// 	},
-			// });
+			var userItemArr = [
+				{ id: 30, flag: 0, name: "+4騎士團的頭盔(刻印)", img: "items/1/30.png", type: 1 },
+				{ id: 34, flag: 0, name: "+4騎士團的斗篷(刻印)", img: "items/2/34.png", type: 2 },
+				{ id: 46, flag: 0, name: "+5騎士團的小藤甲(刻印)", img: "items/3/46.png", type: 3 },
+				{ id: 56, flag: 0, name: "+5騎士團的脛甲(刻印)", img: "items/4/56.png", type: 4 },
+				{ id: 24, flag: 0, name: "+6騎士團的奇古獸(刻印)", img: "items/5/24.png", type: 5 },
+				{ id: 61, flag: 0, name: "+4騎士團的手套(刻印)", img: "items/6/61.png", type: 6 },
+			];
+			var imgPath = "https://tw.hicdn.beanfun.com/beanfun/promo/LineageNew/E20210311/images/";
+			function ItemRender(Items) {
+				var slotList = "";
+				var itemName = "";
+				var lockShow = "";
+				Items.forEach(function (v, i) {
+					if (v.name != null) {
+						itemName = v.name;
+						lockShow = '<a href="javascript:;" class="play-slot__lock"></a>';
+					}
+					var slot = '<div id="' + v.id + '" class="play-slot" data-type="' + v.type + '" data-flag="' + v.flag + '">\
+				' + lockShow + '\
+				<div class="play-slot__light"></div>\
+				<div class="play-slot__item-img ' + (v.img ? "" : "default-img") + '">\
+					<img src="' + imgPath + v.img + '" alt="" onerror="ErrorImage(this)" class="' + (v.img == "" ? "hide" : "") + '" />\
+				</div>\
+				<div class="play-slot__item-name">' + itemName + "</div>\
+			</div>";
+					slotList += slot;
+				});
+				$(".play-box").html(slotList);
+			}
+			function ErrorImage(t) {
+				var _type = $(t).closest(".play-slot").attr("data-type");
+				console.log(1);
+				userItemArr.forEach(function (v, i) {
+					if (v.type == _type) {
+						v.imgError = "true";
+					}
+				});
+			}
+			ItemRender(userItemArr);
 		</script>
 	</body>
 </html>
