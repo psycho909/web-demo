@@ -9,16 +9,19 @@
 	</head>
 	<body>
 		<div id="app">
-			<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
-			<div>{{count}}</div>
-			<div>{{fullName}}</div>
+			<div :class="{active:isActive}">{{count}}</div>
+			<div :style="{fontSize:postFontSize+'rem'}">{{fullName}}</div>
 			<button @click="add">+</button>
 			<button @click="open = !open">Toggle v-model</button>
 			<my-menu v-model="open">MENU</my-menu>
+			<book title="BOOK" @enlarge-text="fontBig"></book>
+			<div>{{searchText}}</div>
+			<input v-model="searchText" />
+			<custom-input :number="2" :model-value="searchText" @update:model-value="searchText=$event"></custom-input>
 		</div>
 		<script>
-			const app = Vue.createApp({
-				data() {
+			var app = Vue.createApp({
+				data: function () {
 					return {
 						open: false,
 						count: 0,
@@ -26,35 +29,38 @@
 						lastName: "Ching",
 						errorClass: "err",
 						isActive: true,
+						postFontSize: 1,
+						searchText: "",
 					};
 				},
 				computed: {
 					fullName: {
-						get() {
+						get: function () {
 							return this.firstName + " " + this.lastName;
 						},
-						set(newValue) {
-							const names = newValue.split(" ");
+						set: function (newValue) {
+							var names = newValue.split(" ");
 							this.firstName = names[0];
 							this.lastName = names[names.length - 1];
 						},
 					},
 				},
 				methods: {
-					add() {
+					add: function () {
 						this.count += 1;
+					},
+					fontBig: function (value) {
+						this.postFontSize += value;
 					},
 				},
 			});
 
 			app.component("my-menu", {
-				template: `
-                    <div class="my-menu">
-                        <menu v-show="open">
-                            <slot/>    
-                        </menu>
-                    </div>
-                `,
+				template: '<div class="my-menu">\
+                        <menu v-show="open">\
+                            <slot/>    \
+                        </menu>\
+                    </div>',
 				emits: ["update:modelValue"],
 				props: {
 					modelValue: {
@@ -62,18 +68,60 @@
 						default: false,
 					},
 				},
-				data() {
-					return {
-						open: this.modelValue,
-					};
+				computed: {
+					open: {
+						get() {
+							return this.modelValue;
+						},
+						set(value) {
+							this.$emit("update:modelValue", value);
+						},
+					},
 				},
 				watch: {
-					modelValue(value) {
-						this.open = value;
+					// modelValue: function (value) {
+					// 	this.open = value;
+					// },
+				},
+			});
+			app.component("book", {
+				props: ["title"],
+				template: `
+					<div class="book-box">
+						<h4>{{title}}</h4>
+						<button @click="todo">Enlarget text</button>
+					</div>
+				`,
+				methods: {
+					todo() {
+						this.$emit("enlargeText", 1);
 					},
 				},
 			});
-
+			app.component("custom-input", {
+				props: ["modelValue", "number"],
+				emits: ["update:modelValue"],
+				template: `
+					<div>
+						<input
+						:value="modelValue"
+						@input="$emit('update:modelValue', $event.target.value)"
+						>
+						<div>{{n}}</div>
+						<button @click="add">Add</button>
+					</div>
+				`,
+				data() {
+					return {
+						n: this.number,
+					};
+				},
+				methods: {
+					add() {
+						this.n++;
+					},
+				},
+			});
 			var vm = app.mount("#app");
 		</script>
 	</body>
