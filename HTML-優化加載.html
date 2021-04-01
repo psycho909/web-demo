@@ -4,8 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- 打開DNS預讀取 -->
+		<!-- 讀取會在後台執行，所以DNS很可能在連結對應的東西出現之後就已經解析完畢，這能夠解少用戶點擊連結時的延遲 -->
 		<meta http-equiv="x-dns-prefetch-control" content="on" />
 		<!-- 強制查詢特定主機名 -->
+		<!-- 強制對域名進行讀取在有的情況下很有用，可以強制在整個網站上頻繁引用的域名域解析，可以提高整體站點的性能 -->
 		<link rel="dns-prefetch" href="預解析連結" />
 		<link rel="dns-prefetch" href="https://images-na.ssl-images-amazon.com" />
 		<link rel="dns-prefetch" href="https://m.media-amazon.com" />
