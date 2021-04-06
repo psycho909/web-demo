@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background: lightgrey;
+			}
+			.wrapper {
+				width: 100%;
+				height: 100vh;
+				position: relative;
+				overflow: hidden;
+			}
+			.ball {
+				width: 100px;
+				height: 100px;
+				background-color: #fff;
+				border-radius: 5% 40% / 46% 51%;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper"></div>
+		<button id="btn">按鈕</button>
+		<script>
+			$("#btn").on("click", function () {
+				ball();
+			});
+			function r(t, e) {
+				return Math.floor(Math.random() * (1 + e - t) + t);
+			}
+			function ball() {
+				for (var t = 0; t < 30; t++) {
+					var n = r(0, 2);
+					var i = $('<div class="ball"></div>').appendTo(".wrapper");
+					var c = r(5, 10);
+					console.log(c);
+					gsap.set(i, {
+						y: 1300,
+						x: 960,
+						scale: r(0.2, 0.5),
+					});
+					gsap.to(i, {
+						y: -400,
+						x: r(0, 1920),
+						scale: r(0.6, 0.8),
+						rotation: r(5, 90),
+						repeatDelay: 2 * Math.random(),
+						repeat: 500,
+						duration: c,
+						delay: Math.random() * 5,
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
