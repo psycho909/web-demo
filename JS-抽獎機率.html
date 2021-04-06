@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button id="btn">開獎</button>
+		</div>
+		<script>
+			var tableData = [
+				{
+					name: "喔喔，請下次再來",
+					p: 0.95,
+				},
+				{
+					name: "A",
+					p: 0.05,
+				},
+				{
+					name: "SSS",
+					p: 0,
+				},
+			];
+			function getItemByChange() {
+				const r = Math.random();
+				let count = 0;
+				let item;
+
+				for (var i = 0; i < tableData.length; i++) {
+					var _ = tableData[i];
+					if (r >= count && r <= count + _.p) {
+						item = _;
+						break;
+					} else {
+						count = count + _.p;
+					}
+				}
+				return item;
+			}
+			function showGetItemMessage() {
+				const item = getItemByChange();
+				console.log(`您抽到的是 『${item.name}』, 他有 ${(item.p * 100).toFixed(2)}%的機率被抽中`);
+			}
+			$("#btn").on("click", function () {
+				showGetItemMessage();
+			});
+		</script>
+	</body>
+</html>
