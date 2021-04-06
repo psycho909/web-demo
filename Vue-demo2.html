@@ -17,7 +17,7 @@
 			<book title="BOOK" @enlarge-text="fontBig"></book>
 			<div>{{searchText}}</div>
 			<input v-model="searchText" />
-			<custom-input :number="2" :model-value="searchText" @update:model-value="searchText=$event"></custom-input>
+			<custom-input :number="2" v-model:model-value="searchText"></custom-input>
 		</div>
 		<script>
 			var app = Vue.createApp({
