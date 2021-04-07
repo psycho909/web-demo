@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #111;
+				font-family: Signika Negative, Asap, sans-serif;
+				color: white;
+				overflow: hidden;
+			}
+			#app {
+				width: 100%;
+				height: 100vh;
+			}
+
+			.dot {
+				width: 41px;
+				height: 30px;
+				position: absolute;
+				background: url("images/b.png");
+				background-size: 100% 100%;
+				top: 0;
+				left: 0;
+				z-index: 1;
+			}
+			.blur {
+				filter: blur(6px);
+				z-index: 2;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			gsap.set("#app", {
+				perspective: 600,
+			});
+			gsap.set(".dot", {
+				x: "100vw",
+			});
+			var w = window.innerWidth,
+				h = window.innerHeight;
+
+			var total = 30;
+			for (i = 0; i < total; i++) {
+				var div = $('<div class="dot"></div>').appendTo("#app");
+				// TweenLite.set(Div, { attr: { class: 'dot' }, x: R(0, w), y: R(0, -150), z: R(-200, 200) });
+				Anim(div);
+			}
+			for (i = 0; i < 15; i++) {
+				var div = $('<div class="dot blur"></div>').appendTo("#app");
+				// TweenLite.set(Div, { attr: { class: 'dot' }, x: R(0, w), y: R(0, -150), z: R(-200, 200) });
+				Anim2(div);
+			}
+			function Anim(elm) {
+				gsap.set(elm, {
+					x: "100vw",
+					y: gsap.utils.random(0, 25) + "vw",
+					z: gsap.utils.random(-200, 200),
+					scale: gsap.utils.random(0.3, 0.5),
+				});
+				gsap.to(elm, { x: 0, ease: Linear.easeNone, duration: gsap.utils.random(6, 15), repeat: -1, delay: -15 });
+				gsap.to(elm, { y: "+=150", rotationZ: gsap.utils.random(0, 180), duration: gsap.utils.random(4, 8), repeat: -1, yoyo: true, ease: Sine.easeInOut });
+				gsap.to(elm, { rotationX: gsap.utils.random(0, 360), rotationY: gsap.utils.random(0, 360), duration: gsap.utils.random(2, 8), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5 });
+			}
+			function Anim2(elm) {
+				gsap.set(elm, {
+					x: "100vw",
+					y: gsap.utils.random(0, 25) + "vw",
+					z: gsap.utils.random(-200, 200),
+					scale: gsap.utils.random(0.6, 1),
+				});
+				gsap.to(elm, { x: 0, ease: Linear.easeNone, duration: gsap.utils.random(6, 15), repeat: -1, delay: -15 });
+				gsap.to(elm, { y: "+=150", rotationZ: gsap.utils.random(0, 180), duration: gsap.utils.random(4, 8), repeat: -1, yoyo: true, ease: Sine.easeInOut });
+				gsap.to(elm, { rotationX: gsap.utils.random(0, 360), rotationY: gsap.utils.random(0, 360), duration: gsap.utils.random(2, 8), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5 });
+			}
+		</script>
+	</body>
+</html>
