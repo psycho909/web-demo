@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			#app {
+				width: 100%;
+				height: 100vh;
+				background-color: #04081b;
+				position: relative;
+			}
+			.box {
+				width: 225px;
+				height: 271px;
+				/* background-image: url("images/D3.png"); */
+				position: absolute;
+				top: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+				filter: drop-shadow(0px 0px 13px #fff);
+				/* clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); */
+			}
+			.box a {
+				display: block;
+				width: 225px;
+				height: 271px;
+				background-image: url("images/D3.png");
+				clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+			}
+			.slogan {
+				width: 750px;
+				height: 489px;
+				background-image: url("images/ss.png");
+				position: absolute;
+				top: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.slogan:before {
+				content: "";
+				width: 308px;
+				height: 217px;
+				background-image: url("images/ss-light.png");
+				position: absolute;
+				top: -55px;
+				left: 145px;
+				mix-blend-mode: color-dodge;
+			}
+			.bb {
+				width: 300px;
+				height: 300px;
+				border: 10px solid;
+				border-image-slice: 1;
+				border-width: 5px;
+				border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="bb"></div>
+			<div class="box">
+				<a href="javascript:;"></a>
+			</div>
+			<!-- <div class="slogan"></div> -->
+		</div>
+	</body>
+</html>
