@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			.element {
+				/* vmin值取當前 vw和vh中較小的值 */
+				width: calc(600 / 750 * 100vmin);
+				height: 100vmin;
+				background-color: green;
+				margin: 0 auto;
+				padding-top: 10vmin;
+				padding-bottom: 10vmin;
+				border: 1px solid #000;
+				font-family: Arial;
+				font-size: 24px;
+			}
+			.box {
+				width: 100px;
+				height: 100px;
+				margin: 0 auto;
+				border: inherit;
+				font-family: inherit;
+				background-color: inherit;
+				font-size: inherit;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="element">
+			<div class="box">BOX</div>
+		</div>
+	</body>
+</html>
