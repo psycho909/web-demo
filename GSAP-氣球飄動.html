@@ -34,11 +34,56 @@
 		<div class="wrapper"></div>
 		<button id="btn">按鈕</button>
 		<script>
+			var sum = [
+				{
+					type: "兩人開銷",
+					price: 10000,
+				},
+				{
+					type: "車貸",
+					price: 20000,
+				},
+				{
+					type: "加油",
+					price: 600,
+				},
+				{
+					type: "健身",
+					price: 3000,
+				},
+				{
+					type: "午餐",
+					price: 600,
+				},
+				{
+					type: "晚餐",
+					price: 2000,
+				},
+				{
+					type: "apple",
+					price: 30,
+				},
+				{
+					type: "電話費",
+					price: 499,
+				},
+				{
+					type: "生活費",
+					price: 1000,
+				},
+				{
+					type: "定存",
+					price: 10000,
+				},
+			].reduce((p, v) => {
+				return p + v.price;
+			}, 0);
+			console.log(sum);
 			$("#btn").on("click", function () {
 				ball();
 			});
-			function r(t, e) {
-				return Math.floor(Math.random() * (1 + e - t) + t);
+			function r(min, max) {
+				return Math.floor(Math.random() * (1 + max - min) + min);
 			}
 			function ball() {
 				for (var t = 0; t < 30; t++) {
