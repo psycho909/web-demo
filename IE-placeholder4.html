@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="js/jquery.placeholder.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: "微軟正黑體";
+			}
+			input,
+			textarea {
+				color: #000;
+				text-align: center;
+				font-family: "微軟正黑體";
+				font-weight: bold;
+				font-size: 32px;
+			}
+			.my-placeholder {
+				color: #eee;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<label for="bar">Example label</label>
+			<input type="text" placeholder="請輸入密碼" id="bar" />
+		</div>
+		<script>
+			$("input, textarea").placeholder({ customClass: "my-placeholder" });
+		</script>
+	</body>
+</html>
