@@ -12,6 +12,7 @@
 				padding: 0;
 				margin: 0;
 				font-family: "微軟正黑體";
+				box-sizing: border-box;
 			}
 			input,
 			textarea {
@@ -21,8 +22,18 @@
 				font-weight: bold;
 				font-size: 32px;
 			}
-			.my-placeholder {
-				color: #eee;
+			input::placeholder,
+			textarea::placeholder {
+				color: #999;
+			}
+			input::-ms-input-placeholder,
+			textarea::-ms-input-placeholder {
+				color: #999;
+			}
+			.placeholder {
+				color: #999;
+				display: flex;
+				box-shadow: 0 0 0 #000;
 			}
 		</style>
 	</head>
@@ -32,7 +43,38 @@
 			<input type="text" placeholder="請輸入密碼" id="bar" />
 		</div>
 		<script>
-			$("input, textarea").placeholder({ customClass: "my-placeholder" });
+			$("input, textarea").placeholder({ customClass: "placeholder" });
+
+			function ServerTime() {
+				var serverTime = new Date($.ajax({ async: false }).getResponseHeader("Date"));
+				return {
+					getTime: serverTime.getTime(),
+					getMonth: serverTime.getMonth() + 1,
+					getDate: serverTime.getDate(),
+					getMinutes: serverTime.getMinutes(),
+					full: serverTime.getMonth() + 1 + "/" + serverTime.getDate() + " " + serverTime.getHours() + ":" + (serverTime.getMinutes() < 10 ? "0" + serverTime.getMinutes() : serverTime.getMinutes()),
+				};
+			}
+
+			// class Person {
+			// 	constructor(name) {
+			// 		this.name = name;
+			// 		this.sayName();
+			// 	}
+			// 	sayName() {
+			// 		console.log(`Hello ${this.name}`);
+			// 	}
+			// }
+
+			function Person(name) {
+				this.name = name;
+				this.sayName();
+			}
+			Person.prototype.sayName = function () {
+				console.log(`Hello ${this.name}`);
+			};
+
+			var p = new Person("Chen");
 		</script>
 	</body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<child-component header="Child Component">
+				<template #article="slotProps">
+					<div>{{slotProps.infoData.description}}</div>
+				</template>
+				<template #job="slotProps">
+					<li>{{slotProps.job.name}}</li>
+				</template>
+			</child-component>
+		</div>
+		<script>
+			Vue.component("ChildComponent", {
+				template: '<div>\
+                    <header>{{header}}</header>\
+                    <div><slot :info="info">{{info.title}}</slot></div>\
+                    <main>\
+                        <slot name="article" :infoData="info"></slot>\
+                        <ul>\
+                            <slot v-for="j in jobs" :job="j" name="job"></slot>\
+                        </ul>\
+                    </main>\
+                </div>',
+				props: ["header"],
+				data: function () {
+					return {
+						info: {
+							title: "TITLE",
+							description: "DESCRIPTION",
+						},
+						jobs: [{ name: "Front" }, { name: "BackEnd" }, { name: "Art" }],
+					};
+				},
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {},
+			});
+		</script>
+	</body>
+</html>

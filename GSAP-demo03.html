@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			.box {
+				width: 300px;
+				height: 300px;
+				background-color: #eee;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<script>
+			const stagger = 0.5; // Used in our shifting tween
+			const BOXES = gsap.utils.toArray(".box");
+			var getShift = () =>
+				gsap.fromTo(
+					".box",
+					{
+						xPercent: 200,
+					},
+					{
+						xPercent: 0,
+						duration: 1,
+						ease: "none",
+					}
+				);
+
+			const LOOP = gsap
+				.timeline({
+					paused: true,
+					repeat: -1,
+				})
+				.add(getShift(), 0)
+				.add(getShift(), BOXES.length * stagger)
+				.add(getShift(), BOXES.length * stagger * 2);
+
+			gsap.fromTo(
+				LOOP,
+				{
+					totalTime: 4.75,
+				},
+				{
+					totalTime: "+=5",
+					duration: 10,
+					ease: "none",
+					repeat: -1,
+				}
+			);
+		</script>
+	</body>
+</html>

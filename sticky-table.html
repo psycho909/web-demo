@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.container {
+				height: 500px;
+				width: fit-content;
+				margin: 40px auto;
+				overflow: auto;
+			}
+			table {
+				text-align: left;
+				position: relative;
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				padding: 0.25rem;
+			}
+			tr:nth-child(even) {
+				background: #efefef;
+			}
+			tr.red th {
+				background: #dd4a63;
+				color: white;
+			}
+			tr.green th {
+				background: #03c03c;
+				color: white;
+			}
+			tr.blue th {
+				background: #1580d8;
+				color: white;
+			}
+			th {
+				background: white;
+				position: sticky;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="container">
+				<table>
+					<thead>
+						<tr class="red">
+							<th>Name</th>
+							<th>Age</th>
+							<th>Job</th>
+							<th>Color</th>
+							<th>URL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="n in 20">
+							<td>Lorem.</td>
+							<td>Ullam.</td>
+							<td>Vel.</td>
+							<td>At.</td>
+							<td>Quis.</td>
+						</tr>
+						<!-- ... -->
+						<tr class="green">
+							<th>Name</th>
+							<th>Age</th>
+							<th>Job</th>
+							<th>Color</th>
+							<th>URL</th>
+						</tr>
+						<!-- ... -->
+						<tr v-for="n in 20">
+							<td>Lorem.</td>
+							<td>Ullam.</td>
+							<td>Vel.</td>
+							<td>At.</td>
+							<td>Quis.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script>
+			new Vue({
+				el: "#app",
+			});
+		</script>
+	</body>
+</html>
