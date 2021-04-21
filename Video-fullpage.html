@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.page1 {
+				position: relative;
+				right: 0;
+				width: 100%;
+				min-height: 100vh;
+				padding: 100px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background: #111;
+				color: #fff;
+				z-index: 2;
+				transition: 0.5s;
+				overflow: hidden;
+			}
+			.video {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				opacity: 0.8;
+			}
+			.text {
+				position: relative;
+				z-index: 10;
+			}
+
+			.text h2 {
+				font-size: 5rem;
+				font-weight: 800;
+				line-height: 1em;
+				text-transform: uppercase;
+			}
+			.text h3 {
+				font-size: 4rem;
+				font-weight: 700;
+				line-height: 1em;
+				text-transform: uppercase;
+			}
+			.text p {
+				font-size: 1.1em;
+				margin: 20px 0;
+				font-weight: 400;
+				max-width: 700px;
+			}
+
+			.text a {
+				display: inline-block;
+				font-size: 1em;
+				background: #fff;
+				padding: 10px 30px;
+				text-decoration: none;
+				color: #111;
+				margin-top: 10px;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+			}
+
+			.text a:hover {
+				letter-spacing: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<section class="page1">
+				<video class="video" src="https://vod.plaync.com/lineageM/new/1_castlerooping_MO_low.mp4" muted loop autoplay></video>
+				<div class="text">
+					<h2>Naver Stop</h2>
+					<h3>Exploring The World</h3>
+					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus iste unde accusantium natus doloribus sint dolores blanditiis quo eum atque?</p>
+					<a href="#">Explore</a>
+				</div>
+			</section>
+		</div>
+		<script></script>
+	</body>
+</html>
