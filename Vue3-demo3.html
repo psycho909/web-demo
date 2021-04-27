@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue-router@next"></script>
+		<script src="https://unpkg.com/vuex@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{pointRef}}</div>
+			<div>{{pointReactive}}</div>
+			<div>{{$store.state.count}} - {{$store.state.user}}</div>
+			<input type="text" v-model="state.name" />
+			<div>{{state.name}}</div>
+			<button @click="increment">click</button>
+			<button @click="setName">Set name</button>
+		</div>
+		<script>
+			const myStore = {
+				state: {
+					count: 1,
+					user: "",
+				},
+				mutations: {
+					ADD_COUNT(state) {
+						state.count++;
+					},
+					SET_NAME(state, payload) {
+						state.user = payload.data;
+					},
+				},
+				actions: {
+					add: function (context) {
+						context.commit("ADD_COUNT");
+					},
+					addName: function (context, data) {
+						context.commit({
+							type: "SET_NAME",
+							data: data,
+						});
+					},
+				},
+			};
+			const myVuex = Vuex.createStore(myStore);
+			var vue3Composition = {
+				setup() {
+					const store = Vuex.useStore();
+					const state = Vue.reactive({
+						name: "",
+					});
+					const pointRef = Vue.ref({
+						idx: 0,
+					});
+					const pointReactive = Vue.reactive({
+						idx: 100,
+					});
+					function increment() {
+						store.dispatch("add");
+						// state.count++;
+					}
+					function setName() {
+						store.dispatch("addName", state.name);
+					}
+					setTimeout(() => {
+						pointRef.value.idx = 1;
+						pointReactive.idx = 1;
+					}, 1000);
+					return { state, increment, setName, pointRef, pointReactive };
+				},
+			};
+			var app = Vue.createApp(vue3Composition).use(myVuex).mount("#app");
+		</script>
+	</body>
+</html>

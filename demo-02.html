@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				overflow: hidden;
+			}
+			.box {
+				/* width: 100px;
+				height: 100px; */
+				border: 1px solid #000;
+				margin: 20px 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box"></div>
+			<div class="box box2"></div>
+			<div class="box">
+				<img src="images/fake1.gif" alt="" />
+				<img src="images/fake1.gif" alt="" />
+			</div>
+		</div>
+		<script>
+			const gems = [
+				{
+					type: "Ruby",
+					cut: false,
+					value: 100,
+					requiredSkill: 1,
+				},
+				{
+					type: "Sapphire",
+					cut: false,
+					value: 200,
+					requiredSkill: 2,
+				},
+				{
+					type: "Opal",
+					cut: false,
+					value: 250,
+					requiredSkill: 8,
+				},
+				{
+					type: "Diamond",
+					cut: false,
+					value: 300,
+					requiredSkill: 5,
+				},
+			];
+
+			const gemcuttingSkill = 4;
+
+			const cutGem = (gem) => {
+				if (gem.requiredSkill > gemcuttingSkill) return;
+
+				gem.value = gem.value * 3;
+				gem.cut = true;
+			};
+
+			const cutGems = gems.reduce((acc, gem, index) => {
+				console.log("Processing gem: ", gem);
+				console.log("With index", index);
+
+				if (gem.type === "Diamond") {
+					return acc;
+				}
+
+				cutGem(gem);
+
+				if (!gem.cut) {
+					return acc;
+				}
+
+				acc.push(gem);
+
+				return acc;
+			}, []);
+
+			console.log(gems);
+			const gemValue = gems.reduce((acc, gem) => {
+				return acc + gem.value;
+			}, 0);
+
+			console.log(`The cut gems have a value of ${gemValue} gold`);
+		</script>
+	</body>
+</html>
