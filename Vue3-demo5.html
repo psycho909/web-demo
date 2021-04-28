@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue-router@next"></script>
+		<script src="https://unpkg.com/vuex@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="data.name" />
+			<div>{{data}}</div>
+			<button @click="data.handleChange">Change</button>
+			<button @click="data.addBooks">addBooks</button>
+			<button @click="data.addCount('cat')">addObj</button>
+		</div>
+		<script>
+			var vue3Composition = {
+				setup() {
+					const data = Vue.reactive({
+						header: "This is a Reactive",
+						setName: "Another header",
+						name: "",
+						books: [],
+						handleChange: () => {
+							data.setName = data.name;
+						},
+						addBooks: () => {
+							// data.books.push(Math.floor(Math.random() * 10) + 1);
+							data.books[0] = "New";
+						},
+						addCount: (name) => {
+							if (data[name] != undefined) {
+								data[name] += 1;
+							} else {
+								data[name] = 0;
+							}
+						},
+					});
+
+					Vue.onMounted(() => {
+						console.log(data);
+					});
+					return {
+						data,
+					};
+				},
+			};
+			var app = Vue.createApp(vue3Composition).mount("#app");
+		</script>
+	</body>
+</html>

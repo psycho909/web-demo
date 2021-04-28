@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue-router@next"></script>
+		<script src="https://unpkg.com/vuex@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{age}}</div>
+			<div>{{data}}</div>
+			<div ref="elmRefs">REF</div>
+			<button @click="data.handleClick">Change</button>
+		</div>
+		<script>
+			var vue3Composition = {
+				setup() {
+					const elmRefs = Vue.ref(null);
+					const age = Vue.ref(18);
+					const data = Vue.reactive({
+						header: "This is a Reactive",
+						subHeader: "Another header",
+						handleClick: () => {
+							data.header = "Change";
+						},
+					});
+					Vue.watch(
+						() => data.header,
+						(newAge, preAge) => {
+							console.log(newAge, preAge);
+						}
+					);
+					age.value = 100;
+					Vue.onMounted(() => {
+						console.log(elmRefs.value);
+					});
+					return {
+						age,
+						data,
+						elmRefs,
+					};
+				},
+			};
+			var app = Vue.createApp(vue3Composition).mount("#app");
+		</script>
+	</body>
+</html>
