@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 200px;
+				border: 1px solid #000;
+			}
+			.text1 {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.text2 {
+				width: 200px;
+				white-space: normal;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box text1">create mode 100644 demo-01.htmlcreate mode 100644 demo-01.htmlcreate mode 100644 demo-01.htmlcreate mode 100644 demo-01.html</div>
+		<div class="box text2">create mode 100644 demo-01.htmlcreate mode 100644 demo-01.htmlcreate mode 100644 demo-01.htmlcreate mode 100644 demo-01.html</div>
+		<script>
+			// 1
+			let data;
+			if (data && data.title && data.children) {
+				console.log("Check");
+			}
+			// 2
+			console.log(data?.title?.children ?? "codercao");
+			console.log(undefined ?? "codercao");
+		</script>
+	</body>
+</html>

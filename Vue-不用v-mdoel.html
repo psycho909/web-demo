@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="nes-container with-title is-centered">
+            <p class="title">Vue Form Test</p>
+            <form @submit.prevent="submit">
+                <div class="nes-field">
+                    <label for="name_field">Character Name</label>
+                    <input
+                        required
+                        oninvalid="this.setCustomValidity('不對')"
+                        placeholder="Enter name here" type="text" 
+                        name="name" 
+                        id="name_field" class="nes-input" />
+                </div>
+
+                <section style="margin-top:10px; padding: 0">
+                    <label>
+                        <input type="radio"
+                         value="Male" 
+                         class="nes-radio" name="gender" checked />
+                        <span>Male</span>
+                    </label>
+                    <label>
+                        <input
+                         type="radio" 
+                         value="Female" 
+                         class="nes-radio" name="gender" />
+                        <span>Female</span>
+                    </label>
+                    <label>
+                        <input 
+
+                        type="radio" value="Other" class="nes-radio" name="gender" />
+                        <span>Other</span>
+                    </label>
+                </section>
+                <div class="nes-select job">
+                    <select name="job"
+                     id="default_select">
+                        <option value="" disabled selected hidden>Pick A Job...</option>
+                        <option value="Fighter">Fighter</option>
+                        <option value="Mage">Mage</option>
+                        <option value="Druid">Druid</option>
+                        <option value="Sorcerer">Sorcerer</option>
+                    </select>
+                </div>
+
+                <button
+                 type="submit" id="button" class="nes-btn is-primary">
+                    Submit Name
+                </button>
+        </div>
+
+        </form>
+        <dialog class="nes-dialog" id="dialog-default" ref="dialog">
+            <form method="dialog">
+                <section class="character">
+                    <i class="nes-bcrikko nes-c"></i>
+                    <div class="nes-balloon from-left">
+                        <p>Confirm Character</p>
+                    </div>
+
+                </section>
+                <section class="character info">
+                    <h4 class="topic">Name: {{name}}<span id="name"></span></h4>
+                    <h5>Gender: {{gender}}<span id="gender"></span></h5>
+                    <h5>Job: {{job}}<span id="job"></span></h5>
+
+
+                </section>
+                <menu class="dialog-menu">
+                    <button class="nes-btn is-primary">Confirm</button>
+                </menu>
+
+            </form>
+        </dialog>
+    </div>
+    <script>
+
+        const App = {
+            data() {
+                return {
+                    gender:'Male',
+                    name: '',
+                    job: ''
+
+
+                  };
+            },
+            methods: {
+                submit(event){
+                    const { name, gender, job } = Object.fromEntries(new FormData(event.target));
+                    this.name = name;
+                    this.gender = gender;
+                    this.job = job;
+                    this.$refs.dialog.showModal();
+                    console.log(this.$refs.dialog)
+
+                }
+            }
+        };
+
+        const app = Vue.createApp(App);
+        app.mount("#app");
+
+      
+    </script>
+</body>
+</html>
