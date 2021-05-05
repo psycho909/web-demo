@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				width: 100%;
+				height: 100vh;
+				position: relative;
+			}
+			.galaxy {
+				width: 500px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				height: 100%;
+				transform: translate(-50%, -50%);
+				transform-style: preserve-3d;
+				perspective: 1000px;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+			.circle {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-top: -10%;
+				width: 110%;
+				height: 110%;
+				transform-style: preserve-3d;
+				transform-origin: 50% 50%;
+				transform: translate(-50%, -50%) rotateY(10deg) rotateX(65deg) rotate(360deg);
+				z-index: 0;
+				background-color: red;
+			}
+			.circle:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				padding-bottom: 20%;
+				width: 16%;
+				height: 0;
+				transform-origin: 50% 50%;
+				background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2020/1217_stardust_7krfyh/images/cont_01_p1.png?257a02f…) no-repeat center/100% auto;
+				animation: rotateWithOrbit1 30s infinite linear;
+			}
+			@keyframes orbit1 {
+				0% {
+					transform: translate(-50%, -50%) rotateY(10deg) rotateX(65deg) rotate(0deg);
+				}
+
+				100% {
+					transform: translate(-50%, -50%) rotateY(10deg) rotateX(65deg) rotate(360deg);
+				}
+			}
+			@keyframes rotateWithOrbit1 {
+				0% {
+					transform: translate(-50%, -50%) rotateZ(0deg) rotateX(-65deg) rotateY(-10deg) scale(0.8);
+				}
+
+				25% {
+					transform: translate(-50%, -50%) rotateZ(-90deg) rotateX(-65deg) rotateY(-10deg) scale(0.6);
+				}
+
+				50% {
+					transform: translate(-50%, -50%) rotateZ(-180deg) rotateX(-65deg) rotateY(-10deg) scale(0.8);
+				}
+
+				75% {
+					transform: translate(-50%, -50%) rotateZ(-270deg) rotateX(-65deg) rotateY(-10deg) scale(1);
+				}
+
+				100% {
+					transform: translate(-50%, -50%) rotateZ(-360deg) rotateX(-65deg) rotateY(-10deg) scale(0.8);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="galaxy">
+				<div class="circle circle1"></div>
+			</div>
+		</div>
+	</body>
+</html>

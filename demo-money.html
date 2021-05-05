@@ -29,10 +29,23 @@
 		</style>
 	</head>
 	<body>
-		<div id="app" class="py-3 container">
+		<div id="app" class="pb-3 container">
+			<div class="row">
+				<div class="col bg-primary py-3"></div>
+			</div>
+			<div class="row">
+				<div class="form-check col py-2">
+					<input class="form-check-input" type="radio" name="switchA" id="switchA" value="A" v-model="exchange" />
+					<label class="form-check-label" for="switchA">A to B</label>
+				</div>
+				<div class="form-check col py-2">
+					<input class="form-check-input" type="radio" name="switchB" id="switchB" value="B" v-model="exchange" />
+					<label class="form-check-label" for="switchB">B to A</label>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col py-2">當前</div>
-				<div class="col">
+				<div class="col py-2">
 					<input class="form-control" type="number" v-model="current" />
 				</div>
 			</div>
@@ -41,10 +54,10 @@
 				<div class="col py-2">賣出價格</div>
 			</div>
 			<div class="row">
-				<div class="col">
+				<div class="col py-2">
 					<input class="form-control" type="number" v-model="buy" />
 				</div>
-				<div class="col">
+				<div class="col py-2">
 					<input class="form-control" type="number" v-model="sell" />
 				</div>
 			</div>
@@ -54,15 +67,18 @@
 			</div>
 			<div class="row">
 				<div class="col py-2">賣出</div>
-				<div class="col py-2">{{sellCanGet - current}}</div>
+				<div class="col py-2">{{sellCanGet}}</div>
+				<div class="col py-2">{{switchSellGet()}}</div>
 			</div>
 			<div class="row">
 				<div class="col py-2">漲幅%</div>
+				<div class="col py-2">漲幅</div>
 				<div class="col py-2">可獲得</div>
 			</div>
 			<div class="row" v-for="(f,index) in forecast">
 				<div class="col py-2">{{percent[index]}}%</div>
-				<div class="col py-2">{{f * buyCanGet - current}}</div>
+				<div class="col py-2">{{f}}</div>
+				<div class="col py-2">{{switchFGet(f)}}</div>
 			</div>
 		</div>
 		<script>
@@ -74,19 +90,28 @@
 					buy: 0,
 					sell: 0,
 					current: 0,
+					exchange: "A",
 				},
 				computed: {
 					buyCanGet() {
 						if (this.current === 0 || this.buy === 0) {
 							return 0;
 						}
-						return this.current / this.buy;
+						if (this.exchange == "A") {
+							return this.current / this.buy;
+						} else {
+							return this.current * this.buy;
+						}
 					},
 					sellCanGet() {
-						if (this.current === 0 || this.buy === 0) {
+						if (this.current === 0 || this.sell === 0) {
 							return 0;
 						}
-						return this.sell * this.buyCanGet;
+						if (this.exchange == "A") {
+							return this.sell * this.buyCanGet;
+						} else {
+							return this.sell * this.current;
+						}
 					},
 				},
 				watch: {
@@ -100,15 +125,23 @@
 						},
 					},
 				},
+				methods: {
+					switchSellGet() {
+						if (this.exchange == "A") {
+							return this.sellCanGet - this.current;
+						} else {
+							return this.sellCanGet - this.buyCanGet;
+						}
+					},
+					switchFGet(f) {
+						if (this.exchange == "A") {
+							return f * this.buyCanGet;
+						} else {
+							return f * this.current - this.buyCanGet;
+						}
+					},
+				},
 			});
-
-			var buy = 55724;
-			var h = 1319;
-			var percent = [0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05];
-			var forecast = [];
-
-			console.log(h / buy);
-			console.log(forecast);
 		</script>
 	</body>
 </html>

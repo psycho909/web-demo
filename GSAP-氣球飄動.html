@@ -6,7 +6,8 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous"></script>
+
 		<style>
 			* {
 				padding: 0;
@@ -34,70 +35,27 @@
 		<div class="wrapper"></div>
 		<button id="btn">按鈕</button>
 		<script>
-			var sum = [
-				{
-					type: "兩人開銷",
-					price: 10000,
-				},
-				{
-					type: "車貸",
-					price: 20000,
-				},
-				{
-					type: "加油",
-					price: 600,
-				},
-				{
-					type: "健身",
-					price: 3000,
-				},
-				{
-					type: "午餐",
-					price: 600,
-				},
-				{
-					type: "晚餐",
-					price: 2000,
-				},
-				{
-					type: "apple",
-					price: 30,
-				},
-				{
-					type: "電話費",
-					price: 499,
-				},
-				{
-					type: "生活費",
-					price: 1000,
-				},
-				{
-					type: "定存",
-					price: 10000,
-				},
-			].reduce((p, v) => {
-				return p + v.price;
-			}, 0);
-			console.log(sum);
 			$("#btn").on("click", function () {
 				ball();
 			});
 			function r(min, max) {
 				return Math.floor(Math.random() * (1 + max - min) + min);
 			}
-			var e = new TimelineMax();
+			var master = gsap.timeline();
+			var arr = [];
 			function ball() {
 				for (var t = 0; t < 30; t++) {
+					arr.push(gsap.timeline());
+
 					var n = r(0, 2);
 					var i = $('<div class="ball"></div>').appendTo(".wrapper");
 					var c = r(5, 10);
-					console.log(c);
-					e.set(i, {
+					arr[t].set(i, {
 						y: 1300,
 						x: 960,
 						scale: r(0.2, 0.5),
 					});
-					e.to(i, {
+					arr[t].to(i, {
 						y: -400,
 						x: r(0, 1920),
 						scale: r(0.6, 0.8),
@@ -108,6 +66,11 @@
 						delay: Math.random() * 5,
 					});
 				}
+				master.to(arr, {
+					duration: 1.2,
+					timeScale: 0.3,
+					ease: "Power1.easeIn",
+				});
 			}
 			ball();
 		</script>
