@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var temp1 = [
+				{ seq: 34, type: 2, title: "道具的持有數上限？" },
+				{ seq: 15, type: 2, title: "如何獲得情誼之證？" },
+				{ seq: 15, type: 2, title: "如何獲得情誼之證？" },
+				{ seq: 6, type: 1, title: "如何獲得情誼之證？" },
+				{ seq: 6, type: 1, title: "如何獲得情誼之證？" },
+			];
+			var temp2 = [];
+			var obj = {};
+
+			// for (var i = 0; i < temp1.length; i++) {
+			// 	if (!obj[temp1[i].seq]) {
+			// 		temp2.push(temp1[i]);
+			// 		obj[temp1[i].seq] = true;
+			// 	}
+			// }
+
+			var temp2 = temp1.reduce(function (current, next) {
+				obj[next.seq] ? "" : (obj[next.seq] = true && current.push(next));
+				return current;
+			}, []);
+			console.log(temp2);
+		</script>
+	</body>
+</html>
