@@ -4,6 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="js/loadingProgress.js"></script>
+		<!-- <script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script> -->
+		<!-- <base href="http://alpha-tw.beanfun.com/3KO/removable/mabinogi/E20210511/" /> -->
 		<title>Document</title>
 		<style>
 			* {
@@ -23,15 +28,46 @@
 				background-position: center center;
 				background-size: auto 100%;
 			}
+			.bg1 {
+				background-image: url("https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2020/1217_stardust_7krfyh/images/cont_02.png?abdcfc75a7f3a3e6d8164c30bf7e1a81");
+			}
+			.bg2 {
+				background-image: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2020/1217_stardust_7krfyh/images/cont_03.png?1a08bf6f90e02c8b290d5a64f50629e0);
+			}
+			.bg3 {
+				background-image: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2020/1217_stardust_7krfyh/images/cont_04.png?e1f2a8fa1242b619d8ffc7946b518677);
+			}
+			.bg4 {
+				background-image: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2020/1217_stardust_7krfyh/images/cont_05.png?8c73c601de3611d4ed3a4fd57eeeb7ff);
+			}
 		</style>
 	</head>
 	<body>
+		<a href="some/place.html">這個連結</a>
+		<a href="/another/place.html">這個連結</a>
+		<a href="#some-id">這個連結</a>
+		<img src="images/og-image.jpg" /> 這張圖片
+		<p><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd></p>
 		<div class="frame">
-			<div class="bg"></div>
+			<div class="bg bg1"></div>
+			<div class="bg bg2"></div>
+			<div class="bg bg3"></div>
+			<div class="bg bg4"></div>
+			<video id="vid1" src="http://mabinogi.vod.nexoncdn.co.kr/mp4/20210107_stardust_fx4cq6/BG.mp4" muted="" autoplay="" loop="" playsinline=""></video>
 		</div>
 		<script>
 			"1140X1040";
 			var width = "1026.95px";
+
+			loadingProgress({
+				countFN: function (count, length) {
+					console.log(Math.round((count / length) * 100));
+				},
+				loadedFN: function () {
+					console.log(100);
+				},
+				detectVideo: true,
+			});
 		</script>
 	</body>
 </html>
