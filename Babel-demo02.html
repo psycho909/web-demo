@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 300px;
+				height: 300px;
+				border: 1px solid #000;
+			}
+			.red {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" data-name="box"></div>
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/promise-polyfill/8.2.0/polyfill.min.js"></script> -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/promise-polyfill/8.2.0/polyfill.min.js"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.1/axios.min.js" integrity="sha512-LeNot3qbERo/DuYk+77g0F/MlrioZfnSprEM02GKMQSOia7P2UGS8w/ijJ45HaLsy5vhk4HDEtmLkZQyC+Z0Hg==" crossorigin="anonymous"></script>
+		<script type="text/babel">
+			axios(location.href).then(function (res) {
+				console.log(1);
+				console.log(res);
+			});
+			var HTML = `HH`;
+			document.querySelector(".box").classList.add("red");
+			console.log(HTML);
+			// console.log(document.querySelector(".box").dataset.name)
+			var getObj = ({ name } = { name: "Chen" }) => {
+				console.log(name);
+			};
+			getObj({ name: "CS" });
+
+			function logWord(word) {
+				return new Promise((res, rej) => {
+					setTimeout(() => {
+						console.log(word);
+						res(word);
+					}, Math.floor(Math.random() * 120) + 1);
+				});
+			}
+			logWord("A").then((data) => {
+				console.log(data);
+			});
+		</script>
+	</body>
+</html>
