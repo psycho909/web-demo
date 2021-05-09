@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="about">
+				<div class="message-list" ref="messageListRef">
+					<div class="message-item" v-for="(item,index) in List" :key="index">
+						<span>{{item.value}} -</span>
+						<span>{{item.date}} - </span>
+						<span>{{BagStatus(item.status)}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el: "#app",
+				computed: {
+					BagStatus() {
+						return function (status) {
+							switch (status) {
+								case "A":
+									return "等待中";
+								case "B":
+									return "寄送中";
+								case "C":
+									return "已到達";
+							}
+						};
+					},
+				},
+				data() {
+					return {
+						List: [
+							{
+								status: "A",
+								value: "包裹1",
+								date: "2021-05-06",
+							},
+							{
+								status: "B",
+								value: "包裹2",
+								date: "2021-05-03",
+							},
+							{
+								status: "C",
+								value: "包裹3",
+								date: "2021-05-13",
+							},
+						],
+					};
+				},
+				mounted() {},
+				methods: {},
+			});
+
+			var str = "";
+			var row = 10;
+
+			for (var i = 1; i <= row; i++) {
+				for (var j = 0; j < i; j++) {
+					str += "*";
+				}
+				str += "\n";
+			}
+			console.log(str);
+		</script>
+	</body>
+</html>

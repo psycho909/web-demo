@@ -68,6 +68,23 @@
 				},
 				detectVideo: true,
 			});
+			var obj = [
+				{ name: "AC", age: "18", id: 1 },
+				{ name: "AC", age: "18", id: 1 },
+				{ name: "Bb", age: "30", id: 2 },
+				{ name: "ED", age: "20", id: 3 },
+				{ name: "GA", age: "1", id: 4 },
+				{ name: "GA", age: "1", id: 4 },
+			];
+
+			var objCopy = {};
+			var obj2 = [];
+			for (var i = 0; i < obj.length; i++) {
+				if (!objCopy[obj[i].id]) {
+					objCopy[obj[i].id] = true;
+					obj2.push(obj[i]);
+				}
+			}
 		</script>
 	</body>
 </html>
