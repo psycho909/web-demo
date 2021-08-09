@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue-router@next"></script>
+		<script src="https://unpkg.com/vuex@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{age}}</div>
+			<div>{{stateObj}}</div>
+			<button @click="fun1">按鈕</button>
+		</div>
+		<script>
+			var vue3Composition = {
+				setup() {
+					let obj = { name: "Chen", age: 32 };
+					let age = Vue.ref(18);
+					let stateObj = Vue.ref(obj.name);
+					function fun1() {
+						stateObj.value = "Ching Yang";
+						console.log("obj", obj);
+						console.log(stateObj);
+					}
+					return {
+						age,
+						fun1,
+						stateObj,
+					};
+				},
+			};
+			var app = Vue.createApp(vue3Composition).mount("#app");
+		</script>
+	</body>
+</html>

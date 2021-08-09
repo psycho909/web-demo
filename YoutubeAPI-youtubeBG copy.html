@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				overflow-x: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="section1">
+			<div id="player" class="videobox"></div>
+		</div>
+
+		<script>
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			var player;
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player("player", {
+					// height: '1080',
+					// width: '1090',
+					videoId: "3hpzzOktyX0",
+					playerVars: {
+						controls: 0,
+						loop: 1,
+						modestbranding: 1,
+						fs: 0, // 顯示全螢幕按鈕
+						cc_load_policty: 0, // 隱藏字幕
+						iv_load_policy: 3, // 隱藏影片註解
+						autohide: 0, // 播放影片時隱藏影片控制列
+					},
+					events: {
+						onReady: function (e) {
+							e.target.playVideo();
+							e.target.mute();
+						},
+						onStateChange: onPlayerStateChange,
+					},
+				});
+			}
+			/*
+            -1 – unstarted 還沒讀取
+            0 – ended 播放結束
+            1 – playing 播放
+            2 – paused 暫停
+            3 – buffering 讀取中
+            5 – video cued
+            */
+			// 監聽撥放狀態
+			function onPlayerStateChange(e) {
+				if (e.data === YT.PlayerState.ENDED) {
+					player.playVideo();
+				}
+				console.log(e.data);
+			}
+		</script>
+	</body>
+</html>

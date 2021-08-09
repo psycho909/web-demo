@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				height: 100vh;
+				margin: 0;
+				display: grid;
+				place-items: center;
+				box-sizing: border-box;
+				padding: 2rem;
+			}
+			.chart {
+				background: conic-gradient(red 20%, transparent 0);
+				border-radius: 50%;
+				width: 80vmin;
+				height: 80vmin;
+				/*   animation: timer 4s infinite linear; */
+			}
+			.chart-box {
+				position: relative;
+				border-radius: 50%;
+				width: 80vmin;
+				height: 80vmin;
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="chart-box"><div class="chart"></div></div>
+		<script>
+			function handleBox() {
+				console.log(this);
+			}
+			document.querySelector(".chart-box").addEventListener("click", handleBox, false);
+			var name = "NAME";
+			var obj = {
+				name: "OBJ",
+				out1() {
+					let that = this;
+					setTimeout(function () {
+						console.log(that.name);
+					}, 0);
+				},
+				out2() {
+					setTimeout(() => {
+						console.log(this.name);
+					}, 0);
+				},
+				out3: () => {
+					console.log(this.name);
+				},
+			};
+			obj.out1();
+			obj.out2();
+			obj.out3();
+		</script>
+	</body>
+</html>

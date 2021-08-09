@@ -16,9 +16,26 @@
 	</head>
 	<body>
 		<div id="app">
+			<form method="post">
+				<input id="myInput" type="text" />
+			</form>
 			<a href="javascript:;" id="share-btn">分享</a>
 		</div>
 		<script>
+			$("form").on("submit", function (e) {
+				e.preventDefault();
+				// console.log(e);
+			});
+			// Get the input field
+			var input = document.getElementById("myInput");
+
+			// Execute a function when the user releases a key on the keyboard
+			input.addEventListener("focus", () => {
+				input.select();
+			});
+			input.addEventListener("mouseup", (e) => {
+				e.preventDefault();
+			});
 			var Share = {
 				getMeta: function () {
 					var meta = document.getElementsByTagName("meta");
@@ -31,11 +48,11 @@
 					return desc;
 				},
 				fb: function () {
-					var url = location.href;
+					var url = "http://localhost:5502/Share-demo01.html";
 					var t = "";
 					if (isMobile.any) {
 						var winRef = window.open(url, "_blank");
-						var fbHtml_url = window.location.toString();
+						var fbHtml_url = "http://localhost:5502/Share-demo01.html";
 						winRef.location = "http://www.facebook.com/sharer/sharer.php?u=" + fbHtml_url;
 					} else {
 						window.open("http://www.facebook.com/sharer.php?u=" + encodeURIComponent(url) + "&t=" + encodeURIComponent(t), "sharer", "toolbar=0,status=0,width=626,height=436");

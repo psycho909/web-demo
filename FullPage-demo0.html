@@ -1,190 +1,201 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>FullPage demo0</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css" />
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>FullPage demo0</title>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-	<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
-	<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css">
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
+			.wrapper {
+				width: 100%;
+				/* min-width: 1200px; */
+				margin: 0 auto;
+			}
+			.section .section__inner {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				transform: scale(0.6);
+				transform-origin: 50% 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+			.section .section__inner h1 {
+				width: 100%;
+				text-align: center;
+				opacity: 0;
+				position: relative;
+				transform: translateY(-60px);
+			}
+			.section .section__inner img {
+				display: block;
+				margin: 0 auto;
+				opacity: 0;
+			}
+			.section.active .section__inner {
+				opacity: 1;
+				transform: scale(1);
+			}
+			.section.active .section__inner h1 {
+				animation: h1_active 0.6s 0.8s ease-out forwards;
+			}
+			.section.active .section__inner img {
+				animation: img_active 0.6s 1.2s ease-out forwards;
+			}
+			.section.arrive .section__inner {
+				opacity: 1;
+				transition: all 0.48s;
+				transition-delay: 0.68s;
+			}
+			.section.leave .section__inner {
+				opacity: 0;
+				transform: scale(1.4);
+				transition: all 0.48s;
+			}
 
-        .wrapper {
-            width: 100%;
-            /* min-width: 1200px; */
-            margin: 0 auto;
-        }
-        .section .section__inner{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: scale(0.6);
-            transform-origin: 50% 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .section .section__inner h1{
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            position: relative;
-            transform: translateY(-60px)
-        }
-        .section .section__inner img{
-            display: block;
-            margin: 0 auto;
-            opacity: 0;
-        }
-        .section.active .section__inner{
-            opacity: 1;
-            transform: scale(1);
-        }
-        .section.active .section__inner h1{
-            animation: h1_active .6s .8s ease-out forwards;
-        }
-        .section.active .section__inner img{
-            animation: img_active .6s 1.2s ease-out forwards;
-        }
-        .section.arrive .section__inner{
-            opacity: 1;
-            transition: all .48s;
-            transition-delay: .68s;
-        }
-        .section.leave .section__inner{
-            opacity: 0 ;
-            transform: scale(1.4) ;
-            transition: all .48s ;
-        }
+			@keyframes h1_active {
+				from {
+					opacity: 0;
+					transform: translateY(60px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0px);
+				}
+			}
+			@keyframes img_active {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			#section1 .section__inner {
+				background-image: url("images/beanfun.jpg");
+				background-size: cover;
+			}
+			#section2 .section__inner {
+				background-image: url("images/bg.jpg");
+				background-size: cover;
+			}
+			#section3 .section__inner {
+				background-image: url("images/image3636911160815502307.jpg");
+				background-size: cover;
+			}
+			#section4 .section__inner {
+				background-image: url("images/header1.jpg");
+				background-size: cover;
+			}
+			.loading {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #000;
+				z-index: 9999;
+			}
+		</style>
+	</head>
 
-        @keyframes h1_active {
-            from{
-                opacity: 0;
-                transform: translateY(60px)
-            }
-            to{
-                opacity: 1;
-                transform: translateY(0px)
-            }
-        }
-        @keyframes img_active {
-            from{
-                opacity: 0;
-            }
-            to{
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
+	<body>
+		<div class="loading"></div>
+		<div class="wrapper" id="fullpage">
+			<div id="section1" class="section" data-anchor="sec1">
+				<div class="section__inner">
+					<h1>SECTION 1</h1>
+					<img src="./images/puzzle_01.jpg" alt="" />
+				</div>
+			</div>
+			<div id="section2" class="section" data-anchor="sec2">
+				<div class="section__inner">
+					<h1>SECTION 2</h1>
+					<img src="./images/puzzle_02.jpg" alt="" />
+				</div>
+			</div>
+			<div id="section3" class="section" data-anchor="sec3">
+				<div class="section__inner">
+					<h1>SECTION 3</h1>
+					<img src="./images/puzzle_03.jpg" alt="" />
+				</div>
+			</div>
+			<div id="section4" class="section" data-anchor="sec4">
+				<div class="section__inner">
+					<h1>SECTION 4</h1>
+					<img src="./images/puzzle_04.jpg" alt="" />
+				</div>
+			</div>
+		</div>
 
-<body>
-    <div class="wrapper" id="fullpage">
-        <div id="section1" class="section">
-            <div class="section__inner">
-                <h1>SECTION 1</h1>
-                <img src="./images/puzzle_01.jpg" alt="">
-            </div>
-        </div>
-        <div id="section2" class="section">
-            <div class="section__inner">
-                <h1>SECTION 2</h1>
-                <img src="./images/puzzle_02.jpg" alt="">
-            </div>
-        </div>
-        <div id="section3" class="section">
-            <div class="section__inner">
-                <h1>SECTION 3</h1>
-                <img src="./images/puzzle_03.jpg" alt="">
-            </div>
-        </div>
-        <div id="section4" class="section">
-            <div class="section__inner">
-                <h1>SECTION 4</h1>
-                <img src="./images/puzzle_04.jpg" alt="">
-            </div>
-        </div>
-    </div>
+		<script>
+			$(function () {
+				setTimeout(() => {
+					$(".loading").fadeOut();
+				}, 1200);
+				var timeArrive = "";
+				var timeLeave = "";
+				var onoff = false;
+				var stopper = true;
 
-    <script>
-        $(function(){
-            var timeArrive='';
-            var timeLeave='';
-            var onoff=false;
-            var stopper=true;
+				var timeLeave = (nextIndex, sec_leave, sec_arrive, callback) => {
+					setTimeout(() => {
+						$.fn.fullpage.silentMoveTo(nextIndex);
+						stopper = false;
+						callback(nextIndex, sec_leave, sec_arrive);
+					}, 480);
+				};
+				var timeArrive = (sec_leave, sec_arrive, callback) => {
+					setTimeout(() => {
+						$(sec_leave).removeClass("leave");
+						$(sec_arrive).removeClass("arrive");
+						onoff = false;
+						$.fn.fullpage.setAllowScrolling(true);
+						stopper = true;
+						callback(sec_leave, sec_arrive);
+					}, 480);
+				};
 
-            var timeLeave=(nextIndex,sec_leave,sec_arrive,callback)=>{
-                setTimeout(()=>{
-                    $.fn.fullpage.silentMoveTo(nextIndex);
-                    stopper=false;
-                    callback(nextIndex,sec_leave,sec_arrive);
-                },480)
-            }
-            var timeArrive=(sec_leave,sec_arrive,callback)=>{
-                setTimeout(()=>{
-                    $(sec_leave).removeClass('leave')
-                    $(sec_arrive).removeClass('arrive')
-                    onoff=false;
-                    $.fn.fullpage.setAllowScrolling(true);
-                    stopper=true;
-                    callback(sec_leave,sec_arrive)
-                },480)
-            }
+				$("#fullpage").fullpage({
+					scrollingSpeed: 0,
+					anchors: ["sec1", "sec2", "sec3", "sec4"],
+					fitToSectionDelay: 600,
+					onLeave: function (origin, nextIndex, direction) {
+						var sec_leave = "#section" + origin;
+						var sec_arrive = "#section" + nextIndex;
+						if (!stopper) {
+							console.log("STOPPER");
+							return false;
+						}
+						$(sec_leave).addClass("leave");
+						$(sec_arrive).addClass("arrive");
+						timeLeave(nextIndex, sec_leave, sec_arrive, (nextIndex, sec_leave, sec_arrive) => {
+							timeArrive(sec_leave, sec_arrive, (getTimeArrive) => {
+								console.log("timeArrive");
+							});
+						});
 
-            $("#fullpage").fullpage({
-                scrollingSpeed:0,
-                fitToSectionDelay: 600,
-                onLeave:function(origin, nextIndex, direction){
-                    var sec_leave="#section"+origin;
-                    var sec_arrive="#section"+nextIndex;
-                    if(!stopper){
-                        console.log("STOPPER")
-                        return false;
-                    }
-                    $(sec_leave).addClass('leave')
-                    $(sec_arrive).addClass('arrive')
-                    timeLeave(nextIndex,sec_leave,sec_arrive,(nextIndex,sec_leave,sec_arrive)=>{
-                        timeArrive(sec_leave,sec_arrive,getTimeArrive=>{
-                            console.log("timeArrive")
-                        })
-                    })
-                    // timeLeave=setTimeout(function(){
-                    //     $.fn.fullpage.silentMoveTo(nextIndex);
-                    //     clearTimeout(timeLeave);
-                        
-                    //     stopper=false;
-                    //     console.log("timeLeave")
-                    //     timeArrive=setTimeout(function(){
-                    //         $(sec_leave).removeClass('leave')
-                    //         $(sec_arrive).removeClass('arrive')
-    
-                    //         onoff=false;
-                    //         $.fn.fullpage.setAllowScrolling(true);
-                    //         clearTimeout(timeArrive);
-                    //         stopper=true;
-                    //         console.log("timeArrive")
-                    //     },480)
-                    // },480)
-
-                    if(!onoff){
-                        $.fn.fullpage.setAllowScrolling(false);
-                        onoff=true;
-                        console.log("ONOFF")
-                        return false;
-                    }
-                    console.log(origin, nextIndex, direction)
-                }
-            })
-        })
-    </script>
-</body>
-
+						if (!onoff) {
+							$.fn.fullpage.setAllowScrolling(false);
+							onoff = true;
+							console.log("ONOFF");
+							return false;
+						}
+						console.log(origin, nextIndex, direction);
+					},
+				});
+			});
+		</script>
+	</body>
 </html>

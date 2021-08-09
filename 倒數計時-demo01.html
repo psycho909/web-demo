@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="date" id="first" value="2021/07/21" />
+			<input id="second" value="2021/08/04" />
+			<button id="btn" type="button">submit</button>
+		</div>
+		<script>
+			// function parseDate(str) {
+			// 	var mdy = str.split("/");
+			// 	return new Date(mdy);
+			// }
+
+			// function datediff(first, second) {
+			// 	// Take the difference between the dates and divide by milliseconds per day.
+			// 	// Round to nearest whole number to deal with DST.
+			// 	return (second - first) / (1000 * 60 * 60 * 24) + 1;
+			// 	// return Math.round((second - first) / (1000 * 60 * 60 * 24));
+			// }
+			// $("#btn").on("click", function () {
+			// 	var firstValue = first.value.replace(/-/g, "/");
+			// 	// var first=first.value.replace("/-/g","/")
+			// 	console.log(datediff(parseDate(firstValue), parseDate(second.value)));
+			// });
+			function parseDate(str) {
+				var t = new Date(str);
+				var tYear = t.getFullYear();
+				var tMonth = t.getMonth() + 1;
+				var tDate = t.getDate();
+				return new Date(tYear + "/" + tMonth + "/" + tDate);
+			}
+			function Time(time) {
+				var eTime = parseDate(time);
+				var timeInterval;
+				var endCallback;
+				var runCallback;
+				var timeObj = {
+					d: 0,
+					start() {
+						timeInterval = setInterval(function () {
+							var nTime = parseDate(new Date("2021/07/21 23:00:00"));
+							var leftTime = parseInt(eTime - nTime);
+							d = parseInt(leftTime / (24 * 60 * 60 * 1000)) + 1;
+							if (d <= 0) {
+								endCallback();
+								clearInterval(timeInterval);
+							} else {
+								runCallback();
+							}
+						}, 1000);
+						return this;
+					},
+					run(fn) {
+						runCallback = fn;
+						return this;
+					},
+					endRun(fn) {
+						endCallback = fn;
+						return this;
+					},
+				};
+				return timeObj;
+			}
+			Time("2021/08/04 00:00:00")
+				.start()
+				.run(function () {
+					console.log(d);
+				})
+				.endRun(function () {
+					console.log("end");
+				});
+		</script>
+	</body>
+</html>

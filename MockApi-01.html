@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/twbs-pagination1.4.2/twbsPagination.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.pagination {
+				position: relative;
+				display: flex;
+			}
+			.pagination .page-item {
+				display: inline-block;
+				text-align: center;
+				position: relative;
+			}
+
+			.pagination .page-item + .page-item {
+				margin-left: 30px;
+			}
+
+			.pagination .page-item.active a:after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				border: 1px solid #42a2cb;
+			}
+
+			.pagination .page-item a {
+				font-size: 20px;
+				font-family: Arial;
+				text-decoration: none;
+				color: #000;
+			}
+			.pagination .page-item.first {
+				margin-right: 6px;
+			}
+
+			.pagination .page-item.first a {
+				width: 13px;
+				height: 12px;
+				background-image: url(./images/nt-first.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-size: 13px 12px;
+				padding: 15px;
+				background-position: center;
+				font-size: 0;
+			}
+
+			.pagination .page-item.prev {
+				margin-left: 0;
+			}
+
+			.pagination .page-item.prev a {
+				width: 8px;
+				height: 12px;
+				background-image: url(./images/nt-prev.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-size: 8px 12px;
+				padding: 15px;
+				background-position: center;
+				font-size: 0;
+			}
+
+			.pagination .page-item.next a {
+				width: 8px;
+				height: 12px;
+				background-image: url(./images/nt-next.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-size: 8px 12px;
+				padding: 15px;
+				background-position: center;
+				font-size: 0;
+			}
+
+			.pagination .page-item.last {
+				margin-left: 6px;
+			}
+
+			.pagination .page-item.last a {
+				width: 13px;
+				height: 12px;
+				background-image: url(./images/nt-last.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-size: 13px 12px;
+				padding: 15px;
+				background-position: center;
+				font-size: 0;
+			}
+			.tab-list {
+				display: flex;
+				list-style: none;
+				justify-content: space-around;
+			}
+			.tab-li {
+				padding: 1rem;
+				cursor: pointer;
+			}
+			.tab-li.active {
+				color: red;
+			}
+			.wrap {
+				width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="tab-list">
+				<li class="tab-li active" data-type="Dog">狗</li>
+				<li class="tab-li" data-type="Cat">貓</li>
+				<li class="tab-li" data-type="Bird">鳥</li>
+			</ul>
+			<div id="dynamic-total-pages-content"></div>
+			<ul id="dynamic-total-pages-pagination" class="pagination"></ul>
+		</div>
+		<script>
+			var type = "Dog";
+			var url = `https://5ace036923cb4e00148b83c9.mockapi.io/v1/${type}`;
+			var data = { page: 1, limit: 5 };
+			var $pagination = $("#dynamic-total-pages-pagination");
+			var defaultOpts = {
+				startPage: 1,
+				totalPages: 5,
+				initiateStartPageClick: false,
+				onPageClick: function (event, page) {
+					console.log(event);
+					data = { page: page, limit: 5 };
+					NewsData(type, data);
+				},
+			};
+			$pagination.twbsPagination(defaultOpts);
+			function TypeInfo(type) {
+				switch (type) {
+					case "Dog":
+						return {
+							type: "Dog",
+							totalPages: Math.ceil(21 / 5),
+						};
+					case "Cat":
+						return {
+							type: "Cat",
+							totalPages: Math.ceil(15 / 5),
+						};
+					case "Bird":
+						return {
+							type: "Bird",
+							totalPages: Math.ceil(8 / 5),
+						};
+				}
+			}
+			function NewsRender(newsList) {
+				var HTML = "";
+				newsList.forEach(function (v, i) {
+					HTML += "<div>" + v.name + "</div>";
+				});
+				return HTML;
+			}
+			function NewsData(type, data) {
+				$.ajax({
+					url: `https://5ace036923cb4e00148b83c9.mockapi.io/v1/${type}`,
+					method: "get",
+					data: data,
+					success: function (data) {
+						var newsList = data;
+						$("#dynamic-total-pages-content").html(NewsRender(newsList));
+					},
+				});
+			}
+			function NewsList(type, data) {
+				$.ajax({
+					url: `https://5ace036923cb4e00148b83c9.mockapi.io/v1/${type}`,
+					method: "get",
+					data: data,
+					success: function (data) {
+						var newsList = data;
+						var totalPages = TypeInfo(type).totalPages;
+						console.log(type);
+						console.log(TypeInfo(type));
+						$("#dynamic-total-pages-content").html(NewsRender(newsList));
+
+						$pagination.twbsPagination("destroy");
+						$pagination.twbsPagination(
+							$.extend({}, defaultOpts, {
+								startPage: 1,
+								totalPages: totalPages,
+							})
+						);
+					},
+				});
+			}
+			NewsList("Dog", data);
+			$(".tab-li").on("click", function () {
+				type = $(this).attr("data-type");
+				$(this).addClass("active").siblings().removeClass("active");
+				data = { page: 1, limit: 5 };
+				NewsList(type, data);
+			});
+		</script>
+	</body>
+</html>

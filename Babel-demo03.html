@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+	</head>
+	<body>
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<script type="module">
+			import { name, pColor } from "./JS-module.js";
+			console.log(name);
+		</script>
+		<script type="text/babel">
+			let arr = [1, 2, 3];
+			arr.forEach((n) => {
+				console.log(n);
+			});
+			async function getName() {
+				return "Zhang San";
+			}
+			async function init() {
+				let name = await getName();
+				console.log(name);
+			}
+			init();
+		</script>
+	</body>
+</html>

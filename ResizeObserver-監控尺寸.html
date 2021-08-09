@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.parent {
+				width: 100%;
+				background-color: red;
+				display: inline-block;
+			}
+			.child {
+				width: 200px;
+				height: 200px;
+				background-color: gray;
+				margin-top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="parent">
+				Width: <output id="width">0</output><br />
+				Height: <output id="height">0</output><br />
+				<div class="child"></div>
+				<iframe id="helper" style="position: absolute; width: 100%; height: 100%; visibility: hidden" frameborder="0"></iframe>
+			</div>
+		</div>
+		<script>
+			var box = document.querySelector(".child");
+			function outputsize() {
+				width.value = box.offsetWidth;
+				height.value = box.offsetHeight;
+			}
+			outputsize();
+
+			var observer = new ResizeObserver(outputsize);
+			observer.observe(box);
+
+			document.querySelector("#helper").contentWindow.onresize = function () {
+				console.log(123);
+			};
+		</script>
+	</body>
+</html>

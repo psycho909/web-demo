@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 80px;
+				height: 80px;
+				border: 1px solid #000;
+				display: inline-block;
+			}
+			.green {
+				background: green;
+			}
+			.blue {
+				background: blue;
+			}
+			.red {
+				background: red;
+			}
+			.yellow {
+				background: yellow;
+			}
+			.gray {
+				background: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box green"></div>
+			<div class="box blue"></div>
+			<div class="box red"></div>
+			<div class="box yellow"></div>
+			<div class="box gray"></div>
+		</div>
+		<script>
+			gsap.from(".box", {
+				duration: 1,
+				opacity: 0,
+				scale: 0.9,
+				ease: "power4.inOut",
+				stagger: {
+					each: 0.1,
+					from: "end",
+				},
+			});
+		</script>
+	</body>
+</html>

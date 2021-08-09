@@ -1,56 +1,77 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
+			.box {
+				width: 300px;
+				height: 300px;
+				background-color: red;
+				position: relative;
+				font-size: 0;
+				text-align: center;
+			}
 
-        .box {
-            width: 300px;
-            height: 300px;
-            background-color: red;
-            position: relative;
-            font-size: 0;
-            text-align: center;
-        }
+			.box:before {
+				content: "";
+				height: 100%;
+				display: inline-block;
+				vertical-align: middle;
+			}
 
-        .box:before {
-            content: "";
-            height: 100%;
-            display: inline-block;
-            vertical-align: middle;
-        }
+			.box-s {
+				background-color: green;
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 16px;
+			}
+			.box2 {
+				width: 300px;
+				height: 65px;
+				background-color: #000;
+				position: relative;
+				text-align: center;
+			}
+			.box2:before {
+				content: "";
+				height: 100%;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.box2-s {
+				display: inline-block;
+				vertical-align: middle;
+				color: #fff;
+				font-size: 28px;
+			}
+		</style>
+	</head>
 
-        .box-s {
-            width: 100px;
-            height: 100px;
-            background-color: green;
-            display: inline-block;
-            vertical-align: middle;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="box">
-        <div class="box-s">123</div>
-    </div>
-
-    <div class="lightbox" id="nationSubsidyOrder2">
-        <div class="lb_bg"></div>
-        <div class="lb_content" style="width: 1100px; height: 90%; top: 5%;">
-            <div class="hd">
-                <a href="javascript:;" class="btn_close lb_close"><i class="icon_close"></i></a>
-            </div>
-        </div>
-    </div>
-</body>
-
+	<body>
+		<div class="box">
+			<div class="box-s">123</div>
+		</div>
+		<div class="box2">
+			<div class="box2-s">
+				<span>大大大大大大</span>
+				<span>12大大大大大大31</span>
+			</div>
+		</div>
+		<div class="lightbox" id="nationSubsidyOrder2">
+			<div class="lb_bg"></div>
+			<div class="lb_content" style="width: 1100px; height: 90%; top: 5%">
+				<div class="hd">
+					<a href="javascript:;" class="btn_close lb_close"><i class="icon_close"></i></a>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div v-for="person in persons">{{person.name}}</div>
+			<div v-show="!persons">
+				<div>Lading</div>
+			</div>
+			<a :href="changeHref">HREF</a>
+			<div ref="test">TEST</div>
+		</div>
+		<div class="test">TEST</div>
+		<script>
+			var app = new Vue({
+				created() {
+					console.log(this.$refs.test);
+					console.log(document.querySelector(".test"));
+				},
+				mounted() {
+					console.log(this.$refs.test);
+				},
+				beforeUpdate() {},
+				computed: {
+					changeHref() {
+						return this.login == 0 ? "javascript::;" : "Login.aspx";
+					},
+				},
+				el: "#app",
+				data: {
+					persons: [{ name: "Joe" }, { name: "Jane" }, { name: "Mary" }],
+					login: 0,
+					href: "javascript:;",
+				},
+			});
+		</script>
+	</body>
+</html>

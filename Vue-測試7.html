@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" referrerpolicy="no-referrer"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<style></style>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-    <style>
-
-    </style>
-</head>
-
-<body>
-    <div id="app">
-        <p>{{num}}</p>
-        <child ref="child"></child>
-        <button @click="handleClick">click</button>
-    </div>
-    <script>
-        Vue.component("child",{
-            template:`
+	<body>
+		<div id="app">
+			<p>{{num}}</p>
+			<child ref="child"></child>
+			<button @click="handleClick">click</button>
+		</div>
+		<script>
+			Vue.component("child", {
+				template: `
                 <div>
-                    <div>{{num}}</div>
+                    <div>{{num}} {{name}}</div>
+                    <div>{{currentTime}}</div>
                 </div>
             `,
-            data(){
-                return {
-                    num:100
-                }
-            },
-            methods:{
-                changeNumber(value){
-                    this.num=value;
-                    console.log(value)
-                }
-            }
-        })
-        var vm = new Vue({
-            el: '#app',
-            mounted() {
-
-            },
-            data: {
-                num:0
-            },
-            methods: {
-                handleClick(){
-                    this.$refs.child.changeNumber(this.num+1)
-                }
-            }
-
-        });
-    </script>
-</body>
-
+				created() {
+					this.startTime();
+				},
+				data() {
+					this.name = "Chen";
+					return {
+						num: 100,
+						currentTime: moment().format("HH: mm: ss"),
+					};
+				},
+				methods: {
+					changeNumber(value) {
+						this.num = value;
+						console.log(value);
+					},
+					startTime() {
+						let timer = setInterval(() => {
+							this.currentTime = moment().format("HH: mm: ss");
+						}, 1000);
+						this.$once("hook:beforeDestroy", () => {
+							clearInterval(timer);
+							timer = null;
+							console.log("beforeDestroy");
+						});
+					},
+				},
+			});
+			var vm = new Vue({
+				el: "#app",
+				mounted() {},
+				data: {
+					num: 0,
+				},
+				methods: {
+					handleClick() {
+						this.$refs.child.changeNumber(this.num + 1);
+					},
+				},
+			});
+		</script>
+	</body>
 </html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #333;
+				font-family: arial;
+				color: silver;
+			}
+
+			.character {
+				background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/183204/char.png);
+				/* width: 150px;
+				height: 150px; */
+				width: 19.53125%;
+				padding-bottom: 19.53125%;
+				background-size: 1600%;
+			}
+
+			.container {
+				width: 150px;
+				height: 150px;
+				overflow: hidden;
+			}
+
+			#DiacoDesignLink,
+			#pens {
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--control btn-->
+			<button onclick="pause()">Pause</button>
+			<button onclick="play()">Play</button>
+			<button onclick="restart()">Restart</button>
+			<button onclick="reverse()">Reverse</button>
+			<button onclick="once()">loop once</button>
+			<button onclick="infinity()">loop infinity</button>
+			<button onclick="timeScale(1)">speed 1x</button>
+			<button onclick="timeScale(4)">speed 4x</button>
+			<button onclick="timeScale(10)">speed 10x</button>
+			<br />
+
+			<!--method 1-->
+			<div class="character"></div>
+			#1 - background position tween
+
+			<!--method 2-->
+			<div class="container">
+				<img class="character2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/183204/char.png" />
+			</div>
+			#2 - img/div 'x' tween . i prefer this one , check Chrome > Rendering > show paint rectangles
+		</div>
+		<script>
+			/* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+
+			// you can use this methods even in GSAP timelines :
+
+			// method 1 ( div background position ) :
+			var M1 = TweenMax.to(".character", 1, { repeat: -1, backgroundPosition: "-1600%", ease: SteppedEase.config(16) });
+
+			// method 2 ( img/div tag x position ) :
+			var M2 = TweenMax.to(".character2", 1, { repeat: -1, x: -2250, ease: SteppedEase.config(15) });
+
+			// Control functions ( you can add whatever you want ) :
+
+			function play() {
+				M1.play();
+				M2.play();
+			}
+
+			function pause() {
+				M1.pause();
+				M2.pause();
+			}
+
+			function restart() {
+				M1.restart();
+				M2.restart();
+			}
+
+			function reverse() {
+				M1.reverse();
+				M2.reverse();
+			}
+
+			function once() {
+				M1.repeat(1);
+				M2.repeat(1);
+			}
+
+			function infinity() {
+				M1.repeat(-1);
+				M2.repeat(-1);
+			}
+
+			function timeScale(X) {
+				TweenLite.to([M1, M2], 1, { timeScale: X });
+				//M1.timeScale(X); M2.timeScale(X);
+			}
+
+			/* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+		</script>
+	</body>
+</html>

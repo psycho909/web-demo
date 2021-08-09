@@ -10,6 +10,7 @@
 
 	<body>
 		<div id="app">
+			<pet :name="na"></pet>
 			<p>This is Component in Parent <span style="color: red">{{ counter }}</span></p>
 			<!-- <child :counter="counter" @counter-update="updateCounter"></child> -->
 			<child :counter.sync="counter">
@@ -27,14 +28,13 @@
 			</div>
 		</template>
 		<script>
+			Vue.component("pet", {
+				props: ["name"],
+				template: "<div>{{name}}</div>",
+			});
 			Vue.component("child", {
 				template: "#child",
-				props: {
-					counter: {
-						type: Number,
-						default: 0,
-					},
-				},
+				props: ["counter"],
 				methods: {
 					add() {
 						// this.$emit("counter-update",this.counter+1)
@@ -50,7 +50,8 @@
 			new Vue({
 				el: "#app",
 				data: {
-					counter: 0,
+					counter: 10,
+					na: "胖胖",
 				},
 				methods: {
 					updateCounter(val) {

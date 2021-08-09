@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.center {
+				position: relative;
+				width: 100%;
+			}
+			.header {
+				padding: 1rem;
+				background-color: red;
+				color: #fff;
+				position: sticky;
+				top: 0px;
+			}
+			p {
+				padding: 2rem;
+				border-bottom: 1px solid#000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="center">
+			<textarea name="" id="" cols="30" rows="10"></textarea>
+			<div class="header">Header</div>
+			<p class="bxxx">內文 bxxx</p>
+			<p class="bxxx">內文 bxxx</p>
+			<p class="bxxx">內文 bxxx</p>
+			<p class="bxxx">內文 bxxx</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+			<p>內文</p>
+		</div>
+		<script>
+			$.ajax({
+				url: "http://localhost:3000/tutorials",
+				method: "GET",
+				success: function (data) {
+					console.log(data);
+				},
+			});
+
+			var p1 = new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(console.log(1));
+				}, 1000);
+			});
+			var p2 = new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(console.log(2));
+				}, 1500);
+			});
+			var p3 = new Promise((resolve, reject) => {
+				setTimeout(() => {
+					reject(console.log(3));
+				}, 2000);
+			});
+			Promise.all([p1, p2, p3])
+				.then((val) => console.log(val))
+				.catch((err) => console.log(err))
+				.finally(() => console.log("Finish"));
+			$("#InjuryCount input[type='checkbox']").change(function (e) {
+				if ($(this).is(":checked")) {
+					$(".InjuryArea").find(".injuredCrew").removeClass("d-none");
+				} else {
+					let ic = $(this).closest("#findId").find(".injuredCrew").first().clone(true);
+					$(this).next().next().find(".count").text(1);
+					$(".InjuryArea .injuredCrew").remove();
+					$(".InjuryArea .missingCrew").before(ic);
+					$(".InjuryArea").find(".injuredCrew").addClass("d-none");
+				}
+			});
+		</script>
+	</body>
+</html>

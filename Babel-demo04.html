@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style>
+			.box {
+				width: 50px;
+				height: 50px;
+				background-color: #000;
+			}
+			@media screen and (min-width: 768px) and (max-width: 1200px) {
+				.box {
+					background-color: red;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">123</div>
+		<script type="text/babel">
+			// axios.get("https://randomuser.me/api/");
+			function promise(url) {
+				return axios.get(url, data);
+			}
+			Promise.all([promise("https://randomuser.me/api/?gender=male"), promise("https://randomuser.me/api/?gender=female")]).then((value) => {
+				console.log(value[0].data.results[0].gender);
+				console.log(value[1].data.results[0].gender);
+			});
+		</script>
+	</body>
+</html>

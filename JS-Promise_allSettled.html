@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var promise = (n, text) =>
+				new Promise((resolve, reject) => {
+					if (n) {
+						return resolve(text);
+					} else {
+						return reject(text);
+					}
+				});
+			var p1 = promise(true, 213123).then((value) => value);
+			var p2 = promise(false, "EORR").then((value) => value);
+			// Promise.allSettled
+			// 出現reject時，不會跑到catch，可以錯誤正確都一起輸出，經由status判斷rejected
+			Promise.allSettled([p1, p2])
+				.then((values) => console.log(values))
+				.catch((error) => console.log(error));
+			// Promise.all
+			// 只要有reject時，會跳到catch
+			Promise.all([p1, p2])
+				.then((values) => console.log(values))
+				.catch((error) => console.log(error));
+		</script>
+	</body>
+</html>

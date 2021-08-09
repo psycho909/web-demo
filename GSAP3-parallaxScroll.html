@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background-color: green;
+			}
+			.section {
+				position: relative;
+				width: 100%;
+				height: 100vh;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.section:before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 100px;
+				background: linear-gradient(to top, green, transparent);
+				z-index: 1000;
+			}
+			.sec {
+				position: relative;
+				width: 100%;
+				word-break: break-all;
+				padding: 100px;
+			}
+			h2 {
+				font-size: 2.5rem;
+				color: #fff;
+				margin-bottom: 10px;
+			}
+			p {
+				font-size: 1.2rem;
+				color: #fff;
+			}
+			img#bg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				pointer-events: none;
+			}
+			img#jet {
+				position: absolute;
+				top: 180%;
+				z-index: 10000;
+				max-width: 100%;
+				transform: scale(0);
+			}
+			img#hulk {
+				position: absolute;
+				right: 800px;
+				top: 0;
+				max-width: 100%;
+				transform: scale(0);
+				z-index: 10000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="section">
+				<img id="hulk" src="images/hulk.png" alt="" />
+				<img id="jet" src="images/jet.png" alt="" />
+				<img id="bg" src="images/bg.jpg" alt="" />
+			</div>
+			<div class="sec">
+				<div class="content">
+					<h2>Robert Bruce Banner</h2>
+					<p>SNcbmEWEXrTkjNPhBvbAICAKqJhBbMYMbTRTQVFtFwFnbVCUzVSVqoOmQEpmhYfRDRTPHjsnNAIXCCvafipjlgEZBCQUowNWqJNdXuCthTLLAfBBMDSpxyvfhXVUxxltHsAqLIiSxCOScvfxSilhDpSlPxHULvPiYnqZCBcePDigWCAZtRWmkWycNLNOzyBqDwpeJeBsfkckfyOPNWEXKqPZIhLOOMLOXPkfzerqbIaXyfaLCxslSAOBCfmdGhqmyCDYOfMqPsoVYWSeqrKddJixyyligmJjQsAwDVfLmAlwLUJiKLbElyJNoCDDaPQJVIHvLVbviwLMuPmMQijAifCfpeouKmIBXYJpptUNnFxDOtnHHqZxTHnWNxLWswvrqPmAIGSdDKSqiZetkxdauQHDfdwAPOKZdnfiulXsfPNaHZtmjKfJdEkPqsjEEVgUqfJhgNeVHzoaNlrqPzCWxnEBSFgavIFWdUxVgHQllDFBcfQhtPfMyimPkPNbADoVFlfoUhoLJgYipPYOFjBTDakpfIdAyfqXjrEWAltYdpvIYISQNhFfsZZuBAjxYSOJqNBDofmtbwoOlkFMUVpDWCjiYVzBZtxKsShFgSayJGSDxYOTZPIVbNeXNRmnnpHJomTdlptDUoDJNuHJXhfxFoRSPRdKZzcwqhnIMHFgAaElReFTexwwOyZOOXmJJSgDBphvcEIcfqCGzuvxZyEJzSgPQoPEELCkQStUkfBpsLquZwQliwuhhncdQaudHSLjHJaRWQTcwlUvfylkxGqooOoHBGfFewWyKBIXXpemqDnyMLHFTPpRyTWREpoinowMhNUwucDQtApHnhqZFhtxKBrjiLeWSoHopLUuwAokxFNETgiVxueijClGSHgtUdpZIAeHZwFnUQBYrXWcgjhWqUIlgqyvVSzwPWlJJTIcokZNBciemaxhJVdfFaIrZQAsvGPLSfxRYXALDLbMZBQsIckJcKgXOFEdwnjESkwa</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			gsap.to("#bg", {
+				scrollTrigger: {
+					scrub: true,
+				},
+				y: 200,
+				scale: 1.2,
+			});
+			gsap.to("#jet", {
+				scrollTrigger: {
+					scrub: true,
+				},
+				x: -200,
+				y: -1800,
+				scale: 1.2,
+			});
+			gsap.to("#hulk", {
+				scrollTrigger: {
+					scrub: true,
+				},
+				x: 1000,
+				y: 200,
+				scale: 1.2,
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.parent :where(p) {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="parent">
+			<div id="title">TITLE</div>
+			<div class="sub-title">sub-title</div>
+			<p>content</p>
+			<div>DIV</div>
+		</div>
+		<table width="1200px" cellpadding="1" border="1">
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>10</td>
+			</tr>
+		</table>
+		<script>
+			// window.location = "https://go.microsoft.com/fwlink/?linkid=2135547";
+			if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+				window.location = "microsoft-edge:" + window.location;
+				setTimeout(function () {
+					window.location = "https://go.microsoft.com/fwlink/?linkid=2135547";
+				}, 1);
+			}
+		</script>
+	</body>
+</html>

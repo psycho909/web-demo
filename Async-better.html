@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var LoadData = async () => {
+				try {
+					var url1 = `https://jsonplaceholder.typicode.com/todos/1`;
+					var url2 = `https://jsonplaceholder.typicode.com/todos/2`;
+					var url3 = `https://jsonplaceholder.typicode.com/todos/3`;
+
+					const results = await Promise.all([fetch(url1), fetch(url2), fetch(url3)]);
+					const findData = await Promise.all(results.map((result) => result.json()));
+					return findData;
+					// var res1 = await fetch(url1);
+					// var data1 = await res1.json();
+					// var res2 = await fetch(url2);
+					// var data2 = await res2.json();
+					// var res3 = await fetch(url3);
+					// var data3 = await res3.json();
+					// return [data1, data2, data3];
+				} catch (err) {
+					console.log(err);
+				}
+			};
+			(async () => {
+				var data = await LoadData();
+				console.log(data);
+			})();
+		</script>
+	</body>
+</html>

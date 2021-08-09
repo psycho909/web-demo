@@ -6,7 +6,6 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/twbs-pagination1.4.2/twbsPagination.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -16,18 +15,14 @@
 	</head>
 	<body>
 		<div id="app">
-			<div id="page-content"></div>
-			<ul id="pagination-demo" class="pagination-sm"></ul>
+			<form id="form">
+				<input type="text" required />
+				<select name="" id="" required>
+					<option value="0">0</option>
+					<option value="1">1</option>
+				</select>
+			</form>
 		</div>
-		<script>
-			$("#pagination-demo").twbsPagination({
-				totalPages: 35,
-				visiblePages: 7,
-				onPageClick: function (event, page) {
-					console.log(event);
-					$("#page-content").text("Page " + page);
-				},
-			});
-		</script>
+		<script></script>
 	</body>
 </html>

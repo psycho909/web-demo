@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #333;
+				font-family: arial;
+				color: silver;
+			}
+
+			.character {
+				background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/183204/char.png);
+				/* width: 150px;
+				height: 150px; */
+				width: calc(150 / 768 * 100vw);
+				padding-bottom: calc(150 / 768 * 100vw);
+				background-size: 1600%;
+			}
+
+			.container {
+				width: 150px;
+				height: 150px;
+				overflow: hidden;
+			}
+			.title-sprite {
+				width: 345px;
+				padding-bottom: 130px;
+				background-image: url("images/css_sprites.png");
+				background-size: 600%;
+				background-position-x: 0;
+			}
+			@media screen and (max-width: 768px) {
+				.title-sprite {
+					width: calc(345 / 768 * 100vw);
+					padding-bottom: calc(130 / 768 * 100vw);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="title-sprite">
+				<div class="title-sprite__img"></div>
+			</div>
+			<!--method 1-->
+			<div class="character"></div>
+			#1 - background position tween
+
+			<!--method 2-->
+			<div class="container">
+				<img class="character2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/183204/char.png" />
+			</div>
+			#2 - img/div 'x' tween . i prefer this one , check Chrome > Rendering > show paint rectangles
+		</div>
+		<script>
+			// method 1 ( div background position ) :
+			var M1 = TweenMax.to(".character", 1, { repeat: -1, backgroundPosition: "-1600%", ease: SteppedEase.config(16) });
+
+			// method 2 ( img/div tag x position ) :
+			var M2 = TweenMax.to(".character2", 1, { repeat: -1, x: -2250, ease: SteppedEase.config(15) });
+			function animSprite(obj, callback) {
+				var _data = {
+					target: "",
+					fps: 60,
+					steps: 12,
+					loop: false,
+				};
+				for (var o in obj) {
+					_data[o] = obj[o];
+				}
+				var time = null;
+				var fpsTotal = 0;
+				if (_data.target.attr("data-anim") === undefined || _data.target.attr("data-anim") === "false") {
+					_data.target.attr("data-anim", true);
+				} else {
+					return;
+				}
+				function animRun(obj, callback) {
+					fpsTotal++;
+					if (fpsTotal >= obj.steps && !obj.loop) {
+						clearTimeout(time);
+						obj.target.attr("data-anim", false);
+						obj.target.css("background-position-x", "0%");
+						if (callback) {
+							callback();
+						}
+					} else {
+						time = setTimeout(function () {
+							if (fpsTotal >= obj.steps) {
+								fpsTotal = 0;
+							}
+							obj.target.css("background-position-x", -fpsTotal * 100 + "%");
+							animRun(obj, callback);
+						}, 1000 / obj.fps);
+					}
+				}
+				animRun(_data, callback);
+			}
+			animSprite({
+				target: $(".title-sprite"),
+				fps: 8,
+				steps: 6,
+				loop: true,
+			});
+		</script>
+	</body>
+</html>

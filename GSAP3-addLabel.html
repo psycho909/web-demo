@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 80px;
+				height: 80px;
+				border: 1px solid #000;
+				display: inline-block;
+			}
+			.green {
+				background: green;
+			}
+			.blue {
+				background: blue;
+			}
+			.red {
+				background: red;
+			}
+			.yellow {
+				background: yellow;
+			}
+			.gray {
+				background: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box green"></div>
+			<div class="box blue"></div>
+			<div class="box red"></div>
+			<div class="box yellow"></div>
+			<div class="box gray"></div>
+		</div>
+		<script>
+			// setInterval(() => {
+			// 	var d = new Date();
+			// 	// console.log(d.getSeconds());
+			// }, 1000);
+
+			var V = {
+				enterAnim: function () {
+					return gsap
+						.timeline({
+							paused: !0,
+						})
+						.addLabel("start")
+						.from(
+							".green",
+							{
+								y: "+=50",
+								duration: 1,
+							},
+							"start+=2"
+						)
+						.from(
+							".blue",
+							{
+								duration: 1,
+								opacity: 0,
+								y: "+=100",
+							},
+							"start+=.5"
+						);
+				},
+			};
+
+			var VV = V.enterAnim();
+			// var tl = gsap.timeline({
+			// 	paused: !0,
+			// });
+			// tl.addLabel("start")
+			// 	.from(
+			// 		".green",
+			// 		{
+			// 			y: "+=50",
+			// 			duration: 1,
+			// 		},
+			// 		"start+=2"
+			// 	)
+			// 	.from(
+			// 		".blue",
+			// 		{
+			// 			duration: 1,
+			// 			opacity: 0,
+			// 			y: "+=100",
+			// 		},
+			// 		"start+=.5"
+			// 	);
+		</script>
+	</body>
+</html>

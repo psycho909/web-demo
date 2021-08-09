@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<Child>
+				<template v-slot:default="slotProps">
+					<button @click="pressed">Pressed</button>
+					<div>Hello</div>
+					{{slotProps.data}}
+					<button @click="slotProps.hello">Hello</button>
+				</template>
+				<template v-slot:loop="slotProps2">
+					<div>{{slotProps2.word}}</div>
+				</template>
+			</Child>
+		</div>
+		<script>
+			Vue.component("Child", {
+				template: `<div>
+                    <div>Hello</div>
+                    <slot :data="name" :hello="hello"></slot>
+                    <div v-for="w in words">
+                        <slot :word="w" name="loop"></slot>
+                    </div>
+                </div>`,
+				data: function () {
+					return {
+						name: "Chen",
+						words: ["A", "B", "C"],
+					};
+				},
+				methods: {
+					hello() {
+						alert("Hello child");
+					},
+				},
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {},
+				methods: {
+					pressed() {
+						alert("Hello parent");
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

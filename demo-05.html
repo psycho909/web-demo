@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.wrap {
+				font-size: 0;
+			}
+			.box {
+				width: 300px;
+				height: 200px;
+				background-color: red;
+				transform: skewX(-12deg) rotate(-12deg);
+				overflow: hidden;
+				position: relative;
+				margin-bottom: 60px;
+			}
+			.box-inner {
+				width: 200%;
+				height: 200%;
+				background-image: url("../images/7458a4a73a1e0657091d87e8e01d55v5.jpg");
+				background-position: center center;
+				background-size: 1000px 563px;
+				transform: skewX(12deg) rotate(12deg) translate(-50%, -50%);
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="box"><div class="box-inner"></div></div>
+			<div class="box"><div class="box-inner"></div></div>
+			<div class="box"><div class="box-inner"></div></div>
+		</div>
+		<script></script>
+	</body>
+</html>

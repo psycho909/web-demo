@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h2 id="btc-price">---</h2>
+		<h2 id="eth-price">---</h2>
+		<script>
+			function WebSockPrice(coin) {
+				let ws = new WebSocket(`wss://stream.binance.com:9443/ws/${coin}usdt@trade`);
+				let stockPriceElement = document.getElementById(`${coin}-price`);
+				let lastPrice = null;
+				let black = "black";
+				let red = "red";
+				let green = "green";
+				ws.onmessage = (event) => {
+					let stockObject = JSON.parse(event.data);
+					let price = parseFloat(stockObject.p).toFixed(2);
+					stockPriceElement.innerHTML = price;
+					stockPriceElement.style.color = !lastPrice || lastPrice === price ? black : price > lastPrice ? green : red;
+					lastPrice = price;
+				};
+			}
+
+			WebSockPrice("eth");
+			WebSockPrice("btc");
+		</script>
+	</body>
+</html>
