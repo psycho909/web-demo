@@ -11,40 +11,93 @@
 				padding: 0;
 				margin: 0;
 			}
+			button {
+				padding: 1rem 2rem;
+			}
+			.active {
+				background-color: #aaa;
+			}
 		</style>
 	</head>
 	<body>
-		<template id="counter">
-			<style>
-				button {
-					background-color: red;
-					color: #fff;
-					padding: 4px;
-				}
-			</style>
-			<button>Click me</button>
-			<span id="times">0</span>
-		</template>
-		<script>
-			var template = document.querySelector("template");
-			var node = document.importNode(template.content, true);
-			document.body.appendChild(node);
+		<svg width="500px" height="600px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+			<svg height="300px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<g id="boom">
+						<image width="30" height="30" href="./zha.svg">
+							<animateMotion path="M 255 79 C 256 79 133 -60 47 33" begin="0s" dur="1s" repeatCount="1" />
+							<animate id="op" attributeName="opacity" from="1" to="0" begin="0.8s" dur="0.2s" repeatCount="1" fill="freeze"></animate>
+							<animateTransform attributeName="transform" type="rotate" from="0 15 15" to="360 15 15" begin="0s" dur="1s" repeatCount="1" />
+						</image>
+					</g>
+				</defs>
+				<use href="#boom" />
+			</svg>
+		</svg>
 
-			const valueToValidate = 3;
-			function ss(value) {
-				switch (true) {
-					case value < 1:
-						console.log("Given string is too short!");
-						return;
-					case value < 2:
-						console.log("No numeric allowed!");
-						return;
-					default:
-						console.log("No");
-						return;
-				}
+		<button data-btn-tip="a">A</button>
+		<button data-btn-tip="b">B</button>
+		<button data-btn-tip="c">C</button>
+		<script>
+			const btnsTip = document.querySelectorAll("[data-btn-tip]");
+			let activeBtn = null;
+			btnsTip.forEach((btnTip) => {
+				btnTip.addEventListener("click", (e) => {
+					e.currentTarget.classList.add("active");
+					if (activeBtn !== null && activeBtn != e.currentTarget) {
+						activeBtn.classList.remove("active");
+					}
+
+					activeBtn = e.currentTarget;
+				});
+			});
+
+			function Time(time) {
+				var end = +new Date(time);
+				var timeInterval;
+				var endCallback;
+				var runCallback;
+				var timeObj = {
+					d: 0,
+					h: 0,
+					m: 0,
+					s: 0,
+					start() {
+						timeInterval = setInterval(function () {
+							var nowTime = +new Date();
+							var leftTime = parseInt(end - nowTime);
+							d = parseInt(leftTime / (24 * 60 * 60 * 1000));
+							h = parseInt((leftTime / (60 * 60 * 1000)) % 24);
+							m = parseInt((leftTime / (60 * 1000)) % 60);
+							s = parseInt((leftTime / 1000) % 60);
+							if (leftTime <= 0) {
+								endCallback();
+								clearInterval(timeInterval);
+							} else {
+								runCallback();
+							}
+						}, 1000);
+						return this;
+					},
+					run(fn) {
+						runCallback = fn;
+						return this;
+					},
+					endRun(fn) {
+						endCallback = fn;
+						return this;
+					},
+				};
+				return timeObj;
 			}
-			console.log(ss(valueToValidate));
+			Time("2021-08-11 14:00:00")
+				.start()
+				.run(function () {
+					console.log(h);
+				})
+				.endRun(function () {
+					console.log("end");
+				});
 		</script>
 	</body>
 </html>

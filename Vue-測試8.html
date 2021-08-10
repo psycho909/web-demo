@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<style></style>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="text" v-model="state.title" />
+			{{state}}
+			<button @click="save">save</button>
+		</div>
+		<script>
+			var vue3Composition = {
+				setup(props, { emit }) {
+					var state = Vue.reactive({
+						title: "My title",
+					});
+					state.title = "Hello world";
+
+					const id = 12;
+					const save = function () {
+						emit("onClickEvent", id);
+					};
+					return { state, save };
+				},
+			};
+			var vm = Vue.createApp(vue3Composition).mount("#app");
+		</script>
+	</body>
+</html>
