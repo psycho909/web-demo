@@ -14,6 +14,7 @@
 			<div>{{age}}</div>
 			<div>{{stateObj}}</div>
 			<button @click="fun1">按鈕</button>
+			<button type="button" @click="close_window">Close current window if possible</button>
 		</div>
 		<script>
 			var vue3Composition = {
@@ -26,10 +27,14 @@
 						console.log("obj", obj);
 						console.log(stateObj);
 					}
+					function close_window() {
+						window.close();
+					}
 					return {
 						age,
 						fun1,
 						stateObj,
+						close_window,
 					};
 				},
 			};

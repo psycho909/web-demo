@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue-router@next"></script>
+		<script src="https://unpkg.com/vuex@next"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{obj}}</div>
+			<div>{{msg}}</div>
+			<div>{{msg1}}</div>
+			<div>{{message}}</div>
+			<button @click="fun1">按鈕</button>
+			<button-counter :count="obj.age"></button-counter>
+			<component-a :page="obj.age" @shot="handleEmit"></component-a>
+			<button type="button" @click="tsw_open_demo_window">Open demo in a new window/tab</button>
+			<button type="button" @click="close_window">Close current window if possible</button>
+		</div>
+		<script>
+			const ComponentA = {
+				props: ["page"],
+				setup(props, context) {
+					let title = "ComponentA";
+					function addNumber() {
+						context.emit("shot", title);
+					}
+					return {
+						title,
+						addNumber,
+					};
+				},
+				template: `<h3>{{title}} {{page}}</h3> <button @click="addNumber">Add</button>`,
+			};
+			var app = Vue.createApp({
+				components: {
+					"component-a": ComponentA,
+				},
+				setup() {
+					let obj = Vue.reactive({
+						firstName: "Chen",
+						lastName: "Ching",
+						age: 32,
+						title2: "",
+						fullName: Vue.computed(() => {
+							return `${obj.firstName} ${obj.lastName}`;
+						}),
+					});
+					let msg = { title: "MSG" };
+					let msg1 = Vue.toRefs(msg);
+					let message = Vue.ref({ title: "Hello" });
+					Vue.watch(message, (newVal, oldVal) => {
+						console.log(newVal, oldVal);
+					});
+					Vue.watch(obj, (newVal, oldVal) => {
+						console.log(newVal, oldVal);
+					});
+					function fun1() {
+						obj.age = "33";
+						obj.firstName = "Hello";
+						message.value.title = "TITLE";
+					}
+					function handleEmit(value) {
+						console.log("handleEmit", value);
+						message.value.title = value;
+					}
+					function tsw_open_demo_window() {
+						console.log(123);
+						window.open("Vue3-demo6.html");
+					}
+					function close_window() {
+						window.close();
+					}
+					return {
+						obj,
+						msg,
+						msg1,
+						message,
+						fun1,
+						handleEmit,
+						tsw_open_demo_window,
+						close_window,
+					};
+				},
+			});
+
+			app.component("button-counter", {
+				props: ["count"],
+				template: `
+				<button v-on:click="count++">
+					You clicked me {{ count }} times.
+				</button>`,
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

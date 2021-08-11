@@ -30,12 +30,16 @@
 				padding: 2rem;
 				border-bottom: 1px solid#000;
 			}
+			.header-box {
+				padding: 1rem;
+				background-color: green;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="center">
 			<textarea name="" id="" cols="30" rows="10"></textarea>
-			<div class="header">Header</div>
+			<div class="header-box"><div class="header">Header</div></div>
 			<p class="bxxx">內文 bxxx</p>
 			<p class="bxxx">內文 bxxx</p>
 			<p class="bxxx">內文 bxxx</p>
@@ -75,6 +79,22 @@
 			<p>內文</p>
 		</div>
 		<script>
+			document.querySelector(".header").addEventListener(
+				"click",
+				function (e) {
+					// e.stopPropagation();
+					console.log(e.target);
+				},
+				true
+			);
+			document.querySelector(".header-box").addEventListener(
+				"click",
+				function (e) {
+					// e.stopPropagation();
+					console.log(e.target);
+				},
+				true
+			);
 			$.ajax({
 				url: "http://localhost:3000/tutorials",
 				method: "GET",
