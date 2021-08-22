@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function runTime(word, ck) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						if (ck) {
+							resolve(word);
+						} else {
+							reject("error");
+						}
+					}, 500);
+				});
+			}
+
+			async function getAll() {
+				try {
+					var a = await runTime("A", true);
+					var b = await runTime("B", true);
+					var c = await runTime("C", false);
+					console.log(a, b, c);
+				} catch (err) {
+					console.log(err);
+				}
+			}
+			getAll();
+
+			// async function getAll2() {
+			// 	console.time();
+			// 	var a = runTime("A", 1000);
+			// 	var b = runTime("A", 1000);
+			// 	var c = runTime("A", 1000);
+			// 	await a;
+			// 	await b;
+			// 	await c;
+			// 	console.timeEnd();
+			// }
+			// getAll2();
+		</script>
+	</body>
+</html>

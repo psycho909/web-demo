@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.container {
+				width: 100%;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, 100px);
+				grid-template-columns: repeat(auto-fill, 100px);
+				grid-template-rows: repeat(auto-fill, 1rem);
+				grid-template-rows: repeat(auto-fit, 1rem);
+			}
+			.box:nth-child(odd) {
+				background-color: #eee;
+			}
+			.box:nth-child(even) {
+				background-color: rgb(224, 152, 152);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container grid">
+			<div class="box">A</div>
+			<div class="box">B</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+			<div class="box">A</div>
+		</div>
+	</body>
+</html>

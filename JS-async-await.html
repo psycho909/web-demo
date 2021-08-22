@@ -24,7 +24,6 @@
 
 			function makeRequest() {
 				return new Promise((resolve, reject) => {
-					console.log();
 					resolve(`Current location:- makeRequest`);
 				});
 			}
@@ -33,9 +32,9 @@
 				try {
 					const response = await newRequest();
 					const processed = await makeRequest();
-					console.log(processed);
+					console.log(response, processed);
 				} catch (err) {
-					console.log(err);
+					console.log("err", err);
 				}
 			}
 

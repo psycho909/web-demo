@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/picturefill/3.0.3/picturefill.min.js"></script> -->
+		<style>
+			.box {
+				max-width: 1200px;
+				width: 100%;
+			}
+
+			.box img {
+				max-width: 100%;
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<picture>
+				<source media="(max-width:768px)" srcset="./images/beanfun.jpg" />
+				<source media="(min-width:769px)" srcset="./images/baseball.png" />
+				<img srcset="./images/baseball.png" src="./images/baseball.png" alt="" />
+			</picture>
+		</div>
+
+		<script>
+			// picturefill();
+		</script>
+	</body>
+</html>

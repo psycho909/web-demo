@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-<body>
-    <ul id="ul-box"></ul>
-    <script>
-        function logWord(word){
-            return new Promise((res,rej)=>{
-                setTimeout(()=>{
-                    console.log(word)
-                    res();
-                },Math.floor(Math.random()*120)+1)
-            })
-        }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<ul id="ul-box"></ul>
+		<script>
+			function logWord(word) {
+				return new Promise((res, rej) => {
+					setTimeout(() => {
+						res(word);
+					}, Math.floor(Math.random() * 120) + 1);
+				});
+			}
 
-        // function logAll(){
-        //     logWord('A')
-        //     .then(()=>{
-        //         return logWord('B')
-        //     })
-        //     .then(()=>{
-        //         return logWord('C')
-        //     })
-        // }
+			// function logAll(){
+			//     logWord('A')
+			//     .then(()=>{
+			//         return logWord('B')
+			//     })
+			//     .then(()=>{
+			//         return logWord('C')
+			//     })
+			// }
 
-        async function logAll(){
-            await logWord('A')
-            await logWord('B')
-            await logWord('C')
-        }
-        logAll()
-    </script>
-</body>
+			async function logAll() {
+				var a = await logWord("A");
+				var b = await logWord("B");
+				var c = await logWord("C");
+				return [a, b, c];
+			}
+			logAll().then((res) => console.log(res));
+		</script>
+	</body>
 </html>
