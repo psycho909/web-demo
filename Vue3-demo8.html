@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{obj}}</div>
+			<div>{{msg}}</div>
+			<div>{{msg1}}</div>
+			<div>{{message}}</div>
+			<button @click="fun1">按鈕</button>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				setup() {
+					Vue.onBeforeMount(() => {
+						fetch("https://jsonplaceholder.typicode.com/todos/1")
+							.then((response) => response.json())
+							.then((json) => (obj = json));
+					});
+					let obj = Vue.reactive({
+						firstName: "Chen",
+						lastName: "Ching",
+						age: 32,
+						title2: "",
+						fullName: Vue.computed(() => {
+							return `${obj.firstName} ${obj.lastName}`;
+						}),
+					});
+					let msg = { title: "MSG" };
+					let msg1 = Vue.toRefs(msg);
+					let message = Vue.ref({ title: "Hello" });
+					Vue.watch(message, (newVal, oldVal) => {
+						console.log(newVal, oldVal);
+					});
+					Vue.watch(obj, (newVal, oldVal) => {
+						console.log(newVal, oldVal);
+					});
+					function fun1() {
+						obj.age = "33";
+						obj.firstName = "Hello";
+						message.value.title = "TITLE";
+					}
+					function handleEmit(value) {
+						console.log("handleEmit", value);
+						message.value.title = value;
+					}
+					return {
+						obj,
+						msg,
+						msg1,
+						message,
+						fun1,
+						handleEmit,
+					};
+				},
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

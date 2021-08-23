@@ -6,24 +6,40 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-		<style></style>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			#app {
+				height: 2000px;
+			}
+		</style>
 	</head>
 
 	<body>
-		<div id="app">{{msg}}</div>
+		<div id="app">
+			<button @click="addCount('dog')">addDogs</button>
+			<button @click="addCount('cat')">addCats</button>
+			<button @click="addCount('penguin')">addPenguin</button>
+			<p>dog {{ counter.dog }}, cat {{ counter.cat }}, penguin {{ counter.penguin }}</p>
+			<p>{{items}}</p>
+		</div>
 		<script>
 			var vm = new Vue({
 				el: "#app",
-				data() {
-					return {
-						msg: "Hello World",
-					};
+				data: {
+					// 一開始沒有註冊 penguin，只註冊了 dog 和 cat
+					counter: {
+						dog: 0,
+						cat: 0,
+					},
+					items: ["a", "b", "c"],
 				},
-				mounted() {
-					this.msg = "Hello CHing";
-					this.$nextTick(function () {
-						this.msg = "Hello Chen Ching";
-					});
+				methods: {
+					addCount(name) {
+						this.counter[name] = "123";
+						this.items[1] = "xxx";
+					},
 				},
 			});
 		</script>
