@@ -15,7 +15,8 @@
 			<button @click="addCount('penguin')">addPenguin</button>
 			<p>dog {{ counter.dog }}, cat {{ counter.cat }}, penguin {{ counter.penguin }}</p>
 			<p>{{items}}</p>
-			<child title="Title"></child>
+			<p>{{title}}</p>
+			<child :title="title" age="32" @changetitle="parentChange"></child>
 		</div>
 		<script>
 			var child = {
@@ -30,17 +31,21 @@
 						<p>{{count}}</p>
 					</div>
 				`,
-				setup(props) {
+				setup(props, context) {
 					let name = Vue.ref(props.title);
 					let count = Vue.ref(0);
-					// Vue.onMounted(() => console.log("onMounted"));
+					const obj = { count: 3 };
+					const state1 = Vue.ref(obj);
+					const state2 = Vue.reactive(obj);
+					console.log(state1.value);
+					console.log(state2);
+					console.log(context.attrs.age);
+					Vue.onBeforeUpdate(() => console.log("onBeforeUpdate"));
 					Vue.onUpdated(() => console.log("onUpdated"));
 					function changeName() {
-						name.value = "newName";
+						name.value = "Youtube";
+						context.emit("changetitle", name.value);
 					}
-					// Vue.watch(name, (newVal, oldVal) => {
-					// 	console.log(newVal, oldVal);
-					// });
 					Vue.watchEffect(() => {
 						console.log(name.value);
 					});
@@ -62,12 +67,17 @@
 							cat: 0,
 						},
 						items: ["a", "b", "c"],
+						title: "Spotify",
 					};
 				},
 				methods: {
 					addCount(name) {
 						this.counter[name] = "123";
 						this.items[1] = "xxx";
+					},
+					parentChange(value) {
+						this.title = value;
+						console.log(value);
 					},
 				},
 			});

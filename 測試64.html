@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="color" id="html5colorpicker" value="#ff0000" style="width: 85%" />
+		<img id="img" src="images/temp.jpg" alt="" />
+		<canvas id="canvas"></canvas>
+		<canvas id="canvas2"></canvas>
+		<script>
+			var toColor = "rgba(0,0,0,1)";
+			var selectedColor = "rgba(255,255,255,1)";
+			var index = 0;
+			var imgStock = [];
+			var img = document.getElementById("img");
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			var canvas2 = document.getElementById("canvas2");
+			var transCtx = canvas2.getContext("2d");
+			canvas.width = 600;
+			canvas.height = 600;
+			canvas2.width = 600;
+			canvas2.height = 600;
+			ctx.drawImage(img, 0, 0);
+			var imageData = [];
+			function transColor() {
+				return toColor.split(/\(|\)/)[1].split(",");
+			}
+			function isSimilar(arr1, arr2) {
+				if (arr1.length !== arr2.length) return false;
+				for (var i = 0; i < arr1.length; i++) {
+					if (Math.abs(arr1[i] - arr2[i]) > 20) {
+						return false;
+					}
+				}
+				return true;
+			}
+			function addStock(params) {
+				if (index) {
+					imgStock = imgStock.slice(index);
+					index = 0;
+				}
+				if (imgStock.length >= 10) {
+					imgStock.pop();
+				}
+				imgStock.unshift(JSON.stringify(params));
+			}
+			var _toColor = transColor();
+			var data = imageData.data || [];
+			for (var i = 0; i < data.length; i += 4) {
+				var similar = isSimilar(selectedColor, data.slice(i, i + 4));
+				if (similar) {
+					data[i] = _toColor[0];
+					data[i + 1] = _toColor[1];
+					data[i + 2] = _toColor[2];
+					data[i + 3] = _toColor[3] * 255;
+				}
+			}
+			console.log(data);
+			// addStock(imageData);
+			// transCtx.putImageData(imageData, 0, 0);
+			// imageData = transCtx.getImageData(0, 0, 600, 600);
+		</script>
+	</body>
+</html>

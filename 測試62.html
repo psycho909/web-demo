@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			[id*="adm-"] {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="adm-container">sa</div>
+		<form id="note-form">
+			<input id="note-input" type="text" placeholder="+ Add Note" required />
+			<button id="note-submit">Save</button>
+		</form>
+		<ul id="notes"></ul>
+		<script>
+			const noteForm = document.getElementById("note-form");
+			const noteInput = document.getElementById("note-input");
+			const noteSubmit = document.getElementById("note-submit");
+			const notes = document.getElementById("notes");
+			let notesStorage = localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : [];
+			const getNotes = JSON.parse(localStorage.getItem("notes"));
+			if (getNotes) {
+				getNotes.forEach((note) => {
+					listBuilder(note);
+				});
+			}
+			noteForm.addEventListener("submit", (e) => {
+				e.preventDefault();
+				notesStorage.push(noteInput.value);
+				localStorage.setItem("notes", JSON.stringify(notesStorage));
+				listBuilder(noteInput.value);
+				noteInput.value = "";
+			});
+			function listBuilder(text) {
+				const note = document.createElement("li");
+				note.innerHTML = text + '<button onclick="deleteNote(this)">x</button>';
+				notes.appendChild(note);
+			}
+
+			function deleteNote(btn) {
+				var el = btn.parentElement;
+				const index = [...el.parentElement.children].indexOf(el);
+				el.remove();
+			}
+			let obj = {
+				name: "Chen",
+				getName: function () {
+					console.log(this.name);
+				},
+			};
+			obj.getName();
+		</script>
+	</body>
+</html>

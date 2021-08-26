@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- <button @click="changedata">Change</button> -->
+			<child1 a="AAA" @click="changeData" ref="box"></child1>
+			<child1 a="AAA" @click="changeData" ref="box"></child1>
+			<child1 a="AAA" @click="changeData" ref="box"></child1>
+			<div class="box1" name="box" @click="ddd">A</div>
+			<div class="box2" name="box" @click="ddd">B</div>
+			<div class="box3" name="box" @click="ddd">C</div>
+		</div>
+		<script>
+			Vue.component("child2", {
+				template: `<div class="child2">CHild2 - {{appData}} <button v-on="listeners">SUPER BUTTON</button></div>`,
+				inject: ["appData"],
+				computed: {
+					listeners() {
+						console.log(this.$listeners);
+						return this.$listeners;
+					},
+				},
+				mounted() {
+					// console.log(this.$parent);
+					console.log(this.$attrs);
+				},
+			});
+			Vue.component("child1", {
+				template: `<div class="child1"><h1>Child1</h1><child2 v-bind="$attrs" v-on="listeners"></child2></div></div>`,
+				computed: {
+					listeners() {
+						return this.$listeners;
+					},
+				},
+				data() {
+					return {
+						title: "Child1",
+					};
+				},
+				mounted() {
+					// console.log(this.$children);
+				},
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					count: 0,
+					name: "CHen",
+				},
+				mounted() {
+					// console.log(this.$refs.box);
+					// $("div[name=box]").on("click", function () {
+					// 	console.log(123);
+					// });
+				},
+				provide() {
+					const appData = {};
+					Object.defineProperty(appData, "name", {
+						enumerable: true,
+						get: () => this.name,
+					});
+					return {
+						appData,
+					};
+				},
+				computed: {},
+				methods: {
+					changeData() {
+						this.name = "ching";
+					},
+					ddd(e) {
+						console.log(e.target);
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
