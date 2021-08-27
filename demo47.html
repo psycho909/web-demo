@@ -33,6 +33,20 @@
 			var o2 = new Person(2, 11);
 			o1.sayName();
 			o2.sayName();
+
+			function message(callback) {
+				callback();
+			}
+
+			message(function () {
+				console.log(123);
+			});
+			setTimeout(() => {
+				console.log("setTimeout");
+			}, 0);
+			window.addEventListener("DOMContentLoaded", function () {
+				console.log("DOMContentLoaded");
+			});
 		</script>
 	</body>
 </html>

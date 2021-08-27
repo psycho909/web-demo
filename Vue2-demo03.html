@@ -19,7 +19,7 @@
 			<div class="box box3" name="box" title="box3" ref="box1" v-if="check">A</div>
 			<div class="box box4" name="box" title="box4" ref="box1" v-if="check">A</div>
 			<div class="box box5" name="box" title="box5" ref="box1" v-if="check">A</div>
-			<select v-model="name">
+			<select v-model="name" @change="ccc">
 				<option v-for="n in bookList" :value="n.key">{{n.name}}</option>
 			</select>
 			<p>{{name}}</p>
@@ -61,6 +61,14 @@
 				methods: {
 					getTitle: function (e) {
 						console.log(e.target.title);
+					},
+					ccc(e) {
+						console.log(e.target.options[e.target.options.selectedIndex].text);
+						// for (var i = 0; i < e.target.options.length; i++) {
+						// 	if (e.target.options[i].selected) {
+						// 		console.log(e.target.options[i].text);
+						// 	}
+						// }
 					},
 				},
 			});
