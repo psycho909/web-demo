@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="addCount">addCount</button>
+			<child></child>
+		</div>
+		<script>
+			var bokk = {
+				template: `
+					<div>{{o}}</div>
+				`,
+				setup() {
+					var o = Vue.inject("info");
+					return {
+						o,
+					};
+				},
+			};
+			var child = {
+				props: {
+					title: String,
+				},
+				components: {
+					bokk: bokk,
+				},
+				template: `
+					<div>
+						<p>{{state}}</p>
+						<button @click="change">Change</button>
+						<p>{{state1}}</p>
+						<button @click="add1">Add1</button>
+						<p>{{state2}}</p>
+						<button @click="add2">Add2</button>
+						<bokk></bokk>
+					</div>
+				`,
+				setup(props, context) {
+					const obj = { count: 3, name: "Front", age: 100 };
+					const state = Vue.reactive(obj);
+					const state1 = Vue.ref(obj.count);
+					const state2 = Vue.toRef(obj, "count");
+					const state3 = Vue.toRefs(obj);
+					Vue.provide("info", obj);
+					console.log(state);
+					console.log(state1);
+					console.log(state2);
+					console.log(state3);
+					function change() {
+						state.age = 90;
+						console.log(obj);
+						console.log(state);
+					}
+					function add1() {
+						state1.value++;
+						console.log("origin:", obj);
+						console.log("響應式:", state1);
+					}
+					function add2() {
+						state2.value++;
+						console.log("origin:", obj);
+						console.log("響應式:", state2);
+					}
+					return {
+						state,
+						change,
+						state1,
+						state2,
+						add1,
+						add2,
+					};
+				},
+			};
+			var app = Vue.createApp({
+				components: {
+					child: child,
+				},
+				data() {
+					return {
+						counter: {
+							dog: 0,
+							cat: 0,
+						},
+						items: ["a", "b", "c"],
+						title: "Spotify",
+					};
+				},
+				methods: {
+					addCount(name) {
+						this.counter[name] = "123";
+						this.items[1] = "xxx";
+						console.log("addCount");
+					},
+					parentChange(value) {
+						this.title = value;
+						console.log("parentChange");
+					},
+				},
+				mounted() {},
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

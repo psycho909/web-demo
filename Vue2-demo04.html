@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<p>method - {{getCuTime1()}}</p>
+			<p>computed - {{getCuTime2}}</p>
+			<p>{{count}}</p>
+			<button @click="add">Add</button>
+			<child :jobs="jobs">
+				<template #job="slotProps">
+					<li>{{slotProps.j.name}}</li>
+				</template>
+			</child>
+			<cats :cat="cat">
+				<template #list="slotProps">
+					<li>{{slotProps.c.name}}</li>
+				</template>
+			</cats>
+		</div>
+		<script>
+			isFunctionCalled = 1;
+			Vue.component("child", {
+				props: ["jobs"],
+				template: `
+					<div>
+						<h2>CHild</h2>
+						<ul>
+							<slot name="job" :j="j" v-for="j in jobs"></slot>
+						</ul>
+					</div>
+				`,
+				data() {
+					return {};
+				},
+			});
+			Vue.component("cats", {
+				props: ["cat"],
+				template: `
+					<div>
+						<h2>Cat</h2>
+						<ul>
+							<slot name="list" :c="c" v-for="c in cat"></slot>
+						</ul>
+					</div>
+				`,
+				data() {
+					return {};
+				},
+			});
+			var app = new Vue({
+				el: "#app",
+				data: {
+					count: 0,
+					jobs: [{ name: "Front" }, { name: "BackEnd" }, { name: "Art" }],
+					cat: [],
+				},
+				created() {
+					axios("https://5ace036923cb4e00148b83c9.mockapi.io/v1/Cat").then((data) => {
+						setTimeout(() => {
+							this.cat = data.data;
+						}, 2000);
+					});
+				},
+				computed: {
+					getCuTime2() {
+						return Date.now();
+					},
+				},
+				methods: {
+					getCuTime1() {
+						return Date.now();
+					},
+					add() {
+						this.count += 1;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

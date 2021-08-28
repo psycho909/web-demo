@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="addCount('dog')">addDogs</button>
+			<button @click="addCount('cat')">addCats</button>
+			<button @click="addCount('penguin')">addPenguin</button>
+			<p>dog {{ counter.dog }}, cat {{ counter.cat }}, penguin {{ counter.penguin }}</p>
+			<p>{{items}}</p>
+			<p>{{title}}</p>
+			<child :title="title" age="32" @changetitle="parentChange"></child>
+		</div>
+		<script>
+			var child = {
+				props: {
+					title: String,
+				},
+				template: `
+					<div>
+						<h3>Name:{{name}}</h3>
+						<button @click="changeName">click</button>
+						<input type="text" v-model="count" />
+						<p>{{count}}</p>
+					</div>
+				`,
+				setup(props, context) {
+					let name = Vue.ref(props.title);
+					let count = Vue.ref(0);
+					const obj = { count: 3 };
+					const state1 = Vue.ref(obj);
+					const state2 = Vue.reactive(obj);
+					console.log(state1.value);
+					console.log(state2);
+					console.log(context.attrs.age);
+					Vue.onBeforeUpdate(() => console.log("onBeforeUpdate"));
+					Vue.onUpdated(() => console.log("onUpdated"));
+					function changeName() {
+						name.value = "Youtube";
+						context.emit("changetitle", name.value);
+					}
+					Vue.watchEffect(() => {
+						console.log(name.value);
+					});
+					return {
+						name,
+						changeName,
+						count,
+					};
+				},
+			};
+			var app = Vue.createApp({
+				components: {
+					child: child,
+				},
+				data() {
+					return {
+						counter: {
+							dog: 0,
+							cat: 0,
+						},
+						items: ["a", "b", "c"],
+						title: "Spotify",
+					};
+				},
+				methods: {
+					addCount(name) {
+						this.counter[name] = "123";
+						this.items[1] = "xxx";
+					},
+					parentChange(value) {
+						this.title = value;
+						console.log(value);
+					},
+				},
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

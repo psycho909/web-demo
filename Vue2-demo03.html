@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box box1" name="box" title="box1" ref="box1" v-if="check">A</div>
+			<div class="box box2" name="box" title="box2" ref="box1" v-if="check">A</div>
+			<div class="box box3" name="box" title="box3" ref="box1" v-if="check">A</div>
+			<div class="box box4" name="box" title="box4" ref="box1" v-if="check">A</div>
+			<div class="box box5" name="box" title="box5" ref="box1" v-if="check">A</div>
+			<select v-model="name">
+				<option v-for="n in bookList" :value="n.key">{{n.name}}</option>
+			</select>
+			<p>{{name}}</p>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					count: 0,
+					name: "",
+					check: false,
+					bookList: [
+						{ name: "A", key: "13123123" },
+						{ name: "B", key: "42313" },
+						{ name: "C", key: "62411" },
+					],
+				},
+				created: function () {
+					var _this = this;
+					axios("https://5ace036923cb4e00148b83c9.mockapi.io/v1/Cat")
+						.then(function (data) {
+							_this.check = true;
+							console.log("promise");
+						})
+						.finally(function () {
+							var b = document.getElementsByName("box");
+							console.log(b);
+							setTimeout(function () {
+								console.log(_this.$refs.box1);
+							}, 0);
+						});
+				},
+				mounted: function () {
+					var _this = this;
+
+					console.log("mounted");
+				},
+				computed: {},
+				methods: {
+					getTitle: function (e) {
+						console.log(e.target.title);
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<a class="sec2-act2" href="javascript:;" v-if="Join1" @click="JoinHandler">我要報名1</a>
+			<a class="sec2-act3" href="javascript:;" v-else>報名已截止1</a>
+			<a class="sec2-act2" href="javascript:;" v-if="Join1" @click="JoinHandler">我要報名2</a>
+			<a class="sec2-act3" href="javascript:;" v-else>報名已截止2</a>
+			<button @click="increment">Add</button>
+			<p>{{count}}</p>
+			<p>{{count2}}</p>
+			<p>{{result()}}</p>
+			<p>{{output}}</p>
+			<button @click="count2++">Add2</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					Join1: false,
+					Join2: false,
+					count: 0,
+					count2: 0,
+				},
+				computed: {
+					output() {
+						console.log("output");
+						return this.count > 5 ? "大於5" : "小於5";
+					},
+				},
+				methods: {
+					JoinHandler() {
+						console.log(123);
+					},
+					increment() {
+						this.count += 1;
+					},
+					result() {
+						console.log("result");
+						return this.count > 5 ? "大於5" : "小於5";
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

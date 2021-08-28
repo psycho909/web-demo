@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-</head>
-<body>
-    <div id="app">
-        <div>Clicked {{clicks}}</div>
-        <div>Mouse {{mouse}}</div>
-        <super-button-template @mouseover="countMouse()" @click="countClicks()"></super-button-template>
-    </div>
-    <template id="super-button-template">
-        <button v-on="listeners">SUPER BUTTON</button>
-    </template>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>Clicked {{clicks}}</div>
+			<div>Mouse {{mouse}}</div>
+			<super-button-template @mouseover="countMouse()" @click="countClicks()"></super-button-template>
+		</div>
+		<template id="super-button-template">
+			<button v-on="listeners">SUPER BUTTON</button>
+		</template>
 
-    <script>
-        Vue.component("super-button-template",{
-            template:"#super-button-template",
-            computed:{
-                listeners(){
-                    return this.$listeners
-                }
-            }
-        })
-        new Vue({
-            el:"#app",
-            data:{
-                clicks:0,
-                mouse:0
-            },
-            methods:{
-                countClicks(){
-                    this.clicks++;
-                },
-                countMouse(){
-                    this.mouse++;
-                }
-            }
-        })
-    </script>
-</body>
+		<script>
+			Vue.component("super-button-template", {
+				template: "#super-button-template",
+				computed: {
+					listeners() {
+						console.log(this.$listeners);
+						return this.$listeners;
+					},
+				},
+			});
+			new Vue({
+				el: "#app",
+				data: {
+					clicks: 0,
+					mouse: 0,
+				},
+				methods: {
+					countClicks() {
+						this.clicks++;
+					},
+					countMouse() {
+						this.mouse++;
+					},
+				},
+			});
+		</script>
+	</body>
 </html>
