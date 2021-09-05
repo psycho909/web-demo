@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="./js/fabric.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			canvas {
+				border: 1px solid #000;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				position: relative;
+			}
+
+			input[type="file"] {
+				display: none;
+			}
+
+			img {
+				display: inline-block;
+				border: 1px solid #eaeaea;
+				height: 100px;
+				width: 100px;
+			}
+			#imgset {
+				display: inline-block;
+			}
+			[draggable] {
+				-moz-user-select: none;
+				-khtml-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				-khtml-user-drag: element;
+				-webkit-user-drag: element;
+				cursor: move;
+			}
+			.canvas-container {
+				display: inline-block;
+				vertical-align: top;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<canvas id="canvas" width="500" height="500" style="border: 1px solid #ccc"></canvas>
+			<div id="imgset">
+				<img id="defaultImg" src="https://www.pakutaso.com/shared/img/thumb/neko1869IMG_9074_TP_V.jpg" alt="" draggable />
+			</div>
+		</div>
+		<script>
+			var canvas = new fabric.Canvas("canvas");
+			var rect = new fabric.Rect({ width: 100, height: 50, fill: "green" });
+			let imgArr = [];
+			let movingImage;
+			let imgDragOffset = {
+				offsetX: 0,
+				offsetY: 0,
+			};
+			function saveImg(e) {
+				console.log(e);
+				if (e.target.tagName.toLowerCase() === "img") {
+					// 這邊先計算點擊圖片的何處，等滑鼠放開後要重新計算起始座標
+					imgDragOffset.offsetX = e.clientX - e.target.offsetLeft;
+					imgDragOffset.offsetY = e.clientY - e.target.offsetTop;
+					movingImage = e.target;
+				}
+			}
+			function dropImg(e) {
+				const { offsetX, offsetY } = e.e;
+				console.log(offsetX, offsetY);
+				console.log(imgDragOffset);
+				const image = new fabric.Image(movingImage, {
+					width: movingImage.naturalWidth,
+					height: movingImage.naturalHeight,
+					scaleX: 100 / movingImage.naturalWidth,
+					scaleY: 100 / movingImage.naturalHeight,
+					top: offsetY - imgDragOffset.offsetY,
+					left: offsetX - imgDragOffset.offsetX,
+				});
+				imgArr.push(image);
+				canvas.add(image);
+				imgArr[0].on("moved", function (e) {
+					console.log(e);
+				});
+			}
+			canvas.add(rect);
+			rect.on("dragover", function () {
+				console.log("selected a rectangle");
+			});
+
+			canvas.on("drop", dropImg);
+			document.getElementById("imgset").addEventListener("mousedown", saveImg);
+		</script>
+	</body>
+</html>

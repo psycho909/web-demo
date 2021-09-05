@@ -31,7 +31,7 @@
 			</cats>
 		</div>
 		<script>
-			isFunctionCalled = 1;
+			// isFunctionCalled = 1;
 			Vue.component("child", {
 				props: ["jobs"],
 				template: `
@@ -73,6 +73,7 @@
 							this.cat = data.data;
 						}, 2000);
 					});
+					console.log(this.$root);
 				},
 				computed: {
 					getCuTime2() {
