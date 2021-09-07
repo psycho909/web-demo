@@ -2,9 +2,10 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
 	mode: "development",
-	target: "web",
+	target: ["web", "es5"],
 	entry: {
 		index: "./src/js/index.js",
 	},
@@ -15,39 +16,21 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.scss$/i,
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							publicPath: "../",
-						},
-					},
-					{
-						loader: "css-loader",
-					},
-					{
-						loader: "postcss-loader",
-					},
-					{
-						loader: "sass-loader",
-					},
-				],
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: ["babel-loader"],
-			},
-			{
-				test: /\.html$/i,
-				loader: "html-loader",
+				test: /\.css$/i,
+				use: [MiniCssExtractPlugin.loader, "css-loader"],
 			},
 			{
 				test: /\.(png|jpg|gif|jpe?g|svg)$/,
 				type: "asset/resource",
 				generator: {
 					filename: "images/[name][ext]",
+				},
+			},
+			{
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: "babel-loader",
 				},
 			},
 		],
