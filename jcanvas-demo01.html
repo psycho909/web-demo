@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/21.0.1/min/jcanvas.min.js" integrity="sha512-pu2L+33GBCuTrTU3mNJphG2Hm2JKlLA01280LIiz29D40f/UFOU5dEVxVuW46p+HZeZhXvQsUxtVFxPabX9S9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#box {
+				width: 500px;
+				overflow: auto;
+				margin: 0 auto;
+				/* position: absolute;
+				top: 10px;
+				left: 10px; */
+			}
+			canvas {
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"><canvas id="canvas" width="600" height="300"></canvas></div>
+		<script>
+			// get references to the canvas and context
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+
+			// style the context
+			ctx.strokeStyle = "blue";
+			ctx.lineWidth = 3;
+
+			// calculate where the canvas is on the window
+			// (used to help calculate mouseX/mouseY)
+			var $canvas = $("#canvas");
+			var canvasOffset = $canvas.offset();
+			var offsetX = canvasOffset.left;
+			var offsetY = canvasOffset.top;
+			var scrollX = $canvas.scrollLeft();
+			var scrollY = $canvas.scrollTop();
+
+			// this flage is true when the user is dragging the mouse
+			var isDown = false;
+
+			// these vars will hold the starting mouse position
+			var startX;
+			var startY;
+
+			function handleMouseDown(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// save the starting x/y of the rectangle
+				// startX = parseInt(e.clientX - offsetX);
+				// startY = parseInt(e.clientY - offsetY);
+				startX = parseInt(e.offsetX);
+				startY = parseInt(e.offsetY);
+				console.log(e);
+				console.log(e.pageX, e.pageY);
+				// console.log(e.clientX, e.clientY);
+				// console.log(startX, startY);
+				// set a flag indicating the drag has begun
+				isDown = true;
+			}
+
+			function handleMouseUp(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// the drag is over, clear the dragging flag
+				isDown = false;
+			}
+
+			function handleMouseOut(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// the drag is over, clear the dragging flag
+				isDown = false;
+			}
+
+			function handleMouseMove(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// if we're not dragging, just return
+				if (!isDown) {
+					return;
+				}
+
+				// get the current mouse position
+				// mouseX = parseInt(e.offsetX - offsetX);
+				// mouseY = parseInt(e.offsetY - offsetY);
+				mouseX = parseInt(e.offsetX);
+				mouseY = parseInt(e.offsetY);
+				// Put your mousemove stuff here
+
+				// clear the canvas
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+				// calculate the rectangle width/height based
+				// on starting vs current mouse position
+				var width = mouseX - startX;
+				var height = mouseY - startY;
+
+				// draw a new rect from the start position
+				// to the current mouse position
+				ctx.strokeRect(startX, startY, width, height);
+			}
+
+			// listen for mouse events
+			$("#canvas").mousedown(function (e) {
+				handleMouseDown(e);
+			});
+			$("#canvas").mousemove(function (e) {
+				handleMouseMove(e);
+			});
+			$("#canvas").mouseup(function (e) {
+				handleMouseUp(e);
+			});
+			$("#canvas").mouseout(function (e) {
+				handleMouseOut(e);
+			});
+			// $("canvas").drawRect({
+			// 	layer: true,
+			// 	name: "red",
+			// 	strokeStyle: "#c33",
+			// 	strokeWidth: 4,
+			// 	x: 180,
+			// 	y: 180,
+			// 	width: 50,
+			// 	height: 30,
+			// });
+		</script>
+	</body>
+</html>

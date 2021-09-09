@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/21.0.1/min/jcanvas.min.js" integrity="sha512-pu2L+33GBCuTrTU3mNJphG2Hm2JKlLA01280LIiz29D40f/UFOU5dEVxVuW46p+HZeZhXvQsUxtVFxPabX9S9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#box {
+				width: 500px;
+				overflow: auto;
+				margin: 0 auto;
+			}
+			canvas {
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"><canvas id="canvas" width="600" height="300"></canvas></div>
+		<script>
+			var $canvas = $("#canvas");
+			var canvasOffset = $canvas.offset();
+			var startX;
+			var startY;
+			var offsetX = canvasOffset.left;
+			var offsetY = canvasOffset.top;
+			$.extend($.jCanvas.defaults, {
+				fromCenter: false,
+				inDegrees: false,
+			});
+			$("#canvas").mousedown(function (e) {
+				console.log("clientX", e.clientX);
+				console.log("offsetX", e.offsetX);
+				// startX = parseInt(e.clientX - offsetX);
+				// startY = parseInt(e.clientY - offsetY);
+				startX = parseInt(e.offsetX);
+				startY = parseInt(e.offsetY);
+				$("canvas").draw({
+					type: "rectangle",
+					fillStyle: "#c33",
+					x: startX,
+					y: startY,
+					width: 100,
+					height: 80,
+				});
+			});
+			// $("canvas").drawRect({
+			// 	layer: true,
+			// 	name: "red",
+			// 	strokeStyle: "#c33",
+			// 	strokeWidth: 4,
+			// 	x: 0,
+			// 	y: 0,
+			// 	width: 0,
+			// 	height: 0,
+			// 	mousedown: function (layer) {
+			// 		console.log(layer);
+			// 	},
+			// });
+		</script>
+	</body>
+</html>
