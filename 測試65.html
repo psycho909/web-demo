@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/cookie-bar/cookie-bar.js" id="cookie-bar" defer></script>
+		<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+		<script defer>
+			$(function () {
+				console.log("loading");
+				function maxZ() {
+					var eArr = document.getElementsByTagName("*");
+					var zArr = [];
+					for (var j = 0; j < eArr.length; j++) {
+						var cZ = document.defaultView.getComputedStyle(eArr[j]).zIndex;
+						cZ = parseInt(cZ, 10);
+						if (cZ > 0) zArr.push(cZ);
+					}
+					return zArr.length ? Math.max.apply(null, zArr) : 0;
+				}
+				console.time("sort");
+				console.log("123");
+				console.log(maxZ());
+				console.timeEnd("sort");
+			});
+		</script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			let promise = (rs) => {
+				return new Promise((resolve, reject) => {
+					return resolve(rs);
+				});
+			};
+			let func = async () => {
+				let p1 = await promise(123).then((data) => data);
+				return p1;
+			};
+			// func().then((data) => console.log(data));
+		</script>
+	</body>
+</html>

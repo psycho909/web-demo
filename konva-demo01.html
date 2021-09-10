@@ -65,6 +65,7 @@
 				fill: "black",
 			});
 			layer.add(text);
+
 			// create shape
 			var box = new Konva.Rect({
 				x: 50,
@@ -137,23 +138,34 @@
 				imageObj.src = document.getElementById(e.target).src;
 			}
 			var imageObj = new Image();
+			var card = new Konva.Image({
+				x: 200,
+				y: 50,
+				width: 100,
+				height: 100,
+				image: imageObj,
+			});
 			imageObj.onload = function () {
-				var yoda = new Konva.Image({
-					x: 50,
-					y: 50,
-					image: imageObj,
-					width: 106,
-					height: 118,
-					draggable: true,
-					id: "pant",
-					source: "./images/1234.png",
-				});
-
-				// add the shape to the layer
-				layer.add(yoda);
+				layer.add(card);
 			};
-
 			imageObj.src = "./images/1234.png";
+			// imageObj.onload = function () {
+			// 	var yoda = new Konva.Image({
+			// 		x: 50,
+			// 		y: 50,
+			// 		image: imageObj,
+			// 		width: 106,
+			// 		height: 118,
+			// 		draggable: true,
+			// 		id: "pant",
+			// 		source: "./images/1234.png",
+			// 	});
+
+			// 	// add the shape to the layer
+			// 	layer.add(yoda);
+			// };
+
+			// imageObj.src = "./images/1234.png";
 			document.querySelectorAll(".konvajs-content canvas")[1].addEventListener("dragover", function (ev) {
 				ev.preventDefault();
 			});
@@ -278,6 +290,8 @@
 					);
 					previousShape = undefined;
 				}
+				stage.x = 300;
+				stage.y = 300;
 			});
 			stage.on("dragend", function (e) {
 				if (trr) {

@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<p>{{postFontSize}}</p>
 			<input v-model="searchText" />
 			<custom-input v-model:title="searchText"></custom-input>
 		</div>
@@ -19,6 +20,11 @@
 						postFontSize: 1,
 						searchText: "",
 					};
+				},
+				computed: {
+					formatData(value, format) {
+						return value + "213123";
+					},
 				},
 				computed: {},
 				methods: {},

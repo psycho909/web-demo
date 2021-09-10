@@ -7,7 +7,8 @@
 // 載入jQuery及loadingProgress.js
 // 在網頁結尾（或是jQuery dom ready的function內）執行loadingProgress()就會自動運作
 // 它有兩個function參數，一個是圖片/影片載入進度的function，另一個是結束時執行的function
-// 另外還有一個預設為false的detectVideo參數，改成true的話就會偵測影片
+// detectVideo參數（預設為false），改成true的話就會偵測影片
+// autoHide參數（預設為true），改成false的話就不會關閉loading畫面，要自已下$('.loadingProgress').fadeOut();
 // 其中載入進度的function可以pass一個參數，該參數會傳回目前載入的圖片/影片張數
 // 使用上述兩個function就可以自己做一個自訂的載入畫面，例如有進度條的載入畫面
 
@@ -22,55 +23,43 @@
 // 	loadedFN: function(){
 // 		console.log(100);
 // 	},
-// 	detectVideo: true
+// 	detectVideo: true,
+//	autoHide: false
 // });
 
 // 註：
 // 為避免未知錯誤，這個半透明的loading畫面預設在15秒後會自動消失，如果你有設置loadedFN也會在這時候執行
 
-var isFunctionCalled = 0;
-var head = document.getElementsByTagName("head")[0];
-
-
-var _link = document.createElement("link");
-_link.type = "text/css";
-_link.rel = "stylesheet";
-_link.href = "./js/loadingProgress.css";
-document.head.appendChild(_link);
-
-
 $(function () {
-	setTimeout(function () {
-		if (!isFunctionCalled) {
-			$(".loadingProgress").fadeOut();
-		}
-	});
+	$("body").append("<style>.loadingProgress{width:100%;height:100%;background:url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/images/loading/type1.gif) 50% 50% rgba(0,0,0,.75) no-repeat;position:fixed;left:0;top:0;z-index:2147483648;}</style>");
+	$("body").append('<div id="loadingProgress" class="loadingProgress" style="display:none;"></div>');
 });
 
 loadingProgress = function (arg) {
-	isFunctionCalled = 1;
-	var theArg = arg || null;
-	var body = document.getElementsByTagName("body")[0];
 	$(function () {
-		if (navigator.appVersion.indexOf("MSIE 9.") != -1) {
-			body.insertAdjacentHTML("afterbegin", '<div id="loadingProgress" class="loadingProgress"></div>');
-		} else {
-			body.insertAdjacentHTML("beforeend", '<div id="loadingProgress" class="loadingProgress loadingio-spinner-spinner-vtomc4kx3wi"><div class="ldio-x8u79v579re"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>');
+		if ($("#loadingProgress").css("display") == "none") {
+			$("#loadingProgress").css({ display: "block" });
 		}
+
 		var urlList = [];
 		var assetList = [];
 		var count = 0;
 		var flag = true;
-		/* if(theArg !== null){
-			detectVideo = theArg.detectVideo
-		}else{
-			detectVideo = false;
-		} */
+		var autoHide = true;
+		try {
+			arg.autoHide;
+			if (arg.autoHide !== undefined) autoHide = arg.autoHide;
+			if (Object.keys(arg).length === 0) {
+				autoHide = true;
+			}
+		} catch (e) {
+			autoHide = true;
+		}
 		try {
 			arg.detectVideo;
-			detectVideo = arg.detectVideo;
+			var detectVideo = arg.detectVideo;
 		} catch (e) {
-			detectVideo = false;
+			var detectVideo = false;
 		}
 		$("*").each(function () {
 			if ($(this).css("background-image") != "none" && $(this).css("background-image").indexOf(",") == -1) {
@@ -112,10 +101,6 @@ loadingProgress = function (arg) {
 		});
 		for (var i = 0; i < assetList.length; i++) {
 			$(assetList[i]).on("load loadeddata error", function () {
-				//current asset count
-				/* if(theArg !== null){
-					theArg.countFN(count, assetList.length);
-				} */
 				try {
 					arg.countFN(count, assetList.length);
 				} catch (e) {}
@@ -123,10 +108,7 @@ loadingProgress = function (arg) {
 				if (count == i) {
 					//all assets loaded
 					if (flag) {
-						$(".loadingProgress").fadeOut();
-						/* if(theArg !== null){
-							theArg.loadedFN();
-						} */
+						if (autoHide) $(".loadingProgress").fadeOut();
 						try {
 							arg.loadedFN();
 						} catch (e) {}
@@ -138,8 +120,7 @@ loadingProgress = function (arg) {
 		//in case something goes wrong
 		setTimeout(function () {
 			if (flag) {
-				$(".loadingProgress").fadeOut();
-				/* theArg.loadedFN(); */
+				if (autoHide) $(".loadingProgress").fadeOut();
 				try {
 					arg.loadedFN();
 				} catch (e) {}
@@ -148,3 +129,14 @@ loadingProgress = function (arg) {
 		}, 15000);
 	});
 };
+
+function maxZ() {
+	var eArr = document.getElementsByTagName("*");
+	var zArr = [];
+	for (var j = 0; j < eArr.length; j++) {
+		var cZ = document.defaultView.getComputedStyle(eArr[j]).zIndex;
+		cZ = parseInt(cZ, 10);
+		if (cZ > 0) zArr.push(cZ);
+	}
+	return zArr.length ? Math.max.apply(null, zArr) : 1;
+}

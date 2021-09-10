@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{total}}</div>
+			<child :money="total" @update:change="moneyChange"></child>
+		</div>
+		<script>
+			var Child = {
+				props: ["money"],
+				template: `
+				<div class="child">
+					<div>{{money}}</div>
+					<button @click="moneyChange">Change</button>
+				</div>
+				`,
+				methods: {
+					moneyChange() {
+						this.$emit("update:change", 3);
+					},
+				},
+			};
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					child: Child,
+				},
+				data: {
+					total: 1000,
+				},
+				methods: {
+					moneyChange(money) {
+						this.total = this.total - money;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
