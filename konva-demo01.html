@@ -138,32 +138,22 @@
 				imageObj.src = document.getElementById(e.target).src;
 			}
 			var imageObj = new Image();
-			var card = new Konva.Image({
-				x: 200,
-				y: 50,
-				width: 100,
-				height: 100,
-				image: imageObj,
-			});
-			imageObj.onload = function () {
-				layer.add(card);
-			};
 			imageObj.src = "./images/1234.png";
-			// imageObj.onload = function () {
-			// 	var yoda = new Konva.Image({
-			// 		x: 50,
-			// 		y: 50,
-			// 		image: imageObj,
-			// 		width: 106,
-			// 		height: 118,
-			// 		draggable: true,
-			// 		id: "pant",
-			// 		source: "./images/1234.png",
-			// 	});
+			imageObj.onload = function () {
+				var yoda = new Konva.Image({
+					x: 50,
+					y: 50,
+					image: imageObj,
+					width: 106,
+					height: 118,
+					draggable: true,
+					id: "pant",
+					source: "./images/1234.png",
+				});
 
-			// 	// add the shape to the layer
-			// 	layer.add(yoda);
-			// };
+				// add the shape to the layer
+				layer.add(yoda);
+			};
 
 			// imageObj.src = "./images/1234.png";
 			document.querySelectorAll(".konvajs-content canvas")[1].addEventListener("dragover", function (ev) {
@@ -197,7 +187,6 @@
 			var curSanp = false;
 			var curTouch = false;
 			stage.on("dragstart", function (e) {
-				console.log("dragstart");
 				if (trr) {
 					trr.destroy();
 				}
@@ -226,7 +215,6 @@
 				}
 			});
 			stage.on("dragmove", function (evt) {
-				console.log("dragmove");
 				if (trr) {
 					trr.destroy();
 				}
@@ -337,7 +325,7 @@
 
 			stage.on("dragover", function (e) {
 				text.text("dragover " + e.target.name());
-				// console.log(e.target.attrs.name);
+				console.log(e.target.attrs.id);
 			});
 
 			stage.on("drop", function (e) {
@@ -365,7 +353,7 @@
 			 * shape["blue"](100)
 			 */
 
-			//  layer.removeChildren() 清除畫面
+			// layer.removeChildren() 清除畫面
 			// layer.destroyChildren();
 
 			// var json = stage.toJSON();
