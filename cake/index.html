@@ -8,9 +8,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<script src="js/jquery.hammer.js"></script>
-		<script src="js/konva.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/konva/8.1.3/konva.min.js"></script>
 		<style>
 			body {
 				margin: 0;
@@ -44,16 +42,16 @@
 	<body>
 		<div id="container"></div>
 		<div class="deco-box">
-			<img id="banana1" class="img" src="./images/deco-banana1.png" alt="" draggable="true" />
-			<img id="bean" class="img" src="./images/deco-bean.png" alt="" draggable="true" />
-			<img id="bow" class="img" src="./images/deco-bow.png" alt="" draggable="true" />
+			<img id="banana1" class="img" src="./images/deco/banana1.png" alt="" draggable="true" />
+			<img id="bean" class="img" src="./images/deco/bean.png" alt="" draggable="true" />
+			<img id="bow" class="img" src="./images/deco/bow.png" alt="" draggable="true" />
 		</div>
 		<script>
 			var width = window.innerWidth > 768 ? 768 : window.innerWidth;
 			var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
 			var height = window.innerWidth > 768 ? 604 : 604 * scale;
 			// 預載load圖片
-			var imgs = ["./images/cream.png", "./images/cake-firework.png", "./images/cake-grid.png", "./images/cake-marble.png", "./images/cake-rock.png", "./images/cake-sea.png", "./images/cake-white.png", "./images/cake-wood1.png", "./images/cake-wood2.png", "./images/deco-banana1.png", "./images/deco-bean.png", "./images/deco-blue.png", "./images/deco-bow.png", "./images/deco-candle0.png", "./images/deco-candle1.png", "./images/deco-candle11.png", "./images/deco-red.png", "./images/deco-yellow.png", "./images/dish.png", "./images/remove-icon.png"];
+			var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
 			function preloadImage() {
 				imgs.forEach(function (src, i) {
 					var imgObj = new Image();
@@ -82,7 +80,7 @@
 			// 垃圾桶
 			function removeIcon() {
 				var imageObj1 = new Image();
-				imageObj1.src = "./images/remove-icon.png";
+				imageObj1.src = "./images/static/remove-icon.png";
 				imageObj1.onload = function () {
 					var removeIcon = new Konva.Image({
 						x: width - 8 * scale - this.width * scale,
@@ -92,7 +90,7 @@
 						name: "remove",
 						id: "remove",
 						zIndex: 2,
-						src: "./images/remove-icon.png",
+						src: "./images/static/remove-icon.png",
 					});
 					layer.add(removeIcon);
 					removeIcon.image(imageObj1);
@@ -122,14 +120,14 @@
 					name: "dish",
 					id: "dish",
 					zIndex: 2,
-					src: "./images/dish.png",
+					src: "./images/static/dish.png",
 				});
 				cakeGroup.add(dish);
 				var imageObj1 = new Image();
 				imageObj1.onload = function () {
 					dish.image(imageObj1);
 				};
-				imageObj1.src = "./images/dish.png";
+				imageObj1.src = "./images/static/dish.png";
 			}
 			// 奶油層
 			function cream() {
@@ -141,18 +139,18 @@
 					name: "cream rage",
 					id: "cream",
 					zIndex: 2,
-					src: "./images/cream.png",
+					src: "./images/static/cream.png",
 				});
 				cakeGroup.add(cream);
 				var imageObj1 = new Image();
 				imageObj1.onload = function () {
 					cream.image(imageObj1);
 				};
-				imageObj1.src = "./images/cream.png";
+				imageObj1.src = "./images/static/cream.png";
 			}
 
 			// 蛋糕底層
-			function cakeStyle(attrs = { RGB: [], src: "./images/cake-white.png", id: "cake-white" }) {
+			function cakeStyle(attrs = { RGB: [], src: "./images/cake/white.png", id: "white" }) {
 				var { RGB, src, id } = attrs;
 				if (stage.find(".cake")[0]) {
 					if (id == "cake-white") {
@@ -162,7 +160,7 @@
 						}
 					}
 					if (RGB) {
-						if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "cake-white") {
+						if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "white") {
 							filerImage(RGB);
 							return;
 						}
@@ -175,7 +173,7 @@
 					width: 475 * scale,
 					height: 235 * scale,
 					name: "cake range",
-					src: src || "./images/cake-white.png",
+					src: src || "./images/cake/white.png",
 					id: id || "cake-white",
 				});
 				dish();
@@ -184,10 +182,10 @@
 				imageObj1.onload = function () {
 					cake.image(imageObj1);
 				};
-				imageObj1.src = src || "./images/cake-white.png";
+				imageObj1.src = src || "./images/cake/white.png";
 				cream();
 				if (RGB) {
-					if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "cake-white") {
+					if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "white") {
 						setTimeout(() => {
 							filerImage(RGB);
 						}, 0);
@@ -256,6 +254,14 @@
 							centeredScaling: true,
 						});
 						layer.add(trr);
+						trr.on("transform", function (e) {
+							var width = e.target.width() * e.target.scaleX();
+							if (width > 200) {
+								trr.stopTransform();
+								var scaleX = 200 / e.target.width();
+								e.target.scaleX(scaleX);
+							}
+						});
 					}
 				} else {
 					if (trr) {
@@ -367,8 +373,8 @@
 				dragDeco = "";
 				// console.log("drop", e.target.attrs.id);
 			});
-			// decoImage({ id: "decoBlue1", src: "./images/deco-blue.png" });
-			// decoImage({ id: "decoBlue2", src: "./images/deco-blue.png" });
+			decoImage({ id: "blue1", src: "./images/deco/blue.png" });
+			// decoImage({ id: "blue2", src: "./images/deco/blue.png" });
 			// rect();
 			// cakeBlue();
 			// decoBlue();
@@ -429,6 +435,7 @@
 				ev.preventDefault();
 			});
 			document.querySelectorAll(".konvajs-content canvas")[1].addEventListener("drop", function (ev) {
+				console.log("drop");
 				ev.preventDefault();
 				var data = JSON.parse(ev.dataTransfer.getData("data"));
 				data.x = ev.offsetX - data.mouseX;
@@ -441,25 +448,24 @@
 					imgDragOffset.offsetX = e.clientX - e.offsetLeft;
 					imgDragOffset.offsetY = e.clientY - e.offsetTop;
 					movingImage = document.getElementById(e.target);
-					// dropImg(e);
 					decoImage(e);
 				}
 			}
 			if (isMobile.any) {
-				// var hammertime = new Hammer(document.getElementById("banana1"));
-				// hammertime.on("pan", function (ev) {
-				// 	console.log(ev);
-				// });
-				$(".img")
-					.hammer({ drag_max_touches: 0 })
-					.bind("pan drag", function (ev) {
-						var touches = ev.gesture.touches;
-						console.log(touches);
-					});
-				// $(".img").on("touchstart", function (ev) {
-				// 	console.log(1);
-				// 	// drag(ev);
-				// });
+				$(".img").on("touchstart", function (ev) {
+					// console.log("touchstart");
+					// drag(ev);
+				});
+				$(".img").on("touchmove", function (ev) {
+					// console.log("touchmove");
+					// drag(ev);
+				});
+				$(".img").on("touchend", function (ev) {
+					var e = ev.originalEvent;
+					// console.log("touchend", e.changedTouches[0].pageX);
+					// console.log("touchend", e.changedTouches[0]);
+					// drag(ev);
+				});
 			} else {
 				$(".img").on("dragstart", function (ev) {
 					drag(ev);
