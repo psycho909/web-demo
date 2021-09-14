@@ -51,9 +51,10 @@
 			<img data-id="bow" class="img" src="./images/deco/bow.png" alt="" draggable="true" />
 		</div>
 		<script>
-			var width = window.innerWidth > 768 ? 768 : window.innerWidth;
 			var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
-			var height = window.innerWidth > 768 ? 604 : 604 * scale;
+			var canvasWidth = window.innerWidth > 768 ? 768 : window.innerWidth;
+			var canvasHeight = window.innerWidth > 768 ? 604 : 604 * scale;
+
 			// 預載load圖片
 			var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
 			function preloadImage() {
@@ -66,11 +67,11 @@
 
 			var stage = new Konva.Stage({
 				container: "container",
-				width: width,
-				height: height,
+				width: canvasWidth,
+				height: canvasHeight,
 			});
 			var cakeGroup = new Konva.Group({
-				y: height - 369 * scale,
+				y: canvasHeight - 369 * scale,
 				name: "cakeGroup",
 				id: "cakeGroup",
 			});
@@ -87,8 +88,8 @@
 				imageObj1.src = "./images/static/remove-icon.png";
 				imageObj1.onload = function () {
 					var removeIcon = new Konva.Image({
-						x: width - 8 * scale - this.width * scale,
-						y: height - this.height * scale,
+						x: canvasWidth - 8 * scale - this.width * scale,
+						y: canvasHeight - this.height * scale,
 						width: this.width * scale,
 						height: this.height * scale,
 						name: "remove",
@@ -117,7 +118,7 @@
 			// 底盤
 			function dish() {
 				var dish = new Konva.Image({
-					x: width / 2 - (684 * scale) / 2,
+					x: canvasWidth / 2 - (684 * scale) / 2,
 					y: 100 * scale,
 					width: 684 * scale,
 					height: 231 * scale,
@@ -136,8 +137,8 @@
 			// 奶油層
 			function cream() {
 				var cream = new Konva.Image({
-					x: width / 2 - (515 * scale) / 2,
-					y: -30 * scale,
+					x: canvasWidth / 2 - (515 * scale) / 2,
+					y: -60 * scale,
 					width: 515 * scale,
 					height: 247 * scale,
 					name: "cream rage",
@@ -172,7 +173,7 @@
 					stage.find(".cake")[0].destroy();
 				}
 				var cake = new Konva.Image({
-					x: width / 2 - (475 * scale) / 2 + 2,
+					x: canvasWidth / 2 - (475 * scale) / 2 + 2,
 					y: 30 * scale,
 					width: 475 * scale,
 					height: 235 * scale,
@@ -206,17 +207,15 @@
 				shape["blue"](RGB[2]);
 			}
 			function decoImage(attrs) {
-				var { x, y, id, src, scaleX, scaleY, skewX, skewY, rotation, zIndex, src } = attrs;
+				var { x, y, id, width, height, src, scaleX, scaleY, skewX, skewY, rotation, zIndex, src } = attrs;
 				var imageObj1 = new Image();
 				imageObj1.src = src;
 				imageObj1.onload = function () {
-					var width = this.width;
-					var height = this.height;
 					var deco = new Konva.Image({
 						x: x || 0,
 						y: y || 0,
-						width: width,
-						height: height,
+						width: width || this.width * scale,
+						height: height || this.height * scale,
 						name: "deco range",
 						id: id,
 						draggable: true,
@@ -226,9 +225,20 @@
 						skewX: skewX || 0,
 						skewY: skewY || 0,
 						rotation: rotation || 0,
+						dragBoundFunc: function (pos) {
+							return {
+								x: Math.max(0, Math.min(canvasWidth - this.attrs.width, pos.x)),
+								y: Math.max(0, Math.min(canvasHeight - this.attrs.height, pos.y)),
+								// x: pos.x < 0 ? 0 : pos.x > (matrix.row - this.attrs.width / blockSize) * blockSize ? (matrix.row - this.attrs.width / blockSize) * blockSize : pos.x,
+								// y: pos.y < 0 ? 0 : pos.y > (matrix.col - this.attrs.height / blockSize) * blockSize ? (matrix.col - this.attrs.height / blockSize) * blockSize : pos.y,
+							};
+						},
 					});
 					layer.add(deco);
 					deco.image(imageObj1);
+					// deco.on("tap", function (evt) {
+					// 	console.log("tap", evt);
+					// });
 				};
 
 				if (zIndex) {
@@ -240,7 +250,7 @@
 			var previousShape;
 			var dragDeco;
 			var trr;
-			stage.on("tap", function (e) {
+			stage.on("click tap", function (e) {
 				if (e.target.attrs.name) {
 					if (!e.target.attrs.name.match("deco")) {
 						if (trr) {
@@ -259,12 +269,20 @@
 						});
 						layer.add(trr);
 						trr.on("transform", function (e) {
-							var width = e.target.width() * e.target.scaleX();
-							if (width > 200) {
+							if (e.target.scaleX() > 1.05 || e.target.scaleX() < 0.95) {
 								trr.stopTransform();
-								var scaleX = 200 / e.target.width();
-								e.target.scaleX(scaleX);
+								e.target.scaleX(e.target.scaleX());
 							}
+							if (e.target.scaleY() > 1.05 || e.target.scaleY() < 0.95) {
+								trr.stopTransform();
+								e.target.scaleX(e.target.scaleY());
+							}
+							// var width = e.target.width() * e.target.scaleX();
+							// if (width > 200) {
+							// 	trr.stopTransform();
+							// 	var scaleX = 200 / e.target.width();
+							// 	e.target.scaleX(scaleX);
+							// }
 						});
 					}
 				} else {
@@ -273,6 +291,7 @@
 					}
 				}
 			});
+
 			stage.on("dragstart", function (e) {
 				e.target.moveTo(tempLayer);
 				dragDeco = "";
@@ -339,8 +358,8 @@
 					);
 					previousShape = undefined;
 				}
-				stage.x = 300;
-				stage.y = 300;
+				// stage.x = 300;
+				// stage.y = 300;
 			});
 			stage.on("dragend", function (e) {
 				var pos = stage.getPointerPosition();
@@ -370,12 +389,12 @@
 			stage.on("dragover", function (e) {});
 
 			stage.on("drop", function (e) {
+				console.log(e.target.attrs);
 				if (e.target.attrs.id == "remove") {
 					// console.log(dragDeco);
 					removeDeco(dragDeco);
 				}
 				dragDeco = "";
-				// console.log("drop", e.target.attrs.id);
 			});
 			decoImage({ id: "blue1", src: "./images/deco/blue.png" });
 			// decoImage({ id: "blue2", src: "./images/deco/blue.png" });
@@ -429,32 +448,6 @@
 				console.log(data);
 			}
 
-			// 拖拉進去事件
-			let movingImage;
-			let imgDragOffset = {
-				offsetX: 0,
-				offsetY: 0,
-			};
-			document.querySelectorAll(".konvajs-content canvas")[1].addEventListener("dragover", function (ev) {
-				ev.preventDefault();
-			});
-			document.querySelectorAll(".konvajs-content canvas")[1].addEventListener("drop", function (ev) {
-				console.log("drop");
-				ev.preventDefault();
-				var data = JSON.parse(ev.dataTransfer.getData("data"));
-				data.x = ev.offsetX - data.mouseX;
-				data.y = ev.offsetY - data.mouseY;
-				saveImg(data);
-			});
-			function saveImg(e) {
-				if (document.getElementById(e.target).tagName.toLowerCase() === "img") {
-					// 這邊先計算點擊圖片的何處，等滑鼠放開後要重新計算起始座標
-					imgDragOffset.offsetX = e.clientX - e.offsetLeft;
-					imgDragOffset.offsetY = e.clientY - e.offsetTop;
-					movingImage = document.getElementById(e.target);
-					decoImage(e);
-				}
-			}
 			var touchImg;
 			if (isMobile.any) {
 				$(".img").on("touchstart", function (ev) {
@@ -476,8 +469,6 @@
 					document.getElementById("touchImg").style.top = e.changedTouches[0].clientY - e.target.height / 2 + "px";
 					document.getElementById("touchImg").style.opacity = 0;
 					document.getElementById("touchImg").remove();
-					// console.log("touchend", e.changedTouches[0].pageX);
-					// console.log("touchend", e.changedTouches[0]);
 					drag(e.changedTouches[0]);
 				});
 			} else {
@@ -487,25 +478,16 @@
 			}
 			window.addEventListener("touchstart", function (e) {});
 			function drag(ev) {
+				let r = Math.random().toString(36).substring(7);
 				var obj = {
-					target: ev.target.dataset.id,
-					clientX: ev.clientX,
-					clientY: ev.clientY,
-					mouseX: ev.offsetX,
-					mouseY: ev.offsetY,
-					offsetLeft: ev.target.offsetLeft,
-					offsetTop: ev.target.offsetTop,
+					x: ev.pageX - ev.target.width / 2,
+					y: ev.pageY - ev.target.height / 2,
 					src: ev.target.src,
-					id: ev.target.dataset.id,
+					id: ev.target.dataset.id + r,
+					width: ev.target.width,
+					height: ev.target.height,
 				};
-				// obj = JSON.stringify(obj);
-				console.log(obj);
-				console.log(ev);
-				// if (ev.dataTransfer) {
-				// 	ev.dataTransfer.setData("data", obj);
-				// } else {
-				// 	ev.originalEvent.dataTransfer.setData("data", obj);
-				// }
+				decoImage(obj);
 			}
 			// stage.find("#remove")[0].show()
 			// stage.find("#remove")[0].hide()

@@ -236,6 +236,13 @@
 					});
 					layer.add(deco);
 					deco.image(imageObj1);
+					// layer.getIntersection({x:x,y:y})
+					// var pos = stage.getPointerPosition();
+					// console.log(pos);
+					// stage.fire("touchstart");
+					if (x) {
+						console.log(layer.getIntersection({ x: x, y: y }));
+					}
 				};
 
 				if (zIndex) {
@@ -247,7 +254,7 @@
 			var previousShape;
 			var dragDeco;
 			var trr;
-			stage.on("tap", function (e) {
+			stage.on("click tap", function (e) {
 				if (e.target.attrs.name) {
 					if (!e.target.attrs.name.match("deco")) {
 						if (trr) {
@@ -266,12 +273,20 @@
 						});
 						layer.add(trr);
 						trr.on("transform", function (e) {
-							var width = e.target.width() * e.target.scaleX();
-							if (width > 200) {
+							if (e.target.scaleX() > 1.05 || e.target.scaleX() < 0.95) {
 								trr.stopTransform();
-								var scaleX = 200 / e.target.width();
-								e.target.scaleX(scaleX);
+								e.target.scaleX(e.target.scaleX());
 							}
+							if (e.target.scaleY() > 1.05 || e.target.scaleY() < 0.95) {
+								trr.stopTransform();
+								e.target.scaleX(e.target.scaleY());
+							}
+							// var width = e.target.width() * e.target.scaleX();
+							// if (width > 200) {
+							// 	trr.stopTransform();
+							// 	var scaleX = 200 / e.target.width();
+							// 	e.target.scaleX(scaleX);
+							// }
 						});
 					}
 				} else {
@@ -353,6 +368,7 @@
 			stage.on("dragend", function (e) {
 				var pos = stage.getPointerPosition();
 				var shape = layer.getIntersection(pos);
+				console.log(pos, shape);
 				if (shape) {
 					if (previousShape) {
 						previousShape.fire(
@@ -383,7 +399,6 @@
 					removeDeco(dragDeco);
 				}
 				dragDeco = "";
-				// console.log("drop", e.target.attrs.id);
 			});
 			decoImage({ id: "blue1", src: "./images/deco/blue.png" });
 			// decoImage({ id: "blue2", src: "./images/deco/blue.png" });
