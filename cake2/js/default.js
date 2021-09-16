@@ -4,127 +4,11 @@ var decoCount = 0;
 const MAX_SCALE = 1.25;
 const MIN_SCALE = 0.75;
 let bindWaring = false;
-let loading = {
-	show: $("#loadingProgress").show(),
-	hide: $("#loadingProgress").show(),
-};
-// 說明介紹
-if (false) {
-	$(".step-box").addClass("show");
-	$(".step").eq(step).addClass("show").siblings().removeClass("show");
-	$(".step-next").on("click", function () {
-		step += 1;
-		if (step > 2) {
-			$(".step-box").removeClass("show");
-			return;
-		}
-		$(".step").eq(step).addClass("show").siblings().removeClass("show");
-	});
-}
-
-// 選單切換
-$(".menu-toggle").on("click", function () {
-	$(".menu-list").toggle();
-});
-
-$(".menu-list__btn").on("click", function () {
-	var _event = $(this).attr("data-btn");
-	switch (_event) {
-		case "qa":
-			EventInfo();
-			break;
-		case "screenshot":
-			if (CheckDecoAll(3)) {
-				stage.find("#remove")[0].hide();
-				ScreenShot(getDataUrl(), "一二三四五");
-			} else {
-				CakeScreenError();
-			}
-			break;
-		case "reward":
-			if (FindDecoSize() == LIMIT) {
-				CakeMakeCheck();
-			} else {
-				CakeMakeError();
-			}
-			break;
-		case "save":
-			CakeSaveComplete();
-			// getAllData();
-			break;
-		case "reset":
-			CakeResetCheck();
-			break;
-	}
-	$(".menu-list").toggle();
-});
-// 滾動條樣式
-$(".decoration-content__cakes-box").mCustomScrollbar({
-	setLeft: 0,
-	axis: "x",
-	theme: "dark",
-	contentTouchScroll: true,
-	advanced: { extraDraggableSelectors: ".decoration-content__cakes-box" },
-});
-
-// 裝飾區切換
-$(".decoration-tab").on("click", function () {
-	var tab = $(this).attr("data-tab");
-	$(this).addClass("curr").siblings().removeClass("curr");
-	$(".decoration-content[data-content=" + tab + "]")
-		.addClass("curr")
-		.siblings()
-		.removeClass("curr");
-	if (tab == "cake") {
-		$(".decoration-content__cakes-box").mCustomScrollbar("destroy");
-		$(".decoration-content__cakes-box").mCustomScrollbar({
-			setLeft: 0,
-			axis: "x",
-			theme: "dark",
-			contentTouchScroll: true,
-			advanced: { extraDraggableSelectors: ".decoration-content__cakes-box" },
-		});
-	} else {
-		$(".decoration-content__decos-box").mCustomScrollbar("destroy");
-		$(".decoration-content__decos-box").mCustomScrollbar({
-			setLeft: 0,
-			axis: "x",
-			theme: "dark",
-			contentTouchScroll: true,
-			advanced: { extraDraggableSelectors: ".decoration-content__decos-box" },
-		});
-	}
-});
-
-// 蛋糕體
-$(".decoration-content__cake").on("click", function () {
-	var attrs = {};
-	var id = $(this).find("span").attr("data-id");
-	var rgb = $(this).find("span").attr("data-rgb");
-	var src = $(this).find("span").attr("data-src");
-	attrs.id = id;
-	if (rgb) {
-		attrs.RGB = JSON.parse(rgb);
-	}
-	attrs.src = src;
-	$(this).addClass("on");
-	$(".decoration-content__cake").not($(this)).removeClass("on");
-	cakeStyle(attrs);
-});
 
 // 蛋糕canvas
 var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
 var canvasWidth = window.innerWidth > 768 ? 768 : window.innerWidth;
 var canvasHeight = window.innerWidth > 768 ? 604 : 604 * scale;
-// 預載load圖片
-var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
-function preloadImage() {
-	imgs.forEach(function (src, i) {
-		var imgObj = new Image();
-		imgObj.src = src;
-	});
-}
-preloadImage();
 
 var stage = new Konva.Stage({
 	container: "container",
@@ -313,10 +197,16 @@ function decoImage(attrs) {
 
 		if (layer.getIntersection({ x: x + width / 2, y: y + height / 2 }).attrs.name.match("range")) {
 			stage.find("#" + id)[0].setAttr("d", "drop");
+			if (CheckBounding(id, stage.find(".cream")[0])) {
+				stage.find("#" + id)[0].setAttr("d", "drop");
+				stage.find("#" + id)[0].setAttr("trigger", "cream");
+				console.log("cream");
+				return true;
+			}
 			return;
 		}
 		if (!CheckDecoAllBind(id)) {
-			removeDeco(id);
+			// removeDeco(id);
 			DecoWarning();
 		}
 	};
@@ -332,7 +222,6 @@ var previousShape;
 var dragDecoId;
 var trr;
 stage.on("click tap", function (e) {
-	console.log(e.currentTarget.pointerPos);
 	if (e.target.attrs.name) {
 		if (!e.target.attrs.name.match("deco")) {
 			if (trr) {
@@ -482,7 +371,28 @@ stage.on("dragend", function (e) {
 		}
 	} else {
 		stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+		layer.children.forEach(function (deco) {
+			if (deco.attrs.trigger) {
+				if (deco.attrs.trigger.match(dragDecoId)) {
+					var temp = deco.attrs.trigger.replace(dragDecoId, "").trim();
+					deco.setAttr("trigger", temp);
+				}
+			}
+		});
+		var pre = stage.find("#" + dragDecoId)[0].attrs.pre;
+		pre = pre.split(" ");
+		for (var i = 0; i < pre.length; i++) {
+			for (var j = 0; j < layer.children.length; j++) {
+				if (!layer.children[j].attrs.id.match(pre[i])) {
+					continue;
+				}
+				var temp = layer.children[j].attrs.trigger.replace(dragDecoId, "").trim();
+				layer.children[j].setAttr("trigger", temp);
+			}
+		}
 		RemoveNoBounding(dragDecoId);
+
+		// RemoveNoBounding(pre);
 	}
 });
 
@@ -605,11 +515,18 @@ function CheckDecoAll(num) {
 	return false;
 }
 
-// 確認所有裝飾物有沒有相連
+// 確認所有裝飾物有沒有相連2
 function CheckDecoAllBind(id) {
 	if (CheckBounding(id, stage.find(".cream")[0])) {
 		stage.find("#" + id)[0].setAttr("d", "drop");
+		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		console.log("cream");
+		return true;
+	}
+	if (CheckBounding(id, stage.find(".cake")[0])) {
+		stage.find("#" + id)[0].setAttr("d", "drop");
+		stage.find("#" + id)[0].setAttr("trigger", "cream");
+		console.log("cake");
 		return true;
 	}
 	if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
@@ -625,15 +542,16 @@ function CheckDecoAllBind(id) {
 		var dd = _d.map((v) => CheckBounding(id, v)).filter(Boolean);
 		if (dd.length) {
 			var _setTrigger = "";
+			var _trigger = "";
 			dd.forEach(function (deco) {
-				var _trigger = deco.getAttr("trigger");
-				_setTrigger += deco.attrs.id;
+				_trigger = deco.getAttr("pre");
+				_setTrigger += " " + deco.attrs.id;
 				if (_trigger) {
-					deco.setAttr("trigger", _trigger + " " + id);
+					deco.setAttr("pre", _trigger + " " + id);
 				} else {
-					deco.setAttr("trigger", id);
+					deco.setAttr("pre", id);
 				}
-				GetStage("#" + id).setAttr("trigger", _setTrigger);
+				GetStage("#" + id).setAttr("trigger", _setTrigger.trim());
 			});
 			stage.find("#" + id)[0].setAttr("d", "drop");
 			return true;
@@ -719,23 +637,34 @@ function CheckBounding(id, target) {
 	var targetY = target.getAbsolutePosition().y;
 	var targetWidth = target.attrs.width;
 	var targetHeight = target.attrs.height;
-	if (elX + elWidth >= targetX && elX + elWidth < targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on1");
-			return target;
+
+	if (elX <= targetX) {
+		if (elX + elWidth >= targetX && elX + elWidth <= targetX + targetWidth) {
+			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+				console.log("on1");
+				return target;
+			}
+		}
+		if (elX + elWidth >= targetX && elX + elWidth >= targetX + targetWidth) {
+			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+				console.log("on2");
+				return target;
+			}
 		}
 	}
 
-	if (elX >= targetX && elX + elWidth <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on2");
-			return target;
+	if (elX >= targetX) {
+		if (elX <= targetX + targetWidth && elX + elWidth <= targetX + targetWidth) {
+			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+				console.log("on3");
+				return target;
+			}
 		}
-	}
-	if (elX >= targetX && elX <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on3");
-			return target;
+		if (elX <= targetX + targetWidth && elX + elWidth >= targetX + targetWidth) {
+			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+				console.log("on4");
+				return target;
+			}
 		}
 	}
 }
@@ -774,6 +703,44 @@ function RemoveSomeNoBounding(removeDecoId) {
 	}
 	CheckErrorBounding();
 	return false;
+}
+
+function RemoveNoBounding(pre) {
+	var deco = [];
+	if (pre.length) {
+		return;
+	}
+
+	for (var i = 0; i < pre.length; i++) {
+		for (var j = 0; j < layer.children.length; j++) {
+			if (!layer.children[j].attrs.id.match(pre[i])) {
+				continue;
+			}
+			layer.children[j].setAttr("trigger", temp);
+			deco.push(layer.children[j]);
+		}
+	}
+
+	deco.forEach(function (d) {
+		if (!d.attrs.trigger) {
+			setTimeout(() => {
+				var id = d.attrs.id;
+				var pre = stage.find("#" + id)[0].attrs.pre;
+				pre = pre.split(" ");
+				for (var i = 0; i < pre.length; i++) {
+					for (var j = 0; j < layer.children.length; j++) {
+						if (!layer.children[j].attrs.id.match(pre[i])) {
+							continue;
+						}
+						var temp = layer.children[j].attrs.trigger.replace(id, "").trim();
+						layer.children[j].setAttr("trigger", temp);
+					}
+				}
+				RemoveNoBounding(pre);
+				removeDeco(d.attrs.id);
+			}, 0);
+		}
+	});
 }
 
 function DrawPoint({ x = 0, y = 0 }) {

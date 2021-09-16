@@ -1,8 +1,13 @@
 var step = 0;
-const LIMIT = 10;
+const LIMIT = 30;
 var decoCount = 0;
-const MAX_SCALE = 1.5;
-const MIN_SCALE = 0.5;
+const MAX_SCALE = 1.25;
+const MIN_SCALE = 0.75;
+let bindWaring = false;
+let loading = {
+	show: $("#loadingProgress").show(),
+	hide: $("#loadingProgress").show(),
+};
 // 說明介紹
 if (false) {
 	$(".step-box").addClass("show");
@@ -29,15 +34,15 @@ $(".menu-list__btn").on("click", function () {
 			EventInfo();
 			break;
 		case "screenshot":
-			if (CheckDecoAll()) {
+			if (CheckDecoAll(3)) {
 				stage.find("#remove")[0].hide();
 				ScreenShot(getDataUrl(), "一二三四五");
 			} else {
-				DecoWarning();
+				CakeScreenError();
 			}
 			break;
 		case "reward":
-			if (decoCount == LIMIT) {
+			if (FindDecoSize() == LIMIT) {
 				CakeMakeCheck();
 			} else {
 				CakeMakeError();
@@ -267,8 +272,13 @@ function filerImage(RGB) {
 	shape["blue"](RGB[2]);
 }
 function decoImage(attrs) {
-	var create = true;
 	var { x, y, id, width, height, src, scaleX, scaleY, skewX, skewY, rotation, zIndex, src } = attrs;
+	if (y - height / 2 > canvasHeight) {
+		return;
+	}
+	if (trr) {
+		trr.destroy();
+	}
 	var imageObj1 = new Image();
 	imageObj1.src = src;
 	imageObj1.onload = function () {
@@ -297,61 +307,18 @@ function decoImage(attrs) {
 		});
 		layer.add(deco);
 		deco.image(imageObj1);
-
-		// drop成功裝飾品限制數量-1
-		decoCount++;
+		decoCount = FindDecoSize();
 		// DrawPoint({ x: x + width / 2, y: y + height / 2 });
 		console.log(id);
-		console.log({ x: x, y: y });
 
 		if (layer.getIntersection({ x: x + width / 2, y: y + height / 2 }).attrs.name.match("range")) {
 			stage.find("#" + id)[0].setAttr("d", "drop");
-			console.log("on1");
 			return;
 		}
-		if (CheckBounding(id, stage.find(".cream")[0])) {
-			stage.find("#" + id)[0].setAttr("d", "drop");
+		if (!CheckDecoAllBind(id)) {
+			removeDeco(id);
+			DecoWarning();
 		}
-		// if (x + width >= creamX) {
-		// 	if (y + height >= creamY) {
-		// 		stage.find("#" + id)[0].setAttr("d", "drop");
-		// 		console.log("on1-1");
-		// 		return;
-		// 	}
-		// }
-		// if (x >= creamX && x + width <= creamX + creamWidth) {
-		// 	if (y + height >= creamY) {
-		// 		stage.find("#" + id)[0].setAttr("d", "drop");
-		// 		console.log("on2");
-		// 		return;
-		// 	}
-		// }
-		// if (x >= creamX && x <= creamX + creamWidth) {
-		// 	if (y + height >= creamY) {
-		// 		stage.find("#" + id)[0].setAttr("d", "drop");
-		// 		console.log("on3");
-		// 		return;
-		// 	}
-		// }
-		if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
-			var d = layer.children.map((v) => {
-				if (v.attrs.name.match("deco")) {
-					return v;
-				}
-			});
-			var _d = d.slice(d.length - 1);
-			var dd = _d
-				.map((v) => CheckBounding(id, v))
-				.filter(Boolean)
-				.some((v) => v);
-			if (dd) {
-				stage.find("#" + id)[0].setAttr("d", "drop");
-				return;
-			}
-		}
-		removeDeco(id);
-		DecoWarning();
-		console.log("off");
 	};
 
 	if (zIndex) {
@@ -362,7 +329,7 @@ function decoImage(attrs) {
 cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" });
 
 var previousShape;
-var dragDeco;
+var dragDecoId;
 var trr;
 stage.on("click tap", function (e) {
 	console.log(e.currentTarget.pointerPos);
@@ -418,8 +385,9 @@ stage.on("click tap", function (e) {
 
 stage.on("dragstart", function (e) {
 	e.target.moveTo(tempLayer);
-	dragDeco = "";
-	dragDeco = e.target.attrs.id;
+	dragDecoId = "";
+	dragDecoId = e.target.attrs.id;
+	bindWaring = false;
 });
 stage.on("dragmove", function (evt) {
 	var pos = stage.getPointerPosition();
@@ -485,6 +453,7 @@ stage.on("dragmove", function (evt) {
 	// stage.x = 300;
 	// stage.y = 300;
 });
+
 stage.on("dragend", function (e) {
 	var pos = stage.getPointerPosition();
 	var shape = layer.getIntersection(pos);
@@ -504,29 +473,34 @@ stage.on("dragend", function (e) {
 	previousShape = undefined;
 	e.target.moveTo(layer);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
+
+	if (bindWaring) {
+		if (!CheckDecoAllBind(dragDecoId)) {
+			RemoveNoBounding(dragDecoId);
+			removeDeco(dragDecoId);
+			DecoWarning();
+		}
+	} else {
+		stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+		RemoveNoBounding(dragDecoId);
+	}
 });
 
 stage.on("drop", function (e) {
 	if (e.target.attrs.id == "remove") {
-		removeDeco(dragDeco);
+		removeDeco(dragDecoId);
 		return;
 	}
 	if (!e.target.attrs.name.match("range")) {
-		if (stage.find("#" + dragDeco)[0].getAttr("d")) {
-			stage.find("#" + dragDeco)[0].setAttr("d", "");
-		}
-		DecoWarning();
-		removeDeco(id);
-	} else {
-		stage.find("#" + dragDeco)[0].setAttr("d", "drop");
+		bindWaring = true;
+		return;
 	}
-	dragDeco = "";
 });
 
 // 裝試物拖曳事件
 var touchImg;
 $(".decoration-content__deco").on("touchstart", function (ev) {
-	if (decoCount >= LIMIT) {
+	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
 	}
@@ -538,7 +512,7 @@ $(".decoration-content__deco").on("touchstart", function (ev) {
 	$("body").append(touchImg);
 });
 $(".decoration-content__deco").on("touchmove", function (ev) {
-	if (decoCount >= LIMIT) {
+	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
 	}
@@ -548,7 +522,7 @@ $(".decoration-content__deco").on("touchmove", function (ev) {
 	document.getElementById("touchImg").style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
 });
 $(".decoration-content__deco").on("touchend", function (ev) {
-	if (decoCount >= LIMIT) {
+	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
 	}
@@ -581,7 +555,6 @@ function getDataUrl() {
 // 刪除單一
 function removeDeco(id) {
 	setTimeout(() => {
-		decoCount -= 1;
 		stage.find("#" + id)[0].destroy();
 	}, 0);
 }
@@ -618,7 +591,7 @@ function getAllData() {
 }
 
 // 確認所有裝飾物有沒有放在區域
-function CheckDecoAll() {
+function CheckDecoAll(num) {
 	var d = layer.children
 		.map((v) => {
 			if (v.attrs.name.match("deco")) {
@@ -626,10 +599,97 @@ function CheckDecoAll() {
 			}
 		})
 		.filter(Boolean);
-	if (d.length) {
+	if (d.length >= 3) {
 		return d.every((v) => v.d);
 	}
 	return false;
+}
+
+// 確認所有裝飾物有沒有相連
+function CheckDecoAllBind(id) {
+	if (CheckBounding(id, stage.find(".cream")[0])) {
+		stage.find("#" + id)[0].setAttr("d", "drop");
+		console.log("cream");
+		return true;
+	}
+	if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
+		console.log("children");
+		var d = layer.children
+			.map((v) => {
+				if (v.attrs.name.match("deco")) {
+					return v;
+				}
+			})
+			.filter(Boolean);
+		var _d = d.slice(0, d.length - 1);
+		var dd = _d.map((v) => CheckBounding(id, v)).filter(Boolean);
+		if (dd.length) {
+			var _setTrigger = "";
+			dd.forEach(function (deco) {
+				var _trigger = deco.getAttr("trigger");
+				_setTrigger += deco.attrs.id;
+				if (_trigger) {
+					deco.setAttr("trigger", _trigger + " " + id);
+				} else {
+					deco.setAttr("trigger", id);
+				}
+				GetStage("#" + id).setAttr("trigger", _setTrigger);
+			});
+			stage.find("#" + id)[0].setAttr("d", "drop");
+			return true;
+		}
+	}
+}
+
+// 移除沒有相連的裝飾品
+function RemoveNoBounding(id) {
+	var _trigger = layer.children.filter((f) => {
+		if (f.attrs.trigger) {
+			return f.attrs.trigger.match(id);
+		}
+	});
+	if (_trigger.length) {
+		var removeDecoId = [];
+		var NoBounding = _trigger
+			.map(function (t) {
+				if (!CheckBounding(id, t)) {
+					var _temp = t.getAttr("trigger");
+					var _replace = _temp.replace(id, "").trim();
+					t.setAttr("trigger", _replace);
+					return t;
+				}
+			})
+			.filter(Boolean);
+		NoBounding.forEach((v) => {
+			if (!CheckBounding(v.attrs.id, stage.find(".cream")[0])) {
+				removeDeco(v.attrs.id);
+				removeDecoId.push(v.attrs.id);
+			}
+		});
+		setTimeout(() => {
+			RemoveSomeNoBounding(removeDecoId);
+		}, 0);
+	}
+}
+
+function CheckErrorBounding() {
+	var d = layer.children
+		.map((v) => {
+			if (v.attrs.name.match("deco")) {
+				return v;
+			}
+		})
+		.filter(Boolean);
+	var _filter = d.filter((v) => {
+		if (!v.attrs.trigger) {
+			return v;
+		}
+	});
+	_filter.forEach((f) => {
+		if (!CheckBounding(f.attrs.id, stage.find(".cream")[0])) {
+			removeDeco(f.attrs.id);
+		}
+	});
 }
 
 // loading Data
@@ -644,6 +704,11 @@ function loadInit(data) {
 	});
 }
 
+// GetStage
+function GetStage(el) {
+	return stage.find(el)[0];
+}
+
 function CheckBounding(id, target) {
 	var el = stage.find("#" + id)[0];
 	var elX = el.getAbsolutePosition().x;
@@ -654,22 +719,61 @@ function CheckBounding(id, target) {
 	var targetY = target.getAbsolutePosition().y;
 	var targetWidth = target.attrs.width;
 	var targetHeight = target.attrs.height;
-
-	if (elX + elWidth >= targetX) {
-		if (elY + elHeight >= targetY) {
-			return true;
+	if (elX + elWidth >= targetX && elX + elWidth < targetX + targetWidth) {
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on1");
+			return target;
 		}
 	}
+
 	if (elX >= targetX && elX + elWidth <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY) {
-			return true;
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on2");
+			return target;
 		}
 	}
 	if (elX >= targetX && elX <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY) {
-			return true;
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on3");
+			return target;
 		}
 	}
+}
+
+function RemoveSomeNoBounding(removeDecoId) {
+	var removeDecoId = removeDecoId || [];
+	var removeDecoTemp = [];
+	var d = layer.children
+		.map((v) => {
+			if (v.attrs.name.match("deco")) {
+				return v;
+			}
+		})
+		.filter(Boolean);
+	for (var i = 0; i < removeDecoId.length; i++) {
+		for (var j = 0; j < d.length; j++) {
+			if (!d[j].attrs.trigger) {
+				continue;
+			}
+			if (d[j].attrs.trigger.match(removeDecoId[i])) {
+				removeDecoTemp.push(d[j]);
+			}
+		}
+	}
+	removeDecoId = [];
+	removeDecoTemp.forEach((r) => {
+		if (!CheckBounding(r.attrs.id, stage.find(".cream")[0])) {
+			removeDeco(r.attrs.id);
+			removeDecoId.push(r.attrs.id);
+		}
+	});
+	if (removeDecoId.length) {
+		setTimeout(() => {
+			RemoveSomeNoBounding(removeDecoId);
+		}, 0);
+	}
+	CheckErrorBounding();
+	return false;
 }
 
 function DrawPoint({ x = 0, y = 0 }) {
@@ -683,4 +787,6 @@ function DrawPoint({ x = 0, y = 0 }) {
 	layer.add(circle);
 }
 
-// loadInit();
+function FindDecoSize() {
+	return layer.children.filter((v) => v.attrs.name.match("deco")).length;
+}
