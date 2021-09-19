@@ -180,7 +180,7 @@ function CakeResetCheck() {
 				text: "確定",
 				class: "btn-success-pink",
 				click: function () {
-					reset();
+					Save($(".account-info").text(), {}, "reset");
 					$.gbox.close();
 				},
 			},
@@ -251,7 +251,7 @@ function CakeSaveComplete() {
 }
 
 // 已領取
-function RewardComplete() {
+function RewardComplete(date) {
 	var defaultObj = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -272,7 +272,7 @@ function RewardComplete() {
 	var text = `
         <div>
             <p>獎勵已於</p>
-			<p>10/10 10:10領取</p>
+			<p>${date}領取</p>
         </div>
     `;
 	$.gbox.open(text, defaultObj);
@@ -299,6 +299,7 @@ function CakeMakeCheck() {
 				text: "我要領",
 				class: "btn-confirm",
 				click: function () {
+					Exchange($(".account-info").text());
 					$.gbox.close();
 				},
 			},
@@ -363,7 +364,7 @@ function CakeMakeError() {
 }
 
 // 活動辦法1&2
-function EventInfo() {
+function EventInfo(type) {
 	var defaultObj = {
 		addClass: "default event-info",
 		hasCloseBtn: true,
@@ -378,23 +379,37 @@ function EventInfo() {
 		afterClose: function () {
 			$.gbox.close();
 		},
-		actionBtns: [
+	};
+	if (type == "account") {
+		defaultObj.actionBtns = [
+			{
+				text: "確定",
+				class: "btn-success-yellow",
+				click: function () {
+					GetAccount();
+				},
+			},
+		];
+	}
+	if (type == "qa") {
+		defaultObj.actionBtns = [
 			{
 				text: "裝飾教學",
 				class: "btn-guide",
 				click: function () {
 					$.gbox.close();
+					EventGuide();
 				},
 			},
 			{
 				text: "切換帳號",
 				class: "btn-change",
 				click: function () {
-					$.gbox.close();
+					GetAccount();
 				},
 			},
-		],
-	};
+		];
+	}
 	var text = `
         <div>
             <p>活動說明</p>
@@ -474,7 +489,7 @@ function JoinComplete() {
 }
 
 // 請選擇遊戲帳號
-function SelectAccount() {
+function SelectAccount(data) {
 	var defaultObj = {
 		addClass: "default select-account",
 		hasCloseBtn: false,
@@ -485,6 +500,9 @@ function SelectAccount() {
 				contentTouchScroll: true,
 				advanced: { extraDraggableSelectors: ".select-account__list-box" },
 			});
+			$(".menu-list__btn[data-btn=reward]").attr("data-reward", "none");
+			$(".account-info").attr("data-date", "");
+			$(".select-account__error").text("");
 		},
 		afterClose: function () {
 			$.gbox.close();
@@ -494,83 +512,57 @@ function SelectAccount() {
 				text: "活動說明",
 				class: "btn-info",
 				click: function () {
-					$.gbox.close();
+					EventInfo("account");
 				},
 			},
 			{
 				text: "下一步",
 				class: "btn-next",
 				click: function () {
+					if (!$(".select-account__radio:checked").val()) {
+						$(".select-account__error").text("請選擇參加活動的遊戲帳號");
+						return;
+					}
+					if ($(".select-account__radio:checked").parent().find(".select-account__reward-date").length) {
+						$(".menu-list__btn[data-btn=reward]").attr("data-reward", "complete");
+						$(".account-info").attr("data-date", $(".select-account__radio:checked").parent().find(".select-account__reward-date").text());
+					}
+					$(".select-account__error").text("");
+					SetAccount($(".select-account__radio:checked").val());
 					$.gbox.close();
 				},
 			},
 		],
 	};
+	var accountHTML = "";
+	data.forEach(function (j) {
+		accountHTML += `
+			<label for="${j.ServiceAccountID}" class="select-account__label">
+				<input id="${j.ServiceAccountID}" type="radio" class="select-account__radio" name="account" value="${j.ServiceAccountID}" />
+				<span class="select-account__style"></span>
+				<span class="select-account__text">${j.ServiceAccountDisplayName}</span>
+				${j.Date != "" && j.Date != null ? `<div class="select-account__reward"><span class="select-account__reward-date">${j.Date}</span><span>已領獎</span></div>` : ""}
+			</label>
+		`;
+	});
 	var text = `
         <div>
             <p>請選擇欲參與活動的遊戲帳號!</p>
 			<div class="select-account__list-box">
-				<label for="a" class="select-account__label">
-					<input id="a" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
-				<label for="b" class="select-account__label">
-					<input id="b" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
-				<label for="a" class="select-account__label">
-					<input id="a" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
-				<label for="b" class="select-account__label">
-					<input id="b" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
-				<label for="a" class="select-account__label">
-					<input id="a" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
-				<label for="b" class="select-account__label">
-					<input id="b" type="radio" class="select-account__radio" name="account" />
-					<span class="select-account__style"></span>
-					<span class="select-account__text">一二三四五六七八九十</span>
-					<div class="select-account__reward">
-						<span>10/10</span>
-						<span>已領獎</span>
-					</div>
-				</label>
+				${accountHTML}
 			</div>
+			<p class="color-red">*虛寶將會發送至選定的遊戲帳號內。</p>
+			<p class="select-account__error"></p>
         </div>
     `;
 	$.gbox.open(text, defaultObj);
 }
 // SelectAccount();
 function GboxError(text, msg) {
+	var msgHTML = "";
+	if (msg) {
+		msgHTML = `<p>${msg}</p>`;
+	}
 	var defaultObj = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -591,7 +583,7 @@ function GboxError(text, msg) {
 	var text = `
         <div>
             <p>${text}</p>
-			<p>${msg}</p>
+			${msgHTML}
         </div>
     `;
 	$.gbox.open(text, defaultObj);

@@ -212,6 +212,10 @@ button { background: none; border: none; color: inherit; font: inherit; outline:
 
 @media screen and (max-width: 768px) { .event-info__li { margin-bottom: 4.16667vw; } }
 
+.color-red { font-size: 3.90625vw; color: #d71e41; }
+
+.select-account__error { font-size: 3.90625vw; color: #d71e41; }
+
 .select-account__list-box { text-align: left; padding: 32px 0 32px 32px; overflow: hidden; margin-top: 43px; height: 568px; width: 100%; }
 
 @media screen and (max-width: 768px) { .select-account__list-box { height: 73.95833vw; padding: 4.16667vw 0vw 4.16667vw 4.16667vw; margin-top: 5.59896vw; } }
@@ -226,13 +230,15 @@ button { background: none; border: none; color: inherit; font: inherit; outline:
 
 .select-account__radio { display: none; }
 
-.select-account__style { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #814d23; margin-right: 26px; }
+.select-account__radio:checked + .select-account__style:before { content: ""; position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 2.21354vw; height: 2.21354vw; background-color: #814d23; border-radius: 50%; }
+
+.select-account__style { width: 34px; height: 34px; border-radius: 50%; border: 3px solid #814d23; margin-right: 26px; position: relative; }
 
 @media screen and (max-width: 768px) { .select-account__style { width: 4.42708vw; height: 4.42708vw; border: 0.39062vw solid #814d23; margin-right: 3.38542vw; } }
 
 .select-account__text { color: #814d23; margin-right: auto; }
 
-.select-account__reward { color: #634e38; }
+.select-account__reward { color: #634e38; text-align: center; }
 
 .select-account__reward span { display: block; }
 
@@ -254,7 +260,7 @@ body { background-color: #cecece; min-width: 768px; position: relative; }
 
 @media screen and (max-width: 768px) { #app { background-size: 100vw 173.69792vw; } }
 
-.step { width: 100%; height: 100%; position: absolute; top: 0; left: 0; visibility: hidden; }
+.step { width: 100%; height: 100%; position: absolute; top: 0; left: 0; visibility: hidden; background-size: cover; }
 
 .step-box { position: absolute; top: 0; left: 0; width: 768px; height: 1334px; background-size: 768px 1334px; display: none; }
 
@@ -300,11 +306,13 @@ body { background-color: #cecece; min-width: 768px; position: relative; }
 
 @media screen and (max-width: 768px) { .menu-list__btn[data-btn="screenshot"] { width: 9.89583vw; height: 6.90104vw; } }
 
-.menu-list__btn[data-btn="reward"] { width: 91px; height: 91px; background-image: url("../images/reward1-icon.png"); }
+.menu-list__btn[data-btn="reward"] { width: 91px; height: 91px; }
 
-.menu-list__btn[data-btn="reward"].complete { background-image: url("../images/reward2-icon.png"); }
+.menu-list__btn[data-btn="reward"][data-reward="none"] { background-image: url("../images/reward1-icon.png"); }
 
-.menu-list__btn[data-btn="reward"].get { background-image: url("../images/reward3-icon.png"); }
+.menu-list__btn[data-btn="reward"][data-reward="complete"] { background-image: url("../images/reward2-icon.png"); }
+
+.menu-list__btn[data-btn="reward"][data-reward="get"] { background-image: url("../images/reward3-icon.png"); }
 
 @media screen and (max-width: 768px) { .menu-list__btn[data-btn="reward"] { width: 11.84896vw; height: 11.84896vw; } }
 

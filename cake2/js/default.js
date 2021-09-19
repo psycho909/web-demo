@@ -1,14 +1,166 @@
-var step = 0;
 const LIMIT = 30;
 var decoCount = 0;
 const MAX_SCALE = 1.25;
 const MIN_SCALE = 0.75;
-let bindWaring = false;
+let dropTarget;
+let loading = {
+	show: function () {
+		$("#loadingProgress").show();
+	},
+	hide: function () {
+		$("#loadingProgress").hide();
+	},
+};
+// loadingProgress({
+// 	loadedFN: function () {
+// 		GetAccount();
+// 	},
+// 	autoHide: false,
+// });
+function createCookie(name, value, days) {
+	var expires = "";
+	var date = new Date();
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+		var expires = "; expires=" + date.toGMTString();
+	}
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(";");
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == " ") c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+function EventGuide() {
+	var step = 0;
+	$(".step-box").addClass("show");
+	$(".step").eq(step).addClass("show").siblings().removeClass("show");
+	$(".step-next").on("click", function () {
+		step += 1;
+		if (step > 2) {
+			$(".step-box").removeClass("show");
+			GuideEnd();
+			return;
+		}
+		$(".step").eq(step).addClass("show").siblings().removeClass("show");
+	});
+}
+// 說明介紹
+if (!readCookie("kr20211008")) {
+	EventGuide();
+	createCookie("kr20211008", 1);
+}
+
+// 選單切換
+$(".menu-toggle").on("click", function () {
+	$(".menu-list").toggle();
+});
+
+$(".menu-list__btn").on("click", function () {
+	var _event = $(this).attr("data-btn");
+	switch (_event) {
+		case "qa":
+			EventInfo();
+			break;
+		case "screenshot":
+			if (CheckDecoAll(3)) {
+				stage.find("#remove")[0].hide();
+				ScreenShot(getDataUrl(), "一二三四五");
+			} else {
+				CakeScreenError();
+			}
+			break;
+		case "reward":
+			if (FindDecoSize() == LIMIT) {
+				CakeMakeCheck();
+			} else {
+				CakeMakeError();
+			}
+			break;
+		case "save":
+			CakeSaveComplete();
+			// getAllData();
+			break;
+		case "reset":
+			CakeResetCheck();
+			break;
+	}
+	$(".menu-list").toggle();
+});
+// 滾動條樣式
+$(".decoration-content__cakes-box").mCustomScrollbar({
+	setLeft: 0,
+	axis: "x",
+	theme: "dark",
+	contentTouchScroll: true,
+	advanced: { extraDraggableSelectors: ".decoration-content__cakes-box" },
+});
+
+// 裝飾區切換
+$(".decoration-tab").on("click", function () {
+	var tab = $(this).attr("data-tab");
+	$(this).addClass("curr").siblings().removeClass("curr");
+	$(".decoration-content[data-content=" + tab + "]")
+		.addClass("curr")
+		.siblings()
+		.removeClass("curr");
+	if (tab == "cake") {
+		$(".decoration-content__cakes-box").mCustomScrollbar("destroy");
+		$(".decoration-content__cakes-box").mCustomScrollbar({
+			setLeft: 0,
+			axis: "x",
+			theme: "dark",
+			contentTouchScroll: true,
+			advanced: { extraDraggableSelectors: ".decoration-content__cakes-box" },
+		});
+	} else {
+		$(".decoration-content__decos-box").mCustomScrollbar("destroy");
+		$(".decoration-content__decos-box").mCustomScrollbar({
+			setLeft: 0,
+			axis: "x",
+			theme: "dark",
+			contentTouchScroll: true,
+			advanced: { extraDraggableSelectors: ".decoration-content__decos-box" },
+		});
+	}
+});
+
+// 蛋糕體
+$(".decoration-content__cake").on("click", function () {
+	var attrs = {};
+	var id = $(this).find("span").attr("data-id");
+	var rgb = $(this).find("span").attr("data-rgb");
+	var src = $(this).find("span").attr("data-src");
+	attrs.id = id;
+	if (rgb) {
+		attrs.RGB = JSON.parse(rgb);
+	}
+	attrs.src = src;
+	$(this).addClass("on");
+	$(".decoration-content__cake").not($(this)).removeClass("on");
+	cakeStyle(attrs);
+});
 
 // 蛋糕canvas
 var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
 var canvasWidth = window.innerWidth > 768 ? 768 : window.innerWidth;
 var canvasHeight = window.innerWidth > 768 ? 604 : 604 * scale;
+// 預載load圖片
+var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
+function preloadImage() {
+	imgs.forEach(function (src, i) {
+		var imgObj = new Image();
+		imgObj.src = src;
+	});
+}
+preloadImage();
 
 var stage = new Konva.Stage({
 	container: "container",
@@ -23,7 +175,7 @@ var cakeGroup = new Konva.Group({
 var layer = new Konva.Layer();
 var decoLayer = new Konva.Layer();
 
-rect();
+// rect();
 dish();
 // dish();
 layer.add(cakeGroup);
@@ -192,21 +344,9 @@ function decoImage(attrs) {
 		layer.add(deco);
 		deco.image(imageObj1);
 		decoCount = FindDecoSize();
-		// DrawPoint({ x: x + width / 2, y: y + height / 2 });
 		console.log(id);
-
-		if (layer.getIntersection({ x: x + width / 2, y: y + height / 2 }).attrs.name.match("range")) {
-			stage.find("#" + id)[0].setAttr("d", "drop");
-			if (CheckBounding(id, stage.find(".cream")[0])) {
-				stage.find("#" + id)[0].setAttr("d", "drop");
-				stage.find("#" + id)[0].setAttr("trigger", "cream");
-				console.log("cream");
-				return true;
-			}
-			return;
-		}
 		if (!CheckDecoAllBind(id)) {
-			// removeDeco(id);
+			removeDeco(id);
 			DecoWarning();
 		}
 	};
@@ -221,7 +361,7 @@ cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" })
 var previousShape;
 var dragDecoId;
 var trr;
-stage.on("click tap", function (e) {
+stage.on("tap", function (e) {
 	if (e.target.attrs.name) {
 		if (!e.target.attrs.name.match("deco")) {
 			if (trr) {
@@ -232,6 +372,7 @@ stage.on("click tap", function (e) {
 		if (trr) {
 			trr.destroy();
 		}
+		console.log(e.target.attrs.id);
 		var shape = stage.find("#" + e.target.attrs.id)[0];
 		if (shape) {
 			var tempWidth = e.target.attrs.tempWidth;
@@ -275,8 +416,8 @@ stage.on("click tap", function (e) {
 stage.on("dragstart", function (e) {
 	e.target.moveTo(tempLayer);
 	dragDecoId = "";
+	dropTarget = "";
 	dragDecoId = e.target.attrs.id;
-	bindWaring = false;
 });
 stage.on("dragmove", function (evt) {
 	var pos = stage.getPointerPosition();
@@ -339,8 +480,6 @@ stage.on("dragmove", function (evt) {
 		);
 		previousShape = undefined;
 	}
-	// stage.x = 300;
-	// stage.y = 300;
 });
 
 stage.on("dragend", function (e) {
@@ -362,49 +501,27 @@ stage.on("dragend", function (e) {
 	previousShape = undefined;
 	e.target.moveTo(layer);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
-
-	if (bindWaring) {
-		if (!CheckDecoAllBind(dragDecoId)) {
-			RemoveNoBounding(dragDecoId);
+	if (dropTarget) {
+		if (dropTarget.attrs.id == "remove") {
 			removeDeco(dragDecoId);
-			DecoWarning();
+			return;
 		}
-	} else {
-		stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
-		layer.children.forEach(function (deco) {
-			if (deco.attrs.trigger) {
-				if (deco.attrs.trigger.match(dragDecoId)) {
-					var temp = deco.attrs.trigger.replace(dragDecoId, "").trim();
-					deco.setAttr("trigger", temp);
-				}
-			}
-		});
-		var pre = stage.find("#" + dragDecoId)[0].attrs.pre;
-		pre = pre.split(" ");
-		for (var i = 0; i < pre.length; i++) {
-			for (var j = 0; j < layer.children.length; j++) {
-				if (!layer.children[j].attrs.id.match(pre[i])) {
-					continue;
-				}
-				var temp = layer.children[j].attrs.trigger.replace(dragDecoId, "").trim();
-				layer.children[j].setAttr("trigger", temp);
-			}
-		}
-		RemoveNoBounding(dragDecoId);
 
-		// RemoveNoBounding(pre);
+		if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
+			stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+			RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
+			return;
+		}
+	}
+	if (!CheckDecoAllBind(dragDecoId)) {
+		removeDeco(dragDecoId);
+		DecoWarning();
+		return;
 	}
 });
 
 stage.on("drop", function (e) {
-	if (e.target.attrs.id == "remove") {
-		removeDeco(dragDecoId);
-		return;
-	}
-	if (!e.target.attrs.name.match("range")) {
-		bindWaring = true;
-		return;
-	}
+	dropTarget = e.target;
 });
 
 // 裝試物拖曳事件
@@ -413,6 +530,9 @@ $(".decoration-content__deco").on("touchstart", function (ev) {
 	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
+	}
+	if (trr) {
+		trr.destroy();
 	}
 	var e = ev.originalEvent;
 	touchImg = $(e.target).clone();
@@ -425,6 +545,9 @@ $(".decoration-content__deco").on("touchmove", function (ev) {
 	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
+	}
+	if (trr) {
+		trr.destroy();
 	}
 	ev.preventDefault();
 	var e = ev.originalEvent;
@@ -464,9 +587,13 @@ function getDataUrl() {
 
 // 刪除單一
 function removeDeco(id) {
-	setTimeout(() => {
-		stage.find("#" + id)[0].destroy();
-	}, 0);
+	if (stage.find("#" + id)[0]) {
+		setTimeout(() => {
+			try {
+				stage.find("#" + id)[0].destroy();
+			} catch (e) {}
+		}, 0);
+	}
 }
 // 清除畫面
 function reset() {
@@ -515,15 +642,15 @@ function CheckDecoAll(num) {
 	return false;
 }
 
-// 確認所有裝飾物有沒有相連2
+// 確認所有裝飾物有沒有相連
 function CheckDecoAllBind(id) {
-	if (CheckBounding(id, stage.find(".cream")[0])) {
+	if (haveIntersection(id, stage.find(".cream")[0])) {
 		stage.find("#" + id)[0].setAttr("d", "drop");
 		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		console.log("cream");
 		return true;
 	}
-	if (CheckBounding(id, stage.find(".cake")[0])) {
+	if (haveIntersection(id, stage.find(".cake")[0])) {
 		stage.find("#" + id)[0].setAttr("d", "drop");
 		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		console.log("cake");
@@ -539,7 +666,7 @@ function CheckDecoAllBind(id) {
 			})
 			.filter(Boolean);
 		var _d = d.slice(0, d.length - 1);
-		var dd = _d.map((v) => CheckBounding(id, v)).filter(Boolean);
+		var dd = _d.map((v) => haveIntersection(id, v)).filter(Boolean);
 		if (dd.length) {
 			var _setTrigger = "";
 			var _trigger = "";
@@ -547,7 +674,11 @@ function CheckDecoAllBind(id) {
 				_trigger = deco.getAttr("pre");
 				_setTrigger += " " + deco.attrs.id;
 				if (_trigger) {
-					deco.setAttr("pre", _trigger + " " + id);
+					if (_trigger.match(id)) {
+						return;
+					} else {
+						deco.setAttr("pre", _trigger + " " + id);
+					}
 				} else {
 					deco.setAttr("pre", id);
 				}
@@ -559,38 +690,47 @@ function CheckDecoAllBind(id) {
 	}
 }
 
-// 移除沒有相連的裝飾品
-function RemoveNoBounding(id) {
-	var _trigger = layer.children.filter((f) => {
-		if (f.attrs.trigger) {
-			return f.attrs.trigger.match(id);
+// 移除未相連裝飾品
+function RemovePreBounding(pre) {
+	if (!pre) {
+		return;
+	}
+	var pres = pre.split(" ");
+	pres.forEach((p) => {
+		var target = stage.find("#" + p)[0];
+		if (!target) {
+			return;
 		}
-	});
-	if (_trigger.length) {
-		var removeDecoId = [];
-		var NoBounding = _trigger
-			.map(function (t) {
-				if (!CheckBounding(id, t)) {
-					var _temp = t.getAttr("trigger");
-					var _replace = _temp.replace(id, "").trim();
-					t.setAttr("trigger", _replace);
-					return t;
+		layer.children.forEach((f) => {
+			if (f.attrs.pre && f.attrs.pre.match(p)) {
+				var _f = f.getAttr("pre").replace(p, "").trim();
+				f.setAttr("pre", _f);
+			}
+		});
+		var _pre = target.attrs.p;
+		removeDeco(target.attrs.id);
+		if (_pre) {
+			setTimeout(() => {
+				RemovePreBounding(_pre);
+			}, 0);
+			return;
+		}
+		layer.children.forEach((f) => {
+			if (f.attrs.trigger && f.attrs.trigger.match("cream")) {
+				if (!haveIntersection(f.attrs.id, stage.find("#cream")[0])) {
+					removeDeco(f.attrs.id);
 				}
-			})
-			.filter(Boolean);
-		NoBounding.forEach((v) => {
-			if (!CheckBounding(v.attrs.id, stage.find(".cream")[0])) {
-				removeDeco(v.attrs.id);
-				removeDecoId.push(v.attrs.id);
 			}
 		});
 		setTimeout(() => {
-			RemoveSomeNoBounding(removeDecoId);
+			CheckErrorBounding();
 		}, 0);
-	}
+	});
 }
 
+// 確認剩餘沒被刪除的
 function CheckErrorBounding() {
+	console.log("CheckErrorBounding");
 	var d = layer.children
 		.map((v) => {
 			if (v.attrs.name.match("deco")) {
@@ -599,14 +739,20 @@ function CheckErrorBounding() {
 		})
 		.filter(Boolean);
 	var _filter = d.filter((v) => {
-		if (!v.attrs.trigger) {
+		if (v.attrs.trigger) {
 			return v;
 		}
 	});
 	_filter.forEach((f) => {
-		if (!CheckBounding(f.attrs.id, stage.find(".cream")[0])) {
-			removeDeco(f.attrs.id);
-		}
+		var _t = f.attrs.trigger.split(" ");
+		_t.forEach((t) => {
+			if (!stage.find("#" + t)[0]) {
+				if (f.attrs.pre) {
+					RemovePreBounding(f.attrs.pre);
+				}
+				removeDeco(f.attrs.id);
+			}
+		});
 	});
 }
 
@@ -627,133 +773,19 @@ function GetStage(el) {
 	return stage.find(el)[0];
 }
 
-function CheckBounding(id, target) {
-	var el = stage.find("#" + id)[0];
-	var elX = el.getAbsolutePosition().x;
-	var elY = el.getAbsolutePosition().y;
-	var elWidth = el.attrs.width;
-	var elHeight = el.attrs.height;
-	var targetX = target.getAbsolutePosition().x;
-	var targetY = target.getAbsolutePosition().y;
-	var targetWidth = target.attrs.width;
-	var targetHeight = target.attrs.height;
-
-	if (elX <= targetX) {
-		if (elX + elWidth >= targetX && elX + elWidth <= targetX + targetWidth) {
-			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-				console.log("on1");
-				return target;
-			}
-		}
-		if (elX + elWidth >= targetX && elX + elWidth >= targetX + targetWidth) {
-			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-				console.log("on2");
-				return target;
-			}
-		}
-	}
-
-	if (elX >= targetX) {
-		if (elX <= targetX + targetWidth && elX + elWidth <= targetX + targetWidth) {
-			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-				console.log("on3");
-				return target;
-			}
-		}
-		if (elX <= targetX + targetWidth && elX + elWidth >= targetX + targetWidth) {
-			if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-				console.log("on4");
-				return target;
-			}
-		}
-	}
-}
-
-function RemoveSomeNoBounding(removeDecoId) {
-	var removeDecoId = removeDecoId || [];
-	var removeDecoTemp = [];
-	var d = layer.children
-		.map((v) => {
-			if (v.attrs.name.match("deco")) {
-				return v;
-			}
-		})
-		.filter(Boolean);
-	for (var i = 0; i < removeDecoId.length; i++) {
-		for (var j = 0; j < d.length; j++) {
-			if (!d[j].attrs.trigger) {
-				continue;
-			}
-			if (d[j].attrs.trigger.match(removeDecoId[i])) {
-				removeDecoTemp.push(d[j]);
-			}
-		}
-	}
-	removeDecoId = [];
-	removeDecoTemp.forEach((r) => {
-		if (!CheckBounding(r.attrs.id, stage.find(".cream")[0])) {
-			removeDeco(r.attrs.id);
-			removeDecoId.push(r.attrs.id);
-		}
-	});
-	if (removeDecoId.length) {
-		setTimeout(() => {
-			RemoveSomeNoBounding(removeDecoId);
-		}, 0);
-	}
-	CheckErrorBounding();
-	return false;
-}
-
-function RemoveNoBounding(pre) {
-	var deco = [];
-	if (pre.length) {
-		return;
-	}
-
-	for (var i = 0; i < pre.length; i++) {
-		for (var j = 0; j < layer.children.length; j++) {
-			if (!layer.children[j].attrs.id.match(pre[i])) {
-				continue;
-			}
-			layer.children[j].setAttr("trigger", temp);
-			deco.push(layer.children[j]);
-		}
-	}
-
-	deco.forEach(function (d) {
-		if (!d.attrs.trigger) {
-			setTimeout(() => {
-				var id = d.attrs.id;
-				var pre = stage.find("#" + id)[0].attrs.pre;
-				pre = pre.split(" ");
-				for (var i = 0; i < pre.length; i++) {
-					for (var j = 0; j < layer.children.length; j++) {
-						if (!layer.children[j].attrs.id.match(pre[i])) {
-							continue;
-						}
-						var temp = layer.children[j].attrs.trigger.replace(id, "").trim();
-						layer.children[j].setAttr("trigger", temp);
-					}
-				}
-				RemoveNoBounding(pre);
-				removeDeco(d.attrs.id);
-			}, 0);
-		}
-	});
-}
-
-function DrawPoint({ x = 0, y = 0 }) {
-	var circle = new Konva.Circle({
-		x: x,
-		y: y,
-		radius: 5,
-		fill: "red",
-	});
-
-	layer.add(circle);
+// 判斷位置
+function haveIntersection(r1, r2) {
+	r1 = stage.find("#" + r1)[0];
+	r2 = r2;
+	var r1E = r1.getClientRect();
+	var r2E = r2.getClientRect();
+	return !(r2E.x > r1E.x + r1E.width || r2E.x + r2E.width < r1E.x || r2E.y > r1E.y + r1E.height || r2E.y + r2E.height < r1E.y) ? r2 : false;
 }
 
 function FindDecoSize() {
-	return layer.children.filter((v) => v.attrs.name.match("deco")).length;
+	return layer.children.filter((v) => {
+		if (v.attrs.name) {
+			return v.attrs.name.match("deco");
+		}
+	}).length;
 }
