@@ -2,41 +2,61 @@
 <html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/3.1.2/fullpage.min.css" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/3.1.2/fullpage.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
+			body {
+				overscroll-behavior-y: contain;
+			}
+			#wrapper {
+				/* touch-action: none; */
+			}
+			.section {
+				height: 1000px;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
-			<div class="box">
-				<img class="img" src="images/deco/strawberry.png" alt="" />
+		<!-- wrapper -->
+		<div id="wrapper" class="scrollable">
+			<!-- header -->
+			<div class="section active">
+				<h2>section1</h2>
+			</div>
+			<!-- news -->
+			<div class="section nav-hide">
+				<h2>section2</h2>
+			</div>
+			<!-- story -->
+			<div class="section nav-hide">
+				<h2>section3</h2>
+			</div>
+			<!-- hero -->
+			<div class="section nav-hide">
+				<h2>section4</h2>
+			</div>
+			<!-- feature -->
+			<div class="section nav-hide">
+				<h2>section5</h2>
+			</div>
+			<!-- footer -->
+			<div class="section no-effect fp-auto-height">
+				<h2>section6</h2>
 			</div>
 		</div>
 		<script>
-			document.querySelector(".img").addEventListener("mouseover", function () {
-				console.log(1);
+			var myFullpage = new fullpage("#wrapper", {
+				anchors: ["firstPage", "secondPage", "3rdPage", "4thpage", "5thpage"],
+				menu: "#menu",
+				fitToSection: false,
 			});
-
-			function A() {
-				if (true) {
-					console.log("on1");
-					return;
-				}
-				if (true) {
-					console.log("on2");
-					return;
-				}
-				console.log("off");
-			}
-
-			A();
 		</script>
 	</body>
 </html>
