@@ -3,97 +3,7 @@ var decoCount = 0;
 const MAX_SCALE = 1.25;
 const MIN_SCALE = 0.75;
 let dropTarget;
-let loading = {
-	show: function () {
-		$("#loadingProgress").show();
-	},
-	hide: function () {
-		$("#loadingProgress").hide();
-	},
-};
-// loadingProgress({
-// 	loadedFN: function () {
-// 		GetAccount();
-// 	},
-// 	autoHide: false,
-// });
-function createCookie(name, value, days) {
-	var expires = "";
-	var date = new Date();
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-		var expires = "; expires=" + date.toGMTString();
-	}
-	document.cookie = name + "=" + value + expires + "; path=/";
-}
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(";");
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == " ") c = c.substring(1, c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-	}
-	return null;
-}
 
-function EventGuide() {
-	var step = 0;
-	$(".step-box").addClass("show");
-	$(".step").eq(step).addClass("show").siblings().removeClass("show");
-	$(".step-next").on("click", function () {
-		step += 1;
-		if (step > 2) {
-			$(".step-box").removeClass("show");
-			GuideEnd();
-			return;
-		}
-		$(".step").eq(step).addClass("show").siblings().removeClass("show");
-	});
-}
-// 說明介紹
-if (!readCookie("kr20211008")) {
-	EventGuide();
-	createCookie("kr20211008", 1);
-}
-
-// 選單切換
-$(".menu-toggle").on("click", function () {
-	$(".menu-list").toggle();
-});
-
-$(".menu-list__btn").on("click", function () {
-	var _event = $(this).attr("data-btn");
-	switch (_event) {
-		case "qa":
-			EventInfo();
-			break;
-		case "screenshot":
-			if (CheckDecoAll(3)) {
-				stage.find("#remove")[0].hide();
-				ScreenShot(getDataUrl(), "一二三四五");
-			} else {
-				CakeScreenError();
-			}
-			break;
-		case "reward":
-			if (FindDecoSize() == LIMIT) {
-				CakeMakeCheck();
-			} else {
-				CakeMakeError();
-			}
-			break;
-		case "save":
-			CakeSaveComplete();
-			// getAllData();
-			break;
-		case "reset":
-			CakeResetCheck();
-			break;
-	}
-	$(".menu-list").toggle();
-});
 // 滾動條樣式
 $(".decoration-content__cakes-box").mCustomScrollbar({
 	setLeft: 0,
@@ -132,35 +42,10 @@ $(".decoration-tab").on("click", function () {
 	}
 });
 
-// 蛋糕體
-$(".decoration-content__cake").on("click", function () {
-	var attrs = {};
-	var id = $(this).find("span").attr("data-id");
-	var rgb = $(this).find("span").attr("data-rgb");
-	var src = $(this).find("span").attr("data-src");
-	attrs.id = id;
-	if (rgb) {
-		attrs.RGB = JSON.parse(rgb);
-	}
-	attrs.src = src;
-	$(this).addClass("on");
-	$(".decoration-content__cake").not($(this)).removeClass("on");
-	cakeStyle(attrs);
-});
-
 // 蛋糕canvas
 var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
 var canvasWidth = window.innerWidth > 768 ? 768 : window.innerWidth;
 var canvasHeight = window.innerWidth > 768 ? 604 : 604 * scale;
-// 預載load圖片
-var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
-function preloadImage() {
-	imgs.forEach(function (src, i) {
-		var imgObj = new Image();
-		imgObj.src = src;
-	});
-}
-preloadImage();
 
 var stage = new Konva.Stage({
 	container: "container",
@@ -203,19 +88,6 @@ function removeIcon() {
 }
 
 removeIcon();
-// 一層透明背景
-function rect() {
-	var box = new Konva.Rect({
-		x: 0,
-		y: 0,
-		width: window.innerWidth > 768 ? 768 : window.innerWidth,
-		height: canvasHeight * scale,
-		id: "box",
-		name: "rect",
-	});
-	layer.add(box);
-}
-
 // 底盤
 function dish() {
 	var dish = new Konva.Image({
@@ -362,6 +234,7 @@ var previousShape;
 var dragDecoId;
 var trr;
 stage.on("tap", function (e) {
+	console.log(e.currentTarget.pointerPos);
 	if (e.target.attrs.name) {
 		if (!e.target.attrs.name.match("deco")) {
 			if (trr) {
@@ -523,7 +396,6 @@ stage.on("dragend", function (e) {
 stage.on("drop", function (e) {
 	dropTarget = e.target;
 });
-
 // 裝試物拖曳事件
 var touchImg;
 $(".decoration-content__deco").on("touchstart", function (ev) {
@@ -580,66 +452,15 @@ function drag(ev) {
 	decoImage(obj);
 }
 
-// 匯出base64
-function getDataUrl() {
-	return stage.toDataURL();
-}
-
 // 刪除單一
 function removeDeco(id) {
-	if (stage.find("#" + id)[0]) {
-		setTimeout(() => {
-			try {
-				stage.find("#" + id)[0].destroy();
-			} catch (e) {}
-		}, 0);
-	}
-}
-// 清除畫面
-function reset() {
-	decoCount = 0;
-	if (stage.find(".cake")[0]) {
-		cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" });
-	}
-	if (stage.find(".deco")) {
-		stage.find(".deco").forEach((d) => {
-			d.destroy();
-		});
-	}
-}
-
-// 獲取所有config
-function getAllData() {
-	var data = {
-		cake: {},
-		deco: [],
-	};
-	if (stage.find(".cake")[0]) {
-		data.cake.id = stage.find(".cake")[0].getAttr("id");
-		data.cake.src = stage.find(".cake")[0].getAttr("src");
-		data.cake.RGB = stage.find(".cake")[0].getAttr("RGB");
-	}
-	if (stage.find(".deco").length) {
-		stage.find(".deco").forEach((d) => {
-			data.deco.push(d.getAttrs());
-		});
-	}
-	return data;
-}
-
-// 確認所有裝飾物有沒有放在區域
-function CheckDecoAll(num) {
-	var d = layer.children
-		.map((v) => {
-			if (v.attrs.name.match("deco")) {
-				return v.attrs;
-			}
-		})
-		.filter(Boolean);
-	if (d.length >= 3) {
-		return d.every((v) => v.d);
-	}
-	return false;
+	// if (stage.find("#" + id)[0]) {
+	// 	setTimeout(() => {
+	// 		try {
+	// 			stage.find("#" + id)[0].destroy();
+	// 		} catch (e) {}
+	// 	}, 0);
+	// }
 }
 
 // 確認所有裝飾物有沒有相連
@@ -756,18 +577,6 @@ function CheckErrorBounding() {
 	});
 }
 
-// loading Data
-function loadInit(data) {
-	var data = '{"cake":{"id":"wood1","src":"./images/cake/wood1.png","RGB":[]},"deco":[{"x":280.6389510341813,"y":244.46318031252548,"width":87,"height":93,"tempWidth":87,"tempHeight":93,"name":"deco range","id":"face_9t46ma","draggable":true,"src":"./images/deco/face.png","scaleX":1.4662310589784215,"scaleY":1.4662310589784229,"skewX":-8.262764647907206e-16,"skewY":0,"rotation":-47.19340437347327,"image":{}},{"x":208.6859836160665,"y":247.81451361977273,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_60zz","draggable":true,"src":"./images/deco/bow.png","scaleX":1.0209874539599875,"scaleY":1.0209874539599848,"skewX":0,"skewY":0,"rotation":23.050665226659174,"image":{}},{"x":459.0768268738022,"y":317.54487033885744,"width":65,"height":89,"tempWidth":65,"tempHeight":89,"name":"deco range","id":"banana2_3rmzz","draggable":true,"src":"./images/deco/banana2.png","scaleX":0.7426016899274408,"scaleY":0.7426016899274407,"skewX":-3.1457078738749225e-18,"skewY":0,"rotation":-1.3795935102504215,"image":{}},{"x":538.5136042321675,"y":207.10466226490334,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_9ila2","draggable":true,"src":"./images/deco/bow.png","scaleX":1.020263384032566,"scaleY":1.0202633840325621,"skewX":1.0665608264610273e-16,"skewY":0,"rotation":49.459475276137326,"image":{}},{"x":158.0150895608072,"y":164.77173803339898,"width":64,"height":58,"tempWidth":64,"tempHeight":58,"name":"deco range","id":"bean_j680hb","draggable":true,"src":"./images/deco/bean.png","scaleX":1.592374590497202,"scaleY":1.592374590497202,"skewX":0,"skewY":0,"rotation":1.1912705406703274,"image":{}}]}';
-
-	var _data = JSON.parse(data);
-	console.log(_data);
-	cakeStyle(_data.cake);
-	_data.deco.forEach((deco) => {
-		decoImage(deco);
-	});
-}
-
 // GetStage
 function GetStage(el) {
 	return stage.find(el)[0];
@@ -788,4 +597,84 @@ function FindDecoSize() {
 			return v.attrs.name.match("deco");
 		}
 	}).length;
+}
+
+function DrawLine(id) {
+	const line = new Konva.Line({
+		stroke: "black",
+		id: id,
+	});
+	layer.add(line);
+}
+function getCenter(node) {
+	return {
+		x: node.x() + node.width() / 2,
+		y: node.y() + node.height() / 2,
+	};
+}
+function getRectangleBorderPoint(radians, size, sideOffset = 0) {
+	const width = size.width + sideOffset * 2;
+
+	const height = size.height + sideOffset * 2;
+
+	radians %= 2 * Math.PI;
+	if (radians < 0) {
+		radians += Math.PI * 2;
+	}
+
+	const phi = Math.atan(height / width);
+
+	let x, y;
+	if ((radians >= 2 * Math.PI - phi && radians <= 2 * Math.PI) || (radians >= 0 && radians <= phi)) {
+		x = width / 2;
+		y = Math.tan(radians) * x;
+	} else if (radians >= phi && radians <= Math.PI - phi) {
+		y = height / 2;
+		x = y / Math.tan(radians);
+	} else if (radians >= Math.PI - phi && radians <= Math.PI + phi) {
+		x = -width / 2;
+		y = Math.tan(radians) * x;
+	} else if (radians >= Math.PI + phi && radians <= 2 * Math.PI - phi) {
+		y = -height / 2;
+		x = y / Math.tan(radians);
+	}
+
+	return {
+		x: -Math.round(x),
+		y: Math.round(y),
+	};
+}
+function getPoints(r1, r2) {
+	const c1 = getCenter(r1);
+	const c2 = getCenter(r2);
+	console.log(c1, c2);
+	const dx = c1.x - c2.x;
+	const dy = c1.y - c2.y;
+	const angle = Math.atan2(-dy, dx);
+
+	const startOffset = getRectangleBorderPoint(angle + Math.PI, r1.size());
+	const endOffset = getRectangleBorderPoint(angle, r2.size());
+
+	const start = {
+		x: c1.x - startOffset.x,
+		y: c1.y - startOffset.y,
+	};
+
+	const end = {
+		x: c2.x - endOffset.x,
+		y: c2.y - endOffset.y,
+	};
+
+	return [start.x, start.y, end.x, end.y];
+}
+
+const line = new Konva.Line({
+	stroke: "black",
+	// id: id,
+});
+layer.add(line);
+function updateLine(n1, n2, lineId) {
+	// var line = stage.findOne("#" + lineId);
+	const points = getPoints(n1, n2);
+	line.points(points);
 }
