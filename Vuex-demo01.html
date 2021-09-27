@@ -1,90 +1,92 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/vuex"></script>
-</head>
-<body>
-    <div id="app">
-        <h2>{{welcome2}}</h2>
-        <h3>{{count}}</h3>
-        <input type="text" v-model="welcome">
-        <button @click="submitMessage">submit</button>
-        <button @click="pressed">Increment Counter</button>
-        <button @click="deincrement">Deincrement Counter</button>
-    </div>
-    <script>
-        const store=new Vuex.Store({
-            state:{
-                message:"Hello From Vuex",
-                count:0
-            },
-            mutations:{
-                INCREMENT(state,payload){
-                    state.count+=payload
-                },
-                DEINCREMENT(state,payload){
-                    state.count-=payload
-                },
-                changeMessage(state,payload){
-                    state.message=payload
-                }
-            },
-            actions:{
-                increment(state,payload){
-                    state.commit("INCREMENT",payload)
-                },
-                deincrement(state,payload){
-                    state.commit("DEINCREMENT",payload)
-                },
-                changeMessage({commit},payload){
-                    commit("changeMessage",payload)
-                }
-            },
-            getters:{
-                message(state){
-                    return state.message.toUpperCase()
-                },
-                counter(state){
-                    return state.count
-                }
-            }
-        })
-        new Vue({
-            el:"#app",
-            store:store,
-            data(){
-                return {
-                    welcome:"Hello World",
-                    welcome2:""
-                }
-            },
-            computed:{
-                ...Vuex.mapGetters(["message"]),
-                count(){
-                    return this.$store.getters.counter
-                }
-            },
-            methods:{
-                pressed(){
-                    this.$store.dispatch("increment",1)
-                },
-                deincrement(){
-                    store.dispatch("deincrement",1)
-                },
-                submitMessage(){
-                    store.dispatch("changeMessage",this.welcome)
-                }
-            },
-            watch:{
-                message(){
-                    this.welcome2=this.message;
-                }
-            }
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue"></script>
+		<script src="https://unpkg.com/vuex"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>{{welcome2}}</h2>
+			<h3>{{count}}</h3>
+			<input type="text" v-model="welcome" />
+			<button @click="submitMessage">submit</button>
+			<button @click="pressed">Increment Counter</button>
+			<button @click="deincrement">Deincrement Counter</button>
+		</div>
+		<script>
+			const store = new Vuex.Store({
+				state: {
+					message: "Hello From Vuex",
+					count: 0,
+				},
+				mutations: {
+					INCREMENT(state, payload) {
+						state.count += payload;
+					},
+					DEINCREMENT(state, payload) {
+						state.count -= payload;
+					},
+					changeMessage(state, payload) {
+						state.message = payload;
+					},
+				},
+				actions: {
+					increment(state, payload) {
+						state.commit("INCREMENT", payload);
+					},
+					deincrement(state, payload) {
+						state.commit("DEINCREMENT", payload);
+					},
+					changeMessage({ commit }, payload) {
+						commit("changeMessage", payload);
+					},
+				},
+				getters: {
+					message(state) {
+						return state.message.toUpperCase();
+					},
+					counter(state) {
+						return state.count;
+					},
+				},
+			});
+			new Vue({
+				el: "#app",
+				store: store,
+				data() {
+					return {
+						welcome: "Hello World",
+						welcome2: "",
+					};
+				},
+				computed: {
+					...Vuex.mapGetters(["message"]),
+					count() {
+						return this.$store.getters.counter;
+					},
+				},
+				methods: {
+					pressed() {
+						this.$store.dispatch("increment", 1);
+					},
+					deincrement() {
+						store.dispatch("deincrement", 1);
+					},
+					submitMessage() {
+						store.dispatch("changeMessage", this.welcome);
+					},
+				},
+				watch: {
+					message() {
+						this.welcome2 = this.message;
+					},
+				},
+			});
+		</script>
+	</body>
 </html>
