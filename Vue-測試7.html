@@ -14,9 +14,33 @@
 		<div id="app">
 			<p>{{num}}</p>
 			<child ref="child"></child>
+
 			<button @click="handleClick">click</button>
+			<child2 @update:aa="transfer">
+				<template #head>
+					<h2>Child2</h2>
+				</template>
+				<template #btn>
+					<button @click="handleClick2">按鈕</button>
+				</template>
+			</child2>
 		</div>
 		<script>
+			Vue.component("child2", {
+				props: ["fun"],
+				template: `
+					<div>
+						<slot name="head"></slot>
+						<slot name="btn"></slot>
+						<button @click="transfer">傳遞</button>
+					</div>
+				`,
+				methods: {
+					transfer() {
+						this.$emit("update:aa", "transfer aa");
+					},
+				},
+			});
 			Vue.component("child", {
 				template: `
                 <div>
@@ -59,7 +83,14 @@
 				},
 				methods: {
 					handleClick() {
+						console.log(this.$options);
 						this.$refs.child.changeNumber(this.num + 1);
+					},
+					handleClick2() {
+						console.log(2);
+					},
+					transfer(data) {
+						console.log(data);
 					},
 				},
 			});

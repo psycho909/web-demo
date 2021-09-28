@@ -21,6 +21,15 @@
 			.section {
 				height: 1000px;
 			}
+			.box {
+				color: blue;
+			}
+			.red {
+				color: red;
+			}
+			.p {
+				color: unset;
+			}
 		</style>
 	</head>
 	<body>
@@ -29,6 +38,10 @@
 			<!-- header -->
 			<div class="section active">
 				<h2>section1</h2>
+				<div class="box">
+					<p class="p">123</p>
+					<p class="p red">123</p>
+				</div>
 			</div>
 			<!-- news -->
 			<div class="section nav-hide">
@@ -52,11 +65,11 @@
 			</div>
 		</div>
 		<script>
-			var myFullpage = new fullpage("#wrapper", {
-				anchors: ["firstPage", "secondPage", "3rdPage", "4thpage", "5thpage"],
-				menu: "#menu",
-				fitToSection: false,
-			});
+			// var myFullpage = new fullpage("#wrapper", {
+			// 	anchors: ["firstPage", "secondPage", "3rdPage", "4thpage", "5thpage"],
+			// 	menu: "#menu",
+			// 	fitToSection: false,
+			// });
 		</script>
 	</body>
 </html>

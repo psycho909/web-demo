@@ -11,25 +11,26 @@
 	</head>
 	<body>
 		<div id="app">
+			<h2>{{message}}</h2>
 			<h2>{{welcome}}</h2>
 			<h2>{{welcome2}}</h2>
 			<h3>{{count}}</h3>
-			<h3>{{$store.state.count}}</h3>
+			<h3>{{$store.getters["b/counter"]}}</h3>
 			<input type="text" v-model="welcome" />
 			<button @click="submitMessage">submit</button>
 			<button @click="pressed">Increment Counter</button>
 			<button @click="deincrement">Deincrement Counter</button>
 		</div>
 		<script>
-			const store = new Vuex.Store({
+			var a = {
+				namespaced: true,
 				state: {
-					message: "Hello From Vuex",
+					message: "Hello From Vuex A",
 					count: 0,
 				},
 				mutations: {
 					INCREMENT(state, payload) {
 						state.count += payload;
-						store.commit("changeMessage", "HEEEEEE");
 					},
 					DEINCREMENT(state, payload) {
 						state.count -= payload;
@@ -40,6 +41,7 @@
 				},
 				actions: {
 					increment(state, payload) {
+						var { payload } = payload;
 						state.commit("INCREMENT", payload);
 					},
 					deincrement(state, payload) {
@@ -57,6 +59,50 @@
 						return state.count;
 					},
 				},
+			};
+			var b = {
+				namespaced: true,
+				state: {
+					message: "Hello From Vuex B",
+					count: 0,
+				},
+				mutations: {
+					INCREMENT(state, payload) {
+						state.count += payload;
+					},
+					DEINCREMENT(state, payload) {
+						state.count -= payload;
+					},
+					changeMessage(state, payload) {
+						state.message = payload;
+					},
+				},
+				actions: {
+					increment(state, payload) {
+						state.commit("INCREMENT", payload);
+					},
+					deincrement(state, payload) {
+						var { payload } = payload;
+						state.commit("DEINCREMENT", payload);
+					},
+					changeMessage({ commit }, payload) {
+						commit("changeMessage", payload);
+					},
+				},
+				getters: {
+					message(state) {
+						return state.message.toUpperCase();
+					},
+					counter(state) {
+						return state.count;
+					},
+				},
+			};
+			const store = new Vuex.Store({
+				modules: {
+					a: a,
+					b: b,
+				},
 			});
 			new Vue({
 				el: "#app",
@@ -68,17 +114,25 @@
 					};
 				},
 				computed: {
-					...Vuex.mapGetters(["message"]),
+					...Vuex.mapGetters({
+						message: ["a/message"],
+					}),
 					count() {
-						return this.$store.getters.counter;
+						return this.$store.getters["a/counter"];
 					},
 				},
 				methods: {
 					pressed() {
-						this.$store.dispatch("increment", 1);
+						this.$store.dispatch({
+							type: "a/increment",
+							payload: 1,
+						});
 					},
 					deincrement() {
-						store.dispatch("deincrement", 1);
+						store.dispatch({
+							type: "b/deincrement",
+							payload: 1,
+						});
 					},
 					submitMessage() {
 						store.dispatch("changeMessage", this.welcome);
