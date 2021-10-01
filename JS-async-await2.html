@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.br {
+				border: 6px solid #000;
+			}
+			.s_2 {
+				width: min-content;
+			}
+			.s_3 {
+				width: max-content;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="s_2 br">nemo suscipitarchitectodeserunt vero, eveniet soluta deleniti alias dolor illum praesentium ipsa minus</div>
+			<div class="s_3 br">nemo suscipitarchitectodeserunt vero, eveniet soluta deleniti alias dolor illum praesentium ipsa minus</div>
+		</div>
+		<script>
+			function GetAxios(api, time) {
+				return axios.get(api);
+			}
+			function GetAjax(api, time) {
+				return new Promise((resolve, reject) => {
+					$.ajax({
+						url: api,
+						success: function (data) {
+							setTimeout(() => {
+								resolve(data);
+							}, time);
+						},
+					});
+				});
+			}
+			async function checkLocation() {
+				const g1 = await GetAjax("https://jsonplaceholder.typicode.com/todos/1", 1000);
+				const g2 = await GetAjax("https://jsonplaceholder.typicode.com/todos/2", 5000);
+				return [g1, g2];
+			}
+
+			checkLocation().then((data) => {
+				console.log(data);
+			});
+
+			GetAjax("https://jsonplaceholder.typicode.com/todos/1", 1000).then((data) => {
+				if (data) {
+					console.log(data);
+					GetAjax("https://jsonplaceholder.typicode.com/todos/2", 5000).then((data2) => {
+						console.log(data2);
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

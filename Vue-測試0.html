@@ -6,12 +6,12 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/clipboard/clipboard.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<style>
 			#app {
-				height: 2000px;
 			}
 		</style>
 	</head>
@@ -23,8 +23,79 @@
 			<button @click="addCount('penguin')">addPenguin</button>
 			<p>dog {{ counter.dog }}, cat {{ counter.cat }}, penguin {{ counter.penguin }}</p>
 			<p>{{items}}</p>
+			<child></child>
 		</div>
+		<p id="shareLinkx" class="sdad">emawqeweqeil</p>
+		<button id="btn">按鈕</button>
 		<script>
+			$("#btn").on("click", function () {
+				copyShare();
+			});
+			function copyShare() {
+				var clipboard = new ClipboardJS("#btn", {
+					text: function (trigger) {
+						console.log(trigger);
+						return trigger;
+					},
+				});
+				clipboard.on("success", function (e) {
+					clipboard.destroy();
+				});
+				clipboard.on("error", function (e) {
+					console.error("Action:", e.action);
+					console.error("Trigger:", e.trigger);
+				});
+			}
+			Vue.component("child", {
+				props: {
+					callback: Function,
+				},
+				created() {
+					var _this = this;
+					$.ajax({
+						url: "https://randomuser.me/api/",
+						dataType: "json",
+						success: function (data) {
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+							_this.email = data.results[0].email;
+						},
+					});
+				},
+				mounted() {
+					var r = this.$refs.btns;
+					var r2 = this.$refs.email;
+					this.clipboard = new ClipboardJS(r, {
+						text: function (trigger) {
+							return r2.textContent;
+						},
+					});
+				},
+				data() {
+					return {
+						email: "",
+						clipboard: "",
+					};
+				},
+				template: `<div>
+						<h2>Child</h2>
+						<p ref="email">{{email}}</p>
+						<button @click="copyShare" ref="btns">按鈕</button>
+					</div>`,
+				methods: {
+					copyShare(e) {
+						var _this = this;
+						this.clipboard.on("success", function (e) {
+							_this.clipboard.destroy();
+						});
+					},
+				},
+			});
 			var vm = new Vue({
 				el: "#app",
 				data: {
@@ -35,6 +106,7 @@
 					},
 					items: ["a", "b", "c"],
 				},
+
 				methods: {
 					addCount(name) {
 						this.counter[name] = "123";

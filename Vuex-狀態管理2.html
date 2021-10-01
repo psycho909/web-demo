@@ -1,78 +1,169 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex"></script>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vuex"></script>
-</head>
+	<body>
+		<div id="app">
+			<div>
+				<!-- <input type="text" v-model="message" /> -->
+				<input type="text" :value="messages" @input="messages=$event.target.value" />
+				<div>{{message}}</div>
+				<button @click="getBreedsAndDog">Get Breeds and Dog</button>
+				<!-- <p>{{Object.keys(breeds.message).slice(0, 3).join(',')}}</p> -->
+				<p>{{dog}}</p>
+				<p>{{breeds}}</p>
+				<img :src="dog.message" />
+				<p>{{this.$store.state.open}}</p>
+				<button @click="handleChange('pop1')">pop1</button>
+				<button @click="handleChange('pop2')">pop2</button>
 
-<body>
-    <div id="app">
-        <div>
-            <button @click="getBreedsAndDog">Get Breeds and Dog</button>
-            <!-- <p>{{Object.keys(breeds.message).slice(0, 3).join(',')}}</p> -->
-            <p>{{dog}}</p>
-            <p>{{breeds}}</p>
-            <img :src="dog.message" />
-        </div>
-    </div>
+				<Gbox v-if="this.$store.state.open && type == 'pop1'">
+					<div>POPUP1</div>
+				</Gbox>
+				<Gbox v-if="this.$store.state.open && type == 'pop2'">
+					<div>
+						<div>POPUP2</div>
+						<template>
+							<child @click="msgInner">child</child>
+						</template>
+					</div>
+					<!-- <Btn @click.native="msg">按鈕</Btn> -->
+				</Gbox>
+				<Btn @click="msgInner">按鈕</Btn>
+			</div>
+		</div>
 
-    <script>
-        const store = new Vuex.Store({
-            state: {
-                dog: {},
-                breeds: {
-                    message: {}
-                }
-            },
-            getters: {
-                dog(state) {
-                    return state.dog
-                },
-                breeds(state) {
-                    return state.breeds
-                }
-            },
-            mutations: {
-                SET_DOG(state, payload) {
-                    state.dog = payload
-                },
-                SET_BREEDS(state, payload) {
-                    state.breeds = payload
-                }
-            },
-            actions: {
-                async getBreeds({ commit }) {
-                    const response = await fetch("https://dog.ceo/api/breeds/list/all");
-                    const breeds = await response.json();
-                    commit("SET_BREEDS", breeds);
-                },
-                async getDog({ commit }) {
-                    const response = await fetch("https://dog.ceo/api/breeds/image/random");
-                    const dog = await response.json();
-                    commit("SET_DOG", dog);
-                },
-                async getBreedsAndDog({ dispatch }) {
-                    await dispatch("getBreeds");
-                    await dispatch("getDog");
-                }
-            }
-        })
-
-        new Vue({
-            el: "#app",
-            store,
-            computed: {
-                ...Vuex.mapGetters(["breeds", "dog"])
-            },
-            methods: {
-                ...Vuex.mapActions(["getBreedsAndDog"])
-            }
-        })
-    </script>
-</body>
-
+		<script>
+			const store = new Vuex.Store({
+				state: {
+					dog: { name: "cdc" },
+					breeds: {
+						message: {},
+					},
+					open: true,
+					type: "",
+				},
+				getters: {
+					dog(state) {
+						return state.dog;
+					},
+					breeds(state) {
+						return state.breeds;
+					},
+				},
+				mutations: {
+					SET_DOG(state, payload) {
+						state.dog = payload;
+					},
+					SET_BREEDS(state, payload) {
+						state.breeds = payload;
+					},
+					SET_STATUS(state, payload) {
+						state.open = payload;
+					},
+				},
+				actions: {
+					async getBreeds({ commit }) {
+						const response = await fetch("https://dog.ceo/api/breeds/list/all");
+						const breeds = await response.json();
+						commit("SET_BREEDS", breeds);
+					},
+					async getDog({ commit }) {
+						const response = await fetch("https://dog.ceo/api/breeds/image/random");
+						const dog = await response.json();
+						commit("SET_DOG", dog);
+					},
+					async getBreedsAndDog({ dispatch }) {
+						await dispatch("getBreeds");
+						await dispatch("getDog");
+					},
+				},
+			});
+			Vue.component("Btn", {
+				props: {
+					fn: {
+						type: Function,
+					},
+				},
+				template: `
+					<button @click="emitClick">
+						<slot></slot>
+					</button>
+				`,
+				methods: {
+					emitClick() {
+						this.$emit("click", this.fn);
+					},
+				},
+			});
+			var child = {
+				template: `
+					<button @click="emitClick">
+						<slot></slot>
+					</button>
+				`,
+				methods: {
+					emitClick() {
+						this.$emit("click", this.fn);
+					},
+				},
+			};
+			Vue.component("Gbox", {
+				props: ["open"],
+				components: {
+					child,
+				},
+				template: `
+                    <div>
+                        <h2>Gbox</h2>
+                        <slot></slot>
+                    </div>
+                `,
+				methods: {
+					msgInner() {
+						console.log("MSG msgInner");
+					},
+				},
+			});
+			new Vue({
+				el: "#app",
+				store,
+				data: {
+					type: "pop2",
+					messages: "",
+				},
+				computed: {
+					...Vuex.mapGetters(["breeds", "dog"]),
+				},
+				watch: {
+					messages(newVal) {
+						console.log(newVal);
+					},
+				},
+				methods: {
+					...Vuex.mapActions(["getBreedsAndDog"]),
+					handleChange(type) {
+						this.type = type;
+						this.$store.commit("SET_STATUS", false);
+						this.$store.commit("SET_STATUS", true);
+					},
+					msg() {
+						console.log("MSG");
+					},
+					msgInner() {
+						console.log("msgInner");
+					},
+					handelChange() {
+						console.log(123);
+					},
+				},
+			});
+		</script>
+	</body>
 </html>
