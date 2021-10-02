@@ -1,9 +1,63 @@
+var step = 0;
 const LIMIT = 30;
 var decoCount = 0;
 const MAX_SCALE = 1.25;
 const MIN_SCALE = 0.75;
-let dropTarget;
+let bindWaring = false;
+let loading = {
+	show: $("#loadingProgress").show(),
+	hide: $("#loadingProgress").show(),
+};
+// 說明介紹
+if (false) {
+	$(".step-box").addClass("show");
+	$(".step").eq(step).addClass("show").siblings().removeClass("show");
+	$(".step-next").on("click", function () {
+		step += 1;
+		if (step > 2) {
+			$(".step-box").removeClass("show");
+			return;
+		}
+		$(".step").eq(step).addClass("show").siblings().removeClass("show");
+	});
+}
 
+// 選單切換
+$(".menu-toggle").on("click", function () {
+	$(".menu-list").toggle();
+});
+
+$(".menu-list__btn").on("click", function () {
+	var _event = $(this).attr("data-btn");
+	switch (_event) {
+		case "qa":
+			EventInfo();
+			break;
+		case "screenshot":
+			if (CheckDecoAll(3)) {
+				stage.find("#remove")[0].hide();
+				ScreenShot(getDataUrl(), "一二三四五");
+			} else {
+				CakeScreenError();
+			}
+			break;
+		case "reward":
+			if (FindDecoSize() == LIMIT) {
+				CakeMakeCheck();
+			} else {
+				CakeMakeError();
+			}
+			break;
+		case "save":
+			CakeSaveComplete();
+			// getAllData();
+			break;
+		case "reset":
+			CakeResetCheck();
+			break;
+	}
+	$(".menu-list").toggle();
+});
 // 滾動條樣式
 $(".decoration-content__cakes-box").mCustomScrollbar({
 	setLeft: 0,
@@ -42,10 +96,35 @@ $(".decoration-tab").on("click", function () {
 	}
 });
 
+// 蛋糕體
+$(".decoration-content__cake").on("click", function () {
+	var attrs = {};
+	var id = $(this).find("span").attr("data-id");
+	var rgb = $(this).find("span").attr("data-rgb");
+	var src = $(this).find("span").attr("data-src");
+	attrs.id = id;
+	if (rgb) {
+		attrs.RGB = JSON.parse(rgb);
+	}
+	attrs.src = src;
+	$(this).addClass("on");
+	$(".decoration-content__cake").not($(this)).removeClass("on");
+	cakeStyle(attrs);
+});
+
 // 蛋糕canvas
 var scale = window.innerWidth > 768 ? 1 : window.innerWidth / 768;
 var canvasWidth = window.innerWidth > 768 ? 768 : window.innerWidth;
 var canvasHeight = window.innerWidth > 768 ? 604 : 604 * scale;
+// 預載load圖片
+var imgs = ["./images/static/cream.png", "./images/cake/firework.png", "./images/cake/grid.png", "./images/cake/marble.png", "./images/cake/rock.png", "./images/cake/sea.png", "./images/cake/white.png", "./images/cake/wood1.png", "./images/cake/wood2.png", "./images/deco/banana1.png", "./images/deco/bean.png", "./images/deco/blue.png", "./images/deco/bow.png", "./images/deco/candle0.png", "./images/deco/candle1.png", "./images/deco/candle11.png", "./images/deco/red.png", "./images/deco/yellow.png", "./images/static/dish.png", "./images/static/remove-icon.png"];
+function preloadImage() {
+	imgs.forEach(function (src, i) {
+		var imgObj = new Image();
+		imgObj.src = src;
+	});
+}
+preloadImage();
 
 var stage = new Konva.Stage({
 	container: "container",
@@ -60,7 +139,7 @@ var cakeGroup = new Konva.Group({
 var layer = new Konva.Layer();
 var decoLayer = new Konva.Layer();
 
-// rect();
+rect();
 dish();
 // dish();
 layer.add(cakeGroup);
@@ -88,6 +167,19 @@ function removeIcon() {
 }
 
 removeIcon();
+// 一層透明背景
+function rect() {
+	var box = new Konva.Rect({
+		x: 0,
+		y: 0,
+		width: window.innerWidth > 768 ? 768 : window.innerWidth,
+		height: canvasHeight * scale,
+		id: "box",
+		name: "rect",
+	});
+	layer.add(box);
+}
+
 // 底盤
 function dish() {
 	var dish = new Konva.Image({
@@ -216,7 +308,13 @@ function decoImage(attrs) {
 		layer.add(deco);
 		deco.image(imageObj1);
 		decoCount = FindDecoSize();
+		// DrawPoint({ x: x + width / 2, y: y + height / 2 });
 		console.log(id);
+
+		if (layer.getIntersection({ x: x + width / 2, y: y + height / 2 }).attrs.name.match("range")) {
+			stage.find("#" + id)[0].setAttr("d", "drop");
+			return;
+		}
 		if (!CheckDecoAllBind(id)) {
 			removeDeco(id);
 			DecoWarning();
@@ -233,7 +331,7 @@ cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" })
 var previousShape;
 var dragDecoId;
 var trr;
-stage.on("tap", function (e) {
+stage.on("click tap", function (e) {
 	console.log(e.currentTarget.pointerPos);
 	if (e.target.attrs.name) {
 		if (!e.target.attrs.name.match("deco")) {
@@ -245,7 +343,6 @@ stage.on("tap", function (e) {
 		if (trr) {
 			trr.destroy();
 		}
-		console.log(e.target.attrs.id);
 		var shape = stage.find("#" + e.target.attrs.id)[0];
 		if (shape) {
 			var tempWidth = e.target.attrs.tempWidth;
@@ -289,8 +386,8 @@ stage.on("tap", function (e) {
 stage.on("dragstart", function (e) {
 	e.target.moveTo(tempLayer);
 	dragDecoId = "";
-	dropTarget = "";
 	dragDecoId = e.target.attrs.id;
+	bindWaring = false;
 });
 stage.on("dragmove", function (evt) {
 	var pos = stage.getPointerPosition();
@@ -353,6 +450,8 @@ stage.on("dragmove", function (evt) {
 		);
 		previousShape = undefined;
 	}
+	// stage.x = 300;
+	// stage.y = 300;
 });
 
 stage.on("dragend", function (e) {
@@ -374,37 +473,36 @@ stage.on("dragend", function (e) {
 	previousShape = undefined;
 	e.target.moveTo(layer);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
-	if (dropTarget) {
-		if (dropTarget.attrs.id == "remove") {
-			removeDeco(dragDecoId);
-			return;
-		}
 
-		if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
-			stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
-			RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
-			return;
+	if (bindWaring) {
+		if (!CheckDecoAllBind(dragDecoId)) {
+			RemoveNoBounding(dragDecoId);
+			removeDeco(dragDecoId);
+			DecoWarning();
 		}
-	}
-	if (!CheckDecoAllBind(dragDecoId)) {
-		removeDeco(dragDecoId);
-		DecoWarning();
-		return;
+	} else {
+		stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+		RemoveNoBounding(dragDecoId);
 	}
 });
 
 stage.on("drop", function (e) {
-	dropTarget = e.target;
+	if (e.target.attrs.id == "remove") {
+		removeDeco(dragDecoId);
+		return;
+	}
+	if (!e.target.attrs.name.match("range")) {
+		bindWaring = true;
+		return;
+	}
 });
+
 // 裝試物拖曳事件
 var touchImg;
 $(".decoration-content__deco").on("touchstart", function (ev) {
 	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
-	}
-	if (trr) {
-		trr.destroy();
 	}
 	var e = ev.originalEvent;
 	touchImg = $(e.target).clone();
@@ -417,9 +515,6 @@ $(".decoration-content__deco").on("touchmove", function (ev) {
 	if (FindDecoSize() >= LIMIT) {
 		DecoLimitWarning();
 		return;
-	}
-	if (trr) {
-		trr.destroy();
 	}
 	ev.preventDefault();
 	var e = ev.originalEvent;
@@ -452,29 +547,69 @@ function drag(ev) {
 	decoImage(obj);
 }
 
+// 匯出base64
+function getDataUrl() {
+	return stage.toDataURL();
+}
+
 // 刪除單一
 function removeDeco(id) {
-	// if (stage.find("#" + id)[0]) {
-	// 	setTimeout(() => {
-	// 		try {
-	// 			stage.find("#" + id)[0].destroy();
-	// 		} catch (e) {}
-	// 	}, 0);
-	// }
+	setTimeout(() => {
+		stage.find("#" + id)[0].destroy();
+	}, 0);
+}
+// 清除畫面
+function reset() {
+	decoCount = 0;
+	if (stage.find(".cake")[0]) {
+		cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" });
+	}
+	if (stage.find(".deco")) {
+		stage.find(".deco").forEach((d) => {
+			d.destroy();
+		});
+	}
+}
+
+// 獲取所有config
+function getAllData() {
+	var data = {
+		cake: {},
+		deco: [],
+	};
+	if (stage.find(".cake")[0]) {
+		data.cake.id = stage.find(".cake")[0].getAttr("id");
+		data.cake.src = stage.find(".cake")[0].getAttr("src");
+		data.cake.RGB = stage.find(".cake")[0].getAttr("RGB");
+	}
+	if (stage.find(".deco").length) {
+		stage.find(".deco").forEach((d) => {
+			data.deco.push(d.getAttrs());
+		});
+	}
+	return data;
+}
+
+// 確認所有裝飾物有沒有放在區域
+function CheckDecoAll(num) {
+	var d = layer.children
+		.map((v) => {
+			if (v.attrs.name.match("deco")) {
+				return v.attrs;
+			}
+		})
+		.filter(Boolean);
+	if (d.length >= 3) {
+		return d.every((v) => v.d);
+	}
+	return false;
 }
 
 // 確認所有裝飾物有沒有相連
 function CheckDecoAllBind(id) {
-	if (haveIntersection(id, stage.find(".cream")[0])) {
+	if (CheckBounding(id, stage.find(".cream")[0])) {
 		stage.find("#" + id)[0].setAttr("d", "drop");
-		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		console.log("cream");
-		return true;
-	}
-	if (haveIntersection(id, stage.find(".cake")[0])) {
-		stage.find("#" + id)[0].setAttr("d", "drop");
-		stage.find("#" + id)[0].setAttr("trigger", "cream");
-		console.log("cake");
 		return true;
 	}
 	if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
@@ -487,23 +622,18 @@ function CheckDecoAllBind(id) {
 			})
 			.filter(Boolean);
 		var _d = d.slice(0, d.length - 1);
-		var dd = _d.map((v) => haveIntersection(id, v)).filter(Boolean);
+		var dd = _d.map((v) => CheckBounding(id, v)).filter(Boolean);
 		if (dd.length) {
 			var _setTrigger = "";
-			var _trigger = "";
 			dd.forEach(function (deco) {
-				_trigger = deco.getAttr("pre");
-				_setTrigger += " " + deco.attrs.id;
+				var _trigger = deco.getAttr("trigger");
+				_setTrigger += deco.attrs.id;
 				if (_trigger) {
-					if (_trigger.match(id)) {
-						return;
-					} else {
-						deco.setAttr("pre", _trigger + " " + id);
-					}
+					deco.setAttr("trigger", _trigger + " " + id);
 				} else {
-					deco.setAttr("pre", id);
+					deco.setAttr("trigger", id);
 				}
-				GetStage("#" + id).setAttr("trigger", _setTrigger.trim());
+				GetStage("#" + id).setAttr("trigger", _setTrigger);
 			});
 			stage.find("#" + id)[0].setAttr("d", "drop");
 			return true;
@@ -511,47 +641,38 @@ function CheckDecoAllBind(id) {
 	}
 }
 
-// 移除未相連裝飾品
-function RemovePreBounding(pre) {
-	if (!pre) {
-		return;
-	}
-	var pres = pre.split(" ");
-	pres.forEach((p) => {
-		var target = stage.find("#" + p)[0];
-		if (!target) {
-			return;
+// 移除沒有相連的裝飾品
+function RemoveNoBounding(id) {
+	var _trigger = layer.children.filter((f) => {
+		if (f.attrs.trigger) {
+			return f.attrs.trigger.match(id);
 		}
-		layer.children.forEach((f) => {
-			if (f.attrs.pre && f.attrs.pre.match(p)) {
-				var _f = f.getAttr("pre").replace(p, "").trim();
-				f.setAttr("pre", _f);
-			}
-		});
-		var _pre = target.attrs.p;
-		removeDeco(target.attrs.id);
-		if (_pre) {
-			setTimeout(() => {
-				RemovePreBounding(_pre);
-			}, 0);
-			return;
-		}
-		layer.children.forEach((f) => {
-			if (f.attrs.trigger && f.attrs.trigger.match("cream")) {
-				if (!haveIntersection(f.attrs.id, stage.find("#cream")[0])) {
-					removeDeco(f.attrs.id);
+	});
+	if (_trigger.length) {
+		var removeDecoId = [];
+		var NoBounding = _trigger
+			.map(function (t) {
+				if (!CheckBounding(id, t)) {
+					var _temp = t.getAttr("trigger");
+					var _replace = _temp.replace(id, "").trim();
+					t.setAttr("trigger", _replace);
+					return t;
 				}
+			})
+			.filter(Boolean);
+		NoBounding.forEach((v) => {
+			if (!CheckBounding(v.attrs.id, stage.find(".cream")[0])) {
+				removeDeco(v.attrs.id);
+				removeDecoId.push(v.attrs.id);
 			}
 		});
 		setTimeout(() => {
-			CheckErrorBounding();
+			RemoveSomeNoBounding(removeDecoId);
 		}, 0);
-	});
+	}
 }
 
-// 確認剩餘沒被刪除的
 function CheckErrorBounding() {
-	console.log("CheckErrorBounding");
 	var d = layer.children
 		.map((v) => {
 			if (v.attrs.name.match("deco")) {
@@ -560,20 +681,26 @@ function CheckErrorBounding() {
 		})
 		.filter(Boolean);
 	var _filter = d.filter((v) => {
-		if (v.attrs.trigger) {
+		if (!v.attrs.trigger) {
 			return v;
 		}
 	});
 	_filter.forEach((f) => {
-		var _t = f.attrs.trigger.split(" ");
-		_t.forEach((t) => {
-			if (!stage.find("#" + t)[0]) {
-				if (f.attrs.pre) {
-					RemovePreBounding(f.attrs.pre);
-				}
-				removeDeco(f.attrs.id);
-			}
-		});
+		if (!CheckBounding(f.attrs.id, stage.find(".cream")[0])) {
+			removeDeco(f.attrs.id);
+		}
+	});
+}
+
+// loading Data
+function loadInit(data) {
+	var data = '{"cake":{"id":"wood1","src":"./images/cake/wood1.png","RGB":[]},"deco":[{"x":280.6389510341813,"y":244.46318031252548,"width":87,"height":93,"tempWidth":87,"tempHeight":93,"name":"deco range","id":"face_9t46ma","draggable":true,"src":"./images/deco/face.png","scaleX":1.4662310589784215,"scaleY":1.4662310589784229,"skewX":-8.262764647907206e-16,"skewY":0,"rotation":-47.19340437347327,"image":{}},{"x":208.6859836160665,"y":247.81451361977273,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_60zz","draggable":true,"src":"./images/deco/bow.png","scaleX":1.0209874539599875,"scaleY":1.0209874539599848,"skewX":0,"skewY":0,"rotation":23.050665226659174,"image":{}},{"x":459.0768268738022,"y":317.54487033885744,"width":65,"height":89,"tempWidth":65,"tempHeight":89,"name":"deco range","id":"banana2_3rmzz","draggable":true,"src":"./images/deco/banana2.png","scaleX":0.7426016899274408,"scaleY":0.7426016899274407,"skewX":-3.1457078738749225e-18,"skewY":0,"rotation":-1.3795935102504215,"image":{}},{"x":538.5136042321675,"y":207.10466226490334,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_9ila2","draggable":true,"src":"./images/deco/bow.png","scaleX":1.020263384032566,"scaleY":1.0202633840325621,"skewX":1.0665608264610273e-16,"skewY":0,"rotation":49.459475276137326,"image":{}},{"x":158.0150895608072,"y":164.77173803339898,"width":64,"height":58,"tempWidth":64,"tempHeight":58,"name":"deco range","id":"bean_j680hb","draggable":true,"src":"./images/deco/bean.png","scaleX":1.592374590497202,"scaleY":1.592374590497202,"skewX":0,"skewY":0,"rotation":1.1912705406703274,"image":{}}]}';
+
+	var _data = JSON.parse(data);
+	console.log(_data);
+	cakeStyle(_data.cake);
+	_data.deco.forEach((deco) => {
+		decoImage(deco);
 	});
 }
 
@@ -582,99 +709,84 @@ function GetStage(el) {
 	return stage.find(el)[0];
 }
 
-// 判斷位置
-function haveIntersection(r1, r2) {
-	r1 = stage.find("#" + r1)[0];
-	r2 = r2;
-	var r1E = r1.getClientRect();
-	var r2E = r2.getClientRect();
-	return !(r2E.x > r1E.x + r1E.width || r2E.x + r2E.width < r1E.x || r2E.y > r1E.y + r1E.height || r2E.y + r2E.height < r1E.y) ? r2 : false;
+function CheckBounding(id, target) {
+	var el = stage.find("#" + id)[0];
+	var elX = el.getAbsolutePosition().x;
+	var elY = el.getAbsolutePosition().y;
+	var elWidth = el.attrs.width;
+	var elHeight = el.attrs.height;
+	var targetX = target.getAbsolutePosition().x;
+	var targetY = target.getAbsolutePosition().y;
+	var targetWidth = target.attrs.width;
+	var targetHeight = target.attrs.height;
+	if (elX + elWidth >= targetX && elX + elWidth < targetX + targetWidth) {
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on1");
+			return target;
+		}
+	}
+
+	if (elX >= targetX && elX + elWidth <= targetX + targetWidth) {
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on2");
+			return target;
+		}
+	}
+	if (elX >= targetX && elX <= targetX + targetWidth) {
+		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
+			console.log("on3");
+			return target;
+		}
+	}
+}
+
+function RemoveSomeNoBounding(removeDecoId) {
+	var removeDecoId = removeDecoId || [];
+	var removeDecoTemp = [];
+	var d = layer.children
+		.map((v) => {
+			if (v.attrs.name.match("deco")) {
+				return v;
+			}
+		})
+		.filter(Boolean);
+	for (var i = 0; i < removeDecoId.length; i++) {
+		for (var j = 0; j < d.length; j++) {
+			if (!d[j].attrs.trigger) {
+				continue;
+			}
+			if (d[j].attrs.trigger.match(removeDecoId[i])) {
+				removeDecoTemp.push(d[j]);
+			}
+		}
+	}
+	removeDecoId = [];
+	removeDecoTemp.forEach((r) => {
+		if (!CheckBounding(r.attrs.id, stage.find(".cream")[0])) {
+			removeDeco(r.attrs.id);
+			removeDecoId.push(r.attrs.id);
+		}
+	});
+	if (removeDecoId.length) {
+		setTimeout(() => {
+			RemoveSomeNoBounding(removeDecoId);
+		}, 0);
+	}
+	CheckErrorBounding();
+	return false;
+}
+
+function DrawPoint({ x = 0, y = 0 }) {
+	var circle = new Konva.Circle({
+		x: x,
+		y: y,
+		radius: 5,
+		fill: "red",
+	});
+
+	layer.add(circle);
 }
 
 function FindDecoSize() {
-	return layer.children.filter((v) => {
-		if (v.attrs.name) {
-			return v.attrs.name.match("deco");
-		}
-	}).length;
-}
-
-function DrawLine(id) {
-	const line = new Konva.Line({
-		stroke: "black",
-		id: id,
-	});
-	layer.add(line);
-}
-function getCenter(node) {
-	return {
-		x: node.x() + node.width() / 2,
-		y: node.y() + node.height() / 2,
-	};
-}
-function getRectangleBorderPoint(radians, size, sideOffset = 0) {
-	const width = size.width + sideOffset * 2;
-
-	const height = size.height + sideOffset * 2;
-
-	radians %= 2 * Math.PI;
-	if (radians < 0) {
-		radians += Math.PI * 2;
-	}
-
-	const phi = Math.atan(height / width);
-
-	let x, y;
-	if ((radians >= 2 * Math.PI - phi && radians <= 2 * Math.PI) || (radians >= 0 && radians <= phi)) {
-		x = width / 2;
-		y = Math.tan(radians) * x;
-	} else if (radians >= phi && radians <= Math.PI - phi) {
-		y = height / 2;
-		x = y / Math.tan(radians);
-	} else if (radians >= Math.PI - phi && radians <= Math.PI + phi) {
-		x = -width / 2;
-		y = Math.tan(radians) * x;
-	} else if (radians >= Math.PI + phi && radians <= 2 * Math.PI - phi) {
-		y = -height / 2;
-		x = y / Math.tan(radians);
-	}
-
-	return {
-		x: -Math.round(x),
-		y: Math.round(y),
-	};
-}
-function getPoints(r1, r2) {
-	const c1 = getCenter(r1);
-	const c2 = getCenter(r2);
-	console.log(c1, c2);
-	const dx = c1.x - c2.x;
-	const dy = c1.y - c2.y;
-	const angle = Math.atan2(-dy, dx);
-
-	const startOffset = getRectangleBorderPoint(angle + Math.PI, r1.size());
-	const endOffset = getRectangleBorderPoint(angle, r2.size());
-
-	const start = {
-		x: c1.x - startOffset.x,
-		y: c1.y - startOffset.y,
-	};
-
-	const end = {
-		x: c2.x - endOffset.x,
-		y: c2.y - endOffset.y,
-	};
-
-	return [start.x, start.y, end.x, end.y];
-}
-
-const line = new Konva.Line({
-	stroke: "black",
-	// id: id,
-});
-layer.add(line);
-function updateLine(n1, n2, lineId) {
-	// var line = stage.findOne("#" + lineId);
-	const points = getPoints(n1, n2);
-	line.points(points);
+	return layer.children.filter((v) => v.attrs.name.match("deco")).length;
 }

@@ -46,13 +46,13 @@
 				j.async = true;
 				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
 				f.parentNode.insertBefore(j, f);
-			})(window, document, "script", "dataLayer", "{{GTM-5S5J44P}}");
+			})(window, document, "script", "dataLayer", "GTM-5S5J44P");
 		</script>
 	</head>
 
 	<body>
 		<!-- GTM -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{GTM-5S5J44P}}" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5S5J44P" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
 
 		<!-- 內容開始 -->
 		<form>
@@ -89,38 +89,38 @@
 						<div class="decoration-tab decoration-tab__deco" data-tab="deco">裝飾物</div>
 					</div>
 					<div class="decoration-contents">
-						<div class="decoration-content decoration-content__cakes" data-content="cake">
+						<div class="decoration-content decoration-content__cakes curr" data-content="cake">
 							<div class="decoration-content__cakes-box">
 								<div class="decoration-content__cake-box">
 									<div class="decoration-content__cake on">
 										<span data-id="white" data-color="white" data-src="./images/cake/white.png" data-rgb="[247,244,223]"></span>
 									</div>
 									<div class="decoration-content__cake">
-										<span data-id="white" data-color="blue" data-src="./images/cake/white.png" data-rgb="[16,167,230]"></span>
+										<span data-id="blue" data-color="blue" data-src="./images/cake/white.png" data-rgb="[16,167,230]"></span>
 									</div>
 								</div>
 								<div class="decoration-content__cake-box">
 									<div class="decoration-content__cake">
-										<span data-id="white" data-color="pink" data-src="./images/cake/white.png" data-rgb="[255,146,146]"></span>
+										<span data-id="pink" data-color="pink" data-src="./images/cake/white.png" data-rgb="[255,146,146]"></span>
 									</div>
 									<div class="decoration-content__cake">
-										<span data-id="white" data-color="yellow" data-src="./images/cake/white.png" data-rgb="[255,194,76]"></span>
-									</div>
-								</div>
-								<div class="decoration-content__cake-box">
-									<div class="decoration-content__cake">
-										<span data-id="white" data-color="brown" data-src="./images/cake/white.png" data-rgb="[111,77,40]"></span>
-									</div>
-									<div class="decoration-content__cake">
-										<span data-id="white" data-color="purple" data-src="./images/cake/white.png" data-rgb="[131,64,194]"></span>
+										<span data-id="yellow" data-color="yellow" data-src="./images/cake/white.png" data-rgb="[255,194,76]"></span>
 									</div>
 								</div>
 								<div class="decoration-content__cake-box">
 									<div class="decoration-content__cake">
-										<span data-id="white" data-color="green" data-src="./images/cake/white.png" data-rgb="[96,193,91]"></span>
+										<span data-id="brown" data-color="brown" data-src="./images/cake/white.png" data-rgb="[111,77,40]"></span>
 									</div>
 									<div class="decoration-content__cake">
-										<span data-id="white" data-color="red" data-src="./images/cake/white.png" data-rgb="[255,63,63]"></span>
+										<span data-id="purple" data-color="purple" data-src="./images/cake/white.png" data-rgb="[131,64,194]"></span>
+									</div>
+								</div>
+								<div class="decoration-content__cake-box">
+									<div class="decoration-content__cake">
+										<span data-id="green" data-color="green" data-src="./images/cake/white.png" data-rgb="[96,193,91]"></span>
+									</div>
+									<div class="decoration-content__cake">
+										<span data-id="red" data-color="red" data-src="./images/cake/white.png" data-rgb="[255,63,63]"></span>
 									</div>
 								</div>
 								<div class="decoration-content__cake-box">
@@ -157,7 +157,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="decoration-content decoration-content__decos curr" data-content="deco">
+						<div class="decoration-content decoration-content__decos" data-content="deco">
 							<div class="decoration-content__decos-box">
 								<div class="decoration-content__deco" data-id="candle0" data-src="./images/deco/candle0.png"></div>
 								<div class="decoration-content__deco" data-id="candle1" data-src="./images/deco/candle1.png"></div>
@@ -209,6 +209,7 @@
 		</form>
 
 		<script src="js/lightbox.js"></script>
+		<script src="js/api.js"></script>
 		<script src="js/default.js"></script>
 	</body>
 </html>
