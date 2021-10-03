@@ -551,6 +551,7 @@ stage.on("drop", function (e) {
 var touchImg;
 var touchTime;
 var touchRun = false;
+var touchDuration = 400;
 $(".decoration-content__deco").on("touchstart", function (ev) {
 	console.log("touchstart");
 	if (!touchRun) {
@@ -570,7 +571,7 @@ $(".decoration-content__deco").on("touchstart", function (ev) {
 			touchImg[0].style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
 			$("body").append(touchImg);
 			touchRun = true;
-		}, 200);
+		}, touchDuration);
 	}
 });
 $(".decoration-content__deco").on("touchmove", function (ev) {
@@ -619,6 +620,7 @@ $(".decoration-content__deco").on("touchend", function (ev) {
 		clearTimeout(touchTime);
 	} else {
 		clearTimeout(touchTime);
+		touchTime = null;
 	}
 });
 
