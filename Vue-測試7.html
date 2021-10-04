@@ -14,7 +14,9 @@
 		<div id="app">
 			<p>{{num}}</p>
 			<child ref="child"></child>
-
+			<ul>
+				<li v-for="b in bookList" :key="b.name">{{b.name}}</li>
+			</ul>
 			<button @click="handleClick">click</button>
 			<child2 @update:aa="transfer">
 				<template #head>
@@ -42,6 +44,9 @@
 				},
 			});
 			Vue.component("child", {
+				mounted() {
+					console.log("child mounted");
+				},
 				template: `
                 <div>
                     <div>{{num}} {{name}}</div>
@@ -49,6 +54,7 @@
                 </div>
             `,
 				created() {
+					console.log("child created");
 					this.startTime();
 				},
 				data() {
@@ -77,9 +83,22 @@
 			});
 			var vm = new Vue({
 				el: "#app",
-				mounted() {},
+				created() {
+					console.log("app created");
+				},
+				mounted() {
+					console.log("app mounted");
+				},
 				data: {
 					num: 0,
+					bookList: [
+						{ name: "鼠", age: 22 },
+						{ name: "牛", age: 23 },
+						{ name: "虎", age: 24 },
+						{ name: "兔", age: 25 },
+						{ name: "龍", age: 26 },
+						{ name: "鼠", age: 26 },
+					],
 				},
 				methods: {
 					handleClick() {
