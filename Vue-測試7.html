@@ -85,9 +85,13 @@
 				el: "#app",
 				created() {
 					console.log("app created");
+					var cd = this.$refs.child;
+					console.log(cd);
 				},
 				mounted() {
 					console.log("app mounted");
+					var cd = this.$refs.child;
+					console.log(cd);
 				},
 				data: {
 					num: 0,

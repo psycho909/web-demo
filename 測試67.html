@@ -10,23 +10,27 @@
 				padding: 0;
 				margin: 0;
 			}
-			body,
-			html {
-				height: 100%;
-				overflow: hidden;
+			.card {
+				width: 50vw;
+				height: 30vw;
+				background-color: gray;
 			}
-			#app {
-				height: 100%;
-			}
-			img {
-				touch-action: none;
+			.card1 :is(.title, .detail) {
+				color: red;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
-			<h2>12213123</h2>
-			<img src="images/bg.jpg" alt="" />
+		<div class="card card1" id="card">
+			<h2 class="title">IS:</h2>
+			<p class="detail">Detail</p>
+			<p class="text">P</p>
 		</div>
+		<script>
+			document.getElementById("card").addEventListener("touchstart", function (e) {
+				document.querySelector(".text").innerHTML = e.touches.length;
+				console.log(e.touches.length);
+			});
+		</script>
 	</body>
 </html>
