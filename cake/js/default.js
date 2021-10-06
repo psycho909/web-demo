@@ -63,6 +63,7 @@ $(".menu-toggle").on("click", function () {
 	$(".menu-list").toggle();
 	if (trr) {
 		trr.destroy();
+		trr = null;
 	}
 });
 
@@ -310,6 +311,7 @@ function decoImage(attrs, type) {
 	}
 	if (trr) {
 		trr.destroy();
+		trr = null;
 	}
 	var imageObj1 = new Image();
 	imageObj1.src = src;
@@ -377,11 +379,13 @@ stage.on("tap", function (e) {
 		if (!e.target.attrs.name.match("deco")) {
 			if (trr) {
 				trr.destroy();
+				trr = null;
 			}
 			return;
 		}
 		if (trr) {
 			trr.destroy();
+			trr = null;
 		}
 		var shape = stage.find("#" + e.target.attrs.id)[0];
 		if (shape) {
@@ -423,17 +427,32 @@ stage.on("tap", function (e) {
 	} else {
 		if (trr) {
 			trr.destroy();
+			trr = null;
 		}
 	}
 });
 
 stage.on("dragstart", function (e) {
-	e.target.moveTo(tempLayer);
-	dragDecoId = "";
-	dropTarget = "";
-	dragDecoId = e.target.attrs.id;
+	console.log("dragend");
+	if (trr) {
+		trr.destroy();
+		trr = null;
+		console.log(trr);
+	} else {
+		console.log(trr);
+		e.target.moveTo(tempLayer);
+		dragDecoId = "";
+		dropTarget = "";
+		dragDecoId = e.target.attrs.id;
+	}
 });
 stage.on("dragmove", function (evt) {
+	if (trr) {
+		trr.destroy();
+		trr = null;
+		console.log(trr);
+	}
+	console.log("dragmove");
 	var pos = stage.getPointerPosition();
 	var shape = layer.getIntersection(pos);
 
@@ -497,6 +516,11 @@ stage.on("dragmove", function (evt) {
 });
 
 stage.on("dragend", function (e) {
+	if (trr) {
+		trr.destroy();
+		trr = null;
+	}
+	console.log("dragend", trr);
 	var pos = stage.getPointerPosition();
 	var shape = layer.getIntersection(pos);
 	if (shape) {
@@ -517,31 +541,33 @@ stage.on("dragend", function (e) {
 	e.target.moveTo(layer);
 	// console.log(e.target.attrs.id);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
-	if (dropTarget) {
-		if (dropTarget.attrs.id == "remove") {
-			removeDeco(dragDecoId);
-			return;
-		}
-		if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
-			if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
-				removeDeco(e.target.attrs.id);
-				decoCount = FindDecoSize();
+	if (dragDecoId) {
+		if (dropTarget) {
+			if (dropTarget.attrs.id == "remove") {
+				removeDeco(dragDecoId);
 				return;
 			}
-			stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
-			RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
+			if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
+				if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
+					removeDeco(e.target.attrs.id);
+					decoCount = FindDecoSize();
+					return;
+				}
+				stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+				RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
+				return;
+			}
+		}
+		if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
+			removeDeco(e.target.attrs.id);
+			decoCount = FindDecoSize();
 			return;
 		}
-	}
-	if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
-		removeDeco(e.target.attrs.id);
-		decoCount = FindDecoSize();
-		return;
-	}
-	if (!CheckDecoAllBind(dragDecoId)) {
-		removeDeco(dragDecoId);
-		DecoWarning();
-		return;
+		if (!CheckDecoAllBind(dragDecoId)) {
+			removeDeco(dragDecoId);
+			DecoWarning();
+			return;
+		}
 	}
 });
 
@@ -554,7 +580,7 @@ stage.on("drop", function (e) {
 var touchImg;
 var touchTime;
 var touchRun = false;
-var touchDuration = 400;
+var touchDuration = 0;
 $(".decoration-content__deco").on("touchstart", function (ev) {
 	if (!touchRun) {
 		clearTimeout(touchTime);
@@ -564,6 +590,7 @@ $(".decoration-content__deco").on("touchstart", function (ev) {
 		}
 		if (trr) {
 			trr.destroy();
+			trr = null;
 		}
 		touchTime = setTimeout(() => {
 			var e = ev.originalEvent;
@@ -585,6 +612,7 @@ $(".decoration-content__deco").on("touchmove", function (ev) {
 		}
 		if (trr) {
 			trr.destroy();
+			trr = null;
 		}
 		ev.preventDefault();
 		var e = ev.originalEvent;
@@ -654,6 +682,7 @@ function removeDeco(id) {
 				// 修改
 				if (trr) {
 					trr.destroy();
+					trr = null;
 				}
 			} catch (e) {}
 		}, 0);

@@ -1,30 +1,69 @@
-var step = 0;
 const LIMIT = 30;
 var decoCount = 0;
 const MAX_SCALE = 1.25;
 const MIN_SCALE = 0.75;
-let bindWaring = false;
+let dropTarget;
 let loading = {
-	show: $("#loadingProgress").show(),
-	hide: $("#loadingProgress").show(),
+	show: function () {
+		$("#loadingProgress").show();
+	},
+	hide: function () {
+		$("#loadingProgress").hide();
+	},
 };
-// 說明介紹
-if (false) {
+// loadingProgress({
+// 	loadedFN: function () {
+// 		GetAccount();
+// 	},
+// 	autoHide: false,
+// });
+function createCookie(name, value, days) {
+	var expires = "";
+	var date = new Date();
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+		var expires = "; expires=" + date.toGMTString();
+	}
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(";");
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == " ") c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+function EventGuide() {
+	var step = 0;
 	$(".step-box").addClass("show");
 	$(".step").eq(step).addClass("show").siblings().removeClass("show");
 	$(".step-next").on("click", function () {
 		step += 1;
 		if (step > 2) {
 			$(".step-box").removeClass("show");
+			GuideEnd();
 			return;
 		}
 		$(".step").eq(step).addClass("show").siblings().removeClass("show");
 	});
 }
+// 說明介紹
+if (!readCookie("kr20211008")) {
+	EventGuide();
+	createCookie("kr20211008", 1);
+}
 
 // 選單切換
 $(".menu-toggle").on("click", function () {
 	$(".menu-list").toggle();
+	if (trr) {
+		trr.destroy();
+	}
 });
 
 $(".menu-list__btn").on("click", function () {
@@ -34,12 +73,7 @@ $(".menu-list__btn").on("click", function () {
 			EventInfo();
 			break;
 		case "screenshot":
-			if (CheckDecoAll(3)) {
-				stage.find("#remove")[0].hide();
-				ScreenShot(getDataUrl(), "一二三四五");
-			} else {
-				CakeScreenError();
-			}
+			ScreenShot(getDataUrl(), "一二三四五");
 			break;
 		case "reward":
 			if (FindDecoSize() == LIMIT) {
@@ -139,7 +173,7 @@ var cakeGroup = new Konva.Group({
 var layer = new Konva.Layer();
 var decoLayer = new Konva.Layer();
 
-rect();
+// rect();
 dish();
 // dish();
 layer.add(cakeGroup);
@@ -210,6 +244,7 @@ function cream() {
 		id: "cream",
 		zIndex: 2,
 		src: "./images/static/cream.png",
+		fill: "red",
 	});
 	cakeGroup.add(cream);
 	var imageObj1 = new Image();
@@ -223,14 +258,10 @@ function cream() {
 function cakeStyle(attrs = { RGB: [], src: "./images/cake/white.png", id: "white" }) {
 	var { RGB, src, id } = attrs;
 	if (stage.find(".cake")[0]) {
-		if (id == "cake-white") {
-			if (RGB.length > 0) {
-				filerImage(RGB);
-				return;
-			}
-		}
 		if (RGB) {
-			if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "white") {
+			if (RGB.length > 0 && stage.findOne(".cake").attrs.src.match("white")) {
+				stage.find(".cake")[0].setAttr("id", id);
+				stage.find(".cake")[0].setAttr("RGB", RGB);
 				filerImage(RGB);
 				return;
 			}
@@ -247,14 +278,15 @@ function cakeStyle(attrs = { RGB: [], src: "./images/cake/white.png", id: "white
 		id: id || "white",
 		RGB: RGB || [],
 	});
-
 	cakeGroup.add(cake);
 
 	var imageObj1 = new Image();
 	imageObj1.onload = function () {
 		cake.image(imageObj1);
 		if (RGB) {
-			if (RGB.length > 0 && stage.find(".cake")[0].getAttr("id") == "white") {
+			if (RGB.length > 0 && stage.findOne(".cake").attrs.src.match("white")) {
+				stage.find(".cake")[0].setAttr("id", id);
+				stage.find(".cake")[0].setAttr("RGB", RGB);
 				filerImage(RGB);
 				return;
 			}
@@ -271,7 +303,7 @@ function filerImage(RGB) {
 	shape["green"](RGB[1]);
 	shape["blue"](RGB[2]);
 }
-function decoImage(attrs) {
+function decoImage(attrs, type) {
 	var { x, y, id, width, height, src, scaleX, scaleY, skewX, skewY, rotation, zIndex, src } = attrs;
 	if (y - height / 2 > canvasHeight) {
 		return;
@@ -298,21 +330,29 @@ function decoImage(attrs) {
 			skewX: skewX || 0,
 			skewY: skewY || 0,
 			rotation: rotation || 0,
+			fill: "green",
 			dragBoundFunc: function (pos) {
+				console.log(pos);
+				// - this.attrs.width
 				return {
-					x: Math.max(0, Math.min(canvasWidth - this.attrs.width, pos.x)),
-					y: Math.max(0, Math.min(canvasHeight - this.attrs.height, pos.y)),
+					x: Math.max(0, Math.min(canvasWidth, pos.x)), // 修改
+					y: Math.max(0, Math.min(canvasHeight, pos.y)), // 修改
 				};
 			},
 		});
 		layer.add(deco);
 		deco.image(imageObj1);
 		decoCount = FindDecoSize();
-		// DrawPoint({ x: x + width / 2, y: y + height / 2 });
-		console.log(id);
-
-		if (layer.getIntersection({ x: x + width / 2, y: y + height / 2 }).attrs.name.match("range")) {
-			stage.find("#" + id)[0].setAttr("d", "drop");
+		if (haveIntersection(deco.attrs.id, stage.findOne("#remove"))) {
+			removeDeco(deco.attrs.id);
+			decoCount = FindDecoSize();
+			return;
+		}
+		if (type == "loading") {
+			if (deco.attrs.y < 0 || deco.attrs.y > $("#container").height() || deco.attrs.x < 0 || deco.attrs.x > $("#container").width()) {
+				removeDeco(deco.attrs.id);
+			}
+			decoCount = FindDecoSize();
 			return;
 		}
 		if (!CheckDecoAllBind(id)) {
@@ -331,8 +371,8 @@ cakeStyle({ RGB: [247, 244, 223], src: "./images/cake/white.png", id: "white" })
 var previousShape;
 var dragDecoId;
 var trr;
-stage.on("click tap", function (e) {
-	console.log(e.currentTarget.pointerPos);
+var doubleTap = false;
+stage.on("tap", function (e) {
 	if (e.target.attrs.name) {
 		if (!e.target.attrs.name.match("deco")) {
 			if (trr) {
@@ -352,6 +392,10 @@ stage.on("click tap", function (e) {
 				nodes: [shape],
 				centeredScaling: true,
 				keepRatio: true,
+				name: "trr", // 修改
+				id: "trr", // 修改
+				// rotateEnabled: false,
+				enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
 				boundBoxFunc: function (oldBoundBox, newBoundBox) {
 					if (Math.abs(newBoundBox.width) > MAX_WIDTH) {
 						return oldBoundBox;
@@ -386,12 +430,13 @@ stage.on("click tap", function (e) {
 stage.on("dragstart", function (e) {
 	e.target.moveTo(tempLayer);
 	dragDecoId = "";
+	dropTarget = "";
 	dragDecoId = e.target.attrs.id;
-	bindWaring = false;
 });
 stage.on("dragmove", function (evt) {
 	var pos = stage.getPointerPosition();
 	var shape = layer.getIntersection(pos);
+
 	if (previousShape && shape) {
 		if (previousShape !== shape) {
 			// leave from old targer
@@ -404,7 +449,6 @@ stage.on("dragmove", function (evt) {
 				},
 				true
 			);
-
 			// enter new targer
 			shape.fire(
 				"dragenter",
@@ -450,8 +494,6 @@ stage.on("dragmove", function (evt) {
 		);
 		previousShape = undefined;
 	}
-	// stage.x = 300;
-	// stage.y = 300;
 });
 
 stage.on("dragend", function (e) {
@@ -470,68 +512,118 @@ stage.on("dragend", function (e) {
 			);
 		}
 	}
+
 	previousShape = undefined;
 	e.target.moveTo(layer);
+	// console.log(e.target.attrs.id);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
-
-	if (bindWaring) {
-		if (!CheckDecoAllBind(dragDecoId)) {
-			RemoveNoBounding(dragDecoId);
+	if (dropTarget) {
+		if (dropTarget.attrs.id == "remove") {
 			removeDeco(dragDecoId);
-			DecoWarning();
+			return;
 		}
-	} else {
-		stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
-		RemoveNoBounding(dragDecoId);
+		if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
+			if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
+				removeDeco(e.target.attrs.id);
+				decoCount = FindDecoSize();
+				return;
+			}
+			stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
+			RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
+			return;
+		}
+	}
+	if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
+		removeDeco(e.target.attrs.id);
+		decoCount = FindDecoSize();
+		return;
+	}
+	if (!CheckDecoAllBind(dragDecoId)) {
+		removeDeco(dragDecoId);
+		DecoWarning();
+		return;
 	}
 });
 
 stage.on("drop", function (e) {
-	if (e.target.attrs.id == "remove") {
-		removeDeco(dragDecoId);
-		return;
-	}
-	if (!e.target.attrs.name.match("range")) {
-		bindWaring = true;
-		return;
-	}
+	console.log("drop", e.target);
+	dropTarget = e.target;
 });
 
 // 裝試物拖曳事件
 var touchImg;
+var touchTime;
+var touchRun = false;
+var touchDuration = 400;
 $(".decoration-content__deco").on("touchstart", function (ev) {
-	if (FindDecoSize() >= LIMIT) {
-		DecoLimitWarning();
-		return;
+	if (!touchRun) {
+		clearTimeout(touchTime);
+		if (FindDecoSize() >= LIMIT) {
+			DecoLimitWarning();
+			return;
+		}
+		if (trr) {
+			trr.destroy();
+		}
+		touchTime = setTimeout(() => {
+			var e = ev.originalEvent;
+			touchImg = $(e.target).clone();
+			touchImg[0].setAttribute("id", "touchImg");
+			touchImg[0].style.left = e.changedTouches[0].clientX - e.target.clientWidth / 2 + "px";
+			touchImg[0].style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
+			$("body").append(touchImg);
+			touchRun = true;
+		}, touchDuration);
 	}
-	var e = ev.originalEvent;
-	touchImg = $(e.target).clone();
-	touchImg[0].setAttribute("id", "touchImg");
-	touchImg[0].style.left = e.changedTouches[0].clientX - e.target.clientWidth / 2 + "px";
-	touchImg[0].style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
-	$("body").append(touchImg);
 });
 $(".decoration-content__deco").on("touchmove", function (ev) {
-	if (FindDecoSize() >= LIMIT) {
-		DecoLimitWarning();
-		return;
+	if (touchRun) {
+		clearTimeout(touchTime);
+		if (FindDecoSize() >= LIMIT) {
+			DecoLimitWarning();
+			return;
+		}
+		if (trr) {
+			trr.destroy();
+		}
+		ev.preventDefault();
+		var e = ev.originalEvent;
+		document.getElementById("touchImg").style.left = e.changedTouches[0].clientX - e.target.clientWidth / 2 + "px";
+		document.getElementById("touchImg").style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
 	}
-	ev.preventDefault();
-	var e = ev.originalEvent;
-	document.getElementById("touchImg").style.left = e.changedTouches[0].clientX - e.target.clientWidth / 2 + "px";
-	document.getElementById("touchImg").style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
 });
 $(".decoration-content__deco").on("touchend", function (ev) {
-	if (FindDecoSize() >= LIMIT) {
-		DecoLimitWarning();
-		return;
+	if (touchRun) {
+		touchRun = false;
+		clearTimeout(touchTime);
+		if (FindDecoSize() >= LIMIT) {
+			DecoLimitWarning();
+			return;
+		}
+		var e = ev.originalEvent;
+		var left = e.changedTouches[0].clientX - e.target.clientWidth / 2;
+		var top = e.changedTouches[0].clientY - e.target.clientHeight / 2;
+		var _container = $("#container").offset();
+		var _containerWidth = $("#container").width();
+		var _containerHeight = $("#container").height();
+		if (top < _container.top || top + e.changedTouches[0].target.clientHeight > _container.top + _containerHeight || left > _container.left + _containerWidth || left < 0) {
+			DecoWarning();
+			document.getElementById("touchImg").style.left = left + "px";
+			document.getElementById("touchImg").style.top = top + "px";
+			document.getElementById("touchImg").style.opacity = 0;
+			document.getElementById("touchImg").remove();
+			return;
+		}
+		document.getElementById("touchImg").style.left = left + "px";
+		document.getElementById("touchImg").style.top = top + "px";
+		document.getElementById("touchImg").style.opacity = 0;
+		document.getElementById("touchImg").remove();
+		drag(e.changedTouches[0]);
+	} else {
+		clearTimeout(touchTime);
+		touchTime = null;
+		touchRun = false;
 	}
-	var e = ev.originalEvent;
-	document.getElementById("touchImg").style.left = e.changedTouches[0].clientX - e.target.clientWidth / 2 + "px";
-	document.getElementById("touchImg").style.top = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
-	document.getElementById("touchImg").style.opacity = 0;
-	document.getElementById("touchImg").remove();
-	drag(e.changedTouches[0]);
 });
 
 function drag(ev) {
@@ -549,14 +641,23 @@ function drag(ev) {
 
 // 匯出base64
 function getDataUrl() {
-	return stage.toDataURL();
+	return stage.toDataURL({ quality: 1, pixelRatio: 2 });
 }
 
 // 刪除單一
 function removeDeco(id) {
-	setTimeout(() => {
-		stage.find("#" + id)[0].destroy();
-	}, 0);
+	if (stage.find("#" + id)[0]) {
+		setTimeout(() => {
+			try {
+				stage.find("#" + id)[0].destroy();
+				decoCount = FindDecoSize();
+				// 修改
+				if (trr) {
+					trr.destroy();
+				}
+			} catch (e) {}
+		}, 0);
+	}
 }
 // 清除畫面
 function reset() {
@@ -607,71 +708,94 @@ function CheckDecoAll(num) {
 
 // 確認所有裝飾物有沒有相連
 function CheckDecoAllBind(id) {
-	if (CheckBounding(id, stage.find(".cream")[0])) {
-		stage.find("#" + id)[0].setAttr("d", "drop");
+	if (haveIntersection(id, stage.find(".cream")[0])) {
 		console.log("cream");
+		stage.find("#" + id)[0].setAttr("d", "drop");
+		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		return true;
 	}
-	if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
-		console.log("children");
-		var d = layer.children
-			.map((v) => {
-				if (v.attrs.name.match("deco")) {
-					return v;
-				}
-			})
-			.filter(Boolean);
-		var _d = d.slice(0, d.length - 1);
-		var dd = _d.map((v) => CheckBounding(id, v)).filter(Boolean);
-		if (dd.length) {
-			var _setTrigger = "";
-			dd.forEach(function (deco) {
-				var _trigger = deco.getAttr("trigger");
-				_setTrigger += deco.attrs.id;
-				if (_trigger) {
-					deco.setAttr("trigger", _trigger + " " + id);
-				} else {
-					deco.setAttr("trigger", id);
-				}
-				GetStage("#" + id).setAttr("trigger", _setTrigger);
-			});
-			stage.find("#" + id)[0].setAttr("d", "drop");
-			return true;
+	if (haveIntersection(id, stage.find(".cake")[0])) {
+		console.log("cake");
+		stage.find("#" + id)[0].setAttr("d", "drop");
+		stage.find("#" + id)[0].setAttr("trigger", "cream");
+		return true;
+	}
+	if (!layer.children[layer.children.length - 2].attrs.name.match("trr")) {
+		// 修改
+		if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
+			var d = layer.children
+				.map((v) => {
+					if (v.attrs.name.match("deco")) {
+						return v;
+					}
+				})
+				.filter(Boolean);
+			var _d = d.slice(0, d.length - 1);
+			var dd = _d.map((v) => haveIntersection(id, v)).filter(Boolean);
+			if (dd.length) {
+				var _setTrigger = "";
+				var _trigger = "";
+				dd.forEach(function (deco) {
+					_trigger = deco.getAttr("pre");
+					_setTrigger += " " + deco.attrs.id;
+					if (_trigger) {
+						if (_trigger.match(id)) {
+							return;
+						} else {
+							deco.setAttr("pre", _trigger + " " + id);
+						}
+					} else {
+						deco.setAttr("pre", id);
+					}
+					GetStage("#" + id).setAttr("trigger", _setTrigger.trim());
+				});
+				stage.find("#" + id)[0].setAttr("d", "drop");
+				return true;
+			}
 		}
 	}
+	console.log("no");
 }
 
-// 移除沒有相連的裝飾品
-function RemoveNoBounding(id) {
-	var _trigger = layer.children.filter((f) => {
-		if (f.attrs.trigger) {
-			return f.attrs.trigger.match(id);
+// 移除未相連裝飾品
+function RemovePreBounding(pre) {
+	if (!pre) {
+		return;
+	}
+	var pres = pre.split(" ");
+	pres.forEach((p) => {
+		var target = stage.find("#" + p)[0];
+		if (!target) {
+			return;
 		}
-	});
-	if (_trigger.length) {
-		var removeDecoId = [];
-		var NoBounding = _trigger
-			.map(function (t) {
-				if (!CheckBounding(id, t)) {
-					var _temp = t.getAttr("trigger");
-					var _replace = _temp.replace(id, "").trim();
-					t.setAttr("trigger", _replace);
-					return t;
+		layer.children.forEach((f) => {
+			if (f.attrs.pre && f.attrs.pre.match(p)) {
+				var _f = f.getAttr("pre").replace(p, "").trim();
+				f.setAttr("pre", _f);
+			}
+		});
+		var _pre = target.attrs.p;
+		removeDeco(target.attrs.id);
+		if (_pre) {
+			setTimeout(() => {
+				RemovePreBounding(_pre);
+			}, 0);
+			return;
+		}
+		layer.children.forEach((f) => {
+			if (f.attrs.trigger && f.attrs.trigger.match("cream")) {
+				if (!haveIntersection(f.attrs.id, stage.find("#cream")[0])) {
+					removeDeco(f.attrs.id);
 				}
-			})
-			.filter(Boolean);
-		NoBounding.forEach((v) => {
-			if (!CheckBounding(v.attrs.id, stage.find(".cream")[0])) {
-				removeDeco(v.attrs.id);
-				removeDecoId.push(v.attrs.id);
 			}
 		});
 		setTimeout(() => {
-			RemoveSomeNoBounding(removeDecoId);
+			CheckErrorBounding();
 		}, 0);
-	}
+	});
 }
 
+// 確認剩餘沒被刪除的
 function CheckErrorBounding() {
 	var d = layer.children
 		.map((v) => {
@@ -681,27 +805,41 @@ function CheckErrorBounding() {
 		})
 		.filter(Boolean);
 	var _filter = d.filter((v) => {
-		if (!v.attrs.trigger) {
+		if (v.attrs.trigger) {
 			return v;
 		}
 	});
 	_filter.forEach((f) => {
-		if (!CheckBounding(f.attrs.id, stage.find(".cream")[0])) {
-			removeDeco(f.attrs.id);
-		}
+		var _t = f.attrs.trigger.split(" ");
+		_t.forEach((t) => {
+			if (!stage.find("#" + t)[0]) {
+				if (f.attrs.pre) {
+					RemovePreBounding(f.attrs.pre);
+				}
+				removeDeco(f.attrs.id);
+			}
+		});
 	});
 }
 
 // loading Data
 function loadInit(data) {
-	var data = '{"cake":{"id":"wood1","src":"./images/cake/wood1.png","RGB":[]},"deco":[{"x":280.6389510341813,"y":244.46318031252548,"width":87,"height":93,"tempWidth":87,"tempHeight":93,"name":"deco range","id":"face_9t46ma","draggable":true,"src":"./images/deco/face.png","scaleX":1.4662310589784215,"scaleY":1.4662310589784229,"skewX":-8.262764647907206e-16,"skewY":0,"rotation":-47.19340437347327,"image":{}},{"x":208.6859836160665,"y":247.81451361977273,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_60zz","draggable":true,"src":"./images/deco/bow.png","scaleX":1.0209874539599875,"scaleY":1.0209874539599848,"skewX":0,"skewY":0,"rotation":23.050665226659174,"image":{}},{"x":459.0768268738022,"y":317.54487033885744,"width":65,"height":89,"tempWidth":65,"tempHeight":89,"name":"deco range","id":"banana2_3rmzz","draggable":true,"src":"./images/deco/banana2.png","scaleX":0.7426016899274408,"scaleY":0.7426016899274407,"skewX":-3.1457078738749225e-18,"skewY":0,"rotation":-1.3795935102504215,"image":{}},{"x":538.5136042321675,"y":207.10466226490334,"width":99,"height":86,"tempWidth":99,"tempHeight":86,"name":"deco range","id":"bow_9ila2","draggable":true,"src":"./images/deco/bow.png","scaleX":1.020263384032566,"scaleY":1.0202633840325621,"skewX":1.0665608264610273e-16,"skewY":0,"rotation":49.459475276137326,"image":{}},{"x":158.0150895608072,"y":164.77173803339898,"width":64,"height":58,"tempWidth":64,"tempHeight":58,"name":"deco range","id":"bean_j680hb","draggable":true,"src":"./images/deco/bean.png","scaleX":1.592374590497202,"scaleY":1.592374590497202,"skewX":0,"skewY":0,"rotation":1.1912705406703274,"image":{}}]}';
-
 	var _data = JSON.parse(data);
-	console.log(_data);
 	cakeStyle(_data.cake);
 	_data.deco.forEach((deco) => {
-		decoImage(deco);
+		decoImage(deco, "loading");
 	});
+	$(".decoration-content__cake")
+		.find("span[data-id=" + _data.cake.id + "]")
+		.parent()
+		.addClass("on");
+	$(".decoration-content__cake")
+		.not(
+			$(".decoration-content__cake")
+				.find("span[data-id=" + _data.cake.id + "]")
+				.parent()
+		)
+		.removeClass("on");
 }
 
 // GetStage
@@ -709,84 +847,19 @@ function GetStage(el) {
 	return stage.find(el)[0];
 }
 
-function CheckBounding(id, target) {
-	var el = stage.find("#" + id)[0];
-	var elX = el.getAbsolutePosition().x;
-	var elY = el.getAbsolutePosition().y;
-	var elWidth = el.attrs.width;
-	var elHeight = el.attrs.height;
-	var targetX = target.getAbsolutePosition().x;
-	var targetY = target.getAbsolutePosition().y;
-	var targetWidth = target.attrs.width;
-	var targetHeight = target.attrs.height;
-	if (elX + elWidth >= targetX && elX + elWidth < targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on1");
-			return target;
-		}
-	}
-
-	if (elX >= targetX && elX + elWidth <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on2");
-			return target;
-		}
-	}
-	if (elX >= targetX && elX <= targetX + targetWidth) {
-		if (elY + elHeight >= targetY && elY <= targetY + targetHeight) {
-			console.log("on3");
-			return target;
-		}
-	}
-}
-
-function RemoveSomeNoBounding(removeDecoId) {
-	var removeDecoId = removeDecoId || [];
-	var removeDecoTemp = [];
-	var d = layer.children
-		.map((v) => {
-			if (v.attrs.name.match("deco")) {
-				return v;
-			}
-		})
-		.filter(Boolean);
-	for (var i = 0; i < removeDecoId.length; i++) {
-		for (var j = 0; j < d.length; j++) {
-			if (!d[j].attrs.trigger) {
-				continue;
-			}
-			if (d[j].attrs.trigger.match(removeDecoId[i])) {
-				removeDecoTemp.push(d[j]);
-			}
-		}
-	}
-	removeDecoId = [];
-	removeDecoTemp.forEach((r) => {
-		if (!CheckBounding(r.attrs.id, stage.find(".cream")[0])) {
-			removeDeco(r.attrs.id);
-			removeDecoId.push(r.attrs.id);
-		}
-	});
-	if (removeDecoId.length) {
-		setTimeout(() => {
-			RemoveSomeNoBounding(removeDecoId);
-		}, 0);
-	}
-	CheckErrorBounding();
-	return false;
-}
-
-function DrawPoint({ x = 0, y = 0 }) {
-	var circle = new Konva.Circle({
-		x: x,
-		y: y,
-		radius: 5,
-		fill: "red",
-	});
-
-	layer.add(circle);
+// 判斷位置
+function haveIntersection(r1, r2) {
+	r1 = stage.find("#" + r1)[0];
+	r2 = r2;
+	var r1E = r1.getClientRect();
+	var r2E = r2.getClientRect();
+	return !(r2E.x > r1E.x + r1E.width || r2E.x + r2E.width < r1E.x || r2E.y > r1E.y + r1E.height || r2E.y + r2E.height < r1E.y) ? r2 : false;
 }
 
 function FindDecoSize() {
-	return layer.children.filter((v) => v.attrs.name.match("deco")).length;
+	return layer.children.filter((v) => {
+		if (v.attrs.name) {
+			return v.attrs.name.match("deco");
+		}
+	}).length;
 }
