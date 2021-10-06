@@ -244,6 +244,7 @@ function cream() {
 		id: "cream",
 		zIndex: 2,
 		src: "./images/static/cream.png",
+		fill: "red",
 	});
 	cakeGroup.add(cream);
 	var imageObj1 = new Image();
@@ -329,10 +330,13 @@ function decoImage(attrs, type) {
 			skewX: skewX || 0,
 			skewY: skewY || 0,
 			rotation: rotation || 0,
+			fill: "green",
 			dragBoundFunc: function (pos) {
+				console.log(pos);
+				// - this.attrs.width
 				return {
-					x: Math.max(0, Math.min(canvasWidth - this.attrs.width, pos.x)),
-					y: Math.max(0, Math.min(canvasHeight - this.attrs.height, pos.y)),
+					x: Math.max(0, Math.min(canvasWidth, pos.x)), // 修改
+					y: Math.max(0, Math.min(canvasHeight, pos.y)), // 修改
 				};
 			},
 		});
@@ -388,9 +392,8 @@ stage.on("tap", function (e) {
 				nodes: [shape],
 				centeredScaling: true,
 				keepRatio: true,
-				// 修改
-				id: "trr",
-				// 修改
+				name: "trr", // 修改
+				id: "trr", // 修改
 				// rotateEnabled: false,
 				enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
 				boundBoxFunc: function (oldBoundBox, newBoundBox) {
@@ -425,75 +428,18 @@ stage.on("tap", function (e) {
 });
 
 stage.on("dragstart", function (e) {
-	// if (trr) {
-	// 	trr.destroy();
-	// }
-	if (e.target.attrs.id == "trr") {
-		if (trr) {
-			trr.destroy();
-		}
-	} else {
-		e.target.moveTo(tempLayer);
-		dragDecoId = "";
-		dropTarget = "";
-		dragDecoId = e.target.attrs.id;
-	}
+	e.target.moveTo(tempLayer);
+	dragDecoId = "";
+	dropTarget = "";
+	dragDecoId = e.target.attrs.id;
 });
 stage.on("dragmove", function (evt) {
 	var pos = stage.getPointerPosition();
 	var shape = layer.getIntersection(pos);
 
-	if (evt.target.attrs.id == "trr") {
-		if (trr) {
-			trr.destroy();
-		}
-	} else {
-		if (previousShape && shape) {
-			if (previousShape !== shape) {
-				// leave from old targer
-				previousShape.fire(
-					"dragleave",
-					{
-						type: "dragleave",
-						target: previousShape,
-						evt: evt.evt,
-					},
-					true
-				);
-				// enter new targer
-				shape.fire(
-					"dragenter",
-					{
-						type: "dragenter",
-						target: shape,
-						evt: evt.evt,
-					},
-					true
-				);
-				previousShape = shape;
-			} else {
-				previousShape.fire(
-					"dragover",
-					{
-						type: "dragover",
-						target: previousShape,
-						evt: evt.evt,
-					},
-					true
-				);
-			}
-		} else if (!previousShape && shape) {
-			previousShape = shape;
-			shape.fire(
-				"dragenter",
-				{
-					type: "dragenter",
-					target: shape,
-					evt: evt.evt,
-				},
-				true
-			);
-		} else if (previousShape && !shape) {
+	if (previousShape && shape) {
+		if (previousShape !== shape) {
+			// leave from old targer
 			previousShape.fire(
 				"dragleave",
 				{
@@ -503,12 +449,51 @@ stage.on("dragmove", function (evt) {
 				},
 				true
 			);
-			previousShape = undefined;
+			// enter new targer
+			shape.fire(
+				"dragenter",
+				{
+					type: "dragenter",
+					target: shape,
+					evt: evt.evt,
+				},
+				true
+			);
+			previousShape = shape;
+		} else {
+			previousShape.fire(
+				"dragover",
+				{
+					type: "dragover",
+					target: previousShape,
+					evt: evt.evt,
+				},
+				true
+			);
 		}
+	} else if (!previousShape && shape) {
+		previousShape = shape;
+		shape.fire(
+			"dragenter",
+			{
+				type: "dragenter",
+				target: shape,
+				evt: evt.evt,
+			},
+			true
+		);
+	} else if (previousShape && !shape) {
+		previousShape.fire(
+			"dragleave",
+			{
+				type: "dragleave",
+				target: previousShape,
+				evt: evt.evt,
+			},
+			true
+		);
+		previousShape = undefined;
 	}
-	// if (trr) {
-	// 	trr.destroy();
-	// }
 });
 
 stage.on("dragend", function (e) {
@@ -529,32 +514,25 @@ stage.on("dragend", function (e) {
 	}
 
 	previousShape = undefined;
-	if (evt.target.attrs.id != "trr") {
-		e.target.moveTo(layer);
-	}
-	// e.target.moveTo(layer);
+	e.target.moveTo(layer);
 	// console.log(e.target.attrs.id);
 	var shape = stage.find("#" + e.target.attrs.id)[0];
 	if (dropTarget) {
 		if (dropTarget.attrs.id == "remove") {
-			console.log("dropTarget remove");
 			removeDeco(dragDecoId);
 			return;
 		}
 		if (haveIntersection(dragDecoId, dropTarget) && e.target.attrs.name.match("range")) {
 			if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
-				console.log("inner2");
 				removeDeco(e.target.attrs.id);
 				decoCount = FindDecoSize();
 				return;
 			}
 			stage.find("#" + dragDecoId)[0].setAttr("d", "drop");
 			RemovePreBounding(stage.find("#" + dragDecoId)[0].attrs.pre);
-			console.log("inner1");
 			return;
 		}
 	}
-
 	if (haveIntersection(e.target.attrs.id, stage.findOne("#remove"))) {
 		removeDeco(e.target.attrs.id);
 		decoCount = FindDecoSize();
@@ -573,7 +551,6 @@ stage.on("drop", function (e) {
 });
 
 // 裝試物拖曳事件
-// 修改
 var touchImg;
 var touchTime;
 var touchRun = false;
@@ -664,7 +641,6 @@ function drag(ev) {
 
 // 匯出base64
 function getDataUrl() {
-	// 修改
 	return stage.toDataURL({ quality: 1, pixelRatio: 2 });
 }
 
@@ -675,6 +651,10 @@ function removeDeco(id) {
 			try {
 				stage.find("#" + id)[0].destroy();
 				decoCount = FindDecoSize();
+				// 修改
+				if (trr) {
+					trr.destroy();
+				}
 			} catch (e) {}
 		}, 0);
 	}
@@ -729,46 +709,52 @@ function CheckDecoAll(num) {
 // 確認所有裝飾物有沒有相連
 function CheckDecoAllBind(id) {
 	if (haveIntersection(id, stage.find(".cream")[0])) {
+		console.log("cream");
 		stage.find("#" + id)[0].setAttr("d", "drop");
 		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		return true;
 	}
 	if (haveIntersection(id, stage.find(".cake")[0])) {
+		console.log("cake");
 		stage.find("#" + id)[0].setAttr("d", "drop");
 		stage.find("#" + id)[0].setAttr("trigger", "cream");
 		return true;
 	}
-	if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
-		var d = layer.children
-			.map((v) => {
-				if (v.attrs.name.match("deco")) {
-					return v;
-				}
-			})
-			.filter(Boolean);
-		var _d = d.slice(0, d.length - 1);
-		var dd = _d.map((v) => haveIntersection(id, v)).filter(Boolean);
-		if (dd.length) {
-			var _setTrigger = "";
-			var _trigger = "";
-			dd.forEach(function (deco) {
-				_trigger = deco.getAttr("pre");
-				_setTrigger += " " + deco.attrs.id;
-				if (_trigger) {
-					if (_trigger.match(id)) {
-						return;
-					} else {
-						deco.setAttr("pre", _trigger + " " + id);
+	if (!layer.children[layer.children.length - 2].attrs.name.match("trr")) {
+		// 修改
+		if (layer.children[layer.children.length - 2].attrs.name.match("deco") !== null) {
+			var d = layer.children
+				.map((v) => {
+					if (v.attrs.name.match("deco")) {
+						return v;
 					}
-				} else {
-					deco.setAttr("pre", id);
-				}
-				GetStage("#" + id).setAttr("trigger", _setTrigger.trim());
-			});
-			stage.find("#" + id)[0].setAttr("d", "drop");
-			return true;
+				})
+				.filter(Boolean);
+			var _d = d.slice(0, d.length - 1);
+			var dd = _d.map((v) => haveIntersection(id, v)).filter(Boolean);
+			if (dd.length) {
+				var _setTrigger = "";
+				var _trigger = "";
+				dd.forEach(function (deco) {
+					_trigger = deco.getAttr("pre");
+					_setTrigger += " " + deco.attrs.id;
+					if (_trigger) {
+						if (_trigger.match(id)) {
+							return;
+						} else {
+							deco.setAttr("pre", _trigger + " " + id);
+						}
+					} else {
+						deco.setAttr("pre", id);
+					}
+					GetStage("#" + id).setAttr("trigger", _setTrigger.trim());
+				});
+				stage.find("#" + id)[0].setAttr("d", "drop");
+				return true;
+			}
 		}
 	}
+	console.log("no");
 }
 
 // 移除未相連裝飾品
