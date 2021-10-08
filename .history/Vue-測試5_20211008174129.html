@@ -29,9 +29,8 @@
 			<div>
 				<img :src="b" alt="" v-for="b in filterFlag" />
 			</div>
-			<h1 class="lightbox" v-show="control">Lightbox</h1>
 			<h1 class="lightbox" :class="[control?'on':'']">Lightbox</h1>
-			<h1 class="lightbox" :style="[control?{'display': 'block !important'}:'']">Lightbox</h1>
+			<h1 class="lightbox" :class="[control?'on':'']">Lightbox</h1>
 			<div id="aa" class="a1" href="javascript:;" @click="handleClick">
 				<div>PPP1</div>
 			</div>

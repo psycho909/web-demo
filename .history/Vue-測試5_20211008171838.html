@@ -12,15 +12,6 @@
 			.a {
 				display: block;
 			}
-			.lightbox {
-				display: none;
-				width: 300px;
-				height: 300px;
-				border: 2px solid #000;
-			}
-			.lightbox.on {
-				display: block;
-			}
 		</style>
 	</head>
 
@@ -29,10 +20,7 @@
 			<div>
 				<img :src="b" alt="" v-for="b in filterFlag" />
 			</div>
-			<h1 class="lightbox" v-show="control">Lightbox</h1>
-			<h1 class="lightbox" :class="[control?'on':'']">Lightbox</h1>
-			<h1 class="lightbox" :style="[control?{'display': 'block !important'}:'']">Lightbox</h1>
-			<div id="aa" class="a1" href="javascript:;" @click="handleClick">
+			<div id="aa" class="a1" href="javascript:;" @click.self="handleClick">
 				<div>PPP1</div>
 			</div>
 			<div class="a2" href="javascript:;" @click="handleClick">
@@ -49,7 +37,7 @@
 			document.querySelector("#outer").addEventListener("click", function (e) {
 				console.log(e.target.tagName);
 			});
-			var arr = ["9000", "8500", "5500", "6500", "8500"];
+			var arr = [8000, 8000, 900, 100];
 			var obj = {};
 			for (var i = 0; i < arr.length; i++) {
 				if (obj[arr[i]]) {
@@ -58,10 +46,8 @@
 					obj[arr[i]] = 1;
 				}
 			}
-			var filterArr = Object.keys(obj).filter((f) => obj[f] > 1);
-
+			var filterArr = Object.keys(obj).filter((f) => obj[f] == 1);
 			console.log(filterArr);
-
 			function getDivs(element) {
 				try {
 					if (element) {
@@ -88,7 +74,6 @@
 					},
 				},
 				data: {
-					control: false,
 					book: [
 						{
 							name: "A",
@@ -111,7 +96,6 @@
 				methods: {
 					handleClick: function (e) {
 						console.log(e.target);
-						this.control = !this.control;
 					},
 				},
 			});
