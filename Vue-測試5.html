@@ -25,7 +25,10 @@
 	</head>
 
 	<body>
+		<input type="checkbox" id="checkbox" />
 		<div id="app">
+			<div>{{names}}</div>
+			<button @click="changeNames">Change</button>
 			<div>
 				<img :src="b" alt="" v-for="b in filterFlag" />
 			</div>
@@ -43,9 +46,60 @@
 					<button>inner button</button>
 				</div>
 			</div>
+			<div class="vaccine-list" v-for="(patient,index) in patients">
+				<input type="checkbox" v-model="patient.vaccine" @change="handleCheckBox2(index,$event)" />
+				<div class="input-group" v-for="vacc in patient.vaccineInitList">
+					<input type="text" v-model="vacc.date" />
+					<input type="text" v-model="vacc.type" />
+				</div>
+			</div>
 		</div>
 
 		<script>
+			var patients = [
+				{
+					vaccine: false,
+					vaccineInitList: [
+						{
+							date: "2021-11-11",
+							type: "ABC"
+						},
+						{
+							date: "2021-11-11",
+							type: "ABC"
+						}
+					]
+				},
+				{
+					vaccine: false,
+					vaccineInitList: []
+				}
+			];
+			const hero = {
+				name: "Batman",
+				realName: "Bruce Wayne",
+				address: {
+					city: "Gotham"
+				}
+			};
+			var {
+				vaccine,
+				address: { city }
+			} = hero;
+			console.log(city);
+			for (var i = 0; i < patients.length; i++) {
+				var hasVal = patients[i].vaccineInitList.some(function (v) {
+					return v.date || v.type;
+				});
+				patients[i].vaccineInitList.forEach(function (vacc) {
+					if (hasVal) {
+						if (vacc.date != "" || vacc.type != "") {
+							patients[i].vaccine = true;
+						}
+					}
+				});
+			}
+
 			document.querySelector("#outer").addEventListener("click", function (e) {
 				console.log(e.target.tagName);
 			});
@@ -60,7 +114,7 @@
 			}
 			var filterArr = Object.keys(obj).filter((f) => obj[f] > 1);
 
-			console.log(filterArr);
+			// console.log(filterArr);
 
 			function getDivs(element) {
 				try {
@@ -85,35 +139,94 @@
 								return "images/blue.png";
 							}
 						});
-					},
+					}
 				},
 				data: {
 					control: false,
+					names: [
+						{ ItemName: "AAAA", CreateDate: "2021-11-11", SN: "sadasdasdasd" },
+						{ ItemName: "AAAA", CreateDate: "2021-11-11", SN: "sadasdasdasd" },
+						{ ItemName: "AAAA", CreateDate: "2021-11-11", SN: "sadasdasdasd" }
+					],
 					book: [
 						{
 							name: "A",
-							flag: 0,
+							flag: 0
 						},
 						{
 							name: "B",
-							flag: 1,
+							flag: 1
 						},
 						{
 							name: "C",
-							flag: 1,
+							flag: 1
 						},
 						{
 							name: "D",
-							flag: 0,
-						},
+							flag: 0
+						}
 					],
+					patients: [
+						{
+							vaccine: false,
+							vaccineInitList: [
+								{ date: "", type: "" },
+								{ date: "", type: "" },
+								{ date: "", type: "" }
+							]
+						},
+						{
+							vaccine: false,
+							vaccineInitList: [
+								{ date: "", type: "" },
+								{ date: "", type: "" },
+								{ date: "", type: "" }
+							]
+						}
+					]
+				},
+				watch: {
+					patients: {
+						handler(newVal, oldVal) {
+							this.handleCheckBox();
+						},
+						deep: true
+					}
 				},
 				methods: {
+					changeNames() {
+						this.names[0].sad = "BBBB";
+					},
+					handleCheckBox() {
+						var _this = this;
+						for (var i = 0; i < this.patients.length; i++) {
+							var hasVal = this.patients[i].vaccineInitList.some(function (v) {
+								return v.date || v.type;
+							});
+							this.patients[i].vaccineInitList.forEach(function (vacc) {
+								if (hasVal) {
+									if (vacc.date != "" || vacc.type != "") {
+										_this.$set(_this.patients[i], "vaccine", true);
+									}
+								} else {
+									_this.$set(_this.patients[i], "vaccine", false);
+								}
+							});
+						}
+					},
+					handleCheckBox2(index, e) {
+						if (!e.target.checked) {
+							this.patients[index].vaccineInitList.forEach(function (p) {
+								p.date = "";
+								p.type = "";
+							});
+						}
+					},
 					handleClick: function (e) {
 						console.log(e.target);
 						this.control = !this.control;
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>
