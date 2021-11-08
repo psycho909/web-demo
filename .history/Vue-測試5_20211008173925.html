@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<style>
+			.a {
+				display: block;
+			}
+			.lightbox {
+				display: none;
+				width: 300px;
+				height: 300px;
+				border: 2px solid #000;
+			}
+			.lightbox.on {
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div>
+				<img :src="b" alt="" v-for="b in filterFlag" />
+			</div>
+			<h1 class="lightbox" :class="[control?'on':'']">Lightbox</h1>
+			<div id="aa" class="a1" href="javascript:;" @click="handleClick">
+				<div>PPP1</div>
+			</div>
+			<div class="a2" href="javascript:;" @click="handleClick">
+				<div id="div" @click="handleClick"><div>PPP2</div></div>
+			</div>
+			<div id="outer">
+				<div id="inner">
+					<button>inner button</button>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			document.querySelector("#outer").addEventListener("click", function (e) {
+				console.log(e.target.tagName);
+			});
+			var arr = ["9000", "8500", "5500", "6500", "8500"];
+			var obj = {};
+			for (var i = 0; i < arr.length; i++) {
+				if (obj[arr[i]]) {
+					obj[arr[i]] += 1;
+				} else {
+					obj[arr[i]] = 1;
+				}
+			}
+			var filterArr = Object.keys(obj).filter((f) => obj[f] > 1);
+
+			console.log(filterArr);
+
+			function getDivs(element) {
+				try {
+					if (element) {
+						console.log("12");
+					}
+					console.log("element");
+				} catch (error) {
+					console.log("error");
+				} finally {
+					console.log("finally");
+				}
+			}
+			var vm = new Vue({
+				el: "#app",
+				computed: {
+					filterFlag() {
+						return this.book.map((b) => {
+							if (b.flag) {
+								return "images/blob.png";
+							} else {
+								return "images/blue.png";
+							}
+						});
+					},
+				},
+				data: {
+					control: false,
+					book: [
+						{
+							name: "A",
+							flag: 0,
+						},
+						{
+							name: "B",
+							flag: 1,
+						},
+						{
+							name: "C",
+							flag: 1,
+						},
+						{
+							name: "D",
+							flag: 0,
+						},
+					],
+				},
+				methods: {
+					handleClick: function (e) {
+						console.log(e.target);
+						this.control = !this.control;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

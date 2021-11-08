@@ -2,35 +2,50 @@
 <html lang="zh-Hant-TW">
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="X-UA-Compatible" content="IE=5" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js" integrity="sha512-ijLvQMMXgWAO85zfDbKeoqNR7015wrZI42XGYorITKkG0sVlP4t+Rt5Dl9EKDkrPxGrWZmVCUW5oIXkVOrnCiw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/twbs-pagination1.4.2/twbsPagination.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<title>Document</title>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
-			.card {
-				width: 50vw;
-				height: 30vw;
-				background-color: gray;
-			}
-			.card1 :is(.title, .detail) {
-				color: red;
-			}
 		</style>
 	</head>
 	<body>
-		<div class="card card1" id="card">
-			<h2 class="title">IS:</h2>
-			<p class="detail">Detail</p>
-			<p class="text">P</p>
-		</div>
+		<ul id="pagination-demo"></ul>
+		<div id="data-container"></div>
+		<div id="pagination-container"></div>
 		<script>
-			document.getElementById("card").addEventListener("touchstart", function (e) {
-				document.querySelector(".text").innerHTML = e.touches.length;
-				console.log(e.touches.length);
+			$("#pagination-container").pagination({
+				dataSource: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+				callback: function (data, pagination) {
+					// template method of yourself
+					var html = template(data);
+					$("#data-container").html(html);
+					console.log(data);
+				}
 			});
+			function template(data) {
+				var html = "<ul>";
+				$.each(data, function (index, item) {
+					html += "<li>" + item + "</li>";
+				});
+				html += "</ul>";
+				return html;
+			}
+			// $("#pagination-demo").twbsPagination({
+			// 	totalPages: 35,
+			// 	visiblePages: 7,
+			// 	onPageClick: function (event, page) {
+			// 		console.log(page)
+			// 		$("body").text("Page " + page);
+			// 	}
+			// });
+			// alert(123);
 		</script>
 	</body>
 </html>
