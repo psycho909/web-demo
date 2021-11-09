@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				padding-left: 120px;
+			}
+			.list {
+				position: relative;
+				list-style: none;
+				counter-reset: i;
+			}
+			.li {
+				position: relative;
+				text-indent: -20px;
+			}
+			.li:before {
+				content: counter(i) ". ";
+				counter-increment: i;
+				width: 15px;
+				height: 15px;
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			var d1 = $.Deferred();
+			var d2 = $.Deferred();
+
+			$.when(d1, d2)
+				.done(function (v1, v2) {
+					console.log(v1);
+					console.log(v2);
+				})
+				.fail(function (error) {
+					console.log("error");
+				});
+			// d1.resolve(1);
+			// d2.resolve(2);
+			$.ajax({
+				url: "https://randomuser.me/api/",
+				dataType: "json",
+				success: function (data) {
+					setTimeout(function () {
+						d1.resolve(data);
+					}, 5000);
+				}
+			});
+			$.ajax({
+				url: "https://randomuser.me/api/",
+				dataType: "json",
+				success: function (data) {
+					d2.reject(data);
+				}
+			});
+		</script>
+	</body>
+</html>
