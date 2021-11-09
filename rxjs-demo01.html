@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.4.0/rxjs.umd.min.js" integrity="sha512-+44c+4RaNWpQRmhz2dwqH+t6caPi46MTcLaQr96rnvXOOW7SInBN4ivxSIZyqGlLSUOw5UQ+ndUmN417dJPXNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	</head>
+	<body>
+		<button id="btn">按鈕</button>
+		<script>
+			rxjs.fromEvent(document, "click").subscribe(() => console.log("Clicked"));
+
+			var observable = new rxjs.Observable((subscriber) => {
+				const id = setInterval(() => {
+					subscriber.next("hi");
+				}, 1000);
+				// subscriber.next(1);
+				// subscriber.next(2);
+				// subscriber.next(3);
+				// setTimeout(() => {
+				// 	subscriber.next(4);
+				// 	subscriber.complete();
+				// }, 1000);
+			});
+			console.log("just before subscribe");
+			// observable.subscribe({
+			// 	next(x) {
+			// 		console.log("got value " + x);
+			// 	},
+			// 	error(err) {
+			// 		console.error("something wrong occurred: " + err);
+			// 	},
+			// 	complete() {
+			// 		console.log("done");
+			// 	}
+			// });
+			console.log("just after subscribe");
+		</script>
+	</body>
+</html>

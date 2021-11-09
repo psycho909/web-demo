@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{count}}</div>
+			<g-button title="按鈕" @click="handleClick"></g-button>
+			<app-tabs :tab-list="tabList">
+				<template v-slot:tabpanel-1> Content 1 </template>
+				<template v-slot:tabpanel-2> Content 2 </template>
+				<template v-slot:tabpanel-3> Content 3 </template>
+				<template v-slot:tabpanel-4> Content 4 </template>
+			</app-tabs>
+		</div>
+		<script>
+			var gButton = {
+				props: ["title"],
+				template: `
+					<button>{{title}}</button>
+				`,
+				setup(props, context) {
+					return {};
+				}
+			};
+
+			var AppTabs = {
+				props: ["tabList"],
+				template: `
+					<div>
+						<ul>
+							<li v-for="(tab,index) in tabList" :key="index">
+								<label :for="'a'+(index+1)">{{tab}}</label>
+								<input type="radio" :id="'a'+(index+1)" :name="a-tab" :value="(index+1)" v-model="activeTab" />
+							</li>
+						</ul>
+						<template v-for="(tab,index) in tabList">
+							<div :key="index" v-if="index+1 === activeTab">
+								<slot :name="'tabpanel-'+(index+1)" />
+							</div>
+						</template>
+					</div>
+				`,
+				data() {
+					return {
+						activeTab: 1
+					};
+				}
+			};
+			var app = Vue.createApp({
+				components: {
+					"g-button": gButton,
+					"app-tabs": AppTabs
+				},
+				data() {
+					return {
+						count: 0,
+						tabList: ["Tab 1", "Tab 2", "Tab 3", "Tab 4"]
+					};
+				},
+				methods: {
+					handleClick() {
+						this.count += 1;
+					}
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

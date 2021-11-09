@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{counter}}</div>
+			<child :counter.sync="counter"></child>
+		</div>
+		<script>
+			Vue.component("child", {
+				props: ["counter"],
+				template: `
+                <div>
+                    <h3>Child</h3>
+                    <button @click="handleClick">按鈕</button>    
+                </div>
+            `,
+				methods: {
+					handleClick() {
+						this.$emit("update:counter", this.counter + 1);
+					}
+				}
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					counter: 0
+				},
+				methods: {
+					updateCounter(data) {
+						console.log(data);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

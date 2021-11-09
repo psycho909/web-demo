@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=7" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/normalize/normalize.css" />
+		<script src="https://d157l7jdn8e5sf.cloudfront.net/dev/pixi-legacy.js"></script>
+		<style>
+			* {
+				font-family: DFKai-sb;
+				font-size: 24px;
+				padding: 0;
+				margin: 0;
+				line-height: 1.5;
+			}
+			#px-render {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 910px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="px-render"></div>
+		<script>
+			var canvas = {};
+			canvas.width = window.innerWidth;
+			window.onload = function () {
+				const app = new PIXI.Application({ width: canvas.width, height: 900 });
+				document.getElementById("px-render").appendChild(app.view);
+
+				app.stage.interactive = true;
+
+				const container = new PIXI.Container();
+				app.stage.addChild(container);
+
+				const flag = PIXI.Sprite.from("./images/wing.png");
+				container.addChild(flag);
+				flag.x = 0;
+				flag.y = 0;
+
+				const displacementSprite = PIXI.Sprite.from("./images/filter.png");
+				// Make sure the sprite is wrapping.
+				displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+				const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+
+				displacementSprite.position = flag.position;
+
+				app.stage.addChild(displacementSprite);
+
+				flag.filters = [displacementFilter];
+
+				displacementFilter.scale.x = 30;
+				displacementFilter.scale.y = 60;
+
+				app.ticker.add(() => {
+					// Offset the sprite position to make vFilterCoord update to larger value. Repeat wrapping makes sure there's still pixels on the coordinates.
+					displacementSprite.x++;
+					// Reset x to 0 when it's over width to keep values from going to very huge numbers.
+					if (displacementSprite.x > displacementSprite.width) {
+						displacementSprite.x = 0;
+					}
+				});
+			};
+		</script>
+	</body>
+</html>

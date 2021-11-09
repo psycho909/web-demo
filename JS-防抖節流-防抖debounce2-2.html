@@ -32,7 +32,7 @@
 					dataType: "json",
 					success: function (data) {
 						console.log(data, content);
-					},
+					}
 				});
 			}
 
@@ -49,10 +49,14 @@
 				};
 			};
 
-			var debouncedLog = debounce(ajax, 1000);
+			var debouncedLog = debounce(ajax, 10);
 			btn.addEventListener("click", function (e) {
 				debouncedLog("click");
 			});
+
+			for (var i = 0; i < 1000; i++) {
+				debouncedLog("click");
+			}
 		</script>
 	</body>
 </html>

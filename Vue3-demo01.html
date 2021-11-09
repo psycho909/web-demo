@@ -1,35 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/vue@3.0.0-alpha.8/dist/vue.global.js"></script>
-</head>
-<body>
-    <div id="app">
-        <button @click="increment">
-            Count is: {{ state.count }}, double is: {{ state.double }}
-        </button>
-    </div>
-    <script>
-        var {createApp,reactive,computed,ref}=Vue;
-        const App={
-            setup(){
-                const state=reactive({
-                    count:0,
-                    double:computed(()=>state.count*2)
-                })
-                function increment(){
-                    state.count++
-                }
-                return {
-                    state,
-                    increment
-                }
-            }
-        }
-        createApp(App).mount("#app")
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@3.0.0-alpha.8/dist/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="range" min="15" max="100" v-model="size" />
+			<div>{{size}}</div>
+			<h1 v-adjust:[align]="size">{{title}}</h1>
+			<div>{{title}}</div>
+			<div>{{city}}</div>
+			<div>{{LowString}} -- {{location}}</div>
+			<input type="text" v-model="title" />
+			<hr />
+			<child @relay="location=$event" :size="size"></child>
+			<button @click="increment">Count is: {{ state.count }} {{ num }}, double is: {{ state.double }}</button>
+		</div>
+		<script>
+			var { createApp, reactive, computed, ref } = Vue;
+			var mixins = {
+				data() {
+					return {
+						address: "sadasdasdasdasdasdasdadasdasd"
+					};
+				}
+			};
+			var app = createApp({
+				setup() {
+					const state = reactive({
+						count: 0,
+						double: computed(() => state.count * 2)
+					});
+					var num = Vue.ref(0);
+					const city = Vue.ref("Taipei");
+					const nation = Vue.ref("UK");
+					const LowString = Vue.computed(() => city.value.toLocaleLowerCase());
+					Vue.provide("city", city);
+					Vue.provide("nation", nation);
+					function increment() {
+						state.count++;
+						num.value++;
+					}
+					return {
+						state,
+						increment,
+						city,
+						LowString,
+						num
+					};
+				},
+				created() {
+					Vue.watchEffect(
+						() => {
+							console.log("watchEffect1");
+						},
+						{ flush: "pre" }
+					);
+				},
+				data() {
+					return {
+						title: "Root Comp",
+						location: "unKnow",
+						display: true,
+						arg: "info",
+						description: "low-level DOM",
+						size: 30,
+						align: "right"
+					};
+				}
+			});
+			app.mixin(mixins);
+			app.directive("adjust", (el, binding) => {
+				el.style.fontSize = binding.value + "px";
+				el.style.textAlign = binding.arg;
+			});
+			app.component("child", {
+				setup(props, context) {
+					Vue.watchEffect(() => {
+						console.log("watchEffect2");
+					});
+					context.emit("relay", "London");
+					const name = Vue.ref("Name");
+					const notesArePublic = Vue.ref(false);
+					const myVariable = reactive({
+						counter: 1
+					});
+					function handleChange() {
+						name.value = "Change";
+					}
+					setTimeout(() => {
+						myVariable.counter += 1;
+						console.log(myVariable);
+					}, 1000);
+					return {
+						name,
+						notesArePublic,
+						handleChange,
+						myVariable
+					};
+				},
+				props: ["size"],
+				template: `<div>
+					<p v-adjust="size">{{address}}</p>
+                    <div>{{city}} - {{nation}} </div>    
+                    <p>{{name}}</p>
+                    <input type="text" v-model="name" />
+                    <input type="checkbox" v-model="notesArePublic" />
+                    <button @click="handleChange">Change</button>
+                </div>`,
+				inject: ["city", "nation"]
+			});
+			var vm = app.mount("#app");
+		</script>
+	</body>
 </html>

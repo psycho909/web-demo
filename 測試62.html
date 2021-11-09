@@ -9,10 +9,17 @@
 			[id*="adm-"] {
 				color: red;
 			}
+			.box {
+				width: 250px;
+				height: 300px;
+				background-color: #fff;
+				border: 1px solid #000;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="adm-container">sa</div>
+		<div class="box"></div>
 		<form id="note-form">
 			<input id="note-input" type="text" placeholder="+ Add Note" required />
 			<button id="note-submit">Save</button>
@@ -52,7 +59,7 @@
 				name: "Chen",
 				getName: function () {
 					console.log(this.name);
-				},
+				}
 			};
 			obj.getName();
 		</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<!--操作变量count-->
+			<button v-on:click="increase()">count+1</button>
+			<button v-on:click="de()">count-1</button>
+			<p>{{count}}</p>
+			<p>{{result()}}</p>
+			<p>{{output}}</p>
+
+			<!--操作变量count2-->
+			<button v-on:click="count2++">count2+1</button>
+			<p>{{count2}}</p>
+			<p>{{title}}</p>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					count: 0,
+					count2: 0,
+					num: 0,
+					title: "aaaa"
+				},
+				computed: {
+					output: function () {
+						console.log("output");
+						return this.count > 5 ? "大于5" : "小于5";
+					}
+				}, // 计算属性
+				methods: {
+					increase: function () {
+						this.count++;
+					},
+					de: function () {
+						this.count--;
+					},
+					result: function () {
+						console.log("result");
+						return this.count > 5 ? "大于5" : "小于5";
+					}
+				}
+			});
+			var data = [
+				{
+					name: "Project 1",
+					completed: "01-2021"
+				},
+				{
+					name: "Project 2",
+					completed: "02-2021"
+				},
+				{
+					name: "Project 3",
+					completed: "02-2021"
+				},
+				{
+					name: "Project 4",
+					completed: "02-2021"
+				}
+			];
+
+			var projectByMonth = data.reduce((result, project) => {
+				// const existingProjects = result[project.completed] || [];
+				// var obj={};
+				if (result[project.completed]) {
+					result[project.completed].push(project);
+				} else {
+					result[project.completed] = [];
+					result[project.completed].push(project);
+				}
+				return result;
+				// const existingProjects = result[project.completed] || [];
+				// return {
+				// 	...result,
+				// 	[project.completed]: [...existingProjects, project]
+				// };
+			}, {});
+
+			console.log(projectByMonth);
+		</script>
+	</body>
+</html>

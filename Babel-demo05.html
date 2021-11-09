@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{msg}}</div>
+			<child></child>
+		</div>
+		<script type="module">
+			// import $ from "http://esm.sh/jquery?dev";
+			// import axios from "./js/axios.js";
+			import axios from "http://esm.sh/axios?dev";
+			import { createApp, reactive } from "http://esm.sh/vue@3?dev";
+			import { firstName, lastName } from "./Babel-demo5.js";
+			console.log(firstName);
+			axios.get("https://randomuser.me/api/").then((data) => console.log(data));
+			// console.log($("#app").html());
+
+			var child = {
+				template: `
+					<div>Child {{state}}</div>
+				`,
+				setup(props, context) {
+					const obj = { count: 3, name: "Front", age: 100 };
+					const state = reactive(obj);
+					return {
+						state
+					};
+				}
+			};
+			createApp({
+				components: { child },
+				mounted() {
+					console.log("mounted");
+				},
+				data() {
+					return {
+						msg: "Hello Vue3"
+					};
+				}
+			}).mount("#app");
+		</script>
+	</body>
+</html>
