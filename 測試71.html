@@ -4,8 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -33,8 +35,17 @@
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
+		<div id="app">
+			<div id="simpleList" class="list-group">
+				<div class="list-group-item">This is <a href="http://rubaxa.github.io/Sortable/">Sortable</a></div>
+				<div class="list-group-item">It works with Bootstrap...</div>
+				<div class="list-group-item">...out of the box.</div>
+				<div class="list-group-item">It has support for touch devices.</div>
+				<div class="list-group-item">Just drag some elements around.</div>
+			</div>
+		</div>
 		<script>
+<<<<<<< HEAD
 			var win = false;
 			var count = 0;
 
@@ -43,6 +54,13 @@
 				count++;
 			}
 
+=======
+			var listWithHandle = document.getElementById("simpleList");
+
+			Sortable.create(listWithHandle, {
+				animation: 150
+			});
+>>>>>>> 44c3a8fb7de638f033e9b6e72996dcd1fbca5dfb
 			var d1 = $.Deferred();
 			var d2 = $.Deferred();
 
