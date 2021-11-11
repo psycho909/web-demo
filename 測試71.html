@@ -8,6 +8,7 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -45,22 +46,21 @@
 			</div>
 		</div>
 		<script>
-<<<<<<< HEAD
-			var win = false;
-			var count = 0;
+			$("#loadingProgress").show();
+			$("#loadingProgress").hide();
+			loadingProgress({
+				loadedFN: function () {
+					// API放這裡
+				},
+				autoHide: false
+			});
 
-			while (count < 10) {
-				console.log(count);
-				count++;
-			}
-
-=======
 			var listWithHandle = document.getElementById("simpleList");
 
 			Sortable.create(listWithHandle, {
 				animation: 150
 			});
->>>>>>> 44c3a8fb7de638f033e9b6e72996dcd1fbca5dfb
+
 			var d1 = $.Deferred();
 			var d2 = $.Deferred();
 
