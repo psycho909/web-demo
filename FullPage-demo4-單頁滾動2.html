@@ -12,18 +12,21 @@
 				margin: 0;
 				box-sizing: border-box;
 			}
-
-			.game-box {
+			#app {
 				width: 300px;
+			}
+			.game-box {
+				width: 100%;
 				background-color: gray;
 				display: flex;
 				flex-wrap: wrap;
 				font-size: 0;
+				position: relative;
 			}
 
 			.game {
-				flex-basis: 20%;
-				width: 20%;
+				--num: 3;
+				width: calc(100% / var(--num));
 				text-align: center;
 				line-height: 100px;
 				height: 100px;
@@ -98,11 +101,20 @@
 				left: 50px;
 				transform: rotate(-45deg);
 			}
+			#canvas {
+				position: absolute;
+				top: 0;
+				left: 0;
+				transform: translateX(100%);
+			}
 		</style>
 	</head>
 
 	<body>
-		<div id="app" class="game-box"></div>
+		<div id="app">
+			<div class="game-box"></div>
+			<canvas id="canvas"></canvas>
+		</div>
 
 		<!-- <div id="menu" class="menu">menu</div> -->
 		<script>
@@ -156,9 +168,12 @@
 
 				return arr;
 			}
-
-			var bingoLine = BingoLine(25);
-			for (var i = 0; i < 25; i++) {
+			var rules = 25;
+			setTimeout(() => {
+				$(".game").css("--num", Math.sqrt(25));
+			}, 0);
+			var bingoLine = BingoLine(rules);
+			for (var i = 0; i < rules; i++) {
 				$(".game-box").append("<div class='game'>" + i + "</div>");
 			}
 			var connect = bingoLine.map(function (v, i) {
@@ -177,24 +192,49 @@
 					checkWinner($("body .game"), $(".gameline"));
 				}
 			});
+
+			function Line(target) {
+				var l = $(".game").eq(target).offset().left;
+				var t = $(".game").eq(target).offset().top;
+				var w = $(".game").eq(target).width();
+				var h = $(".game").eq(target).height();
+
+				var x = l + w / 2;
+				var y = t + h / 2;
+				return {
+					x: x,
+					y: y
+				};
+			}
+
+			var c = document.getElementById("canvas");
+			c.width = $(".game-box").width();
+			c.height = $(".game-box").height();
+			var ctx = c.getContext("2d");
+			function Draw(a, b) {
+				ctx.beginPath();
+				ctx.moveTo(a.x, a.y);
+				ctx.lineTo(b.x, b.y);
+				ctx.stroke();
+			}
 			function checkWinner(bingoItem, linebox) {
 				var gameHTML = "";
-				for (var i = 0; i < bingoLine.length - 1; i++) {
+				for (var i = 0; i < bingoLine.length; i++) {
 					var bingo = bingoLine[i].every(function (v, i) {
 						return bingoItem.eq(v).hasClass("active") || bingoItem.eq(v).hasClass("bingo");
 					});
 					if (bingo) {
-						console.log("bingo");
-						connectGet[i] = connect[i];
-						gameHTML = "";
+						Draw(Line(bingoLine[i][0]), Line(bingoLine[i][bingoLine[i].length - 1]));
+
+						// connectGet[i] = [bingoLine[i][0],];
 						for (var j = 0; j < bingoLine[i].length; j++) {
 							bingoItem.eq([bingoLine[i][j]]).addClass("bingo");
 						}
-						for (var k = 0; k < connectGet.length; k++) {
-							gameHTML += connectGet[k];
-						}
-						linebox.html("");
-						linebox.html(gameHTML);
+						// for (var k = 0; k < connectGet.length; k++) {
+						// 	gameHTML += connectGet[k];
+						// }
+						// linebox.html("");
+						// linebox.html(gameHTML);
 					}
 				}
 			}
