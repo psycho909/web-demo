@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>FullPage demo0</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/fullpage/scrolloverflow.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css" />
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			/* Custom CSS
+ * --------------------------------------- */
+			body {
+				font-family: arial, helvetica;
+				color: #333;
+				color: rgba(0, 0, 0, 0.5);
+			}
+			.wrap {
+				position: relative;
+				min-width: 1200px;
+				overflow: hidden;
+				z-index: 2;
+			}
+			.bg {
+				position: absolute;
+				left: 50%;
+				top: 0;
+				margin-left: -1000px;
+				width: 2000px;
+				height: 3630px;
+				background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/bg.jpg?80ccd1f…) no-repeat center 0;
+			}
+			.bgg {
+				display: none;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="bg"></div>
+			<div class="bgg"></div>
+			<div class="bgg"></div>
+			<div id="fullpage">
+				<div class="section" id="section0">
+					<div class="intro"></div>
+				</div>
+				<div class="section" id="section1">
+					<div class="intro">
+						<h1>No limitations!</h1>
+						<p>Content is a priority. Even if it is so large :)</p>
+						<a href="#section2">Scroll</a>
+					</div>
+				</div>
+				<div class="section" id="section2">
+					<div class="intro">
+						<h1>No limitations!</h1>
+						<p>Content is a priority. Even if it is so large :)</p>
+						<a href="#section0">Scroll</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div id="menu" class="menu">menu</div> -->
+		<script>
+			// $("#fullpage").fullpage({
+			// 	sectionsColor: ["#4A6FB1", "#939FAA", "#323539"],
+			// 	scrollOverflow: true,
+			// 	scrollOverflowReset: true,
+			// 	keyboardScrolling: false
+			// });
+
+			// disabled mouse scroll
+			$.fn.fullpage.setMouseWheelScrolling(false);
+			// $.fn.fullpage.setAllowScrolling(false);
+
+			$("#fullpage").fullpage({
+				menu: "#menu",
+				anchors: ["intro", "section1", "section2", "section3", "section4", "section5", "section6"],
+				scrollingSpeed: 500,
+				scrollOverflow: true,
+				scrollOverflowReset: true,
+				keyboardScrolling: false,
+				afterLoad: function (origin, destination) {
+					var ease = "power3.inOut";
+					var duration = 0.8;
+					switch (destination) {
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						case 4:
+							break;
+						case 5:
+							break;
+						case 6:
+							break;
+						case 7:
+							break;
+					}
+					// switch (u(".cont .e").attr("style", ""),
+					// s.gsap.set(u(".cont .e"), {
+					//     scale: 1.1
+					// }),
+					// e) {
+					// case 1:
+					//     u("body").hasClass("intro-end") && s.gsap.to(".bg", {
+					//         top: 0,
+					//         duration: r,
+					//         ease: n
+					//     });
+					//     break;
+					// case 2:
+					//     s.gsap.to(".bg", {
+					//         top: -345,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     s.gsap.set(".bgg1", {
+					//         opacity: 0,
+					//         onComplete: function() {
+					//             u(".bgg1").show()
+					//         }
+					//     }),
+					//     s.gsap.to(".bgg1", {
+					//         delay: .5,
+					//         opacity: 1,
+					//         duration: .5
+					//     }),
+					//     m(2);
+					//     break;
+					// case 3:
+					//     s.gsap.to(".bg", {
+					//         top: -690,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     s.gsap.set(".bgg2", {
+					//         opacity: 0,
+					//         onComplete: function() {
+					//             u(".bgg2").show()
+					//         }
+					//     }),
+					//     s.gsap.to(".bgg2", {
+					//         delay: .5,
+					//         opacity: 1,
+					//         duration: .5
+					//     }),
+					//     m(3);
+					//     break;
+					// case 4:
+					//     s.gsap.to(".bg", {
+					//         top: -1035,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     s.gsap.set(".bgg2", {
+					//         opacity: 0,
+					//         onComplete: function() {
+					//             u(".bgg2").show()
+					//         }
+					//     }),
+					//     s.gsap.to(".bgg2", {
+					//         delay: .5,
+					//         opacity: 1,
+					//         duration: .5
+					//     }),
+					//     m(4);
+					//     break;
+					// case 5:
+					//     s.gsap.to(".bg", {
+					//         top: -1380,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     s.gsap.set(".bgg2", {
+					//         opacity: 0,
+					//         onComplete: function() {
+					//             u(".bgg2").show()
+					//         }
+					//     }),
+					//     s.gsap.to(".bgg2", {
+					//         delay: .5,
+					//         opacity: 1,
+					//         duration: .5
+					//     }),
+					//     m(5);
+					//     break;
+					// case 6:
+					//     s.gsap.to(".bg", {
+					//         top: -1725,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     s.gsap.set(".bgg2", {
+					//         opacity: 0,
+					//         onComplete: function() {
+					//             u(".bgg2").show()
+					//         }
+					//     }),
+					//     s.gsap.to(".bgg2", {
+					//         delay: .5,
+					//         opacity: 1,
+					//         duration: .5
+					//     }),
+					//     m(6);
+					//     break;
+					// case 7:
+					//     s.gsap.to(".bg", {
+					//         top: -2070,
+					//         duration: r,
+					//         ease: n
+					//     }),
+					//     m(7)
+					// }
+					// e < 2 ? u("#menu").fadeOut("fast") : u("#menu").fadeIn("fast")
+				},
+				onLeave: function () {
+					gsap.to(".bgg", {
+						opacity: 0,
+						duration: 0.3,
+						onComplete: function () {
+							$(".bgg").hide();
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>FullPage demo0</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			.game-box {
+				width: 300px;
+				background-color: gray;
+				display: flex;
+				flex-wrap: wrap;
+				font-size: 0;
+			}
+
+			.game {
+				flex-basis: 20%;
+				width: 20%;
+				text-align: center;
+				line-height: 100px;
+				height: 100px;
+				cursor: pointer;
+				font-size: 1rem;
+				display: inline-block;
+			}
+
+			.game:hover {
+				background-color: #000;
+				color: #fff;
+			}
+
+			.game.active {
+				border-color: red;
+				background-color: #eee;
+			}
+
+			.game.bingo {
+				background-color: orange;
+				position: relative;
+			}
+
+			p {
+				position: absolute;
+				width: 200px;
+				height: 2px;
+				background-color: #fff;
+			}
+
+			.line1 {
+				top: 48px;
+				left: 50px;
+			}
+
+			.line2 {
+				top: 147px;
+				left: 51px;
+			}
+
+			.line3 {
+				top: 248px;
+				left: 50px;
+			}
+
+			.line4 {
+				top: 148px;
+				left: -50px;
+				transform: rotate(90deg);
+			}
+
+			.line5 {
+				top: 148px;
+				left: 51px;
+				transform: rotate(90deg);
+			}
+
+			.line6 {
+				top: 148px;
+				left: 150px;
+				transform: rotate(90deg);
+			}
+
+			.line7 {
+				top: 148px;
+				left: 53px;
+				transform: rotate(45deg);
+			}
+
+			.line8 {
+				top: 148px;
+				left: 50px;
+				transform: rotate(-45deg);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" class="game-box"></div>
+
+		<!-- <div id="menu" class="menu">menu</div> -->
+		<script>
+			function BingoLine(b) {
+				var x = Math.sqrt(b);
+				var arr = [];
+
+				function VLine(x) {
+					var arr1 = [];
+					for (var i = 0; i <= x - 1; i += 1) {
+						arr1.push(i);
+					}
+					arr1.forEach(function (v) {
+						var a = [];
+						for (var i = v; i <= x * x - (x - v); i += x) {
+							a.push(i);
+						}
+						arr.push(a);
+					});
+				}
+
+				function HLine(x) {
+					var arr1 = [];
+					for (var i = 0; i <= x * x - x; i += x) {
+						arr1.push(i);
+					}
+
+					arr1.forEach(function (v) {
+						var a = [];
+						for (var i = v; i <= v + x - 1; i += 1) {
+							a.push(i);
+						}
+						arr.push(a);
+					});
+				}
+				function XLine(x) {
+					var a = [];
+					var b = [];
+					for (var i = 0; i <= x * x - 1; i += x + 1) {
+						a.push(i);
+					}
+					for (var i = x - 1; i <= x * x - x; i += x - 1) {
+						b.push(i);
+					}
+					arr.push(a);
+					arr.push(b);
+				}
+				VLine(x);
+				HLine(x);
+				XLine(x);
+
+				return arr;
+			}
+
+			var bingoLine = BingoLine(25);
+			for (var i = 0; i < 25; i++) {
+				$(".game-box").append("<div class='game'>" + i + "</div>");
+			}
+			var connect = bingoLine.map(function (v, i) {
+				return "<p class='line" + (i + 1) + "'>line" + (i + 1) + "</p>";
+			});
+			var connectGet = [];
+			var _game = document.getElementsByClassName("game");
+			$(".game-box").append("<div class='gameline'></div>");
+			for (var i = 0; i < connect.length; i++) {
+				connectGet[i] = "";
+			}
+			$("body").on("click", ".game", function () {
+				var index = $(this).index();
+				if (!$(this).hasClass("active") || !$(this).hasClass("bingo")) {
+					$(this).addClass("active");
+					checkWinner($("body .game"), $(".gameline"));
+				}
+			});
+			function checkWinner(bingoItem, linebox) {
+				var gameHTML = "";
+				for (var i = 0; i < bingoLine.length - 1; i++) {
+					var bingo = bingoLine[i].every(function (v, i) {
+						return bingoItem.eq(v).hasClass("active") || bingoItem.eq(v).hasClass("bingo");
+					});
+					if (bingo) {
+						console.log("bingo");
+						connectGet[i] = connect[i];
+						gameHTML = "";
+						for (var j = 0; j < bingoLine[i].length; j++) {
+							bingoItem.eq([bingoLine[i][j]]).addClass("bingo");
+						}
+						for (var k = 0; k < connectGet.length; k++) {
+							gameHTML += connectGet[k];
+						}
+						linebox.html("");
+						linebox.html(gameHTML);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
