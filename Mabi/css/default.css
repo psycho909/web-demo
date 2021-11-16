@@ -1,0 +1,213 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+/* Custom CSS
+* --------------------------------------- */
+body {
+    background-color: #0a0618;
+}
+.wrap {
+    position: relative;
+    min-width: 1200px;
+    overflow: hidden;
+    z-index: 2;
+}
+.bg {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -1000px;
+    width: 2000px;
+    height: 3630px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/bg.jpg?80ccd1f…) no-repeat center 0;
+}
+.bgg {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.bgg1 {
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/bg1.png?fff4daf…) no-repeat center 0 / cover;
+}
+.bgg2 {
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/bg2.png?d2cc732…) no-repeat center 0 / cover;
+}
+.wrap .cont {
+    padding-bottom: 60px;
+}
+
+.cont {
+    transform: scale(0.95);
+}
+.cont .s,
+.cont .e {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+.cont .e {
+    transform-origin: center center;
+    opacity: 0;
+    filter: blur(10px) grayscale(100%);
+}
+/* 01 */
+.cont_01 {
+    height: 910px;
+}
+.cont_01 h1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -348px;
+    margin-top: -190px;
+    width: 692px;
+    height: 282px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/title.png?8530323…) no-repeat center center;
+}
+.cont_01 .sub,
+.cont_01 h1,
+span.btn_span {
+    font-size: 0;
+    text-indent: -99999px;
+}
+#px-render {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 910px;
+}
+.cont_01 #px-render canvas,
+.cont_01 #px-render div {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -1000px;
+    width: 2000px;
+    height: 910px;
+}
+.cont_01 .btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.btn_span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+}
+.cont_01 .btn1 {
+    margin-left: -130px;
+    margin-top: 120px;
+    width: 260px;
+    height: 70px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/title_btn1.png?b98a896…) no-repeat 0 0;
+}
+.cont_01 .scroll {
+    display: none;
+}
+.scroll {
+    position: absolute;
+    left: 50%;
+    margin-left: -81px;
+    width: 162px;
+    height: 101px;
+}
+.scroll.type1 {
+    bottom: 88px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/scroll_down.png?306262b…) no-repeat center bottom;
+}
+.scroll > span {
+    display: block;
+    position: absolute;
+    left: 66px;
+    width: 30px;
+    height: 47px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/scroll_icon.png?6b493a0…) no-repeat 0 0;
+}
+.scroll.type1 > span {
+    top: 0;
+    animation: scrollDown 1.5s infinite ease-in;
+}
+span.btn_span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+}
+.cont_02 {
+    height: 1150px;
+}
+.scroll.type2 {
+    bottom: 170px;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/scroll_updown.png?6e7d979…) no-repeat center bottom;
+}
+.scroll.type2>span {
+    top: 35px;
+}
+.cont_03 {
+    height: 1150px;
+}
+#bgm {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    margin-left: -115px;
+    width: 230px;
+    height: 28px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 0;
+    z-index: 3;
+    cursor: pointer;
+}
+#bgm .visualizer {
+    display: inline-block;
+    vertical-align: top;
+    margin: 6px 14px 0 26px;
+    height: 16px;
+}
+#bgm .visualizer .vbox {
+    position: relative;
+    width: 24px;
+    height: 100%;
+}
+#bgm .visualizer .vbox > span {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    height: 10%;
+    background-color: #6a6a6a;
+}
+#bgm .visualizer .vbox > span:nth-child(1) {
+    left: 0px;
+}
+#bgm .visualizer .vbox > span:nth-child(2) {
+    left: 4px;
+}
+#bgm .visualizer .vbox > span:nth-child(3) {
+    left: 8px;
+}
+#bgm .visualizer .vbox > span:nth-child(4) {
+    left: 12px;
+}
+#bgm .visualizer .vbox > span:nth-child(5) {
+    left: 16px;
+}
+#bgm .visualizer .vbox > span:nth-child(6) {
+    left: 20px;
+}
+#bgm .txt {
+    display: inline-block;
+    vertical-align: top;
+    width: 124px;
+    height: 100%;
+    background: url(https://ssl.nx.com/s2/game/mabinogi/MabiWeb/event/2021/0722_crombas_62u34a/images/bgm_txt.png?ab3d3e0…) no-repeat 0 0;
+}

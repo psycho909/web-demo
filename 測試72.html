@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				padding-left: 120px;
+			}
+			.list {
+				position: relative;
+				list-style: none;
+				counter-reset: i;
+			}
+			.li {
+				position: relative;
+				text-indent: -20px;
+			}
+			.li:before {
+				content: counter(i) ". ";
+				counter-increment: i;
+				width: 15px;
+				height: 15px;
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button id="btn">按鈕</button>
+		</div>
+		<script>
+			$("#btn")
+				.unbind("click")
+				.on("click", function () {
+					console.log(123);
+				});
+		</script>
+	</body>
+</html>

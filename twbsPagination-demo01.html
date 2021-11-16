@@ -22,11 +22,11 @@
 		<script>
 			$("#pagination-demo").twbsPagination({
 				totalPages: 35,
-				visiblePages: 7,
+				visiblePages: 10,
 				onPageClick: function (event, page) {
-					console.log(event);
+					console.log(event, page);
 					$("#page-content").text("Page " + page);
-				},
+				}
 			});
 		</script>
 	</body>

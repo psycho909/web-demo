@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>FullPage demo0</title>
+		<title>Bingo</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<style>
 			* {
@@ -17,7 +17,7 @@
 			}
 			.game-box {
 				width: 100%;
-				background-color: gray;
+				background-color: rgb(189, 189, 189);
 				display: flex;
 				flex-wrap: wrap;
 				font-size: 0;
@@ -28,18 +28,32 @@
 				--num: 3;
 				width: calc(100% / var(--num));
 				text-align: center;
-				line-height: 100px;
-				height: 100px;
 				cursor: pointer;
 				font-size: 1rem;
 				display: inline-block;
+				position: relative;
 			}
-
+			.game:before {
+				content: "";
+				display: block;
+				padding-bottom: 100%;
+			}
 			.game:hover {
 				background-color: #000;
 				color: #fff;
 			}
-
+			span {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1px solid #000;
+			}
 			.game.active {
 				border-color: red;
 				background-color: #eee;
@@ -115,14 +129,17 @@
 
 				return arr;
 			}
+			// 幾公格
 			var rules = 25;
 			var bingoLine = BingoLine(rules);
 			for (var i = 0; i < rules; i++) {
-				$(".game-box").append("<div class='game'>" + i + "</div>");
+				$(".game-box").append("<div class='game'><span>" + i + "</span></div>");
 			}
-			$(".game").css("--num", Math.sqrt(25));
+			// 寬度
+			$(".game").css("--num", Math.sqrt(rules));
+			// 紀錄
 			var connectGet = [];
-			var _game = document.getElementsByClassName("game");
+
 			$("body").on("click", ".game", function () {
 				var index = $(this).index();
 				if (!$(this).hasClass("active") || !$(this).hasClass("bingo")) {
@@ -131,6 +148,7 @@
 				}
 			});
 
+			// 畫線
 			function Line(target) {
 				var l = $(".game").eq(target).offset().left;
 				var t = $(".game").eq(target).offset().top;
