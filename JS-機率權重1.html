@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button id="btn">Random</button>
+		<div id="box"></div>
+		<script>
+			var items = ["B", "A", "S", "SS"];
+			var itemsWeight = [90, 7, 2, 1];
+
+			function weightRandom(items, itemsWeight) {
+				var totalWeight = itemsWeight.reduce(function (s, p) {
+					return s + p;
+				}, 0);
+
+				var randomArray = [];
+
+				for (var i = 0; i < items.length; i++) {
+					for (var j = 0; j < itemsWeight[i]; j++) {
+						randomArray.push(i);
+					}
+				}
+
+				var randomNumber = Math.floor(Math.random() * totalWeight);
+				return items[randomArray[randomNumber]];
+			}
+
+			document.querySelector("#btn").addEventListener("click", function () {
+				var span = document.createElement("span");
+				span.innerHTML = weightRandom(items, itemsWeight);
+				document.querySelector("#box").appendChild(span);
+			});
+		</script>
+	</body>
+</html>

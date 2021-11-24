@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.video {
+				width: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<video src="./video/ntr.mp4" class="video v1" muted></video>
+			<video src="./video/rtp.mp4" class="video v2" muted></video>
+			<a href="javascript:;" id="btn">按鈕</a>
+		</div>
+		<script>
+			var door = ["n", "r", "p"];
+			function videoEnded(video, callback) {
+				$(video)[0].onended = callback;
+			}
+			function videoPlaying(video, callback) {
+				$(video)[0].onplaying = callback;
+			}
+
+			function DoorOpen() {
+				$(".v1")[0].playbackRate = 1.5;
+				$(".v1")[0].play();
+				videoPlaying(".v1", function () {
+					videoEnded(".v1", function () {
+						$(".v2")[0].play();
+					});
+				});
+
+				// videoEnded(".v2", function () {
+				// 	$(".v1")[0].play();
+				// });
+			}
+			$("#btn").on("click", function () {
+				DoorOpen();
+			});
+		</script>
+	</body>
+</html>

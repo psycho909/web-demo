@@ -12,7 +12,9 @@
 		<div id="app">
 			<div>
 				<button @click="fetch">Fetch</button>
-				<p>{{result.name}}</p>
+				<button @click="change">Change</button>
+				<p v-for="r in result">{{r.name}}</p>
+				<p v-for="l in list">{{l}}</p>
 			</div>
 			<div>
 				<!-- <button @click="increment">increment</button> -->
@@ -24,10 +26,12 @@
 		<script>
 			const store = new Vuex.Store({
 				state: {
-					result: {
-						name: "LBJ",
-					},
-					count: 0,
+					result: [
+						{
+							name: "LBJ"
+						}
+					],
+					count: 0
 				},
 				getters: {
 					result(state) {
@@ -35,16 +39,20 @@
 					},
 					count(state) {
 						return state.count;
-					},
+					}
 				},
 				mutations: {
 					FETCH(state, payload) {
-						state.result = payload;
+						state.result.push(payload);
 					},
 					INCREMENT(state, payload) {
-						console.log(payload);
 						state.count += payload;
 					},
+					CHANGE_NAME(state, payload) {
+						var copy = state.result.slice(0);
+						copy[payload.index].name = payload.name;
+						state.result = copy;
+					}
 				},
 				actions: {
 					increment({ commit }, payload) {
@@ -55,12 +63,18 @@
 							}, 1000);
 						});
 					},
-				},
+					changeName({ commit }, payload) {
+						commit("CHANGE_NAME", payload);
+					}
+				}
 			});
 
 			new Vue({
 				el: "#app",
 				store,
+				data: {
+					list: ["A", "B", "C"]
+				},
 				computed: {
 					// ...Vuex.mapGetters(['result', "count"])
 					result() {
@@ -68,17 +82,21 @@
 					},
 					count() {
 						return this.$store.getters.count;
-					},
+					}
 				},
 				methods: {
 					async fetch() {
-						const res = await fetch("https://api.agify.io/?name=michael");
+						const res = await fetch("https://randomuser.me/api/");
 						const result = await res.json();
-						this.$store.commit("FETCH", result);
+						this.$store.commit("FETCH", result.results[0]);
 					},
 					add() {
 						this.$store.dispatch("increment");
 					},
+					change() {
+						this.list[0] = "VS";
+						this.$store.dispatch("changeName", { index: 0, name: "Mich" });
+					}
 					// ...Vuex.mapActions(["increment"]),
 					// increment(){
 					//     this.$store.commit({
@@ -86,7 +104,7 @@
 					//         amount:2
 					//     })
 					// }
-				},
+				}
 			});
 		</script>
 	</body>

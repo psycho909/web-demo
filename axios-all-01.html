@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<script>
+			let endpoints = ["https://api.github.com/users/ejirocodes", "https://api.github.com/users/ejirocodes/repos", "https://api.github.com/users/ejirocodes/followers", "https://api.github.com/users/ejirocodes/following"];
+			// axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
+			// 	axios.spread(({ data: user }, { data: repos }, { data: followers }, { data: following }) => {
+			// 		console.log({ user, repos, followers, following });
+			// 	})
+			// );
+
+			let Apis = ["https://randomuser.me/api/"];
+
+			axios.all(Apis.map((api) => axios.get(api))).then(axios.spread(({ data: users }) => console.log({ users })));
+
+			function Catch() {
+				try {
+					console.log("try");
+					return "try";
+				} catch {
+					console.log("catch");
+					return "catch";
+				} finally {
+					console.log("finally");
+					return "finally";
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<style>
+			span[num="0"] {
+				color: red;
+				background-image: url("./images/number/0.png");
+			}
+			span[num="1"] {
+				color: red;
+				background-image: url("./images/number/1.png");
+			}
+			span[num="2"] {
+				color: orange;
+				background-image: url("./images/number/2.png");
+			}
+			span[num="3"] {
+				color: yellow;
+				background-image: url("./images/number/3.png");
+			}
+			span[num="4"] {
+				color: pink;
+				background-image: url("./images/number/4.png");
+			}
+			span[num="5"] {
+				color: black;
+				background-image: url("./images/number/5.png");
+			}
+			span[num="6"] {
+				color: purple;
+				background-image: url("./images/number/6.png");
+			}
+			span[num="7"] {
+				color: brown;
+				background-image: url("./images/number/7.png");
+			}
+			span[num="8"] {
+				color: green;
+				background-image: url("./images/number/8.png");
+			}
+			span[num="9"] {
+				color: blue;
+				background-image: url("./images/number/9.png");
+			}
+			.box {
+				width: 400px;
+				text-align: center;
+			}
+			span {
+				display: inline-block;
+				font-size: 0;
+				background-size: cover;
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div>
+				<div v-for="l in listFormat" class="box">
+					<span :num="l.a" v-show="l.a > 0">{{l.a}}</span>
+					<span :num="l.b">{{l.b}}</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			var vm = Vue.createApp({
+				created() {
+					setTimeout(() => {
+						this.list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+					}, 3000);
+				},
+				data() {
+					return {
+						list: []
+					};
+				},
+				computed: {
+					listFormat() {
+						return this.list.map(function (l, i) {
+							return {
+								a: l < 10 ? 0 : ("" + l).slice(0, 1),
+								b: ("" + l).slice(-1)
+							};
+						});
+					}
+				},
+				methods: {}
+			}).mount("#app");
+		</script>
+	</body>
+</html>

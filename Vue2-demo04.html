@@ -40,11 +40,17 @@
 						<ul>
 							<slot name="job" :j="j" v-for="j in jobs"></slot>
 						</ul>
+						<a href="javascript:;" @click="call">按鈕</a>
 					</div>
 				`,
 				data() {
 					return {};
 				},
+				methods: {
+					call() {
+						console.log(this.jobs);
+					}
+				}
 			});
 			Vue.component("cats", {
 				props: ["cat"],
@@ -58,14 +64,14 @@
 				`,
 				data() {
 					return {};
-				},
+				}
 			});
 			var app = new Vue({
 				el: "#app",
 				data: {
 					count: 0,
 					jobs: [{ name: "Front" }, { name: "BackEnd" }, { name: "Art" }],
-					cat: [],
+					cat: []
 				},
 				created() {
 					axios("https://5ace036923cb4e00148b83c9.mockapi.io/v1/Cat").then((data) => {
@@ -78,7 +84,7 @@
 				computed: {
 					getCuTime2() {
 						return Date.now();
-					},
+					}
 				},
 				methods: {
 					getCuTime1() {
@@ -86,8 +92,8 @@
 					},
 					add() {
 						this.count += 1;
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>

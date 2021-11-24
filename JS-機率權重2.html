@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<button id="btn1">Random1</button>
+		<button id="btn2">Random2</button>
+		<button id="test1">測試1</button>
+		<button id="test2">測試2</button>
+		<div id="box"></div>
+		<script>
+			var runnningTest = false;
+			var testResult = [];
+			var testPercentage = 0;
+			var testTimes = 1000;
+			var tableData = [
+				{
+					name: "B",
+					p: 0.69
+				},
+				{
+					name: "A",
+					p: 0.3
+				},
+				{
+					name: "S",
+					p: 0.01
+				}
+			];
+			function StartTest1() {
+				runnningTest = true;
+				testResult = [];
+				testPercentage = 0;
+				var chance = {};
+				tableData.forEach((i) => {
+					chance[i.name] = 0;
+				});
+
+				var i = 0;
+				setTimeout(() => {
+					var interval = setInterval(() => {
+						if (i === testTimes) {
+							clearInterval(interval);
+							runnningTest = false;
+							// create test result
+							Object.keys(chance).forEach((_, index) => {
+								testResult.push({
+									name: _,
+									count: chance[_],
+									chance: Math.round((chance[_] / testTimes) * 100) + "%",
+									chanceBySetting: tableData[index].p * 100 + "%"
+								});
+							});
+							console.log(testResult);
+						} else {
+							const item = getItemByChange();
+							chance[item.name]++;
+							i++;
+						}
+						// update the progress bar
+						testPercentage = parseInt((i / testTimes) * 100);
+					}, 1);
+				}, 0);
+			}
+			function StartTest2() {
+				runnningTest = true;
+				testResult = [];
+				testPercentage = 0;
+				var chance = {};
+
+				tableData.forEach((i) => {
+					chance[i.name] = 0;
+				});
+
+				var i = 0;
+				setTimeout(() => {
+					var interval = setInterval(() => {
+						if (i === testTimes) {
+							clearInterval(interval);
+							runnningTest = false;
+							// create test result
+							Object.keys(chance).forEach((_, index) => {
+								testResult.push({
+									name: _,
+									count: chance[_],
+									chance: Math.round((chance[_] / testTimes) * 100) + "%",
+									chanceBySetting: tableData[index].p * 100 + "%"
+								});
+							});
+							console.log(testResult);
+						} else {
+							const item = getItemByChange2();
+							chance[item.name]++;
+							i++;
+						}
+						// update the progress bar
+						testPercentage = parseInt((i / testTimes) * 100);
+					}, 1);
+				}, 0);
+			}
+
+			function getItemByChange() {
+				var r = Math.random();
+				var count = 0;
+				var item;
+				for (var i = 0; i < tableData.length; i++) {
+					var _ = tableData[i];
+					if (r >= count && r <= count + _.p) {
+						item = _;
+						break;
+					} else {
+						count = count + _.p;
+					}
+				}
+				return item;
+			}
+			function getItemByChange2() {
+				var i,
+					j,
+					table = [];
+				for (i in tableData) {
+					for (j = 0; j < tableData[i].p * testTimes; j++) {
+						table.push(tableData[i]);
+					}
+				}
+				return table[Math.floor(Math.random() * table.length)];
+			}
+			function showGetItemMessage() {
+				var item = getItemByChange();
+				console.log(item);
+			}
+			document.querySelector("#test1").addEventListener("click", function () {
+				StartTest1();
+			});
+			document.querySelector("#test2").addEventListener("click", function () {
+				StartTest2();
+			});
+
+			document.querySelector("#btn1").addEventListener("click", function () {
+				showGetItemMessage();
+			});
+			document.querySelector("#btn2").addEventListener("click", function () {
+				var item = getItemByChange2();
+				console.log(item);
+			});
+
+			var data = [
+				{
+					Seq: 1,
+					ItemId: 3,
+					ItemName: "特別寶石選擇箱子3個",
+					ItemLevel: "C",
+					ItemType: 1
+				},
+				{
+					Seq: 2,
+					ItemId: 3,
+					ItemName: "特別寶石選擇箱子3個",
+					ItemLevel: "C",
+					ItemType: 1
+				},
+				{
+					Seq: 3,
+					ItemId: 2,
+					ItemName: "萊姆維尼迷你寵物",
+					ItemLevel: "D",
+					ItemType: 1
+				},
+				{
+					Seq: 4,
+					ItemId: 9,
+					ItemName: "亞德曼合金硬幣*100",
+					ItemLevel: "S",
+					ItemType: 1
+				},
+				{
+					Seq: 5,
+					ItemId: 6,
+					ItemName: "黑羊潘毛毯",
+					ItemLevel: "A",
+					ItemType: 2
+				},
+				{
+					Seq: 6,
+					ItemId: 11,
+					ItemName: "深淵有貓膩稱號",
+					ItemLevel: "D",
+					ItemType: 3
+				}
+			];
+
+			var doorLevel;
+			var doorLevelArr = [];
+			data.filter(function (item, i) {
+				if (item.ItemLevel == "S" || item.ItemLevel == "A") {
+					doorLevelArr.push(item.ItemLevel);
+				}
+			});
+
+			doorLevel = doorLevelArr.indexOf("S") > -1 ? "p" : doorLevelArr.indexOf("A") > -1 ? "r" : "n";
+			console.log(doorLevel);
+		</script>
+	</body>
+</html>

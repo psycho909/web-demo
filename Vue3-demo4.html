@@ -13,6 +13,7 @@
 		<div id="app">
 			<div>{{age}}</div>
 			<div>{{data}}</div>
+			<div>{{userID}}</div>
 			<div ref="elmRefs">REF</div>
 			<button @click="data.handleClick">Change</button>
 		</div>
@@ -26,24 +27,27 @@
 						subHeader: "Another header",
 						handleClick: () => {
 							data.header = "Change";
-						},
-					});
-					Vue.watch(
-						() => data.header,
-						(newAge, preAge) => {
-							console.log(newAge, preAge);
 						}
-					);
+					});
+					const userID = Vue.ref(0);
+					Vue.watchEffect(() => console.log(userID.value));
+					setInterval(() => {
+						userID.value += 1;
+					}, 1000);
+					Vue.watch([age, data], (newValues, prevValues) => {
+						console.log(newValues, prevValues);
+					});
 					age.value = 100;
 					Vue.onMounted(() => {
-						console.log(elmRefs.value);
+						// console.log(elmRefs.value);
 					});
 					return {
 						age,
 						data,
 						elmRefs,
+						userID
 					};
-				},
+				}
 			};
 			var app = Vue.createApp(vue3Composition).mount("#app");
 		</script>
