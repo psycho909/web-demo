@@ -20,27 +20,36 @@
 			<p>{{result()}}</p>
 			<p>{{output}}</p>
 			<button @click="count2++">Add2</button>
+			<child :name="name"></child>
 		</div>
 		<script>
+			Vue.component("child", {
+				prop: ["name"],
+				template: `<div>
+					<p>Child</p>
+					<p>{{$attrs.name}}</p>	
+				</div>`
+			});
 			var vm = new Vue({
 				el: "#app",
 				filters: {
 					showState(state) {
 						console.log(state);
 						return state + 1;
-					},
+					}
 				},
 				data: {
 					Join1: false,
 					Join2: false,
 					count: 0,
 					count2: 0,
+					name: "Chen Ching"
 				},
 				computed: {
 					output() {
 						console.log("output");
 						return this.count > 5 ? "大於5" : "小於5";
-					},
+					}
 				},
 				methods: {
 					JoinHandler() {
@@ -52,8 +61,8 @@
 					result() {
 						console.log("result");
 						return this.count > 5 ? "大於5" : "小於5";
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>

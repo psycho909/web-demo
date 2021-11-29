@@ -25,7 +25,7 @@ window.location.href = "#info";
 
 $("#fullpage").fullpage({
 	menu: "#menu",
-	anchors: ["intro", "section1", "section2"],
+	anchors: ["intro", "section1", "section2", "section3", "section4", "section5", "section6"],
 	scrollingSpeed: 500,
 	scrollOverflow: true,
 	scrollOverflowReset: true,
@@ -88,12 +88,69 @@ $("#fullpage").fullpage({
 				m(3);
 				break;
 			case 4:
+				gsap.to(".bg", {
+					top: -1035,
+					duration: duration,
+					ease: ease
+				}),
+					gsap.set(".bgg2", {
+						opacity: 0,
+						onComplete: function () {
+							$(".bgg2").show();
+						}
+					}),
+					gsap.to(".bgg2", {
+						delay: 0.5,
+						opacity: 1,
+						duration: 0.5
+					}),
+					m(4);
 				break;
 			case 5:
+				gsap.to(".bg", {
+					top: -1380,
+					duration: duration,
+					ease: ease
+				}),
+					gsap.set(".bgg2", {
+						opacity: 0,
+						onComplete: function () {
+							$(".bgg2").show();
+						}
+					}),
+					gsap.to(".bgg2", {
+						delay: 0.5,
+						opacity: 1,
+						duration: 0.5
+					}),
+					m(5);
 				break;
 			case 6:
+				gsap.to(".bg", {
+					top: -1725,
+					duration: duration,
+					ease: ease
+				}),
+					gsap.set(".bgg2", {
+						opacity: 0,
+						onComplete: function () {
+							$(".bgg2").show();
+						}
+					}),
+					gsap.to(".bgg2", {
+						delay: 0.5,
+						opacity: 1,
+						duration: 0.5
+					}),
+					m(6);
 				break;
 			case 7:
+				gsap.to(".bg", {
+					top: -2070,
+					duration: duration,
+					ease: ease
+				}),
+					m(7);
 				break;
 		}
 		// destination < 2 ? u("#menu").fadeOut("fast") : u("#menu").fadeIn("fast")
@@ -248,6 +305,10 @@ $(".cont_01 .btn1").on("click", function (e) {
 var canvas = {};
 canvas.width = window.innerWidth;
 window.onload = function () {
+	var g = window.PIXI.autoDetectRenderer(2e3, 1200, {
+		transparent: !0
+	});
+	g.autoResize = !0;
 	const app = new PIXI.Application({ width: canvas.width, height: 900, transparent: true });
 	document.getElementById("px-render").appendChild(app.view);
 
@@ -258,8 +319,7 @@ window.onload = function () {
 
 	const flag = PIXI.Sprite.from("../images/wing.png");
 	container.addChild(flag);
-	flag.x = 0;
-	flag.y = -100;
+	flag.anchor.set(0.1, 0.2);
 
 	const displacementSprite = PIXI.Sprite.from("../images/filter.png");
 	// Make sure the sprite is wrapping.
