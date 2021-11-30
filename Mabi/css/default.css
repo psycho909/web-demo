@@ -43,6 +43,17 @@ body {
 .cont {
     transform: scale(0.95);
 }
+
+@media screen and (max-height: 950px){
+    .cont {
+        transform: scale(0.95);
+    }
+}
+@media screen and (max-height: 850px){
+    .cont {
+        transform: scale(0.9);
+    }
+}
 .cont .s,
 .cont .e {
     position: relative;
@@ -150,7 +161,7 @@ span.btn_span {
 .scroll.type2>span {
     top: 35px;
 }
-.cont_03 {
+.cont_03,.cont_04,.cont_05,.cont_06,.cont_07 {
     height: 1150px;
 }
 #bgm {
