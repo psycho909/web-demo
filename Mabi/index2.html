@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>FullPage demo0</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/fullpage/scrolloverflow.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://d157l7jdn8e5sf.cloudfront.net/dev/pixi-legacy.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css" />
+		<!-- <link rel="stylesheet" href="./css/default.css" /> -->
+		<style>
+			#menu {
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 2;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div id="menu" class="menu">
+				<div class="menu-list">
+					<li class="menu-list__li" data-menuanchor="section1"><a href="#section1">section1</a></li>
+					<li class="menu-list__li" data-menuanchor="section2"><a href="#section2">section2</a></li>
+					<li class="menu-list__li" data-menuanchor="intro"><a href="#intro">intro</a></li>
+				</div>
+			</div>
+			<div id="fullpage">
+				<div class="section" data-anchors="intro">
+					<div class="cont cont_01">
+						<div class="s">
+							<div id="px-render"></div>
+							<h1>마비노기 드러난 심연 - 크롬바스</h1>
+							<div class="btn_empty"></div>
+							<div class="btn btn1 ok" style="opacity: 1">
+								<a href="#"><span class="btn_span"></span></a>
+							</div>
+							<div class="scroll type1">
+								<span
+									><a href="#section1"><span class="btn_span"></span></a
+								></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section" data-anchors="section1">
+					<div class="cont cont_02">
+						<div class="e">
+							<h1>section1</h1>
+							<div class="scroll type2">
+								<span>
+									<a href="#section2">
+										<span class="btn_span"></span>
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section" data-anchors="section2">
+					<div class="cont cont_03">
+						<div class="e">
+							<h1>section2</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div id="menu" class="menu">menu</div> -->
+		<script>
+			$("#fullpage").fullpage({
+				anchors: ["intro", "section1", "section2"],
+				menu: "#menu",
+				scrollingSpeed: 500,
+				scrollOverflow: true,
+				scrollOverflowReset: true,
+				keyboardScrolling: false
+			});
+		</script>
+	</body>
+</html>
