@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.box{
+				width: 392px;
+	background: url("../images/event2-sprite.png");
+	--steps: 13;
+	background-size: calc(val(--steps) * 100%);
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var t1 = gsap.timeline();
+
+var t1Anim = false;
+function BoatAnim() {
+	var steps = 13;
+	var bgx = -steps * 100 + "%";
+	var s = 0.1;
+	if (t1.repeat() === 0) {
+		if (!t1.isActive()) {
+			t1.set(".event-boat-bg", {
+				backgroundPosition: 0,
+			});
+			t1.to(".event-boat-bg", s * steps, {
+				backgroundPosition: bgx,
+				ease: SteppedEase.config(steps),
+				onComplete: function () {
+					t1.set(".event-boat-bg", {
+						backgroundPosition: 0,
+					});
+				},
+			});
+		} else {
+			t1.restart();
+		}
+	}
+	if (t1.repeat() === -1 && !t1Anim) {
+		t1Anim = true;
+		t1.set(".event-boat-bg", {
+			backgroundPosition: 0,
+		});
+		t1.to(".event-boat-bg", s * steps, {
+			backgroundPosition: bgx,
+			ease: SteppedEase.config(steps),
+			onComplete: function () {
+				t1.set(".event-boat-bg", {
+					backgroundPosition: 0,
+				});
+			},
+		});
+	}
+}
+	</script>
+</body>
+</html>
