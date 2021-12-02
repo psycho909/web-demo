@@ -1,61 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
-		.box{
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			.box {
 				width: 392px;
-	background: url("../images/event2-sprite.png");
-	--steps: 13;
-	background-size: calc(val(--steps) * 100%);
-		}
-	</style>
-</head>
-<body>
-	<script>
-		var t1 = gsap.timeline();
-
-var t1Anim = false;
-function BoatAnim() {
-	var steps = 13;
-	var bgx = -steps * 100 + "%";
-	var s = 0.1;
-	if (t1.repeat() === 0) {
-		if (!t1.isActive()) {
-			t1.set(".event-boat-bg", {
-				backgroundPosition: 0,
+				background: url("../images/event2-sprite.png");
+				--steps: 13;
+				background-size: calc(val(--steps) * 100%);
+			}
+			.c {
+				width: 300px;
+				height: 300px;
+				position: relative;
+			}
+			.canvas,
+			.canvas-btn {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			.canvas-1 {
+				z-index: 1;
+			}
+			.canvas-2 {
+				opacity: 0;
+				transition: all 0.6s;
+			}
+			.canvas-btn {
+				width: 180px;
+				height: 180px;
+				display: block;
+				z-index: 2;
+			}
+			.canvas-btn:hover ~ .canvas-2 {
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="c">
+			<a class="canvas-btn" href="javascript:;"></a>
+		</div>
+		<div class="c">
+			<a class="canvas-btn" href="javascript:;"></a>
+		</div>
+		<script>
+			var imgArr1 = [];
+			var imgArr2 = [];
+			var canvasArr1 = [];
+			var canvasArr2 = [];
+			var index = 0;
+			function Canvas1(target) {
+				this.el = $('<canvas class="canvas canvas-1" width="180" height="180"></canvas>');
+				this.context = this.el[0].getContext("2d");
+				this.append = function () {
+					target.append(this.el);
+				};
+			}
+			function Canvas2(target) {
+				this.el = $('<canvas class="canvas canvas-2" width="300" height="300"></canvas>');
+				this.context = this.el[0].getContext("2d");
+				this.append = function () {
+					target.append(this.el);
+				};
+			}
+			$(".c").each(function (i, v) {
+				canvasArr1.push(new Canvas1($(v)));
+				canvasArr2.push(new Canvas2($(v)));
 			});
-			t1.to(".event-boat-bg", s * steps, {
-				backgroundPosition: bgx,
-				ease: SteppedEase.config(steps),
-				onComplete: function () {
-					t1.set(".event-boat-bg", {
-						backgroundPosition: 0,
-					});
-				},
+			canvasArr1.forEach(function (v, i) {
+				v.append();
+				setInterval(() => {
+					if (index > 59) {
+						index = 0;
+					}
+					draw(i, index);
+					index++;
+				}, 60);
 			});
-		} else {
-			t1.restart();
-		}
-	}
-	if (t1.repeat() === -1 && !t1Anim) {
-		t1Anim = true;
-		t1.set(".event-boat-bg", {
-			backgroundPosition: 0,
-		});
-		t1.to(".event-boat-bg", s * steps, {
-			backgroundPosition: bgx,
-			ease: SteppedEase.config(steps),
-			onComplete: function () {
-				t1.set(".event-boat-bg", {
-					backgroundPosition: 0,
-				});
-			},
-		});
-	}
-}
-	</script>
-</body>
+			canvasArr2.forEach(function (v, i) {
+				v.append();
+				setInterval(() => {
+					if (index > 59) {
+						index = 0;
+					}
+					draw(i, index);
+					index++;
+				}, 60);
+			});
+			for (var i = 0; i < 60; i++) {
+				imgArr1[i] = new Image();
+				imgArr1[i].src = "./bt_default/bt_default_" + i + ".png";
+				imgArr1[i].onload = function () {};
+				imgArr2[i] = new Image();
+				imgArr2[i].src = "./bt_over/bt_over_" + i + ".png";
+				imgArr2[i].onload = function () {};
+			}
+			function draw(target, index) {
+				canvasArr1[target].context.clearRect(0, 0, 180, 180);
+				if (imgArr1[index].complete) {
+					canvasArr1[target].context.drawImage(imgArr1[index], 0, 0);
+				}
+				canvasArr2[target].context.clearRect(0, 0, 300, 300);
+				if (imgArr2[index].complete) {
+					canvasArr2[target].context.drawImage(imgArr2[index], 0, 0);
+				}
+			}
+		</script>
+	</body>
 </html>
