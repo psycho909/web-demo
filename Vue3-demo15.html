@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child @add="add"></child>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				methods: {
+					add(data) {
+						console.log(data);
+					}
+				}
+			});
+			app.component("child", {
+				template: `
+			             <div>Child</div>
+			             <button @click="onAdd">按鈕</button>
+			         `,
+				emits: {
+					add(payload) {
+						return payload.bookName.length > 0;
+					}
+				},
+				methods: {
+					onAdd() {
+						this.$emit("add", { bookName: "" });
+					}
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>
