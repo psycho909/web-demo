@@ -11,10 +11,152 @@
 				padding: 0;
 				margin: 0;
 			}
+			.l-home-kv {
+				position: relative;
+				width: 100%;
+				height: 100vh;
+			}
+			.l-home-kv__choco {
+				display: block;
+				position: absolute;
+				left: 50%;
+				right: auto;
+				bottom: auto;
+				z-index: 5;
+				top: calc(50% - 30px);
+			}
+			.l-home-kv__choco__1 {
+				position: absolute;
+				left: -58px;
+				top: -48px;
+				z-index: 10;
+			}
+			.l-home-kv__choco__2 {
+				position: absolute;
+				left: 116px;
+				top: -152px;
+			}
+			.p-choco-brown-1 {
+				background-image: url(https://www.choco-ne.com/assets/images/common/choco/brown-1.png);
+				width: 216px;
+				height: 222.5px;
+				-webkit-transform-origin: 54px 54px;
+				transform-origin: 54px 54px;
+			}
+
+			.p-choco-brown-2 {
+				background-image: url(https://www.choco-ne.com/assets/images/common/choco/brown-2.png);
+				width: 234px;
+				height: 232px;
+				-webkit-transform-origin: 45px 53px;
+				transform-origin: 45px 53px;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
-		<script></script>
+		<div class="l-home-kv intro">
+			<div class="l-home-kv__choco">
+				<div class="l-home-kv__choco__1">
+					<div class="p-choco-brown-1"></div>
+				</div>
+				<div class="l-home-kv__choco__2">
+					<div class="p-choco-brown-2"></div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var Yo = 0
+			   , Go = function() {
+			     function t(e) {
+			         !function(t, e) {
+			             if (!(t instanceof e))
+			                 throw new TypeError("Cannot call a class as a function")
+			         }(this, t),
+			         this.$con = e,
+			         this.$con.data("instance", this),
+			         this.id = Yo++,
+			         this.t = Math.random() * Math.PI * 2,
+			         this.ax = 0,
+			         this.ay = 0,
+			         this.vx = 0,
+			         this.vy = 0,
+			         this.x = 0,
+			         this.y = 0,
+			         this.bane = .2,
+			         this.wind = .1,
+			         this.powerX = 0,
+			         this.powerY = 0,
+			         this.friction = .3,
+			         this.moveX = 0,
+			         this.moveY = 0,
+			         this.unyo = 1 == this.$con.data("unyo"),
+			         this.nomove = 1 == this.$con.data("nomove"),
+			         this.nomouse = 1 == this.$con.data("nomouse"),
+			         this.debug = 1 == this.$con.data("debug"),
+			         this.skew = 0,
+			         this.scale = 1,
+			         this.width = this.$con.width(),
+			         this.height = this.$con.height(),
+			         this.oldPointerX = _o.pointerX,
+			         this.oldPointerY = _o.pointerY,
+			         this.oldScrollY = _o.scrollY,
+			         this.update()
+			     }
+			     var e, i, n;
+			     return e = t,
+			     (i = [{
+			         key: "update",
+			         value: function() {
+			             var t = _o.windowWidth
+			               , e = _o.windowHeight;
+			             if (window.requestAnimationFrame(this.update.bind(this)),
+			             this.t += .01,
+			             0 != this.oldPointerX && !this.nomouse) {
+			                 var i = this.$con.offset()
+			                   , n = i.left + this.width / 2
+			                   , r = i.top - _o.scrollY + this.height / 2;
+			                 r < 0 && (r = 0);
+			                 var o = Math.sqrt(Math.pow(n - _o.pointerX, 2) + Math.pow(r - _o.pointerY, 2))
+			                   , s = Math.sqrt(Math.pow(0 - t, 2) + Math.pow(0 - e, 2))
+			                   , a = Math.pow(1 - o / s, 12);
+			                 a < 0 && (a = 0),
+			                 a > 1 && (a = 1),
+			                 o > s && (a = 0);
+			                 var u = _o.pointerX - this.oldPointerX
+			                   , h = _o.pointerY - this.oldPointerY
+			                   , l = 0;
+			                 l > 30 && (l = 30),
+			                 l < -30 && (l = -30),
+			                 this.ax += u * this.wind * a,
+			                 this.ay += h * this.wind * a + -.06 * l,
+			                 this.ay += .2 * Math.sin(this.t)
+			             }
+			             this.ax += .015 * (0 - this.x),
+			             this.ay += .015 * (0 - this.y),
+			             this.ax -= this.bane * this.vx,
+			             this.ay -= this.bane * this.vy,
+			             this.vx += this.ax,
+			             this.vy += this.ay,
+			             this.vx *= this.friction,
+			             this.vy *= this.friction,
+			             this.x += this.vx,
+			             this.y += this.vy;
+			             var c = this.x + this.moveX
+			               , d = this.y + this.moveY;
+			             this.unyo && (this.scale = 1 + .1 * Math.sin(this.t),
+			             this.skew = 10 * Math.sin(this.t)),
+			             this.nomove && (c = 0,
+			             d = 0,
+			             this.scale = 1),
+			             this.$con.css({
+			                 transform: "translate(" + c + "px," + d + "px) scale(" + this.scale + ") skewY(" + this.skew + "deg)"
+			             }),
+			             this.id,
+			             this.oldPointerX = _o.pointerX,
+			             this.oldPointerY = _o.pointerY,
+			             this.oldScrollY = _o.scrollY
+			         }
+			     }])
+		</script>
 	</body>
 </html>
