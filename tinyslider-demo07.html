@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css" />
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+				font-family: Arial;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script> -->
+		<script src="js/tiny-slider.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script>
+			var numbers = [6, 8, 0, 1, 4];
+			var spNumbers = [9, 0, 0, 0, 1];
+			var spNumbers2 = spNumbers.slice(0);
+			// [9,0]
+			numbers.forEach(function (v, i) {
+				if (spNumbers2.indexOf(v) > -1) {
+					spNumbers2.splice(spNumbers2.indexOf(v), 1);
+				}
+			});
+			console.log(spNumbers2);
+		</script>
+	</body>
+</html>
