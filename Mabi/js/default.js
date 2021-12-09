@@ -304,43 +304,53 @@ $(".cont_01 .btn1").on("click", function (e) {
 
 var canvas = {};
 canvas.width = window.innerWidth;
-window.onload = function () {
-	var g = window.PIXI.autoDetectRenderer(2e3, 1200, {
-		transparent: !0
-	});
-	g.autoResize = !0;
-	const app = new PIXI.Application({ width: canvas.width, height: 900, transparent: true });
-	document.getElementById("px-render").appendChild(app.view);
+var width = canvas.width;
+var height = 900;
+// window.onload = function () {
 
-	app.stage.interactive = true;
+// };
+// var g = window.PIXI.autoDetectRenderer(2e3, 1200, {
+// 	transparent: !0
+// });
+// g.autoResize = !0;
 
-	const container = new PIXI.Container();
-	app.stage.addChild(container);
+const app = new PIXI.Application({ width: canvas.width, height: height, transparent: true });
+document.getElementById("px-render").appendChild(app.view);
 
-	const flag = PIXI.Sprite.from("../images/wing.png");
-	container.addChild(flag);
-	flag.anchor.set(0.1, 0.2);
+app.stage.interactive = true;
 
-	const displacementSprite = PIXI.Sprite.from("../images/filter.png");
-	// Make sure the sprite is wrapping.
-	displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
-	const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+const container = new PIXI.Container();
+app.stage.addChild(container);
 
-	displacementSprite.position = flag.position;
+const flag = PIXI.Sprite.from("../images/wing.png");
+container.addChild(flag);
+flag.anchor.set(0.5, 0.5);
+flag.position.set(width / 2, height / 2);
+// container.x = app.screen.width / 2;
+// container.y = app.screen.height / 2;
 
-	app.stage.addChild(displacementSprite);
+// container.pivot.x = container.width / 2;
+// container.pivot.y = container.height / 2;
 
-	flag.filters = [displacementFilter];
+const displacementSprite = PIXI.Sprite.from("../images/filter.png");
+// Make sure the sprite is wrapping.
+displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
 
-	displacementFilter.scale.x = 30;
-	displacementFilter.scale.y = 60;
+displacementSprite.position = flag.position;
 
-	app.ticker.add(function () {
-		// Offset the sprite position to make vFilterCoord update to larger value. Repeat wrapping makes sure there's still pixels on the coordinates.
-		displacementSprite.x++;
-		// Reset x to 0 when it's over width to keep values from going to very huge numbers.
-		if (displacementSprite.x > displacementSprite.width) {
-			displacementSprite.x = 0;
-		}
-	});
-};
+app.stage.addChild(displacementSprite);
+
+flag.filters = [displacementFilter];
+
+displacementFilter.scale.x = 30;
+displacementFilter.scale.y = 60;
+
+app.ticker.add(function () {
+	// Offset the sprite position to make vFilterCoord update to larger value. Repeat wrapping makes sure there's still pixels on the coordinates.
+	displacementSprite.x++;
+	// Reset x to 0 when it's over width to keep values from going to very huge numbers.
+	if (displacementSprite.x > displacementSprite.width) {
+		displacementSprite.x = 0;
+	}
+});
