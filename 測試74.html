@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 300px;
+				height: 400px;
+				background-color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="color: green">GeeksforGeeks</h1>
+		<div class="box"></div>
+		<b> Zoom in or out of the page to get the current zoom value </b>
+
+		<div>
+			<div>Current Zoom Level:</div>
+			<div class="output1"></div>
+			<div class="output2"></div>
+		</div>
+
+		<script>
+			window.addEventListener("resize", getSizes, false);
+
+			let out1 = document.querySelector(".output1");
+			let out2 = document.querySelector(".output2");
+
+			function getSizes() {
+				let zoom1 = ((window.outerWidth - 10) / window.innerWidth) * 100;
+
+				out1.textContent = zoom1;
+				let body = document.body;
+				let zoom = body.clientWidth + "px x " + body.clientHeight + "px";
+				out2.textContent = zoom;
+			}
+		</script>
+	</body>
+</html>
