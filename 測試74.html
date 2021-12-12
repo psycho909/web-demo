@@ -5,20 +5,25 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
+			html {
+				font-size: 16px;
+			}
 			.box {
-				width: 300px;
+				width: 18.75rem;
 				height: 400px;
 				background-color: gray;
 			}
 		</style>
 	</head>
 	<body>
-		<h1 style="color: green">GeeksforGeeks</h1>
+		<h1 class="title" style="color: green">GeeksforGeeks</h1>
 		<div class="box"></div>
 		<b> Zoom in or out of the page to get the current zoom value </b>
 
@@ -36,7 +41,8 @@
 
 			function getSizes() {
 				let zoom1 = ((window.outerWidth - 10) / window.innerWidth) * 100;
-
+				var count = Math.ceil(zoom1) / 100;
+				$("html").css("fontSize", 16 / count + "px");
 				out1.textContent = zoom1;
 				let body = document.body;
 				let zoom = body.clientWidth + "px x " + body.clientHeight + "px";

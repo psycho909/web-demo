@@ -23,6 +23,6 @@
         "ie >= 9",
         "Android >= 6"
     ],
-    "liveServer.settings.port": 5558,
+    "liveServer.settings.port": 5702,
     // "previewServer.port": 62803
 }
