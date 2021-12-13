@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.frame {
+				position: relative;
+				top: 100px;
+				margin: 0 auto;
+				width: 600px;
+				height: 200px;
+				border-radius: 2px;
+				background: #373737;
+				color: white;
+				overflow: hidden;
+			}
+			.element {
+				text-align: center;
+				font-size: 50px;
+				line-height: 200px;
+			}
+			.carousel {
+				/* animation: carousel 8s ease-in-out infinite; */
+			}
+			@keyframes carousel {
+				0%,
+				20% {
+					transform: translateY(0);
+				}
+				25%,
+				45% {
+					transform: translateY(-200px);
+				}
+				50%,
+				70% {
+					transform: translateY(-400px);
+				}
+				75%,
+				95% {
+					transform: translateY(-600px);
+				}
+				100% {
+					transform: translateY(-800px);
+				}
+			}
+			.box {
+				width: clamp(400px, 50vw, 600px);
+				/* display: grid; */
+				/* grid-template-columns: 100px minmax(200px, 1fr) 100px; */
+				/* grid-template-columns: 100px 200px 100px; */
+				background-color: gray;
+			}
+			.inner {
+				padding: 1rem 0;
+				text-align: center;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="inner">1</div>
+			<div class="inner">2</div>
+			<div class="inner">3</div>
+		</div>
+		<div class="frame">
+			<div class="carousel">
+				<p class="element">"Incredible"</p>
+				<p class="element">"Perfect"</p>
+				<p class="element">"Awesome"</p>
+				<p class="element">"Punctual"</p>
+				<p class="element">"Incredible"</p>
+			</div>
+		</div>
+		<div class="wrapper">
+			<h1>alternate direction</h1>
+		</div>
+		<script>
+			let animation = gsap.timeline();
+			var boxHeight = -200,
+				totalHeight = boxHeight * 5 - 200, // * n of boxes + diff textBox
+				time = 5,
+				no01 = document.querySelectorAll("#no01 .box"),
+				dirFromLeft = "+=" + totalHeight,
+				dirFromRight = "-=" + totalHeight;
+			var mod = gsap.utils.wrap(0, totalHeight);
+
+			var action = gsap.timeline().to(".carousel", {
+				y: dirFromLeft,
+				modifiers: {
+					y: (x) => mod(parseFloat(x)) + "px"
+				},
+				duration: time,
+				ease: "none",
+				repeat: -1
+			});
+
+			var getNumber = (num1, num2) => {
+				if (num1 > num2) {
+					return num1;
+				}
+				return num2;
+			};
+
+			var data = [
+				{ date: "2021/12/02 12:00:00", num: 1, title: "A" },
+				{ date: "2021/12/01 12:00:00", num: 3, title: "C" },
+				{ date: "2021/12/01 12:00:00", num: 2, title: "B" },
+				{ date: "2021/12/07 12:00:00", num: 6, title: "G" },
+				{ date: "2021/12/06 12:00:00", num: 7, title: "F" },
+				{ date: "2021/12/08 12:00:00", num: 4, title: "D" },
+				{ date: "2021/12/05 12:00:00", num: 8, title: "E" },
+				{ date: "2021/12/04 12:00:00", num: 5, title: "H" }
+			];
+
+			// return +new Date(a.date) - +new Date(b.date);
+			data.sort((a, b) => {
+				if (+new Date(a.date) == +new Date(b.date)) {
+					return a.num - b.num;
+				}
+				return a.date > b.date ? 1 : -1;
+			});
+
+			console.log(data);
+		</script>
+	</body>
+</html>
