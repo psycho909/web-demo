@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			function Time(time) {
+				var end = +new Date(time);
+				var timeInterval;
+				var endCallback;
+				var runCallback;
+				var timeObj = {
+					d: 0,
+					h: 0,
+					m: 0,
+					s: 0,
+					start: function () {
+						var nowTime = +new Date();
+						var leftTime = parseInt(end - nowTime);
+						d = parseInt(leftTime / (24 * 60 * 60 * 1000));
+						h = parseInt((leftTime / (60 * 60 * 1000)) % 24);
+						m = parseInt((leftTime / (60 * 1000)) % 60);
+						s = parseInt((leftTime / 1000) % 60);
+						if (leftTime <= 0) {
+							setTimeout(function () {
+								endCallback();
+							}, 0);
+							clearTimeout(timeInterval);
+							return this;
+						}
+						timeInterval = setTimeout(function () {
+							timeObj.start();
+							runCallback();
+						}, 1000);
+						return this;
+					},
+					run: function (fn) {
+						runCallback = fn;
+						return this;
+					},
+					endRun: function (fn) {
+						endCallback = fn;
+						return this;
+					}
+				};
+				return timeObj;
+			}
+			Time("2021/12/13 10:30:00")
+				.start()
+				.run(function () {
+					console.log(s);
+				})
+				.endRun(function () {
+					console.log("end");
+				});
+		</script>
+	</body>
+</html>

@@ -13,9 +13,9 @@
 	<body>
 		<div id="app">
 			<p>{{num}}</p>
-			<child ref="child"></child>
+			<child ref="child" v-if="false"></child>
 			<ul>
-				<li v-for="b in bookList" :key="b.name">{{b.name}}</li>
+				<li v-for="(b,index) in bookList" :key="index">{{b.name}}</li>
 			</ul>
 			<button @click="handleClick">click</button>
 			<child2 @update:aa="transfer">
@@ -40,8 +40,8 @@
 				methods: {
 					transfer() {
 						this.$emit("update:aa", "transfer aa");
-					},
-				},
+					}
+				}
 			});
 			Vue.component("child", {
 				mounted() {
@@ -61,7 +61,7 @@
 					this.name = "Chen";
 					return {
 						num: 100,
-						currentTime: moment().format("HH: mm: ss"),
+						currentTime: moment().format("HH: mm: ss")
 					};
 				},
 				methods: {
@@ -78,8 +78,8 @@
 							timer = null;
 							console.log("beforeDestroy");
 						});
-					},
-				},
+					}
+				}
 			});
 			var vm = new Vue({
 				el: "#app",
@@ -101,8 +101,8 @@
 						{ name: "虎", age: 24 },
 						{ name: "兔", age: 25 },
 						{ name: "龍", age: 26 },
-						{ name: "鼠", age: 26 },
-					],
+						{ name: "鼠", age: 26 }
+					]
 				},
 				methods: {
 					handleClick() {
@@ -114,8 +114,8 @@
 					},
 					transfer(data) {
 						console.log(data);
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>

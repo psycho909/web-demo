@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>watchEffect - 偵聽器</h1>
+			<p>{{data.count}}</p>
+			<div @click="add">Add</div>
+		</div>
+		<script>
+			const { watchEffect, reactive } = Vue;
+			var app = Vue.createApp({
+				setup() {
+					const data = reactive({ count: 1 });
+					watchEffect(() => console.log(`偵聽器:${data.count}`));
+					const add = function () {
+						data.count++;
+					};
+					// setInterval(() => {
+					// 	data.count++;
+					// }, 1000);
+
+					return { data, add };
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>
