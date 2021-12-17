@@ -20,6 +20,7 @@
 				<input id="myInput" type="text" />
 			</form>
 			<a href="javascript:;" id="share-btn">分享</a>
+			<a href="https://www.facebook.com/sharer/sharer.php?u=https://thirsty-boyd-9fa09d.netlify.app/" target="_blank"> Share on Facebook </a>
 		</div>
 		<script>
 			$("form").on("submit", function (e) {
@@ -65,7 +66,7 @@
 					var shareData = {
 						url: url, // 要分享的 URL
 						title: title, // 要分享的標題
-						text: t, // 要分享的文字內容
+						text: t // 要分享的文字內容
 					};
 					if (isMobile.any) {
 						if (navigator.share) {
@@ -76,7 +77,7 @@
 					} else {
 						this.fb();
 					}
-				},
+				}
 			};
 
 			$("#share-btn").on("click", function () {
