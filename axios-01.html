@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<a title="send to Facebook" href="https://www.facebook.com/sharer.php?s=100&p[title]=YOUR_TITLE&p[summary]=YOUR_SUMMARY&p[https://tinypng.com/]=YOUR_URL&p[images][0]=YOUR_IMAGE_TO_SHARE_OBJECT" target="_blank">
+			<span> <img width="14" height="14" src="'icons/fb.gif" alt="Facebook" /> Facebook </span>
+		</a>
+		<script>
+			axios({
+				method: "get",
+				url: "https://randomuser.me/api/"
+			})
+				.then((res) => {
+					console.log(res);
+				})
+				.catch(function (er) {
+					console.log("Catch");
+				});
+		</script>
+	</body>
+</html>

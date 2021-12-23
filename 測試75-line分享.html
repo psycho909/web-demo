@@ -8,6 +8,10 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
+			:root.light {
+				--primary: #fff;
+				--secondary: #ff0000;
+			}
 			* {
 				padding: 0;
 				margin: 0;
@@ -18,19 +22,22 @@
 			.box {
 				width: 18.75rem;
 				height: 400px;
-				background-color: gray;
+				background-color: var(--secondary);
+			}
+			.flex {
+				display: flex;
 			}
 		</style>
 	</head>
 	<body>
 		<h1 class="title" style="color: green">GeeksforGeeks</h1>
-		<div class="box"></div>
+		<div class="box light"></div>
 		<b> Zoom in or out of the page to get the current zoom value </b>
 
-		<div>
+		<div class="flex">
 			<div>Current Zoom Level:</div>
-			<div class="output1"></div>
-			<div class="output2"></div>
+			<div class="output1">1</div>
+			<div class="output2">2</div>
 		</div>
 		<!-- %0D%0A 斷行 -->
 		<a href="https://line.me/R/msg/text/?印尼漁工染疫搭機赴澎湖%0D%0Ahttps://www.nownews.com/news/5477714" target="_blank">分享</a>
@@ -39,7 +46,6 @@
 
 			let out1 = document.querySelector(".output1");
 			let out2 = document.querySelector(".output2");
-
 			function getSizes() {
 				let zoom1 = ((window.outerWidth - 10) / window.innerWidth) * 100;
 				var count = Math.ceil(zoom1) / 100;
@@ -49,6 +55,17 @@
 				let zoom = body.clientWidth + "px x " + body.clientHeight + "px";
 				out2.textContent = zoom;
 			}
+
+			function Add(a) {
+				return function (b) {
+					return a + b;
+				};
+			}
+			function greaterThan(n) {
+				return (m) => m > n;
+			}
+
+			console.log(greaterThan(10)(19)(11));
 		</script>
 	</body>
 </html>

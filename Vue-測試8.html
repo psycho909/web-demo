@@ -14,12 +14,14 @@
 			<input type="text" v-model="state.title" />
 			{{state}}
 			<button @click="save">save</button>
+			<div>{{num}} {{getNum}}</div>
+			<button @click="add(num)">Get</button>
 		</div>
 		<script>
 			var vue3Composition = {
 				setup(props, { emit }) {
 					var state = Vue.reactive({
-						title: "My title",
+						title: "My title"
 					});
 					state.title = "Hello world";
 
@@ -29,6 +31,21 @@
 					};
 					return { state, save };
 				},
+				computed: {
+					getNum() {
+						return this.num;
+					}
+				},
+				data() {
+					return {
+						num: 0
+					};
+				},
+				methods: {
+					add(n) {
+						console.log(this.getNum);
+					}
+				}
 			};
 			var vm = Vue.createApp(vue3Composition).mount("#app");
 		</script>
