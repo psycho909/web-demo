@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css" />
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+				font-family: Arial;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="sec3-content__box">
+			<div class="sec3-content__bg sec3-content__bg-a"></div>
+
+			<!-- 上下Slide控制 -->
+			<a href="javascript:;" class="sec3-slide__prev">PREV</a>
+			<a href="javascript:;" class="sec3-slide__next">NEXT</a>
+			<!-- Slide Nav控制 -->
+			<div class="sec3-slide__dot-box">
+				<span class="sec3-slide__dot-item"></span>
+				<span class="sec3-slide__dot-item"></span>
+				<span class="sec3-slide__dot-item"></span>
+				<span class="sec3-slide__dot-item"></span>
+				<span class="sec3-slide__dot-item"></span>
+				<span class="sec3-slide__dot-item"></span>
+			</div>
+			<div class="sec3-slide__box">
+				<!-- Live組合活動 -->
+				<div id="event1" class="sec3-gallery__box sec3-gallery__type1-box" data-href="https://tinypng.com/" data-cta="event1" data-gallery="a" data-begin1="2022/01/12 12:00" data-end1="2022/04/05 23:59" data-title="Live組合活動" data-description="歡迎來到「誰都可以是明星的世界」，<br/>超多超豐富的活動及全新小活動，<br/>享有明星般的待遇獎勵任你拿！">
+					<div class="sec3-gallery__type-content sec3-gallery__type1-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type1-title">Live組合活動</div>
+				</div>
+				<!-- 版本活動_法老王的寶物 -->
+				<div id="event2" class="sec3-gallery__box sec3-gallery__type2-box" data-href="" data-cta="event2" data-gallery="a" data-begin1="2022/02/23 12:00" data-end1="2022/04/05 23:59" data-title="版本活動_法老王的寶物" data-description="【海外限定活動】<br/>沙塵暴襲擊納希沙漠的某天，出現了巨大的金字塔<br/>快來成為探險隊的一員，探索金字塔，獲取法老王的寶物吧！">
+					<div class="sec3-gallery__type-content sec3-gallery__type2-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type2-title">版本活動_法老王的寶物</div>
+				</div>
+				<!-- 極限燃燒 -->
+				<div id="event3" class="sec3-gallery__box sec3-gallery__type3-box" data-href="" data-cta="event3" data-gallery="a" data-begin1="2022/01/12 12:00" data-end1="2022/02/22 23:59" data-begin2="2022/02/23 12:00" data-end2="2022/04/05 23:59" data-title="極限燃燒" data-description="最速升等時刻來了！練1等升3等，<br/>達指定等級還有機會獲得豐富獎勵，<br/>活動有兩波，立即燃燒你的角色！">
+					<div class="sec3-gallery__type-content sec3-gallery__type3-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type3-title">極限燃燒</div>
+				</div>
+				<!-- 春節限定活動 -->
+				<div id="event4" class="sec3-gallery__box sec3-gallery__type4-box" data-href="" data-cta="event4" data-gallery="b" data-begin1="2022/01/26 12:00" data-end1="2022/02/08 23:59" data-title="春節限定活動" data-description="過年時刻就是要天天拿紅包，<br/>參加限定春節活動獲得特殊能力加乘，<br/>還有春節硬幣兌換特殊商品讓春節氛圍滿滿！">
+					<div class="sec3-gallery__type-content sec3-gallery__type4-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type4-title">春節限定活動</div>
+				</div>
+				<!-- 很型，也很行! -->
+				<div id="event5" class="sec3-gallery__box sec3-gallery__type5-box coming" data-cta="event5" data-id="#section2" data-tab="b" data-gallery="b" data-begin1="2022/01/05 00:00" data-end1="2022/02/08 23:59" data-title="很型，也很行!" data-description="COMING SOON">
+					<div class="sec3-gallery__type-content sec3-gallery__type5-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type5-title">很型，也很行!</div>
+				</div>
+				<!-- bf!資訊 -->
+				<div id="event6" class="sec3-gallery__box sec3-gallery__type6-box" data-href="" data-cta="event6" data-gallery="b" data-begin1="2022/01/14 00:00" data-end1="2022/02/06 23:59" data-title="橘子嘉年華" data-description="年度最期待的《橘子嘉年華》又來了，<br/>今年不用挑戰同上，只要完成任務就能獲得限定虛寶！<br/>還有期待度爆表的1/23直播活動，最新職業菈菈直接玩給你看!">
+					<div class="sec3-gallery__type-content sec3-gallery__type6-content"></div>
+					<div class="sec3-gallery__type-title sec3-gallery__type6-title">橘子嘉年華</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+		<script>
+			var sec3Slider = tns({
+				container: ".sec3-slide__box",
+				mouseDrag: true,
+				loop: true,
+				autoplay: false,
+				autoplayTimeout: 5000,
+				autoplayButtonOutput: false,
+				items: 1,
+				slideBy: "page",
+				nav: true,
+				navContainer: ".sec3-slide__dot-box",
+				prevButton: ".sec3-slide__prev",
+				nextButton: ".sec3-slide__next"
+			});
+
+			$(".sec3-gallery__box").on("click", function () {
+				console.log(123);
+			});
+		</script>
+	</body>
+</html>

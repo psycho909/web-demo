@@ -28,6 +28,17 @@
 			</child2>
 		</div>
 		<script>
+			var sayHi = function () {
+				function p() {
+					return new Promise(function (resolve, reject) {
+						resolve("Hi SayHi");
+					});
+				}
+				p().then(function (res) {
+					console.log(res);
+				});
+			};
+
 			Vue.component("child2", {
 				props: ["fun"],
 				template: `
@@ -92,6 +103,9 @@
 					console.log("app mounted");
 					var cd = this.$refs.child;
 					console.log(cd);
+					this.$nextTick(function () {
+						sayHi();
+					});
 				},
 				data: {
 					num: 0,

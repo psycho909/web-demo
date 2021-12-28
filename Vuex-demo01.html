@@ -13,7 +13,7 @@
 		<div id="app">
 			<h2>{{welcome}}</h2>
 			<h2>{{welcome2}}</h2>
-			<h3>{{count}}</h3>
+			<h3>{{count}} - {{count2}}</h3>
 			<h3>{{$store.state.count}}</h3>
 			<input type="text" v-model="welcome" />
 			<button @click="submitMessage">submit</button>
@@ -24,7 +24,7 @@
 			const store = new Vuex.Store({
 				state: {
 					message: "Hello From Vuex",
-					count: 0,
+					count: 0
 				},
 				mutations: {
 					INCREMENT(state, payload) {
@@ -36,7 +36,7 @@
 					},
 					changeMessage(state, payload) {
 						state.message = payload;
-					},
+					}
 				},
 				actions: {
 					increment(state, payload) {
@@ -47,7 +47,7 @@
 					},
 					changeMessage({ commit }, payload) {
 						commit("changeMessage", payload);
-					},
+					}
 				},
 				getters: {
 					message(state) {
@@ -55,8 +55,8 @@
 					},
 					counter(state) {
 						return state.count;
-					},
-				},
+					}
+				}
 			});
 			new Vue({
 				el: "#app",
@@ -64,7 +64,7 @@
 				data() {
 					return {
 						welcome: "<div>Hello World</div>",
-						welcome2: "",
+						welcome2: ""
 					};
 				},
 				computed: {
@@ -72,6 +72,9 @@
 					count() {
 						return this.$store.getters.counter;
 					},
+					count2() {
+						return this.$store.state.count;
+					}
 				},
 				methods: {
 					pressed() {
@@ -82,13 +85,13 @@
 					},
 					submitMessage() {
 						store.dispatch("changeMessage", this.welcome);
-					},
+					}
 				},
 				watch: {
 					message() {
 						this.welcome2 = this.message;
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>
