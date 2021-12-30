@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				background-color: #111;
+				font-family: Signika Negative, Asap, sans-serif;
+				color: white;
+				overflow: hidden;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #111;
-            font-family: Signika Negative, Asap, sans-serif;
-            color: white;
-            overflow: hidden;
-        }
+			.dot {
+				width: 35px;
+				height: 35px;
+				position: absolute;
+				background: url(http://www.clipartqueen.com/image-files/red-lobed-fall-clipart-leaf.png);
+				background-size: 100% 100%;
+			}
 
-        .dot {
-            width: 35px;
-            height: 35px;
-            position: absolute;
-            background: url(http://www.clipartqueen.com/image-files/red-lobed-fall-clipart-leaf.png);
-            background-size: 100% 100%;
-        }
+			html,
+			body,
+			#container {
+				width: 100%;
+				height: 100%;
+			}
 
-        html,
-        body,
-        #container {
-            width: 100%;
-            height: 100%;
-        }
+			#DiacoDesignLink,
+			#pens {
+				color: #fff;
+			}
+		</style>
+	</head>
 
-        #DiacoDesignLink,
-        #pens {
-            color: #fff;
-        }
-    </style>
-</head>
+	<body>
+		<div id="container"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+		<script>
+			/* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+			var falling = true;
 
-<body>
+			TweenLite.set("#container", { perspective: 600 });
+			TweenLite.set("img", { xPercent: "-50%", yPercent: "-50%" });
 
-    <div id="container"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-    <script>
-        /* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
-        var falling = true;
+			var total = 8;
+			var container = document.getElementById("container"),
+				w = window.innerWidth,
+				h = window.innerHeight;
 
-        TweenLite.set("#container", { perspective: 600 })
-        TweenLite.set("img", { xPercent: "-50%", yPercent: "-50%" })
+			for (i = 0; i < total; i++) {
+				var Div = document.createElement("div");
+				TweenLite.set(Div, { attr: { class: "dot" }, x: R(0, w), y: R(0, -150), z: R(-200, 200), opacity: 1 });
+				container.appendChild(Div);
+				animm(Div);
+			}
 
-        var total = 8;
-        var container = document.getElementById("container"), w = window.innerWidth, h = window.innerHeight;
+			function animm(elm) {
+				TweenMax.to(elm, R(6, 15), { y: h + 100, ease: Linear.easeNone, repeat: -1, delay: -15, opacity: 1 });
+				TweenMax.to(elm, R(4, 8), { x: "-=150", rotationZ: R(0, 180), repeat: -1, yoyo: true, ease: Sine.easeInOut });
+				TweenMax.to(elm, R(2, 8), { rotationX: R(0, 360), rotationY: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5 });
+				TweenMax.to(elm, R(2, 8), { opacity: 0, delay: 5 });
+			}
 
-        for (i = 0; i < total; i++) {
-            var Div = document.createElement('div');
-            TweenLite.set(Div, { attr: { class: 'dot' }, x: R(0, w), y: R(0, -150), z: R(-200, 200) });
-            container.appendChild(Div);
-            animm(Div);
-        }
+			function R(min, max) {
+				return min + Math.random() * (max - min);
+			}
 
-        function animm(elm) {
-            TweenMax.to(elm, R(6, 15), { y: h + 100, ease: Linear.easeNone, repeat: -1, delay: -15 });
-            TweenMax.to(elm, R(4, 8), { x: '-=150', rotationZ: R(0, 180), repeat: -1, yoyo: true, ease: Sine.easeInOut });
-            TweenMax.to(elm, R(2, 8), { rotationX: R(0, 360), rotationY: R(0, 360), repeat: -1, yoyo: true, ease: Sine.easeInOut, delay: -5 });
-        };
-
-        function R(min, max) { return min + Math.random() * (max - min) };
-
-        /* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
-    </script>
-</body>
-
+			/* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+		</script>
+	</body>
 </html>

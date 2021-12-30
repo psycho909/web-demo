@@ -45,6 +45,29 @@
 			document.querySelector(".ab").addEventListener("click", function () {
 				console.log(123);
 			});
+
+			var obj = { function: { arguments: "a,b,c", body: "return a*b+c;" } };
+
+			var f = new Function(obj.function.arguments, obj.function.body);
+
+			console.log(f(1, 2, 3));
+
+			var jsonText = {
+				borderWidth: "2px",
+				colors: ["#FFFFFF", "CCCCCC"],
+				labelFormatter: "function(value, axis) {return value + ' degree';}"
+			};
+			var jsonTransformed = JSON.parse(JSON.stringify(jsonText), function (key, value) {
+				if (value && typeof value === "string" && value.indexOf("function") === 0) {
+					// we can only pass a function as string in JSON ==> doing a real function
+					var jsFunc = new Function("return " + value)();
+					return jsFunc;
+				}
+
+				return value;
+			});
+
+			console.log(jsonTransformed.labelFormatter());
 		</script>
 	</body>
 </html>

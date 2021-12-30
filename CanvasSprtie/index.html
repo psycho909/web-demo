@@ -7,6 +7,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
 			.box {
 				width: 392px;
@@ -69,10 +70,20 @@
 			</div>
 		</div>
 		<script>
+			axios({
+				method: "get",
+				url: "https://randomuser.me/api/",
+				params: {
+					results: 50
+				}
+			}).then((res) => {
+				console.log(res);
+			});
 			var imgArr1 = [];
 			var imgArr2 = [];
 			var canvasArr = [];
 			var index = 0;
+			var loop = false;
 			for (var i = 0; i < 60; i++) {
 				preLoad(imgArr1, i, "./bt_default/bt_default_");
 				preLoad(imgArr2, i, "./bt_over/bt_over_");
@@ -85,8 +96,14 @@
 				setInterval(() => {
 					if (index > 59) {
 						index = 0;
+						loop = true;
 					}
-					draw(i, index);
+					if (loop) {
+						LoopDraw(i, index);
+					} else {
+						draw(i, index);
+					}
+
 					index++;
 				}, 60);
 			});
@@ -109,6 +126,17 @@
 				canvasArr[target].context1.clearRect(0, 0, 180, 180);
 				if (imgArr1[index].complete) {
 					canvasArr[target].context1.drawImage(imgArr1[index], 0, 0);
+				}
+				// canvasArr[target].context2.clearRect(0, 0, 300, 300);
+				// if (imgArr2[index].complete) {
+				// 	canvasArr[target].context2.drawImage(imgArr2[index], 0, 0);
+				// }
+			}
+
+			function LoopDraw(target, index) {
+				canvasArr[target].context1.clearRect(0, 0, 300, 300);
+				if (imgArr2[index].complete) {
+					canvasArr[target].context1.drawImage(imgArr2[index], 0, 0);
 				}
 				canvasArr[target].context2.clearRect(0, 0, 300, 300);
 				if (imgArr2[index].complete) {
