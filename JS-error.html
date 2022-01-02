@@ -14,50 +14,22 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
-			<input type="text" id="input" />
-		</div>
 		<script>
-			function Person(name, age) {
-				this.name = name;
-				this.age = age;
-			}
-			Person.prototype = {
-				constructor: Person,
-				sayName: function () {
-					console.log(this.name);
-				}
-			};
-
-			var o1 = new Person(1, 11);
-			var o2 = new Person(2, 11);
-			o1.sayName();
-			o2.sayName();
-
-			function message(callback) {
-				callback();
+			try {
+				let name = "foo";
+				console.log(nam);
+			} catch (e) {
+				console.log("捕获到异常：", e);
 			}
 
-			message(function () {
-				console.log(123);
-			});
-			setTimeout(() => {
-				console.log("setTimeout");
-			}, 0);
-			window.addEventListener("DOMContentLoaded", function () {
-				console.log("DOMContentLoaded");
-			});
-
-			var bear = 0;
-			var dog = 0;
-			var lion = 0;
-
-			while (2022 != bear * 3 + bear * 2 + bear) {
-				bear++;
+			try {
+				setTimeout(() => {
+					undefined.map((v) => v);
+				}, 1000);
+			} catch (e) {
+				console.log("捕获到异常：", e);
 			}
-			function abc(bear) {
-				return 2022 == bear * 3 + bear * 2 + bear;
-			}
+
 			/**
 			 * @param {String}  message 错误信息
 			 * @param {String}  source 出错文件
