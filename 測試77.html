@@ -33,7 +33,11 @@
 		</div>
 		<div id="code"></div>
 		<input type="text" id="input" />
+		<a href="https://translate.google.com.tw/?hl=zh-TW&tab=rT">翻譯</a>
 		<script>
+			window.onload = function () {
+				console.log("onload");
+			};
 			var oInput = document.getElementById("input");
 			var oCode = document.getElementById("code");
 			var code = "";
