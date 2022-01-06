@@ -7,7 +7,12 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<a href="https://translate.google.com.tw/?hl=zh-TW&tab=rT">翻譯</a>
 		<script>
+			window.addEventListener("unload", function (event) {
+				alert("unload");
+				console.log("I am the 3rd one.");
+			});
 			function runTime(word, ck) {
 				return new Promise((resolve, reject) => {
 					setTimeout(() => {
@@ -32,6 +37,15 @@
 			}
 			getAll();
 
+			async function getAll2() {
+				try {
+					var results = await Promise.allSettled([runTime("A", true), runTime("B", true), runTime("C", false)]);
+					console.log(results);
+				} catch (err) {
+					console.log(err);
+				}
+			}
+			getAll2();
 			// async function getAll2() {
 			// 	console.time();
 			// 	var a = runTime("A", 1000);

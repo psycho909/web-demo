@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
 		<title>Document</title>
 		<style>
 			.box {
@@ -28,6 +30,7 @@
 		</style>
 	</head>
 	<body>
+		<div id="app">{{count}}</div>
 		<div class="box pointer">
 			<div class="ab"></div>
 		</div>
@@ -35,9 +38,42 @@
 		<input type="text" id="input" />
 		<a href="https://translate.google.com.tw/?hl=zh-TW&tab=rT">翻譯</a>
 		<script>
-			window.onload = function () {
-				console.log("onload");
-			};
+			var app = new Vue({
+				el: "#app",
+				mounted() {
+					// alert("created");
+					this.add();
+				},
+				data() {
+					return {
+						count: 0
+					};
+				},
+				methods: {
+					add() {
+						this.count++;
+					}
+				}
+			});
+			window.addEventListener("pageshow", (event) => {
+				if (event.persisted) {
+					// alert("This page was restored from the bfcache.");
+					console.log("This page was restored from the bfcache.");
+					app.add();
+				} else {
+					// alert("This page was loaded normally.");
+					console.log("This page was loaded normally.");
+				}
+			});
+			window.addEventListener("pagehide", (event) => {
+				if (event.persisted === true) {
+					// alert("This page *might* be entering the bfcache.");
+					console.log("This page *might* be entering the bfcache.");
+				} else {
+					// alert("This page will unload normally and be discarded.");
+					console.log("This page will unload normally and be discarded.");
+				}
+			});
 			var oInput = document.getElementById("input");
 			var oCode = document.getElementById("code");
 			var code = "";

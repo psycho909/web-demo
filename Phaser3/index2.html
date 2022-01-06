@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+	</head>
+	<body>
+		<div id="app" class="box"></div>
+		<script>
+			// 創建基本config
+			var config = {
+				type: Phaser.AUTO,
+				width: 800,
+				height: 600,
+				physics: {
+					default: "arcade",
+					arcade: {
+						gravity: { y: 300 },
+						debug: false
+					}
+				},
+				scene: {
+					preload: preload,
+					create: create,
+					update: update
+				}
+			};
+
+			var player;
+			var platforms;
+			var cursors;
+			var stars;
+			var score = 0;
+			var scoreText;
+			var bombs;
+			var gameOver = false;
+			var timedEvent;
+			var game = new Phaser.Game(config);
+
+			// 預先load資源
+			function preload() {
+				console.log(this);
+				this.load.image("sky", "assets/sky.png");
+				this.load.image("ground", "assets/platform.png");
+				this.load.image("star", "assets/star.png");
+				this.load.image("bomb", "assets/bomb.png");
+				this.load.spritesheet("dino", "assets/dino.png", { frameWidth: 16, frameHeight: 26 });
+			}
+
+			function create() {
+				this.add.image(400, 300, "sky");
+
+				// 增加物理靜態Group
+				platforms = this.physics.add.staticGroup();
+				platforms.create(400, 568, "ground").setScale(2).refreshBody();
+				platforms.create(600, 400, "ground");
+				platforms.create(50, 250, "ground");
+				platforms.create(750, 220, "ground");
+
+				// 玩家
+				player = this.physics.add.sprite(100, 450, "dino");
+
+				// 彈力回饋
+				player.setBounce(0.2);
+				// 不能超出界線
+				player.setCollideWorldBounds(true);
+
+				this.anims.create({
+					key: "left",
+					frames: this.anims.generateFrameNumbers("dino", { start: 0, end: 4 }),
+					frameRate: 10,
+					repeat: -1
+				});
+
+				this.anims.create({
+					key: "turn",
+					frames: [{ key: "dino", frame: 1 }],
+					frameRate: 10,
+					repeat: -1
+				});
+
+				this.anims.create({
+					key: "right",
+					frames: this.anims.generateFrameNumbers("dino", { start: 0, end: 4 }),
+					frameRate: 10,
+					repeat: -1
+				});
+
+				// 創建鍵盤控制
+				cursors = this.input.keyboard.createCursorKeys();
+
+				// 創建stars
+				// stepX += 70
+				stars = this.physics.add.group({
+					key: "star",
+					repeat: 11,
+					setXY: { x: 12, y: 0, stepX: 70 }
+				});
+
+				// 0.4 ~ 0.8 反彈範圍隨機值
+				stars.children.iterate((child) => {
+					child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+				});
+
+				bombs = this.physics.add.group();
+
+				// 增加文字
+				scoreText = this.add.text(16, 16, "score: 0", { fontSize: "32px", fill: "#000" });
+
+				// player 與 platforms 碰撞檢測
+				this.physics.add.collider(player, platforms);
+
+				// stars 與 platforms 碰撞檢測
+				this.physics.add.collider(stars, platforms);
+				this.physics.add.collider(bombs, platforms);
+
+				// 檢查player 與 組中任何一顆星星的重疊，檢測到他會傳遞到 collectStar
+				this.physics.add.overlap(player, stars, collectStar, null, this);
+
+				this.physics.add.collider(player, bombs, hitBomb, null, this);
+			}
+
+			// setVelocityX 橫向移動速度
+			// setVelocityY 垂直移動速度
+			function update() {
+				if (gameOver) {
+					return;
+				}
+				if (cursors.left.isDown) {
+					player.flipX = true;
+					player.setVelocityX(-160);
+
+					player.anims.play("left", true);
+				} else if (cursors.right.isDown) {
+					player.flipX = false;
+					player.setVelocityX(160);
+
+					player.anims.play("right", true);
+				} else {
+					player.setVelocityX(0);
+
+					player.anims.play("turn");
+				}
+
+				if (cursors.up.isDown && player.body.touching.down) {
+					player.setVelocityY(-330);
+				}
+			}
+
+			// 檢查player 與 組中任何一顆星星的重疊
+			function collectStar(player, star) {
+				star.disableBody(true, true);
+
+				// 碰撞到+分數
+				score += 10;
+				scoreText.setText("Score: " + score);
+				if (stars.countActive(true) === 0) {
+					stars.children.iterate(function (child) {
+						child.enableBody(true, child.x, 0, true, true);
+					});
+					var x = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+					var bomb = bombs.create(x, 16, "bomb");
+					bomb.setBounce(1);
+					bomb.setCollideWorldBounds(true);
+					bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+					bomb.allowGravity = false;
+				}
+			}
+
+			// 炸彈觸碰到的事件
+			function hitBomb(player, bomb) {
+				this.physics.pause();
+
+				player.setTint(0xff0000);
+
+				player.anims.play("turn");
+
+				gameOver = true;
+			}
+		</script>
+	</body>
+</html>
