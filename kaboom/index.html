@@ -13,9 +13,31 @@
 
 			// Start a kaboom game
 			kaboom();
-
+			// kaboom({
+			// 	width: 320,
+			// 	height: 240,
+			// 	font: "sinko",
+			// 	canvas: document.querySelector("#mycanvas"),
+			// 	background: [0, 0, 255]
+			// });
 			// Load a sprite asset from "sprites/bean.png", with the name "bean"
-			loadSprite("bean", "./images/sprites/bean.png");
+			loadSprite("bean", "./images/sprites/bean.png", {
+				sliceX: 1,
+				anims: {
+					idle: {
+						from: 0,
+						to: 0,
+						speed: 3,
+						loop: true
+					},
+					run: {
+						from: 0,
+						to: 0,
+						speed: 3,
+						loop: true
+					}
+				}
+			});
 			loadSprite("ghosty", "./images/sprites/ghosty.png");
 
 			// A "Game Object" is the basic unit of entity in kaboom
@@ -33,7 +55,7 @@
 			// .onUpdate() is a method on all game objects, it registers an event that runs every frame
 			player.onUpdate(() => {
 				// .angle is a property provided by rotate() component, here we're incrementing the angle by 120 degrees per second, dt() is the time elapsed since last frame in seconds
-				player.angle += 120 * dt();
+				// player.angle += 120 * dt();
 			});
 
 			// Add multiple game objects
@@ -45,6 +67,14 @@
 
 				add([sprite("ghosty"), pos(x, y)]);
 			}
+			const SPEED = 120;
+			onKeyDown("right", () => {
+				player.move(SPEED, 0);
+				player.flipX(false);
+				if (player.curAnim() !== "run") {
+					player.play("run");
+				}
+			});
 		</script>
 	</body>
 </html>
