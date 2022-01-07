@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<input type="radio" id="radio" />
+		<input type="checkbox" id="checkbox" />
+		<div id="app">
+			<div v-for="i in 10">
+				<label>
+					<input type="radio" checked="true" ref="input" />
+					<input type="text" :value="i" ref="input" />
+				</label>
+			</div>
+			<button @click="all">按鈕</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					QuestForm: [{ QuestOptionType: "Radio", QuestNo: "abc" }]
+				},
+				computed: {},
+				methods: {
+					all() {
+						console.log(this.$refs.input[0].value);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

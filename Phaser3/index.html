@@ -185,6 +185,7 @@
 
 			// 檢查player 與 組中任何一顆星星的重疊
 			function collectStar(player, star) {
+				// 讓碰到的物體消失(disableGameObject,hideGameObject)
 				star.disableBody(true, true);
 
 				// 碰撞到+分數
