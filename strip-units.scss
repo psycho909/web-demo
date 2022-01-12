@@ -1,0 +1,11 @@
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+@function rem($size) {
+	$result: strip-units($size) / 16;
+	@return $result + rem;
+}
+
+.box {
+	width: rem(360px);
+}
