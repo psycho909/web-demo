@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://momokang.github.io/slotmachine/css/app.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Example 3 - Stop sequence</div>
+				<div class="panel-body">
+					<div class="well">Specify stop sequence from left to right or right to left or totally random (like example 1)</div>
+					<div class="slotwrapper" id="example3">
+						<ul>
+							<li>A</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li class="text-danger">7</li>
+						</ul>
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li class="text-danger">7</li>
+						</ul>
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li class="text-danger">7</li>
+						</ul>
+					</div>
+					<div>
+						<button type="button" class="btn btn-success btn-lg" id="btn-example3-1">Start Spin! (Left to Right)</button>
+						<button type="button" class="btn btn-success btn-lg" id="btn-example3-2">Start Spin! (Right to Left)</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://momokang.github.io/slotmachine/js/slotmachine.min.js"></script>
+		<script>
+			var endNum = [1, 3, 4];
+			$("#btn-example3-1").click(function () {
+				$("#example3 ul").playSpin({
+					stopSeq: "leftToRight",
+					endNum: endNum
+				});
+			});
+		</script>
+	</body>
+</html>
