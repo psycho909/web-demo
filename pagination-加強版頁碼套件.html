@@ -25,8 +25,15 @@
 			}
 			#pagination-demo li {
 				display: inline-block;
+				margin: 0 6px;
 			}
-
+			.page-item.active .page-link {
+				color: red;
+			}
+			.page-link {
+				color: #000;
+				text-decoration: none;
+			}
 			.page-content {
 				background: #eee;
 				display: inline-block;
@@ -192,16 +199,17 @@
 					},
 
 					buildListItems: function (pages) {
+						var jump = this.options.jump;
 						var listItems = [];
 
 						if (this.options.first) {
 							if (this.options.onFirstClick !== null) {
 								var first;
-								if (pages.currentPage - 10 <= 1) {
+								if (pages.currentPage - jump <= 1) {
 									first = 1;
 									console.log("< 1");
 								} else {
-									first = pages.currentPage > 1 ? Math.floor(pages.currentPage / 10) * 10 - 10 + 1 : this.options.loop ? this.options.totalPages : 1;
+									first = pages.currentPage > 1 ? Math.floor(pages.currentPage / jump) * jump - jump + 1 : this.options.loop ? this.options.totalPages : 1;
 									console.log("> 1", first, pages.currentPage);
 								}
 								listItems.push(this.buildItem("first", first));
@@ -229,10 +237,10 @@
 						if (this.options.last) {
 							if (this.options.onLastClick !== null) {
 								var next;
-								if (pages.currentPage + 10 > this.options.totalPages) {
+								if (pages.currentPage + jump > this.options.totalPages) {
 									next = this.options.totalPages;
 								} else {
-									next = pages.currentPage < this.options.totalPages ? Math.ceil(pages.currentPage / 10) * 10 + 1 : this.options.loop ? 1 : this.options.totalPages;
+									next = pages.currentPage < this.options.totalPages ? Math.ceil(pages.currentPage / jump) * jump + 1 : this.options.loop ? 1 : this.options.totalPages;
 								}
 								listItems.push(this.buildItem("last", next));
 							} else {
@@ -379,7 +387,7 @@
 					},
 					getCurrentPage: function () {
 						return this.currentPage;
-					},
+					}
 				};
 
 				// PLUGIN DEFINITION
@@ -402,6 +410,7 @@
 					totalPages: 1,
 					startPage: 1,
 					visiblePages: 5,
+					jump: 1,
 					initiateStartPageClick: true,
 					hideOnlyOnePage: false,
 					href: false,
@@ -424,7 +433,7 @@
 					pageClass: "page-item",
 					activeClass: "active",
 					disabledClass: "disabled",
-					anchorClass: "page-link",
+					anchorClass: "page-link"
 				};
 
 				$.fn.twbsPagination.Constructor = TwbsPagination;
@@ -439,7 +448,8 @@
 			var $pagination = $("#pagination-demo");
 			$pagination.twbsPagination({
 				totalPages: 100,
-				visiblePages: 6,
+				visiblePages: 5,
+				jump: 10,
 				next: "Next",
 				prev: "Prev",
 				initiateStartPageClick: false,
@@ -459,7 +469,7 @@
 					//fetch content and render here
 					console.log("onLastClick");
 					$("#page-content").text("Page " + page) + " content here";
-				},
+				}
 			});
 		</script>
 	</body>

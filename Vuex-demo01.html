@@ -21,7 +21,24 @@
 			<button @click="deincrement">Deincrement Counter</button>
 		</div>
 		<script>
+			const myPlugin = (store) => {
+				// 當 store 初始化後調用
+				store.subscribe((mutation, state) => {
+					// 每次 mutation 之後調用
+					// mutation 的格式為 { type, payload }
+					console.log(mutation, state);
+				});
+			};
+			const myPlugin2 = (store) => {
+				// 當 store 初始化後調用
+				store.subscribeAction((action, state) => {
+					// 每次 mutation 之後調用
+					// mutation 的格式為 { type, payload }
+					console.log(action, state);
+				});
+			};
 			const store = new Vuex.Store({
+				plugins: [myPlugin, myPlugin2],
 				state: {
 					message: "Hello From Vuex",
 					count: 0
@@ -58,6 +75,7 @@
 					}
 				}
 			});
+
 			new Vue({
 				el: "#app",
 				store: store,

@@ -104,10 +104,12 @@
 			var data = [];
 			var pages = [];
 			var currentPage = 1;
-			var itemsPerPage = 5;
+			var itemsPerPage = 3;
 			var pageNumberLimit = 10;
 			var maxPageNumberLimit = 10;
 			var minPageNumberLimit = 0;
+			var totalPage = 200;
+			var jumpPage = 0;
 			var indexOfLastItem = 0;
 			var indexOfFirstItem = 0;
 			var pageDecrementBtn = "";
@@ -116,15 +118,6 @@
 			function renderData(callback) {
 				renderDataFun = callback;
 			}
-			// function renderData(data) {
-			// var ulHTML = "";
-			// var liHTML = "";
-			// for (var i = 0; i < data.length; i++) {
-			// 	liHTML += "<li>" + data[i].title + "</li>";
-			// }
-			// ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
-			// return ulHTML;
-			// }
 
 			function renderPageNumbers() {
 				setpageDecrementBtn();
@@ -139,7 +132,9 @@
 					})
 					.filter(Boolean)
 					.join("");
-				var pageLiAll = "<li><button onclick='handlePrevbtn()' " + (currentPage == pages[0] ? "disabled" : "") + ">Prev</button></li>" + pageDecrementBtn + pagesLi + pageIncrementBtn + "<li><button onclick='handleNextbtn()' " + (currentPage == pages[pages.length - 1] ? "disabled" : "") + ">Next</button></li>";
+				var pageJumpNext = "<li><button onclick='handleJumpBtn(10)'>Next 10</button></li>";
+				var pageJumpPrev = "<li><button onclick='handleJumpBtn(-10)'>Prev 10</button></li>";
+				var pageLiAll = pageJumpPrev + "<li><button onclick='handlePrevbtn()' " + (currentPage == pages[0] ? "disabled" : "") + ">Prev</button></li>" + pagesLi + "<li><button onclick='handleNextbtn()' " + (currentPage == pages[pages.length - 1] ? "disabled" : "") + ">Next</button></li>" + pageJumpNext;
 				var pagesHTML = "<ul class='pageNumbers'>" + pageLiAll + "</ul>";
 				return pagesHTML;
 			}
@@ -148,7 +143,7 @@
 				currentPage = page;
 			}
 
-			function setpages() {
+			function setpages(data) {
 				for (var i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
 					pages.push(i);
 				}
@@ -190,7 +185,7 @@
 
 			function handleClick(event) {
 				setcurrentPage(Number(event.id));
-				renderDataFun();
+				DataLoading();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 
@@ -200,7 +195,7 @@
 					setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
 				}
-				renderDataFun();
+				DataLoading();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 			function handlePrevbtn() {
@@ -209,30 +204,70 @@
 					setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
 				}
-				renderDataFun();
+				DataLoading();
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
+			function handleJumpBtn(jump) {
+				if (jump > 0) {
+					jumpPage = currentPage - (currentPage % jump) + 11;
+				} else {
+					jumpPage = currentPage - (currentPage % jump) - 9;
+				}
+				if (jumpPage > pages.length || jumpPage <= 0) {
+					return;
+				}
+				setcurrentPage(jumpPage);
+				if (jump > 0) {
+					setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+					setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+				} else {
+					setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+					setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+				}
 
+				DataLoading();
+				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
+			}
 			function init() {
-				fetch("https://jsonplaceholder.typicode.com/todos")
+				fetch("https://randomuser.me/api/?results=3")
 					.then((response) => response.json())
 					.then((json) => {
-						data = json;
+						data = json.results;
+						var dataArr = [];
+						for (var i = 1; i < 200; i++) {
+							dataArr.push(i);
+						}
 						renderData(function () {
-							var pageData = currentItems();
 							var ulHTML = "";
 							var liHTML = "";
-							for (var i = 0; i < pageData.length; i++) {
-								liHTML += "<li>" + pageData[i].title + "</li>";
+							for (var i = 0; i < data.length; i++) {
+								liHTML += "<li>" + data[i].email + "</li>";
 							}
 							ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
 
 							document.querySelector(".items-box").innerHTML = ulHTML;
 						});
 						renderDataFun();
-						// document.querySelector(".items-box").innerHTML = renderData(currentItems());
-						setpages();
+						setpages(dataArr);
 						document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
+					});
+			}
+
+			function DataLoading() {
+				fetch("https://randomuser.me/api/?results=3")
+					.then((response) => response.json())
+					.then((json) => {
+						data = json.results;
+						renderData(function () {
+							var ulHTML = "";
+							var liHTML = "";
+							for (var i = 0; i < data.length; i++) {
+								liHTML += "<li>" + data[i].email + "</li>";
+							}
+							ulHTML = "<ul class='content-body'>" + liHTML + "</ul>";
+							document.querySelector(".items-box").innerHTML = ulHTML;
+						});
+						renderDataFun();
 					});
 			}
 			init();
