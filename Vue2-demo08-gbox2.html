@@ -130,6 +130,13 @@
 			<Cat v-model="showPopup" v-if="showPopup == 'cat'"></Cat>
 		</div>
 		<script>
+			Vue.prototype.$dispatch = function (eventName, value) {
+				var parent = this.$parent;
+				while (parent) {
+					parent.$emit(eventName, value);
+					parent = parent.$parent;
+				}
+			};
 			Vue.component("popup", {
 				props: {
 					value: Boolean,
@@ -162,8 +169,8 @@
 								<slot name="title"></slot>
 							</div>
 							<div class="gbox-content"><slot name="content"></slot></div>
-							<slot name="cls" v-if="closeBtn">
-								<button class="gbox-close" @click="HandleClose">×</button>
+							<slot name="cls">
+								<button class="gbox-close" @click="$parent.$emit('update',false)">×</button>
 							</slot>
 							<div class="gbox-action" v-if="actionBtn">
 								<slot name="btn"></slot>
