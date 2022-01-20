@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@vue/composition-api@1.4.4"></script>
+		<!-- <script src="https://unpkg.com/@vueuse/shared"></script>
+		<script src="https://unpkg.com/@vueuse/core"></script> -->
+	</head>
+	<body>
+		<div id="app">
+			<div>{{user.age}} - {{userRef.age}}- {{age}} - {{user.name}}</div>
+			<ul>
+				<li v-for="(user,index) in users.list" :key="index">{{user.email}}</li>
+			</ul>
+			<a href="javascript:;" @click="changeAge">Change Age</a>
+		</div>
+		<script type="text/babel">
+			var VueApi = window.VueCompositionAPI;
+			var app = new Vue({
+				setup: function () {
+					var { ref, reactive, toRef, toRefs } = VueApi;
+
+					var users = reactive({
+						list: []
+					});
+					var user = reactive({
+						name: "Chen",
+						age: 18
+					});
+					var userRef = toRefs(user);
+					var age = toRef(user, "age");
+					axios.get("https://randomuser.me/api/?results=10").then(function (data) {
+						users.list = data.data.results;
+					});
+					function changeAge() {
+						age.value++;
+						// userRef.age.value++;
+						// console.log(user.age);
+					}
+					return {
+						users,
+						user,
+						changeAge,
+						userRef,
+						age
+					};
+				},
+				el: "#app",
+				data: {},
+				computed: {},
+				mounted: function () {
+					var _this = this;
+				},
+				methods: {},
+				watch: {}
+			});
+		</script>
+	</body>
+</html>
