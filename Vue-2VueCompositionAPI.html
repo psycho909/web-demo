@@ -22,6 +22,10 @@
 				<li v-for="(user,index) in users.list" :key="index">{{user.email}}</li>
 			</ul>
 			<a href="javascript:;" @click="changeAge">Change Age</a>
+
+			<ul>
+				<li v-for="(item,index) in list" :key="index">{{item.name}} count值{{item.count}} <button @click="handleDelete(index)">-</button></li>
+			</ul>
 		</div>
 		<script type="text/babel">
 			var VueApi = window.VueCompositionAPI;
@@ -55,12 +59,23 @@
 					};
 				},
 				el: "#app",
-				data: {},
+				data: {
+					list: [
+						{ count: 1, name: "First 1" },
+						{ count: 2, name: "Second 2" },
+						{ count: 3, name: "Third 3" },
+						{ count: 4, name: "Four 4" }
+					]
+				},
 				computed: {},
 				mounted: function () {
 					var _this = this;
 				},
-				methods: {},
+				methods: {
+					handleDelete(index) {
+						this.list.splice(index, 1);
+					}
+				},
 				watch: {}
 			});
 		</script>
