@@ -36,7 +36,7 @@
 					text: function (trigger) {
 						console.log(trigger);
 						return trigger;
-					},
+					}
 				});
 				clipboard.on("success", function (e) {
 					clipboard.destroy();
@@ -48,7 +48,7 @@
 			}
 			Vue.component("child", {
 				props: {
-					callback: Function,
+					callback: Function
 				},
 				created() {
 					var _this = this;
@@ -64,7 +64,7 @@
 							_this.email = data.results[0].email;
 							_this.email = data.results[0].email;
 							_this.email = data.results[0].email;
-						},
+						}
 					});
 				},
 				mounted() {
@@ -73,13 +73,13 @@
 					this.clipboard = new ClipboardJS(r, {
 						text: function (trigger) {
 							return r2.textContent;
-						},
+						}
 					});
 				},
 				data() {
 					return {
 						email: "",
-						clipboard: "",
+						clipboard: ""
 					};
 				},
 				template: `<div>
@@ -93,8 +93,8 @@
 						this.clipboard.on("success", function (e) {
 							_this.clipboard.destroy();
 						});
-					},
-				},
+					}
+				}
 			});
 			var vm = new Vue({
 				el: "#app",
@@ -102,17 +102,17 @@
 					// 一開始沒有註冊 penguin，只註冊了 dog 和 cat
 					counter: {
 						dog: 0,
-						cat: 0,
+						cat: 0
 					},
-					items: ["a", "b", "c"],
+					items: ["a", "b", "c"]
 				},
 
 				methods: {
 					addCount(name) {
 						this.counter[name] = "123";
 						this.items[1] = "xxx";
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>

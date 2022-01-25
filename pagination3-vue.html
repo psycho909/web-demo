@@ -131,12 +131,16 @@
 					};
 				},
 				mounted: function () {
-					this.SetPages();
-					this.FindRewardLog();
-					this.RenderPageNumbers();
+					this.InitPagination();
 				},
 				methods: {
-					// 初始化總頁碼數量
+					// 初始化頁碼
+					InitPagination() {
+						this.SetPages();
+						this.FindRewardLog();
+						this.RenderPageNumbers();
+					},
+					// 總頁碼數量變更
 					SetPages() {
 						for (var i = 1; i <= Math.ceil(this.totalPage / this.itemsPerPage); i++) {
 							this.pages.push(i);

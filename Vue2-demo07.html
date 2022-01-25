@@ -12,6 +12,13 @@
 		<input type="radio" id="radio" />
 		<input type="checkbox" id="checkbox" />
 		<div id="app">
+			<input type="checkbox" id="checkbox1" v-model="checked" name="A" value="A1" />
+			<input type="checkbox" id="checkbox2" v-model="checked" name="A" value="B2" />
+			<input type="checkbox" id="checkbox3" v-model="checked" name="A" value="C3" />
+			{{checked}} {{selected}}
+			<select v-model="selected">
+				<option v-for="c in char" :value="c.name">{{c.name}}</option>
+			</select>
 			<div v-for="i in 10">
 				<label>
 					<input type="radio" checked="true" ref="input" />
@@ -24,7 +31,10 @@
 			var vm = new Vue({
 				el: "#app",
 				data: {
-					QuestForm: [{ QuestOptionType: "Radio", QuestNo: "abc" }]
+					QuestForm: [{ QuestOptionType: "Radio", QuestNo: "abc" }],
+					char: [{ name: "A" }, { name: "B" }, { name: "C" }],
+					selected: "",
+					checked: []
 				},
 				computed: {},
 				methods: {

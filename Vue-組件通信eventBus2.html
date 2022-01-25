@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h2>test 4</h2>
+			<div>{{msg}} - {{name}}</div>
+			<Son>
+				<Gradson></Gradson>
+			</Son>
+		</div>
+		<script>
+			var Bus = new Vue();
+			Vue.component("Son", {
+				template: `
+                    <div>
+                        <h2>Home</h2>
+                        <a href="javascript:;" @click="eventbus">Son Btn</a>    
+                        <slot></slot>
+                    </div>
+                `,
+				methods: {
+					eventbus() {
+						Bus.$emit("getmsg", "HOME BUS");
+					}
+				}
+			});
+			Vue.component("Gradson", {
+				template: `
+                    <div>
+                        <h2>Gradson</h2>
+                        <a href="javascript:;" @click="eventbus">Gradson Btn</a>    
+                    </div>
+                `,
+				methods: {
+					eventbus() {
+						Bus.$emit("setgrandson", "Gradson BUS");
+					}
+				}
+			});
+			new Vue({
+				el: "#app",
+				data() {
+					return {
+						msg: "Hello Title",
+						name: ""
+					};
+				},
+				created() {
+					var _this = this;
+					Bus.$on("setgrandson", (value) => {
+						_this.getmsg(value);
+					});
+				},
+				methods: {
+					getmsg(data) {
+						this.name = data;
+					},
+					change() {
+						this.msg = "CHANGE";
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

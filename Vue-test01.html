@@ -1,83 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-</head>
-<body>
-    <div id="app">
-        <div>{{message}}</div>
-        <div>Now Time: {{now}}</div>
-        <div>User: {{userLength}}</div>
-        <ul>
-            <li v-for="(user,index) in users" :key="index">
-                {{user.email}}
-            </li>
-        </ul>
-        <input type="text" v-model="now">
-        <div>
-            <div class="bank__list-item" v-for="(bank,index) in banks" :key="index">
-                <a :href="bank.href">{{bank.name}}</a>
-            </div>
-        </div>
-        <button @click="getHTML">獲取語法</button>
-    </div>
-    <script>
-        var app=new Vue({
-            el:"#app",
-            data:{
-                message:"Helo Vue",
-                banks:[{name:"玉山銀行",href:"#123",img:"bank_1"}],
-                users:[],
-                time:""
-            },
-            computed:{
-                userLength(){
-                    return this.users.length
-                },
-                now:{
-                    get(){
-                        return this.message
-                    },
-                    set(newValue){
-                        console.log("setter")
-                        this.message=newValue.split("")[0]
-                    }
-                }
-            },
-            mounted(){
-                var _this=this;
-                $.ajax({
-                    url:"https://randomuser.me/api/?results=10",
-                    method:"GET",
-                    dataType:"JSON",
-                    success:function(data){
-                        _this.users=data.results
-                    }
-                })
-            },
-            methods:{
-                getHTML(){
-                    console.log(document.getElementById("app").innerHTML)
-                }
-            },
-            watch:{
-                message:{
-                    handler(newValue,oldValue){
-                        console.log(newValue,oldValue)
-                    }
-                },
-                now:{
-                    handler(newValue,oldValue){
-                        console.log(newValue,oldValue)
-                    }
-                }
-            }
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@vue/composition-api@1.4.4"></script>
+		<!-- <script src="https://unpkg.com/@vueuse/shared"></script>
+		<script src="https://unpkg.com/@vueuse/core"></script> -->
+	</head>
+	<body>
+		<div id="app">
+			<div>{{message}} {{age}}</div>
+			<div>Now Time: {{now}}</div>
+			<div>User: {{userLength}}</div>
+			<ul>
+				<li v-for="(user,index) in users" :key="index">{{user.email}}</li>
+			</ul>
+			<input type="text" v-model="now" />
+			<div>
+				<div class="bank__list-item" v-for="(bank,index) in banks" :key="index">
+					<a :href="bank.href">{{bank.name}}</a>
+				</div>
+			</div>
+			<button @click="getHTML">獲取語法</button>
+		</div>
+		<script type="text/babel">
+			var VueApi = window.VueCompositionAPI;
+			var app = new Vue({
+				setup: function () {
+					const age = VueApi.ref(18);
+					return {
+						age
+					};
+				},
+				el: "#app",
+				data: {
+					message: "Helo Vue",
+					banks: [{ name: "玉山銀行", href: "#123", img: "bank_1" }],
+					users: [],
+					time: ""
+				},
+				computed: {
+					userLength: function () {
+						return this.users.length;
+					},
+					now: {
+						get: function () {
+							return this.message;
+						},
+						set: function (newValue) {
+							console.log("setter");
+							this.message = newValue.split("")[0];
+						}
+					}
+				},
+				mounted: function () {
+					var _this = this;
+					$.ajax({
+						url: "https://randomuser.me/api/?results=10",
+						method: "GET",
+						dataType: "JSON",
+						success: function (data) {
+							_this.users = data.results;
+						}
+					});
+					// console.log(window.VueUse.useMouse());
+				},
+				methods: {
+					getHTML: function () {
+						console.log(document.getElementById("app").innerHTML);
+					}
+				},
+				watch: {
+					message: {
+						handler: function (newValue, oldValue) {
+							console.log(newValue, oldValue);
+						}
+					},
+					now: {
+						handler: function (newValue, oldValue) {
+							console.log(newValue, oldValue);
+						}
+					}
+				}
+			});
+		</script>
+	</body>
 </html>
