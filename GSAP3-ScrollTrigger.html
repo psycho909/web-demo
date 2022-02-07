@@ -1,118 +1,118 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
+			.box.active {
+				background-color: blue;
+			}
 
-        .box.active {
-            background-color: blue;
-        }
+			body {
+				height: 10000px;
+				background-color: #111;
+				background-image: linear-gradient(rgba(255, 255, 255, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255, 255, 255, 0.07) 2px, transparent 2px), linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+				background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+				background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+			}
 
-        body {
-            height: 10000px;
-            background-color: #111;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, .07) 2px, transparent 2px),
-                linear-gradient(90deg, rgba(255, 255, 255, .07) 2px, transparent 2px),
-                linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
-            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
-        }
+			.box {
+				width: 100px;
+				height: 100px;
+				background-color: #28a92b;
+				position: absolute;
+				left: 100px;
+				z-index: 100;
+				line-height: 100px;
+				font-size: 50px;
+				text-align: center;
+			}
 
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: #28a92b;
-            position: absolute;
-            left: 100px;
-            z-index: 100;
-            line-height: 100px;
-            font-size: 50px;
-            text-align: center;
-        }
+			.a {
+				top: 200px;
+				background-color: #8d3dae;
+			}
 
-        .a {
-            top: 200px;
-            background-color: #8d3dae;
-        }
+			.b {
+				top: 600px;
+			}
 
-        .b {
-            top: 600px;
-        }
+			.c {
+				top: 1000px;
+				background-color: #e26c16;
+			}
 
-        .c {
-            top: 1000px;
-            background-color: #e26c16;
-        }
+			.ghost {
+				top: 1000px;
+				background-color: #444;
+			}
 
-        .ghost {
-            top: 1000px;
-            background-color: #444;
-        }
+			.line {
+				width: 2px;
+				height: 3000px;
+				position: absolute;
+				left: 600px;
+				top: 0px;
+				/*   visibility: hidden; */
+				background-color: #777;
+			}
+		</style>
+	</head>
 
-        .line {
-            width: 2px;
-            height: 3000px;
-            position: absolute;
-            left: 600px;
-            top: 0px;
-            /*   visibility: hidden; */
-            background-color: #777;
-        }
-    </style>
-</head>
+	<body>
+		<div class="box a">a</div>
+		<div class="box b">b</div>
+		<!-- <div class="box ghost">c</div> -->
+		<div class="box c">c</div>
 
-<body>
-    <div class="box a">a</div>
-    <div class="box b">b</div>
-    <!-- <div class="box ghost">c</div> -->
-    <div class="box c">c</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollTrigger.min.js"></script>
+		<script>
+			gsap.to(".b", {
+				x: 100,
+				scrollTrigger: {
+					trigger: ".b",
+					start: "top center",
+					end: "bottom 200px",
+					scrub: true,
+					markers: true
+				},
+				onStart: function () {
+					console.log("onStart");
+					gsap.delayedCall(1, function () {
+						console.log("delayedCall");
+					});
+				}
+			});
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollTrigger.min.js"></script>
-    <script>
-        gsap.to(".b", {
-            x: 400,
-            scrollTrigger: {
-                trigger: ".b",
-                start: "top center",
-                end: "bottom 300px",
-                scrub: true,
-                markers: true,
-            }
-        })
-
-        const anim = gsap.to(".c", {
-            x: 400,
-            rotation: 360,
-            duration: 3
-        });
-        ScrollTrigger.create({
-            trigger: ".c",
-            animation: anim,
-            // Uncomment these to see how they affect the ScrollTrigger
-            // markers: true,
-            // start: "top center",
-            // end: "top 100px",
-            // toggleClass: "active",
-            // pin: true,
-            // scrub: 1,
-            // onUpdate: self => {
-            //   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
-            // }
-        });
-    </script>
-</body>
-
+			const anim = gsap.to(".c", {
+				x: 400,
+				y: 100,
+				rotation: 360,
+				duration: 3
+			});
+			ScrollTrigger.create({
+				trigger: ".c",
+				animation: anim
+				// Uncomment these to see how they affect the ScrollTrigger
+				// markers: true,
+				// start: "top center",
+				// end: "top 100px",
+				// toggleClass: "active",
+				// pin: true,
+				// scrub: 1,
+				// onUpdate: self => {
+				//   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
+				// }
+			});
+		</script>
+	</body>
 </html>

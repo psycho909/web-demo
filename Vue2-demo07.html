@@ -12,6 +12,7 @@
 		<input type="radio" id="radio" />
 		<input type="checkbox" id="checkbox" />
 		<div id="app">
+			<div>{{incrementMoney(1)}}</div>
 			<input type="checkbox" id="checkbox1" v-model="checked" name="A" value="A1" />
 			<input type="checkbox" id="checkbox2" v-model="checked" name="A" value="B2" />
 			<input type="checkbox" id="checkbox3" v-model="checked" name="A" value="C3" />
@@ -34,9 +35,17 @@
 					QuestForm: [{ QuestOptionType: "Radio", QuestNo: "abc" }],
 					char: [{ name: "A" }, { name: "B" }, { name: "C" }],
 					selected: "",
-					checked: []
+					checked: [],
+					money: 1000
 				},
-				computed: {},
+				computed: {
+					incrementMoney() {
+						var _this = this;
+						return function (value) {
+							return _this.money + "000" + value;
+						};
+					}
+				},
 				methods: {
 					all() {
 						console.log(this.$refs.input[0].value);

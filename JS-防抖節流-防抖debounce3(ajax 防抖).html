@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				height: 99999px;
+				background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        body {
-            height: 99999px;
-            background: repeating-linear-gradient(#fff, #fff 50px, #eef 0, #eef 100px);
-        }
+			#r {
+				position: fixed;
+			}
+		</style>
+	</head>
 
-        #r {
-            position: fixed;
-        }
-    </style>
+	<body>
+		<div>
+			input 防抖:
+			<input type="text" id="inputb" />
+		</div>
+		<p id="r"></p>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
-</head>
+		<script>
+			var delay = 1000;
+			var inputb = document.getElementById("inputb");
+			function ajax(content) {
+				console.log("ajax request " + content);
+			}
 
-<body>
-    <div>
-        input 防抖:
-        <input type="text" id="inputb">
-    </div>
-    <p id="r"></p>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+			function debounce(fn, delay) {
+				var timeoutID = null;
 
-    <script>
-        var delay = 1000;
-        var inputb=document.getElementById('inputb');
-        function ajax(content) {
-            console.log('ajax request ' + content)
-        }
+				return function (args) {
+					var that = this;
+					var _args = args;
+					clearTimeout(timeoutID);
+					timeoutID = setTimeout(function () {
+						fn.call(that, _args);
+					}, delay);
+				};
+			}
 
-        function debounce(fn, delay) {
-            var timeoutID = null;
-
-            return function (args) {
-                var that=this;
-                var _args = args;
-                clearTimeout(timeoutID);
-                timeoutID = setTimeout(function () {
-                    fn.call(that, _args);
-                }, delay);
-            };
-        }
-
-        var debouncedLog = debounce(ajax, delay);
-        inputb.addEventListener('keyup',function(e){
-            debouncedLog(e.target.value)
-        })
-    </script>
-</body>
-
+			var debouncedLog = debounce(ajax, delay);
+			inputb.addEventListener("keyup", function (e) {
+				debouncedLog(e.target.value);
+			});
+		</script>
+	</body>
 </html>
