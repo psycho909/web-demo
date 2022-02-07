@@ -9,23 +9,28 @@
 	</head>
 	<body>
 		<div id="app">
-			<child></child>
-			<div>{{firstName}}</div>
-			<input type="text" v-model="firstName" />
+			<child v-model:name="name" v-model:age="age"></child>
+			<div>{{firstName}} {{age}}</div>
+			<input type="text" v-model="name" />
 			<div>{{data.count}}</div>
 			<button type="button" @click="add">Add</button>
 		</div>
 		<script>
-			const { watchEffect, reactive, ref, provide, inject, toRefs } = Vue;
+			const { watchEffect, watch, reactive, ref, provide, inject, toRefs } = Vue;
 			var child = {
-				setup() {
-					const userLocation = inject("location");
+				props: ["name", "age"],
+				setup(props, context) {
+					const changeInfo = () => {
+						context.emit("update:name", "Tom");
+						context.emit("update:age", 100);
+					};
 					return {
-						userLocation
+						changeInfo
 					};
 				},
 				template: `
-					<div>{{userLocation.firstName}}</div>
+					<div>Child - {{name}} - {{age}}</div>
+					<button @click="changeInfo">Change</button>
 				`
 			};
 			var app = Vue.createApp({
@@ -34,13 +39,16 @@
 				},
 				setup() {
 					var state = reactive({
-						firstName: "firstName"
+						name: "firstName",
+						age: 10
 					});
 					const data = reactive({ count: 1 });
-					provide("location", state);
 					watchEffect(() => {
-						console.log(`偵聽器:${data.count}`);
-						console.log(`偵聽器:${state.firstName}`);
+						// console.log(`偵聽器:${data.count}`);
+						// console.log(`偵聽器:${state.name}`);
+					});
+					watch([() => state.age, () => state.name], ([newAge, newName], [oldAge, oldName]) => {
+						console.log(newAge, oldAge);
 					});
 					const add = function () {
 						data.count++;
