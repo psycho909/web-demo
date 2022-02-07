@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function p(num = 0) {
+				return new Promise((resolve, reject) => {
+					resolve("Promise" + num);
+				});
+			}
+
+			async function async1() {
+				var p1 = await p(1);
+				var a2 = await async2();
+				return [p1, a2];
+			}
+			async function async2() {
+				var p2 = await p(2);
+				return p2;
+			}
+			async1().then((data) => console.log(data));
+			("😡");
+			// (prop("損益") == 0) ? "👻" : ((prop("損益") > prop("Earn") * 25 / 365) ? "🔥" : (prop("損益") > prop("Earn") * 1 / 365)?"😀":"🤢")
+		</script>
+	</body>
+</html>

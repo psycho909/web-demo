@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{ person.name }}
+			<!-- will NOT change to Amy -->
+			<br />
+			{{ personRef.name }}
+			<!-- will change to Amy -->
+			<br />
+			{{ personReactive.name }}
+			<!-- will change to Amy -->
+			<br />
+			{{personReactive.count}} - {{currentCount}}
+			<a href="javascript:;" @click="changeName('Amy')">Change Name</a>
+			<a href="javascript:;" @click="changeCount">Change Count</a>
+		</div>
+		<script>
+			const { reactive, ref, toRef } = Vue;
+			var app = Vue.createApp({
+				setup() {
+					const person = { name: "John" };
+					const personRef = ref({ name: "John" });
+					const personReactive = reactive({ name: "John", count: 0 });
+					let currentCount = toRef(personReactive, "count");
+					const changeName = (name) => {
+						person.name = name;
+						personRef.value.name = name;
+						personReactive.name = name;
+					};
+					const changeCount = () => {
+						currentCount.value++;
+						console.log(personReactive, currentCount);
+					};
+					return {
+						changeName,
+						person,
+						personRef,
+						personReactive,
+						changeCount,
+						currentCount
+					};
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>
