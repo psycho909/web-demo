@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style>
+			.fade-enter-active {
+				transition: all 0.3s ease;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    <style>
-        .fade-enter-active {
-            transition: all 0.3s ease;
-        }
+			.fade-leave-active {
+				transition: all 0.8s cubic-bezier(0.3, 0.5, 0.8, 1);
+			}
 
-        .fade-leave-active {
-            transition: all 0.8s cubic-bezier(0.3, 0.5, 0.8, 1);
-        }
+			.fade-enter {
+				transform: translateX(15px);
+				opacity: 0;
+			}
+			.fade-leave-to {
+				color: red;
+				opacity: 0;
+			}
+		</style>
+	</head>
 
-        .fade-enter,
-        .fade-leave-to {
-            transform: translateX(15px);
-            opacity: 0;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="app">
-        <button v-on:click="show = !show">
-            Toggle
-        </button>
-        <transition name="fade">
-            <p v-if="show">hi</p>
-        </transition>
-    </div>
-    <script>
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                show:false
-            }
-        })
-    </script>
-</body>
-
+	<body>
+		<div id="app">
+			<button v-on:click="show = !show">Toggle</button>
+			<transition name="fade">
+				<p v-if="show">hi</p>
+			</transition>
+		</div>
+		<script>
+			axios
+				.post("https://maplestory.beanfun.com/main?handler=GetBgm", {
+					handler: GetBgm
+				})
+				.then((data) => {
+					console.log(data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: false
+				}
+			});
+		</script>
+	</body>
 </html>

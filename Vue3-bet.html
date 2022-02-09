@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style>
+			* {
+				font-size: 10px;
+			}
+			.bets__row {
+				display: flex;
+				width: 1000px;
+			}
+			.bets__col {
+				flex: 1;
+				padding: 6px;
+				border-bottom: 1px solid rgb(236, 236, 236);
+			}
+			.loss {
+				color: red;
+			}
+			.payout {
+				color: rgb(0, 110, 255);
+			}
+			.win {
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="time">
+				<input type="number" v-model="time" />
+			</div>
+			<div class="bet">
+				<input type="number" v-model="amountBet" />
+			</div>
+			<div class="bet">
+				<input type="number" v-model="multiplier" />
+			</div>
+			<div class="loss-increase">
+				<input type="number" v-model="lossIncrease" />
+			</div>
+			<div class="bets__box">
+				<div class="bets__row">
+					<div class="bets__col">amount</div>
+					<div class="bets__col">payout</div>
+					<div class="bets__col">loss</div>
+					<div class="bets__col">淨值</div>
+				</div>
+				<div class="bets__row" v-for="am in amountList">
+					<div class="bets__col">{{am.amount}}</div>
+					<div class="bets__col payout">{{am.payout}}</div>
+					<div class="bets__col loss">{{am.loss}}</div>
+					<div class="bets__col win">{{am.payout - am.loss}}</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var _APP = {
+				setup() {
+					var time = Vue.ref(5);
+					var multiplier = Vue.ref(3.95);
+					var lossIncrease = Vue.ref(0.35);
+					var amountBet = Vue.ref(0.00048828126);
+					var amountList = Vue.computed(() => {
+						var arr = Array(time.value).fill({ amount: 0, payout: 0, loss: 0 });
+						var prev = 0;
+						var curr = 0;
+						var loss = 0;
+						return arr.map(function (a, i) {
+							var obj = {};
+							if (i == 0) {
+								curr = amountBet.value;
+							} else {
+								curr = prev * lossIncrease.value + prev;
+							}
+							obj = {
+								amount: curr,
+								payout: curr * multiplier.value,
+								loss: curr + loss
+							};
+							prev = curr;
+							loss = prev + loss;
+							return obj;
+						});
+					});
+					return {
+						multiplier,
+						lossIncrease,
+						amountBet,
+						amountList,
+						time
+					};
+				}
+			};
+			var app = Vue.createApp(_APP).mount("#app");
+		</script>
+	</body>
+</html>
