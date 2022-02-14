@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.container {
+				/* box model properties */
+				margin: 3rem auto;
+				padding: 2rem;
+
+				/* display properties */
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				place-items: center;
+				gap: 20px 30px;
+
+				/* UI properties */
+				background-color: darkslateblue;
+				border-radius: 10px;
+			}
+			.elements {
+				/* box model properties */
+				padding: 1rem 2rem;
+
+				/* Display Properties */
+				text-align: center;
+				/* UI Properties */
+				background-color: rgb(169, 158, 238);
+				border-radius: 6px;
+				color: rgb(41, 42, 43);
+			}
+
+			/* Mobile View */
+			@media screen and (min-width: 250px) and (max-width: 480px) {
+				.container {
+					grid-template-columns: repeat(1, 1fr);
+				}
+			}
+
+			/* Tablet View */
+			@media screen and (min-width: 481px) and (max-width: 768px) {
+				.container {
+					grid-template-columns: repeat(3, 1fr);
+				}
+			}
+			/* Laptop View */
+			@media screen and (min-width: 769px) and (max-width: 1024px) {
+				.container {
+					grid-template-columns: repeat(4, 1fr);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="elements">1</div>
+			<div class="elements">2</div>
+			<div class="elements">3</div>
+			<div class="elements">4</div>
+			<div class="elements">5</div>
+			<div class="elements">6</div>
+			<div class="elements">7</div>
+			<div class="elements">8</div>
+			<div class="elements">9</div>
+			<div class="elements">10</div>
+			<div class="elements">11</div>
+			<div class="elements">12</div>
+			<div class="elements">13</div>
+			<div class="elements">14</div>
+			<div class="elements">15</div>
+			<div class="elements">16</div>
+			<div class="elements">17</div>
+			<div class="elements">18</div>
+			<div class="elements">19</div>
+			<div class="elements">20</div>
+			<div class="elements">21</div>
+			<div class="elements">22</div>
+			<div class="elements">23</div>
+			<div class="elements">24</div>
+			<div class="elements">25</div>
+			<div class="elements">26</div>
+			<div class="elements">27</div>
+			<div class="elements">28</div>
+			<div class="elements">29</div>
+			<div class="elements">30</div>
+			<div class="elements">31</div>
+			<div class="elements">32</div>
+			<div class="elements">33</div>
+			<div class="elements">34</div>
+			<div class="elements">35</div>
+			<div class="elements">36</div>
+			<div class="elements">37</div>
+			<div class="elements">38</div>
+			<div class="elements">39</div>
+			<div class="elements">40</div>
+			<div class="elements">41</div>
+			<div class="elements">42</div>
+			<div class="elements">43</div>
+			<div class="elements">44</div>
+			<div class="elements">45</div>
+			<div class="elements">46</div>
+			<div class="elements">47</div>
+			<div class="elements">48</div>
+			<div class="elements">49</div>
+			<div class="elements">50</div>
+		</div>
+	</body>
+</html>
