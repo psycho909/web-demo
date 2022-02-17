@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button type="button" class="btn" @click="showContent">click</button>
+			<button type="button" class="btn" @click="showContent2">click2</button>
+			<div v-if="show" ref="content">Content</div>
+			<div v-if="show2" ref="content2">Content2</div>
+		</div>
+		<script>
+			// const p1 = Promise.reject("promise1 failed");
+			const p1 = new Promise((resolve) => setTimeout(resolve, 500, "promise1 quick"));
+			const p2 = new Promise((resolve) => setTimeout(resolve, 500, "promise2 quick"));
+			const p3 = new Promise((resolve) => setTimeout(resolve, 100, "promise3 quicker"));
+
+			const firstResolved = Promise.race([p1, p2, p3]);
+
+			console.log(firstResolved); // promise3 quicker
+			new Vue({
+				el: "#app",
+				data() {
+					return {
+						show: false,
+						show2: false
+					};
+				},
+				methods: {
+					async showContent() {
+						this.show = !this.show;
+						await this.$nextTick();
+						console.log(this.show, this.$refs.content);
+					},
+					showContent2() {
+						this.show2 = !this.show2;
+						this.$nextTick(() => {
+							console.log(this.show2, this.$refs.content2);
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

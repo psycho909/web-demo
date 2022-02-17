@@ -18,7 +18,12 @@
 			var app = Vue.createApp({
 				setup() {
 					const data = reactive({ count: 1 });
-					watchEffect(() => console.log(`偵聽器:${data.count}`));
+					watchEffect((onInvalidate) => {
+						onInvalidate(() => {
+							console.log("reset,監聽結束");
+						});
+						console.log(`偵聽器:${data.count}`);
+					});
 					const add = function () {
 						data.count++;
 					};
