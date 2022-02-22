@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div v-for="item in bookList" :ref="setItemRef">{{item.name}}</div>
+			<input type="text" @keyup="handleEnter" />
+		</div>
+		<script>
+			var { reactive } = Vue;
+			Vue.createApp({
+				setup() {
+					let bookList = reactive([{ name: "BOOKA" }, { name: "Tissue" }, { name: "Fav" }]);
+					let itemRefs = reactive([]);
+					const setItemRef = (el) => {
+						itemRefs.push(el);
+					};
+					Vue.watchEffect(() => {
+						console.log(itemRefs[0]);
+					});
+					Vue.onUpdated(() => {
+						console.log(itemRefs);
+					});
+
+					function handleEnter(e) {
+						console.log(e);
+					}
+					return {
+						bookList,
+						itemRefs,
+						setItemRef,
+						handleEnter
+					};
+				}
+			}).mount("#app");
+		</script>
+	</body>
+</html>
