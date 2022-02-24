@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<div @click="handleEnter">DIV</div>
 			<div v-for="item in bookList" :ref="setItemRef">{{item.name}}</div>
 			<input type="text" @keyup="handleEnter" />
 		</div>
