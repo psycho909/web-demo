@@ -22,40 +22,71 @@
 		<script src="https://polyfill.io/v3/polyfill.min.js"></script>
 		<script type="text/babel">
 			axios("https://randomuser.me/api/").then(function (res) {
-				console.log(res);
+				// console.log(res);
 			});
 			var HTML = `HH`;
 			document.querySelector(".box").classList.add("red");
-			console.log(HTML);
+			// console.log(HTML);
 			// console.log(document.querySelector(".box").dataset.name)
 			var getObj = ({ name } = { name: "Chen" }) => {
-				console.log(name);
+				// console.log(name);
 			};
 			getObj({ name: "CS" });
 			var s = new Set();
 			s.add(1);
-			console.log(s.size);
-			console.log([...[1, 2, 3]][0]);
+			// console.log(s.size);
+			// console.log([...[1, 2, 3]][0]);
 			var m = new Map();
 			m.set("name", "Chen");
-			console.log(m.get("name"));
+			// console.log(m.get("name"));
 
 			function logWord(word) {
 				return new Promise((res, rej) => {
 					setTimeout(() => {
-						console.log(word);
+						// console.log(word);
 						res(word);
 					}, Math.floor(Math.random() * 120) + 1);
 				});
 			}
 			logWord("A").then((data) => {
-				console.log(data);
+				// console.log(data);
 			});
 			// async function logAll(){
 			//     await logWord("A");
 			//     await logWord("B");
 			// }
 			// logAll()
+			var oBox = document.querySelector(".box");
+			oBox.addEventListener("click", function () {
+				// console.dir(oBox);
+			});
+
+			function Hunter(name, level) {
+				this.name = name;
+				this.level = level;
+				this.list = [];
+			}
+
+			Hunter.prototype.publish = function (money) {
+				console.log(this.level + " 獵人 " + this.name + " Help!");
+				this.list.forEach(function (item, index) {
+					item(money);
+				});
+			};
+
+			Hunter.prototype.subscribe = function (target, fn) {
+				console.log(this.level + " 獵人 " + this.name + " 訂閱了 " + target.name);
+				target.list.push(fn);
+			};
+
+			let hunterMing = new Hunter("小明", "黄金");
+			let hunterJin = new Hunter("小金", "白银");
+
+			hunterMing.subscribe(hunterJin, function (money) {
+				console.log("小明表示：" + (money > 200 ? "" : "暂时很忙，不能") + "给予帮助");
+			});
+
+			hunterJin.publish(400);
 		</script>
 	</body>
 </html>

@@ -30,6 +30,15 @@
 					this.classList.add("active");
 				});
 			});
+
+			function BFG(num, convert = false) {
+				if (convert) {
+					num = num / 0.018;
+				}
+				var total = ((num * 0.8) / 365) * 0.018 * 30;
+				console.log(total);
+			}
+			BFG(10000, true);
 		</script>
 	</body>
 </html>
