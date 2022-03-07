@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			.btn {
+				display: block;
+				margin-top: 1rem;
+			}
+			.box {
+				width: 220px;
+				height: 150px;
+				color: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.box1 {
+				background-color: red;
+			}
+
+			.box2 {
+				background-color: blue;
+			}
+
+			.box3 {
+				background-color: green;
+			}
+			.inline-block {
+				display: inline-flex;
+				flex-direction: column;
+				padding: 1rem;
+				vertical-align: top;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="inline-block">
+			<div class="box box1">ease: "power4.out"</div>
+			<button type="button" class="btn btn1">BTN1</button>
+		</div>
+		<div class="inline-block">
+			<div class="box box2">ease: "elastic.out(1, 0.3)"</div>
+			<button type="button" class="btn btn2">BTN2</button>
+		</div>
+		<div class="inline-block">
+			<div class="box box3">ease: "circ.out"</div>
+			<button type="button" class="btn btn3">BTN3</button>
+		</div>
+
+		<script>
+			document.querySelector(".btn1").addEventListener("click", function () {
+				gsap.to(".box1", {
+					keyframes: [
+						{ duration: 0.075, autoAlpha: 0, x: 15 },
+						{ duration: 0.075, autoAlpha: 1, x: -15 },
+						{ duration: 0.075, autoAlpha: 1, x: 0 }
+					],
+					ease: "power4.out"
+				}).repeat(3);
+				// ease: "circ.out"
+				// ease: "elastic.out(1, 0.3)"
+				// ease: "power4.out"
+			});
+			document.querySelector(".btn2").addEventListener("click", function () {
+				gsap.to(".box2", {
+					keyframes: [
+						{ duration: 0.1, autoAlpha: 0, x: 30 },
+						{ duration: 0.1, autoAlpha: 1, x: -30 },
+						{ duration: 0.1, autoAlpha: 1, x: 0 }
+					],
+					ease: "elastic.out(1, 0.3)"
+				}).repeat(3);
+				// ease: "circ.out"
+				// ease: "elastic.out(1, 0.3)"
+				// ease: "power4.out"
+			});
+
+			document.querySelector(".btn3").addEventListener("click", function () {
+				gsap.to(".box3", {
+					keyframes: [
+						{ duration: 0.075, autoAlpha: 0, x: 30 },
+						{ duration: 0.075, autoAlpha: 1, x: -30 },
+						{ duration: 0.075, autoAlpha: 1, x: 0 }
+					],
+					ease: "circ.out"
+				}).repeat(3);
+				// ease: "circ.out"
+				// ease: "elastic.out(1, 0.3)"
+				// ease: "power4.out"
+			});
+		</script>
+	</body>
+</html>

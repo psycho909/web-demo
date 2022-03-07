@@ -30,13 +30,43 @@
 			// 第 4 步: 监听数据变化，然后刷新视图，达到数据驱动的目的
 			Object.defineProperty(model, "isShow", {
 				set: function (val) {
-					console.log(val);
+					console.log("set", val);
 					updateView(val);
 				},
 				get: function () {
 					console.log("get");
 				}
 			});
+
+			let obj = {};
+			let arr = [1, 2, 3];
+			Object.defineProperty(obj, "arr", {
+				get() {
+					console.log("get", arr);
+					return arr;
+				},
+				set(value) {
+					console.log("set", value);
+					arr = value;
+				}
+			});
+
+			let animal = [];
+
+			let handler = {
+				get(obj, key) {
+					console.log("get");
+					return key in obj ? obj[key] : "Hello";
+				},
+				set(obj, key, val) {
+					obj[key] = val;
+					console.log("set");
+					return true;
+				}
+			};
+
+			const p = new Proxy(animal, handler);
+			console.log(p.name);
 		</script>
 	</body>
 </html>
