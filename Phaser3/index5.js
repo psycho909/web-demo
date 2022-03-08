@@ -15,6 +15,7 @@ var SceneA = new Phaser.Class({
 		this.load.image("road", "assets/road.jpg");
 		this.load.image("star", "assets/star.png");
 		this.load.spritesheet("dino", "assets/dino.png", { frameWidth: 16, frameHeight: 26 });
+		this.load.plugin("rexmovetoplugin", "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexmovetoplugin.min.js", true);
 	},
 	create() {
 		var { width, height } = this.game.config;
@@ -27,6 +28,34 @@ var SceneA = new Phaser.Class({
 			.setOrigin(0)
 			.setScale(0.5, 0.5);
 		this.player = this.physics.add.sprite(100, 300, "dino").setScale(1.25, 1.25);
+
+		this.player.moveTo = this.plugins
+			.get("rexmovetoplugin")
+			.add(this.player, {
+				speed: 400
+			})
+			.on("complete", function () {
+				console.log("Reach target");
+			});
+
+		this.input.keyboard.on("keyup", (e) => {
+			if (e.keyCode == 38) {
+				if (this.player.y - 85 >= 215) {
+					this.player.moveTo.moveTo({
+						x: this.player.x,
+						y: this.player.y - 85
+					});
+				}
+			}
+			if (e.keyCode == 40) {
+				if (this.player.y + 85 <= 385) {
+					this.player.moveTo.moveTo({
+						x: this.player.x,
+						y: this.player.y + 85
+					});
+				}
+			}
+		});
 		this.player.setCollideWorldBounds(true);
 		this.anims.create({
 			key: "right",
@@ -34,34 +63,28 @@ var SceneA = new Phaser.Class({
 			frameRate: 10,
 			repeat: -1
 		});
-		this.cursors = this.input.keyboard.createCursorKeys();
 
 		this.scoreText = this.add.text(0, 0, "Score: 0", { fontSize: "32px", fill: "#fff" });
 
+		this.stars = this.physics.add.image(600, 300, "star");
 		this.physics.add.collider(this.player, this.road);
+		this.physics.add.overlap(this.player, this.stars, this.collectItem, null, this);
 	},
 	update() {
 		this.player.anims.play("right", true);
-		this.bg.tilePositionX += 5;
-		if (this.cursors.up.isDown) {
-			// this.player.setVelocityY(-85);
-			if (this.player.y >= 215) {
-				this.player.setVelocityY(-85);
-			} else {
-				this.player.setVelocityY(0);
-			}
-		} else if (this.cursors.down.isDown) {
-			// this.player.setVelocityY(85);
-			if (this.player.y <= 385) {
-				this.player.setVelocityY(85);
-			} else {
-				this.player.setVelocityY(0);
-			}
+		// this.bg.tilePositionX += 3;
+		// this.road.tilePositionX += 5;
+		if (this.stars.x > 0) {
+			this.stars.x -= 2;
 		} else {
-			this.player.setVelocityY(0);
+			this.stars.x = this.game.config.width;
 		}
-		// this.stars.x -= 2;
-	}
+	},
+	collectItem(player, item) {
+		item.disableBody(true, true);
+		console.log("碰到");
+	},
+	hitItem() {}
 });
 
 var config = {
