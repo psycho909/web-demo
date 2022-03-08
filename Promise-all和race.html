@@ -25,7 +25,7 @@
 			var p2 = P(200, 2);
 			var p3 = P(10, 3);
 			Promise.all([p1, p2, p3]).then(function (res) {
-				console.log(res);
+				console.log("all", res);
 			});
 
 			// Promise.race()
@@ -34,7 +34,14 @@
 			var p2 = P(300, 2, true);
 			var p3 = P(10, 3, true);
 			Promise.race([p1, p2, p3]).then(function (res) {
-				console.log(res);
+				console.log("race", res);
+			});
+
+			var p1 = P(100, 1, true);
+			var p2 = P(300, 2, true);
+			var p3 = P(10, 3, true);
+			Promise.any([p1, p2, p3]).then(function (res) {
+				console.log("any", res);
 			});
 		</script>
 	</body>
