@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			nav a.active {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="javascript:;" class="active">a</a>
+			<a href="javascript:;">b</a>
+			<a href="javascript:;">c</a>
+			<a href="javascript:;">d</a>
+		</nav>
+		<script>
+			var oA = document.querySelectorAll("nav a");
+			oA.forEach(function (v, index) {
+				v.addEventListener("click", function () {
+					oA.forEach(function (o, index) {
+						o.classList.remove("active");
+					});
+					this.classList.add("active");
+				});
+			});
+
+			function BFG(num, convert = false) {
+				if (convert) {
+					num = num / 0.018;
+				}
+				var total = ((num * 0.8) / 365) * 0.018 * 30;
+				console.log(total);
+			}
+			BFG(10000, true);
+		</script>
+	</body>
+</html>

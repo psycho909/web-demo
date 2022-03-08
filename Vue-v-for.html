@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-
-</head>
-<body>
-    <div id="app">
-        <ul>
-            <li v-for="b in books" :key="b.id">{{b.name}}</li>
-        </ul>
-        <button @click="add">增加</button>
-    </div>
-    <script>
-        new Vue({
-            el:"#app",
-            data(){
-                return{
-                    books:[
-                        {name:"AAA",id:"a"},
-                        {name:"BBB",id:"b",},
-                        {name:"CCC",id:"c",}
-                    ]
-                }
-            },
-            methods:{
-                add(){
-                    // this.books=[{name:"FFF",id:"f"},...this.books,{name:"DDD",id:"d"}]
-                    this.books.push({name:"DDD",id:"d"})
-                    this.books.unshift({name:"FFF",id:"f"})
-                }
-            }
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="b in books" :key="b.id">{{b.name}}</li>
+			</ul>
+			<button @click="add">增加</button>
+		</div>
+		<script>
+			new Vue({
+				el: "#app",
+				data() {
+					return {
+						books: [
+							{ name: "AAA", id: "a" },
+							{ name: "BBB", id: "b" },
+							{ name: "CCC", id: "c" }
+						]
+					};
+				},
+				methods: {
+					add() {
+						// this.books=[{name:"FFF",id:"f"},...this.books,{name:"DDD",id:"d"}]
+						this.books.push({ name: "DDD", id: "d" });
+						this.books.unshift({ name: "FFF", id: "f" });
+					}
+				}
+			});
+		</script>
+	</body>
 </html>

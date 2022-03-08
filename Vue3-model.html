@@ -9,8 +9,8 @@
 	</head>
 	<body>
 		<div id="app">
-			<child v-model:name="name" v-model:age="age"></child>
-			<div>{{firstName}} {{age}}</div>
+			<child v-model:name="name" v-model:age="age" :food="food" @update:food="food=$event"></child>
+			<div>{{name}} {{age}} - {{food}}</div>
 			<input type="text" v-model="name" />
 			<div>{{data.count}}</div>
 			<button type="button" @click="add">Add</button>
@@ -18,7 +18,7 @@
 		<script>
 			const { watchEffect, watch, reactive, ref, provide, inject, toRefs } = Vue;
 			var child = {
-				props: ["name", "age"],
+				props: ["name", "age", "food"],
 				setup(props, context) {
 					const changeInfo = () => {
 						context.emit("update:name", "Tom");
@@ -29,8 +29,8 @@
 					};
 				},
 				template: `
-					<div>Child - {{name}} - {{age}}</div>
-					<button @click="changeInfo">Change</button>
+					<div>Child - {{name}} - {{age}} - {{food}}</div>
+					<button @click="changeInfo">ChangeInfo</button>
 				`
 			};
 			var app = Vue.createApp({
@@ -40,7 +40,8 @@
 				setup() {
 					var state = reactive({
 						name: "firstName",
-						age: 10
+						age: 10,
+						food: "BANANA"
 					});
 					const data = reactive({ count: 1 });
 					watchEffect(() => {
@@ -62,17 +63,6 @@
 			});
 
 			app.mount("#app");
-
-			var person = {
-				name: "Kapil",
-				sayName() {
-					return () => {
-						return this.name;
-					};
-				}
-			};
-			const c = console.log.bind(console);
-			c(person.sayName()());
 		</script>
 	</body>
 </html>
