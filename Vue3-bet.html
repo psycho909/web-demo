@@ -52,8 +52,8 @@
 					<div class="bets__col">loss</div>
 					<div class="bets__col">淨值</div>
 				</div>
-				<div class="bets__row" v-for="am in amountList">
-					<div class="bets__col">{{am.amount}}</div>
+				<div class="bets__row" v-for="(am,index) in amountList">
+					<div class="bets__col">{{index+1}} - {{am.amount}}</div>
 					<div class="bets__col payout">{{am.payout}}</div>
 					<div class="bets__col loss">{{am.loss}}</div>
 					<div class="bets__col win">{{am.payout - am.loss}}</div>
