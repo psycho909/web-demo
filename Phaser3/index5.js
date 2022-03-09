@@ -84,6 +84,7 @@ var SceneA = new Phaser.Class({
 		this.name = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l"];
 		this.icon = ["coin", "egg", "butterfly", "sun", "pizza"];
 		this.y = [215, 300, 385];
+		this.pause = false;
 	},
 	preload() {
 		this.load.image("bg1", "assets/pc_bg.jpg");
@@ -164,18 +165,20 @@ var SceneA = new Phaser.Class({
 		this.physics.add.overlap(this.player, this.items, this.collectItem, null, this);
 	},
 	update() {
-		this.player.anims.play("right", true);
-		// this.bg.tilePositionX += 3;
-		// this.road.tilePositionX += 5;
+		if (!this.pause) {
+			this.player.anims.play("right", true);
+			// this.bg.tilePositionX += 3;
+			// this.road.tilePositionX += 5;
 
-		this.items.children.iterate((child, index) => {
-			if (child.x > 0) {
-				child.x -= 4;
-			} else {
-				child.x = this.game.config.width + 100 + index * 60;
-				child.y = this.y[Math.floor(Math.random() * this.y.length)];
-			}
-		});
+			this.items.children.iterate((child, index) => {
+				if (child.x > 0) {
+					child.x -= 4;
+				} else {
+					child.x = this.game.config.width + 100 + index * 60;
+					child.y = this.y[Math.floor(Math.random() * this.y.length)];
+				}
+			});
+		}
 	},
 	collectItem(player, item) {
 		item.disableBody(true, true);
@@ -215,9 +218,15 @@ var SceneA = new Phaser.Class({
 
 		this.text_pause.setDepth(999);
 		this.text_pause.setScrollFactor(0);
-
+		this.text_pause.setInteractive({ useHandCursor: true });
+		this.text_pause.on("pointerdown", () => {
+			this.togglePauseScreen(false);
+			this.pause = false;
+		});
 		// Hide at start
 		this.togglePauseScreen(true);
+
+		this.pause = true;
 	},
 	togglePauseScreen(is_visible) {
 		this.veil.setVisible(is_visible);
