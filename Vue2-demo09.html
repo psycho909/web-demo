@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{age}} - {{getAge}}</div>
+			<input type="text" v-model="age" />
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					age: 1
+				},
+				watch: {
+					age: {
+						handler(newVal, oldVal) {
+							console.log(newVal, oldVal);
+						}
+					}
+				},
+				computed: {
+					getAge() {
+						console.log("computed");
+						return this.age;
+					}
+				},
+				methods: {}
+			});
+		</script>
+	</body>
+</html>
