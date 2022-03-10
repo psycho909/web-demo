@@ -85,6 +85,7 @@ var SceneA = new Phaser.Class({
 		this.icon = ["coin", "egg", "butterfly", "sun", "pizza"];
 		this.y = [215, 300, 385];
 		this.pause = false;
+		this.hit = false;
 	},
 	preload() {
 		this.load.image("bg1", "assets/pc_bg.jpg");
@@ -101,7 +102,7 @@ var SceneA = new Phaser.Class({
 	},
 	create() {
 		var { width, height } = this.game.config;
-
+		let isPointerIn = false;
 		this.createPauseScreen();
 
 		// Start the game;
@@ -124,11 +125,18 @@ var SceneA = new Phaser.Class({
 				speed: 400
 			})
 			.on("complete", function () {
+				isPointerIn = false;
 				console.log("Reach target");
 			});
+
 		this.input.keyboard.on("keyup", (e) => {
+			if (isPointerIn) {
+				return;
+			}
+			console.log(this.player.y);
 			if (e.keyCode == 38) {
 				if (this.player.y - 85 >= 215) {
+					isPointerIn = true;
 					this.player.moveTo.moveTo({
 						x: this.player.x,
 						y: this.player.y - 85
@@ -137,6 +145,7 @@ var SceneA = new Phaser.Class({
 			}
 			if (e.keyCode == 40) {
 				if (this.player.y + 85 <= 385) {
+					isPointerIn = true;
 					this.player.moveTo.moveTo({
 						x: this.player.x,
 						y: this.player.y + 85
@@ -182,10 +191,22 @@ var SceneA = new Phaser.Class({
 	},
 	collectItem(player, item) {
 		item.disableBody(true, true);
+		this.hitItem();
 		// item.enableBody(true, this.game.config.width + 100, this.y[Math.floor(Math.random() * this.icon.length)], true, true);
 		// console.log(item);
 	},
-	hitItem() {},
+	hitItem() {
+		this.tweens.add(
+			{
+				targets: this.player,
+				alpha: 0,
+				duration: 100,
+				repeat: 1,
+				yoyo: true
+			},
+			this
+		);
+	},
 	setVisible(is_visible) {
 		this.obj.setVisible(is_visible);
 	},
@@ -215,7 +236,13 @@ var SceneA = new Phaser.Class({
 
 		// Pause text
 		this.text_pause = this.add.text(200, 300 - 32, "Pause", { fontSize: "100px", fill: "#0f0" });
-
+		this.text_pause.alpha = 0;
+		this.tweens.add({
+			targets: this.text_pause,
+			alpha: 1,
+			duration: 800,
+			delay: 100
+		});
 		this.text_pause.setDepth(999);
 		this.text_pause.setScrollFactor(0);
 		this.text_pause.setInteractive({ useHandCursor: true });

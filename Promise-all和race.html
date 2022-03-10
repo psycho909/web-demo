@@ -43,6 +43,13 @@
 			Promise.any([p1, p2, p3]).then(function (res) {
 				console.log("any", res);
 			});
+
+			var p1 = P(100, 1, true);
+			var p2 = P(300, 2, true);
+			var p3 = P(10, 3, false);
+			Promise.allSettled([p1, p2, p3]).then(function (res) {
+				console.log("allSettled", res);
+			});
 		</script>
 	</body>
 </html>
