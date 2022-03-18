@@ -6,11 +6,19 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
 		<script src="https://unpkg.com/vue@next"></script>
-		<style></style>
+		<style>
+			.box {
+				width: min(50vw, 300px);
+				height: 100px;
+				background-color: red;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div id="app">
+			<div class="box">BOX</div>
+			<a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" @click.prevent="showMe">點我</a>
 			<input type="text" v-model="state.title" />
 			{{state}}
 			<button @click="save">save</button>
@@ -29,7 +37,10 @@
 					const save = function () {
 						emit("onClickEvent", id);
 					};
-					return { state, save };
+					const showMe = () => {
+						console.log("show");
+					};
+					return { state, save, showMe };
 				},
 				computed: {
 					getNum() {

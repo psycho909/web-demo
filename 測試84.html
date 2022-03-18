@@ -7,7 +7,12 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
 			nav a.active {
 				color: red;
 			}
@@ -32,9 +37,37 @@
 			.stacked-fractions {
 				font-variant-numeric: stacked-fractions;
 			}
+			.box {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: relative;
+			}
+			.inner {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 50px;
+				height: 50px;
+				background-color: #000;
+			}
+			.container {
+				display: grid;
+				grid-template-columns: [sidebar-start] 1fr 2fr [sidebar-end] 1fr 2fr 1fr 2fr;
+			}
+			.boxs {
+				grid-column: sidebar-start/sidebar-end;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="container">
+			<div class="boxs">dqweqweqe</div>
+		</div>
+		<div class="box">
+			<div class="inner"></div>
+		</div>
 		<h1>H1</h1>
 		<h1>H1</h1>
 		<h2>H2</h2>
@@ -58,6 +91,7 @@
 			<a href="javascript:;">c</a>
 			<a href="javascript:;">d</a>
 		</nav>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂M" theme="dark"></script>
 		<script>
 			var oA = document.querySelectorAll("nav a");
 			oA.forEach(function (v, index) {
@@ -68,6 +102,83 @@
 					this.classList.add("active");
 				});
 			});
+			var oBox = document.querySelector(".box");
+			var oInner = document.querySelector(".inner");
+			oInner.addEventListener(
+				"click",
+				function (e) {
+					e.stopPropagation();
+					console.log(e.currentTarget, e.target);
+				},
+				false
+			);
+			oBox.addEventListener(
+				"click",
+				function (e) {
+					// e.stopPropagation();
+					console.log(e.currentTarget, e.target);
+				},
+				{
+					capture: true
+				}
+			);
+
+			const bfg = () => {
+				return axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bfg-token&vs_currencies=usd");
+			};
+			const btc = () => {
+				return axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+			};
+			function delay() {
+				return new Promise(function (resolve, reject) {
+					setTimeout(function () {
+						resolve("我是傳下去的值");
+					}, 0);
+				});
+			}
+			function newRequest() {
+				return new Promise((resolve, reject) => {
+					reject("You have reached home");
+				});
+			}
+			const Init = async () => {
+				try {
+					return ([bfgToken, btcToken, c, delay] = await Promise.allSettled([bfg(), btc(), newRequest(), delay()]));
+				} catch (err) {
+					console.log("err", err);
+				}
+			};
+
+			// Init().then((res) => {
+			// 	console.log(res);
+			// });
+
+			async function async1() {
+				console.log("async1 start");
+				await async2();
+				console.log("async1 end");
+			}
+
+			async function async2() {
+				console.log("async2");
+			}
+
+			console.log("script start");
+
+			setTimeout(() => {
+				console.log("setTimeout");
+			}, 0);
+
+			async1();
+
+			new Promise((resolve) => {
+				console.log("promise1");
+				resolve();
+			}).then(() => {
+				console.log("promise2");
+			});
+
+			console.log("script end");
 		</script>
 	</body>
 </html>

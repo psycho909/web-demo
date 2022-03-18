@@ -20,14 +20,15 @@
 			<p>{{result()}}</p>
 			<p>{{output}}</p>
 			<button @click="count2++">Add2</button>
-			<child :name="name"></child>
+			<child :name="name" Msg-World="MsgWorld"></child>
 		</div>
 		<script>
 			Vue.component("child", {
 				prop: ["name"],
+				props: ["MsgWorld"],
 				template: `<div>
 					<p>Child</p>
-					<p>{{$attrs.name}}</p>	
+					<p>{{$attrs.name}} - {{MsgWorld}}</p>	
 				</div>`
 			});
 			var vm = new Vue({
