@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.dice {
+				background-size: 600%;
+				width: 154px;
+				height: 154px;
+				background-image: url("./images/dice.png");
+			}
+		</style>
+	</head>
+	<body>
+		<div class="dice"></div>
+		<button type="button" class="play">Run</button>
+		<button type="button" class="pause">Pause</button>
+		<button type="button" class="restart">Restart</button>
+		<script>
+			var tl = gsap.timeline();
+			function Dice() {
+				tl.to(".dice", 1, { repeat: -1, backgroundPosition: "600%", ease: SteppedEase.config(6) });
+			}
+			function Restart() {
+				tl.restart();
+			}
+			function Pause() {
+				tl.pause();
+				gsap.set(".dice", {
+					backgroundPosition: "-500%"
+				});
+			}
+			$(".play").on("click", function () {
+				Dice();
+			});
+			$(".pause").on("click", function () {
+				Pause();
+			});
+			$(".restart").on("click", function () {
+				Restart();
+			});
+		</script>
+	</body>
+</html>
