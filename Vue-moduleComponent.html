@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-</head>
-<body>
-    <div id="app">
-            <Home></Home>
-            <Child></Child>
-    </div>
-    <script type="module">
-        import {result} from './Vue-moduleComponent.js'
-        import Child from './Vue-moduleComponent.js'
-        console.log(result)
-        var Home = {
-            template: `<div id="Home">Home</div>`
-        }
-        new Vue({
-            el:'#app',
-            components:{
-                Home,
-                Child
-            }
-        })
-    </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<Home></Home>
+			<Child></Child>
+			<button-counter></button-counter>
+			<Master></Master>
+		</div>
+		<script type="module">
+			import Child, { result } from "./Vue-moduleComponent.js";
+			import "./Vue-moduleComponent2.js";
+			console.log(result);
+
+			Vue.component("Master", {
+				template: `<div>Master</div>`
+			});
+			var Home = {
+				template: `<div id="Home">Home</div>`
+			};
+			new Vue({
+				el: "#app",
+				components: {
+					Home,
+					Child
+				}
+			});
+		</script>
+	</body>
 </html>

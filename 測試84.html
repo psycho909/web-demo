@@ -8,6 +8,7 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -91,6 +92,7 @@
 			<a href="javascript:;">c</a>
 			<a href="javascript:;">d</a>
 		</nav>
+		<a href="javascript:;" class="btn-gbox">Open</a>
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂M" theme="dark"></script>
 		<script>
 			var oA = document.querySelectorAll("nav a");
@@ -149,9 +151,9 @@
 				}
 			};
 
-			// Init().then((res) => {
-			// 	console.log(res);
-			// });
+			Init().then((res) => {
+				console.log(res[0].value.data["bfg-token"]);
+			});
 
 			async function async1() {
 				console.log("async1 start");
