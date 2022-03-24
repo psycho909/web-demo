@@ -19,6 +19,15 @@
 				height: 154px;
 				background-image: url("./images/dice.png");
 			}
+			.table {
+				border-collapse: collapse;
+			}
+			.thead th {
+				border: 1px solid #000;
+			}
+			.thead th:nth-child(2) {
+				width: 300px;
+			}
 		</style>
 	</head>
 	<body>
@@ -26,6 +35,15 @@
 		<button type="button" class="play">Run</button>
 		<button type="button" class="pause">Pause</button>
 		<button type="button" class="restart">Restart</button>
+		<table class="table">
+			<thead class="thead">
+				<tr>
+					<th>標題一</th>
+					<th>標題二</th>
+					<th>標題三</th>
+				</tr>
+			</thead>
+		</table>
 		<script>
 			var tl = gsap.timeline();
 			function Dice() {
