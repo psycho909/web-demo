@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{count}}</div>
+			<button type="button" @click="closeBtn">Show/Hide</button>
+			<child :money="count" :money.sync="count" v-if="isShow"></child>
+			<!-- <child :money="count" @update:money="getCount"></child> -->
+		</div>
+		<script>
+			Vue.component("child", {
+				props: ["money"],
+				template: `
+					<div>
+						<p>Child</p>	
+						<div>{{money}}</div>
+						<button @click="add">add</button>
+					</div>
+				`,
+				destroyed() {
+					console.log("destroy");
+				},
+				methods: {
+					add() {
+						this.$emit("update:money", this.money + 1);
+					}
+				}
+			});
+			var app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						count: 0,
+						isShow: true
+					};
+				},
+				methods: {
+					getCount(data) {
+						this.count += data;
+					},
+					closeBtn() {
+						this.isShow = !this.isShow;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<child></child>
 			<p>{{postFontSize}}</p>
 			<input v-model="searchText" />
 			<custom-input v-model:title="searchText"></custom-input>
@@ -18,23 +19,28 @@
 				data: function () {
 					return {
 						postFontSize: 1,
-						searchText: "",
+						searchText: ""
 					};
 				},
 				computed: {
 					formatData(value, format) {
 						return value + "213123";
-					},
+					}
 				},
 				computed: {},
-				methods: {},
+				methods: {}
+			});
+			app.component("child", {
+				template: `
+					<div>Child</div>
+				`
 			});
 			app.component("custom-input", {
 				template: `
 					<input type="text" :value="title" @input='$emit("update:title",$event.target.value)' />
 				`,
 				props: ["title"],
-				emits: ["update:title"],
+				emits: ["update:title"]
 			});
 			var vm = app.mount("#app");
 		</script>

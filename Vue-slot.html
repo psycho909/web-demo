@@ -4,8 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
 		<style></style>
 	</head>
 	<body>
@@ -18,6 +18,16 @@
 					<li>{{slotProps.job.name}}</li>
 				</template>
 			</child-component>
+			<child>
+				<template>
+					<span>123</span>
+					<span>123</span>
+				</template>
+				<template>
+					<span>333</span>
+					<span>333</span>
+				</template>
+			</child>
 		</div>
 		<script>
 			Vue.component("ChildComponent", {
@@ -36,15 +46,23 @@
 					return {
 						info: {
 							title: "TITLE",
-							description: "DESCRIPTION",
+							description: "DESCRIPTION"
 						},
-						jobs: [{ name: "Front" }, { name: "BackEnd" }, { name: "Art" }],
+						jobs: [{ name: "Front" }, { name: "BackEnd" }, { name: "Art" }]
 					};
-				},
+				}
+			});
+			Vue.component("child", {
+				template: `
+					<div>
+						<h2>Child</h2>
+						<slot></slot>
+						</div>
+				`
 			});
 			var vm = new Vue({
 				el: "#app",
-				data: {},
+				data: {}
 			});
 		</script>
 	</body>
