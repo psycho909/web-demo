@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<div ref="title">TITLE</div>
 			<a class="sec2-act2" href="javascript:;" v-if="Join1" @click="JoinHandler">我要報名1</a>
 			<a class="sec2-act3" href="javascript:;" v-else>報名已截止1</a>
 			<a class="sec2-act2" href="javascript:;" v-if="Join1" @click="JoinHandler">我要報名2</a>
@@ -29,13 +30,39 @@
 				template: `<div>
 					<p>Child</p>
 					<p>{{$attrs.name}} - {{MsgWorld}}</p>	
-				</div>`
+				</div>`,
+				beforeCreate() {
+					console.log("child beforeCreate");
+					console.log("child beforeCreate data:", this.MsgWorld);
+				},
+				created() {
+					console.log("child created");
+					console.log("child created data:", this.MsgWorld);
+				},
+				mounted() {
+					console.log("child mounted");
+					console.log("child mounted data:", this.MsgWorld);
+				}
 			});
 			var vm = new Vue({
 				el: "#app",
+				beforeCreate() {
+					console.log("beforeCreate");
+					console.log("beforeCreate data:", this.name);
+					console.log("beforeCreate ref:", this.$refs.title);
+				},
+				created() {
+					console.log("created");
+					console.log("created data:", this.name);
+					console.log("created ref:", this.$refs.title);
+				},
+				mounted() {
+					console.log("mounted");
+					console.log("mounted data:", this.name);
+					console.log("mounted ref:", this.$refs.title);
+				},
 				filters: {
 					showState(state) {
-						console.log(state);
 						return state + 1;
 					}
 				},
@@ -48,19 +75,15 @@
 				},
 				computed: {
 					output() {
-						console.log("output");
 						return this.count > 5 ? "大於5" : "小於5";
 					}
 				},
 				methods: {
-					JoinHandler() {
-						console.log(123);
-					},
+					JoinHandler() {},
 					increment() {
 						this.count += 1;
 					},
 					result() {
-						console.log("result");
 						return this.count > 5 ? "大於5" : "小於5";
 					}
 				}

@@ -46,6 +46,14 @@
 			load().then((res) => {
 				console.log(res);
 			});
+
+			p(1)
+				.then((res) => {
+					console.log(res);
+					return p(200);
+				})
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
 		</script>
 	</body>
 </html>

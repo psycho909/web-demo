@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://beangostg.blob.core.windows.net/beango-static-stg/web-tracing-jssdk/web_tracing_sdk.stg.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<button type="button" id="btn">Open</button>
+		<img class="facebook" src="images/facebook.jpg" alt="" />
+		<script>
+			// const sender = beanfunWebTraceSDK.init({
+			// 	BUID: "GAMA-bf-01",
+			// 	property: "beanfun",
+			// 	sourceProperty: "gtw"
+			// });
+			document.getElementById("btn").addEventListener("click", function () {
+				fetch("https://randomuser.me/api/")
+					.then((response) => response.json())
+					.then((json) => {
+						console.log(json.results[0].picture.medium);
+						var config = {
+							addClass: "default youtube",
+							hasCloseBtn: true,
+							hasActionBtn: true,
+							afterClose: function () {
+								$.gbox.close();
+							}
+						};
+						$.gbox.open(`<img class="fb" src="${json.results[0].picture.medium}" alt="" />`, config);
+					});
+			});
+			function senderInit() {
+				return new Promise((resolve, reject) => {
+					try {
+						const sender = beanfunWebTraceSDK.init({
+							BUID: "GAMA-bf-01",
+							property: "beanfun",
+							sourceProperty: "gtw",
+							GTMId: ""
+						});
+						resolve(sender);
+					} catch (err) {
+						throw new Error("Error:beanfunWebTraceSDK - init");
+					}
+				});
+			}
+			senderInit().then((res) => {
+				res.passEvent(
+					new beanfunWebTraceSDK.events.PageViewEvent({
+						eventId: "4100",
+						event: "gtw_events_page_view",
+						pageInfo: { page: "tdn_202203", tab: "肝苦人生大逆轉活動首頁出現" }
+					})
+				);
+			});
+
+			function Events(res, eventId) {
+				this.sender = res;
+				this.eventId = eventId;
+			}
+			Events.prototype.View = function (name) {
+				console.log(name);
+			};
+
+			var e = new Events("a", "abc");
+			e.View("321");
+		</script>
+	</body>
+</html>
