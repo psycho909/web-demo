@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+		<style>
+			.v-enter-active,
+			.v-leave-active {
+				transition: opacity 0.5s ease;
+			}
+			.v-enter-from,
+			.v-leave-to {
+				opacity: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>count - {{count}}</div>
+			<button type="button" class="btn" @click="toggleComponent">Open</button>
+			<keep-alive>
+				<child :fruits="fruits" v-if="toggle">
+					<template #header="{text}">
+						<div>Header - {{text}}</div>
+					</template>
+					<template #main>
+						<div>Main</div>
+					</template>
+					<template #li="{fruit,slice}">
+						<span>{{fruit.name}}</span>
+						<button type="button" class="btn" @click="slice(fruit.id)">Slice</button>
+					</template>
+				</child>
+			</keep-alive>
+		</div>
+		<script>
+			const child = {
+				props: ["fruits"],
+				template: `
+                    <Teleport to="body">
+						<div class="child">
+							<h2>Child - {{num}}</h2>
+							<header><slot name="header" :text="message"></slot></header>
+							<main>
+								<slot name="main"></slot>
+								<ul>
+									<li v-for="f in fruits" :key="f.id">
+										<slot name="li" :fruit="f" :slice="slices"></slot>
+									</li>
+								</ul>
+							</main>
+						</div>
+                    </Teleport>
+                `,
+				setup(props) {
+					const message = Vue.ref("MESSAGE");
+					let num = Vue.ref(0);
+					let timer = null;
+					timer = setInterval(() => {
+						num.value++;
+					}, 1000);
+					const slices = (id) => {
+						console.log(id);
+					};
+					Vue.onMounted(() => {
+						console.log("onMounted");
+					});
+					Vue.onUnmounted(() => {
+						console.log("onUnmounted");
+					});
+					// keep-alive
+					Vue.onActivated(() => {
+						console.log("onActivated");
+					});
+					Vue.onDeactivated(() => {
+						clearInterval(timer);
+						console.log("onDeactivated");
+					});
+
+					return {
+						message,
+						slices,
+						num
+					};
+				}
+			};
+			const app = Vue.createApp({
+				components: {
+					child
+				},
+				setup() {
+					const count = Vue.ref(1);
+					const fruits = Vue.reactive([
+						{
+							id: 1,
+							name: "🍋Lemon"
+						},
+						{
+							id: 2,
+							name: "🥝Kiwi"
+						},
+						{
+							id: 3,
+							name: "🍑Peach"
+						},
+						{
+							id: 4,
+							name: "🍌Banana"
+						},
+						{
+							id: 5,
+							name: "🍎Apple"
+						}
+					]);
+					const toggle = Vue.ref(false);
+					const toggleComponent = () => {
+						toggle.value = !toggle.value;
+					};
+					return {
+						count,
+						fruits,
+						toggleComponent,
+						toggle
+					};
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

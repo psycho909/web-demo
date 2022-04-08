@@ -71,38 +71,6 @@
 			Promise.allSettled([getImage("https://i.imgur.com/1esBRFI.png"), getImage("https://i.imgur.com/1esBRFI.png"), getImage("https://i.imgur.com/1esBRFI.png"), getImage("https://i.imgur.com/1esBRFI1.png")]).then((res) => {
 				console.log(res);
 			});
-
-			const multiply = (...values) => {
-				let res = 1;
-				console.log(values);
-				return res;
-			};
-
-			multiply(1, 2);
-
-			function foodFactory() {
-				this.createFood = function (foodType) {
-					let food;
-					switch (foodType) {
-						case "cake":
-							food = new Cake();
-							break;
-						default:
-							food = new Bread();
-							break;
-					}
-					return food;
-				};
-			}
-			const Cake = function () {
-				this.givesCustomer = () => {
-					console.log("This is a cake!");
-				};
-			};
-
-			const factory = new foodFactory();
-			const cake = factory.createFood("cake");
-			cake.givesCustomer();
 		</script>
 	</body>
 </html>

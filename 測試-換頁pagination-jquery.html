@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style>
+			ul {
+				display: flex;
+			}
+			li {
+				display: inline-block;
+				padding: 12px;
+				cursor: pointer;
+			}
+			li.active {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<pagination :total-page="totalPage" :show-page="showPage" @update="getPageIndex"></pagination>
+			<hr />
+			<div class="pagination-box"></div>
+		</div>
+		<script>
+			function Pagination(totalPage, showPage) {
+				this.allPage = totalPage;
+				this.pages = []; // 總頁碼數量
+				this.pagesList = []; // 當前頁碼數組
+				this.currentPage = 1; // 當前頁碼
+				this.itemsPerPage = showPage; // 顯示資料筆數
+				this.pageNumberLimit = 3; // 範圍限制
+				this.maxPageNumberLimit = 3; // 範圍內最大頁碼
+				this.minPageNumberLimit = 0; // 範圍內最小頁碼
+			}
+			Pagination.prototype.UpdatePagination = function (data) {
+				this.allPage = data.length;
+				this.SetPages();
+				this.RenderPageNumbers();
+			};
+			Pagination.prototype.SetPages = function () {
+				for (var i = 1; i <= Math.ceil(this.allPage / this.itemsPerPage); i++) {
+					this.pages.push(i);
+				}
+			};
+			Pagination.prototype.SetCurrentPage = function (page) {
+				this.currentPage = parseInt(page);
+			};
+			Pagination.prototype.SetMaxPageNumberLimit = function (maxPageNumber) {
+				this.maxPageNumberLimit = maxPageNumber;
+			};
+			Pagination.prototype.SetMinPageNumberLimit = function (minPageNumber) {
+				this.minPageNumberLimit = minPageNumber;
+			};
+			Pagination.prototype.RenderUI = function () {
+				var pagesHTML = "<ul class='pageNumbers'>" + pageLiAll + "</ul>";
+			};
+			Pagination.prototype.RenderPageNumbers = function (page) {
+				var _this = this;
+				this.pagesList = this.pages
+					.map(function (number) {
+						if (number < _this.maxPageNumberLimit + 1 && number > _this.minPageNumberLimit) {
+							return "<li id='" + number + "' class=" + (_this.currentPage == number ? "'active page-li'" : "'page-li'") + " data-type='page'>" + number + "</li>";
+						} else {
+							return null;
+						}
+					})
+					.filter(Boolean)
+					.join("");
+				var pageLiAll = "<li><button class='page-li page-jump-prev' data-type='jump-prev'>Jump Prev</button></li><li><button class='page-li page-prev' " + (this.currentPage == this.pages[0] ? "disabled" : "") + " data-type='page-prev'>Prev</button></li>" + this.pagesList + "<li><button class='page-li page-next' " + (this.currentPage == this.pages[this.pages.length - 1] ? "disabled" : "") + " data-type='page-next'>Next</button></li><li><button class='page-li page-jump-next' data-type='jump-next'>Jump Next</button></li>";
+				var pagesHTML = "<ul class='pageNumbers'>" + pageLiAll + "</ul>";
+				document.querySelector(".pagination-box").innerHTML = pagesHTML;
+				document.querySelectorAll(".page-li").forEach(function (li, index) {
+					li.addEventListener("click", function () {
+						var type = this.dataset.type;
+						_this.HandleClick(type, this.id);
+					});
+					li.removeEventListener("click", function () {
+						var type = this.dataset.type;
+						_this.HandleClick(type, this.id);
+					});
+				});
+			};
+
+			Pagination.prototype.HandleClick = function (type, page) {
+				if (type == "page") {
+					if (page == this.currentPage) {
+						return;
+					}
+					this.SetCurrentPage(page);
+					this.SendIndex();
+					this.RenderPageNumbers();
+				}
+				if (type == "page-prev") {
+					var currentPage = this.currentPage - 1;
+					if (currentPage > 0) {
+						this.SetCurrentPage(this.currentPage - 1);
+						if (this.currentPage % this.pageNumberLimit == 0) {
+							this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+							this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+						}
+						this.SendIndex();
+						this.RenderPageNumbers();
+					}
+				}
+				if (type == "page-next") {
+					var currentPage = this.currentPage + 1;
+					if (currentPage < this.pages.length + 1) {
+						this.SetCurrentPage(this.currentPage + 1);
+						if (this.currentPage > this.maxPageNumberLimit) {
+							this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
+							this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
+						}
+						this.SendIndex();
+						this.RenderPageNumbers();
+					}
+				}
+				if (type == "jump-prev") {
+					var jump = -this.pageNumberLimit;
+					var jumpPage = 0;
+					if (jump > 0) {
+						jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+					} else {
+						jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
+					}
+					if (jumpPage > this.pages.length || jumpPage <= 0) {
+						return;
+					}
+
+					this.SetCurrentPage(jumpPage);
+					if (jump > 0) {
+						this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
+						this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
+					} else {
+						this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+						this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+					}
+					this.SendIndex();
+					this.RenderPageNumbers();
+				}
+				if (type == "jump-next") {
+					var jump = this.pageNumberLimit;
+					var jumpPage = 0;
+					if (jump > 0) {
+						jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+					} else {
+						jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
+					}
+					if (jumpPage > this.pages.length || jumpPage <= 0) {
+						return;
+					}
+
+					this.SetCurrentPage(jumpPage);
+					if (jump > 0) {
+						this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
+						this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
+					} else {
+						this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+						this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+					}
+					this.SendIndex();
+					this.RenderPageNumbers();
+				}
+			};
+			Pagination.prototype.SendIndex = function () {
+				return this.currentPage;
+			};
+			var pagination = new Pagination(200, 5);
+			fetch("https://jsonplaceholder.typicode.com/todos")
+				.then((response) => response.json())
+				.then((json) => {
+					data = json;
+					pagination.UpdatePagination(data);
+				});
+		</script>
+	</body>
+</html>
