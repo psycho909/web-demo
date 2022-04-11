@@ -9,7 +9,35 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 	</head>
 	<body>
-		<div id="app"></div>
-		<script></script>
+		<div id="app">
+			<div id="text1">
+				<div>&nbsp;&nbsp;This is a Book!</div>
+			</div>
+			<div id="text2"></div>
+			<button type="button" class="btn">Button</button>
+		</div>
+		<script>
+			console.log($("#text1").text());
+			$("#text2").text($("#text1").text());
+			let Fruit = class {
+				constructor(height, width) {
+					this.height = height;
+					this.width = width;
+				}
+			};
+
+			class Food extends Fruit {
+				constructor(width, height, name) {
+					super(width, height);
+					this.name = name;
+				}
+			}
+			const Banana = new Food(100, 100, "Banana");
+			console.log(Banana.width);
+
+			document.querySelector(".btn").addEventListener("click", function () {
+				console.log(1);
+			});
+		</script>
 	</body>
 </html>
