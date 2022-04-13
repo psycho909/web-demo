@@ -56,7 +56,7 @@
 						</div>
                     </Teleport>
                 `,
-				setup(props) {
+				setup(props, context) {
 					const message = Vue.ref("MESSAGE");
 					let num = Vue.ref(0);
 					let timer = null;
@@ -80,7 +80,7 @@
 						clearInterval(timer);
 						console.log("onDeactivated");
 					});
-
+					console.log(context.attrs);
 					return {
 						message,
 						slices,

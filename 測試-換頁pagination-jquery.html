@@ -39,6 +39,7 @@
 				this.pageNumberLimit = 3; // 範圍限制
 				this.maxPageNumberLimit = 3; // 範圍內最大頁碼
 				this.minPageNumberLimit = 0; // 範圍內最小頁碼
+				this.element = null;
 			}
 			Pagination.prototype.UpdatePagination = function (data) {
 				this.allPage = data.length;
@@ -77,16 +78,18 @@
 				var pageLiAll = "<li><button class='page-li page-jump-prev' data-type='jump-prev'>Jump Prev</button></li><li><button class='page-li page-prev' " + (this.currentPage == this.pages[0] ? "disabled" : "") + " data-type='page-prev'>Prev</button></li>" + this.pagesList + "<li><button class='page-li page-next' " + (this.currentPage == this.pages[this.pages.length - 1] ? "disabled" : "") + " data-type='page-next'>Next</button></li><li><button class='page-li page-jump-next' data-type='jump-next'>Jump Next</button></li>";
 				var pagesHTML = "<ul class='pageNumbers'>" + pageLiAll + "</ul>";
 				document.querySelector(".pagination-box").innerHTML = pagesHTML;
-				document.querySelectorAll(".page-li").forEach(function (li, index) {
-					li.addEventListener("click", function () {
-						var type = this.dataset.type;
-						_this.HandleClick(type, this.id);
-					});
-					li.removeEventListener("click", function () {
-						var type = this.dataset.type;
-						_this.HandleClick(type, this.id);
-					});
-				});
+				this.element = document.querySelectorAll(".page-li");
+				// document.querySelectorAll(".page-li").forEach(function (li, index) {
+				// 	li.addEventListener("click", function () {
+				// 		var type = this.dataset.type;
+				// 		_this.HandleClick(type, this.id);
+				// 		_this.SendIndex();
+				// 	});
+				// 	li.removeEventListener("click", function () {
+				// 		var type = this.dataset.type;
+				// 		_this.HandleClick(type, this.id);
+				// 	});
+				// });
 			};
 
 			Pagination.prototype.HandleClick = function (type, page) {
@@ -95,7 +98,7 @@
 						return;
 					}
 					this.SetCurrentPage(page);
-					this.SendIndex();
+					// this.SendIndex();
 					this.RenderPageNumbers();
 				}
 				if (type == "page-prev") {
@@ -106,7 +109,7 @@
 							this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
 							this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
 						}
-						this.SendIndex();
+						// this.SendIndex();
 						this.RenderPageNumbers();
 					}
 				}
@@ -118,7 +121,7 @@
 							this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
 							this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
 						}
-						this.SendIndex();
+						// this.SendIndex();
 						this.RenderPageNumbers();
 					}
 				}
@@ -126,7 +129,11 @@
 					var jump = -this.pageNumberLimit;
 					var jumpPage = 0;
 					if (jump > 0) {
-						jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+						if (this.currentPage % jump > 0) {
+							jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+						} else {
+							jumpPage = this.currentPage - jump + (jump + 1);
+						}
 					} else {
 						jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
 					}
@@ -142,21 +149,24 @@
 						this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
 						this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
 					}
-					this.SendIndex();
+					// this.SendIndex();
 					this.RenderPageNumbers();
 				}
 				if (type == "jump-next") {
 					var jump = this.pageNumberLimit;
 					var jumpPage = 0;
 					if (jump > 0) {
-						jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+						if (this.currentPage % jump > 0) {
+							jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+						} else {
+							jumpPage = this.currentPage - jump + (jump + 1);
+						}
 					} else {
 						jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
 					}
 					if (jumpPage > this.pages.length || jumpPage <= 0) {
 						return;
 					}
-
 					this.SetCurrentPage(jumpPage);
 					if (jump > 0) {
 						this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
@@ -165,13 +175,29 @@
 						this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
 						this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
 					}
-					this.SendIndex();
+					// this.SendIndex();
 					this.RenderPageNumbers();
 				}
+				// this.SendIndex();
 			};
 			Pagination.prototype.SendIndex = function () {
 				return this.currentPage;
 			};
+			Pagination.prototype.onPageClick = function (callback) {
+				console.log(this.element);
+				// this.element.forEach(function (li, index) {
+				// 	li.addEventListener("click", function () {
+				// 		var type = this.dataset.type;
+				// 		_this.HandleClick(type, this.id);
+				// 		callback(_this.SendIndex());
+				// 	});
+				// 	li.removeEventListener("click", function () {
+				// 		var type = this.dataset.type;
+				// 		_this.HandleClick(type, this.id);
+				// 	});
+				// });
+			};
+
 			var pagination = new Pagination(200, 5);
 			fetch("https://jsonplaceholder.typicode.com/todos")
 				.then((response) => response.json())
@@ -179,6 +205,20 @@
 					data = json;
 					pagination.UpdatePagination(data);
 				});
+			pagination.onPageClick(function (page) {
+				console.log(page);
+			});
+
+			function add(x) {
+				return function (callback) {
+					callback(x);
+				};
+			}
+
+			let a = add(10);
+			a(function (x) {
+				console.log(x);
+			});
 		</script>
 	</body>
 </html>

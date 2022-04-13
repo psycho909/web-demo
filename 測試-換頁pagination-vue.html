@@ -9,6 +9,19 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style>
+			ul {
+				display: flex;
+			}
+			li {
+				display: inline-block;
+				padding: 12px;
+				cursor: pointer;
+			}
+			li.active {
+				color: red;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app">
@@ -121,7 +134,11 @@
 					HandleJumpClick(jump) {
 						var jumpPage = 0;
 						if (jump > 0) {
-							jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+							if (this.currentPage % jump > 0) {
+								jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+							} else {
+								jumpPage = this.currentPage - jump + (jump + 1);
+							}
 						} else {
 							jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
 						}

@@ -38,6 +38,17 @@
 			document.querySelector(".btn").addEventListener("click", function () {
 				console.log(1);
 			});
+
+			function Add(obj) {
+				try {
+					if (!obj) {
+						throw new Error("OVBBB");
+					}
+				} catch (err) {
+					console.log(err);
+				}
+			}
+			Add();
 		</script>
 	</body>
 </html>
