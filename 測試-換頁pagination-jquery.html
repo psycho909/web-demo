@@ -30,7 +30,7 @@
 			<div class="pagination-box"></div>
 		</div>
 		<script>
-			function Pagination(totalPage, showPage) {
+			function Pagination(totalPage, showPage, callback) {
 				this.allPage = totalPage;
 				this.pages = []; // 總頁碼數量
 				this.pagesList = []; // 當前頁碼數組
@@ -40,6 +40,9 @@
 				this.maxPageNumberLimit = 3; // 範圍內最大頁碼
 				this.minPageNumberLimit = 0; // 範圍內最小頁碼
 				this.element = null;
+				this.callback = callback;
+
+				this.callback(this.currentPage);
 			}
 			Pagination.prototype.UpdatePagination = function (data) {
 				this.allPage = data.length;
@@ -79,17 +82,17 @@
 				var pagesHTML = "<ul class='pageNumbers'>" + pageLiAll + "</ul>";
 				document.querySelector(".pagination-box").innerHTML = pagesHTML;
 				this.element = document.querySelectorAll(".page-li");
-				// document.querySelectorAll(".page-li").forEach(function (li, index) {
-				// 	li.addEventListener("click", function () {
-				// 		var type = this.dataset.type;
-				// 		_this.HandleClick(type, this.id);
-				// 		_this.SendIndex();
-				// 	});
-				// 	li.removeEventListener("click", function () {
-				// 		var type = this.dataset.type;
-				// 		_this.HandleClick(type, this.id);
-				// 	});
-				// });
+				document.querySelectorAll(".page-li").forEach(function (li, index) {
+					li.addEventListener("click", function () {
+						var type = this.dataset.type;
+						_this.HandleClick(type, this.id);
+						_this.callback(_this.currentPage);
+					});
+					li.removeEventListener("click", function () {
+						var type = this.dataset.type;
+						_this.HandleClick(type, this.id);
+					});
+				});
 			};
 
 			Pagination.prototype.HandleClick = function (type, page) {
@@ -183,42 +186,41 @@
 			Pagination.prototype.SendIndex = function () {
 				return this.currentPage;
 			};
-			Pagination.prototype.onPageClick = function (callback) {
-				console.log(this.element);
-				// this.element.forEach(function (li, index) {
-				// 	li.addEventListener("click", function () {
-				// 		var type = this.dataset.type;
-				// 		_this.HandleClick(type, this.id);
-				// 		callback(_this.SendIndex());
-				// 	});
-				// 	li.removeEventListener("click", function () {
-				// 		var type = this.dataset.type;
-				// 		_this.HandleClick(type, this.id);
-				// 	});
-				// });
-			};
 
-			var pagination = new Pagination(200, 5);
-			fetch("https://jsonplaceholder.typicode.com/todos")
-				.then((response) => response.json())
-				.then((json) => {
-					data = json;
-					pagination.UpdatePagination(data);
-				});
-			pagination.onPageClick(function (page) {
-				console.log(page);
-			});
+			var pagination = new Pagination(200, 5, add);
 
-			function add(x) {
-				return function (callback) {
-					callback(x);
+			function add(page) {
+				fetch("https://jsonplaceholder.typicode.com/todos")
+					.then((response) => response.json())
+					.then((json) => {
+						data = json;
+						pagination.UpdatePagination(data);
+					});
+			}
+
+			let left = +new Date("2022/4/16 12:00:00");
+			let left2 = Date.parse("2022/4/16 12:00:00");
+			console.log(left, left2);
+			let now = +new Date();
+			let timer = left - now;
+			console.log(timer / (1000 * 60 * 60 * 24));
+			console.log((timer / (1000 * 60 * 60)) % 24);
+			function timeLeft(endtime) {
+				var t = Date.parse(endtime) - Date.parse(new Date());
+				var seconds = Math.floor((t / 1000) % 60);
+				var minutes = Math.floor((t / 1000 / 60) % 60);
+				var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+				var days = Math.floor(t / (1000 * 60 * 60 * 24));
+				return {
+					total: t,
+					days: days,
+					hours: hours,
+					minutes: minutes,
+					seconds: seconds
 				};
 			}
 
-			let a = add(10);
-			a(function (x) {
-				console.log(x);
-			});
+			console.log(timeLeft("2022/4/15 12:00:00"));
 		</script>
 	</body>
 </html>

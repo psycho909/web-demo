@@ -15,11 +15,13 @@
 			}
 			li {
 				display: inline-block;
-				padding: 12px;
 				cursor: pointer;
 			}
 			li.active {
 				color: red;
+			}
+			li span {
+				padding: 12px;
 			}
 		</style>
 	</head>
@@ -134,25 +136,35 @@
 					HandleJumpClick(jump) {
 						var jumpPage = 0;
 						if (jump > 0) {
-							if (this.currentPage % jump > 0) {
-								jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
-							} else {
-								jumpPage = this.currentPage - jump + (jump + 1);
+							jumpPage = this.currentPage + jump;
+							// if (this.currentPage % jump > 0) {
+							// 	jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+							// } else {
+							// 	jumpPage = this.currentPage - jump + (jump + 1);
+							// }
+							if (jumpPage > this.pages.length) {
+								jumpPage = this.pages.length;
 							}
 						} else {
-							jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
+							// jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
+							jumpPage = this.currentPage + jump;
+							if (jumpPage <= 0) {
+								jumpPage = 1;
+							}
 						}
-						if (jumpPage > this.pages.length || jumpPage <= 0) {
-							return;
-						}
+						// if (jumpPage > this.pages.length || jumpPage <= 0) {
+						// 	return;
+						// }
 
 						this.SetCurrentPage(jumpPage);
 						if (jump > 0) {
 							this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
 							this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
 						} else {
-							this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
-							this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+							if (jumpPage >= 1 && this.minPageNumberLimit > 0) {
+								this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+								this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+							}
 						}
 						this.SendIndex();
 						this.RenderPageNumbers();
