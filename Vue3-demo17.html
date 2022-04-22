@@ -77,23 +77,29 @@
 						console.log(personReactive, currentCount);
 					};
 					const getData = () => {
-						axios("https://625935fa43fda1299a0a38fd.mockapi.io/blog/1/user").then((res) => {
+						axios("http://127.0.0.1:3000/users?total=2").then((res) => {
 							console.log(res);
 						});
 					};
 					const pushData = () => {
 						axios({
 							method: "post",
-							url: "https://5ace036923cb4e00148b83c9.mockapi.io/v1/Cat",
-							data: {
-								id: "11",
-								img: "http://placeimg.com/640/480/business",
-								name: "Dog",
-								type: "Cornish Rex FOx"
-							}
+							url: "http://127.0.0.1:3000/content",
+							data: {}
 						}).then((res) => {
 							console.log(res);
 						});
+						// axios({
+						// 	method: "post",
+						// 	url: "https://625935fa43fda1299a0a38fd.mockapi.io/blog",
+						// 	data: {
+						// 		id: "11",
+						// 		name: "Dog",
+						// 		avatar: "Cornish Rex FOx"
+						// 	}
+						// }).then((res) => {
+						// 	console.log(res);
+						// });
 					};
 					getData();
 					return {
