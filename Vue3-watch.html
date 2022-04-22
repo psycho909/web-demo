@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<style>
+			:root {
+				--num: 2;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box-item:nth-of-type(2n + 1) {
+				color: red;
+				border: 1px solid salmon;
+			}
+			.box-item-2:nth-child(2n + 1) {
+				color: blue;
+				border: 1px solid salmon;
+			}
+			.block {
+				--width: 100px;
+				width: var(--width);
+				height: 10px;
+				background-color: #000;
+			}
+			.item:nth-of-type(2n + 1) {
+				border: 1px solid salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<div class="box-item">div1.box-item</div>
+				<p>p1</p>
+				<div class="box-item">div1.box-item</div>
+				<div class="box-item">div2.box-item</div>
+				<p>p2</p>
+				<div class="box-item">div3.box-item</div>
+			</div>
+			<div class="block"></div>
+			<div>
+				<p>p1</p>
+				<div class="item">div1.item</div>
+				<div class="item">div2.item</div>
+				<p>p2</p>
+				<div class="item">div3.item</div>
+			</div>
+			<div class="block"></div>
+			<div>
+				<div class="box-item-2">div1.box-item-2</div>
+				<p>p1</p>
+				<div class="box-item-2">div1.box-item-2</div>
+				<div class="box-item-2">div2.box-item-2</div>
+				<p>p2</p>
+				<div class="box-item-2">div3.box-item-2</div>
+			</div>
+			<div>{{count}} - {{age}}</div>
+			<button type="button" class="add" @click="add(1)">add</button>
+			<Child :title="title" @addmoney="add"></Child>
+		</div>
+		<script>
+			const Child = {
+				props: ["title"],
+				template: `
+                <div>Child</div>
+                <div>TITLE - {{title}}</div>
+                <button type="button" class="add" @click="addCount">addCount</button>
+                `,
+				setup(props, { emit }) {
+					const addCount = () => {
+						emit("addmoney", 100);
+					};
+					return {
+						addCount
+					};
+				}
+			};
+			var app = Vue.createApp({
+				components: {
+					Child
+				},
+				setup() {
+					const { ref, reactive, watch } = Vue;
+					const count = ref(0);
+					const obj = reactive({ name: "molly" });
+					const age = ref(10);
+					const title = ref("Watch");
+					watch([() => count, age], ([newCount, newAge], [oldCount, oldAge]) => {
+						// console.log(newCount, newAge);
+					});
+					const add = (num = 1) => {
+						console.log(num);
+						count.value += num;
+						age.value++;
+						obj.name = "Chen";
+					};
+					return {
+						count,
+						age,
+						add,
+						title
+					};
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>
