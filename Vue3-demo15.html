@@ -6,16 +6,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<child @add="add"></child>
+			<div>parent</div>
+			<button type="button" class="btn" @click="add">parent button</button>
+			<child></child>
 		</div>
 		<script>
+			const emitter = window.mitt();
 			var app = Vue.createApp({
+				mounted() {
+					emitter.on("foo", function (e) {
+						console.log(e);
+					});
+				},
 				methods: {
-					add(data) {
-						console.log(data);
+					add() {
+						// console.log(data);
 					}
 				}
 			});
@@ -31,7 +40,8 @@
 				},
 				methods: {
 					onAdd() {
-						this.$emit("add", { bookName: "" });
+						// this.$emit("add", { bookName: "" });
+						emitter.emit("foo", { a: "b" });
 					}
 				}
 			});

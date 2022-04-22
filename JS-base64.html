@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style></style>
+	</head>
+	<body>
+		<img src="" alt="" id="img1" />
+		<img src="https://i.imgur.com/2cPUcja.png" alt="" />
+		<table>
+			<tr>
+				<td><a class="btn-small btnEditData" href="javascript:;">編輯</a><a class="btn-small btnDeleteData" href="javascript:;">刪除</a></td>
+				<td data-type="seq">13</td>
+				<td data-type="workurl">http://localhost:60103/Event/E20220526/index.aspx#page-1</td>
+				<td data-type="author">a</td>
+				<td data-type="extravote">1</td>
+				<td>2022/04/19 16:24:54</td>
+				<td>2022/04/19 16:24:54</td>
+			</tr>
+		</table>
+		<script>
+			$(".btnEditData").on("click", function () {
+				var obj = {};
+				var td = $(this).closest("tr").find("td[data-type]");
+				td.each(function (i, v) {
+					obj[$(this).attr("data-type")] = $(this).html();
+				});
+			});
+			function getImage(src) {
+				return new Promise((resolve, reject) => {
+					let image = new Image();
+					image.src = src;
+					image.addEventListener("load", function () {
+						resolve(image);
+					});
+					image.addEventListener("error", function (e) {
+						reject(e);
+					});
+				});
+			}
+			// Promise.allSettled([getImage("https://i.imgur.com/1esBRFI.png")]).then((res) => {
+			// 	console.log(res);
+			// });
+			function toDataURL(src, callback) {
+				var img = new Image();
+				var dataURL = "";
+				img.crossOrigin = "Anonymous";
+				img.onload = function () {
+					var canvas = document.createElement("canvas");
+					var ctx = canvas.getContext("2d");
+					var dataURL;
+					canvas.width = this.width;
+					canvas.height = this.height;
+					ctx.drawImage(this, 0, 0);
+					dataURL = canvas.toDataURL();
+					callback(dataURL);
+				};
+				img.src = src;
+			}
+			toDataURL("https://i.imgur.com/1esBRFI.png", function (dataURL) {
+				document.getElementById("img1").src = dataURL;
+			});
+		</script>
+	</body>
+</html>

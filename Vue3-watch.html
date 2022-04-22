@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+<<<<<<< HEAD
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
 		<style>
@@ -110,6 +111,81 @@
 				}
 			});
 
+=======
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.0.2/vuex.global.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{name}} - {{age}}</div>
+			<div>count - {{$store.state.count}}</div>
+			<div>user - {{$store.state.user}}</div>
+			<div>
+				<input type="text" v-model="name" />
+				<input type="text" v-model="age" />
+			</div>
+			<button type="button" @click="add">Add</button>
+			<button type="button" @click="changeUser">Change User</button>
+		</div>
+		<script>
+			const { watchEffect, watch, reactive, ref, provide, inject, toRefs } = Vue;
+			const store = {
+				state: {
+					count: 1,
+					user: {
+						name: "chen",
+						age: 32
+					}
+				},
+
+				mutations: {
+					ADD_COUNT(state) {
+						state.count++;
+					},
+					SET_USER(state, payload) {
+						state.user = { ...state.user, ...payload };
+					}
+				},
+				actions: {
+					addCount: function (context) {
+						context.commit("ADD_COUNT");
+					},
+					setUser({ commit }, payload) {
+						commit("SET_USER", payload);
+					}
+				}
+			};
+			const myVuex = Vuex.createStore(store);
+			var app = Vue.createApp({
+				setup() {
+					const store = Vuex.useStore();
+					var state = reactive({
+						name: "firstName",
+						age: 10
+					});
+					watchEffect(() => {
+						// console.log(`偵聽器:${data.count}`);
+						// console.log(`偵聽器:${state.name}`);
+					});
+					watch([() => store.state.user.name, store.state.user.age], ([newName, newAge], [oldName, oldAge]) => {
+						console.log(newName, oldName);
+					});
+					const add = function () {
+						store.dispatch("addCount");
+					};
+					const changeUser = () => {
+						store.dispatch("setUser", state);
+					};
+					return {
+						...toRefs(state),
+						add,
+						changeUser
+					};
+				}
+			});
+			app.use(myVuex);
+>>>>>>> 2f10c6251ce5b6403b73b18e7a25783800dbfe09
 			app.mount("#app");
 		</script>
 	</body>

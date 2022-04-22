@@ -5,35 +5,69 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://unpkg.com/@vueuse/shared"></script>
+		<script src="https://unpkg.com/@vueuse/core"></script>
 	</head>
 	<body>
 		<div id="app">
-			{{name}}
-			<br />
-			{{ person.name }}
+			person {{ person.name }}
 			<!-- will NOT change to Amy -->
 			<br />
-			{{ personRef.name }}
+			personRef {{ personRef.name }}
 			<!-- will change to Amy -->
 			<br />
-			{{ personReactive.name }}
+			personReactive {{ personReactive.name }}
 			<!-- will change to Amy -->
 			<br />
-			{{personReactive.count}} - {{currentCount}}
-			<a href="javascript:;" @click="changeName('Amy')">Change Name</a>
+			personReactive {{personReactive.count}} - {{currentCount}}
+			<br />
+			toRefs {{name}} - {{count}}
+			<br />
+			<a href="javascript:;" @click="changeName('Ching')">Change Name</a>
 			<a href="javascript:;" @click="changeCount">Change Count</a>
+			<hr />
+			<child :name="person" :rname="personRef"></child>
 		</div>
 		<script>
 			const { reactive, ref, toRef, toRefs } = Vue;
-
+			let VueUse = window.VueUse;
+			let child = {
+				template: `
+								<h2>Child</h2>
+								<div>{{rname}}</div>
+							`,
+				props: ["name", "rname"],
+				setup(props, context) {
+					console.log(props);
+					console.log(context);
+				}
+			};
 			var app = Vue.createApp({
+				beforeCreate() {
+					console.log("beforeCreate");
+				},
+				created() {
+					console.log("created");
+				},
+				components: { child },
 				setup() {
-					const person = { name: "John" };
-					const personRef = ref({ name: "John" });
-					const personReactive = reactive({ name: "John", count: 0 });
+					const person = { name: "Chen" };
+					const personRef = ref({ name: "Chen" });
+					const personReactive = reactive({ name: "Chen", count: 0 });
 					let currentCount = toRef(personReactive, "count");
+					const title = VueUse.useTitle();
+					console.log(title.value);
+					console.log("setup");
+					Vue.onBeforeUpdate(() => {
+						console.log("onBeforeUpdate");
+					});
+					Vue.onUpdated(() => {
+						console.log("onUpdated");
+					});
 					const changeName = (name) => {
+						pushData();
 						person.name = name;
 						personRef.value.name = name;
 						personReactive.name = name;
@@ -42,6 +76,32 @@
 						currentCount.value++;
 						console.log(personReactive, currentCount);
 					};
+					const getData = () => {
+						axios("http://127.0.0.1:3000/users?total=2").then((res) => {
+							console.log(res);
+						});
+					};
+					const pushData = () => {
+						axios({
+							method: "post",
+							url: "http://127.0.0.1:3000/content",
+							data: {}
+						}).then((res) => {
+							console.log(res);
+						});
+						// axios({
+						// 	method: "post",
+						// 	url: "https://625935fa43fda1299a0a38fd.mockapi.io/blog",
+						// 	data: {
+						// 		id: "11",
+						// 		name: "Dog",
+						// 		avatar: "Cornish Rex FOx"
+						// 	}
+						// }).then((res) => {
+						// 	console.log(res);
+						// });
+					};
+					getData();
 					return {
 						changeName,
 						person,

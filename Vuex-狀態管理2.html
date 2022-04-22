@@ -4,8 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vuex"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
 	</head>
 
 	<body>
@@ -19,7 +19,7 @@
 				<p>{{dog}}</p>
 				<p>{{breeds}}</p>
 				<img :src="dog.message" />
-				<p>{{this.$store.state.open}}</p>
+				<p>open: {{this.$store.state.open}}</p>
 				<button @click="handleChange('pop1')">pop1</button>
 				<button @click="handleChange('pop2')">pop2</button>
 
@@ -44,10 +44,10 @@
 				state: {
 					dog: { name: "cdc" },
 					breeds: {
-						message: {},
+						message: {}
 					},
 					open: true,
-					type: "",
+					type: ""
 				},
 				getters: {
 					dog(state) {
@@ -55,7 +55,7 @@
 					},
 					breeds(state) {
 						return state.breeds;
-					},
+					}
 				},
 				mutations: {
 					SET_DOG(state, payload) {
@@ -66,7 +66,7 @@
 					},
 					SET_STATUS(state, payload) {
 						state.open = payload;
-					},
+					}
 				},
 				actions: {
 					async getBreeds({ commit }) {
@@ -82,14 +82,14 @@
 					async getBreedsAndDog({ dispatch }) {
 						await dispatch("getBreeds");
 						await dispatch("getDog");
-					},
-				},
+					}
+				}
 			});
 			Vue.component("Btn", {
 				props: {
 					fn: {
-						type: Function,
-					},
+						type: Function
+					}
 				},
 				template: `
 					<button @click="emitClick">
@@ -99,8 +99,8 @@
 				methods: {
 					emitClick() {
 						this.$emit("click", this.fn);
-					},
-				},
+					}
+				}
 			});
 			var child = {
 				template: `
@@ -111,13 +111,13 @@
 				methods: {
 					emitClick() {
 						this.$emit("click", this.fn);
-					},
-				},
+					}
+				}
 			};
 			Vue.component("Gbox", {
 				props: ["open"],
 				components: {
-					child,
+					child
 				},
 				template: `
                     <div>
@@ -128,23 +128,23 @@
 				methods: {
 					msgInner() {
 						console.log("MSG msgInner");
-					},
-				},
+					}
+				}
 			});
 			new Vue({
 				el: "#app",
 				store,
 				data: {
 					type: "pop2",
-					messages: "",
+					messages: ""
 				},
 				computed: {
-					...Vuex.mapGetters(["breeds", "dog"]),
+					...Vuex.mapGetters(["breeds", "dog"])
 				},
 				watch: {
 					messages(newVal) {
 						console.log(newVal);
-					},
+					}
 				},
 				methods: {
 					...Vuex.mapActions(["getBreedsAndDog"]),
@@ -161,8 +161,8 @@
 					},
 					handelChange() {
 						console.log(123);
-					},
-				},
+					}
+				}
 			});
 		</script>
 	</body>

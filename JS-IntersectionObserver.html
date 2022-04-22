@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>IntersectionObserver</title>
+		<style>
+			.layload {
+				margin: auto;
+				width: 52vw;
+				background-color: #eee;
+			}
+			.layload img {
+				width: 250px;
+				height: 300px;
+				margin-left: 20px;
+			}
+			.layload footer {
+				background-color: #ccc;
+			}
+			.temp {
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layload">
+			<div class="temp"></div>
+			<main></main>
+			<footer>加载中</footer>
+		</div>
+
+		<script>
+			const startTime = performance.now();
+
+			let main = document.querySelector(".layload main");
+			let footer = document.querySelector(".layload footer");
+
+			let callback = (entires, observer) => {
+				console.log(observer);
+				console.log(entires);
+				entires.forEach((item) => {
+					if (item.isIntersecting) {
+						imgLoad();
+						observer.unobserve(item.target);
+					}
+				});
+			};
+			let options = {
+				rootMargin: "100px 0px 0px 0px",
+				threshold: 1
+			};
+			let observer = new IntersectionObserver(callback, options);
+
+			observer.observe(footer);
+
+			let df = document.createDocumentFragment();
+
+			function imgLoad() {
+				setTimeout(() => {
+					for (let i = 0; i < 9; i++) {
+						let img = document.createElement("img");
+						img.src = "https://fakeimg.pl/300/";
+						df.appendChild(img);
+					}
+					main.appendChild(df);
+				}, 500);
+			}
+			const endTime = performance.now();
+			console.log(`function took ${startTime - endTime} milliseconds`);
+		</script>
+	</body>
+</html>

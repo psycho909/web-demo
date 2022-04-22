@@ -6,15 +6,16 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+		<!-- <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
-			.fade-enter-active {
+			.fade-enter-active,
+			.fade-leave-active {
 				transition: all 0.3s ease;
 			}
 
 			.fade-leave-active {
-				transition: all 0.8s cubic-bezier(0.3, 0.5, 0.8, 1);
+				/* transition: all 0.8s cubic-bezier(0.3, 0.5, 0.8, 1); */
 			}
 
 			.fade-enter {
@@ -25,6 +26,12 @@
 				color: red;
 				opacity: 0;
 			}
+			.box {
+				/* opacity: 0; */
+				width: 100px;
+				height: 100px;
+				background-image: url("./images/1.jpg");
+			}
 		</style>
 	</head>
 
@@ -32,20 +39,24 @@
 		<div id="app">
 			<button v-on:click="show = !show">Toggle</button>
 			<transition name="fade">
-				<p v-if="show">hi</p>
+				<div class="box" v-show="show">
+					<div>h1</div>
+					<img src="images/1.png" alt="" />
+					<!-- <img src="./images/1.jpg" alt="" /> -->
+				</div>
 			</transition>
 		</div>
 		<script>
-			axios
-				.post("https://maplestory.beanfun.com/main?handler=GetBgm", {
-					handler: GetBgm
-				})
-				.then((data) => {
-					console.log(data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			// axios
+			// 	.post("https://maplestory.beanfun.com/main?handler=GetBgm", {
+			// 		handler: GetBgm
+			// 	})
+			// 	.then((data) => {
+			// 		console.log(data);
+			// 	})
+			// 	.catch((error) => {
+			// 		console.log(error);
+			// 	});
 			var vm = new Vue({
 				el: "#app",
 				data: {

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style>
+			ul {
+				display: flex;
+			}
+			li {
+				display: inline-block;
+				cursor: pointer;
+			}
+			li.active {
+				color: red;
+			}
+			li span {
+				padding: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<pagination :total-page="totalPage" :show-page="showPage" @update="getPageIndex"></pagination>
+		</div>
+		<script>
+			Vue.component("pagination", {
+				props: ["totalPage", "showPage"],
+				template: `
+                <div class="lb-coin-history__pagination-box">
+                    <ul class="lb-coin-history__pagination-list">
+                        <li><span @click="HandleJumpClick(-3)"><<</span></li>
+                        <li><span @click="HandlePrevClick"><</span></li>
+                        <li :id="page" v-for="page in pagesList" :class="[page == currentPage?'active':'']">
+                            <span @click="HandleClick(page)">{{page}}</span>
+                        </li>
+                        <li><span @click="HandleNextClick">></span></li>
+                        <li><span @click="HandleJumpClick(3)">>></span></li>
+                    </ul>
+                </div>
+                `,
+				data: function () {
+					return {
+						allPage: this.totalPage, // 資料總筆數
+						pages: [], // 總頁碼數量
+						pagesList: [], // 當前頁碼數組
+						currentPage: 1, // 當前頁碼
+						itemsPerPage: this.showPage, // 顯示資料筆數
+						pageNumberLimit: 3, // 範圍限制
+						maxPageNumberLimit: 3, // 範圍內最大頁碼
+						minPageNumberLimit: 0 // 範圍內最小頁碼
+					};
+				},
+				mounted: function () {
+					this.InitPagination();
+				},
+				methods: {
+					// 初始化頁碼
+					InitPagination() {
+						this.SetPages();
+						this.RenderPageNumbers();
+					},
+					// 總頁碼數量變更
+					SetPages() {
+						for (var i = 1; i <= Math.ceil(this.allPage / this.itemsPerPage); i++) {
+							this.pages.push(i);
+						}
+					},
+					// 當前頁碼變更
+					SetCurrentPage(page) {
+						this.currentPage = page;
+					},
+					// 範圍內最大頁碼變更
+					SetMaxPageNumberLimit(maxPageNumber) {
+						this.maxPageNumberLimit = maxPageNumber;
+					},
+					// 範圍內最小頁碼變更
+					SetMinPageNumberLimit(minPageNumber) {
+						this.minPageNumberLimit = minPageNumber;
+					},
+					// 頁碼更新
+					RenderPageNumbers() {
+						var _this = this;
+						this.pagesList = this.pages
+							.map(function (number) {
+								if (number < _this.maxPageNumberLimit + 1 && number > _this.minPageNumberLimit) {
+									return number;
+								} else {
+									return null;
+								}
+							})
+							.filter(Boolean);
+					},
+					// 點擊頁碼
+					HandleClick(page) {
+						if (page == this.currentPage) {
+							return;
+						}
+						this.SetCurrentPage(page);
+						this.SendIndex();
+						this.RenderPageNumbers();
+					},
+					// 上一頁
+					HandlePrevClick() {
+						var currentPage = this.currentPage - 1;
+						if (currentPage > 0) {
+							this.SetCurrentPage(this.currentPage - 1);
+							if (this.currentPage % this.pageNumberLimit == 0) {
+								this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+								this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+							}
+							this.SendIndex();
+							this.RenderPageNumbers();
+						}
+					},
+					// 下一頁
+					HandleNextClick() {
+						var currentPage = this.currentPage + 1;
+						if (currentPage < this.pages.length + 1) {
+							this.SetCurrentPage(this.currentPage + 1);
+							if (this.currentPage > this.maxPageNumberLimit) {
+								this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
+								this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
+							}
+							this.SendIndex();
+							this.RenderPageNumbers();
+						}
+					},
+					// 跳N頁
+					HandleJumpClick(jump) {
+						var jumpPage = 0;
+						if (jump > 0) {
+							jumpPage = this.currentPage + jump;
+							// if (this.currentPage % jump > 0) {
+							// 	jumpPage = this.currentPage - (this.currentPage % jump) + (jump + 1);
+							// } else {
+							// 	jumpPage = this.currentPage - jump + (jump + 1);
+							// }
+							if (jumpPage > this.pages.length) {
+								jumpPage = this.pages.length;
+							}
+						} else {
+							// jumpPage = this.currentPage - (this.currentPage % Math.abs(jump)) - (Math.abs(jump) - 1);
+							jumpPage = this.currentPage + jump;
+							if (jumpPage <= 0) {
+								jumpPage = 1;
+							}
+						}
+						// if (jumpPage > this.pages.length || jumpPage <= 0) {
+						// 	return;
+						// }
+
+						this.SetCurrentPage(jumpPage);
+						if (jump > 0) {
+							this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
+							this.SetMinPageNumberLimit(this.minPageNumberLimit + this.pageNumberLimit);
+						} else {
+							if (jumpPage >= 1 && this.minPageNumberLimit > 0) {
+								this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
+								this.SetMinPageNumberLimit(this.minPageNumberLimit - this.pageNumberLimit);
+							}
+						}
+						this.SendIndex();
+						this.RenderPageNumbers();
+					},
+					SendIndex() {
+						this.$emit("update", this.currentPage);
+					}
+				}
+			});
+
+			let app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						totalPage: 100,
+						showPage: 10,
+						dataList: []
+					};
+				},
+				methods: {
+					getPageIndex(value) {
+						this.FindCoinLog(value);
+					},
+					FindCoinLog(index) {
+						var page = 1;
+						if (index) {
+							page = index;
+						}
+						var _this = this;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
