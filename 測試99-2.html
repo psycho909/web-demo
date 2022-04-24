@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.num-container {
+				display: flex;
+			}
+			.num-wrap {
+				position: relative;
+				width: 50px;
+				height: 80px;
+				border: 1px solid #000;
+				overflow: hidden;
+			}
+			.num-sec-box {
+				width: 50px;
+				height: 80px;
+				background: url("./images/number/num3.png");
+				background-size: 100%;
+				background-position-y: 0%;
+			}
+			.num-sec-box[data-num="0"] {
+				background-position-y: calc(-100% / 10 * 2);
+			}
+			.num-sec-box[data-num="1"] {
+				background-position-y: calc(-100% / 10 * 3);
+			}
+			.num-sec-box[data-num="2"] {
+				background-position-y: calc(-100% / 10 * 4);
+			}
+			.num-sec-box[data-num="3"] {
+				background-position-y: calc(-100% / 10 * 5);
+			}
+			.num-sec-box[data-num="4"] {
+				background-position-y: calc(-100% / 10 * 6);
+			}
+			.num-sec-box[data-num="5"] {
+				background-position-y: calc(-100% / 10 * 7);
+			}
+
+			.num-sec-box[data-num="6"] {
+				background-position-y: calc(-100% / 10 * 8);
+			}
+			.num-sec-box[data-num="7"] {
+				background-position-y: calc(-100% / 10 * 9);
+			}
+			.num-sec-box[data-num="8"] {
+				background-position-y: calc(-100% / 10 * 10);
+			}
+			.num-sec-box[data-num="9"] {
+				background-position-y: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="num-container">
+			<div class="num-wrap">
+				<div class="num-sec-box" data-num="0"></div>
+			</div>
+		</div>
+		<script>
+			function Init(s2) {
+				$(".num-sec-box").attr("data-num", s2);
+			}
+			function Run(s = 1) {
+				if (s == 9) {
+					s = (100 / 10) * -(s + 2) + "%";
+					gsap.to(".num-sec-box", {
+						backgroundPositionY: s,
+						onComplete: function () {
+							gsap.set(".num-sec-box", {
+								backgroundPositionY: "-10%"
+							});
+						}
+					});
+					return;
+				}
+				s = (100 / 10) * -(s + 2) + "%";
+				gsap.to(".num-sec-box", {
+					backgroundPositionY: s
+				});
+			}
+			let timer = null;
+			let now = new Date();
+			let s = "0" + now.getSeconds();
+			let s1 = parseInt(s.slice(-2)[0]);
+			let s2 = parseInt(s.slice(-1));
+			Init(s2);
+			timer = setInterval(() => {
+				now = new Date();
+				let ss = "0" + now.getSeconds();
+				let s11 = parseInt(ss.slice(-2)[0]);
+				let s22 = parseInt(ss.slice(-1));
+				if (s11 != s1) {
+					s1 = s11;
+					Run(s22);
+				} else {
+					Run(s22);
+				}
+			}, 1000);
+		</script>
+	</body>
+</html>
