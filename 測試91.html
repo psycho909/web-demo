@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				/* width: 289px;
+				height: 418px; */
+				width: calc(298 / 1920 * 100vw);
+				height: calc(418 / 1920 * 100vw);
+				background-color: rgba(0, 0, 0, 0.67);
+				background-size: cover;
+				-webkit-mask: url("./images/mask3.png") no-repeat center right;
+				mask: url("./images/mask3.png") no-repeat center right;
+				-webkit-mask-size: calc(298 / 1920 * 100vw) calc(418 / 1920 * 100vw);
+				mask-size: calc(298 / 1920 * 100vw) calc(418 / 1920 * 100vw);
+			}
+			.number-wrap {
+				display: flex;
+				width: 200px;
+				justify-content: center;
+			}
+			.number-1 {
+				width: 58px;
+				height: 97px;
+				background-image: url("./images/point-1.png");
+				filter: drop-shadow(0 0 9px rgba(29, 30, 31, 0.75));
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="box"></div>
+			<div class="number-wrap">
+				<div class="number-0"></div>
+				<div class="number-1"></div>
+				<div class="number-1"></div>
+			</div>
+		</div>
+	</body>
+</html>

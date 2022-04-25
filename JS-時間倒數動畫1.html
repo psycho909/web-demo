@@ -38,9 +38,16 @@
 				justify-content: center;
 				align-items: center;
 			}
+			.dib{
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body>
+		<p>
+			<div class="dib">123</div>
+		</p>
+
 		<div class="num-container">
 			<div class="num-wrap">
 				<div class="num-sec-box" data-type="s1"></div>
@@ -54,9 +61,9 @@
 				let next1 = s1 + 1 > 5 ? 0 : s1 + 1;
 				let prev1 = s1 - 1 < 0 ? 5 : s1 - 1;
 
-				let next1HTML = `<div class="num-sec">${next1}</div>`;
-				let curr1HTML = `<div class="num-sec">${s1}</div>`;
-				let prev1HTML = `<div class="num-sec">${prev1}</div>`;
+				let next1HTML = `<div class="num-sec" data-num="${next1}">${next1}</div>`;
+				let curr1HTML = `<div class="num-sec" data-num="${s1}">${s1}</div>`;
+				let prev1HTML = `<div class="num-sec" data-num="${prev1}">${prev1}</div>`;
 
 				let HTML1 = [next1HTML, curr1HTML, prev1HTML];
 				$(".num-sec-box[data-type=s1]").append(HTML1.join(""));
@@ -64,9 +71,9 @@
 				let next2 = s2 + 1 > 9 ? 0 : s2 + 1;
 				let prev2 = s2 - 1 < 0 ? 9 : s2 - 1;
 
-				let next2HTML = `<div class="num-sec">${next2}</div>`;
-				let curr2HTML = `<div class="num-sec">${s2}</div>`;
-				let prev2HTML = `<div class="num-sec">${prev2}</div>`;
+				let next2HTML = `<div class="num-sec" data-num="${next2}">${next2}</div>`;
+				let curr2HTML = `<div class="num-sec" data-num="${s2}">${s2}</div>`;
+				let prev2HTML = `<div class="num-sec" data-num="${prev2}">${prev2}</div>`;
 
 				let HTML2 = [next2HTML, curr2HTML, prev2HTML];
 				$(".num-sec-box[data-type=s2]").append(HTML2.join(""));
@@ -82,7 +89,7 @@
 								y: "-100%"
 							});
 							let next1 = s1 + 1 > 5 ? 0 : s1 + 1;
-							let next1HTML = `<div class="num-sec">${next1}</div>`;
+							let next1HTML = `<div class="num-sec" data-num="${next1}">${next1}</div>`;
 							$(".num-sec-box[data-type=s1]").prepend(next1HTML);
 							$(".num-sec-box[data-type=s1] .num-sec").last().remove();
 						}
@@ -97,7 +104,7 @@
 							y: "-100%"
 						});
 						let next2 = s2 + 1 > 9 ? 0 : s2 + 1;
-						let next2HTML = `<div class="num-sec">${next2}</div>`;
+						let next2HTML = `<div class="num-sec" data-num="${next2}">${next2}</div>`;
 						$(".num-sec-box[data-type=s2]").prepend(next2HTML);
 						$(".num-sec-box[data-type=s2] .num-sec").last().remove();
 					}
