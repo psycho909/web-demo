@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.text {
+				display: inline-block;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			@keyframes typing {
+				from {
+					width: 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<h1 class="text" data-text="測試打字效果"></h1>
+		<script>
+			var str = `
+            6件衣 4件褲 毛巾 帽子 拖鞋 暈車藥(4)
+            
+            睡衣 睡褲
+
+            7  8  9 10
+            六 日 一 二
+            衣 衣 衣 衣
+            褲 毛 褲
+               衣
+               褲
+            `;
+			var text = $(".text").attr("data-text").split("").reverse();
+			var timer = setInterval(() => {
+				if (text.length == 0) {
+					clearInterval(timer);
+					return;
+				}
+				var t = text.splice(0, 1)[0] + $(".text").html();
+				$(".text").html(t);
+			}, 400);
+		</script>
+	</body>
+</html>

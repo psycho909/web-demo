@@ -14,7 +14,7 @@
 				margin: 0;
 				box-sizing: border-box;
 			}
-			.box {
+			.menu {
 				/* width: 289px;
 				height: 418px; */
 				width: calc(298 / 1920 * 100vw);
@@ -118,21 +118,42 @@
 				background-image: url("./images/lb/lb-warning.png");
 				z-index: 0;
 			}
+			.lottery-M {
+				width: 482px;
+				height: 296px;
+				background-image: url("./images/lb/lottery-M.png");
+				/* mix-blend-mode: ; */
+				filter: grayscale(100%);
+			}
+			.flex-box {
+				display: flex;
+				width: 300px;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+			.flex-label {
+				width: 50%;
+				flex-shrink: 0;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="box"></div>
+			<div class="flex-box">
+				<div class="flex-label">123</div>
+				<input type="text" />
+			</div>
+			<div class="menu"></div>
 			<div class="number-wrap">
 				<div class="number-0"></div>
 				<div class="number-1"></div>
 				<div class="number-1"></div>
 			</div>
+			<div class="lottery-M"></div>
 		</div>
 		<script>
-			$.gbox.open("<div class='lb-content warning'></div>", {
-				hasActionBtn: false
-			});
+			// $.gbox.open("<div class='lb-content warning'></div>", {
+			// 	hasActionBtn: false
+			// });
 		</script>
 	</body>
 </html>

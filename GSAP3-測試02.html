@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box-wrap {
+				width: 600px;
+				height: 600px;
+				border: 1px solid #000;
+				overflow: hidden;
+				position: relative;
+			}
+			.box-wrap:before {
+				content: "";
+				width: 1px;
+				height: 100%;
+				background-color: #000;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 3;
+			}
+			.box-wrap:after {
+				content: "";
+				width: 100%;
+				height: 1px;
+				background-color: #000;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 3;
+			}
+			.bg {
+				width: 1800px;
+				height: 1800px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				background-image: url("../images/bgg.jpg");
+			}
+			.box {
+				width: 30px;
+				height: 30px;
+				background-color: red;
+				border-radius: 50%;
+				position: absolute;
+				transition: transform 1s;
+			}
+			.box1 {
+				top: 186px;
+				right: 198px;
+				transform: translate(0, 0);
+			}
+			.box2 {
+				top: 135px;
+				right: 254px;
+				transform: translate(0, 0);
+				background-color: blue;
+			}
+			.box3 {
+				top: 227px;
+				right: 157px;
+				transform: translate(0, 0);
+				background-color: green;
+			}
+			#play {
+				width: 60px;
+				height: 60px;
+				background-color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="play">play</div>
+		<button id="stop">stop</button>
+		<div class="box-wrap">
+			<div class="bg">
+				<div class="box box1">1</div>
+				<div class="box box2">2</div>
+				<div class="box box3">3</div>
+			</div>
+		</div>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script>
+			var Mt = gsap
+				.timeline({
+					paused: !0
+				})
+				.addLabel("start")
+				.to(
+					".box1",
+					{
+						autoAlpha: 0,
+						ease: "power4.out"
+					},
+					"start"
+				)
+				.to(
+					".box2",
+					{
+						duration: 0.3,
+						autoAlpha: 0
+					},
+					"-=1"
+				)
+				.to(
+					".box3",
+					{
+						duration: 0.3,
+						autoAlpha: 0
+					},
+					"<-=1"
+				);
+			document.querySelector("#play").addEventListener("mouseover", function () {
+				Mt.play(0);
+			});
+			document.querySelector("#play").addEventListener("mouseout", function () {
+				console.log("out");
+				Mt.reverse();
+			});
+			$("#play").on("click", function () {
+				Mt.play(0);
+			});
+			$("#stop").on("click", function () {});
+
+			var box = gsap
+				.timeline({
+					paused: !0
+				})
+				.addLabel("start")
+				.to(
+					".section-2__expand--dark-elf",
+					{
+						zIndex: 2
+					},
+					"start"
+				)
+				.to(
+					".section-2__title",
+					{
+						duration: 0.3,
+						autoAlpha: 0
+					},
+					"-=.1"
+				)
+				.to(
+					".section-2__link--knight",
+					{
+						duration: 0.5,
+						autoAlpha: 0,
+						ease: "power4.out"
+					},
+					"-=.11"
+				)
+				.to(
+					".section-2__expand--dark-elf",
+					{
+						duration: 0.5,
+						x: "-=400",
+						ease: "power2.out"
+					},
+					">-=.5"
+				);
+		</script>
+	</body>
+</html>

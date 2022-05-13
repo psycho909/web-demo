@@ -233,8 +233,12 @@
 		<p>12312312</p>
 		<p>12312312</p>
 		<script>
+			$.mCustomScrollbar.defaults.scrollButtons.enable = true;
 			$("#app").mCustomScrollbar({
 				theme: "dark",
+				scrollButtons: {
+					scrollType: "stepped"
+				},
 				mouseWheel: {
 					preventDefault: true
 				},

@@ -93,6 +93,12 @@
 				border: 1px solid white;
 				cursor: pointer;
 			}
+			.box {
+				font-size: calc(30 / 1920 * 1rem);
+				width: calc(600 / 1920 * 1rem);
+				height: calc(600 / 1920 * 1rem);
+				background-color: #fff;
+			}
 		</style>
 	</head>
 	<body>
@@ -105,9 +111,12 @@
 			var pages = [];
 			var currentPage = 1;
 			var itemsPerPage = 3;
+			// 頁碼跳頁
 			var pageNumberLimit = 10;
+			// 頁碼顯示長度
 			var maxPageNumberLimit = 10;
 			var minPageNumberLimit = 0;
+			// 總頁數
 			var totalPage = 200;
 			var jumpPage = 0;
 			var indexOfLastItem = 0;
@@ -185,7 +194,7 @@
 
 			function handleClick(event) {
 				setcurrentPage(Number(event.id));
-				DataLoading();
+				DataLoading(currentPage);
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 
@@ -195,7 +204,7 @@
 					setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
 				}
-				DataLoading();
+				DataLoading(currentPage);
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 			function handlePrevbtn() {
@@ -204,7 +213,7 @@
 					setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
 					setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
 				}
-				DataLoading();
+				DataLoading(currentPage);
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 			function handleJumpBtn(jump) {
@@ -225,7 +234,7 @@
 					setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
 				}
 
-				DataLoading();
+				DataLoading(currentPage);
 				document.querySelector(".pagination-box").innerHTML = renderPageNumbers();
 			}
 			function init() {
@@ -234,7 +243,7 @@
 					.then((json) => {
 						data = json.results;
 						var dataArr = [];
-						for (var i = 1; i < 200; i++) {
+						for (var i = 1; i < totalPage; i++) {
 							dataArr.push(i);
 						}
 						renderData(function () {
@@ -253,7 +262,8 @@
 					});
 			}
 
-			function DataLoading() {
+			function DataLoading(page) {
+				console.log(currentPage);
 				fetch("https://randomuser.me/api/?results=3")
 					.then((response) => response.json())
 					.then((json) => {
