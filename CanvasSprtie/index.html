@@ -9,6 +9,10 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
 			.box {
 				width: 392px;
 				background: url("../images/event2-sprite.png");
@@ -50,12 +54,12 @@
 			}
 			@media screen and (max-height: 950px) {
 				.c-box {
-					transform: scale(0.95);
+					/* transform: scale(0.95); */
 				}
 			}
 			@media screen and (max-height: 850px) {
 				.c-box {
-					transform: scale(0.9);
+					/* transform: scale(0.9); */
 				}
 			}
 		</style>
@@ -134,9 +138,10 @@
 			}
 
 			function LoopDraw(target, index) {
-				canvasArr[target].context1.clearRect(0, 0, 300, 300);
+				canvasArr[target].context1.clearRect(0, 0, 180, 180);
 				if (imgArr2[index].complete) {
-					canvasArr[target].context1.drawImage(imgArr2[index], 0, 0);
+					// canvasArr[target].context1.drawImage(imgArr2[index], -60, -60);
+					canvasArr[target].context1.drawImage(imgArr2[index], 0, 0, 180, 180);
 				}
 				canvasArr[target].context2.clearRect(0, 0, 300, 300);
 				if (imgArr2[index].complete) {

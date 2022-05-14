@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.grid {
+				display: grid;
+				/* grid-auto-columns: auto; */
+				grid-template-areas:
+					"a b c d"
+					". e f g"
+					". . h i"
+					". . . j";
+				width: 600px;
+				margin: 0 auto;
+				background-color: rgba(0, 0, 0, 0.6);
+				place-items: center;
+			}
+			.grid-1 {
+				/* grid-row: 1/2; */
+				grid-area: a;
+			}
+			.grid-2 {
+				grid-area: b;
+			}
+			.grid-3 {
+				grid-area: c;
+			}
+			.grid-4 {
+				grid-area: d;
+			}
+			.grid-5 {
+				grid-area: e;
+			}
+			.grid-6 {
+				grid-area: f;
+			}
+			.grid-7 {
+				grid-area: g;
+			}
+			.grid-8 {
+				grid-area: h;
+			}
+			.grid-9 {
+				grid-area: i;
+			}
+			.grid-10 {
+				grid-area: j;
+			}
+			.box1 {
+				width: 150px;
+				height: 60px;
+				background-color: rgba(255, 255, 255, 0.3);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid">
+			<div class="grid-1 box1">Grid 1</div>
+			<div class="grid-2 box1">Grid 2</div>
+			<div class="grid-3 box1">Grid 3</div>
+			<div class="grid-4 box1">Grid 4</div>
+			<div class="grid-5 box1">Grid 5</div>
+			<div class="grid-6 box1">Grid 6</div>
+			<div class="grid-7 box1">Grid 7</div>
+			<div class="grid-8 box1">Grid 8</div>
+			<div class="grid-9 box1">Grid 9</div>
+			<div class="grid-10 box1">Grid 10</div>
+		</div>
+	</body>
+</html>

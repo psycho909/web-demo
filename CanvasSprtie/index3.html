@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.c {
+				width: 300px;
+				height: 300px;
+				position: relative;
+				display: inline-block;
+			}
+			.canvas {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				cursor: pointer;
+			}
+			.canvas-1 {
+				z-index: 1;
+			}
+			.canvas-2 {
+				opacity: 0;
+				transition: all 0.6s;
+			}
+			.canvas-1:hover + .canvas-2 {
+				opacity: 1;
+			}
+			.c-box {
+				transform-origin: center center;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="c-box">
+			<div class="c">
+				<canvas class="canvas canvas-1" width="180" height="180"></canvas>
+				<canvas class="canvas canvas-2" width="300" height="300"></canvas>
+			</div>
+		</div>
+		<script>
+			function CanvasSprite(target, fps, path, resize) {
+				this.imgArr = [];
+				this.index = 0;
+				this.loop = false;
+				this.target = target;
+				this.el = null;
+				this.fps = fps;
+				this.width = 0;
+				this.height = 0;
+				this.resize = resize || false;
+				this.PreLoad(path);
+				this.Init();
+				this.Loop();
+			}
+			CanvasSprite.prototype.GetSize = function (size) {
+				var _vh = window.innerHeight;
+				// var imgW = $(".bg-video").outerWidth();
+				// var imgH = $(".bg-video").outerHeight();
+				var imgW = window.innerWidth;
+				var imgH = window.innerHeight;
+
+				var vw = window.innerWidth;
+				var vh = window.innerHeight;
+				var s = Math.max(vw / imgW, vh / imgH);
+
+				var bgW, bgH, radioW, radioH;
+				var radioW = 16 / 9,
+					radioH = 9 / 16;
+
+				bgW = imgH * s * radioW;
+				bgH = imgH * s;
+
+				if (bgW < vw) {
+					bgW = vw;
+					bgH = vw * radioH;
+				}
+				return {
+					w: (this.width / 1080) * bgH,
+					h: (this.height / 1080) * bgH
+				};
+			};
+			CanvasSprite.prototype.Init = function () {
+				this.el = this.target[0].getContext("2d");
+			};
+			CanvasSprite.prototype.PreLoad = function (path) {
+				var _this = this;
+				for (var i = 0; i < this.fps; i++) {
+					this.imgArr[i] = new Image();
+					this.imgArr[i].src = path + i + ".png";
+					this.imgArr[i].onload = function () {
+						_this.width = this.width;
+						_this.height = this.height;
+						if (_this.resize) {
+							_this.target[0].width = _this.GetSize().w;
+							_this.target[0].height = _this.GetSize().h;
+						}
+					};
+				}
+			};
+			CanvasSprite.prototype.Loop = function () {
+				setInterval(() => {
+					if (this.index > this.fps - 1) {
+						this.index = 0;
+						this.loop = true;
+					}
+					this.Draw(this.index);
+
+					this.index++;
+				}, this.fps);
+			};
+			CanvasSprite.prototype.Draw = function (index) {
+				this.el.clearRect(0, 0, this.width, this.height);
+				if (this.resize) {
+					this.target[0].width = this.GetSize().w;
+					this.target[0].height = this.GetSize().h;
+				}
+				if (this.imgArr[index].complete) {
+					if (!this.resize) {
+						this.el.drawImage(this.imgArr[index], 0, 0);
+						return;
+					}
+					this.el.drawImage(this.imgArr[index], 0, 0, this.GetSize().w, this.GetSize().h);
+				}
+			};
+			var c1 = new CanvasSprite($(".canvas-1"), 60, "./bt_default/bt_default_", true);
+			var c2 = new CanvasSprite($(".canvas-2"), 60, "./bt_over/bt_over_", true);
+		</script>
+	</body>
+</html>
