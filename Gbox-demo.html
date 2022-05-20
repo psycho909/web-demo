@@ -67,12 +67,20 @@
 			</div>
 		</div>
 		<script>
+			$(document).on("mouseup", function (e) {
+				var container = $(".gbox-wrap");
+				if (!container.is(e.target) && container.has(e.target).length === 0) {
+					console.log(container.is(e.target), container.has(e.target));
+				}
+				console.log(container.is(e.target), container.has(e.target));
+				// console.log(e.target);
+			});
 			$(".popupbox").gbox("內容文字：帶入參數", {
-				titleBar: "標題文字",
+				titleBar: "<div class='title-bar'>標題文字</div>",
 				fixedPos: false,
 				hasCloseBtn: true,
 				hasActionBtn: true,
-				clickBgclose: true,
+				clickBgClose: false,
 				afterOpen: function () {
 					$("body").addClass("noscroll");
 				},

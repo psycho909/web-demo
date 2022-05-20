@@ -50,11 +50,12 @@
 
 			let out1 = document.querySelector(".output1");
 			let out2 = document.querySelector(".output2");
-
+			getSizes();
 			function getSizes() {
 				let zoom1 = ((window.outerWidth - 10) / window.innerWidth) * 100;
 				var count = Math.ceil(zoom1) / 100;
 				$("html").css("fontSize", 16 / count + "px");
+				console.log(Math.ceil(zoom1), zoom1);
 				out1.textContent = zoom1;
 				let body = document.body;
 				let zoom = body.clientWidth + "px x " + body.clientHeight + "px";

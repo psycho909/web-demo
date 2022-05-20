@@ -21,18 +21,22 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/promise-polyfill/8.2.0/polyfill.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.1/axios.min.js" integrity="sha512-LeNot3qbERo/DuYk+77g0F/MlrioZfnSprEM02GKMQSOia7P2UGS8w/ijJ45HaLsy5vhk4HDEtmLkZQyC+Z0Hg==" crossorigin="anonymous"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<script type="text/babel">
+			axios({
+				method: "get",
+				url: "https://randomuser.me/api/"
+			}).then(function (res) {
+				console.log(res);
+			});
 			axios(location.href)
 				.then(function (res) {
-					console.log(1);
+					console.log("axios");
 					console.log(res);
 				})
 				.finally(() => console.log("finally"));
 
 			var HTML = `HH`;
-			document.querySelector(".box").classList.add("red");
 			console.log(HTML);
 			// console.log(document.querySelector(".box").dataset.name)
 			var getObj = ({ name } = { name: "Chen" }) => {
