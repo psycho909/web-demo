@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="num">0</div>
+		<a href="javascript:;" class="add">+</a>
+		<script>
+			var addBtn = document.querySelector(".add");
+			var auto = null;
+			addBtn.addEventListener("mousedown", function () {
+				var num = document.querySelector(".num").innerHTML;
+				document.querySelector(".num").innerHTML = num++;
+				auto = setInterval(() => {
+					if (num > 20) {
+						clearInterval(auto);
+						return;
+					}
+					document.querySelector(".num").innerHTML = num++;
+				}, 200);
+			});
+			addBtn.addEventListener("mouseup", function () {
+				clearInterval(auto);
+			});
+
+			function AddNum() {
+				var num = document.querySelector(".num").innerHTML;
+				document.querySelector(".num").innerHTML = num++;
+			}
+		</script>
+	</body>
+</html>

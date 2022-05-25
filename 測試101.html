@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="num">0</div>
+		<a href="javascript:;" class="increment">+</a>
+		<a href="javascript:;" class="decrement">-</a>
+		<script>
+			var addBtn = document.querySelector(".increment");
+			var decrement = document.querySelector(".decrement");
+			var auto = null;
+			var num = document.querySelector(".num").innerHTML;
+			addBtn.addEventListener("mousedown", function () {
+				runner(AddNum, 200);
+			});
+			addBtn.addEventListener("mouseup", function () {
+				clearTimeout(auto);
+			});
+			decrement.addEventListener("mousedown", function () {
+				runner2(200);
+			});
+			decrement.addEventListener("mouseup", function () {
+				clearTimeout(auto);
+			});
+			function AddNum() {
+				document.querySelector(".num").innerHTML = ++num;
+			}
+			function DecrementNum() {
+				document.querySelector(".num").innerHTML = --num;
+			}
+			function runner(callback, timer) {
+				if (num >= 100) {
+					clearTimeout(auto);
+					return;
+				}
+				callback();
+				auto = setTimeout(() => {
+					timer -= 5;
+					runner(callback, timer);
+				}, timer);
+			}
+
+			function runner2(timer) {
+				console.log("--");
+				if (num <= 0) {
+					clearTimeout(auto);
+					return;
+				}
+				DecrementNum();
+				auto = setTimeout(() => {
+					timer -= 5;
+					runner2(timer);
+				}, timer);
+			}
+		</script>
+	</body>
+</html>
