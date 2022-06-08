@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.grid {
+				display: grid;
+			}
+			.grid-div {
+				border: 1px solid #000;
+			}
+			.xl {
+				width: 300px;
+				height: 300px;
+				background-color: red;
+				grid-area: 1/1/1/1;
+			}
+			.l {
+				width: 50px;
+				height: 50px;
+				background-color: green;
+				grid-area: 1/1/1/1;
+			}
+			.s {
+				width: 10px;
+				height: 10px;
+				background-color: #fff;
+				grid-area: 1/1/1/1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid">
+			<div class="grid-div xl">1</div>
+			<div class="grid-div l">2</div>
+			<div class="grid-div s">3</div>
+			<button id="btn">BTN</button>
+			<div id="msg"></div>
+		</div>
+		<script>
+			const oBtn = document.getElementById("btn");
+			const oMsg = document.getElementById("msg");
+			var data = {
+				page: "test104"
+			};
+			// var channel = new BroadcastChannel("myChannel");
+
+			// channel.onmessage = function (e) {
+			// 	console.log(e);
+			// 	oMsg.innerText = e.data;
+			// };
+
+			// channel.onmessageerror = function (e) {
+			// 	console.log(e);
+			// };
+
+			oBtn.addEventListener("click", function () {
+				localStorage.setItem("sampleList", "click");
+				// channel.postMessage("click");
+				// 銷毀
+				// channel.close();
+			});
+
+			window.addEventListener("storage", () => {
+				// When local storage changes, dump the list to
+				// the console.
+				console.log(window.localStorage.getItem("sampleList"));
+			});
+		</script>
+	</body>
+</html>

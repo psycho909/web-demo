@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="tel" input-type="gradual" value="2" min="1" max="10000" showDecreament decrementText="剩餘兌換次數：{$}" />
+		<input type="tel" input-type="gradual" value="2" min="1" max="7" />
+
+		<script>
+			var channel = new BroadcastChannel("myChannel");
+			channel.onmessage = function (e) {
+				console.log(e);
+			};
+			window.addEventListener("storage", () => {
+				// When local storage changes, dump the list to
+				// the console.
+				console.log(window.localStorage.getItem("sampleList"));
+			});
+			createCustomInputNumber();
+			function createCustomInputNumber() {
+				$("input[input-type]").each(function () {
+					if (!$(this).parent().is(".custom-inputNumber")) {
+						var _this = $(this);
+						var val = parseInt(_this.val());
+						var min = parseInt(_this.attr("min"));
+						var max = parseInt(_this.attr("max"));
+						var to = null;
+						var iv = null;
+						var showDecreament = _this.is("[showDecreament]") ? true : false;
+						var decrementText = _this.attr("decrementText");
+
+						//把input包起來並加入「加/減」按鈕
+						//_this.wrap('<div class="custom-inputNumber"></div>').before('<div class="custom-inputNumber-btn">-</div>').after('<div class="custom-inputNumber-btn">+</div>');
+						//下面是加、減符號上下置中用的更新完再刪掉上面的註解
+						_this.wrap('<div class="custom-inputNumber"></div>').before('<div class="custom-inputNumber-btn subtract">-</div>').after('<div class="custom-inputNumber-btn add">+</div>');
+
+						//如果要顯示遞減資訊
+						if (showDecreament) {
+							_this.parent().after('<div class="cin-decreament"></div>');
+						}
+						function updateDecrement() {
+							if (showDecreament) {
+								var gnn = decrementText.replace("{$}", max - val);
+								_this.parent().next().text(gnn);
+							}
+						}
+						updateDecrement();
+
+						//input-type=gradual時按「加/減」鈕，將input value遞增/減
+						if (_this.attr("input-type") == "gradual") {
+							_this
+								.parent()
+								.find(".custom-inputNumber-btn")
+								.on("touchstart mousedown", function (e) {
+									e.preventDefault();
+									if ($(this).text() == "-") {
+										if (val > min) {
+											val--;
+											to = setTimeout(function () {
+												iv = setInterval(function () {
+													if (val > min) {
+														val--;
+														_this.val(val);
+														updateDecrement();
+													}
+												}, 75);
+											}, 500);
+										} else {
+											clearTimeout(to);
+											clearInterval(iv);
+										}
+									} else {
+										if (val < max) {
+											val++;
+											to = setTimeout(function () {
+												iv = setInterval(function () {
+													if (val < max) {
+														val++;
+														_this.val(val);
+														updateDecrement();
+													}
+												}, 75);
+											}, 500);
+										} else {
+											clearTimeout(to);
+											clearInterval(iv);
+										}
+									}
+									_this.val(val);
+									updateDecrement();
+								})
+								.on("touchend mouseup", function (e) {
+									e.preventDefault();
+									clearTimeout(to);
+									clearInterval(iv);
+								});
+						}
+						//input-type=reverse時，「加/減」鈕到/頂底時直接跳到最到最大/小值，按一下加/減一次
+						// if(_this.attr('input-type') == 'reverse'){
+						// 	_this.parent().find('.custom-inputNumber-btn').on('touchstart mousedown', function(e){
+						// 		e.preventDefault();
+						// 		if($(this).text() == '-'){
+						// 			if(val > min){
+						// 				val--;
+						// 			}else if(_this.val() == min){
+						// 				val = max;
+						// 			}
+						// 		}else{
+						// 			if(val < max){
+						// 				val++;
+						// 			}else if(_this.val() == max){
+						// 				val = min;
+						// 			}
+						// 		}
+						// 		_this.val(val);
+						// 	});
+						// }
+
+						//手動輸入時不要超過最大值or最小值
+						_this.on("input", function () {
+							if (_this.val() >= max) {
+								_this.val(max);
+								updateDecrement();
+							}
+							if (_this.val() <= min) {
+								_this.val(min);
+								updateDecrement();
+							}
+							val = parseInt(_this.val());
+							updateDecrement();
+						});
+
+						//點輸入框時全選文字
+						_this.on("click", function (e) {
+							if (!_this.is("[readonly]")) {
+								if (isMobile.apple.device) {
+									$(this)[0].setSelectionRange(0, 99999);
+									e.preventDefault();
+								} else {
+									_this.select();
+								}
+							}
+						});
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

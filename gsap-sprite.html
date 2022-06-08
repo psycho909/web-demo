@@ -20,10 +20,10 @@
 
 			.character {
 				background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/183204/char.png);
-				/* width: 150px;
-				height: 150px; */
-				width: 19.53125%;
-				padding-bottom: 19.53125%;
+				width: 150px;
+				height: 150px;
+				/* width: 19.53125%;
+				padding-bottom: 19.53125%; */
 				background-size: 1600%;
 			}
 
@@ -72,6 +72,7 @@
 			var M1 = TweenMax.to(".character", 1, { repeat: -1, backgroundPosition: "-1600%", ease: SteppedEase.config(16) });
 
 			// method 2 ( img/div tag x position ) :
+			// -2250 = 150*15
 			var M2 = TweenMax.to(".character2", 1, { repeat: -1, x: -2250, ease: SteppedEase.config(15) });
 
 			// Control functions ( you can add whatever you want ) :

@@ -1,96 +1,96 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
+			body {
+				overflow-x: hidden;
+			}
+			.video {
+				width: 600px;
+				height: 300px;
+				overflow: hidden;
+				position: relative;
+			}
+			#home-video {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
 
-        body {
-            overflow-x: hidden;
-        }
+	<body>
+		<button id="mute">Mute</button>
+		<div class="home">
+			<div class="home__video">
+				<!-- 修改 -->
+				<div class="home__video-container video">
+					<!-- 版頭youtube背景影片使用 -->
+					<!-- 把data-video="" 空值就不會放影片 -->
+					<div id="home-video" data-video="i5RNvD7dpgU"></div>
+				</div>
+				<!-- 修改end -->
+			</div>
+		</div>
+		<div class="content"></div>
 
-        .home {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
+		<script>
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/player_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    </style>
-</head>
+			var player;
 
-<body>
-    <button id="mute">Mute</button>
-    <div class="home">
-        <div class="home__video">
-            <!-- 修改 -->
-            <div class="home__video-container video">
-                <!-- 版頭youtube背景影片使用 -->
-                <!-- 把data-video="" 空值就不會放影片 -->
-                <div id="home-video" data-video="UgPujyXPM84"></div>
-            </div>
-            <!-- 修改end -->
-        </div>
-    </div>
-    <div class="content">
+			function onYouTubeIframeAPIReady() {
+				var videoId = document.getElementById("home-video").getAttribute("data-video");
+				if (!videoId) {
+					return false;
+				}
+				player = new YT.Player("home-video", {
+					videoId: videoId,
+					playerVars: {
+						start: 1, // 影片從幾秒後開始
+						controls: 0, // 控制列隱藏
+						modestbranding: 0, // 隱藏youtube icon
+						rel: 0, // 隱藏title youtube icon
+						loop: 1, // loop
+						fs: 0, // 顯示全螢幕按鈕
+						cc_load_policty: 0, // 隱藏字幕
+						iv_load_policy: 3, // 隱藏影片註解 1:顯示 3:不顯示 沒有2
+						autohide: 0 // 播放影片時隱藏影片控制列
+					},
+					events: {
+						onReady: function (e) {
+							e.target.playVideo();
+							e.target.mute(); // 需要先靜音才能自動播放
+						},
+						onStateChange: function (e) {
+							console.log(e.data);
+							if (e.data === YT.PlayerState.ENDED) {
+								player.playVideo();
+							}
+						}
+					}
+				});
+			}
 
-    </div>
-
-    <script>
-        var tag = document.createElement('script');
-        tag.src = "http://www.youtube.com/player_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player
-
-        function onYouTubeIframeAPIReady() {
-            var videoId = document.getElementById('home-video').getAttribute('data-video');
-            if (!videoId) {
-                return false;
-            }
-            player = new YT.Player('home-video', {
-                videoId: videoId,
-                playerVars: {
-                    controls: 0,
-                    modestbranding: 0,
-                    showinfo: 0,
-                    rel: 0,
-                    loop: 1,
-                    fs: 0, // 顯示全螢幕按鈕
-                    cc_load_policty: 0, // 隱藏字幕
-                    iv_load_policy: 3, // 隱藏影片註解
-                    autohide: 0 // 播放影片時隱藏影片控制列
-                },
-                events: {
-                    onReady: function (e) {
-                        e.target.playVideo()
-                        e.target.mute()
-                    },
-                    onStateChange: function (e) {
-                        if (e.data === YT.PlayerState.ENDED) {
-                            player.playVideo()
-                        }
-                    }
-                }
-            })
-        }
-
-        document.getElementById("mute").addEventListener("click",function(){
-            if(player.isMuted()){
-                player.unMute()
-            }else{
-                player.mute();
-            }
-        })
-    </script>
-</body>
-
+			document.getElementById("mute").addEventListener("click", function () {
+				if (player.isMuted()) {
+					player.unMute();
+				} else {
+					player.mute();
+				}
+			});
+		</script>
+	</body>
 </html>

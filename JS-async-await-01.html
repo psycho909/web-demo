@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 回調地獄
+			Promise.resolve(Promise.resolve(Promise.resolve(Promise.resolve(Promise.resolve(Promise.resolve(5)))))).then((val) => console.log(val));
+
+			var id = 5;
+			var lotsOAsync = () =>
+				fetch("/big-o-list").then((result) => {
+					if (result.ok) {
+						return result.json().then((list) => {
+							const { url: itemURL } = data.items.find((item) => item.id === id);
+							return fetch(itemURL).then((result) => {
+								if (result.ok) {
+									return result.json().then((data) => data.name);
+								} else {
+									throw new Error(`Couldn't fetch ${itemURL}`);
+								}
+							});
+						});
+					} else {
+						throw new Error(`Couldn't fetch big-o-list`);
+					}
+				});
+			// 正確使用
+			Promise.resolve()
+				.then(() => Promise.resolve())
+				.then(() => Promise.resolve())
+				.then(() => Promise.resolve())
+				.then(() => Promise.resolve())
+				.then(() => Promise.resolve(5))
+				.then((val) => console.log(val));
+
+			var id = 5;
+			var lotsOAsync = () =>
+				fetch("/big-o-list")
+					.then((result) => (result.ok ? result.json() : Promise.reject(`Couldn't fetch big-o-list`)))
+					.then(({ items }) => items.find((item) => item.id === id))
+					.then(({ url }) => fetch(url))
+					.then((result) => (result.ok ? result.json() : Promise.reject(`Couldn't fetch ${result.request.url}`)))
+					.then((data) => data.name);
+		</script>
+	</body>
+</html>
