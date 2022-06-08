@@ -1,126 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8" />
+		<title>《全民打棒球2 Online》</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: 微軟正黑體;
+			}
+			html,
+			body {
+				height: 100%;
+			}
+			a {
+				text-decoration: none;
+			}
+			#img {
+				object-fit: cover;
+			}
+			.box {
+				text-align: center;
+			}
+			.btn {
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				border: 1px solid #ccc;
+				background-color: #fff;
+				padding: 0 10px;
+				margin-right: 50px;
+				color: #333;
+			}
+			.btn:hover {
+				background-color: #eee;
+			}
+			.loading {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #eee;
+				text-align: center;
+				font-size: 30px;
+			}
+			.progress {
+				width: 600px;
+				margin: 300px auto 0;
+			}
+		</style>
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
-	<title>《全民打棒球2 Online》</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			font-family: 微軟正黑體;
-		}
-		html,body{
-			height: 100%;
-		}
-		a{
-			text-decoration: none;
-		}
-		#img{
-			object-fit: cover;
-		}
-		.box{
-			text-align: center;
-		}
-		.btn{
-			display: inline-block;
-			height: 30px;
-			line-height: 30px;
-			border:1px solid #ccc;
-			background-color: #fff;
-			padding: 0 10px;
-			margin-right: 50px;
-			color:#333;
-		}
-		.btn:hover{
-			background-color: #eee;
-		}
-		.loading{
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: #eee;
-			text-align: center;
-			font-size: 30px;
-		}
-		.progress{
-			width: 600px;
-			margin:300px auto 0;
-		}
-	</style>
-</head>
+	<body>
+		<div class="box">
+			<img src="https://images.unsplash.com/photo-1539015387781-bc317868733c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=519366474e490047849cac8a12cecd84&auto=format&fit=crop&w=500&q=60" alt="" id="img" width="600" height="300" />
+			<p>
+				<a href="javascript:;" class="btn" data-control="prev">上一頁</a>
+				<a href="javascript:;" class="btn" data-control="next">下一頁</a>
+			</p>
+		</div>
+		<div class="loading">
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active" style="width: 0%">0%</div>
+			</div>
+		</div>
 
-<body>
-<div class="box">
-	<img src="https://images.unsplash.com/photo-1539015387781-bc317868733c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=519366474e490047849cac8a12cecd84&auto=format&fit=crop&w=500&q=60" alt="" id="img" width="600" height="300">
-	<p>
-		<a href="javascript:;" class="btn" data-control="prev">上一頁</a>
-		<a href="javascript:;" class="btn" data-control="next">下一頁</a>
-	</p>
-</div>
-<div class="loading">
-	<div class="progress">
-		<div class="progress-bar progress-bar-striped active" style="width: 0%;">0%</div>
-	</div>
-</div>
+		<script>
+			var imgs = ["", "https://images.unsplash.com/photo-1539068885179-c05359aea4b8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aac7bd099a6cb3e9c12c6cfc6ccef6f2&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5729f18a6a6b8ab1b2e2108964227ae5&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1539035992980-e41ff3f540ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9588b1964a617c7d87d4354de301ee80&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1539025470716-d4e1dce13c9f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=01b47a45a16e5a8ea75b558a844c1c44&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1539083943273-138a8ba5486d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=10a8f08144e4949d43b76513671ea191&auto=format&fit=crop&w=500&q=60"];
 
-<script>
-	
-var imgs=[
-	'',
-	'https://images.unsplash.com/photo-1539068885179-c05359aea4b8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aac7bd099a6cb3e9c12c6cfc6ccef6f2&auto=format&fit=crop&w=500&q=60',
-	'https://images.unsplash.com/photo-1539035104074-dee66086b5e3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5729f18a6a6b8ab1b2e2108964227ae5&auto=format&fit=crop&w=500&q=60',
-	'https://images.unsplash.com/photo-1539035992980-e41ff3f540ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9588b1964a617c7d87d4354de301ee80&auto=format&fit=crop&w=500&q=60',
-	'https://images.unsplash.com/photo-1539025470716-d4e1dce13c9f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=01b47a45a16e5a8ea75b558a844c1c44&auto=format&fit=crop&w=500&q=60',
-	'https://images.unsplash.com/photo-1539083943273-138a8ba5486d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=10a8f08144e4949d43b76513671ea191&auto=format&fit=crop&w=500&q=60'
-];
+			var index = 0,
+				len = imgs.length,
+				count = 0,
+				$progress = $(".progress-bar"),
+				persent = 0;
 
-var index=0,
-	len=imgs.length,
-	count=0,
-	$progress=$('.progress-bar'),
-	persent=0;
+			$.each(imgs, function (i, src) {
+				var imgObj = new Image();
+				$(imgObj).on("load error", function () {
+					persent = Math.round(((count + 1) / len) * 100) + "%";
 
-$.each(imgs,function(i,src){
-	var imgObj=new Image();
-	$(imgObj).on('load error',function(){
-		persent=Math.round((count+1)/len*100)+'%';
+					$progress.css("width", persent);
 
-		$progress.css('width',persent);
+					$progress.html(persent);
 
-		$progress.html(persent);
+					if (count >= len - 1) {
+						// $('.loading').hide();
+						document.title = "1/" + len;
+					}
 
-		if(count >= len-1){
-			// $('.loading').hide();
-			document.title='1/'+len;
-		}
+					count++;
+				});
+				$(imgObj).on("error", function () {
+					console.log(i, src, "error");
+				});
+				imgObj.src = src;
+			});
 
-		count++;
-	})
-	$(imgObj).on('error',function(){
-		console.log(i,src,"error")
-	})
-	imgObj.src=src;
-
-})
-
-$('.btn').on('click',function(){
-	if($(this).data('control') === 'prev'){
-		index=Math.max(0,--index);
-	}else{
-		index=Math.min(len-1,++index);
-	}
-	document.title=(index+1)+'/'+len;
-	$('#img').attr('src',imgs[index]);
-})
-
-</script>
-</body>
+			$(".btn").on("click", function () {
+				if ($(this).data("control") === "prev") {
+					index = Math.max(0, --index);
+				} else {
+					index = Math.min(len - 1, ++index);
+				}
+				document.title = index + 1 + "/" + len;
+				$("#img").attr("src", imgs[index]);
+			});
+		</script>
+	</body>
 </html>
