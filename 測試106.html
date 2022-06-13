@@ -24,6 +24,32 @@
 				scale: 0,
 				duration: 2
 			});
+
+			async function async1() {
+				console.log("async1 start");
+				const a = await async2(2000);
+				const b = await async3(100);
+				console.log("async1 end");
+				return [a, b];
+			}
+
+			async function async2(timeout) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve("async2");
+					}, timeout);
+				});
+			}
+			async function async3(timeout) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve("async3");
+					}, timeout);
+				});
+			}
+			async1().then((res) => {
+				console.log(res);
+			});
 		</script>
 	</body>
 </html>
