@@ -127,7 +127,7 @@
 	<body>
 		<div id="app">
 			<a href="javascript:;" @click="open">Open</a>
-			<Cat v-model="showPopup" v-if="showPopup == 'cat'"></Cat>
+			<Cat v-model="showPopup" cls="cat" v-if="showPopup == 'cat'"></Cat>
 		</div>
 		<script>
 			Vue.prototype.$dispatch = function (eventName, value) {
@@ -192,17 +192,20 @@
 			});
 
 			Vue.component("Cat", {
-				props: ["showPopup"],
+				props: ["showPopup", "cls"],
 				model: {
 					prop: "value",
 					event: "update"
 				},
 				template: `
-				<popup v-model="showBox" v-if="showBox" :method="parentMethod" :close-btn="true">
-					<template #content>
-						<div>Content</div>
-					</template>
-				</popup>
+				<div>
+					<div :class="cls"></div>
+					<popup v-model="showBox" v-if="showBox" :method="parentMethod" :close-btn="true">
+						<template #content>
+							<div>Content</div>
+						</template>
+					</popup>
+				</div>
 			             `,
 				data() {
 					return {
