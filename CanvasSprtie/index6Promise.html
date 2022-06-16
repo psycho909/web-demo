@@ -47,6 +47,9 @@
 				z-index: 99;
 				display: flex;
 			}
+			.loading {
+				background-color: #000;
+			}
 		</style>
 	</head>
 	<body>
@@ -72,9 +75,11 @@
 				this.width = 0;
 				this.height = 0;
 				this.speed = speed || step / 2;
+				this.Init();
 			}
 			CanvasSprite.prototype.Init = function () {
 				this.el = this.target[0].getContext("2d");
+				$(this.el.canvas).addClass("loading");
 			};
 			CanvasSprite.prototype.PreLoad = function (path) {
 				var count = 0;
@@ -89,9 +94,16 @@
 							_this.height = this.height;
 							++count;
 							if (count == _this.step) {
-								_this.Init();
+								$(_this.el.canvas).removeClass("loading");
 								_this.Draw(0);
 								resolve(true);
+							}
+						};
+						this.imgArr[i].onerror = function () {
+							++count;
+							if (count == _this.step) {
+								$(_this.el.canvas).removeClass("loading");
+								reject(true);
 							}
 						};
 					}
@@ -127,27 +139,57 @@
 
 			canvas圖片縮放，直接調整canvas的class
 			*/
-			var c1 = new CanvasSprite($(".canvas-1"), 45);
-			var c2 = new CanvasSprite($(".canvas-2"), 60);
-			var c3 = new CanvasSprite($(".canvas-3"), 60);
+			var c1 = new CanvasSprite($(".canvas-1"), 45, 45);
+			var c2 = new CanvasSprite($(".canvas-2"), 60, 60);
+			var c3 = new CanvasSprite($(".canvas-3"), 60, 60);
+			var anim = {
+				c1: {
+					play: function () {
+						c1.Loop();
+					},
+					stop: function () {
+						c1.Stop();
+					}
+				},
+				c2: {
+					play: function () {
+						c2.Loop();
+					},
+					stop: function () {
+						c2.Stop();
+					}
+				},
+				c3: {
+					play: function () {
+						c3.Loop();
+					},
+					stop: function () {
+						c3.Stop();
+					}
+				}
+			};
 			loadingProgress({
 				loadedFN: function () {
 					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.all([c1.PreLoad("./tile/tile"), c2.PreLoad("./bt_default/bt_default_"), c3.PreLoad("./bt_over/bt_over_")]).then((res) => {
-						var complete = res.every(function (r, i) {
-							return r == true;
-						});
-						if (complete) {
-							$("#loadingProgress").hide();
-						}
+					Promise.allSettled([c1.PreLoad("./tile/tile"), c2.PreLoad("./bt_default/bt_default_"), c3.PreLoad("./bt_over/bt_over_")]).then((res) => {
+						$("#loadingProgress").hide();
 					});
 				},
 				autoHide: false
 			});
 			$("#play").on("click", function () {
-				c1.Loop();
-				c2.Loop();
-				c3.Loop();
+				var c1 = "c1";
+				// anim[c1].play();
+				Object.entries(anim).forEach((a, i) => {
+					if (a[0] == c1) {
+						a[1].play();
+					} else {
+						a[1].stop();
+					}
+				});
+				// c1.Loop();
+				// c2.Loop();
+				// c3.Loop();
 			});
 			$("#stop").on("click", function () {
 				c1.Stop();

@@ -202,7 +202,10 @@
 					<div :class="cls"></div>
 					<popup v-model="showBox" v-if="showBox" :method="parentMethod" :close-btn="true">
 						<template #content>
-							<div>Content</div>
+							<div>
+								<h2>Content</h2>
+								<input type="text" v-model="num" />
+							</div>
 						</template>
 					</popup>
 				</div>
@@ -210,8 +213,14 @@
 				data() {
 					return {
 						parentPopup: this.showPopup,
-						showBox: true
+						showBox: true,
+						num: 0
 					};
+				},
+				watch: {
+					num(newVal, oldVal) {
+						console.log(newVal, oldVal);
+					}
 				},
 				methods: {
 					parentMethod() {
@@ -220,6 +229,7 @@
 					HandleClose() {
 						this.showBox = false;
 						this.$emit("update", this.showBox);
+						this.num = 0;
 					}
 				}
 			});

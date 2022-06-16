@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// H5 BeanH5初始化
+			function BeanGoGetToken() {
+				return axios({
+					method: "post",
+					url: "../../api/E20220412_H5/BeanGoGetToken"
+				})
+					.then((res) => {
+						let { ResultData } = res.data.Data;
+						store.dispatch("bgoInit", ResultData);
+					})
+					.then(() => {
+						try {
+							let { BGO_Token, BGO_OfficialAccountID } = store.state.BGO;
+							BGO.init({
+								token: BGO_Token,
+								official_account_id: BGO_OfficialAccountID
+							});
+							return true;
+						} catch (err) {
+							throw Error("Error:BGO INIT");
+						}
+					});
+			}
+			// 初始化
+			function SenderInit() {
+				return new Promise((resolve, reject) => {
+					try {
+						const sender = beanfunWebTraceSDK.init({
+							BUID: "GAMA-bf-01",
+							property: "beanfun",
+							sourceProperty: "gtw"
+						});
+						resolve(sender);
+					} catch (err) {
+						throw new Error("Error:beanfunWebTraceSDK - init");
+					}
+				});
+			}
+
+			// 頁面出現時
+			function PageViewEvent({ page = "", tab = "" } = {}) {
+				return new Promise((resolve, reject) => {
+					try {
+						const result = sender.passEvent(
+							new beanfunWebTraceSDK.events.PageViewEvent({
+								eventId: "4100",
+								event: "gtw_events_page_view",
+								pageInfo: { page, tab }
+							})
+						);
+						resolve(result);
+					} catch (e) {
+						resolve("Error:beanfunWebTraceSDK: " + tab);
+					}
+				});
+			}
+
+			// 按鈕點擊
+			function ClickEvent({ page = "", tab = "", name = "" } = {}) {
+				return new Promise((resolve, reject) => {
+					try {
+						const result = sender.passEvent(
+							new beanfunWebTraceSDK.events.ClickEvent({
+								eventId: "4101",
+								event: "gtw_events_item_click",
+								pageInfo: { page, tab },
+								clickInfo: { type: "btn", name }
+							})
+						);
+						resolve(result);
+					} catch (e) {
+						resolve("Error:beanfunWebTraceSDK: " + tab);
+					}
+				});
+			}
+
+			const getDetails = async () => {
+				const p1 = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+				const p2 = await fetch("https://jsonplaceholder.typicode.com/todos/2");
+				const [a1, a2] = await Promise.all([p1, p2]);
+				return { a1, a2 };
+			};
+			getDetails().then((res) => {
+				console.log(res);
+			});
+		</script>
+	</body>
+</html>
