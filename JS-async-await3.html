@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function GetUserId() {
+				return new Promise((resolve, reject) => {
+					fetch("https://jsonplaceholder.typicode.com/users")
+						.then((res) => {
+							return res.json();
+						})
+						.then((res) => {
+							setTimeout(() => {
+								resolve(res[0].id);
+							}, 3000);
+						});
+				});
+			}
+			async function GetUserAPI() {
+				// const res = await fetch("https://jsonplaceholder.typicode.com/users");
+				// const users = await res.json();
+				// const userId = users[0].id;
+				const userId = await GetUserId();
+				const userRes = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+				const usersDatas = await userRes.json();
+				const usersData = usersDatas;
+				return usersData;
+			}
+
+			GetUserAPI().then((res) => {
+				console.log(res);
+			});
+		</script>
+	</body>
+</html>

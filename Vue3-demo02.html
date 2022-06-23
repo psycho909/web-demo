@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{count}}
+			<child @adx="add"></child>
+			<button type="button" class="btn" @click="add">add</button>
+		</div>
+		<script type="module">
+			import until from "./Vue3-demo02.js";
+			const { ref, watchEffect } = Vue;
+			const child = {
+				template: `
+                    <div>
+                        <button type="button" class="btn" @click="adx">child add</button>
+                    </div>
+                `,
+				setup(props, ctx) {
+					function adx() {
+						ctx.emit("adx", "add");
+					}
+					return {
+						adx
+					};
+				}
+			};
+			var app = Vue.createApp({
+				components: {
+					child
+				},
+				setup(props, ctx) {
+					const count = ref(0);
+					const { loadingShow } = until();
+					watchEffect(() => {
+						console.log(count.value);
+					});
+					function add(res) {
+						count.value++;
+						console.log(res);
+					}
+					loadingShow();
+					return {
+						add,
+						count
+					};
+				},
+				data() {
+					return {};
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

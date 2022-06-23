@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 100px;
+				height: 300px;
+			}
+			.element {
+				width: 100px;
+				height: 300px;
+				background-color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="element"></div>
+		<script>
+			// callback函數的參數(entires)是一個數組，每個成員都是一個IntersectionObserverEntry對象
+
+			// time: 可見性發生變化的時間
+			// target: 被觀察的目標元素
+			// rootBounds: 根元素的區域訊息，getBoundingClientRect()的返回值，如果沒有根元素(即返回window)，則返回null
+			// boundingClientRect: 目標元素的區域訊息
+			// intersectionRect: 目標元素與視口(或根元素)的交叉區域訊息
+			// intersectionRatio: 目標元素的可見比例，即IntersectionRect占boundingClientRect的比例，完全可見時為1，完全不可見時小於或等於0
+			function callback(entires, observer) {
+				entires.forEach((ob) => {
+					if (ob.isIntersecting) {
+						console.log("observer");
+						observer.unobserve(ob.target);
+					}
+				});
+			}
+
+			// options可設置以下屬性
+			/*
+			 * threshold屬性決了什麼時候處發回調函數，他是一個數組
+			 * root rootMargin 使用頻率較低
+			 */
+			// 當目標元素 0% 25% 50% 75% 100% 可見時，會觸發回調函數
+			var options = {
+				threshold: [1]
+			};
+
+			// 創建觀察實例
+			var observer = new IntersectionObserver(callback, options);
+
+			// 開始觀察
+			observer.observe(document.querySelector(".element"));
+
+			// 停止觀察
+			// observer.unobserve(element);
+
+			// 關閉觀察
+			// observer.disconnect();
+		</script>
+	</body>
+</html>

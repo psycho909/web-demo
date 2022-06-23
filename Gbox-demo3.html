@@ -14,16 +14,23 @@
 				margin: 0;
 				box-sizing: border-box;
 			}
+			.default .gbox-content {
+				height: calc(2000 / 768 * 100vw);
+			}
 			.gbox-wrap {
 				width: 100%;
 				max-width: 100vw;
+				margin-top: calc(156 / 768 * 100vw);
 			}
 		</style>
 	</head>
 
 	<body>
 		<script>
-			$.gbox.open("OPEN");
+			$.gbox.open("OPEN", {
+				addClass: "default",
+				hasCloseBtn: true
+			});
 		</script>
 	</body>
 </html>

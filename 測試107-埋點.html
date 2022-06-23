@@ -83,16 +83,18 @@
 					}
 				});
 			}
-
+			console.log("123");
 			const getDetails = async () => {
 				const p1 = await fetch("https://jsonplaceholder.typicode.com/todos/1");
 				const p2 = await fetch("https://jsonplaceholder.typicode.com/todos/2");
 				const [a1, a2] = await Promise.all([p1, p2]);
 				return { a1, a2 };
 			};
+			console.log("321");
 			getDetails().then((res) => {
 				console.log(res);
 			});
+			console.log(543);
 		</script>
 	</body>
 </html>
