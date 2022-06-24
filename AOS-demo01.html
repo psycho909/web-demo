@@ -1,58 +1,56 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<style>
+			#app {
+				height: 2000px;
+				position: relative;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <style>
-        #app {
-            height: 2000px;
-            position: relative;
-        }
+			.box {
+				width: 300px;
+				height: 300px;
+				background-color: red;
+				position: absolute;
+			}
+			.box:nth-of-type(1) {
+				top: 200px;
+				background-color: red;
+			}
+			.box:nth-of-type(2) {
+				top: 600px;
+				background-color: blue;
+			}
+			.box:nth-of-type(3) {
+				top: 1200px;
+				background-color: green;
+			}
+			.box.In {
+				background-color: black;
+			}
+		</style>
+	</head>
 
-        .box {
-            width: 300px;
-            height: 300px;
-            background-color: red;
-            position: absolute;
-            
-        }
-        .box:nth-of-type(1){
-            top: 200px;
-            background-color: red;
-        }
-        .box:nth-of-type(2){
-            top: 600px;
-            background-color: blue;
-        }
-        .box:nth-of-type(3){
-            top: 1200px;
-            background-color: green;
-        }
-        .box.In{
-            background-color: black;
-        }
-    </style>
-</head>
+	<body>
+		<div id="app">
+			<div class="box" data-aos="fade-in" data-aos-id="super-duper1"></div>
+			<div class="box" data-aos="fade-in" data-aos-id="super-duper2"></div>
+			<div class="box" data-aos="fade-up" data-aos-anchor-placement="top-center" data-aos-id="super-duper3"></div>
+		</div>
+		<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+		<script>
+			AOS.init();
+			document.addEventListener("aos:in:super-duper3", function (e) {
+				console.log("animated in", e.detail);
+			});
 
-<body>
-    <div id="app">
-        <div class="box" data-aos="fade-in" data-aos-id="super-duper1"></div>
-        <div class="box" data-aos="fade-in" data-aos-id="super-duper2"></div>
-        <div class="box" data-aos="fade-in" data-aos-id="super-duper3"></div>
-    </div>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        document.addEventListener('aos:in:super-duper3', function(e){
-            console.log('animated in', e.detail);
-        });
-        document.addEventListener('aos:out:super-duper3', function(e){
-            console.log('animated out', e.detail);
-        });
-    </script>
-</body>
-
+			document.addEventListener("aos:out", function (e) {
+				console.log("animated out", e.detail);
+			});
+		</script>
+	</body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<style></style>
+	</head>
+	<body>
+		<div id="spinner"></div>
+		<script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+		<script>
+			const spinner = new mojs.Shape({
+				parent: "#spinner",
+				shape: "circle",
+				stroke: "#FC46AD",
+				strokeDasharray: "125, 125",
+				strokeDashoffset: { 0: "-125" },
+				strokeWidth: 4,
+				fill: "none",
+				left: "50%",
+				top: "50%",
+				rotate: { "-90": "270" },
+				radius: 20,
+				isShowStart: true,
+				duration: 2000,
+				easing: "back.in"
+			}).then({
+				rotate: { "-90": "270" },
+				strokeDashoffset: { "-125": "-250" },
+				duration: 3000,
+				easing: "cubic.out"
+			});
+		</script>
+	</body>
+</html>
