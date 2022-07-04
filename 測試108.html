@@ -15,7 +15,7 @@
 							resolve(time);
 						} else {
 							reject("Error:beanfunWebTraceSDK - init");
-							throw Error("Error:beanfunWebTraceSDK - init");
+							// throw Error("Error:beanfunWebTraceSDK - init");
 						}
 					}, time);
 				});
@@ -56,6 +56,10 @@
 				.catch((err) => {
 					console.log("Catch:" + err);
 				});
+
+			Promise.reject("REJECT")
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
 		</script>
 	</body>
 </html>
