@@ -45,7 +45,7 @@
 				}
 			});
 			Vue.use(Pinia.PiniaVuePlugin);
-
+			var pinia = Pinia.createPinia();
 			Vue.component("child", {
 				template: `<div>
                     <div>Child</div>  
@@ -97,7 +97,7 @@
 						list
 					};
 				},
-				pinia: Pinia.createPinia(),
+				pinia,
 				el: "#app"
 			});
 		</script>
