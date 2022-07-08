@@ -16,7 +16,8 @@
 			<div>{{mergeName}}</div>
 			<button type="button" class="add" @click="add">+</button>
 			<hr />
-			<child></child>
+			<child ref="ch"></child>
+			<button type="button" class="add" @click="todo">todo ref</button>
 		</div>
 
 		<script>
@@ -24,6 +25,7 @@
 				state: () => {
 					return {
 						count: 0,
+						min: 0,
 						title: "User",
 						list: []
 					};
@@ -39,26 +41,38 @@
 						const data = await res.json();
 						this.list = data.results;
 					},
+					sayHi() {
+						++this.min;
+					},
 					increment() {
-						this.count++;
+						++this.count;
+						this.sayHi();
 					}
 				}
 			});
 			Vue.use(Pinia.PiniaVuePlugin);
 			var pinia = Pinia.createPinia();
 			Vue.component("child", {
-				template: `<div>
+				template: `
+				<div>
                     <div>Child</div>  
                     <div>{{count}} = {{title}}</div>
 			        <div>{{list}}</div>  
-                </div>`,
-				setup() {
+					<div>{{min}}</div>
+				</div>
+				`,
+				setup(props, context) {
 					var useStore = useCounterStore();
-					var { count, title, list } = Pinia.storeToRefs(useStore);
+					var { count, title, list, min } = Pinia.storeToRefs(useStore);
+					function sayHi() {
+						console.log("hello");
+					}
+					context.expose({ sayHi });
 					return {
 						count,
 						title,
-						list
+						list,
+						min
 					};
 				}
 			});
@@ -81,6 +95,9 @@
 						});
 						useStore.loadData();
 					}
+					// function todo() {
+					// 	console.log(this.$refs.ch);
+					// }
 					Vue.watchEffect(function () {
 						console.log(msg.value);
 					});
@@ -98,7 +115,12 @@
 					};
 				},
 				pinia,
-				el: "#app"
+				el: "#app",
+				methods: {
+					todo() {
+						this.$refs.ch.sayHi();
+					}
+				}
 			});
 		</script>
 	</body>

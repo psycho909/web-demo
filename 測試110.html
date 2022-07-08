@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div id="div" data-obj="213">DIV</div>
+		<button id="add">add</button>
+		<button id="btn">stop</button>
+		<script>
+			var target = document.querySelector("#div");
+			let myRecords;
+			var observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					console.log(mutation);
+				});
+			});
+			var config = { attributes: true, childList: true, characterData: true };
+			observer.observe(target, config);
+
+			document.querySelector("#add").addEventListener("click", function () {
+				target.insertAdjacentHTML("beforeend", "<p>123</p>");
+				myRecords = observer.takeRecords();
+			});
+			document.querySelector("#btn").addEventListener("click", function () {
+				observer.disconnect();
+				if (myRecords) {
+					console.log(myRecords);
+				}
+			});
+			`
+			A:槓鈴划船 B:cable划船 C:滑輪下拉 D:機器 E:機器 F:機器
+			A:平胸臥推 B:上胸臥推 C:機器平胸臥推 D:機器上胸臥推 E:夾胸機 F:cable下胸夾
+			A:哈克深蹲 5 B:RDL 5 C:分腿蹲 5 D:腿推機 5 E:腿伸機 5 F:腿後側機 5
+
+			推 A:平胸臥推 B:上胸臥推 C:站姿肩推 D:站姿飛鳥 E:二頭 F:三頭 G:單槓
+
+			拉 A:硬舉 B:滑輪下拉 C:划船 D:cable肩膀 E:二頭 F:三頭  G:單槓
+
+			肩推 飛鳥 cable肩
+			二頭
+			三頭
+			腹部
+			引體向上機
+			`;
+		</script>
+	</body>
+</html>
