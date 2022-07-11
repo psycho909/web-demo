@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="js/echarts.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#main {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main"></div>
+		<script>
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById("main"));
+
+			// 指定图表的配置项和数据
+			var option = {
+				// hover
+				tooltip: {
+					trigger: "axis",
+					axisPointer: {
+						// Use axis to trigger tooltip
+						type: "shadow" // 'shadow' as default; can also be 'line' or 'shadow'
+					}
+				},
+				// 設置每個bar產生的name label
+				legend: {
+					// 方向
+					orient: "vertical",
+					// 位置
+					right: 10,
+					// 位置
+					top: "center"
+				},
+				// 設置圖表的位置
+				grid: {
+					left: "3%",
+					right: "4%",
+					bottom: "3%",
+					containLabel: true
+				},
+				yAxis: {
+					type: "value"
+				},
+				xAxis: {
+					type: "category",
+					data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+				},
+				series: [
+					{
+						data: [10, 22, 28, 43, 49],
+						type: "bar",
+						stack: "x",
+						name: "Video Ad",
+						label: {
+							show: true
+						}
+					},
+					{
+						data: [5, 4, 3, 5, 10],
+						type: "bar",
+						stack: "x"
+					}
+				]
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+
+			window.addEventListener("resize", myChart.resize);
+		</script>
+	</body>
+</html>

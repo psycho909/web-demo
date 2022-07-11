@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function P(time, x = true) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						if (x) {
+							resolve(time);
+						} else {
+							reject("Error:beanfunWebTraceSDK - init");
+							// throw Error("Error:beanfunWebTraceSDK - init");
+						}
+					}, time);
+				});
+			}
+
+			// P(1000)
+			// 	.then((res) => {
+			// 		console.log(res);
+			// 		return P(2000);
+			// 	})
+			// 	.then((res) => {
+			// 		console.log(res);
+			// 		return P(3000, false);
+			// 	})
+			// 	.then((res) => {
+			// 		console.log(res);
+			// 	})
+			// 	.catch((err) => {
+			// 		throw new Error(err);
+			// 	})
+			// 	.finally(() => {
+			// 		console.log("finally");
+			// 	});
+
+			async function aP() {
+				var [p1, p2, p3] = await Promise.allSettled([P(1000), P(1500), P(2000, false)]);
+				return {
+					p1,
+					p2,
+					p3
+				};
+			}
+			aP()
+				.then((res) => {
+					console.log(res);
+					return reject("Error");
+				})
+				.catch((err) => {
+					console.log("Catch:" + err);
+				});
+
+			Promise.reject("REJECT")
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
+		</script>
+	</body>
+</html>

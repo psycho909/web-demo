@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.0/vue.min.js"></script>
+		<script src="https://unpkg.com/vue-demi@0.13.1/lib/index.iife.js"></script>
+		<script src="https://unpkg.com/pinia@2.0.14/dist/pinia.iife.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{msg}} - {{user.first}} - {{user.last}}</div>
+			<div>{{mergeName}}</div>
+			<button type="button" class="add" @click="add">+</button>
+			<hr />
+			<child ref="ch"></child>
+			<button type="button" class="add" @click="todo">todo ref</button>
+		</div>
+
+		<script>
+			var useCounterStore = Pinia.defineStore("main", {
+				state: () => {
+					return {
+						count: 0,
+						min: 0,
+						title: "User",
+						list: []
+					};
+				},
+				getters: {
+					totalUser(state) {
+						return state.list.length;
+					}
+				},
+				actions: {
+					async loadData() {
+						const res = await fetch("https://randomuser.me/api/?results=1");
+						const data = await res.json();
+						this.list = data.results;
+					},
+					sayHi() {
+						++this.min;
+					},
+					increment() {
+						++this.count;
+						this.sayHi();
+					}
+				}
+			});
+			Vue.use(Pinia.PiniaVuePlugin);
+			var pinia = Pinia.createPinia();
+			Vue.component("child", {
+				template: `
+				<div>
+                    <div>Child</div>  
+                    <div>{{count}} = {{title}}</div>
+			        <div>{{list}}</div>  
+					<div>{{min}}</div>
+				</div>
+				`,
+				setup(props, context) {
+					var useStore = useCounterStore();
+					var { count, title, list, min } = Pinia.storeToRefs(useStore);
+					function sayHi() {
+						console.log("hello");
+					}
+					context.expose({ sayHi });
+					return {
+						count,
+						title,
+						list,
+						min
+					};
+				}
+			});
+
+			var app = new Vue({
+				setup: function () {
+					var useStore = useCounterStore();
+					var { count, title, list } = Pinia.storeToRefs(useStore);
+					var msg = Vue.ref(0);
+					var user = Vue.reactive({
+						first: "Ching",
+						last: "Chen"
+					});
+					function add() {
+						++msg.value;
+						user.first = user.first.toUpperCase();
+						useStore.increment();
+						useStore.$patch((state) => {
+							state.title = "Title";
+						});
+						useStore.loadData();
+					}
+					// function todo() {
+					// 	console.log(this.$refs.ch);
+					// }
+					Vue.watchEffect(function () {
+						console.log(msg.value);
+					});
+					var mergeName = Vue.computed(function () {
+						return user.first + " " + user.last;
+					});
+					return {
+						msg,
+						add,
+						user,
+						mergeName,
+						count,
+						title,
+						list
+					};
+				},
+				pinia,
+				el: "#app",
+				methods: {
+					todo() {
+						this.$refs.ch.sayHi();
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

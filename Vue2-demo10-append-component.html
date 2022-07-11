@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<style></style>
+	</head>
+	<body>
+		<div id="app">
+			<div ref="abc"></div>
+			<button type="button" class="btn" @click="insertChild">插入</button>
+		</div>
+		<script>
+			var child = Vue.component("child", {
+				template: `<div>
+					<div>I am Child {{count}}</div>
+					<button type="button" class="btn" @click="add">add</button>
+				</div>`,
+				data() {
+					return {
+						count: 1
+					};
+				},
+				methods: {
+					add() {
+						++this.count;
+					}
+				}
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					age: 1
+				},
+				computed: {},
+				methods: {
+					insertChild() {
+						var abcRef = this.$refs.abc;
+						var insertComponent = Vue.extend(child);
+						var instance = new insertComponent();
+						instance.$mount();
+						abcRef.appendChild(instance.$el);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

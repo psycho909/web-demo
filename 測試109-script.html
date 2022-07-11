@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div class="rules_tab">
+			<a id="introduction" class="tabs active" href="javascript:;" data-tracking="click" data-event_id="211" data-info='{"name": "intro"}'>活動公告</a>
+			<a id="event_rules" class="tabs" href="javascript:;" data-tracking="click" data-event_id="211" data-info='{"name": "rules"}'>大橘夜市任務</a>
+			<a id="notice" class="tabs" href="javascript:;" data-tracking="click" data-event_id="211" data-info='{"name": "notice"}'>注意事項</a>
+		</div>
+		<script src="./測試109-script0.js"></script>
+		<script>
+			$(".rules_tab a").on("click", function () {
+				$(this).addClass("active").siblings().removeClass("active");
+			});
+		</script>
+	</body>
+</html>

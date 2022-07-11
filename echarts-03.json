@@ -1,0 +1,15 @@
+{
+	"xAxis": {
+		"type": "category",
+		"data": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+	},
+	"yAxis": {
+		"type": "value"
+	},
+	"series": [
+		{
+			"data": [200, 200, 200, 200, 200, 200, 200],
+			"type": "bar"
+		}
+	]
+}

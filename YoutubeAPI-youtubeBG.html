@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <style>
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            body{
-                overflow-x: hidden;
-            }
-            .videobox {
-                position: relative;
-                width: 1920px;
-                height: 1080px;
-                text-align: center;
-                pointer-events: none;
-                /* margin-top: -10%; */
-            }
-            #section1 {
-                position: relative;
-                z-index: 1;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="section1">
-            <div id="player" class="videobox"></div>
-        </div>
-
-        <script>
-            var tag = document.createElement('script');
-            tag.src = "http://www.youtube.com/player_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            var player;
-            function onYouTubeIframeAPIReady() {
-                player = new YT.Player('player', {
-                    // height: '1080',
-                    // width: '1090',
-                    videoId: '3hpzzOktyX0',
-                    playerVars:{
-                        controls:0,
-                        loop:1,
-                        modestbranding:1,
-                        fs:0,  // 顯示全螢幕按鈕
-                        cc_load_policty: 0, // 隱藏字幕
-                        iv_load_policy: 3, // 隱藏影片註解
-                        autohide: 0  // 播放影片時隱藏影片控制列
-                    },
-                    events: {
-                        onReady: function(e){
-                            e.target.playVideo();
-                            e.target.mute();
-                        },
-                        onStateChange:function(e){
-                            if (e.data === YT.PlayerState.ENDED) {
-                                player.playVideo(); 
-                            }
-                        }
-                    }
-                })
-            }
-        </script>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				overflow-x: hidden;
+			}
+			.videobox {
+				position: relative;
+				width: 1920px;
+				height: 1080px;
+				text-align: center;
+				pointer-events: none;
+				/* margin-top: -10%; */
+			}
+			#section1 {
+				position: relative;
+				z-index: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="section1">
+			<div id="player" class="videobox"></div>
+		</div>
+		<!-- <script src="js/iframe_api.js"></script> -->
+		<script></script>
+		<script>
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			var player;
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player("player", {
+					// height: '1080',
+					// width: '1090',
+					videoId: "J2wzLHJWLbs",
+					playerVars: {
+						controls: 0,
+						loop: 1,
+						modestbranding: 1,
+						fs: 0, // 顯示全螢幕按鈕
+						cc_load_policty: 0, // 隱藏字幕
+						iv_load_policy: 3, // 隱藏影片註解
+						autohide: 0 // 播放影片時隱藏影片控制列
+					},
+					events: {
+						onReady: function (e) {
+							e.target.playVideo();
+							e.target.mute();
+						},
+						onStateChange: function (e) {
+							if (e.data === YT.PlayerState.ENDED) {
+								player.playVideo();
+							}
+						}
+					}
+				});
+			}
+		</script>
+	</body>
 </html>
