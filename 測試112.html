@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div id="value">0</div>
+		<button type="button" class="add">add</button>
+		<script src="https://unpkg.com/redux@4.2.0/dist/redux.js"></script>
+		<script>
+			let initialState = {
+				value: 0
+			};
+			function counterReducer(state = initialState, action) {
+				switch (action.type) {
+					case "counter/incremented":
+						return { value: state.value + 1 };
+					case "counter/decremented":
+						return { value: state.value - 1 };
+					default:
+						return state;
+				}
+			}
+			var { createStore } = window.Redux;
+			let store = createStore(counterReducer);
+			store.subscribe(() => {
+				$("#value").html(store.getState().value);
+			});
+
+			$(".add").on("click", function () {
+				store.dispatch({ type: "counter/incremented" });
+			});
+		</script>
+	</body>
+</html>
