@@ -21,13 +21,14 @@
 			let mList = document.querySelector("#myList");
 			let field = document.querySelector("#field");
 			let input = document.querySelector("#input");
+			let body = document.querySelector("body");
 			let options = {
 				childList: true,
 				attributes: true,
 				characterData: true,
-				subtree: false,
-				attributeOldValue: false,
-				characterDataOldValue: false,
+				subtree: true
+				// attributeOldValue: true,
+				// characterDataOldValue: true
 			};
 			let observer = new MutationObserver(mCallback);
 
@@ -40,10 +41,10 @@
 					}
 				}
 			}
-			observer.observe(input, options);
+			observer.observe(mList, options);
 
 			document.querySelector("#btn").addEventListener("click", () => {
-				mList.insertAdjacentHTML("beforeend", "<li>Hello</li>");
+				mList.insertAdjacentHTML("beforeend", "<li class='hello'>Hello</li>");
 			});
 		</script>
 	</body>
