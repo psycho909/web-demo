@@ -10,7 +10,6 @@
   background-color: #dddddd;
   position: relative;
 }
-
 .box .close {
   position: absolute;
   width: 30px;
@@ -22,13 +21,12 @@
   cursor: pointer;
 }
 
-.typea.box, .typeb.box {
+.typeb.box, .typea.box {
   width: 31.25vw;
   height: 200px;
 }
-
 @media screen and (max-width: 750px) {
-  .typea.box, .typeb.box {
+  .typeb.box, .typea.box {
     width: 80vw;
   }
 }
@@ -46,4 +44,19 @@
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
   background-color: red;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+}
+@media screen and (max-width: 768px) {
+  .box {
+    background-color: #000;
+  }
+}
+@media screen and (min-width: 768px) {
+  .box {
+    background-color: #000;
+  }
 }
