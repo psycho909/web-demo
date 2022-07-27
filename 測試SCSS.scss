@@ -45,3 +45,20 @@
 		background-color: red;
 	}
 }
+
+@mixin media() {
+	$breakpoint: 768px;
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+	@media screen and (min-width: $breakpoint) {
+		@content;
+	}
+}
+.box {
+	width: 100px;
+	height: 100px;
+	@include media {
+		background-color: #000;
+	}
+}

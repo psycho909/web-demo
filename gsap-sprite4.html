@@ -20,6 +20,7 @@
 			}
 
 			.character {
+<<<<<<< HEAD
 				background-image: url("./images/blockSprite.png");
 				/* width: calc(800 / 1920 * 100vw);
 				height: calc(800 / 1920 * 100vw); */
@@ -44,6 +45,74 @@
 				}
 				to {
 					background-position-x: -1000%;
+=======
+				background-image: url("./images/character-1-ani-pc.png");
+				width: calc(800 / 1920 * 100vw);
+				height: calc(800 / 1920 * 100vw);
+				/* width: 800px;
+				height: 800px; */
+				background-size: calc(36000 / 1920 * 100vw) calc(800 / 1920 * 100vw);
+				background-position-x: 0%;
+				background-repeat: no-repeat;
+				animation: Sprite 1.5s steps(45) infinite;
+			}
+			.btn {
+				background: url("./images/btn-block.png") no-repeat 0 0%;
+				width: calc(218 / 1920 * 100vw);
+				height: calc(146 / 1920 * 100vw);
+				/* width: 800px;
+				height: 800px; */
+				background-size: 100%;
+				animation: Sprite2 1.5s steps(8) infinite;
+			}
+			@keyframes Sprite {
+				0% {
+					background-position-x: 0%;
+				}
+				100% {
+					background-position-x: calc(-36000 / 1920 * 100vw);
+				}
+			}
+			@keyframes Sprite2 {
+				0% {
+					background-position: 0% 0%;
+				}
+				100% {
+					background-position: 0% 100%;
+				}
+			}
+			/* .parent {
+				position: relative;
+				width: 70%;
+				margin: -10% auto 0 auto;
+			}
+
+			.parent:before {
+				content: "";
+				display: block;
+				padding-top: 61.37%;
+			} */
+
+			.ryu {
+				/* position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0; */
+				width: calc(435 / 1920 * 100vw);
+				height: calc((12282 / 45) / 1920 * 100vw);
+				background: url("http://bennet.org/images/codepen/ryu-sprite-demo.png") no-repeat 0 0%;
+				background-size: 100%;
+				animation: sprite 3.5s steps(45) infinite;
+			}
+
+			@keyframes sprite {
+				from {
+					background-position: 0 0%;
+				}
+				to {
+					background-position: 0 100%;
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 				}
 			}
 		</style>
@@ -51,11 +120,22 @@
 	<body>
 		<div id="app">
 			<div class="character"></div>
+<<<<<<< HEAD
 			<div class="character2"></div>
 		</div>
 		<script>
 			var M1 = gsap.timeline();
 			M1.to(".character", { repeat: -1, duration: 1.6, backgroundPosition: "-1000%", ease: SteppedEase.config(10) });
+=======
+			<div class="btn"></div>
+			<div class="parent">
+				<div class="ryu"></div>
+			</div>
+		</div>
+		<script>
+			var M1 = gsap.timeline();
+			// M1.to(".character", { repeat: -1, duration: 1.6, backgroundPositionX: "-36000px", ease: SteppedEase.config(45) });
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 		</script>
 	</body>
 </html>
