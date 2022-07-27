@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/CustomEase.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.card {
+				width: 100px;
+				height: 150px;
+				background-color: #000;
+				border-radius: 16px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: calc(-100px / 2);
+				margin-top: calc(-150px / 2);
+			}
+			#canvas {
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="card"></div>
+		<script>
+			function Anim(offsetX, n) {
+				var dig = (Math.PI / 15) * n;
+				var x = Math.sin(n * dig);
+				var y = Math.cos(n * dig);
+				gsap.to(".card", {
+					x: x,
+					y: y,
+					rotate: "1rad",
+					ease: CustomEase.create("custom", "M0,0 C0.606,0 0.402,1 1,1 ")
+				});
+			}
+			Anim(160, 3);
+		</script>
+	</body>
+</html>
