@@ -20,6 +20,32 @@
 			}
 
 			.character {
+<<<<<<< HEAD
+				background-image: url("./images/blockSprite.png");
+				/* width: calc(800 / 1920 * 100vw);
+				height: calc(800 / 1920 * 100vw); */
+				width: 218px;
+				height: 146px;
+				background-size: 1000%;
+				opacity: 1;
+			}
+			.character2 {
+				background-image: url("./images/blockSprite.png");
+				/* width: 218px;
+				height: 146px; */
+				width: calc(218 / 1920 * 100vw);
+				height: calc(146 / 1920 * 100vw);
+				background-size: 1000%;
+				opacity: 1;
+				animation: drive 1s steps(10, end) infinite;
+			}
+			@keyframes drive {
+				from {
+					background-position-x: 0px;
+				}
+				to {
+					background-position-x: -1000%;
+=======
 				background-image: url("./images/character-1-ani-pc.png");
 				width: calc(800 / 1920 * 100vw);
 				height: calc(800 / 1920 * 100vw);
@@ -86,6 +112,7 @@
 				}
 				to {
 					background-position: 0 100%;
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 				}
 			}
 		</style>
@@ -93,6 +120,13 @@
 	<body>
 		<div id="app">
 			<div class="character"></div>
+<<<<<<< HEAD
+			<div class="character2"></div>
+		</div>
+		<script>
+			var M1 = gsap.timeline();
+			M1.to(".character", { repeat: -1, duration: 1.6, backgroundPosition: "-1000%", ease: SteppedEase.config(10) });
+=======
 			<div class="btn"></div>
 			<div class="parent">
 				<div class="ryu"></div>
@@ -101,6 +135,7 @@
 		<script>
 			var M1 = gsap.timeline();
 			// M1.to(".character", { repeat: -1, duration: 1.6, backgroundPositionX: "-36000px", ease: SteppedEase.config(45) });
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 		</script>
 	</body>
 </html>

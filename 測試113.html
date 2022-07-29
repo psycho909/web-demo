@@ -6,6 +6,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+<<<<<<< HEAD
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/CustomEase.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.card {
+				width: 100px;
+				height: 150px;
+				background-color: #000;
+				border-radius: 16px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: calc(-100px / 2);
+				margin-top: calc(-150px / 2);
+			}
+			#canvas {
+				width: 300px;
+				height: 300px;
+=======
 		<style>
 			.parent {
 				width: 300px;
@@ -21,10 +43,27 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 			}
 		</style>
 	</head>
 	<body>
+<<<<<<< HEAD
+		<div class="card"></div>
+		<script>
+			function Anim(offsetX, n) {
+				var dig = (Math.PI / 15) * n;
+				var x = Math.sin(n * dig);
+				var y = Math.cos(n * dig);
+				gsap.to(".card", {
+					x: x,
+					y: y,
+					rotate: "1rad",
+					ease: CustomEase.create("custom", "M0,0 C0.606,0 0.402,1 1,1 ")
+				});
+			}
+			Anim(160, 3);
+=======
 		<div class="parent"><div class="box"></div></div>
 
 		<script>
@@ -43,6 +82,7 @@
 				// 	duration: 0.2
 				// });
 			}
+>>>>>>> 2621602fdf1dca259b20640285586d2a7ffee4fe
 		</script>
 	</body>
 </html>
