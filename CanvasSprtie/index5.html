@@ -45,16 +45,16 @@
 			<canvas class="canvas canvas-1" width="800" height="800"></canvas>
 		</div>
 		<script>
-			function CanvasSprite(target, fps, path) {
+			function CanvasSprite(target, step, speed) {
 				this.imgArr = [];
 				this.index = 0;
 				this.loop = false;
 				this.target = target;
 				this.el = null;
-				this.fps = fps;
+				this.step = step;
 				this.width = 0;
 				this.height = 0;
-				this.speed = fps / 2;
+				this.speed = speed || step / 2;
 				this.PreLoad(path);
 				this.Init();
 			}
@@ -64,29 +64,46 @@
 			CanvasSprite.prototype.PreLoad = function (path) {
 				var _this = this;
 				var count = 0;
-				for (var i = 0; i < this.fps; i++) {
-					var name = ("00" + i).slice(-3);
+				for (var i = 0; i < this.step; i++) {
+					var name = i;
 					this.imgArr[i] = new Image();
 					this.imgArr[i].src = path + name + ".png";
 					this.imgArr[i].onload = function () {
 						_this.width = this.width;
 						_this.height = this.height;
 						++count;
-						if (count == _this.fps) {
+						if (count == _this.step) {
 							_this.Draw(0);
 						}
 					};
 				}
 			};
+			CanvasSprite.prototype.Run = function (callback) {
+				clearInterval(this.loop);
+				var _this = this;
+				this.loop = setInterval(function () {
+					if (_this.index > _this.step - 1) {
+						_this.index = 0;
+						clearInterval(_this.loop);
+						if (callback) {
+							callback();
+						}
+					}
+					_this.Draw(_this.index);
+
+					_this.index++;
+				}, this.speed);
+			};
 			CanvasSprite.prototype.Loop = function () {
 				clearInterval(this.loop);
-				this.loop = setInterval(() => {
-					if (this.index > this.fps - 1) {
-						this.index = 0;
+				var _this = this;
+				this.loop = setInterval(function () {
+					if (_this.index > _this.step - 1) {
+						_this.index = 0;
 					}
-					this.Draw(this.index);
+					_this.Draw(_this.index);
 
-					this.index++;
+					_this.index++;
 				}, this.speed);
 			};
 			CanvasSprite.prototype.Stop = function () {
