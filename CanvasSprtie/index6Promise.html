@@ -109,6 +109,22 @@
 					}
 				});
 			};
+			CanvasSprite.prototype.Run = function (callback) {
+				clearInterval(this.loop);
+				var _this = this;
+				this.loop = setInterval(function () {
+					if (_this.index > _this.step - 1) {
+						_this.index = 0;
+						clearInterval(_this.loop);
+						if (callback) {
+							callback();
+						}
+					}
+					_this.Draw(_this.index);
+
+					_this.index++;
+				}, this.speed);
+			};
 			CanvasSprite.prototype.Loop = function () {
 				clearInterval(this.loop);
 				this.loop = setInterval(() => {
