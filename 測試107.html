@@ -86,6 +86,10 @@
 	<body>
 		<div id="app">
 			<div>{{content}}</div>
+			<div>
+				<div>top:<input type="checkbox" name="top" v-model="fixed.top" /></div>
+				<div>left:<input type="checkbox" name="left" v-model="fixed.left" /></div>
+			</div>
 			<button type="button" class="add" @click="add('foo')">Add Foo</button>
 			<button type="button" class="add" @click="add('heading')">Add Heading</button>
 			<button type="button" class="add" @click="add('card')">Add Card</button>
@@ -302,6 +306,10 @@
 				components,
 				data() {
 					return {
+						fixed: {
+							top: true,
+							left: true
+						},
 						content: {
 							body: [
 								{
@@ -323,8 +331,8 @@
 					},
 					addFixed() {
 						var uid = Math.floor(Math.random() * 100);
-						var left = false;
-						var top = false;
+						var left = this.fixed.left;
+						var top = this.fixed.top;
 						this.content.body.push({ component: "fixed", uid, left, top });
 					},
 					remove(data) {
