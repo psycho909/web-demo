@@ -75,6 +75,12 @@
 				height: 100%;
 				object-fit: cover;
 			}
+			.fixed {
+				width: 300px;
+				border: 1px solid #000;
+				background-color: #fff;
+				position: fixed;
+			}
 		</style>
 	</head>
 	<body>
@@ -84,8 +90,10 @@
 			<button type="button" class="add" @click="add('heading')">Add Heading</button>
 			<button type="button" class="add" @click="add('card')">Add Card</button>
 			<button type="button" class="add" @click="add('swiper')">Add Swiper</button>
+			<button type="button" class="add" @click="addFixed">Add Fixed</button>
 			<template v-for="block in content.body">
-				<component :is="block.component" :uid="block.uid" @remove="remove" @up="up" @down="down"></component>
+				<component v-if="block.component == 'fixed'" :is="block.component" :uid="block.uid" :top="block.top" :left="block.left" @remove="remove" @up="up" @down="down"></component>
+				<component v-else :is="block.component" :uid="block.uid" @remove="remove" @up="up" @down="down"></component>
 			</template>
 		</div>
 		<script>
@@ -247,14 +255,51 @@
 					}
 				}
 			};
+			var fixed = {
+				template: `<div class="box fixed" :style="position" :data-uid="uid"><div>Foo {{uid}}</div><div class="btn-group">
+                        <button type="button" class="up" @click="up">up</button>
+                        <button type="button" class="down" @click="down">down</button>
+                        <button type="button" class="remove" @click="remove">remove</button>
+                    </div></div>`,
+				props: ["uid", "top", "left"],
+				mounted() {
+					console.log("mounted");
+				},
+				destroyed() {
+					console.log("destroyed ");
+				},
+				computed: {
+					position() {
+						var top = this.top ? `top:0px;` : `bottom:0px;`;
+						var left = this.left ? `left:0px;` : `right:0px;`;
+						return top + left;
+					}
+				},
+				data() {
+					return {};
+				},
+				methods: {
+					remove(e) {
+						this.$emit("remove", this.uid);
+					},
+					up(e) {
+						this.$emit("up", this.uid);
+					},
+					down(e) {
+						this.$emit("down", this.uid);
+					}
+				}
+			};
+			var components = {
+				foo,
+				heading,
+				card,
+				swiper,
+				fixed
+			};
 			var vm = new Vue({
 				el: "#app",
-				components: {
-					foo,
-					heading,
-					card,
-					swiper
-				},
+				components,
 				data() {
 					return {
 						content: {
@@ -275,6 +320,12 @@
 					add(cpt) {
 						var uid = Math.floor(Math.random() * 100);
 						this.content.body.push({ component: cpt, uid });
+					},
+					addFixed() {
+						var uid = Math.floor(Math.random() * 100);
+						var left = false;
+						var top = false;
+						this.content.body.push({ component: "fixed", uid, left, top });
 					},
 					remove(data) {
 						var _index = this.content.body.findIndex((v, i) => v.uid == data);
