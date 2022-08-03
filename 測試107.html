@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+		<title>Vue 動態 component JSON</title>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				width: 100%;
+				padding: 1rem;
+				position: relative;
+			}
+			.foo {
+				background-color: rgba(255, 238, 0, 0.3);
+				border: 1px solid rgba(255, 238, 0, 1);
+			}
+			.heading {
+				background-color: rgba(0, 238, 255, 0.3);
+				border: 1px solid rgba(0, 238, 255, 1);
+			}
+			.card {
+				background-color: rgba(0, 0, 0, 0.3);
+				border: 1px solid rgba(0, 0, 0, 1);
+			}
+			.btn-group {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			.up {
+			}
+			.down {
+			}
+			.swiper-box {
+				background-color: rgba(81, 255, 125, 0.3);
+			}
+			.swiper {
+				width: 100%;
+				height: 300px;
+			}
+
+			.swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+
+				/* Center slide text vertically */
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-pack: center;
+				-ms-flex-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+			}
+
+			.swiper-slide img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{content}}</div>
+			<button type="button" class="add" @click="add('foo')">Add Foo</button>
+			<button type="button" class="add" @click="add('heading')">Add Heading</button>
+			<button type="button" class="add" @click="add('card')">Add Card</button>
+			<button type="button" class="add" @click="add('swiper')">Add Swiper</button>
+			<template v-for="block in content.body">
+				<component :is="block.component" :uid="block.uid" @remove="remove" @up="up" @down="down"></component>
+			</template>
+		</div>
+		<script>
+			var foo = {
+				template: `<div class="box foo" :data-uid="uid"><div>Foo {{uid}}</div><div class="btn-group">
+                        <button type="button" class="up" @click="up">up</button>
+                        <button type="button" class="down" @click="down">down</button>
+                        <button type="button" class="remove" @click="remove">remove</button>
+                    </div></div>`,
+				props: ["uid"],
+				mounted() {
+					console.log("mounted");
+				},
+				destroyed() {
+					console.log("destroyed ");
+				},
+				methods: {
+					remove(e) {
+						this.$emit("remove", this.uid);
+					},
+					up(e) {
+						this.$emit("up", this.uid);
+					},
+					down(e) {
+						this.$emit("down", this.uid);
+					}
+				}
+			};
+			var heading = {
+				template: `<div class="box heading" :data-uid="uid"><div>Head {{uid}}</div>
+                    <div class="btn-group">
+                        <button type="button" class="up" @click="up">up</button>
+                        <button type="button" class="down" @click="down">down</button>
+                        <button type="button" class="remove" @click="remove">remove</button>
+                    </div>
+                </div>`,
+				props: ["uid"],
+				mounted() {
+					console.log("mounted");
+				},
+				destroyed() {
+					console.log("destroyed ");
+				},
+				methods: {
+					remove(e) {
+						this.$emit("remove", this.uid);
+					},
+					up(e) {
+						this.$emit("up", this.uid);
+					},
+					down(e) {
+						this.$emit("down", this.uid);
+					}
+				}
+			};
+			var card = {
+				template: `<div class="box card" :data-uid="uid"><div>Card {{uid}}</div><div class="btn-group">
+                        <button type="button" class="up" @click="up">up</button>
+                        <button type="button" class="down" @click="down">down</button>
+                        <button type="button" class="remove" @click="remove">remove</button>
+                    </div></div>`,
+				props: ["uid"],
+				mounted() {
+					console.log("mounted");
+				},
+				destroyed() {
+					console.log("destroyed ");
+				},
+				methods: {
+					remove(e) {
+						this.$emit("remove", this.uid);
+					},
+					up(e) {
+						this.$emit("up", this.uid);
+					},
+					down(e) {
+						this.$emit("down", this.uid);
+					}
+				}
+			};
+			var swiper = {
+				template: `
+				<div class="box swiper-box" :data-uid="uid">
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="s in slides">
+								<div class="swiper-carousel-animate-opacity">{{s}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="btn-group">
+                        <button type="button" class="up" @click="up">up</button>
+                        <button type="button" class="down" @click="down">down</button>
+                        <button type="button" class="remove" @click="remove">remove</button>
+                    </div>
+				</div>`,
+				props: ["uid"],
+				data() {
+					return {
+						swiper: null,
+						slides: ["slide 1", "slide 2", "slide 3", "slide 4", "slide 5", "slide 6"],
+						perView: 3
+					};
+				},
+				mounted() {
+					console.log("mounted");
+					this.swiper = new Swiper(".mySwiper", {
+						effect: "carousel",
+						slidesPerView: this.perView,
+						spaceBetween: 30,
+						freeMode: false,
+						on: {
+							beforeInit: function (e) {
+								const s = {
+									watchSlidesProgress: !0,
+									centeredSlides: !0
+								};
+								console.log("beforeInit");
+								console.log(e);
+								Object.assign(e.params, s), Object.assign(e.originalParams, s);
+							}
+						}
+					});
+
+					this.swiper.on("progress", function (e, p) {
+						const s = e.slides.length;
+						for (let r = 0; r < s; r += 1) {
+							const t = e.slides[r],
+								o = e.slides[r].progress,
+								i = Math.abs(o);
+							let a = 1;
+							i > 1 && (a = 0.3 * (i - 1) + 1);
+							const n = t.querySelectorAll(".swiper-carousel-animate-opacity"),
+								l = o * a * 50 + "%",
+								c = 1 - 0.2 * i,
+								u = s - Math.abs(Math.round(o));
+							(t.style.transform = `translateX(${l}) scale(${c})`),
+								(t.style.zIndex = u),
+								(t.style.opacity = i > 3 ? 0 : 1),
+								n.forEach((e) => {
+									e.style.opacity = 1 - i / 3;
+								});
+						}
+					});
+				},
+				destroyed() {
+					this.swiper.destroy(true, true);
+					console.log("destroyed ");
+				},
+				methods: {
+					remove(e) {
+						this.$emit("remove", this.uid);
+					},
+					up(e) {
+						this.$emit("up", this.uid);
+					},
+					down(e) {
+						this.$emit("down", this.uid);
+					}
+				}
+			};
+			var vm = new Vue({
+				el: "#app",
+				components: {
+					foo,
+					heading,
+					card,
+					swiper
+				},
+				data() {
+					return {
+						content: {
+							body: [
+								{
+									component: "foo",
+									uid: 1
+								},
+								{
+									component: "foo",
+									uid: 3
+								}
+							]
+						}
+					};
+				},
+				methods: {
+					add(cpt) {
+						var uid = Math.floor(Math.random() * 100);
+						this.content.body.push({ component: cpt, uid });
+					},
+					remove(data) {
+						var _index = this.content.body.findIndex((v, i) => v.uid == data);
+						this.content.body = [...this.content.body.slice(0, _index), ...this.content.body.slice(_index + 1)];
+					},
+					up(data) {
+						var _index = this.content.body.findIndex((v, i) => v.uid == data);
+						if (_index - 1 < 0) {
+							return;
+						}
+						var _temp = this.content.body[_index];
+						var _content = [...this.content.body.slice(0, _index), ...this.content.body.slice(_index + 1)];
+						this.content.body = _content;
+						this.content.body.splice(_index - 1, 0, _temp);
+					},
+					down(data) {
+						var _index = this.content.body.findIndex((v, i) => v.uid == data);
+						if (_index + 1 >= this.content.body.length) {
+							return;
+						}
+						var _temp = this.content.body[_index];
+						var _content = [...this.content.body.slice(0, _index), ...this.content.body.slice(_index + 1)];
+						this.content.body = _content;
+						this.content.body.splice(_index + 1, 0, _temp);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
