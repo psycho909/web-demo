@@ -1,9 +1,46 @@
+import Bus from "./bus.js";
 import components from "./components.js";
-
+// import control from "./control.js";
+// console.log(control);
+Vue.component("control", {
+	props: ["uid"],
+	template: `
+    <div class="btn-group">
+        <button type="button" class="up" @click="up">up</button>
+        <button type="button" class="down" @click="down">down</button>
+        <button type="button" class="remove" @click="remove">remove</button>
+    </div>
+    `,
+	methods: {
+		remove(e) {
+			Bus.$emit("remove", this.uid);
+		},
+		up(e) {
+			Bus.$emit("up", this.uid);
+		},
+		down(e) {
+			Bus.$emit("down", this.uid);
+		}
+	}
+});
 var vm = new Vue({
 	el: "#app",
 	components,
+	computed: {
+		menu() {
+			return Object.keys(components);
+		}
+	},
 	mounted() {
+		Bus.$on("up", (data) => {
+			this.up(data);
+		});
+		Bus.$on("remove", (data) => {
+			this.remove(data);
+		});
+		Bus.$on("down", (data) => {
+			this.down(data);
+		});
 		ClassicEditor.create(document.querySelector("#editor"), {
 			toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
 			heading: {
@@ -33,27 +70,17 @@ var vm = new Vue({
 				left: true
 			},
 			content: {
-				body: []
+				body: [{ component: "swiper", uid: 86, content: { top: true, left: true } }]
 			}
 		};
 	},
 	methods: {
 		getCKEdit() {
 			const editorData = this.editor.getData();
-			console.log(editorData);
-		},
-		tempChange() {
-			this.content.body[0].top = false;
 		},
 		add(cpt) {
 			var uid = Math.floor(Math.random() * 100);
-			this.content.body.push({ component: cpt, uid });
-		},
-		addFixed() {
-			var uid = Math.floor(Math.random() * 100);
-			var left = this.fixed.left;
-			var top = this.fixed.top;
-			this.content.body.push({ component: "fixed", uid, left, top });
+			this.content.body.push({ component: cpt, uid, content: this.fixed });
 		},
 		remove(data) {
 			var _index = this.content.body.findIndex((v, i) => v.uid == data);

@@ -1,41 +1,27 @@
 var fixed = {
-	template: `<div class="box fixed" :style="position" :data-uid="uid">
-        <div>Foo {{uid}} {{top}} {{left}}</div>
+	template: `<div class="box fixed" :style="position" :data-uid="content.uid">
+        <div>Foo {{content.uid}} </div>
         
-        <div class="btn-group">
-            <button type="button" class="up" @click="up">up</button>
-            <button type="button" class="down" @click="down">down</button>
-            <button type="button" class="remove" @click="remove">remove</button>
-        </div>
+        <control :uid="content.uid"  />
         </div>`,
-	props: ["uid", "top", "left"],
+	props: ["content"],
 	mounted() {
-		console.log("mounted", this.top);
+		console.log("mounted", this.content);
 	},
 	destroyed() {
 		console.log("destroyed ");
 	},
 	updated() {
-		console.log("updated", this.top);
+		console.log("updated");
 	},
 	computed: {
 		position() {
-			var top = this.top ? `top:0px;` : `bottom:0px;`;
-			var left = this.left ? `left:0px;` : `right:0px;`;
+			var top = this.content.top ? `top:0px;` : `bottom:0px;`;
+			var left = this.content.left ? `left:0px;` : `right:0px;`;
 			return top + left;
 		}
 	},
-	methods: {
-		remove(e) {
-			this.$emit("remove", this.uid);
-		},
-		up(e) {
-			this.$emit("up", this.uid);
-		},
-		down(e) {
-			this.$emit("down", this.uid);
-		}
-	}
+	methods: {}
 };
 
 export default fixed;

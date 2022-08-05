@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 		<title>Vue 動態 component JSON</title>
-		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor5/35.0.1/ckeditor.min.js"></script>
@@ -48,29 +48,43 @@
 				position: absolute;
 				top: 0;
 				right: 0;
+				z-index: 999;
 			}
 			.swiper-box {
 				background-color: rgba(81, 255, 125, 0.3);
+				width: calc(768 / 1920 * 100vw);
+				height: calc(200 / 1920 * 100vw);
+				margin: 0 auto;
+				padding: 0;
+				position: relative;
+				overflow: hidden;
 			}
-			.swiper {
-				width: 100%;
-				height: 300px;
+			.mySwiper {
+				width: calc(1600 / 1920 * 100vw);
+				height: calc(200 / 1920 * 100vw);
+				overflow: hidden;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
 			}
 
 			.swiper-slide {
 				text-align: center;
 				font-size: 18px;
-				background: #fff;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
 
-			.swiper-slide img {
-				display: block;
+			.swiper-slide__content {
+				background: #000;
 				width: 100%;
 				height: 100%;
-				object-fit: cover;
+				transform: scale(0.9);
+				transition: all 0.3s;
+			}
+			.swiper-slide-active > .swiper-slide__content {
+				transform: scale(1);
 			}
 			.fixed {
 				width: 300px;
@@ -85,21 +99,15 @@
 			<div id="editor"></div>
 			<div class="content">{{content}}</div>
 			<div class="control">
-				<button type="button" class="change" @click="tempChange">Change</button>
 				<div>
 					<div>top:<input type="checkbox" name="top" v-model="fixed.top" /></div>
 					<div>left:<input type="checkbox" name="left" v-model="fixed.left" /></div>
 				</div>
-				<button type="button" class="add" @click="add('foo')">Add Foo</button>
-				<button type="button" class="add" @click="add('heading')">Add Heading</button>
-				<button type="button" class="add" @click="add('card')">Add Card</button>
-				<button type="button" class="add" @click="add('swiper')">Add Swiper</button>
-				<button type="button" class="add" @click="addFixed">Add Fixed</button>
+				<button type="button" class="add" v-for="m in menu" @click="add(m)">Add {{m}}</button>
 				<button type="button" class="add" @click="getCKEdit">Get CKEdit</button>
 			</div>
 			<template v-for="block in content.body">
-				<component v-if="block.component == 'fixed'" :is="block.component" :uid="block.uid" :top="block.top" :left="block.left" @remove="remove" @up="up" @down="down"></component>
-				<component v-else :is="block.component" :uid="block.uid" @remove="remove" @up="up" @down="down"></component>
+				<component :is="block.component" :content="block"></component>
 			</template>
 		</div>
 		<script type="module">
