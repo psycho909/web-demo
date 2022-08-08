@@ -6,7 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 		<title>Vue 動態 component JSON</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor5/35.0.1/ckeditor.min.js"></script>
@@ -92,21 +96,66 @@
 				background-color: #fff;
 				position: fixed;
 			}
+			.edit {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 9999;
+				overflow-y: auto;
+				/* display: flex;
+				justify-content: center;
+				align-items: center; */
+				background-color: rgba(0, 0, 0, 0.8);
+				text-align: center;
+				white-space: nowrap;
+			}
+			.edit:before {
+				content: "";
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+			.edit-module {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				background-color: transparent !important;
+				pointer-events: none;
+			}
+			.edit-close {
+				background-color: #fff;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			.edit-wrap {
+				position: relative;
+				width: 768px;
+				margin: 0 auto;
+				vertical-align: middle;
+				display: inline-block;
+			}
+			.edit-content {
+				width: 100%;
+				background-color: #fff;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<div id="editor"></div>
-			<div class="content">{{content}}</div>
+			<menu-slide :menu="menu"></menu-slide>
+			<div class="content">{{$store.state.content}}</div>
 			<div class="control">
 				<div>
 					<div>top:<input type="checkbox" name="top" v-model="fixed.top" /></div>
 					<div>left:<input type="checkbox" name="left" v-model="fixed.left" /></div>
 				</div>
-				<button type="button" class="add" v-for="m in menu" @click="add(m)">Add {{m}}</button>
-				<button type="button" class="add" @click="getCKEdit">Get CKEdit</button>
 			</div>
-			<template v-for="block in content.body">
+			<template v-for="block in $store.state.content.body">
 				<component :is="block.component" :content="block"></component>
 			</template>
 		</div>
