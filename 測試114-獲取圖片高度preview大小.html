@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<input type="file" id="file" />
+		<button type="button" class="btn">送出</button>
+		<img src="" alt="" id="img" />
+		<script>
+			var fileUploader = document.querySelector("#file");
+			var imageView = document.querySelector("#img");
+			var fileReader = new FileReader();
+			fileUploader.addEventListener("change", function (event) {
+				console.log(this.files[0].size / 1024);
+				fileReader.readAsDataURL(this.files[0]);
+			});
+			fileReader.addEventListener("load", function (event) {
+				//讀取後設定<img>的src
+				// imageView.src = this.result;
+				var img = new Image();
+				img.onload = function () {
+					console.log(img.width); // image is loaded; sizes are available
+				};
+				img.src = this.result;
+				// console.log(this.result);
+			});
+			$(".btn").on("click", function () {});
+		</script>
+	</body>
+</html>
