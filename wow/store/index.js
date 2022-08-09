@@ -1,11 +1,13 @@
-import getter from "./getter.js";
+import actions from "./actions.js";
+import getters from "./getters.js";
 import mutations from "./mutations.js";
 import state from "./state.js";
 
 var store = new Vuex.Store({
 	state,
-	getter,
-	mutations
+	getters,
+	mutations,
+	actions
 });
 
 export default store;
