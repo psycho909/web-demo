@@ -127,30 +127,9 @@
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script>
 			var i = 0;
-			function timeout() {
-				i++;
-				if (i == 15) {
-					$.gbox.open("時間到");
-				}
-				document.getElementById("time").innerHTML = i;
-				setTimeout(timeout, 1000);
-			}
-			timeout();
-			// setInterval(() => {
-			//     i++
-			//     console.log(i)
-			// }, 1000);
 			var slider = tns({
 				container: ".my-slider",
 				loop: false,
-				responsive: {
-					350: {
-						items: 2
-					},
-					500: {
-						items: 3
-					}
-				},
 				swipeAngle: false,
 				speed: 400
 			});
