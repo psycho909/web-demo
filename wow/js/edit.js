@@ -1,7 +1,7 @@
 var edit = () => {
 	return Vue.component("edit", {
 		template: `
-            <div class="edit" v-if="basedOn">
+            <div class="edit" v-if="showModel">
                 <div class="edit-module"></div>
                 <div class="edit-wrap">
                     <button type="button" class="edit-close" @click="close">close</button>
@@ -10,17 +10,17 @@ var edit = () => {
             </div>
         `,
 		model: {
-			prop: "basedOn",
+			prop: "showModel",
 			event: "close"
 		},
 		props: {
-			basedOn: {
+			showModel: {
 				type: Boolean,
 				default: false
 			}
 		},
 		mounted() {
-			console.log(this.basedOn);
+			console.log(this.showModel);
 		},
 		destroyed() {
 			console.log("destroyed");

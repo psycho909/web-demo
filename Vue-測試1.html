@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
-    <style>
-        .box{
-            width: 300px;
-            height: 300px;
-            background-color: #666;
-        }
-        .active{
-            background-color: red;
-        }
-        .red{
-            background-color: red;
-        }
-        .green{
-            background-color: green;
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <pre>{{fruits}}</pre>
-        <input type="text" v-model="name">
-        <input type="text" v-model="age">
-        <button @click="add">送出</button>
-        <button @click="addX">修改</button>
-        <hr>
-        <div :class="['box',bg ? 'red' : 'green']">This is how you add static classess</div>
-        <input type="text" v-model="theme">
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+		<style>
+			.box {
+				width: 300px;
+				height: 300px;
+				background-color: #666;
+			}
+			.active {
+				background-color: red;
+			}
+			.red {
+				background-color: red;
+			}
+			.green {
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<pre>{{fruits}}</pre>
+			<input type="text" v-model="name" />
+			<input type="text" v-model="age" />
+			<button @click="add">送出</button>
+			<button @click="addX">修改</button>
+			<hr />
+			<div :class="['box',bg ? 'red' : 'green']">This is how you add static classess</div>
+			<input type="text" v-model="theme" />
+		</div>
 
-    <script>
-        new Vue({
-            el:"#app",
-            data:{
-                fruits:[{name:"Chen",age:31}],
-                name:"",
-                age:"",
-                theme:"",
-                bg:true
-            },
-            methods:{
-                add:function(){
-                    this.fruits.push({
-                        name:this.name,
-                        age:this.age
-                    })
-                    console.log(1)
-                },
-                addX:function(){
-                    // this.$set(this.fruits[0],"name","Chens")
-                    this.fruits=Object.assign({},this.fruits,{
-                        name:"Chenx",
-                        age:"33"
-                    })
-                    console.log(2)
-                }
-            }
-        })
-    </script>
-</body>
+		<script>
+			var mixins = {
+				mounted() {
+					console.log(this.name);
+				},
+				data: {
+					name: "Chen"
+				}
+			};
+			new Vue({
+				el: "#app",
+				mixins: [mixins],
+				mounted() {
+					console.log(this.name);
+				},
+				data: {
+					fruits: [{ name: "Chen", age: 31 }],
+					name: "",
+					age: "",
+					theme: "",
+					bg: true
+				},
+				methods: {
+					add: function () {
+						this.fruits.push({
+							name: this.name,
+							age: this.age
+						});
+						console.log(1);
+					},
+					addX: function () {
+						// this.$set(this.fruits[0],"name","Chens")
+						this.fruits = Object.assign({}, this.fruits, {
+							name: "Chenx",
+							age: "33"
+						});
+						console.log(2);
+					}
+				}
+			});
+		</script>
+	</body>
 </html>

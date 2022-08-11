@@ -5,9 +5,19 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 	</head>
 	<body>
+		<div id="app"></div>
+		<!-- <input type="text" id="input" oninput="value=value.replace(/[^\d]/g,'')" /> -->
 		<script>
+			var html = '<input type="text" id="input" oninput="judgeNumber(this)" />';
+
+			function judgeNumber(e) {
+				return (e.value = e.value.replace(/\D/g, ""));
+			}
+			$("#app").html(html);
 			// H5 BeanH5初始化
 			function BeanGoGetToken() {
 				return axios({
@@ -95,6 +105,22 @@
 				console.log(res);
 			});
 			console.log(543);
+
+			function ClickEvent2({ page = "", type = "", name = "", status = "", tab = "" } = {}) {
+				var clickInfo = { type, name };
+				status ? (clickInfo.status = status) : "";
+				var obj = {
+					pageInfo: { page },
+					clickInfo
+				};
+				console.log(obj);
+			}
+
+			ClickEvent2({
+				page: "kr_202209_h5",
+				type: "btn",
+				name: "goto_rule"
+			});
 		</script>
 	</body>
 </html>
