@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="module">
+			import { createSignal, onCleanup } from "https://cdn.skypack.dev/solid-js";
+			import { render } from "https://cdn.skypack.dev/solid-js/web";
+			import html from "https://cdn.skypack.dev/solid-js/html";
+
+			const App = () => {
+				const [count, setCount] = createSignal(0);
+				const timer = setInterval(() => {
+					return setCount(count() + 1);
+				}, 1000);
+
+				onCleanup(() => clearInterval(timer));
+				return html`<div>${count}</div>`;
+			};
+
+			render(App, document.querySelector("#app"));
+		</script>
+	</body>
+</html>

@@ -1,5 +1,6 @@
 var foo = {
-	template: `<div class="box foo"><div>Foo</div>
+	template: `<div class="box foo"><div>{{content.content.text}}</div>
+		<button type="button" class="btn" @click="test">測試</button>
 			<control :uid="content.uid">
 				<template #btn-update>
 					<button type="button" class="update" @click="update">update</button>
@@ -7,12 +8,7 @@ var foo = {
 			</control>
 			<edit v-model="showEdit">
 				<template #edit-content>
-					<p>213123</p>
-					<p>213123</p>
-					<p>213123</p>
-					<p>213123</p>
-					<p>213123</p>
-					<p>213123</p>
+					<input type="text" v-model="text" />
 					<button type="button" class="submit" @click="submit">確定</button>
 				</template>
 			</edit>
@@ -20,7 +16,8 @@ var foo = {
 	props: ["content"],
 	data() {
 		return {
-			showEdit: false
+			showEdit: false,
+			text: ""
 		};
 	},
 	mounted() {
@@ -37,13 +34,18 @@ var foo = {
 		console.log("destroyed ");
 	},
 	methods: {
+		test() {
+			this.$store.dispatch("test");
+		},
 		update() {
 			this.showEdit = true;
 		},
 		submit() {
 			var data = {
 				uid: this.content.uid,
-				content: {}
+				content: {
+					text: this.text
+				}
 			};
 			this.$store.commit("UPDATE", data);
 			this.showEdit = false;
