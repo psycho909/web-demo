@@ -41,7 +41,7 @@
 				w[l] = w[l] || [];
 				w[l].push({
 					"gtm.start": new Date().getTime(),
-					event: "gtm.js",
+					event: "gtm.js"
 				});
 				var f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
@@ -68,7 +68,7 @@
 				<a href="javascript:;" class="btn__change">切換帳號</a>
 			</div>
 			<div class="level-content">
-				<div class="level__box" data-num="3">
+				<div class="level__box on" data-num="3">
 					<div class="level__lv" data-level="1-1">
 						<a href="javascript:;" class="icon icon--3" data-level="1-1"></a>
 					</div>
@@ -78,8 +78,21 @@
 					<div class="level__lv" data-level="1-3">
 						<a href="javascript:;" class="icon icon--3" data-level="1-3"></a>
 					</div>
-					<div class="level__car"></div>
+					<div class="level__car car1"></div>
+					<div class="level__footer level__footer1"></div>
 				</div>
+				<div class="level__box" data-num="2">
+					<div class="level__lv" data-level="8-1">
+						<a href="javascript:;" class="icon icon--2" data-level="8-1"></a>
+					</div>
+					<div class="level__lv" data-level="8-2">
+						<a href="javascript:;" class="icon icon--2" data-level="8-2"></a>
+					</div>
+					<div class="level__car car8"></div>
+					<div class="level__footer level__footer8"></div>
+				</div>
+				<svg class="svg" id="road1" viewBox="0 0 768 646.66"><path id="path1" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05-18.89,153.67,50.58,229.48" /></svg>
+				<svg class="svg" id="road2" viewBox="0 0 768 646.66"><path id="path2" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05,4.7,87.45,74.17,163.25" /></svg>
 				<a href="javascript:;" class="btn__next"></a>
 				<a href="javascript:;" class="btn__prev"></a>
 				<a href="javascript:;" class="btn__unlock"></a>

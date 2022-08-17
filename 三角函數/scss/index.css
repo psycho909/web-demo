@@ -32,7 +32,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
-
 .popping-menu button {
   position: absolute;
   display: block;
@@ -64,31 +63,26 @@ button:nth-of-type(1) {
        -o-transition-delay: 0.1s;
           transition-delay: 0.1s;
 }
-
 button:nth-of-type(2) {
   -webkit-transition-delay: 0.2s;
        -o-transition-delay: 0.2s;
           transition-delay: 0.2s;
 }
-
 button:nth-of-type(3) {
   -webkit-transition-delay: 0.3s;
        -o-transition-delay: 0.3s;
           transition-delay: 0.3s;
 }
-
 button:nth-of-type(4) {
   -webkit-transition-delay: 0.4s;
        -o-transition-delay: 0.4s;
           transition-delay: 0.4s;
 }
-
 button:nth-of-type(5) {
   -webkit-transition-delay: 0.5s;
        -o-transition-delay: 0.5s;
           transition-delay: 0.5s;
 }
-
 button:nth-of-type(6) {
   -webkit-transition-delay: 0.6s;
        -o-transition-delay: 0.6s;

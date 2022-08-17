@@ -11,29 +11,23 @@
   margin: 0 auto;
   border-collapse: collapse;
 }
-
 .part1-table th, .part1-table td {
   border: 1px solid #BA8349;
 }
-
 .part1-table__head th {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part1-table__body td {
   background-color: #3E2C1E;
   color: #fff;
 }
-
 .part1-table__body td span {
   display: block;
 }
-
 .part1-table__body td:first-child {
   text-align: center;
 }
-
 .part1-table__body-rwd {
   display: none;
 }
@@ -44,35 +38,28 @@
   margin: 0 auto;
   border-collapse: collapse;
 }
-
 .part2-table th, .part2-table td {
   border: 1px solid #BA8349;
 }
-
 .part2-table__head tr th {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part2-table__body-rwd {
   display: none;
 }
-
 .part2-table__body td {
   background-color: #3E2C1E;
   color: #fff;
   text-align: center;
 }
-
 .part2-table__body-title td {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part2-table__body td.part2-table__body-info {
   text-align: left;
 }
-
 .part2-table__body--red {
   color: red;
 }
@@ -83,72 +70,58 @@
   margin: 0 auto;
   border-collapse: collapse;
 }
-
 .part3-table-a th, .part3-table-a td {
   border: 1px solid #BA8349;
 }
-
 .part3-table-a__body td {
   background-color: #3E2C1E;
   color: #fff;
   text-align: center;
 }
-
 .part3-table-a__body td.part3-table-a__body--left {
   text-align: left;
 }
-
 .part3-table-a__body-rwd {
   display: none;
 }
-
 .part3-table-a__body-title {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part3-table-b {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
 }
-
 .part3-table-b th, .part3-table-b td {
   border: 1px solid #BA8349;
 }
-
 .part3-table-b__head tr th {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part3-table-b__body td {
   background-color: #3E2C1E;
   color: #fff;
   text-align: center;
 }
-
 .part3-table-b__body td:nth-of-type(2) {
   text-align: left;
 }
-
 .part3-table-b__body-rwd {
   display: none;
 }
-
 .part3-table-b__body-title {
   background-color: #241405;
   color: #DAAF2D;
 }
-
 .part3-seedlist {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   list-style: none;
 }
-
 .part3-seedlist li {
   background-color: #3E2C1E;
   color: #fff;
@@ -156,12 +129,10 @@
   border: 1px solid #DAAF2D;
   border-bottom: none;
 }
-
 .part3-seedlist li:first-child {
   background-color: #241405;
   color: #E0AE31;
 }
-
 .part3-seedlist li:last-child {
   border-bottom: 1px solid #DAAF2D;
 }

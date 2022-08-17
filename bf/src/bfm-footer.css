@@ -1,13 +1,13 @@
 @charset "UTF-8";
 body {
-  font-family: "PingFangTC-Regular", arial, "微軟正黑體","sans-serif";
+  font-family: "PingFangTC-Regular", arial, "微軟正黑體", "sans-serif";
   line-height: 1.6;
 }
 
 .bfm-footer {
-  padding: calc(14 / 750 * 100vw);
+  padding: 1.8666666667vw;
   color: #fff;
-  font-size: calc(21 / 750 * 100vw);
+  font-size: 2.8vw;
   background: #000;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,7 +23,6 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-
 .bfm-footer .copyright {
   color: inherit;
   font-size: inherit;
@@ -31,8 +30,8 @@ body {
 }
 
 .ghq-logo {
-  width: calc(180 / 750 * 100vw);
-  height: calc(32 / 750 * 100vw);
+  width: 24vw;
+  height: 4.2666666667vw;
   background: url(https://tw.hicdn.beanfun.com/beanfun/beanfun/common_assets/gama-group/images/ghq-text2.png) 50% 1px no-repeat;
   background-size: contain;
 }

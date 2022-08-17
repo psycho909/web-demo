@@ -12,13 +12,13 @@
   }
   .bfm-error-wrap {
     display: block;
-    padding: 0 calc(32 / 750 * 100vw);
+    padding: 0 4.2666666667vw;
     height: 100vh;
     background-color: #fff;
   }
   .bfm-error__img {
     width: 100%;
-    padding: calc(48 / 750 * 100vw) 0;
+    padding: 6.4vw 0;
     overflow: hidden;
   }
   .bfm-error__img img {
@@ -32,27 +32,27 @@
   }
   .bfm-error__content {
     width: 100%;
-    padding: calc(48 / 750 * 100vw) 0;
-    font-family: "微軟正黑體","新細明體";
-    font-size: calc(48 / 750 * 100vw);
+    padding: 6.4vw 0;
+    font-family: "微軟正黑體", "新細明體";
+    font-size: 6.4vw;
     color: #000;
     line-height: 1.5;
     font-weight: bold;
   }
   .bfm-error__content p {
     font-size: inherit;
-    font-family: "微軟正黑體","新細明體";
+    font-family: "微軟正黑體", "新細明體";
   }
   .bfm-error__sub-content {
     width: 100%;
-    padding: calc(48 / 750 * 100vw) 0;
-    font-family: "微軟正黑體","新細明體",Arial, Helvetica, sans-serif;
-    font-size: calc(28 / 750 * 100vw);
+    padding: 6.4vw 0;
+    font-family: "微軟正黑體", "新細明體", Arial, Helvetica, sans-serif;
+    font-size: 3.7333333333vw;
     color: #666;
     line-height: 1.5;
   }
   .bfm-error__sub-content p {
     font-size: inherit;
-    font-family: "微軟正黑體","新細明體";
+    font-family: "微軟正黑體", "新細明體";
   }
 }

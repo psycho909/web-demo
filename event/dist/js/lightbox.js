@@ -11,16 +11,16 @@ var config = {
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
+			}
 		},
 		{
 			text: "text2",
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
-		},
-	],
+			}
+		}
+	]
 };
 
 function MessageLB(msg, url, callback) {
@@ -41,16 +41,16 @@ function MessageLB(msg, url, callback) {
 							callback();
 						}
 					}
-				},
+				}
 			},
 			{
 				text: "取消",
 				class: "btn-cancel",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	});
 }
 
@@ -68,16 +68,16 @@ function LB(msg, url, callback) {
 				class: "btn",
 				click: function () {
 					$.gbox.close();
-				},
+				}
 			},
 			{
 				text: "text2",
 				class: "btn",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = "";
@@ -92,7 +92,7 @@ function EventDirections() {
 		afterClose: function () {
 			$.gbox.close();
 		},
-		actionBtns: [],
+		actionBtns: []
 	};
 
 	var HTML = `
@@ -123,4 +123,4 @@ function EventDirections() {
 	$.gbox.open(HTML, config);
 }
 
-EventDirections();
+// EventDirections();

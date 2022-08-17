@@ -4,7 +4,6 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-
 body h3, body p {
   margin: 0;
 }
@@ -15,20 +14,17 @@ body > table {
 
 .bfm-err-page {
   padding: 0 24px;
-  padding-top: calc(200 / 750 * 100vw);
+  padding-top: 26.6666666667vw;
 }
-
 .bfm-err-page-wrap {
   text-align: center;
   height: 100vh;
 }
-
 .bfm-err-page-wrap h3 {
-  font-size: calc(42 / 750 * 100vw);
+  font-size: 5.6vw;
 }
-
 .bfm-err-page-wrap p {
-  font-size: calc(32 / 750 * 100vw);
+  font-size: 4.2666666667vw;
 }
 
 @media screen and (min-width: 751px) {
