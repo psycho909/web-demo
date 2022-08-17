@@ -1,0 +1,308 @@
+%default {
+	.gbox-wrap {
+		max-width: vw(680);
+		width: 100%;
+		padding: 0px;
+		margin-top: vw(80);
+		margin-bottom: vw(80);
+		background-color: transparent;
+		background-size: vw(680) vw(135);
+		background-repeat: repeat-y;
+		background-image: url("./img/h5/lb-bg-body.png");
+		padding-bottom: vw(52);
+		&:before {
+			content: "";
+			width: 100%;
+			height: vw(87);
+			position: absolute;
+			top: vw(-52);
+			left: 0;
+			background-size: vw(680) vw(87);
+			background-image: url("./img/h5/lb-bg-top.png");
+		}
+		&:after {
+			content: "";
+			width: 100%;
+			height: vw(70);
+			position: absolute;
+			bottom: vw(-69);
+			left: 0;
+			background-size: vw(680) vw(70);
+			background-image: url("./img/h5/lb-bg-bottom.png");
+		}
+	}
+	.gbox-content {
+		position: relative;
+		padding: 0px;
+		width: 100%;
+		padding: 0 vw(18);
+	}
+}
+%btn {
+	.gbox-action {
+		z-index: 2;
+		position: relative;
+		padding: 0;
+		font-size: 0;
+	}
+	.gbox-btn {
+		padding: 0;
+		display: inline-block;
+		font-size: 0;
+		position: relative;
+		&.btn-more {
+			width: vw(226);
+			height: vw(94);
+			background-size: cover;
+			background-image: url("./img/h5/btn-more.png");
+		}
+		&.btn-confirm {
+			width: vw(226);
+			height: vw(94);
+			background-size: cover;
+			background-image: url("./img/h5/btn-confirm.png");
+		}
+		&.btn-to {
+			width: vw(264);
+			height: vw(94);
+			background-size: cover;
+			background-image: url("./img/h5/btn-to.png");
+		}
+		&.btn-history {
+			width: vw(264);
+			height: vw(94);
+			background-size: cover;
+			background-image: url("./img/h5/btn-history.png");
+		}
+		&.btn-create {
+			width: vw(297);
+			height: vw(94);
+			background-size: cover;
+			background-image: url("./img/h5/btn-create.png");
+		}
+		&.btn-select-account {
+			width: vw(242);
+			height: vw(96);
+			background-size: cover;
+			background-image: url("./img/h5/btn-select-account.png");
+		}
+		& + .gbox-btn {
+			margin-left: vw(37);
+		}
+	}
+}
+%close {
+	.gbox-close {
+		width: vw(54);
+		height: vw(53);
+		font-size: 0;
+		top: vw(-160);
+		right: vw(40);
+		background-image: url("./img/h5/btn-close.png");
+		background-size: cover;
+	}
+}
+.default {
+	@extend %default;
+	@extend %close;
+	@extend %btn;
+}
+.lb-dashed1 {
+	width: vw(597px);
+	height: vw(10px);
+	background-size: cover;
+	background-image: url("./img/h5/lb-dashed1.png");
+	margin: 0 auto;
+}
+.lb-dashed2 {
+	width: vw(509);
+	height: vw(10px);
+	background-size: cover;
+	background-image: url("./img/h5/lb-dashed2.png");
+	margin: 0 auto vw(22);
+}
+.lb-btn-bg {
+	width: vw(644);
+	height: vw(97);
+	background-size: cover;
+	background-image: url("./img/h5/lb-btn-bg.png");
+}
+.lb-role {
+	&__wait {
+		width: vw(225px);
+		height: vw(245px);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-wait.png");
+	}
+	&__not-enough {
+		width: vw(200);
+		height: vw(232);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-not-enough.png");
+	}
+	&__need {
+		width: vw(177);
+		height: vw(211);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-need.png");
+	}
+	&__history {
+		width: vw(107);
+		height: vw(126);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-history.png");
+	}
+	&__create {
+		width: vw(589);
+		height: vw(208);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-create.png");
+	}
+	&__join {
+		width: vw(211);
+		height: vw(249);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-join.png");
+	}
+	&__select-account {
+		width: vw(511);
+		height: vw(209);
+		background-size: cover;
+		background-image: url("./img/h5/lb-role-select-account.png");
+	}
+}
+.lb-directions {
+	&__rewards {
+		width: vw(533);
+		height: vw(291);
+		background-size: cover;
+		background-image: url("./img/h5/lb-rewards.png");
+		margin: 0 auto vw(14);
+	}
+	&__title-bg {
+		width: vw(644);
+		height: vw(86);
+		background-size: cover;
+		background-image: url("./img/h5/lb-directions-title-bg.png");
+		margin: 0 auto vw(14);
+		position: relative;
+	}
+	&__content {
+		// height: vh(50);
+		overflow: hidden;
+	}
+	&__list {
+		text-align: left;
+		padding-left: vw(60);
+		letter-spacing: -1px;
+	}
+	&__li {
+		color: #fff;
+		font-size: vw(30);
+		margin-bottom: vw(24);
+		.blue {
+			color: #41f3e4;
+		}
+	}
+	&__item {
+		&-box {
+			text-align: left;
+			display: flex;
+			align-items: center;
+			margin-left: vw(6);
+		}
+		&-title {
+			font-size: vw(30);
+			color: #854013;
+			border-radius: 100vmax;
+			background-color: #f9e990;
+			padding: vw(6) vw(24);
+			display: inline-block;
+			margin-right: vw(6);
+		}
+		&-name {
+			font-size: vw(30);
+			color: #f9e990;
+			display: inline-block;
+		}
+	}
+}
+.lb-title {
+	&__directions {
+		width: vw(202);
+		height: vw(45);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-directions.png");
+		margin: 0 auto vw(14);
+	}
+	&__directions-sub {
+		width: vw(204);
+		height: vw(46);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-directions-sub.png");
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	&__history {
+		width: vw(241);
+		height: vw(66);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-history.png");
+	}
+	&__history-sub {
+		width: vw(143);
+		height: vw(32);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-history-sub.png");
+	}
+	&__reward-complete {
+		width: vw(601);
+		height: vw(125);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-reward-complete.png");
+	}
+	&__wait {
+		width: vw(453);
+		height: vw(165);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-wait.png");
+	}
+	&__not-enough {
+		width: vw(471);
+		height: vw(165);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-not-enough.png");
+	}
+	&__need1 {
+		width: vw(531);
+		height: vw(158);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-need1.png");
+	}
+	&__need2 {
+		width: vw(330);
+		height: vw(37);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-need2.png");
+	}
+	&__create {
+		width: vw(544);
+		height: vw(206);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-create.png");
+	}
+	&__join {
+		width: vw(285);
+		height: vw(64);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-join.png");
+	}
+	&__account {
+		width: vw(579);
+		height: vw(143);
+		background-size: cover;
+		background-image: url("./img/h5/lb-title-account.png");
+	}
+}

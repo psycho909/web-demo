@@ -1,0 +1,298 @@
+@function bgi($name) {
+	@return url("./img/h5/" + $name);
+}
+body {
+	background-color: #6e6c87;
+	position: relative;
+	width: 100%;
+}
+
+#app {
+	width: 100%;
+	max-width: 768px;
+	height: vw(1334px);
+	position: relative;
+	background-image: url("./img/h5/bg-top.jpg"), url("./img/h5/bg-bottom.jpg");
+	background-size: vw(768) vw(520), vw(768) vw(192);
+	background-position: center top, center bottom;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.current-level {
+	width: vw(265px);
+	height: vw(72px);
+	background-image: bgi("levels.png");
+	background-size: 1200%;
+	position: absolute;
+	top: vw(193);
+	left: vw(129);
+	@for $i from 1 through 12 {
+		&[data-level="#{$i}"] {
+			background-position-x: -100% * ($i - 1);
+		}
+	}
+}
+.logo {
+	width: vw(298px);
+	height: vw(84px);
+	background-size: cover;
+	background-image: bgi("logo.png");
+	position: absolute;
+	top: vw(18);
+	right: vw(14);
+}
+
+.btn {
+	&__login {
+		width: vw(360px);
+		height: vw(77px);
+		background-image: bgi("btn-login.png");
+		background-size: cover;
+		position: absolute;
+		top: vw(393);
+		left: vw(16);
+	}
+	&__change {
+		width: vw(219);
+		height: vw(61);
+		position: absolute;
+		bottom: vw(-67);
+		left: 50%;
+		z-index: 2;
+		font-size: 0;
+		transform: translateX(-50%);
+	}
+	&__directions {
+		width: vw(196);
+		height: vw(170);
+		background-image: bgi("btn-directions.png");
+		background-size: cover;
+	}
+	&__history {
+		width: vw(246);
+		height: vw(166);
+		background-image: bgi("btn-game-history.png");
+		background-size: cover;
+	}
+	&__reward {
+		width: vw(198);
+		height: vw(165);
+		background-image: bgi("btn-reward.png");
+		background-size: cover;
+	}
+	&__next {
+		width: vw(112);
+		height: vw(127);
+		background-size: cover;
+		background-image: bgi("btn-next.png");
+		position: absolute;
+		top: 50%;
+		right: vw(17);
+		transform: translateY(-50%);
+		z-index: 10;
+	}
+	&__prev {
+		width: vw(112);
+		height: vw(127);
+		background-size: cover;
+		background-image: bgi("btn-prev.png");
+		position: absolute;
+		top: 50%;
+		left: vw(17);
+		transform: translateY(-50%);
+		z-index: 10;
+	}
+	&__unlock {
+		width: vw(271);
+		height: vw(90);
+		background-size: cover;
+		background-image: bgi("btn-next-level.png");
+		position: absolute;
+		top: vw(461);
+		right: vw(4);
+	}
+}
+.account {
+	&-status {
+		width: vw(378);
+		font-size: 30px;
+		color: #fff;
+		font-weight: bold;
+		position: absolute;
+		top: vw(374);
+		left: vw(8);
+		padding: 0 vw(20) vw(8);
+		background-image: url("./img/h5/account-status-body.png");
+		background-repeat: repeat-y;
+		text-align: center;
+		span {
+			display: block;
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			top: vw(-37);
+			left: 0;
+			width: 100%;
+			height: vw(38);
+			background-size: cover;
+			background-image: url("./img/h5/account-status-top.png");
+		}
+		&:after {
+			content: "";
+			position: absolute;
+			bottom: vw(-69);
+			left: 0;
+			width: 100%;
+			height: vw(70);
+			background-size: cover;
+			background-image: url("./img/h5/account-status-bottom.png");
+		}
+	}
+}
+
+.icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	&--2 {
+		width: vw(281);
+		height: vw(153);
+		background-size: 200%;
+	}
+	&--3 {
+		width: vw(281);
+		height: vw(144);
+		background-size: 200%;
+	}
+	&.on {
+		background-position-x: 200%;
+	}
+	&[data-level="1-1"] {
+		left: vw(242);
+		background-image: url("./img/h5/level/icon/1-1.png");
+	}
+	&[data-level="1-2"] {
+		left: vw(132);
+		background-image: url("./img/h5/level/icon/1-2.png");
+	}
+	&[data-level="1-3"] {
+		left: vw(203);
+		background-image: url("./img/h5/level/icon/1-3.png");
+	}
+	&[data-level="8-1"] {
+		left: vw(198);
+		background-image: url("./img/h5/level/icon/8-1.png");
+	}
+	&[data-level="8-2"] {
+		left: vw(246);
+		background-image: url("./img/h5/level/icon/8-2.png");
+	}
+}
+.home-btn-group {
+	display: flex;
+	justify-content: space-around;
+}
+.level {
+	&-content {
+		position: relative;
+		width: 100%;
+		height: vw(591);
+		margin-top: vw(536px);
+		margin-bottom: vw(27);
+		&:before {
+			content: "";
+			width: 100%;
+			height: vw(14);
+			position: absolute;
+			top: vw(-14);
+			left: 0;
+			background-image: url("./img/h5/level-border.png");
+			box-shadow: 0 0 vw(24) rgba(#000, 0.8);
+		}
+		&:after {
+			content: "";
+			width: 100%;
+			height: vw(14);
+			position: absolute;
+			bottom: vw(-14);
+			left: 0;
+			background-image: url("./img/h5/level-border.png");
+			box-shadow: 0 0 vw(24) rgba(#000, 0.8);
+		}
+	}
+	&__box {
+		display: flex;
+		flex-direction: column;
+		&:before,
+		&:after {
+			content: "";
+			width: vw(768);
+			height: 100%;
+			background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		&:before {
+			z-index: 1;
+			height: 0%;
+		}
+		&[data-num="3"] {
+			&:before {
+				background-image: url("./img/h5/level/footprint1.png");
+			}
+			&:after {
+				background-image: url("./img/h5/level/road1.png");
+			}
+		}
+		&[data-num="2"] {
+			&:before {
+				background-image: url("./img/h5/level/footprint2.png");
+			}
+			&:after {
+				background-image: url("./img/h5/level/road2.png");
+			}
+		}
+	}
+	&__lv {
+		width: vw(768);
+		background-size: 200%;
+		position: relative;
+		&.on {
+			background-position-x: -100%;
+		}
+		&[data-level="1-1"] {
+			height: vw(199);
+			background-image: url("./img/h5/level/1-1.png");
+		}
+		&[data-level="1-2"] {
+			height: vw(202);
+			background-image: url("./img/h5/level/1-2.png");
+		}
+		&[data-level="1-3"] {
+			height: vw(191);
+			background-image: url("./img/h5/level/1-3.png");
+		}
+		&[data-level="8-1"] {
+			height: vw(299);
+			background-image: url("./img/h5/level/8-1.png");
+		}
+		&[data-level="8-2"] {
+			height: vw(292);
+			background-image: url("./img/h5/level/8-2.png");
+		}
+	}
+	&__car {
+		width: vw(158);
+		height: vw(147);
+		position: absolute;
+		top: vw(-135);
+		left: vw(392px);
+		z-index: 9;
+		background-size: cover;
+		background-image: url("./img/h5/level/car.png");
+	}
+}
