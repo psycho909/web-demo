@@ -9,7 +9,6 @@ function loadingHide() {
 
 gsap.registerPlugin(MotionPathPlugin);
 
-36, 72, 1;
 function Car1(start, end) {
 	var onDiv = gsap.to(".car1", {
 		duration: 2.6,
@@ -67,3 +66,7 @@ function Car8(start, end) {
 		delay: 0.5
 	});
 }
+
+var vm = new Vue({
+	el: "#app"
+});
