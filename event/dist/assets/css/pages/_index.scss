@@ -1,10 +1,383 @@
 body {
-	background-color: $bg-color;
+	background-color: #6e6c87;
 	position: relative;
 	width: 100%;
+	min-width: 1200px;
+	@include media {
+		min-width: auto;
+	}
 }
 
 #app {
 	width: 100%;
 	position: relative;
+	background-image: url("./img/web/bg-top.jpg");
+	background-size: 1920px 528px;
+	background-position: center top;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.current-level {
+	width: 265px;
+	height: 72px;
+	background-image: url("./img/h5/levels.png");
+	background-size: 1200%;
+	position: absolute;
+	top: 193px;
+	left: 129px;
+	@for $i from 1 through 12 {
+		&[data-level="#{$i}"] {
+			background-position-x: -100% * ($i - 1);
+		}
+	}
+}
+.logo {
+	width: 241px;
+	height: 68px;
+	background-size: cover;
+	background-image: url("./img/h5/logo.png");
+	position: absolute;
+	top: 18px;
+	right: 14px;
+}
+
+.icon {
+	&__home {
+		width: 53px;
+		height: 53px;
+		background-size: 200%;
+		background-image: url("./img/web/icon-home.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&__yt {
+		width: 53px;
+		height: 53px;
+		background-size: 200%;
+		background-image: url("./img/web/icon-yt.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&__f_b {
+		width: 53px;
+		height: 53px;
+		background-size: 200%;
+		background-image: url("./img/web/icon-f_b.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&__discord {
+		width: 53px;
+		height: 53px;
+		background-size: 200%;
+		background-image: url("./img/web/icon-discord.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+}
+.btn {
+	&__change {
+		display: none;
+		@include media {
+			display: block;
+		}
+	}
+	&__login {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-login.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__logout {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-logout.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&__booking {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-booking.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			display: none;
+		}
+	}
+	&__directions {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-directions.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__history {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-game-history.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__reward {
+		width: 192px;
+		height: 54px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-reward.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__next {
+		width: 93px;
+		height: 104px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-next.png");
+		position: absolute;
+		top: 50%;
+		right: 17px;
+		transform: translateY(-50%);
+		z-index: 10;
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__prev {
+		width: 93px;
+		height: 104px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-prev.png");
+		position: absolute;
+		top: 50%;
+		left: 17px;
+		transform: translateY(-50%);
+		z-index: 10;
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+	&__unlock {
+		width: 271px;
+		height: 91px;
+		background-size: 200%;
+		background-image: url("./img/web/btn-next-level.png");
+		position: absolute;
+		top: 461px;
+		right: 4px;
+		@include hover {
+			background-position-x: 100%;
+		}
+	}
+}
+.account {
+	&-status {
+		width: 224px;
+		height: 276px;
+		font-size: 20px;
+		color: #fff;
+		position: absolute;
+		top: 374px;
+		left: 8px;
+		padding: 0 vw(20) vw(8);
+		background-image: url("./img/h5/account-status-bg.png");
+		background-size: cover;
+		text-align: center;
+		span {
+			display: block;
+		}
+	}
+}
+
+.icon {
+	width: vw(281);
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	background-size: 200%;
+	width: vw(310);
+	height: vw(153);
+	&.on {
+		background-position-x: 200%;
+	}
+	@for $i from 1 to 7 {
+		&[data-level="#{$i}-1"] {
+			left: vw(242);
+			background-image: url("./img/h5/level/icon/#{$i}-1.png");
+		}
+	}
+	@for $i from 1 to 7 {
+		&[data-level="#{$i}-2"] {
+			left: vw(132);
+			background-image: url("./img/h5/level/icon/#{$i}-2.png");
+		}
+	}
+	@for $i from 1 to 7 {
+		&[data-level="#{$i}-3"] {
+			left: vw(203);
+			background-image: url("./img/h5/level/icon/#{$i}-3.png");
+		}
+	}
+
+	@for $i from 8 to 12 {
+		&[data-level="#{$i}-1"] {
+			left: vw(198);
+			background-image: url("./img/h5/level/icon/#{$i}-1.png");
+		}
+	}
+	@for $i from 8 to 12 {
+		&[data-level="#{$i}-2"] {
+			left: vw(246);
+			background-image: url("./img/h5/level/icon/#{$i}-2.png");
+		}
+	}
+	@for $i from 8 to 12 {
+		&[data-level="#{$i}-3"] {
+			left: vw(198);
+			background-image: url("./img/h5/level/icon/#{$i}-3.png");
+		}
+	}
+}
+.level {
+	&-content {
+		position: relative;
+		width: 100%;
+		height: 482px;
+		margin-top: 528px;
+		&:before {
+			content: "";
+			width: 100%;
+			height: 40px;
+			position: absolute;
+			top: 14px;
+			left: 0;
+			background-image: url("./img/web/level-border.png");
+		}
+	}
+	&__box {
+		display: none;
+		&.on {
+			display: block;
+		}
+		&:after {
+			content: "";
+			width: vw(768);
+			height: 100%;
+			background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		&[data-num="3"] {
+			.level__footer {
+				width: vw(768);
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-image: url("./img/h5/level/footprint1.png");
+				z-index: 1;
+				height: 0%;
+			}
+			&:after {
+				background-image: url("./img/h5/level/road1.png");
+			}
+		}
+		&[data-num="2"] {
+			.level__footer {
+				width: vw(768);
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-image: url("./img/h5/level/footprint2.png");
+				z-index: 1;
+				height: 0%;
+			}
+			&:after {
+				background-image: url("./img/h5/level/road2.png");
+			}
+		}
+	}
+	&__lv {
+		width: vw(768);
+		background-size: 200%;
+		position: relative;
+		box-shadow: 0 0 vw(24) rgb(0 0 0);
+		&.on {
+			background-position-x: 100%;
+		}
+		@for $i from 1 to 7 {
+			&[data-level="#{$i}-1"] {
+				height: vw(199);
+				background-image: url("./img/h5/level/#{$i}-1.png");
+			}
+			&[data-level="#{$i}-2"] {
+				height: vw(202);
+				background-image: url("./img/h5/level/#{$i}-2.png");
+			}
+			&[data-level="#{$i}-3"] {
+				height: vw(191);
+				background-image: url("./img/h5/level/#{$i}-3.png");
+			}
+		}
+		@for $i from 8 to 12 {
+			&[data-level="#{$i}-1"] {
+				height: vw(299);
+				background-image: url("./img/h5/level/#{$i}-1.png");
+			}
+			&[data-level="#{$i}-2"] {
+				height: vw(292);
+				background-image: url("./img/h5/level/#{$i}-2.png");
+			}
+		}
+	}
+	&__car {
+		width: 158px;
+		height: 147px;
+		position: absolute;
+		left: 421px;
+		top: -129px;
+		z-index: 10;
+		background-size: cover;
+		background-image: url("./img/h5/level/car.png");
+	}
+}
+.svg {
+	position: absolute;
+	top: vw(-56);
+	// left: vw(-24);
+	left: 0;
+	opacity: 0;
 }
