@@ -21,8 +21,8 @@ function Car1(start, end) {
 			alignOrigin: [0.5, 0.5],
 			start: start,
 			end: end,
-			autoRotate: false
-		}
+			autoRotate: false,
+		},
 	});
 	if (end == 0.33) {
 		stop = 18;
@@ -36,7 +36,7 @@ function Car1(start, end) {
 	gsap.to(".level__footer1", {
 		height: stop + "%",
 		duration: 2,
-		delay: 0.5
+		delay: 0.5,
 	});
 }
 function Car8(start, end) {
@@ -51,8 +51,8 @@ function Car8(start, end) {
 			alignOrigin: [0.5, 0.5],
 			start: start,
 			end: end,
-			autoRotate: false
-		}
+			autoRotate: false,
+		},
 	});
 	if (end == 0.45) {
 		stop = 18;
@@ -63,10 +63,47 @@ function Car8(start, end) {
 	gsap.to(".level__footer8", {
 		height: stop + "%",
 		duration: 2,
-		delay: 0.5
+		delay: 0.5,
 	});
 }
 
 var vm = new Vue({
-	el: "#app"
+	el: "#app",
+	mounted() {},
+	data: {
+		total: 12,
+		current: 1,
+		map: [{}],
+	},
+	methods: {
+		nextLevel() {
+			this.current++;
+			if (this.current > 12) {
+				this.current = 12;
+			}
+		},
+		prevLevel() {
+			this.current--;
+			if (this.current < 1) {
+				this.current = 1;
+			}
+		},
+		openEventDirections() {
+			EventDirections(itemsList);
+		},
+		openHistoryGame() {
+			HistoryGame(pointLists);
+		},
+		openItemReward() {
+			ItemReward();
+		},
+		eventSelectAccount() {
+			JoinAccount();
+		},
+		eventUnlock() {
+			PointEnough();
+			PointNotEnough();
+			Wait();
+		},
+	},
 });

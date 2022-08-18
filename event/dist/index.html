@@ -44,7 +44,7 @@
 				w[l] = w[l] || [];
 				w[l].push({
 					"gtm.start": new Date().getTime(),
-					event: "gtm.js"
+					event: "gtm.js",
 				});
 				var f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
@@ -96,14 +96,14 @@
 				</div>
 				<svg class="svg" id="road1" viewBox="0 0 768 646.66"><path id="path1" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05-18.89,153.67,50.58,229.48" /></svg>
 				<svg class="svg" id="road2" viewBox="0 0 768 646.66"><path id="path2" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05,4.7,87.45,74.17,163.25" /></svg>
-				<a href="javascript:;" class="btn__next"></a>
-				<a href="javascript:;" class="btn__prev"></a>
-				<a href="javascript:;" class="btn__unlock"></a>
+				<a href="javascript:;" class="btn__next" v-if="current < 12" @click="nextLevel"></a>
+				<a href="javascript:;" class="btn__prev" v-if="current > 1" @click="prevLevel"></a>
+				<a href="javascript:;" class="btn__unlock" @click="eventUnlock"></a>
 			</div>
 			<div class="home-btn-group">
-				<a href="javascript:;" class="btn__directions"></a>
-				<a href="javascript:;" class="btn__history"></a>
-				<a href="javascript:;" class="btn__reward"></a>
+				<a href="javascript:;" class="btn__directions" @click="openEventDirections"></a>
+				<a href="javascript:;" class="btn__history" @click="openHistoryGame"></a>
+				<a href="javascript:;" class="btn__reward" @click="openItemReward"></a>
 			</div>
 		</div>
 
