@@ -7,29 +7,44 @@ body {
 		min-width: auto;
 	}
 }
-
+.header {
+	max-width: 1200px;
+	position: relative;
+	margin: 0 auto;
+}
 #app {
 	width: 100%;
 	position: relative;
 	background-image: url("./img/web/bg-top.jpg");
-	background-size: 1920px 528px;
+	background-size: 1920px 489px;
 	background-position: center top;
 	background-repeat: no-repeat;
 	overflow: hidden;
 }
-
+.home-btn-group {
+	display: none;
+	@include media {
+		display: flex;
+	}
+}
 .current-level {
-	width: 265px;
-	height: 72px;
+	width: 245px;
+	height: 67px;
 	background-image: url("./img/h5/levels.png");
 	background-size: 1200%;
 	position: absolute;
-	top: 193px;
-	left: 129px;
+	top: 179px;
+	left: 154px;
 	@for $i from 1 through 12 {
 		&[data-level="#{$i}"] {
 			background-position-x: -100% * ($i - 1);
 		}
+	}
+}
+.h5__login {
+	display: none;
+	@include media {
+		display: block;
 	}
 }
 .logo {
@@ -38,16 +53,40 @@ body {
 	background-size: cover;
 	background-image: url("./img/h5/logo.png");
 	position: absolute;
-	top: 18px;
-	right: 14px;
+	top: 19px;
+	right: 8px;
 }
-
-.icon {
+.event-lb {
+	&-group {
+		position: absolute;
+		top: 108px;
+		right: 46px;
+		@include media {
+			display: none;
+		}
+	}
+	&__btn {
+		display: block;
+		& + .event-lb__btn {
+			margin-top: 16px;
+		}
+	}
+}
+.social-btn {
+	&-group {
+		position: absolute;
+		top: 24px;
+		right: 258px;
+		@include media {
+			display: none;
+		}
+	}
 	&__home {
 		width: 53px;
 		height: 53px;
 		background-size: 200%;
 		background-image: url("./img/web/icon-home.png");
+		margin-right: 9px;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -60,6 +99,7 @@ body {
 		height: 53px;
 		background-size: 200%;
 		background-image: url("./img/web/icon-yt.png");
+		margin-right: 9px;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -72,6 +112,7 @@ body {
 		height: 53px;
 		background-size: 200%;
 		background-image: url("./img/web/icon-f_b.png");
+		margin-right: 9px;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -166,7 +207,7 @@ body {
 		background-image: url("./img/web/btn-next.png");
 		position: absolute;
 		top: 50%;
-		right: 17px;
+		right: 24px;
 		transform: translateY(-50%);
 		z-index: 10;
 		@include hover {
@@ -180,7 +221,7 @@ body {
 		background-image: url("./img/web/btn-prev.png");
 		position: absolute;
 		top: 50%;
-		left: 17px;
+		left: 24px;
 		transform: translateY(-50%);
 		z-index: 10;
 		@include hover {
@@ -193,8 +234,8 @@ body {
 		background-size: 200%;
 		background-image: url("./img/web/btn-next-level.png");
 		position: absolute;
-		top: 461px;
-		right: 4px;
+		top: 352px;
+		right: 18px;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -205,84 +246,119 @@ body {
 		width: 224px;
 		height: 276px;
 		font-size: 20px;
-		color: #fff;
+		color: #000;
 		position: absolute;
-		top: 374px;
-		left: 8px;
-		padding: 0 vw(20) vw(8);
-		background-image: url("./img/h5/account-status-bg.png");
+		top: 99px;
+		left: 703px;
+		// padding: 0 vw(20) vw(8);
+		background-image: url("./img/web/account-status-bg.png");
 		background-size: cover;
 		text-align: center;
 		span {
 			display: block;
+			width: 100%;
+			&:first-child {
+				display: none;
+				@include media {
+					display: block;
+				}
+			}
+		}
+		&__name {
+			width: 100%;
+			position: absolute;
+			top: 58px;
+			left: 50%;
+			transform: translateX(-50%);
+			&-text {
+				font-size: 25px;
+				color: #de6b0f;
+			}
+		}
+		&__point {
+			width: 100%;
+			position: absolute;
+			top: 186px;
+			left: 50%;
+			transform: translateX(-50%);
 		}
 	}
 }
 
 .icon {
-	width: vw(281);
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 	z-index: 10;
 	background-size: 200%;
-	width: vw(310);
-	height: vw(153);
+	width: 322px;
+	height: 121px;
+	// display: none;
 	&.on {
 		background-position-x: 200%;
 	}
 	@for $i from 1 to 7 {
 		&[data-level="#{$i}-1"] {
-			left: vw(242);
-			background-image: url("./img/h5/level/icon/#{$i}-1.png");
+			top: 129px;
+			left: 156px;
+			background-image: url("./img/web/level/icon/#{$i}-1.png");
 		}
 	}
 	@for $i from 1 to 7 {
 		&[data-level="#{$i}-2"] {
-			left: vw(132);
-			background-image: url("./img/h5/level/icon/#{$i}-2.png");
+			top: 263px;
+			left: 497px;
+			background-image: url("./img/web/level/icon/#{$i}-2.png");
 		}
 	}
 	@for $i from 1 to 7 {
 		&[data-level="#{$i}-3"] {
-			left: vw(203);
-			background-image: url("./img/h5/level/icon/#{$i}-3.png");
+			top: 58px;
+			left: 836px;
+			background-image: url("./img/web/level/icon/#{$i}-3.png");
 		}
 	}
 
 	@for $i from 8 to 12 {
 		&[data-level="#{$i}-1"] {
-			left: vw(198);
-			background-image: url("./img/h5/level/icon/#{$i}-1.png");
+			top: 89px;
+			left: 176px;
+			background-image: url("./img/web/level/icon/#{$i}-1.png");
 		}
 	}
 	@for $i from 8 to 12 {
 		&[data-level="#{$i}-2"] {
-			left: vw(246);
-			background-image: url("./img/h5/level/icon/#{$i}-2.png");
-		}
-	}
-	@for $i from 8 to 12 {
-		&[data-level="#{$i}-3"] {
-			left: vw(198);
-			background-image: url("./img/h5/level/icon/#{$i}-3.png");
+			top: 118px;
+			left: 798px;
+			background-image: url("./img/web/level/icon/#{$i}-2.png");
 		}
 	}
 }
 .level {
 	&-content {
 		position: relative;
-		width: 100%;
+		width: 1200px;
 		height: 482px;
-		margin-top: 528px;
+		margin: 528px auto 0;
 		&:before {
 			content: "";
-			width: 100%;
+			width: 1920px;
 			height: 40px;
 			position: absolute;
-			top: 14px;
-			left: 0;
+			top: -18px;
+			left: 50%;
+			transform: translateX(-50%);
 			background-image: url("./img/web/level-border.png");
+			background-position: center 0;
+		}
+		&:after {
+			content: "";
+			width: 1920px;
+			height: 609px;
+			position: absolute;
+			top: -126px;
+			left: 50%;
+			transform: translateX(-50%);
+			background-image: url("./img/web/level/level-content-bg.png");
+			background-position: center 0;
 		}
 	}
 	&__box {
@@ -292,8 +368,8 @@ body {
 		}
 		&:after {
 			content: "";
-			width: vw(768);
-			height: 100%;
+			width: 1200px;
+			height: 482px;
 			background-size: cover;
 			position: absolute;
 			top: 0;
@@ -301,74 +377,87 @@ body {
 		}
 		&[data-num="3"] {
 			.level__footer {
-				width: vw(768);
+				width: 1200px;
 				background-size: cover;
 				position: absolute;
 				top: 0;
 				left: 0;
-				background-image: url("./img/h5/level/footprint1.png");
+				background-image: url("./img/web/level/footprint1.png");
 				z-index: 1;
 				height: 0%;
 			}
 			&:after {
-				background-image: url("./img/h5/level/road1.png");
+				background-image: url("./img/web/level/road1.png");
 			}
 		}
 		&[data-num="2"] {
 			.level__footer {
-				width: vw(768);
+				width: 1200px;
 				background-size: cover;
 				position: absolute;
 				top: 0;
 				left: 0;
-				background-image: url("./img/h5/level/footprint2.png");
+				background-image: url("./img/web/level/footprint2.png");
 				z-index: 1;
 				height: 0%;
 			}
 			&:after {
-				background-image: url("./img/h5/level/road2.png");
+				background-image: url("./img/web/level/road2.png");
 			}
+		}
+		&[data-level="1"] {
+			width: 100%;
+			height: 100%;
+			background-image: url("./img/web/level/1.png");
+			background-size: 400%;
+		}
+		&[data-complete="0"] {
+			background-position-x: 0%;
+		}
+		&[data-complete="1"] {
+			background-position-x: -100%;
+		}
+		&[data-complete="2"] {
+			background-position-x: -200%;
+		}
+		&[data-complete="3"] {
+			background-position-x: -300%;
 		}
 	}
 	&__lv {
-		width: vw(768);
-		background-size: 200%;
-		position: relative;
-		box-shadow: 0 0 vw(24) rgb(0 0 0);
-		&.on {
-			background-position-x: 100%;
-		}
-		@for $i from 1 to 7 {
-			&[data-level="#{$i}-1"] {
-				height: vw(199);
-				background-image: url("./img/h5/level/#{$i}-1.png");
-			}
-			&[data-level="#{$i}-2"] {
-				height: vw(202);
-				background-image: url("./img/h5/level/#{$i}-2.png");
-			}
-			&[data-level="#{$i}-3"] {
-				height: vw(191);
-				background-image: url("./img/h5/level/#{$i}-3.png");
-			}
-		}
-		@for $i from 8 to 12 {
-			&[data-level="#{$i}-1"] {
-				height: vw(299);
-				background-image: url("./img/h5/level/#{$i}-1.png");
-			}
-			&[data-level="#{$i}-2"] {
-				height: vw(292);
-				background-image: url("./img/h5/level/#{$i}-2.png");
-			}
-		}
+		// width: 100%;
+		// position: relative;
+		// 	@for $i from 1 to 7 {
+		// 		&[data-level="#{$i}-1"] {
+		// 			height: vw(199);
+		// 			background-image: url("./img/h5/level/#{$i}-1.png");
+		// 		}
+		// 		&[data-level="#{$i}-2"] {
+		// 			height: vw(202);
+		// 			background-image: url("./img/h5/level/#{$i}-2.png");
+		// 		}
+		// 		&[data-level="#{$i}-3"] {
+		// 			height: vw(191);
+		// 			background-image: url("./img/h5/level/#{$i}-3.png");
+		// 		}
+		// 	}
+		// 	@for $i from 8 to 12 {
+		// 		&[data-level="#{$i}-1"] {
+		// 			height: vw(299);
+		// 			background-image: url("./img/h5/level/#{$i}-1.png");
+		// 		}
+		// 		&[data-level="#{$i}-2"] {
+		// 			height: vw(292);
+		// 			background-image: url("./img/h5/level/#{$i}-2.png");
+		// 		}
+		// 	}
 	}
 	&__car {
 		width: 158px;
 		height: 147px;
 		position: absolute;
-		left: 421px;
-		top: -129px;
+		left: 304px;
+		top: -135px;
 		z-index: 10;
 		background-size: cover;
 		background-image: url("./img/h5/level/car.png");

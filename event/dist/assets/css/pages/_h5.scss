@@ -108,6 +108,7 @@
 	.account {
 		&-status {
 			width: vw(378);
+			height: auto;
 			font-size: vw(30);
 			color: #fff;
 			font-weight: bold;
@@ -146,10 +147,7 @@
 	}
 
 	.icon {
-		width: vw(281);
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
 		z-index: 10;
 		background-size: 200%;
 		width: vw(310);
@@ -159,18 +157,21 @@
 		}
 		@for $i from 1 to 7 {
 			&[data-level="#{$i}-1"] {
+				top: vw(34);
 				left: vw(242);
 				background-image: url("./img/h5/level/icon/#{$i}-1.png");
 			}
 		}
 		@for $i from 1 to 7 {
 			&[data-level="#{$i}-2"] {
+				top: vw(238);
 				left: vw(132);
 				background-image: url("./img/h5/level/icon/#{$i}-2.png");
 			}
 		}
 		@for $i from 1 to 7 {
 			&[data-level="#{$i}-3"] {
+				top: vw(433);
 				left: vw(203);
 				background-image: url("./img/h5/level/icon/#{$i}-3.png");
 			}
@@ -178,20 +179,16 @@
 
 		@for $i from 8 to 12 {
 			&[data-level="#{$i}-1"] {
+				top: vw(82);
 				left: vw(198);
 				background-image: url("./img/h5/level/icon/#{$i}-1.png");
 			}
 		}
 		@for $i from 8 to 12 {
 			&[data-level="#{$i}-2"] {
+				top: vw(353);
 				left: vw(246);
 				background-image: url("./img/h5/level/icon/#{$i}-2.png");
-			}
-		}
-		@for $i from 8 to 12 {
-			&[data-level="#{$i}-3"] {
-				left: vw(198);
-				background-image: url("./img/h5/level/icon/#{$i}-3.png");
 			}
 		}
 	}
@@ -203,7 +200,7 @@
 		&-content {
 			position: relative;
 			width: 100%;
-			height: vw(591);
+			height: vw(590);
 			margin-top: vw(536px);
 			margin-bottom: vw(27);
 			&:before {
@@ -212,7 +209,8 @@
 				height: vw(14);
 				position: absolute;
 				top: vw(-14);
-				left: 0;
+				left: 50%;
+				transform: translateX(-50%);
 				background-image: url("./img/h5/level-border.png");
 				box-shadow: 0 0 vw(24) rgba(#000, 0.8);
 			}
@@ -221,8 +219,10 @@
 				width: 100%;
 				height: vw(14);
 				position: absolute;
+				top: unset;
 				bottom: vw(-14);
-				left: 0;
+				left: 50%;
+				transform: translateX(-50%);
 				background-image: url("./img/h5/level-border.png");
 				box-shadow: 0 0 vw(24) rgba(#000, 0.8);
 			}
@@ -272,40 +272,78 @@
 					background-image: url("./img/h5/level/road2.png");
 				}
 			}
+			@for $i from 1 through 7 {
+				&[data-level="#{$i}"] {
+					width: 100%;
+					height: 100%;
+					background-image: url("./img/h5/level/#{$i}.png");
+					background-size: 400%;
+					&[data-complete="0"] {
+						background-position-x: 0%;
+					}
+					&[data-complete="1"] {
+						background-position-x: -100%;
+					}
+					&[data-complete="2"] {
+						background-position-x: -200%;
+					}
+					&[data-complete="3"] {
+						background-position-x: -300%;
+					}
+				}
+			}
+			@for $i from 8 through 12 {
+				&[data-level="#{$i}"] {
+					width: 100%;
+					height: 100%;
+					background-image: url("./img/h5/level/#{$i}.png");
+					background-size: 300%;
+					&[data-complete="0"] {
+						background-position-x: 0%;
+					}
+					&[data-complete="1"] {
+						background-position-x: -100%;
+					}
+					&[data-complete="2"] {
+						background-position-x: -200%;
+					}
+				}
+			}
 		}
-		&__lv {
-			width: vw(768);
-			background-size: 200%;
-			position: relative;
-			box-shadow: 0 0 vw(24) rgb(0 0 0);
-			&.on {
-				background-position-x: -100%;
-			}
-			@for $i from 1 to 7 {
-				&[data-level="#{$i}-1"] {
-					height: vw(199);
-					background-image: url("./img/h5/level/#{$i}-1.png");
-				}
-				&[data-level="#{$i}-2"] {
-					height: vw(202);
-					background-image: url("./img/h5/level/#{$i}-2.png");
-				}
-				&[data-level="#{$i}-3"] {
-					height: vw(191);
-					background-image: url("./img/h5/level/#{$i}-3.png");
-				}
-			}
-			@for $i from 8 to 12 {
-				&[data-level="#{$i}-1"] {
-					height: vw(299);
-					background-image: url("./img/h5/level/#{$i}-1.png");
-				}
-				&[data-level="#{$i}-2"] {
-					height: vw(292);
-					background-image: url("./img/h5/level/#{$i}-2.png");
-				}
-			}
-		}
+
+		// &__lv {
+		// 	width: vw(768);
+		// 	background-size: 200%;
+		// 	position: relative;
+		// 	box-shadow: 0 0 vw(24) rgb(0 0 0);
+		// 	&.on {
+		// 		background-position-x: -100%;
+		// 	}
+		// 	@for $i from 1 to 7 {
+		// 		&[data-level="#{$i}-1"] {
+		// 			height: vw(199);
+		// 			background-image: url("./img/h5/level/#{$i}-1.png");
+		// 		}
+		// 		&[data-level="#{$i}-2"] {
+		// 			height: vw(202);
+		// 			background-image: url("./img/h5/level/#{$i}-2.png");
+		// 		}
+		// 		&[data-level="#{$i}-3"] {
+		// 			height: vw(191);
+		// 			background-image: url("./img/h5/level/#{$i}-3.png");
+		// 		}
+		// 	}
+		// 	@for $i from 8 to 12 {
+		// 		&[data-level="#{$i}-1"] {
+		// 			height: vw(299);
+		// 			background-image: url("./img/h5/level/#{$i}-1.png");
+		// 		}
+		// 		&[data-level="#{$i}-2"] {
+		// 			height: vw(292);
+		// 			background-image: url("./img/h5/level/#{$i}-2.png");
+		// 		}
+		// 	}
+		// }
 		&__car {
 			width: vw(158);
 			height: vw(147);

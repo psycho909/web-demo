@@ -193,7 +193,7 @@ function EventDirections(items) {
 	});
 	var HTML = `
 		<div class="lb-title__directions"></div>
-		<div class="lb-dashed2"></div>
+		<div class="lb-directions__dashed lb-dashed2"></div>
 		<div class="lb-directions__content">
 			<ol class="lb-directions__list">
 				<li class="lb-directions__li">每個主題關卡僅能完成一次，每個主題關卡任務條件都為<span class="blue">該主題完成行駛10回合。</span></li>
@@ -233,14 +233,16 @@ function HistoryGame(lists) {
 		hasCloseBtn: true,
 		hasActionBtn: false,
 		afterOpen: function () {
-			$(".lb-history__content").mCustomScrollbar({
-				theme: "light",
-				contentTouchScroll: true,
-				mouseWheel: {
-					preventDefault: true,
-				},
-				advanced: { extraDraggableSelectors: ".account-list" },
-			});
+			if (isMobile.any) {
+				$(".lb-history__content").mCustomScrollbar({
+					theme: "light",
+					contentTouchScroll: true,
+					mouseWheel: {
+						preventDefault: true,
+					},
+					advanced: { extraDraggableSelectors: ".account-list" },
+				});
+			}
 		},
 		afterClose: function () {
 			$.gbox.close();
@@ -274,43 +276,45 @@ function HistoryGame(lists) {
 					<li class="lb-history__notice-li">車款/角色蒐集數量皆為道具圖鑑數量</li>
 				</ul>
 			</div>
-			<div class="lb-history__rule-title">※跑跑點數計算※</div>
-			<table class="lb-history__rule-table">
-				<thead class="lb-history__rule-thead">
-					<tr class="lb-history__rule-tr">
-						<th>項目</th>
-						<th>累積數</th>
-						<th>跑跑點數</th>
-					</tr>
-				</thead>
-				<tbody class="lb-history__rule-tbody">
-					<tr class="lb-history__rule-tr">
-						<td>多人遊玩場次</td>
-						<td>10</td>
-						<td>1</td>
-					</tr>
-					<tr class="lb-history__rule-tr">
-						<td>累積在線時間(小時)</td>
-						<td>10</td>
-						<td>1</td>
-					</tr>
-					<tr class="lb-history__rule-tr">
-						<td>徽章總數</td>
-						<td>1</td>
-						<td>1</td>
-					</tr>
-					<tr class="lb-history__rule-tr">
-						<td>成就分數</td>
-						<td>1</td>
-						<td>1</td>
-					</tr>
-					<tr class="lb-history__rule-tr">
-						<td>圖鑑登入數</td>
-						<td>1</td>
-						<td>1</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="lb-history__rule">
+				<div class="lb-history__rule-title">※跑跑點數計算※</div>
+				<table class="lb-history__rule-table">
+					<thead class="lb-history__rule-thead">
+						<tr class="lb-history__rule-tr">
+							<th>項目</th>
+							<th>累積數</th>
+							<th>跑跑點數</th>
+						</tr>
+					</thead>
+					<tbody class="lb-history__rule-tbody">
+						<tr class="lb-history__rule-tr">
+							<td>多人遊玩場次</td>
+							<td>10</td>
+							<td>1</td>
+						</tr>
+						<tr class="lb-history__rule-tr">
+							<td>累積在線時間(小時)</td>
+							<td>10</td>
+							<td>1</td>
+						</tr>
+						<tr class="lb-history__rule-tr">
+							<td>徽章總數</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr class="lb-history__rule-tr">
+							<td>成就分數</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr class="lb-history__rule-tr">
+							<td>圖鑑登入數</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
@@ -437,6 +441,8 @@ function ItemReward() {
 	};
 
 	var HTML = `
+	<div class="lb-reward__title"></div>
+	<div class="lb-reward__dashed1 lb-dashed1"></div>
 	<div class="lb-reward__content">
 		<div class="lb-reward__list">
 			<label for="a" class="lb-reward__label">
@@ -496,10 +502,11 @@ function ItemReward() {
 		<p>道具將於2小時內置入完成，</p>
 		<p>若道具置入失敗請重新選擇置入</p>
 	</div>
+	<div class="lb-reward__qrcode"></div>
 	`;
 	$.gbox.open(HTML, config);
 }
-// ItemReward();
+ItemReward();
 // 置入完成
 function ItemRewardComplete() {
 	var config = {
