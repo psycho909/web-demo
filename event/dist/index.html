@@ -25,6 +25,9 @@
 
 		<!-- JS -->
 		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
@@ -44,7 +47,7 @@
 				w[l] = w[l] || [];
 				w[l].push({
 					"gtm.start": new Date().getTime(),
-					event: "gtm.js",
+					event: "gtm.js"
 				});
 				var f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
@@ -65,50 +68,53 @@
 			<div class="header">
 				<a href="javascript:;" class="logo"></a>
 				<div class="social-btn-group">
-					<a href="javascript:;" class="social-btn__home"></a>
-					<a href="javascript:;" class="social-btn__f_b"></a>
-					<a href="javascript:;" class="social-btn__yt"></a>
-					<a href="javascript:;" class="social-btn__discord"></a>
+					<a href="https://tw.beanfun.com/kartrider/main.aspx" target="_blank" class="social-btn__home"></a>
+					<a href="https://www.facebook.com/kartriderTW/" target="_blank" class="social-btn__f_b"></a>
+					<a href="https://www.youtube.com/channel/UCBCjxgg6A3AZD1VcrlORvaQ" target="_blank" class="social-btn__yt"></a>
+					<a href="https://discord.com/invite/TfsThAT" target="_blank" class="social-btn__discord"></a>
 				</div>
 				<div class="event-lb-group">
 					<a href="javascript:;" class="event-lb__btn btn__login"></a>
 					<a href="javascript:;" class="event-lb__btn btn__directions" @click="openEventDirections"></a>
-					<a href="javascript:;" class="event-lb__btn btn__history"></a>
-					<a href="javascript:;" class="event-lb__btn btn__reward"></a>
-					<a href="javascript:;" class="event-lb__btn btn__booking"></a>
+					<a href="javascript:;" class="event-lb__btn btn__history" @click="openHistoryGame"></a>
+					<a href="javascript:;" class="event-lb__btn btn__reward" @click="openItemRewardWeb"></a>
+					<a href="javascript:;" class="event-lb__btn btn__booking" @click="eventBooking"></a>
 				</div>
-				<div class="current-level" data-level="1"></div>
+				<div class="current-level" :data-level="current"></div>
 				<a href="javascript:;" class="btn__login h5__login"></a>
-				<div class="account-status">
+				<div class="account-status" v-if="account">
 					<div class="account-status__name">
 						<span>登入角色</span>
-						<span>一二三四五六七八九十</span>
+						<span>{{account}}</span>
 						<div class="account-status__name-text">參加中</div>
 						<a href="javascript:;" class="btn__change">切換帳號</a>
 					</div>
-					<div class="account-status__point">一二三四五六七八九十</div>
+					<div class="account-status__point">{{point}}</div>
 				</div>
 			</div>
 			<div class="level-content">
-				<div class="level__box on" data-num="3" data-level="1" data-complete="0">
-					<a href="javascript:;" class="icon icon--3" data-level="1-1"></a>
-					<a href="javascript:;" class="icon icon--3" data-level="1-2"></a>
-					<a href="javascript:;" class="icon icon--3" data-level="1-3"></a>
-					<div class="level__car car1"></div>
-					<div class="level__footer level__footer1"></div>
-				</div>
-				<div class="level__box" data-num="2" data-level="8" data-complete="0">
-					<a href="javascript:;" class="icon icon--2" data-level="8-1"></a>
-					<a href="javascript:;" class="icon icon--2" data-level="8-2"></a>
-					<div class="level__car car8"></div>
-					<div class="level__footer level__footer8"></div>
+				<div v-for="(mission,index) in GetterMissions" class="level__box" :class="[mission.MissionInt == current?'on':'']" :data-level="mission.MissionInt" :data-complete="mission.complete">
+					<a href="javascript:;" class="icon" :class="[mission.MissionStatus.MissionStatus1 > 0?'on':'']" :data-level="mission.MissionInt+'-1'"></a>
+					<a href="javascript:;" class="icon" :class="[mission.MissionStatus.MissionStatus2 > 0?'on':'']" :data-level="mission.MissionInt+'-2'"></a>
+					<a href="javascript:;" class="icon" :class="[mission.MissionStatus.MissionStatus3 > 0?'on':'']" :data-level="mission.MissionInt+'-3'"></a>
+					<div class="level__car" :class="'car'+mission.MissionInt"></div>
+					<div class="path-mask" v-if="current < 8">
+						<svg height="542.63" class="svg pc mask" viewBox="0 0 1200 542.63" xml:space="preserve"><path class="cls-2 cls-road1" :class="'path'+mission.MissionInt" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
+						<svg height="651" class="svg mb mask" viewBox="0 0 768 651" xml:space="preserve"><path class="cls-2 cls-road1" :class="'mb-path'+mission.MissionInt" d="M473.83,0s1.68,28.25-3.87,43.15c-13,34.77-.87,41-90.44,86.22C277.18,181,200.76,263.94,207,336.32c9.91,114.21-34.62,133.82,67.73,224.49" /></svg>
+						<svg height="542.63" class="svg pc" viewBox="0 0 1200 542.63" xml:space="preserve"><path id="path1" class="cls-1" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
+						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path id="path3" class="cls-1" d="M473.83,0s1.68,28.25-3.87,43.15c-13,34.77-.87,41-90.44,86.22C277.18,181,200.76,263.94,207,336.32c9.91,114.21-34.62,133.82,67.73,224.49" /></svg>
+					</div>
+					<div class="path-mask" v-else-if="current > 7">
+						<svg height="541.31" class="svg pc mask" viewBox="0 0 1200 541.31" xml:space="preserve"><path class="cls-2 cls-road2" :class="'path'+mission.MissionInt" d="M399.26,0c-3.35,32.39-38.32,63.5-58,80.24-35,29.86-67.41,67.07-103.42,129.56-60.75,105.4,99.16,268.66,275,181,116.79-58.22,150.53-157.49,303-161,11.83-3,28.76-12.11,28.76-12.11" /></svg>
+						<svg height="651" class="svg mb mask" viewBox="0 0 768 651" xml:space="preserve"><path class="cls-2 cls-road2" :class="'mb-path'+mission.MissionInt" d="M473.77,0C467.69,20,490,72.76,380.82,130.62,242.26,204.06,203.33,275.7,202.59,360.5c-.34,39.46,30.09,110.3,109.09,124.61" /></svg>
+						<svg height="541.31" class="svg pc" viewBox="0 0 1200 541.31" xml:space="preserve"><path id="path2" class="cls-1" d="M399.26,0c-3.35,32.39-38.32,63.5-58,80.24-35,29.86-67.41,67.07-103.42,129.56-60.75,105.4,99.16,268.66,275,181,116.79-58.22,150.53-157.49,303-161,11.83-3,28.76-12.11,28.76-12.11" /></svg>
+						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path id="path4" class="cls-1" d="M473.77,0C467.69,20,490,72.76,380.82,130.62,242.26,204.06,203.33,275.7,202.59,360.5c-.34,39.46,30.09,110.3,109.09,124.61" /></svg>
+					</div>
+					<a href="javascript:;" class="btn__unlock" :data-unlock="mission.Unlock" @click="eventUnlock"></a>
 				</div>
 
-				<svg class="svg mb" id="road1" viewBox="0 0 768 646.66"><path id="path1" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05-18.89,153.67,50.58,229.48" /></svg>
-				<svg class="svg mb" id="road2" viewBox="0 0 768 646.66"><path id="path2" class="cls-1" d="M500.34,0s-53.62,104.94-153,140.28c-41.41,14.73-142.87,125-139.81,194,4.34,98.05,4.7,87.45,74.17,163.25" /></svg>
 				<a href="javascript:;" class="btn__next" v-if="current < 12" @click="nextLevel"></a>
 				<a href="javascript:;" class="btn__prev" v-if="current > 1" @click="prevLevel"></a>
-				<a href="javascript:;" class="btn__unlock" @click="eventUnlock"></a>
 			</div>
 			<div class="home-btn-group">
 				<a href="javascript:;" class="btn__directions" @click="openEventDirections"></a>
@@ -119,7 +125,9 @@
 
 		<!-- footer -->
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="跑跑卡丁車" theme="dark"></script>
-		<script src="./js/lightbox.js"></script>
-		<script src="./js/default.js"></script>
+		<script type="text/babel" src="./js/store.js"></script>
+		<script type="text/babel" src="./js/api.js"></script>
+		<script type="text/babel" src="./js/lightbox.js"></script>
+		<script type="text/babel" src="./js/default.js"></script>
 	</body>
 </html>

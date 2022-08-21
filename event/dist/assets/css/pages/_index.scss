@@ -236,6 +236,7 @@ body {
 		position: absolute;
 		top: 352px;
 		right: 18px;
+		z-index: 10;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -293,23 +294,23 @@ body {
 	height: 121px;
 	// display: none;
 	&.on {
-		background-position-x: 200%;
+		background-position-x: -100%;
 	}
-	@for $i from 1 to 7 {
+	@for $i from 1 through 7 {
 		&[data-level="#{$i}-1"] {
 			top: 129px;
 			left: 156px;
 			background-image: url("./img/web/level/icon/#{$i}-1.png");
 		}
 	}
-	@for $i from 1 to 7 {
+	@for $i from 1 through 7 {
 		&[data-level="#{$i}-2"] {
 			top: 263px;
 			left: 497px;
 			background-image: url("./img/web/level/icon/#{$i}-2.png");
 		}
 	}
-	@for $i from 1 to 7 {
+	@for $i from 1 through 7 {
 		&[data-level="#{$i}-3"] {
 			top: 58px;
 			left: 836px;
@@ -317,18 +318,21 @@ body {
 		}
 	}
 
-	@for $i from 8 to 12 {
+	@for $i from 8 through 12 {
 		&[data-level="#{$i}-1"] {
 			top: 89px;
-			left: 176px;
+			left: 175px;
 			background-image: url("./img/web/level/icon/#{$i}-1.png");
 		}
 	}
-	@for $i from 8 to 12 {
+	@for $i from 8 through 12 {
 		&[data-level="#{$i}-2"] {
 			top: 118px;
-			left: 798px;
+			left: 797px;
 			background-image: url("./img/web/level/icon/#{$i}-2.png");
+		}
+		&[data-level="#{$i}-3"] {
+			display: none;
 		}
 	}
 }
@@ -375,82 +379,49 @@ body {
 			top: 0;
 			left: 0;
 		}
-		&[data-num="3"] {
-			.level__footer {
-				width: 1200px;
-				background-size: cover;
-				position: absolute;
-				top: 0;
-				left: 0;
-				background-image: url("./img/web/level/footprint1.png");
-				z-index: 1;
-				height: 0%;
-			}
-			&:after {
-				background-image: url("./img/web/level/road1.png");
-			}
-		}
-		&[data-num="2"] {
-			.level__footer {
-				width: 1200px;
-				background-size: cover;
-				position: absolute;
-				top: 0;
-				left: 0;
-				background-image: url("./img/web/level/footprint2.png");
-				z-index: 1;
-				height: 0%;
-			}
-			&:after {
-				background-image: url("./img/web/level/road2.png");
+		@for $i from 1 through 7 {
+			&[data-level="#{$i}"] {
+				width: 100%;
+				height: 100%;
+				background-image: url("./img/web/level/#{$i}.png");
+				background-size: 400%;
+				&:after {
+					background-image: url("./img/web/level/road1.png");
+				}
+				&[data-complete="0"] {
+					background-position-x: 0%;
+				}
+				&[data-complete="1"] {
+					background-position-x: -100%;
+				}
+				&[data-complete="2"] {
+					background-position-x: -200%;
+				}
+				&[data-complete="3"] {
+					background-position-x: -300%;
+				}
 			}
 		}
-		&[data-level="1"] {
-			width: 100%;
-			height: 100%;
-			background-image: url("./img/web/level/1.png");
-			background-size: 400%;
+		@for $i from 8 through 12 {
+			&[data-level="#{$i}"] {
+				width: 100%;
+				height: 100%;
+				background-image: url("./img/web/level/#{$i}.png");
+				background-size: 300%;
+				&:after {
+					background-image: url("./img/web/level/road2.png");
+				}
+				&[data-complete="0"] {
+					background-position-x: 0%;
+				}
+				&[data-complete="1"] {
+					background-position-x: -100%;
+				}
+				&[data-complete="2"] {
+					background-position-x: -200%;
+				}
+			}
 		}
-		&[data-complete="0"] {
-			background-position-x: 0%;
-		}
-		&[data-complete="1"] {
-			background-position-x: -100%;
-		}
-		&[data-complete="2"] {
-			background-position-x: -200%;
-		}
-		&[data-complete="3"] {
-			background-position-x: -300%;
-		}
-	}
-	&__lv {
-		// width: 100%;
-		// position: relative;
-		// 	@for $i from 1 to 7 {
-		// 		&[data-level="#{$i}-1"] {
-		// 			height: vw(199);
-		// 			background-image: url("./img/h5/level/#{$i}-1.png");
-		// 		}
-		// 		&[data-level="#{$i}-2"] {
-		// 			height: vw(202);
-		// 			background-image: url("./img/h5/level/#{$i}-2.png");
-		// 		}
-		// 		&[data-level="#{$i}-3"] {
-		// 			height: vw(191);
-		// 			background-image: url("./img/h5/level/#{$i}-3.png");
-		// 		}
-		// 	}
-		// 	@for $i from 8 to 12 {
-		// 		&[data-level="#{$i}-1"] {
-		// 			height: vw(299);
-		// 			background-image: url("./img/h5/level/#{$i}-1.png");
-		// 		}
-		// 		&[data-level="#{$i}-2"] {
-		// 			height: vw(292);
-		// 			background-image: url("./img/h5/level/#{$i}-2.png");
-		// 		}
-		// 	}
 	}
 	&__car {
 		width: 158px;
@@ -465,8 +436,61 @@ body {
 }
 .svg {
 	position: absolute;
-	top: vw(-56);
-	// left: vw(-24);
+	top: -62px;
 	left: 0;
-	opacity: 0;
+	// opacity: 0;
+	z-index: 1;
+	width: 100%;
+	@include media {
+		height: auto;
+	}
+	&.mask {
+		z-index: 2;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&.pc {
+		display: block;
+		@include media {
+			display: none;
+		}
+	}
+	&.mb {
+		display: none;
+		@include media {
+			display: block;
+		}
+	}
+}
+.cls-1 {
+	fill: none;
+	stroke: #000;
+	stroke-width: 9.56px;
+	stroke-dasharray: 38.24 19.12;
+}
+.cls-2 {
+	fill: none;
+	stroke: #e1e1e1;
+	stroke-width: 12px;
+}
+.cls-road1 {
+	stroke-dasharray: 1302;
+	stroke-dashoffset: 0;
+	@include media {
+		stroke-dasharray: 706;
+	}
+}
+.cls-road2 {
+	stroke-dasharray: 1070;
+	stroke-dashoffset: 0;
+	@include media {
+		stroke-dasharray: 657;
+	}
+}
+.path-mask {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	overflow: hidden;
 }

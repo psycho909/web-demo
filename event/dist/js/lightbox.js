@@ -11,16 +11,16 @@ var config = {
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
+			}
 		},
 		{
 			text: "text2",
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
-		},
-	],
+			}
+		}
+	]
 };
 
 function MessageLB(msg, url, callback) {
@@ -41,16 +41,16 @@ function MessageLB(msg, url, callback) {
 							callback();
 						}
 					}
-				},
+				}
 			},
 			{
 				text: "取消",
 				class: "btn-cancel",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	});
 }
 
@@ -66,7 +66,7 @@ var itemsList = [
 	{ label: "九", name: "跑跑實體遊戲產包抽獎資格" },
 	{ label: "十", name: "跑跑實體遊戲產包抽獎資格" },
 	{ label: "十一", name: "跑跑實體車款紙模型抽獎資格" },
-	{ label: "十二", name: "跑跑實體雨傘抽獎資格" },
+	{ label: "十二", name: "跑跑實體雨傘抽獎資格" }
 ];
 
 // 選擇遊戲帳號
@@ -85,9 +85,9 @@ function JoinAccount() {
 				class: "btn-select-account",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -123,9 +123,9 @@ function JoinAccountComplete() {
 				class: "btn-confirm",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -151,9 +151,9 @@ function JoinAccountNothing() {
 				class: "btn-create",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `<div class="lb-join-nothing__title lb-title__no-account"></div>`;
@@ -172,15 +172,15 @@ function EventDirections(items) {
 				theme: "light",
 				contentTouchScroll: true,
 				mouseWheel: {
-					preventDefault: true,
+					preventDefault: true
 				},
-				advanced: { extraDraggableSelectors: ".account-list" },
+				advanced: { extraDraggableSelectors: ".lb-directions__content" }
 			});
 		},
 		afterClose: function () {
 			$.gbox.close();
 		},
-		actionBtns: [],
+		actionBtns: []
 	};
 	var itemsHTML = "";
 	items.forEach(function (v, i) {
@@ -224,7 +224,7 @@ var pointLists = [
 	{ title: "圖鑑登入數", point: "一二三四五六七八" },
 	{ title: "累計KOIN花費", point: "一二三四五六七八" },
 	{ title: "累計LUCCI花費", point: "一二三四五六七八" },
-	{ title: "累計樂豆點花費", point: "一二三四五六七八" },
+	{ title: "累計樂豆點花費", point: "一二三四五六七八" }
 ];
 // 跑跑里程碑
 function HistoryGame(lists) {
@@ -238,16 +238,16 @@ function HistoryGame(lists) {
 					theme: "light",
 					contentTouchScroll: true,
 					mouseWheel: {
-						preventDefault: true,
+						preventDefault: true
 					},
-					advanced: { extraDraggableSelectors: ".account-list" },
+					advanced: { extraDraggableSelectors: ".lb-history__content" }
 				});
 			}
 		},
 		afterClose: function () {
 			$.gbox.close();
 		},
-		actionBtns: [],
+		actionBtns: []
 	};
 	var pointListHTML = "";
 	lists.forEach(function (v, i) {
@@ -337,9 +337,9 @@ function PointEnough(item) {
 				class: "btn-confirm",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -367,9 +367,9 @@ function PointNotEnough() {
 				class: "btn-confirm",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `<div class="lb-point-not-enough__title lb-title__not-enough"></div>`;
@@ -392,9 +392,9 @@ function Wait() {
 				class: "btn-confirm",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -414,9 +414,9 @@ function ItemReward() {
 				theme: "light",
 				contentTouchScroll: true,
 				mouseWheel: {
-					preventDefault: true,
+					preventDefault: true
 				},
-				advanced: { extraDraggableSelectors: ".account-list" },
+				advanced: { extraDraggableSelectors: ".lb-reward__content" }
 			});
 		},
 		afterClose: function () {
@@ -428,16 +428,16 @@ function ItemReward() {
 				class: "btn-to",
 				click: function () {
 					$.gbox.close();
-				},
+				}
 			},
 			{
 				text: "領獎記錄",
 				class: "btn-history",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -506,7 +506,7 @@ function ItemReward() {
 	`;
 	$.gbox.open(HTML, config);
 }
-ItemReward();
+// ItemReward();
 // 置入完成
 function ItemRewardComplete() {
 	var config = {
@@ -523,16 +523,16 @@ function ItemRewardComplete() {
 				class: "btn-confirm",
 				click: function () {
 					$.gbox.close();
-				},
+				}
 			},
 			{
 				text: "確定",
 				class: "btn-more",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = `
@@ -556,15 +556,15 @@ function ItemRewardHistory() {
 				theme: "light",
 				contentTouchScroll: true,
 				mouseWheel: {
-					preventDefault: true,
+					preventDefault: true
 				},
-				advanced: { extraDraggableSelectors: ".account-list" },
+				advanced: { extraDraggableSelectors: ".lb-reward-history__content" }
 			});
 		},
 		afterClose: function () {
 			$.gbox.close();
 		},
-		actionBtns: [],
+		actionBtns: []
 	};
 
 	var HTML = `
@@ -617,3 +617,95 @@ function ItemRewardHistory() {
 }
 
 // ItemRewardHistory();
+
+function ItemRewardWeb() {
+	var config = {
+		addClass: "default lb-reward lb-reward-web",
+		hasCloseBtn: true,
+		hasActionBtn: false,
+		afterOpen: function () {
+			$(".lb-reward__content").mCustomScrollbar({
+				theme: "light",
+				contentTouchScroll: true,
+				mouseWheel: {
+					preventDefault: true
+				},
+				advanced: { extraDraggableSelectors: ".lb-reward__content" }
+			});
+		},
+		afterClose: function () {
+			$.gbox.close();
+		},
+		actionBtns: []
+	};
+
+	var HTML = `
+	<div class="lb-reward__title"></div>
+	<div class="lb-reward__dashed1 lb-dashed1"></div>
+	<div class="lb-reward__content">
+		<div class="lb-reward__list">
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五</span>
+				<span class="lb-reward__date">06/12 12:00</span>
+				<span class="lb-reward__status">已領取</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+			<label for="a" class="lb-reward__label">
+				<input type="radio" id="a" class="lb-reward__radio" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
+			</label>
+		</div>
+	</div>
+	<div class="lb-reward__dashed lb-dashed1"></div>
+	<div class="lb-reward__notice">
+		<p>道具將於2小時內置入完成，</p>
+		<p>若道具置入失敗請重新選擇置入</p>
+	</div>
+	<div class="lb-reward__qrcode"></div>
+	`;
+	$.gbox.open(HTML, config);
+}
+
+// ItemRewardWeb();
