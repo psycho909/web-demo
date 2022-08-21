@@ -57,19 +57,19 @@ function Car(current, mission) {
 				start = 0;
 				end = 0.36;
 				strokeDashoffset = -300;
-				duration *= end;
+				duration = duration * (end - start);
 			}
 			if (mission == 2) {
 				start = 0;
 				end = 0.7;
 				strokeDashoffset = -500;
-				duration *= end;
+				duration = duration * (end - start);
 			}
 			if (mission == 3) {
 				start = 0;
 				end = 1;
 				strokeDashoffset = -706;
-				duration *= end;
+				duration = duration * (end - start);
 			}
 		}
 	} else {
@@ -78,13 +78,13 @@ function Car(current, mission) {
 			start = 0;
 			end = 0.23;
 			strokeDashoffset = -300;
-			duration *= end;
+			duration = duration * (end - start);
 		}
 		if (mission == 2) {
 			start = 0;
 			end = 1;
 			strokeDashoffset = -1070;
-			duration *= end;
+			duration = duration * (end - start);
 		}
 		if (isMobile.any) {
 			path = "#path4";
@@ -92,13 +92,13 @@ function Car(current, mission) {
 				start = 0;
 				end = 0.45;
 				strokeDashoffset = -300;
-				duration *= end;
+				duration = duration * (end - start);
 			}
 			if (mission == 2) {
 				start = 0;
 				end = 1;
 				strokeDashoffset = -657;
-				duration *= end;
+				duration = duration * (end - start);
 			}
 		}
 	}
