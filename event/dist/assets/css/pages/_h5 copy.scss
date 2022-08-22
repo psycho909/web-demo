@@ -2,23 +2,15 @@
 	#app {
 		width: 100%;
 		max-width: 768px;
-		height: 100vh;
+		height: vw(1334px);
 		position: relative;
 		background-image: url("./img/h5/bg-top.jpg"), url("./img/h5/bg-bottom.jpg");
 		background-size: vw(768) vw(520), vw(768) vw(192);
 		background-position: center top, center bottom;
 		background-repeat: no-repeat;
 		overflow: hidden;
-		display: flex;
-		flex-direction: column;
 	}
-	.UNI-footer {
-		display: none;
-	}
-	.header {
-		width: 100%;
-		height: calc(583 / 768 * 100vw);
-	}
+
 	.current-level {
 		width: vw(265px);
 		height: vw(72px);
@@ -219,18 +211,14 @@
 	.home-btn-group {
 		display: flex;
 		justify-content: space-around;
-		margin-top: calc(15 / 768 * 100vw);
 	}
 	.level {
 		&-content {
 			position: relative;
 			width: 100%;
 			height: vw(590);
-			// margin-top: vw(536px);
-			// margin-bottom: vw(27);
-			margin-top: auto;
-			margin-bottom: auto;
-			flex-shrink: 0;
+			margin-top: vw(536px);
+			margin-bottom: vw(27);
 			&:before {
 				content: "";
 				width: 100%;
