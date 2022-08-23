@@ -1,0 +1,376 @@
+@include media {
+	#app {
+		width: 100%;
+		max-width: 768px;
+		height: vw(1334px);
+		position: relative;
+		background-image: url("./img/h5/bg-top.jpg"), url("./img/h5/bg-bottom.jpg");
+		background-size: vw(768) vw(520), vw(768) vw(192);
+		background-position: center top, center bottom;
+		background-repeat: no-repeat;
+		overflow: hidden;
+	}
+
+	.current-level {
+		width: vw(265px);
+		height: vw(72px);
+		background-image: url("./img/h5/levels.png");
+		background-size: 1200%;
+		position: absolute;
+		top: vw(193);
+		left: vw(129);
+		@for $i from 1 through 12 {
+			&[data-level="#{$i}"] {
+				background-position-x: -100% * ($i - 1);
+			}
+		}
+	}
+	.logo {
+		width: vw(298px);
+		height: vw(84px);
+		background-size: cover;
+		background-image: url("./img/h5/logo.png");
+		position: absolute;
+		top: vw(18);
+		right: vw(14);
+	}
+
+	.btn {
+		&__login {
+			width: vw(360px);
+			height: vw(77px);
+			background-image: url("./img/h5/btn-login.png");
+			background-size: cover;
+			position: absolute;
+			top: vw(393);
+			left: vw(16);
+		}
+		&__change {
+			width: vw(219);
+			height: vw(61);
+			position: absolute;
+			bottom: vw(-67);
+			left: 50%;
+			z-index: 2;
+			font-size: 0;
+			transform: translateX(-50%);
+		}
+		&__directions {
+			width: vw(196);
+			height: vw(170);
+			background-image: url("./img/h5/btn-directions.png");
+			background-size: cover;
+		}
+		&__history {
+			width: vw(246);
+			height: vw(166);
+			background-image: url("./img/h5/btn-game-history.png");
+			background-size: cover;
+		}
+		&__reward {
+			width: vw(198);
+			height: vw(165);
+			background-image: url("./img/h5/btn-reward.png");
+			background-size: cover;
+		}
+		&__next {
+			width: vw(112);
+			height: vw(127);
+			background-size: cover;
+			background-image: url("./img/h5/btn-next.png");
+			position: absolute;
+			top: 50%;
+			right: vw(17);
+			transform: translateY(-50%);
+			z-index: 10;
+		}
+		&__prev {
+			width: vw(112);
+			height: vw(127);
+			background-size: cover;
+			background-image: url("./img/h5/btn-prev.png");
+			position: absolute;
+			top: 50%;
+			left: vw(17);
+			transform: translateY(-50%);
+			z-index: 10;
+		}
+		&__unlock {
+			width: vw(271);
+			height: vw(90);
+			background-size: cover;
+			background-image: url("./img/h5/btn-next-level.png");
+			position: absolute;
+			top: vw(461);
+			right: vw(4);
+			z-index: 10;
+		}
+	}
+	.account {
+		&-status {
+			width: vw(378);
+			height: auto;
+			font-size: vw(30);
+			color: #fff;
+			font-weight: bold;
+			position: absolute;
+			top: vw(374);
+			left: vw(8);
+			padding: 0 vw(20) vw(8);
+			background-image: url("./img/h5/account-status-body.png");
+			background-size: vw(378) vw(26);
+			background-repeat: repeat-y;
+			text-align: center;
+			span {
+				display: block;
+			}
+			&:before {
+				content: "";
+				position: absolute;
+				top: vw(-37);
+				left: 0;
+				width: 100%;
+				height: vw(38);
+				background-size: cover;
+				background-image: url("./img/h5/account-status-top.png");
+			}
+			&:after {
+				content: "";
+				position: absolute;
+				bottom: vw(-69);
+				left: 0;
+				width: 100%;
+				height: vw(70);
+				background-size: cover;
+				background-image: url("./img/h5/account-status-bottom.png");
+			}
+			&__name {
+				position: relative;
+				top: unset;
+				left: unset;
+				transform: none;
+				&-text {
+					display: none;
+				}
+			}
+			&__point {
+				display: none;
+			}
+		}
+	}
+
+	.icon {
+		position: absolute;
+		z-index: 10;
+		background-size: 200%;
+		width: vw(310);
+		height: vw(153);
+		&.on {
+			background-position-x: -100%;
+		}
+		@for $i from 1 through 7 {
+			&[data-level="#{$i}-1"] {
+				top: vw(34);
+				left: vw(242);
+				background-image: url("./img/h5/level/icon/#{$i}-1.png");
+			}
+		}
+		@for $i from 1 through 7 {
+			&[data-level="#{$i}-2"] {
+				top: vw(238);
+				left: vw(132);
+				background-image: url("./img/h5/level/icon/#{$i}-2.png");
+			}
+		}
+		@for $i from 1 through 7 {
+			&[data-level="#{$i}-3"] {
+				top: vw(433);
+				left: vw(203);
+				background-image: url("./img/h5/level/icon/#{$i}-3.png");
+			}
+		}
+
+		@for $i from 8 through 12 {
+			&[data-level="#{$i}-1"] {
+				top: vw(82);
+				left: vw(198);
+				background-image: url("./img/h5/level/icon/#{$i}-1.png");
+			}
+		}
+		@for $i from 8 through 12 {
+			&[data-level="#{$i}-2"] {
+				top: vw(353);
+				left: vw(246);
+				background-image: url("./img/h5/level/icon/#{$i}-2.png");
+			}
+			&[data-level="#{$i}-3"] {
+				display: none;
+			}
+		}
+	}
+	.home-btn-group {
+		display: flex;
+		justify-content: space-around;
+	}
+	.level {
+		&-content {
+			position: relative;
+			width: 100%;
+			height: vw(590);
+			margin-top: vw(536px);
+			margin-bottom: vw(27);
+			&:before {
+				content: "";
+				width: 100%;
+				height: vw(14);
+				position: absolute;
+				top: vw(-14);
+				left: 50%;
+				transform: translateX(-50%);
+				background-image: url("./img/h5/level-border.png");
+				box-shadow: 0 0 vw(24) rgba(#000, 0.8);
+			}
+			&:after {
+				content: "";
+				width: 100%;
+				height: vw(14);
+				position: absolute;
+				top: unset;
+				bottom: vw(-14);
+				left: 50%;
+				transform: translateX(-50%);
+				background-image: url("./img/h5/level-border.png");
+				box-shadow: 0 0 vw(24) rgba(#000, 0.8);
+			}
+		}
+		&__box {
+			flex-direction: column;
+			display: none;
+			&.on {
+				display: flex;
+			}
+			&:after {
+				content: "";
+				width: vw(768);
+				height: 100%;
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			@for $i from 1 through 7 {
+				&[data-level="#{$i}"] {
+					width: 100%;
+					height: 100%;
+					background-image: url("./img/h5/level/#{$i}.png");
+					background-size: 400%;
+					&:after {
+						background-image: url("./img/h5/level/road1.png");
+					}
+					&[data-complete="0"] {
+						background-position-x: 0%;
+					}
+					&[data-complete="1"] {
+						background-position-x: -100%;
+					}
+					&[data-complete="2"] {
+						background-position-x: -200%;
+					}
+					&[data-complete="3"] {
+						background-position-x: -300%;
+					}
+				}
+			}
+			@for $i from 8 through 12 {
+				&[data-level="#{$i}"] {
+					width: 100%;
+					height: 100%;
+					background-image: url("./img/h5/level/#{$i}.png");
+					background-size: 300%;
+					&:after {
+						background-image: url("./img/h5/level/road2.png");
+					}
+					&[data-complete="0"] {
+						background-position-x: 0%;
+					}
+					&[data-complete="1"] {
+						background-position-x: -100%;
+					}
+					&[data-complete="2"] {
+						background-position-x: -200%;
+					}
+				}
+			}
+		}
+		&__car {
+			width: vw(158);
+			height: vw(147);
+			position: absolute;
+			left: vw(421);
+			top: vw(-129px);
+			z-index: 10;
+			background-size: cover;
+			background-image: url("./img/h5/level/car.png");
+		}
+	}
+	.svg {
+		position: absolute;
+		top: vw(-62px);
+		left: 0;
+		// opacity: 0;
+		z-index: 1;
+		width: 100%;
+		@include media {
+			height: auto;
+		}
+		&.mask {
+			z-index: 2;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		&.pc {
+			display: block;
+			@include media {
+				display: none;
+			}
+		}
+		&.mb {
+			display: none;
+			@include media {
+				display: block;
+			}
+		}
+	}
+	.cls-1 {
+		fill: none;
+		stroke: #000;
+		stroke-width: 9.56px;
+		stroke-dasharray: 38.24 19.12;
+	}
+	.cls-2 {
+		fill: none;
+		stroke: #e1e1e1;
+		stroke-width: 12px;
+	}
+	.cls-road1 {
+		stroke-dasharray: 1302;
+		stroke-dashoffset: 0;
+		@include media {
+			stroke-dasharray: 706;
+		}
+	}
+	.cls-road2 {
+		stroke-dasharray: 1070;
+		stroke-dashoffset: 0;
+		@include media {
+			stroke-dasharray: 657;
+		}
+	}
+	.path-mask {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		overflow: hidden;
+	}
+}
