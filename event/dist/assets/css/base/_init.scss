@@ -30,6 +30,9 @@ a[href] {
 [hidden] {
 	display: none !important;
 }
+[v-cloak] {
+	display: none;
+}
 .d-hide,
 .d-hidden,
 .d-none,

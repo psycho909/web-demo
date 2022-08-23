@@ -228,7 +228,7 @@
 			&:after {
 				content: "";
 				position: absolute;
-				top: vw(-12);
+				top: vw(-62);
 				left: 50%;
 				transform: translateX(-50%);
 				width: vw(511);
@@ -264,8 +264,11 @@
 		}
 		&__account {
 			font-size: vw(30);
-			& + .lb-join__account-box {
-				margin-top: vw(16);
+			color: #fff;
+			&-box {
+				& + .lb-join__account-box {
+					margin-top: vw(16);
+				}
 			}
 			&-list {
 				padding: 0 vw(60);
@@ -500,6 +503,11 @@
 			}
 		}
 		&__rule {
+			width: vw(590);
+			height: vw(259);
+			margin: 0 auto vw(20);
+			background-size: 100%;
+			background-image: url("./img/h5/lb-rule-table.png");
 			&-title {
 				color: #b9fafc;
 				font-size: vw(35);
@@ -615,7 +623,7 @@
 		}
 		&__radio {
 			display: none;
-			&:checked + .lb-join__style {
+			&:checked + .lb-reward__style {
 				background-color: #932525;
 			}
 		}

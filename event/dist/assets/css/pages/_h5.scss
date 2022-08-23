@@ -2,15 +2,21 @@
 	#app {
 		width: 100%;
 		max-width: 768px;
-		height: vw(1334px);
+		height: 100vh;
+		min-height: vw(1334px);
 		position: relative;
 		background-image: url("./img/h5/bg-top.jpg"), url("./img/h5/bg-bottom.jpg");
 		background-size: vw(768) vw(520), vw(768) vw(192);
 		background-position: center top, center bottom;
 		background-repeat: no-repeat;
 		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 	}
-
+	.header {
+		width: 100%;
+		height: vw(548);
+	}
 	.current-level {
 		width: vw(265px);
 		height: vw(72px);
@@ -98,12 +104,21 @@
 		&__unlock {
 			width: vw(271);
 			height: vw(90);
-			background-size: cover;
+			background-size: 200%;
 			background-image: url("./img/h5/btn-next-level.png");
 			position: absolute;
 			top: vw(461);
 			right: vw(4);
 			z-index: 10;
+			&[data-unlock="0"] {
+				background-position-x: -100%;
+				&.lock {
+					background-position-x: 0%;
+				}
+			}
+			&[data-unlock="1"] {
+				display: none;
+			}
 		}
 	}
 	.account {
@@ -127,7 +142,7 @@
 			&:before {
 				content: "";
 				position: absolute;
-				top: vw(-37);
+				top: vw(-36);
 				left: 0;
 				width: 100%;
 				height: vw(38);
@@ -137,7 +152,7 @@
 			&:after {
 				content: "";
 				position: absolute;
-				bottom: vw(-69);
+				bottom: vw(-68);
 				left: 0;
 				width: 100%;
 				height: vw(70);
@@ -211,14 +226,18 @@
 	.home-btn-group {
 		display: flex;
 		justify-content: space-around;
+		margin-top: vw(27);
 	}
 	.level {
 		&-content {
 			position: relative;
 			width: 100%;
 			height: vw(590);
-			margin-top: vw(536px);
-			margin-bottom: vw(27);
+			// margin-top: vw(536px);
+			margin-top: auto;
+			margin-bottom: auto;
+			flex-shrink: 0;
+			// margin-bottom: vw(27);
 			&:before {
 				content: "";
 				width: 100%;
@@ -344,13 +363,13 @@
 	.cls-1 {
 		fill: none;
 		stroke: #000;
-		stroke-width: 9.56px;
+		stroke-width: vw(9.56px);
 		stroke-dasharray: 38.24 19.12;
 	}
 	.cls-2 {
 		fill: none;
 		stroke: #e1e1e1;
-		stroke-width: 12px;
+		stroke-width: vw(18px);
 	}
 	.cls-road1 {
 		stroke-dasharray: 1302;
@@ -372,5 +391,8 @@
 		height: 100%;
 		z-index: 2;
 		overflow: hidden;
+	}
+	.UNI-footer {
+		display: none;
 	}
 }

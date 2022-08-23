@@ -1,33 +1,19 @@
-var config = {
-	addClass: "default",
-	hasCloseBtn: true,
-	hasActionBtn: true,
-	afterClose: function () {
-		$.gbox.close();
-	},
-	actionBtns: [
-		{
-			text: "text1",
-			class: "btn",
-			click: function () {
-				$.gbox.close();
-			}
-		},
-		{
-			text: "text2",
-			class: "btn",
-			click: function () {
-				$.gbox.close();
-			}
-		}
-	]
-};
+var ajax = false;
 
 function MessageLB(msg, url, callback) {
 	$.gbox.open(msg, {
-		addClass: "default",
+		addClass: "default lb-msg",
 		hasCloseBtn: true,
 		hasActionBtn: true,
+		afterClose: function () {
+			if (url) window.location.href = url;
+			else {
+				$.gbox.close();
+				if (callback) {
+					callback();
+				}
+			}
+		},
 		actionBtns: [
 			{
 				text: "確定",
@@ -41,13 +27,6 @@ function MessageLB(msg, url, callback) {
 							callback();
 						}
 					}
-				}
-			},
-			{
-				text: "取消",
-				class: "btn-cancel",
-				click: function () {
-					$.gbox.close();
 				}
 			}
 		]
@@ -70,7 +49,7 @@ var itemsList = [
 ];
 
 // 選擇遊戲帳號
-function JoinAccount() {
+function JoinAccount(accounts) {
 	var config = {
 		addClass: "default lb-join",
 		hasCloseBtn: true,
@@ -84,34 +63,63 @@ function JoinAccount() {
 				text: "下一步",
 				class: "btn-select-account",
 				click: function () {
-					$.gbox.close();
+					if (ajax) {
+						return;
+					}
+					ajax = true;
+					loadingShow();
+					var _data = {
+						getGameAccount: false,
+						GameAccount: $(".lb-join__radio:checked").val(),
+						data: $("#hfData").val()
+					};
+					Init(_data).then((res) => {
+						ajax = false;
+						loadingHide();
+						let { Data, Code, Message, Url } = res.data;
+						if (Code == -2) {
+							MessageLB(Message, Url);
+							return;
+						}
+						let { Page } = Data;
+						vm.CharacterName = Page.CharacterName;
+						vm.link = "Logout.aspx";
+						vm.login = true;
+						store.commit("SET_INIT", Data);
+
+						JoinAccountComplete();
+					});
 				}
 			}
 		]
 	};
-
+	let accountHTML = "";
+	if (accounts.length > 0) {
+		accounts.forEach(function (v, i) {
+			accountHTML += `
+			<div class="lb-join__account-box">
+				<label for="${v.GameAccount}" class="lb-join__label">
+					<input type="radio" id="${v.GameAccount}" class="lb-join__radio" name="account" value="${v.GameAccount}" />
+					<span class="lb-join__style"></span>
+					<span class="lb-join__account">${v.DisplayName}</span>
+				</label>
+			</div>
+			`;
+		});
+	}
 	var HTML = `
 		<div class="lb-join__title lb-title__account"></div>
 		<div class="lb-join__dashed lb-dashed1"></div>
-		<div class="lb-join__account-list">
-			<div class="lb-join__account-box">
-				<label for="a" class="lb-join__label">
-					<input type="radio" id="a" class="lb-join__radio" />
-					<span class="lb-join__style"></span>
-					<span class="lb-join__account">一二三四五六七八九十一二三四五六七八九十</span>
-				</label>
-			</div>
-		</div>
+		<div class="lb-join__account-list">${accountHTML}</div>
 	`;
 	$.gbox.open(HTML, config);
 }
 
-// JoinAccount();
 // 選擇遊戲帳號 - 參加完成
 function JoinAccountComplete() {
 	var config = {
 		addClass: "default lb-join-complete",
-		hasCloseBtn: true,
+		hasCloseBtn: false,
 		hasActionBtn: true,
 		afterOpen: function () {},
 		afterClose: function () {
@@ -122,7 +130,20 @@ function JoinAccountComplete() {
 				text: "確定",
 				class: "btn-confirm",
 				click: function () {
-					$.gbox.close();
+					var track = {
+						eventId: 4100,
+						event: "gtw_events_item_click",
+						pagePage: "kr_202209_account_h5_dialog",
+						type: "btn",
+						clickName: "confirm",
+						tab: "［選擇欲參加的遊戲帳號］彈窗 參加完成【確認】按鈕點擊"
+					};
+					ClickEvent(store.state.sender, track).then((res) => {
+						vm.$nextTick(() => {
+							Car(vm.current, store.state.Missions[0].start, store.state.Missions[0].complete, 0);
+						});
+						$.gbox.close();
+					});
 				}
 			}
 		]
@@ -133,7 +154,6 @@ function JoinAccountComplete() {
 	`;
 	$.gbox.open(HTML, config);
 }
-// JoinAccountComplete();
 
 // 無遊戲帳號
 function JoinAccountNothing() {
@@ -150,7 +170,18 @@ function JoinAccountNothing() {
 				text: "前往遊戲館",
 				class: "btn-create",
 				click: function () {
-					$.gbox.close();
+					var track = {
+						eventId: 4100,
+						event: "gtw_events_item_click",
+						pagePage: "kr_202209_accnull_h5_dialog",
+						type: "btn",
+						clickName: "confirm",
+						url: "",
+						tab: "［沒有遊戲帳號］彈窗【前往遊戲館】按鈕點擊"
+					};
+					ClickEvent(store.state.sender, track).then((res) => {
+						location.href = "";
+					});
 				}
 			}
 		]
@@ -159,7 +190,6 @@ function JoinAccountNothing() {
 	var HTML = `<div class="lb-join-nothing__title lb-title__no-account"></div>`;
 	$.gbox.open(HTML, config);
 }
-// JoinAccountNothing();
 
 // 活動說明
 function EventDirections(items) {
@@ -211,23 +241,23 @@ function EventDirections(items) {
 	`;
 	$.gbox.open(HTML, config);
 }
-// EventDirections(itemsList);
 
-var pointLists = [
-	{ title: "玩家等級", point: "一二三四五六七八" },
-	{ title: "多人遊玩場次", point: "一二三四五六七八" },
-	{ title: "車輛蒐集數", point: "一二三四五六七八" },
-	{ title: "角色蒐集數", point: "一二三四五六七八" },
-	{ title: "徽章總數", point: "一二三四五六七八" },
-	{ title: "累積在線時間", point: "一二三四五六七八" },
-	{ title: "成就分數", point: "一二三四五六七八" },
-	{ title: "圖鑑登入數", point: "一二三四五六七八" },
-	{ title: "累計KOIN花費", point: "一二三四五六七八" },
-	{ title: "累計LUCCI花費", point: "一二三四五六七八" },
-	{ title: "累計樂豆點花費", point: "一二三四五六七八" }
-];
 // 跑跑里程碑
-function HistoryGame(lists) {
+function HistoryGame(data) {
+	var pointLists = [
+		{ title: "玩家等級", point: "0" },
+		{ title: "多人遊玩場次", point: "0" },
+		{ title: "車輛蒐集數", point: "0" },
+		{ title: "角色蒐集數", point: "0" },
+		{ title: "徽章總數", point: "0" },
+		{ title: "累積在線時間", point: "0" },
+		{ title: "成就分數", point: "0" },
+		{ title: "圖鑑登入數", point: "0" },
+		{ title: "累計KOIN花費", point: "0" },
+		{ title: "累計LUCCI花費", point: "0" },
+		{ title: "累計樂豆點花費", point: "0" }
+	];
+	console.log(data);
 	var config = {
 		addClass: "default lb-history",
 		hasCloseBtn: true,
@@ -250,12 +280,12 @@ function HistoryGame(lists) {
 		actionBtns: []
 	};
 	var pointListHTML = "";
-	lists.forEach(function (v, i) {
+	pointLists.forEach(function (v, i) {
 		pointListHTML += `
-		<div class="lb-history__game-box">
-			<span class="lb-history__game-title">${v.title}</span>
-			<span class="lb-history__game-num">${v.point}</span>
-		</div>
+	<div class="lb-history__game-box">
+		<span class="lb-history__game-title">${v.title}</span>
+		<span class="lb-history__game-num">${v.point}</span>
+	</div>
 		`;
 	});
 	var HTML = `
@@ -264,7 +294,7 @@ function HistoryGame(lists) {
 			<div class="lb-history__point-group">
 				<div class="lb-history__point-total">
 					<span class="lb-history__point-title lb-title__history-sub"></span>
-					<span class="lb-history__point-num">一二三四五六七</span>
+					<span class="lb-history__point-num">${data == null ? 0 : data.Fraction}</span>
 				</div>
 			</div>
 			<div class="lb-history__game-list">${pointListHTML}</div>
@@ -276,53 +306,14 @@ function HistoryGame(lists) {
 					<li class="lb-history__notice-li">車款/角色蒐集數量皆為道具圖鑑數量</li>
 				</ul>
 			</div>
-			<div class="lb-history__rule">
-				<div class="lb-history__rule-title">※跑跑點數計算※</div>
-				<table class="lb-history__rule-table">
-					<thead class="lb-history__rule-thead">
-						<tr class="lb-history__rule-tr">
-							<th>項目</th>
-							<th>累積數</th>
-							<th>跑跑點數</th>
-						</tr>
-					</thead>
-					<tbody class="lb-history__rule-tbody">
-						<tr class="lb-history__rule-tr">
-							<td>多人遊玩場次</td>
-							<td>10</td>
-							<td>1</td>
-						</tr>
-						<tr class="lb-history__rule-tr">
-							<td>累積在線時間(小時)</td>
-							<td>10</td>
-							<td>1</td>
-						</tr>
-						<tr class="lb-history__rule-tr">
-							<td>徽章總數</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr class="lb-history__rule-tr">
-							<td>成就分數</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-						<tr class="lb-history__rule-tr">
-							<td>圖鑑登入數</td>
-							<td>1</td>
-							<td>1</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div class="lb-history__rule"></div>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
 }
-// HistoryGame(pointLists);
 
 // 點數足夠
-function PointEnough(item) {
+function PointEnough(current) {
 	var config = {
 		addClass: "default lb-point",
 		hasCloseBtn: true,
@@ -336,12 +327,64 @@ function PointEnough(item) {
 				text: "確定",
 				class: "btn-confirm",
 				click: function () {
-					$.gbox.close();
+					var point = store.state.Point;
+					if (point < 300) {
+						PointNotEnough();
+						return;
+					}
+					if (ajax) {
+						return;
+					}
+					ajax = true;
+					loadingShow();
+					var data = { MissionInt: vm.current, data: store.state.data };
+					Unlock(data).then((res) => {
+						ajax = false;
+						loadingHide();
+						let { Data, Code, Message, Url } = res.data;
+						if (Code == -1) {
+							if (Message == 2) {
+								PointNotEnough();
+								return;
+							}
+							if (Message == 3) {
+								Wait();
+								return;
+							}
+							if (Message == 4) {
+								MessageLB("小關卡尚未完成");
+								return;
+							}
+							if (Message == 5) {
+								MessageLB("上一關尚未解鎖完成");
+								return;
+							}
+							return;
+						}
+						if (Code == -2) {
+							MessageLB(Message, Url);
+							return;
+						}
+						let { Missions, Point } = Data;
+						store.commit("SET_MISSIONS", Missions);
+						store.commit("SET_POINT", Point);
+						if (current > 11) {
+							$.gbox.close();
+							vm.currentChange(12);
+							return;
+						}
+						vm.$nextTick(function () {
+							++vm.current;
+						});
+						$.gbox.close();
+					});
 				}
 			}
 		]
 	};
-
+	var item = store.state.Missions.filter(function (v, i) {
+		return v.MissionInt == current;
+	})[0].ItemName;
 	var HTML = `
 		<div class="lb-point__title lb-title__need1"></div>
 		<div class="lb-point__item">${item}</div>
@@ -349,7 +392,6 @@ function PointEnough(item) {
 	`;
 	$.gbox.open(HTML, config);
 }
-// PointEnough();
 
 // 點數足夠-點數不足
 function PointNotEnough() {
@@ -375,7 +417,6 @@ function PointNotEnough() {
 	var HTML = `<div class="lb-point-not-enough__title lb-title__not-enough"></div>`;
 	$.gbox.open(HTML, config);
 }
-// PointNotEnough();
 // 無法解鎖
 function Wait() {
 	var config = {
@@ -402,9 +443,8 @@ function Wait() {
 	`;
 	$.gbox.open(HTML, config);
 }
-// Wait();
 // 置入獎勵
-function ItemReward() {
+function ItemReward(items) {
 	var config = {
 		addClass: "default lb-reward",
 		hasCloseBtn: true,
@@ -427,75 +467,82 @@ function ItemReward() {
 				text: "置入獎勵",
 				class: "btn-to",
 				click: function () {
-					$.gbox.close();
+					var Seq = $(".lb-reward__radio:checked").val();
+					if (!Seq) {
+						return;
+					}
+					if (ajax) {
+						return;
+					}
+					ajax = true;
+					loadingShow();
+					var data = {
+						Seq: Seq,
+						data: store.state.data
+					};
+
+					Exchange(data).then((res) => {
+						ajax = false;
+						loadingHide();
+						let { Data, Code, Message, Url } = res.data;
+						if (Code == -2) {
+							MessageLB(Message, Url);
+							return;
+						}
+						ItemRewardComplete();
+					});
 				}
 			},
 			{
 				text: "領獎記錄",
 				class: "btn-history",
 				click: function () {
-					$.gbox.close();
+					var data = {
+						Type: 2,
+						data: store.state.data
+					};
+					// if (store.state.GetItemLog != null) {
+					// 	ItemRewardHistory(store.state.GetItemLog);
+					// 	return;
+					// }
+					if (ajax) {
+						return;
+					}
+					ajax = true;
+					loadingShow();
+					Award(data).then((res) => {
+						ajax = false;
+						loadingHide();
+						let { Data, Code, Message, Url } = res.data;
+						if (Code == -2) {
+							MessageLB(Message, Url);
+							return;
+						}
+						let { GetItemLog } = Data;
+						store.commit("SET_GET_ITEM_LOG", GetItemLog);
+						ItemRewardHistory(GetItemLog);
+					});
 				}
 			}
 		]
 	};
-
+	var itemHTML = "";
+	if (items.length > 0) {
+		items.forEach(function (v, i) {
+			itemHTML += `
+			<label for="${v.Seq}" class="lb-reward__label">
+				<input type="radio" id="${v.Seq}" class="lb-reward__radio" name="award" value="${v.Seq}" />
+				<span class="lb-reward__style"></span>
+				<span class="lb-reward__item">${v.ItemName}</span>
+			</label>
+			`;
+		});
+	}
 	var HTML = `
 	<div class="lb-reward__title"></div>
 	<div class="lb-reward__dashed1 lb-dashed1"></div>
 	<div class="lb-reward__content">
-		<div class="lb-reward__list">
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-		</div>
+		<div class="lb-reward__list">${itemHTML}</div>
 	</div>
 	<div class="lb-reward__dashed lb-dashed1"></div>
 	<div class="lb-reward__notice">
@@ -506,7 +553,6 @@ function ItemReward() {
 	`;
 	$.gbox.open(HTML, config);
 }
-// ItemReward();
 // 置入完成
 function ItemRewardComplete() {
 	var config = {
@@ -526,10 +572,22 @@ function ItemRewardComplete() {
 				}
 			},
 			{
-				text: "確定",
+				text: "我還要",
 				class: "btn-more",
 				click: function () {
-					$.gbox.close();
+					var track = {
+						eventId: 4100,
+						event: "gtw_events_item_click",
+						pagePage: "kr_202209_reward_dialog",
+						type: "btn",
+						clickName: "exch_more",
+						url: "",
+						tab: "［獎勵已發放至遊戲中］彈窗 -【我還要】按鈕點擊"
+					};
+					ClickEvent(store.state.sender, track).then((res) => {
+						location.href = "";
+						$.gbox.close();
+					});
 				}
 			}
 		]
@@ -544,9 +602,8 @@ function ItemRewardComplete() {
 	`;
 	$.gbox.open(HTML, config);
 }
-// ItemRewardComplete();
 // 領獎記錄
-function ItemRewardHistory() {
+function ItemRewardHistory(items) {
 	var config = {
 		addClass: "default lb-reward-history",
 		hasCloseBtn: true,
@@ -566,59 +623,24 @@ function ItemRewardHistory() {
 		},
 		actionBtns: []
 	};
-
+	var itemHTML = "";
+	if (items.length > 0) {
+		items.forEach(function (v, i) {
+			itemHTML += `<div class="lb-reward-history__box">
+			<span class="lb-reward-history__name">${v.ItemName}</span>
+			<span class="lb-reward-history__date">${v.CreateTime}</span>
+		</div>`;
+		});
+	}
 	var HTML = `
 		<div class="lb-reward-history__content">
-			<div class="lb-reward-history__list">
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-				<div class="lb-reward-history__box">
-					<span class="lb-reward-history__name">一二三四五六七八九十</span>
-					<span class="lb-reward-history__date">6/10 21:00</span>
-				</div>
-			</div>
+			<div class="lb-reward-history__list">${itemHTML}</div>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
 }
 
-// ItemRewardHistory();
-
-function ItemRewardWeb() {
+function ItemRewardWeb(items) {
 	var config = {
 		addClass: "default lb-reward lb-reward-web",
 		hasCloseBtn: true,
@@ -639,64 +661,22 @@ function ItemRewardWeb() {
 		actionBtns: []
 	};
 
+	var itemHTML = "";
+	if (items.length > 0) {
+		items.forEach(function (v, i) {
+			itemHTML += `<div class="lb-reward__label">
+			<span class="lb-reward__style"></span>
+			<span class="lb-reward__item">${v.ItemName}</span>
+			<span class="lb-reward__date">${v.CreateTime}</span>
+			<span class="lb-reward__status">已領取</span>
+		</div>`;
+		});
+	}
 	var HTML = `
 	<div class="lb-reward__title"></div>
 	<div class="lb-reward__dashed1 lb-dashed1"></div>
 	<div class="lb-reward__content">
-		<div class="lb-reward__list">
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五</span>
-				<span class="lb-reward__date">06/12 12:00</span>
-				<span class="lb-reward__status">已領取</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-			<label for="a" class="lb-reward__label">
-				<input type="radio" id="a" class="lb-reward__radio" />
-				<span class="lb-reward__style"></span>
-				<span class="lb-reward__item">一二三四五六七八九十一二三四五六七八九十</span>
-			</label>
-		</div>
+		<div class="lb-reward__list">${itemHTML}</div>
 	</div>
 	<div class="lb-reward__dashed lb-dashed1"></div>
 	<div class="lb-reward__notice">
@@ -707,5 +687,3 @@ function ItemRewardWeb() {
 	`;
 	$.gbox.open(HTML, config);
 }
-
-// ItemRewardWeb();

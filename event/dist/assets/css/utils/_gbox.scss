@@ -94,6 +94,7 @@
 		background-color: transparent;
 		box-shadow: none;
 		margin: 0;
+		z-index: 9;
 		&.btn-more {
 			width: vw(226);
 			height: vw(94);
@@ -1053,9 +1054,9 @@
 		}
 	}
 	&__dashed {
-		width: 865px;
+		width: 100%;
 		height: 70px;
-		background-size: cover;
+		background-size: 100%;
 		background-image: url("./img/web/lb-reward-dashed.png");
 		margin-bottom: 13px;
 		@include media {
@@ -1216,5 +1217,16 @@
 		margin-right: vw(20);
 	}
 	&__date {
+	}
+}
+.lb-msg {
+	.gbox-content {
+		padding: 24px;
+		font-size: 30px;
+		color: #fff;
+		@include media {
+			padding: vw(24);
+			font-size: vw(36);
+		}
 	}
 }

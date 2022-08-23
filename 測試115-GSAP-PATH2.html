@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/MotionPathPlugin.min.js"></script>
+		<style>
+			body {
+				color: #999;
+				font-family: "Signika Negative", Arial, sans-serif;
+			}
+			.svg {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+				width: 100%;
+			}
+
+			.level__car {
+				width: 158px;
+				height: 147px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 10;
+				background-size: cover;
+				background-image: url("/event/dist/assets/css/img/h5/level/car.png");
+			}
+			.cls-1 {
+				fill: none;
+				stroke: #000;
+				stroke-width: 9.56px;
+				stroke-dasharray: 38.24 19.12;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="level__car car2"></div>
+			<svg class="svg pc" viewBox="0 0 1200 542.63"><path id="path1" class="cls-1" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
+		</div>
+		<div>
+			<div class="level__car car1"></div>
+			<svg class="svg pc" viewBox="0 0 1200 542.63"><path id="path1" class="cls-1" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
+		</div>
+		<script>
+			//register the plugin (just once)
+			gsap.registerPlugin(MotionPathPlugin);
+
+			// var onDiv = gsap.to("#div", {
+			// 	duration: 5,
+			// 	yoyo: false,
+			// 	// ease: "power1.inOut",
+			// 	motionPath: {
+			// 		path: "#path",
+			// 		align: "#path",
+			// 		autoRotate: true,
+			// 		alignOrigin: [0.5, 0.5],
+			// 		start: 0,
+			// 		end: 0.5
+			// 	}
+			// });
+		</script>
+	</body>
+</html>

@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<meta name="description" content="{{description}}" />
+		<meta name="description" content="跑跑卡丁車-世界尋懷活動" />
 		<!-- 除了H5活動頁以外都要加上 -->
 		<meta name="open-default-browser" content="true" />
 
 		<!-- fb meta -->
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="{{title}}" />
-		<meta property="og:description" content="{{description}}" />
+		<meta property="og:title" content="跑跑卡丁車-世界尋懷活動" />
+		<meta property="og:description" content="跑跑卡丁車-世界尋懷活動" />
 		<!-- Safari 數字過常會變成可撥打電話 -->
 		<meta name="format-detection" content="telephone=no" />
 		<!-- 1200x628 -->
-		<meta property="og:image" content="{{url}}/assets/img/og-image.jpg" />
+		<meta property="og:image" content="https://tw.hicdn.beanfun.com/beanfun/promo/KR/20220916/assets/img/og-image.jpg" />
 
-		<title>{{title}}</title>
+		<title>跑跑卡丁車-世界尋懷活動</title>
 		<!-- CSS -->
 		<link href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/default.css" />
@@ -39,6 +40,16 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script> -->
+		<!-- vconsole測試埋點用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vconsole/3.10.0/vconsole.min.js"></script>
+		<!-- BGO Stage 測試區 -->
+		<script src="https://beangostg.blob.core.windows.net/beango-static-stg/sdk/beanfun.min.js"></script>
+		<!-- BGO正式區 -->
+		<!-- <script src="https://beangochat.blob.core.windows.net/beango-static-prod/sdk/beanfun.min.js"></script> -->
+		<!-- Track 測試區(stage -->
+		<script src="https://beangostg.blob.core.windows.net/beango-static-stg/web-tracing-jssdk/web_tracing_sdk.stg.js"></script>
+		<!-- Track 正式區(prod) -->
+		<!-- <script src="https://chat-content.beanfun.com/beango-static-prod/web-tracing-jssdk/web_tracing_sdk.prod.js"></script> -->
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
 		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 		<!-- GTM -->
@@ -58,13 +69,11 @@
 			})(window, document, "script", "dataLayer", "{{GTM}}");
 		</script>
 	</head>
-
 	<body>
 		<!-- GTM -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{GTM}}" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
-
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ GTM }}" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
 		<!-- 內容開始 -->
-		<div id="app">
+		<div id="app" :class="[h5?'h5':'']">
 			<div class="header">
 				<a href="javascript:;" class="logo"></a>
 				<div class="social-btn-group">
@@ -74,22 +83,22 @@
 					<a href="https://discord.com/invite/TfsThAT" target="_blank" class="social-btn__discord"></a>
 				</div>
 				<div class="event-lb-group">
-					<a href="javascript:;" class="event-lb__btn btn__login"></a>
+					<a href="javascript:;" class="event-lb__btn btn__login" :class="[login?'on':'']" v-cloak @click="eventJoin"></a>
 					<a href="javascript:;" class="event-lb__btn btn__directions" @click="openEventDirections"></a>
 					<a href="javascript:;" class="event-lb__btn btn__history" @click="openHistoryGame"></a>
 					<a href="javascript:;" class="event-lb__btn btn__reward" @click="openItemRewardWeb"></a>
 					<a href="javascript:;" class="event-lb__btn btn__booking" @click="eventBooking"></a>
 				</div>
 				<div class="current-level" :data-level="current"></div>
-				<a href="javascript:;" class="btn__login h5__login"></a>
-				<div class="account-status" v-if="account">
+				<a class="btn__login h5__login" @click="eventJoin"></a>
+				<div class="account-status" v-if="login" v-cloak>
 					<div class="account-status__name">
 						<span>登入角色</span>
-						<span>{{account}}</span>
+						<span>{{ CharacterName }}</span>
 						<div class="account-status__name-text">參加中</div>
-						<a href="javascript:;" class="btn__change">切換帳號</a>
+						<a href="javascript:;" class="btn__change" @click="changeAccount">切換帳號</a>
 					</div>
-					<div class="account-status__point">{{point}}</div>
+					<div class="account-status__point">{{ $store.state.Point }}</div>
 				</div>
 			</div>
 			<div class="level-content">
@@ -99,18 +108,18 @@
 					<a href="javascript:;" class="icon" :class="[mission.MissionStatus.MissionStatus3 > 0?'on':'']" :data-level="mission.MissionInt+'-3'"></a>
 					<div class="level__car" :class="'car'+mission.MissionInt"></div>
 					<div class="path-mask" v-if="current < 8">
-						<svg height="542.63" class="svg pc mask" viewBox="0 0 1200 542.63" xml:space="preserve"><path class="cls-2 cls-road1" :class="'path'+mission.MissionInt" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
+						<svg height="542.63" class="svg pc mask" viewBox="0 0 1200 542.63" xml:space="preserve"><path class="cls-2 cls-road1" :class="'path'+mission.MissionInt" d="M399,0s3.08,40.34-9.43,58.23-47.09,48.8-77.87,67.29-93.47,63.31-101.41,122.98,5.51,104.28,48.77,141.37,124.33,45.4,174.83,33.45,98.54-20.85,125.18-36.4,60.4-51.97,152.68-39.9,135.41,43.7,169.11-38.15c0,0,19.85-66.53,14.85-142.52" /></svg>
 						<svg height="651" class="svg mb mask" viewBox="0 0 768 651" xml:space="preserve"><path class="cls-2 cls-road1" :class="'mb-path'+mission.MissionInt" d="M473.83,0s1.68,28.25-3.87,43.15c-13,34.77-.87,41-90.44,86.22C277.18,181,200.76,263.94,207,336.32c9.91,114.21-34.62,133.82,67.73,224.49" /></svg>
-						<svg height="542.63" class="svg pc" viewBox="0 0 1200 542.63" xml:space="preserve"><path id="path1" class="cls-1" d="M895.7,166.34v31.15c-5.7,303.29-164.42,75.12-310,173.88-57.08,38.72-152,60.88-234,54C277.07,419,176.28,359,215.7,226.47c22.66-76.16,136.19-108.72,177-172.89C401.23,33.66,399,0,399,0" /></svg>
-						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path id="path3" class="cls-1" d="M473.83,0s1.68,28.25-3.87,43.15c-13,34.77-.87,41-90.44,86.22C277.18,181,200.76,263.94,207,336.32c9.91,114.21-34.62,133.82,67.73,224.49" /></svg>
+						<svg height="542.63" class="svg pc" viewBox="0 0 1200 542.63" xml:space="preserve"><path :id="'path1-'+mission.MissionInt" class="cls-1" d="M399,0s3.08,40.34-9.43,58.23-47.09,48.8-77.87,67.29-93.47,63.31-101.41,122.98,5.51,104.28,48.77,141.37,124.33,45.4,174.83,33.45,98.54-20.85,125.18-36.4,60.4-51.97,152.68-39.9,135.41,43.7,169.11-38.15c0,0,19.85-66.53,14.85-142.52" /></svg>
+						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path :id="'path3-'+mission.MissionInt" class="cls-1" d="M473.83,0s1.68,28.25-3.87,43.15c-13,34.77-.87,41-90.44,86.22C277.18,181,200.76,263.94,207,336.32c9.91,114.21-34.62,133.82,67.73,224.49" /></svg>
 					</div>
 					<div class="path-mask" v-else-if="current > 7">
 						<svg height="541.31" class="svg pc mask" viewBox="0 0 1200 541.31" xml:space="preserve"><path class="cls-2 cls-road2" :class="'path'+mission.MissionInt" d="M399.26,0c-3.35,32.39-38.32,63.5-58,80.24-35,29.86-67.41,67.07-103.42,129.56-60.75,105.4,99.16,268.66,275,181,116.79-58.22,150.53-157.49,303-161,11.83-3,28.76-12.11,28.76-12.11" /></svg>
 						<svg height="651" class="svg mb mask" viewBox="0 0 768 651" xml:space="preserve"><path class="cls-2 cls-road2" :class="'mb-path'+mission.MissionInt" d="M473.77,0C467.69,20,490,72.76,380.82,130.62,242.26,204.06,203.33,275.7,202.59,360.5c-.34,39.46,30.09,110.3,109.09,124.61" /></svg>
-						<svg height="541.31" class="svg pc" viewBox="0 0 1200 541.31" xml:space="preserve"><path id="path2" class="cls-1" d="M399.26,0c-3.35,32.39-38.32,63.5-58,80.24-35,29.86-67.41,67.07-103.42,129.56-60.75,105.4,99.16,268.66,275,181,116.79-58.22,150.53-157.49,303-161,11.83-3,28.76-12.11,28.76-12.11" /></svg>
-						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path id="path4" class="cls-1" d="M473.77,0C467.69,20,490,72.76,380.82,130.62,242.26,204.06,203.33,275.7,202.59,360.5c-.34,39.46,30.09,110.3,109.09,124.61" /></svg>
+						<svg height="541.31" class="svg pc" viewBox="0 0 1200 541.31" xml:space="preserve"><path :id="'path2-'+mission.MissionInt" class="cls-1" d="M399.26,0c-3.35,32.39-38.32,63.5-58,80.24-35,29.86-67.41,67.07-103.42,129.56-60.75,105.4,99.16,268.66,275,181,116.79-58.22,150.53-157.49,303-161,11.83-3,28.76-12.11,28.76-12.11" /></svg>
+						<svg height="651" class="svg mb" viewBox="0 0 768 651" xml:space="preserve"><path :id="'path4-'+mission.MissionInt" class="cls-1" d="M473.77,0C467.69,20,490,72.76,380.82,130.62,242.26,204.06,203.33,275.7,202.59,360.5c-.34,39.46,30.09,110.3,109.09,124.61" /></svg>
 					</div>
-					<a href="javascript:;" class="btn__unlock" :data-unlock="mission.Unlock" @click="eventUnlock"></a>
+					<a href="javascript:;" class="btn__unlock" :class="[login?'':'lock']" :data-unlock="mission.Unlock" @click="eventUnlock"></a>
 				</div>
 
 				<a href="javascript:;" class="btn__next" v-if="current < 12" @click="nextLevel"></a>
@@ -122,7 +131,6 @@
 				<a href="javascript:;" class="btn__reward" @click="openItemReward"></a>
 			</div>
 		</div>
-
 		<!-- footer -->
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="跑跑卡丁車" theme="dark"></script>
 		<script type="text/babel" src="./js/store.js"></script>

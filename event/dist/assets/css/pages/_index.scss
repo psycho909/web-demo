@@ -61,6 +61,7 @@ body {
 		position: absolute;
 		top: 108px;
 		right: 46px;
+		z-index: 2;
 		@include media {
 			display: none;
 		}
@@ -148,6 +149,9 @@ body {
 		@include hover {
 			background-position-x: 100%;
 		}
+		&.on {
+			background-image: url("./img/web/btn-logout.png");
+		}
 	}
 	&__logout {
 		width: 192px;
@@ -231,14 +235,26 @@ body {
 	&__unlock {
 		width: 271px;
 		height: 91px;
-		background-size: 200%;
+		background-size: 300%;
 		background-image: url("./img/web/btn-next-level.png");
 		position: absolute;
 		top: 352px;
 		right: 18px;
 		z-index: 10;
-		@include hover {
-			background-position-x: 100%;
+		&[data-unlock="0"] {
+			&.lock {
+				background-position-x: 0%;
+				@include hover {
+					background-position-x: 0%;
+				}
+			}
+			background-position-x: -100%;
+			@include hover {
+				background-position-x: -200%;
+			}
+		}
+		&[data-unlock="1"] {
+			display: none;
 		}
 	}
 }
@@ -268,7 +284,7 @@ body {
 		&__name {
 			width: 100%;
 			position: absolute;
-			top: 58px;
+			top: 52px;
 			left: 50%;
 			transform: translateX(-50%);
 			&-text {
@@ -292,6 +308,7 @@ body {
 	background-size: 200%;
 	width: 322px;
 	height: 121px;
+	cursor: default !important;
 	// display: none;
 	&.on {
 		background-position-x: -100%;
@@ -467,11 +484,17 @@ body {
 	stroke: #000;
 	stroke-width: 9.56px;
 	stroke-dasharray: 38.24 19.12;
+	@include media {
+		stroke-width: vw(9.56px);
+	}
 }
 .cls-2 {
 	fill: none;
 	stroke: #e1e1e1;
 	stroke-width: 12px;
+	@include media {
+		stroke-width: vw(18px);
+	}
 }
 .cls-road1 {
 	stroke-dasharray: 1302;
