@@ -642,7 +642,7 @@ function ItemRewardHistory(items) {
 
 function ItemRewardWeb(items) {
 	var config = {
-		addClass: "default lb-reward lb-reward-web",
+		addClass: "default lb-reward-web",
 		hasCloseBtn: true,
 		hasActionBtn: false,
 		afterOpen: function () {
@@ -664,26 +664,25 @@ function ItemRewardWeb(items) {
 	var itemHTML = "";
 	if (items.length > 0) {
 		items.forEach(function (v, i) {
-			itemHTML += `<div class="lb-reward__label">
-			<span class="lb-reward__style"></span>
-			<span class="lb-reward__item">${v.ItemName}</span>
-			<span class="lb-reward__date">${v.CreateTime}</span>
-			<span class="lb-reward__status">已領取</span>
+			itemHTML += `<div class="lb-reward-web__label">
+			<span class="lb-reward-web__item">${v.ItemName}</span>
+			<span class="lb-reward-web__date">${v.CreateTime}</span>
+			<span class="lb-reward-web__status">已領取</span>
 		</div>`;
 		});
 	}
 	var HTML = `
-	<div class="lb-reward__title"></div>
-	<div class="lb-reward__dashed1 lb-dashed1"></div>
-	<div class="lb-reward__content">
-		<div class="lb-reward__list">${itemHTML}</div>
+	<div class="lb-reward-web__title"></div>
+	<div class="lb-reward-web__dashed1 lb-dashed1"></div>
+	<div class="lb-reward-web__content">
+		<div class="lb-reward-web__list">${itemHTML}</div>
 	</div>
-	<div class="lb-reward__dashed lb-dashed1"></div>
-	<div class="lb-reward__notice">
+	<div class="lb-reward-web__dashed"></div>
+	<div class="lb-reward-web__notice">
 		<p>道具將於2小時內置入完成，</p>
 		<p>若道具置入失敗請重新選擇置入</p>
 	</div>
-	<div class="lb-reward__qrcode"></div>
+	<div class="lb-reward-web__qrcode"></div>
 	`;
 	$.gbox.open(HTML, config);
 }

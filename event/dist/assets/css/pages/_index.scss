@@ -11,6 +11,11 @@ body {
 	max-width: 1200px;
 	position: relative;
 	margin: 0 auto;
+	@include media {
+		width: 100%;
+		// height: vw(645);
+		height: 100%;
+	}
 }
 #app {
 	width: 100%;
@@ -20,12 +25,15 @@ body {
 	background-position: center top;
 	background-repeat: no-repeat;
 	overflow: hidden;
+	@include media {
+		background-image: url("./img/web/m-bg-top.jpg");
+		background-size: vw(768) vw(660);
+		background-position: center top;
+		background-repeat: no-repeat;
+	}
 }
 .home-btn-group {
 	display: none;
-	@include media {
-		display: flex;
-	}
 }
 .current-level {
 	width: 245px;
@@ -39,6 +47,25 @@ body {
 		&[data-level="#{$i}"] {
 			background-position-x: -100% * ($i - 1);
 		}
+	}
+	@include media {
+		width: vw(212);
+		height: vw(58);
+		top: vw(260);
+		left: vw(128);
+	}
+}
+.btn__menu {
+	display: none;
+	@include media {
+		display: block;
+		position: absolute;
+		top: vw(22);
+		right: vw(33);
+		width: vw(80);
+		height: vw(80);
+		background-size: cover;
+		background-image: url("./img/web/btn-menu.png");
 	}
 }
 .h5__login {
@@ -55,21 +82,166 @@ body {
 	position: absolute;
 	top: 19px;
 	right: 8px;
+	@include media {
+		width: vw(298px);
+		height: vw(84px);
+		top: vw(18);
+		left: vw(40);
+	}
 }
 .event-lb {
 	&-group {
 		position: absolute;
 		top: 108px;
 		right: 46px;
-		z-index: 2;
+		z-index: 9;
 		@include media {
+			&.on {
+				display: block;
+			}
 			display: none;
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(#000, 0.5);
+			z-index: 99;
+		}
+	}
+	&__content {
+		@include media {
+			border: vw(6) solid #c8e8ff;
+			width: vw(393);
+			background-color: #1980e0;
+			border-radius: vw(36);
+			position: absolute;
+			top: vw(113);
+			right: vw(23);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: vw(54) 0;
+		}
+	}
+	&__social-btn {
+		display: none;
+		@include media {
+			display: flex;
+			justify-content: space-evenly;
+			width: 100%;
 		}
 	}
 	&__btn {
 		display: block;
-		& + .event-lb__btn {
-			margin-top: 16px;
+		margin-bottom: 16px;
+		@include media {
+			margin-bottom: vw(74);
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		&.btn {
+			&__menu-close {
+				display: none;
+				@include media {
+					width: vw(39);
+					height: vw(130);
+					background-size: cover;
+					background-image: url("./img/web/menu-close.png");
+					display: block;
+					position: absolute;
+					top: vw(300);
+					left: vw(-39);
+				}
+			}
+			&__login {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-login.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				&.on {
+					background-image: url("./img/web/btn-logout.png");
+				}
+				@include media {
+					display: none;
+				}
+			}
+			&__logout {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-logout.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					display: none;
+				}
+			}
+			&__booking {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-booking.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					width: vw(126);
+					height: vw(43);
+					background-size: cover;
+					background-image: url("./img/web/m-btn-booking.png");
+				}
+			}
+			&__directions {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-directions.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					width: vw(167);
+					height: vw(43);
+					background-size: cover;
+					background-image: url("./img/web/m-btn-directions.png");
+				}
+			}
+			&__history {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-game-history.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					width: vw(211);
+					height: vw(43);
+					background-size: cover;
+					background-image: url("./img/web/m-btn-game-history.png");
+				}
+			}
+			&__reward {
+				width: 192px;
+				height: 54px;
+				background-size: 200%;
+				background-image: url("./img/web/btn-reward.png");
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					width: vw(169);
+					height: vw(43);
+					background-size: cover;
+					background-image: url("./img/web/m-btn-reward.png");
+				}
+			}
 		}
 	}
 }
@@ -92,7 +264,11 @@ body {
 			background-position-x: 100%;
 		}
 		@include media {
-			display: none;
+			width: vw(79);
+			height: vw(79);
+			background-size: cover;
+			background-image: url("./img/web/m-icon-home.png");
+			margin-right: 0;
 		}
 	}
 	&__yt {
@@ -105,7 +281,11 @@ body {
 			background-position-x: 100%;
 		}
 		@include media {
-			display: none;
+			width: vw(79);
+			height: vw(79);
+			background-size: cover;
+			background-image: url("./img/web/m-icon-yt.png");
+			margin-right: 0;
 		}
 	}
 	&__f_b {
@@ -118,7 +298,11 @@ body {
 			background-position-x: 100%;
 		}
 		@include media {
-			display: none;
+			width: vw(79);
+			height: vw(79);
+			background-size: cover;
+			background-image: url("./img/web/m-icon-f_b.png");
+			margin-right: 0;
 		}
 	}
 	&__discord {
@@ -130,78 +314,35 @@ body {
 			background-position-x: 100%;
 		}
 		@include media {
-			display: none;
+			width: vw(79);
+			height: vw(79);
+			background-size: cover;
+			background-image: url("./img/web/m-icon-discord.png");
 		}
 	}
 }
 .btn {
+	&__login {
+		@include media {
+			width: vw(191);
+			height: vw(54);
+			background-image: url("./img/web/m-btn-join.png");
+			position: absolute;
+			// top: vw(561);
+			bottom: vw(29);
+			left: vw(104);
+			display: block;
+			background-size: cover;
+			z-index: 9;
+			&.on {
+				background-image: url("./img/web/m-btn-logout.png");
+			}
+		}
+	}
 	&__change {
 		display: none;
 		@include media {
 			display: block;
-		}
-	}
-	&__login {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-login.png");
-		@include hover {
-			background-position-x: 100%;
-		}
-		&.on {
-			background-image: url("./img/web/btn-logout.png");
-		}
-	}
-	&__logout {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-logout.png");
-		@include hover {
-			background-position-x: 100%;
-		}
-		@include media {
-			display: none;
-		}
-	}
-	&__booking {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-booking.png");
-		@include hover {
-			background-position-x: 100%;
-		}
-		@include media {
-			display: none;
-		}
-	}
-	&__directions {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-directions.png");
-		@include hover {
-			background-position-x: 100%;
-		}
-	}
-	&__history {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-game-history.png");
-		@include hover {
-			background-position-x: 100%;
-		}
-	}
-	&__reward {
-		width: 192px;
-		height: 54px;
-		background-size: 200%;
-		background-image: url("./img/web/btn-reward.png");
-		@include hover {
-			background-position-x: 100%;
 		}
 	}
 	&__next {
@@ -271,14 +412,20 @@ body {
 		background-image: url("./img/web/account-status-bg.png");
 		background-size: cover;
 		text-align: center;
+		@include media {
+			width: vw(687);
+			height: vw(242);
+			background-image: url("./img/web/m-account-status-bg.png");
+			top: unset;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 		span {
 			display: block;
 			width: 100%;
 			&:first-child {
 				display: none;
-				@include media {
-					display: block;
-				}
 			}
 		}
 		&__name {
@@ -287,9 +434,19 @@ body {
 			top: 52px;
 			left: 50%;
 			transform: translateX(-50%);
+			@include media {
+				width: vw(310);
+				top: vw(76);
+				left: 0;
+				transform: none;
+				font-size: vw(30);
+			}
 			&-text {
 				font-size: 25px;
 				color: #de6b0f;
+				@include media {
+					display: none;
+				}
 			}
 		}
 		&__point {
@@ -298,6 +455,13 @@ body {
 			top: 186px;
 			left: 50%;
 			transform: translateX(-50%);
+			@include media {
+				width: vw(310);
+				top: vw(76);
+				left: vw(370);
+				transform: none;
+				font-size: vw(30);
+			}
 		}
 	}
 }

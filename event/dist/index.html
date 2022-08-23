@@ -75,6 +75,7 @@
 		<!-- 內容開始 -->
 		<div id="app" :class="[h5?'h5':'']">
 			<div class="header">
+				<a href="javascript:;" class="btn__menu"></a>
 				<a href="javascript:;" class="logo"></a>
 				<div class="social-btn-group">
 					<a href="https://tw.beanfun.com/kartrider/main.aspx" target="_blank" class="social-btn__home"></a>
@@ -83,11 +84,20 @@
 					<a href="https://discord.com/invite/TfsThAT" target="_blank" class="social-btn__discord"></a>
 				</div>
 				<div class="event-lb-group">
-					<a href="javascript:;" class="event-lb__btn btn__login" :class="[login?'on':'']" v-cloak @click="eventJoin"></a>
-					<a href="javascript:;" class="event-lb__btn btn__directions" @click="openEventDirections"></a>
-					<a href="javascript:;" class="event-lb__btn btn__history" @click="openHistoryGame"></a>
-					<a href="javascript:;" class="event-lb__btn btn__reward" @click="openItemRewardWeb"></a>
-					<a href="javascript:;" class="event-lb__btn btn__booking" @click="eventBooking"></a>
+					<div class="event-lb__content">
+						<a href="javascript:;" class="event-lb__btn btn__menu-close"></a>
+						<a href="javascript:;" class="event-lb__btn btn__login" :class="[login?'on':'']" v-cloak @click="eventJoin"></a>
+						<a href="javascript:;" class="event-lb__btn btn__directions" @click="openEventDirections"></a>
+						<a href="javascript:;" class="event-lb__btn btn__history" @click="openHistoryGame"></a>
+						<a href="javascript:;" class="event-lb__btn btn__reward" @click="openItemRewardWeb"></a>
+						<a href="javascript:;" class="event-lb__btn btn__booking" @click="eventBooking"></a>
+						<div class="event-lb__social-btn">
+							<a href="https://tw.beanfun.com/kartrider/main.aspx" target="_blank" class="social-btn__home"></a>
+							<a href="https://www.facebook.com/kartriderTW/" target="_blank" class="social-btn__f_b"></a>
+							<a href="https://www.youtube.com/channel/UCBCjxgg6A3AZD1VcrlORvaQ" target="_blank" class="social-btn__yt"></a>
+							<a href="https://discord.com/invite/TfsThAT" target="_blank" class="social-btn__discord"></a>
+						</div>
+					</div>
 				</div>
 				<div class="current-level" :data-level="current"></div>
 				<a class="btn__login h5__login" @click="eventJoin"></a>

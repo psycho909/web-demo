@@ -923,7 +923,7 @@
 	}
 }
 
-.lb-reward {
+.lb-reward-web {
 	.gbox-wrap {
 		max-width: 888px;
 		background-image: url("./img/web/lb-bg-body2.png");
@@ -939,6 +939,12 @@
 			bottom: -80px;
 			background-size: 888px 81px;
 			background-image: url("./img/web/lb-bg-bottom3.png");
+			@include media {
+				height: vw(74) !important;
+				bottom: vw(-73) !important;
+				background-size: vw(680) vw(74) !important;
+				background-image: url("./img/web/m-lb-bg-bottom3.png") !important;
+			}
 		}
 	}
 	.gbox-action {
@@ -960,7 +966,10 @@
 			background-size: cover;
 			background-image: url("./img/web/lb-tree.png");
 			@include media {
-				display: none;
+				width: vw(645);
+				height: vw(250);
+				bottom: vw(-24);
+				background-image: url(./img/web/m-lb-tree.png);
 			}
 		}
 		&:after {
@@ -974,7 +983,10 @@
 			background-size: cover;
 			background-image: url("./img/web/lb-reward-role.png");
 			@include media {
-				display: none;
+				bottom: vw(-27);
+				left: vw(60);
+				width: vw(141);
+				height: vw(167);
 			}
 		}
 	}
@@ -992,7 +1004,9 @@
 		background-image: url("./img/web/lb-title-reward.png");
 		margin: 0 auto 15px;
 		@include media {
-			display: none;
+			width: vw(163);
+			height: vw(37);
+			margin: 0 auto vw(15);
 		}
 	}
 	&__dashed1 {
@@ -1002,16 +1016,14 @@
 		background-size: cover;
 		background-image: url("./img/web/lb-dashed1.png");
 		margin: 0 auto 24px;
-		@include media {
-			display: none;
-		}
 	}
 	&__list {
 		padding-left: 70px;
 		padding-right: 135px;
 		@include media {
-			padding-left: vw(22);
-			padding-right: vw(80);
+			padding-left: vw(46);
+			padding-right: vw(110);
+			font-size: vw(30);
 		}
 	}
 	&__label {
@@ -1023,6 +1035,7 @@
 		}
 		@include media {
 			display: flex;
+			flex-wrap: wrap;
 			& + .lb-reward__label {
 				margin-top: vw(24);
 			}
@@ -1051,6 +1064,8 @@
 		font-size: 23px;
 		@include media {
 			font-size: vw(30);
+			width: 100%;
+			margin-bottom: vw(18);
 		}
 	}
 	&__dashed {
@@ -1060,15 +1075,23 @@
 		background-image: url("./img/web/lb-reward-dashed.png");
 		margin-bottom: 13px;
 		@include media {
-			margin-bottom: vw(33);
-			background-image: url("./img/h5/lb-dashed1.png");
+			margin-bottom: vw(8);
+			height: vw(52);
 		}
 	}
 	&__date {
 		margin-left: 16px;
+		@include media {
+			margin-left: auto;
+			color: #f9e990;
+		}
 	}
 	&__status {
 		margin-left: 16px;
+		@include media {
+			margin-left: vw(16);
+			color: #f9e990;
+		}
 	}
 	&__notice {
 		width: 327px;
@@ -1078,12 +1101,8 @@
 		font-size: 0;
 		margin: 0 auto 15px;
 		@include media {
-			width: auto;
-			height: auto;
-			background-image: none;
-			color: #f9e990;
-			margin: 0 auto;
-			font-size: vw(30);
+			width: vw(327);
+			height: vw(65);
 		}
 	}
 	&__qrcode {
@@ -1102,9 +1121,15 @@
 			height: 99px;
 			background-size: cover;
 			background-image: url("./img/web/lb-reward-qrcode-text.png");
+			@include media {
+				top: vw(49);
+				right: vw(-135);
+				height: vw(99);
+			}
 		}
 		@include media {
-			display: none;
+			width: vw(227);
+			height: vw(227);
 		}
 	}
 	.mCSB_inside > .mCSB_container {

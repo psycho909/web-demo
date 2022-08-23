@@ -310,7 +310,7 @@ var vm = new Vue({
 	data: {
 		h5: false,
 		link: "",
-		login: false,
+		login: true,
 		total: 12,
 		current: 1,
 		CharacterName: "",
