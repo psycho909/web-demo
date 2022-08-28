@@ -5,8 +5,9 @@ import { defineConfig, loadEnv } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	const root = process.cwd();
-	const { VITE_PUBLIC_PATH, VITE_USE_VCONSOLE } = loadEnv(mode, root);
-	console.log(VITE_PUBLIC_PATH, VITE_USE_VCONSOLE);
+	console.log(mode);
+	const envConfig = loadEnv(mode, "./");
+	console.log("envConfig:", envConfig);
 	return {
 		base: "./",
 		plugins: [vue()],
