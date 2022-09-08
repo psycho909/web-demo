@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style>
+			body {
+				background-color: #000;
+			}
+			.box {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background-color: rgb(31, 184, 255);
+				filter: blur(2px);
+				box-shadow: 0 0 3px rgb(31, 184, 255), 0 0 6px rgb(31, 184, 255), 0 0 12px rgb(31, 184, 255), 0 0 18px rgb(31, 184, 255), 0 0 22px rgb(31, 184, 255);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<div id="box"></div>
+		<script>
+			function H(data) {
+				var downloadHTML = `
+					<a href="downloads?Seq=${data.seq}" class="downloads-box__link">
+						<div class="downloads-box__img" >${data.imgHTML}</div>
+						<div class="downloads-box__detail">
+							<div class="downloads-box__detail-title"><span>${data.title}</span>${data.memo}</div>
+							<div class="downloads-box__info">
+								<div class="downloads-box__info-type"><span>格式：${data.fileType}</span>${data.fileSize}</div>
+							</div>
+						</div>
+					</a>
+					`;
+
+				$("#box").html(downloadHTML);
+			}
+			H({
+				seq: 1,
+				imgHTML: "213123",
+				title: "TITLE",
+				memo: "MEO",
+				fileType: 1,
+				fileSize: 1
+			});
+
+			async function async1() {
+				console.log("async1 start");
+				await async2();
+				console.log("async1 end"); // 1
+			}
+
+			async function async2() {
+				console.log("async2");
+			}
+
+			console.log("script start");
+
+			async1();
+
+			setTimeout(() => {
+				// 2
+				console.log("setTimeout");
+			}, 0);
+
+			new Promise((resolve) => {
+				console.log("promise");
+				resolve();
+			})
+				.then(function () {
+					// 3
+					console.log("promise1 start");
+					return "promise1 end";
+				})
+				.then((res) => {
+					// 4
+					console.log(res);
+				})
+				.then((res) => {
+					// 5
+					console.log(res);
+				});
+
+			console.log("script end");
+		</script>
+	</body>
+</html>
