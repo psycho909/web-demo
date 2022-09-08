@@ -1,0 +1,31 @@
+.event-btn {
+	background-size: 200%;
+	background-repeat: no-repeat;
+	@include hover {
+		background-position-x: -100%;
+	}
+	@include media {
+		background-size: cover;
+	}
+	&__confirm {
+		width: 100px;
+		height: 64px;
+		background-image: url("./img/btn-confirm.png");
+		@include media {
+			width: vw(240);
+			height: vw(94);
+			background-image: url("./img/m-btn-confirm.png");
+		}
+	}
+
+	&__share {
+		width: 100px;
+		height: 64px;
+		background-image: url("./img/btn-share.png");
+		@include media {
+			width: vw(240);
+			height: vw(94);
+			background-image: url("./img/m-btn-share.png");
+		}
+	}
+}
