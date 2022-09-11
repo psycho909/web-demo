@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			.marquee__part {
+				flex-shrink: 0;
+				/* position: absolute;
+				top: 0;
+				left: 0; */
+			}
+			.marquee__part + .marquee__part {
+				margin-left: 48px;
+			}
+			.box {
+				background: #3b7fff;
+				overflow: hidden;
+				position: relative;
+				padding: 32px 0;
+			}
+			.marquee {
+				width: 300%;
+				background: #3b7fff;
+				color: #eee;
+				text-transform: uppercase;
+				font-weight: 600;
+				font-size: 1.667vw;
+				padding: 32px 0;
+				display: flex;
+				/* position: absolute;
+				top: 0;
+				left: 0; */
+				/* animation: marquee 10s linear infinite forwards; */
+			}
+
+			.marquee__inner {
+				display: flex;
+				flex: auto;
+				flex-direction: row;
+				flex-shrink: 0;
+			}
+			.anim2 {
+				/* color: red; */
+			}
+			@keyframes marquee {
+				0% {
+					transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-66.6%);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<section class="marquee">
+				<div class="anim1 marquee__inner">
+					<div class="marquee__part">Lorem ipsum dolor, sit amet consectetur adipisicing elit</div>
+					<div class="marquee__part">Est iusto pariatur veritatis magnam itaque? Quas voluptas</div>
+				</div>
+				<div class="anim2 marquee__inner">
+					<div class="marquee__part">Lorem ipsum dolor, sit amet consectetur adipisicing elit</div>
+					<div class="marquee__part">Est iusto pariatur veritatis magnam itaque? Quas voluptas</div>
+				</div>
+				<div class="anim2 marquee__inner">
+					<div class="marquee__part">Lorem ipsum dolor, sit amet consectetur adipisicing elit</div>
+					<div class="marquee__part">Est iusto pariatur veritatis magnam itaque? Quas voluptas</div>
+				</div>
+			</section>
+		</div>
+		<script>
+			const marqueeTexts = ["Lorem ipsum dolor, sit amet consectetur adipisicing elit", "Est iusto pariatur veritatis magnam itaque? Quas voluptas", "in ad deleniti rerum nobis explicabo modi, aliquam molestiae"];
+			var screenWidth = window.innerWidth;
+			var distance = 0;
+			var marquee = [];
+			$(".marquee__inner")
+				.eq(0)
+				.find(".marquee__part")
+				.each(function (index, v) {
+					distance += $(v).outerWidth(true);
+				});
+			gsap.set(".marquee", {
+				x: function (index) {
+					return distance;
+				}
+			});
+			$(".marquee__inner").each(function (index, v) {
+				let start, end, duration, delay;
+				start = index * distance + distance;
+				// end = -(distance * (index + 1));
+				end = -distance;
+				duration = Math.abs(end - start) / 1000;
+				marquee.push({
+					distance: distance,
+					start: start,
+					end: end,
+					duration: duration,
+					e: v
+				});
+			});
+			console.table(marquee);
+			function Move(speed = 1000) {
+				var start, end, duration;
+				start = distance;
+				end = -distance;
+				duration = Math.abs(end - start) / 1000;
+				gsap.to(".marquee", {
+					x: end,
+					duration: duration,
+					ease: Linear.easeNone,
+					onComplete: function () {
+						start = -distance;
+						end = -distance * 2;
+						duration = Math.abs(end - start) / 1000;
+						gsap.set(".marquee", {
+							x: -distance
+						});
+						gsap.to(".marquee", {
+							x: -distance * 2,
+							duration: 2,
+							ease: Linear.easeNone,
+							repeat: -1
+						});
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

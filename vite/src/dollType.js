@@ -1,6 +1,9 @@
 let path = import.meta.env.MOD == "development" ? "../public/video" : "./video";
-const getAssetsFile = (url) => {
+const getAssetsVideo = (url) => {
 	return new URL(`./assets/video/${url}`, import.meta.url).href;
+};
+const getAssetsImage = (url) => {
+	return new URL(`./assets/css/img/${url}`, import.meta.url).href;
 };
 export const dolls = [
 	{
@@ -8,55 +11,55 @@ export const dolls = [
 		name: "火焰之子",
 		level: "初生期",
 		type: 0,
-		url: getAssetsFile("1.mp4")
+		url: getAssetsVideo("1.mp4")
 	},
 	{
 		seq: 2,
 		name: "少年帕克",
 		level: "成長期",
 		type: 1,
-		url: getAssetsFile("2.mp4"),
-		evo: getAssetsFile("1-2.mp4")
+		url: getAssetsVideo("2.mp4"),
+		evo: getAssetsVideo("1-2.mp4")
 	},
 	{
 		seq: 3,
 		name: "魔騎士帕克",
 		level: "成長期",
 		type: 1,
-		url: getAssetsFile("3.mp4"),
-		evo: getAssetsFile("2-3.mp4")
+		url: getAssetsVideo("3.mp4"),
+		evo: getAssetsVideo("2-3.mp4")
 	},
 	{
 		seq: 4,
 		name: "少女帕歐",
 		level: "成長期",
 		type: 2,
-		url: getAssetsFile("4.mp4"),
-		evo: getAssetsFile("1-4.mp4")
+		url: getAssetsVideo("4.mp4"),
+		evo: getAssetsVideo("1-4.mp4")
 	},
 	{
 		seq: 5,
 		name: "魔導師帕歐",
 		level: "成長期",
 		type: 2,
-		url: getAssetsFile("5.mp4"),
-		evo: getAssetsFile("4-5.mp4")
+		url: getAssetsVideo("5.mp4"),
+		evo: getAssetsVideo("4-5.mp4")
 	},
 	{
 		seq: 6,
 		name: "爆擊火焰衝擊的魔騎士帕克",
 		level: "育成期",
 		type: 1,
-		url: getAssetsFile("6.mp4"),
-		evo: getAssetsFile("3-6.mp4")
+		url: getAssetsVideo("6.mp4"),
+		evo: getAssetsVideo("3-6.mp4")
 	},
 	{
 		seq: 7,
 		name: "爆擊火焰衝擊的魔導師帕歐",
 		level: "育成期",
 		type: 2,
-		url: getAssetsFile("7.mp4"),
-		evo: getAssetsFile("5-7.mp4")
+		url: getAssetsVideo("7.mp4"),
+		evo: getAssetsVideo("5-7.mp4")
 	}
 ];
 export const levels = [

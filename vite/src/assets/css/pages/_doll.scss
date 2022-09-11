@@ -445,7 +445,9 @@
 	transition: opacity 0.3s ease;
 }
 
-.fade-enter-from,
+.fade-enter-from {
+	opacity: 1;
+}
 .fade-leave-to {
 	opacity: 0;
 }
