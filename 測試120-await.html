@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<script>
+			async function GetUsers() {
+				const user1 = await axios("https://reqres.in/api/users?delay=2");
+				const user2 = await axios("https://reqres.in/api/users?delay=1");
+				const user3 = await axios("https://reqres.in/api/users?delay=3");
+				return [user1, user2, user3];
+			}
+			GetUsers().then((res) => {
+				console.log(res);
+			});
+		</script>
+	</body>
+</html>
