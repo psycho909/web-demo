@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="text"></div>
+		<script>
+			async function GetData(i = 1) {
+				const data = await axios(`https://jsonplaceholder.typicode.com/todos/${i}`);
+				return data;
+			}
+
+			var data = {};
+			var inHour = new Date().getHours();
+			var inMin = new Date().getMinutes();
+			GetData(1).then((res) => {
+				let { data } = res;
+				callData(data);
+			});
+			var i = 0;
+			function callData(data) {
+				setTimeout(() => {
+					var now = new Date();
+					var hour = now.getHours();
+					var sec = now.getSeconds();
+					var min = now.getMinutes();
+					if (min == inMin % 60) {
+						++inMin;
+						GetData(inMin).then((res) => {
+							let { data } = res;
+							$("#text").text(`${data.id}:${data.title}`);
+							callData(data);
+						});
+					} else {
+						$("#text").text(`${data.id}:${data.title}`);
+						callData(data);
+					}
+				}, 1000);
+			}
+		</script>
+	</body>
+</html>
