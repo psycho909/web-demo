@@ -8,42 +8,156 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.marquee__part {
+				margin-right: 48px;
+			}
+			.marquee-box {
+				background: #3b7fff;
+				overflow: hidden;
+				position: relative;
+				padding: 32px 0;
+			}
+			.marquee {
+				width: 300%;
+				background: #3b7fff;
+				color: #eee;
+				text-transform: uppercase;
+				font-weight: 600;
+				font-size: 1.667vw;
+				padding: 32px 0;
+				display: flex;
+			}
+
+			.marquee__inner {
+				display: flex;
+				flex: auto;
+				flex-direction: row;
+				flex-shrink: 0;
+			}
+		</style>
 	</head>
 	<body>
-		<div id="text"></div>
+		<div id="app"></div>
+
 		<script>
+			var JSON_DATA = [
+				{ time: "2022/9/15 10:38", user: "《彈射世界》玩家1" },
+				{ time: "2022/9/15 10:39", user: "《彈射世界》玩家2" },
+				{ time: "2022/9/15 10:40", user: "《彈射世界》玩家3" },
+				{ time: "2022/9/15 10:40", user: "《彈射世界》玩家4" },
+				{ time: "2022/9/15 10:40", user: "《彈射世界》玩家5" },
+				{ time: "2022/9/15 10:42", user: "《彈射世界》玩家6" },
+				{ time: "2022/9/15 10:42", user: "《彈射世界》玩家8" },
+				{ time: "2022/9/15 10:43", user: "《彈射世界》玩家9" },
+				{ time: "2022/9/15 10:43", user: "《彈射世界》玩家10" },
+				{ time: "2022/9/15 10:43", user: "《彈射世界》玩家11" },
+				{ time: "2022/9/15 10:45", user: "《彈射世界》玩家12" }
+			];
+			var t1 = gsap.timeline();
+			var DATA_TEMP = [];
+			var inNow = new Date();
+			var inHour = inNow.getHours();
+			var inMin = inNow.getMinutes();
 			async function GetData(i = 1) {
 				const data = await axios(`https://jsonplaceholder.typicode.com/todos/${i}`);
 				return data;
 			}
+			function FIlterData(min) {
+				var DATA_FILTER = DATA_TEMP.filter(function (v, i) {
+					var data_min = new Date(v.time).getMinutes();
+					if (min == data_min && !v.anim) {
+						v.anim = true;
+						return v;
+					}
+				});
+				if (DATA_FILTER.length > 0) {
+					MarqueeHTMLRender(DATA_FILTER);
+					MarqueeRun().then(() => callData(DATA_TEMP));
+				} else {
+					callData(DATA_TEMP);
+				}
+			}
+			function MarqueeHTMLRender(data) {
+				var HTML = ``;
+				var innerHTML = ``;
+				var app = document.getElementById("app");
+				var marqueeHTML = "";
+				var marqueeBoxHTML = "";
+				if (!document.querySelector(".marquee")) {
+					marqueeBoxHTML = document.createElement("div");
+					marqueeHTML = document.createElement("div");
+					marqueeBoxHTML.className = "marquee-box";
+					marqueeHTML.className = "marquee";
+					app.insertAdjacentElement("beforeEnd", marqueeBoxHTML);
+					marqueeBoxHTML.insertAdjacentElement("beforeEnd", marqueeHTML);
+				} else {
+					marqueeHTML = document.querySelector(".marquee");
+				}
+				data.forEach(function (v, i) {
+					innerHTML += `<div class="marquee__part">${v.time} ${v.user}</div>`;
+				});
+				HTML = `<div class="marquee__inner">${innerHTML}</div>`;
+				marqueeHTML.innerHTML = HTML;
+			}
+			function MarqueeRun(callback) {
+				var start,
+					end,
+					duration,
+					distance = 0;
 
-			var data = {};
-			var inHour = new Date().getHours();
-			var inMin = new Date().getMinutes();
-			GetData(1).then((res) => {
-				let { data } = res;
-				callData(data);
-			});
-			var i = 0;
+				$(".marquee__inner")
+					.eq(0)
+					.find(".marquee__part")
+					.each(function (index, v) {
+						distance += $(v).outerWidth(true);
+					});
+
+				start = distance;
+				end = -distance;
+				duration = Math.abs(end - start) / 300;
+				gsap.set(".marquee", {
+					x: window.innerWidth
+				});
+				console.log(start, end, duration);
+				return t1.to(".marquee", {
+					x: end,
+					duration: duration,
+					ease: Linear.easeNone
+				});
+			}
 			function callData(data) {
 				setTimeout(() => {
 					var now = new Date();
 					var hour = now.getHours();
-					var sec = now.getSeconds();
 					var min = now.getMinutes();
-					if (min == inMin % 60) {
-						++inMin;
+					if (min == inMin) {
 						GetData(inMin).then((res) => {
 							let { data } = res;
-							$("#text").text(`${data.id}:${data.title}`);
-							callData(data);
+							++inMin;
+							DATA_TEMP = JSON_DATA;
+							FIlterData(min);
 						});
 					} else {
-						$("#text").text(`${data.id}:${data.title}`);
-						callData(data);
+						FIlterData(min);
 					}
 				}, 1000);
 			}
+
+			GetData(1).then((res) => {
+				let { data } = res;
+				++inMin;
+				var now = new Date();
+				var hour = now.getHours();
+				var min = now.getMinutes();
+				DATA_TEMP = JSON_DATA;
+				FIlterData(min);
+			});
 		</script>
 	</body>
 </html>
