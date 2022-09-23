@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				/* --height: 100px; */
+				width: 100px;
+				/* height: var(--height); */
+				background-color: red;
+				position: relative;
+				display: flex;
+				flex-direction: column;
+			}
+			.box:before {
+				content: "";
+				display: block;
+				width: 100px;
+				/* height: var(--height); */
+				height: 100%;
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+			<div>1</div>
+		</div>
+		<button type="button" class="btn">增加</button>
+		<script>
+			var oBtn = document.querySelector(".btn");
+			var oBox = document.querySelector(".box");
+			oBtn.addEventListener("click", function () {
+				oBox.style.setProperty("--height", "300px");
+			});
+		</script>
+	</body>
+</html>

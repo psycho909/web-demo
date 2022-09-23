@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				width: 1920px;
+				height: 1080px;
+				background-image: url("./images/bg.jpg");
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+			.border {
+				width: 368px;
+				height: 369px;
+				background-image: url("./images/info-bg.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+				position: relative;
+				margin: 0 auto 12px;
+			}
+			.card {
+				width: 380px;
+				height: 563px;
+				background-image: url("./images/card-bg.png");
+				background-size: cover;
+				position: relative;
+			}
+			.card-faction {
+				position: relative;
+				width: 281px;
+				height: 327px;
+				background-image: url("./images/card-faction.png");
+				background-size: cover;
+			}
+			.card-faction--1 {
+				width: 288px;
+				height: 184px;
+				background-size: cover;
+				background-image: url("./images/card-faction-1.png");
+				position: absolute;
+				top: 15px;
+				left: -175px;
+				mix-blend-mode: screen;
+			}
+			.card-faction--2 {
+				width: 191px;
+				height: 128px;
+				background-size: cover;
+				background-image: url("./images/card-faction-2.png");
+				position: absolute;
+				top: -7px;
+				left: 158px;
+				mix-blend-mode: screen;
+			}
+			.card-faction--3 {
+				width: 165px;
+				height: 120px;
+				background-size: cover;
+				background-image: url("./images/card-faction-3.png");
+				position: absolute;
+				top: 7px;
+				left: 59px;
+				mix-blend-mode: screen;
+			}
+			.faction__title {
+				width: 385px;
+				height: 84px;
+				background-image: url("./images/m-faction-title.png");
+				background-size: cover;
+				position: relative;
+			}
+			.faction__title:before {
+				content: "";
+				width: 372px;
+				height: 77px;
+				background-image: url("./images/m-faction-title-light.png");
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				mix-blend-mode: color-dodge;
+			}
+
+			.index .event-info__pop-group {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: center;
+				-ms-flex-pack: center;
+				justify-content: center;
+				margin-bottom: 176px;
+			}
+
+			.index .event-info__pop-box {
+				text-align: center;
+			}
+
+			.index .event-info__pop-box:first-child {
+				margin-right: 8px;
+			}
+
+			.index .event-info__pop-border {
+				width: 368px;
+				height: 369px;
+				background-image: url("./img/index/info-bg.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+				position: relative;
+				margin: 0 auto 12px;
+			}
+
+			.index .event-info__pop-card {
+				width: 253px;
+				height: 320px;
+				background-image: url("./img/index/info-card.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
+
+			.index .event-info__pop-faction {
+				width: 257px;
+				height: 297px;
+				background-image: url("./img/index/info-faction.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
+
+			.index .event-info__pop-faction--1 {
+				width: 288px;
+				height: 184px;
+				background-size: cover;
+				background-image: url("./img/main/tab-faction-1.png");
+				position: absolute;
+				top: 15px;
+				left: -175px;
+				mix-blend-mode: screen;
+			}
+
+			@media screen and (max-width: 768px) {
+				.index .event-info__pop-faction--1 {
+					display: none;
+				}
+			}
+
+			.index .event-info__pop-faction--2 {
+				width: 191px;
+				height: 128px;
+				background-size: cover;
+				background-image: url("./img/main/tab-faction-2.png");
+				position: absolute;
+				top: -7px;
+				left: 158px;
+				mix-blend-mode: screen;
+			}
+
+			@media screen and (max-width: 768px) {
+				.index .event-info__pop-faction--2 {
+					width: 39.0625vw;
+					height: 26.171875vw;
+					background-image: url("./img/main/m-tab-faction-2.png");
+				}
+			}
+
+			.index .event-info__pop-faction--3 {
+				width: 165px;
+				height: 120px;
+				background-size: cover;
+				background-image: url("./img/main/tab-faction-3.png");
+				position: absolute;
+				top: 7px;
+				left: 59px;
+				mix-blend-mode: screen;
+			}
+
+			@media screen and (max-width: 768px) {
+				.index .event-info__pop-faction--3 {
+					width: 33.7239583333vw;
+					height: 24.609375vw;
+					background-image: url("./img/main/tab-faction-3.png");
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="faction__title"></div>
+			<div class="border">
+				<div class="card-faction">
+					<span class="card-faction--1"></span>
+					<span class="card-faction--2"></span>
+					<span class="card-faction--3"></span>
+				</div>
+			</div>
+			<div class="index">
+				<div class="event-info">
+					<div class="event-info__pop-group">
+						<div class="event-info__pop-box">
+							<div class="event-info__pop-border"><div class="event-info__pop-card"></div></div>
+							<div class="event-info__pop-text">個人名片</div>
+						</div>
+						<div class="event-info__pop-box">
+							<div class="event-info__pop-border">
+								<div class="event-info__pop-faction">
+									<span class="event-info__pop-faction--1"></span>
+									<span class="event-info__pop-faction--2"></span>
+									<span class="event-info__pop-faction--3"></span>
+								</div>
+							</div>
+							<div class="event-info__pop-text">陣營競爭</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
