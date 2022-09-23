@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content="{{description}}" />
+		<!-- 除了H5活動頁以外都要加上 -->
+		<meta name="open-default-browser" content="true" />
+
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="{{title}}" />
+		<meta property="og:description" content="{{description}}" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="{{url}}/assets/img/og-image.jpg" />
+
+		<title>{{title}}</title>
+		<!-- CSS -->
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
+		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+		<!-- GTM -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({
+					"gtm.start": new Date().getTime(),
+					event: "gtm.js",
+				});
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "{{GTM}}");
+		</script>
+	</head>
+
+	<body>
+		<!-- GTM -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{GTM}}" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+
+		<!-- 內容開始 -->
+		<div class="main">
+			<div class="container">
+				<div class="main__slogan">陣營戰</div>
+				<div class="main__page-group">
+					<a href="javascript:;" class="main__page-box">
+						<div class="main__page-card"></div>
+						<div class="main__page-text">
+							個人名片
+							<div class="main__page-q" data-question="card"></div>
+						</div>
+					</a>
+					<a href="javascript:;" class="main__page-box">
+						<div class="main__page-faction">
+							<span class="main__page-faction--1"></span>
+							<span class="main__page-faction--2"></span>
+							<span class="main__page-faction--3"></span>
+						</div>
+						<div class="main__page-text">
+							我的陣營
+							<div class="main__page-q" data-question="faction"></div>
+						</div>
+					</a>
+					<a href="javascript:;" class="main__page-box">
+						<div class="main__page-store"></div>
+						<div class="main__page-text">
+							商店
+							<div class="main__page-q" data-question="store"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- footer -->
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂M" theme="dark"></script>
+		<script src="./js/lightbox.js"></script>
+		<script src="./js/default.js"></script>
+	</body>
+</html>
