@@ -20,6 +20,7 @@
 
 		<title>{{title}}</title>
 		<!-- CSS -->
+		<link href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/default.css" />
 
 		<!-- JS -->
@@ -29,6 +30,7 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
 		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 		<!-- GTM -->
@@ -37,7 +39,7 @@
 				w[l] = w[l] || [];
 				w[l].push({
 					"gtm.start": new Date().getTime(),
-					event: "gtm.js",
+					event: "gtm.js"
 				});
 				var f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
@@ -55,12 +57,20 @@
 
 		<!-- 內容開始 -->
 		<div class="index">
+			<div class="top-info">
+				<a href="javascript:;" class="top-info__history"></a>
+				<a href="javascript:;" class="top-info__bag on"></a>
+				<div class="top-info__coin-box">
+					<a href="javascript:;" class="top-info__coin"></a>
+					<span>9999999</span>
+				</div>
+			</div>
 			<div class="container">
 				<!-- 標題區 -->
-				<div class="header">
-					<div class="header__slogan1">陣營戰</div>
-					<div class="header__slogan2">勢力問鼎 征服亞丁</div>
-					<a href="javascript:;" class="header__btn"><span>即刻加入</span></a>
+				<div class="index-header">
+					<div class="index-header__slogan1">陣營戰</div>
+					<div class="index-header__slogan2">勢力問鼎 征服亞丁</div>
+					<a href="javascript:;" class="index-header__btn"><span>即刻加入</span></a>
 				</div>
 				<!-- 活動資訊 -->
 				<div class="event-info">

@@ -1,10 +1,12 @@
 .index {
 	width: 100%;
 	position: relative;
+	background-color: #201d1f;
 	background-image: url("./img/index/bg.jpg");
 	background-size: 1920px 4465px;
 	background-repeat: no-repeat;
 	background-position: center 0;
+	overflow: hidden;
 	@include media {
 		background-image: url("./img/index/m-bg.jpg");
 		background-size: vw(768) vw(6249);
@@ -21,7 +23,7 @@
 			padding-bottom: vw(130);
 		}
 	}
-	.header {
+	.index-header {
 		&__slogan1 {
 			width: 803px;
 			height: 532px;
@@ -281,9 +283,12 @@
 		}
 	}
 	.faction-rank {
-		margin-bottom: 4px;
+		margin-bottom: 280px;
 		@include media {
-			margin-bottom: vw(169);
+			margin-bottom: vw(168);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 		&__title {
 			width: 385px;
@@ -293,16 +298,18 @@
 			background-repeat: no-repeat;
 			font-size: 0;
 			margin: 0 auto 36px;
+			position: relative;
 			@include media {
 				width: vw(385);
 				height: vw(84);
 				margin: 0 auto vw(36);
 				background-image: url("./img/index/m-faction-title.png");
+				order: 1;
 				&:before {
 					content: "";
 					width: vw(372);
 					height: vw(77);
-					background-image: url("./images/m-faction-title-light.png");
+					background-image: url("./img/index/m-faction-title-light.png");
 					background-size: cover;
 					position: absolute;
 					top: 0;
@@ -317,11 +324,10 @@
 			background-size: cover;
 			background-repeat: no-repeat;
 			position: relative;
-			margin-bottom: 280px;
 			@include media {
 				width: vw(758);
 				height: vw(2438);
-				margin-bottom: vw(168);
+				order: 3;
 			}
 			&:before {
 				content: "";
@@ -347,6 +353,9 @@
 			margin-bottom: 4px;
 			@include media {
 				margin-bottom: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 			&:before {
 				content: "";
@@ -361,6 +370,7 @@
 					width: vw(766);
 					height: vw(227);
 					background-image: url("./img/index/m-faction-bg-bottom.png");
+					bottom: vw(-121);
 				}
 			}
 			&:after {
@@ -376,6 +386,7 @@
 					width: vw(768);
 					height: vw(227);
 					background-image: url("./img/index/m-faction-bg-top.png");
+					top: vw(-105);
 				}
 			}
 		}
@@ -386,6 +397,10 @@
 			z-index: 1;
 			@include media {
 				position: relative;
+				margin-bottom: vw(85);
+				&:last-child {
+					margin-bottom: 0;
+				}
 			}
 			&[data-faction="kent"] {
 				width: 535px;
@@ -429,6 +444,9 @@
 				bottom: -82px;
 				left: 50%;
 				transform: translateX(-50%);
+				@include media {
+					bottom: vw(-52);
+				}
 			}
 			&[data-rank="1"] {
 				top: -92px;
@@ -436,6 +454,7 @@
 				@include media {
 					top: 0;
 					left: 0;
+					order: 1;
 				}
 				&:after {
 					width: 205px;
@@ -451,6 +470,7 @@
 				@include media {
 					top: 0;
 					left: 0;
+					order: 2;
 				}
 				&:after {
 					width: 205px;
@@ -466,6 +486,7 @@
 				@include media {
 					top: 0;
 					left: 0;
+					order: 3;
 				}
 				&:after {
 					width: 205px;
@@ -490,6 +511,9 @@
 					width: vw(507);
 					height: vw(178);
 					background-image: url("./img/index/m-tab.png");
+					margin: 0 auto vw(64);
+					order: 2;
+					flex-wrap: wrap;
 				}
 				&:before {
 					content: "";
@@ -502,6 +526,9 @@
 					top: -106px;
 					left: 50%;
 					transform: translateX(-50%);
+					@include media {
+						display: none;
+					}
 				}
 			}
 			&-btn {
@@ -510,6 +537,10 @@
 				font-size: 0;
 				position: relative;
 				z-index: 1;
+				@include media {
+					width: vw(calc(507 / 2));
+					height: vw(77);
+				}
 			}
 		}
 	}
@@ -527,7 +558,7 @@
 				width: vw(312);
 				height: vw(84);
 				background-image: url("./img/index/m-notice-title.png");
-				margin: 0 auto vw(96);
+				margin: 0 auto vw(72);
 				&:before {
 					content: "";
 					width: vw(299);
@@ -559,6 +590,9 @@
 			list-style: none;
 			@include media {
 				font-size: vw(24);
+				width: vw(670);
+				padding-left: 0;
+				margin: 0 auto;
 			}
 		}
 		&__li {
@@ -570,23 +604,4 @@
 			}
 		}
 	}
-}
-
-.faction__title {
-	width: 385px;
-	height: 84px;
-	background-image: url("./images/m-faction-title.png");
-	background-size: cover;
-	position: relative;
-}
-.faction__title:before {
-	content: "";
-	width: 372px;
-	height: 77px;
-	background-image: url("./images/m-faction-title-light.png");
-	background-size: cover;
-	position: absolute;
-	top: 0;
-	left: 0;
-	mix-blend-mode: color-dodge;
 }

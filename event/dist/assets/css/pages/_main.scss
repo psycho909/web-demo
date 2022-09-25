@@ -5,6 +5,7 @@
 	background-size: 1920px 1080px;
 	background-repeat: no-repeat;
 	background-position: center 0;
+	overflow: hidden;
 	@include media {
 		background-image: url("./img/main/m-bg.jpg");
 		background-size: vw(768) vw(3244);
@@ -24,7 +25,7 @@
 	&__slogan {
 		width: 280px;
 		height: 131px;
-		background-image: url("./img/main/slogan1.png");
+		background-image: url("./img/common/slogan1.png");
 		background-size: cover;
 		background-repeat: no-repeat;
 		margin: 0 auto 27px;
