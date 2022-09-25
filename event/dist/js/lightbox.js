@@ -105,7 +105,7 @@ function CheckLogout() {
 // CheckLogout();
 
 // 個人名片介紹
-function CardInfo() {
+function CardInfo(data) {
 	var config = {
 		addClass: "gbox popup",
 		hasCloseBtn: true,
@@ -114,17 +114,20 @@ function CardInfo() {
 			$.gbox.close();
 		}
 	};
-
+	var text_HTML = ``;
+	if (data) {
+		text_HTML = data;
+	}
 	var HTML = `<div class="lb-popup__content" style="--width:400px;--m-width:400;--pd:0px">
 		<div class="popup-info__card">個人名片</div>
-		<div class="popup-info__text">文字文字文字文字文字文字 文字文字文字文字文字文字 文字文字文字文字文字文字 拷貝</div>
+		<div class="popup-info__text">${text_HTML}</div>
 	</div>`;
 	$.gbox.open(HTML, config);
 }
 // CardInfo();
 
 // 商店介紹
-function StoreInfo() {
+function StoreInfo(data) {
 	var config = {
 		addClass: "gbox popup",
 		hasCloseBtn: true,
@@ -133,17 +136,20 @@ function StoreInfo() {
 			$.gbox.close();
 		}
 	};
-
+	var text_HTML = ``;
+	if (data) {
+		text_HTML = data;
+	}
 	var HTML = `<div class="lb-popup__content" style="--width:400px;--m-width:400;--pd:0px">
 		<div class="popup-info__store">商店</div>
-		<div class="popup-info__text">文字文字文字文字文字文字 文字文字文字文字文字文字 文字文字文字文字文字文字 拷貝</div>
+		<div class="popup-info__text">${text_HTML}</div>
 	</div>`;
 	$.gbox.open(HTML, config);
 }
 // StoreInfo();
 
 // 我的陣營介紹
-function FactionInfo() {
+function FactionInfo(data) {
 	var config = {
 		addClass: "gbox popup",
 		hasCloseBtn: true,
@@ -152,17 +158,20 @@ function FactionInfo() {
 			$.gbox.close();
 		}
 	};
-
+	var text_HTML = ``;
+	if (data) {
+		text_HTML = data;
+	}
 	var HTML = `<div class="lb-popup__content" style="--width:400px;--m-width:400;--pd:0px">
 		<div class="popup-info__faction">我的陣營</div>
-		<div class="popup-info__text">文字文字文字文字文字文字 文字文字文字文字文字文字 文字文字文字文字文字文字 拷貝</div>
+		<div class="popup-info__text">${text_HTML}</div>
 	</div>`;
 	$.gbox.open(HTML, config);
 }
 // FactionInfo();
 
 // 獎勵歷程
-function History() {
+function History(data) {
 	var config = {
 		addClass: "gbox popup popup-history",
 		hasCloseBtn: true,
@@ -186,90 +195,25 @@ function History() {
 			}
 		]
 	};
-
+	var history_HTML = ``;
+	if (data) {
+		data.forEach(function (v, i) {
+			history_HTML += `<div class="popup-history__box">
+			<div class="popup-history__img">
+				<img src="./assets/css/img/popup/item.png" alt="" />
+			</div>
+			<div class="popup-history__info">
+				<div>來自xxx</div>
+				<div>成功兌換：xxxx</div>
+				<div>2022/05/01 下午05:00</div>
+			</div>
+		</div>`;
+		});
+	}
 	var HTML = `<div class="lb-popup__content" style="--width:637px;--m-width:727;--pd:0px">
 		<div class="popup-history__title">我的陣營</div>
 		<div class="popup-history__list">
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
-			<div class="popup-history__box">
-				<div class="popup-history__img">
-					<img src="./assets/css/img/popup/item.png" alt="" />
-				</div>
-				<div class="popup-history__info">
-					<div>來自xxx</div>
-					<div>成功兌換：xxxx</div>
-					<div>2022/05/01 下午05:00</div>
-				</div>
-			</div>
+			${history_HTML}
 		</div>
 	</div>`;
 	$.gbox.open(HTML, config);
@@ -361,7 +305,7 @@ function JobSelect() {
 // JobSelect();
 
 // 背包
-function Bag() {
+function Bag(data) {
 	var config = {
 		addClass: "gbox popup popup-bag",
 		hasCloseBtn: true,
@@ -380,34 +324,18 @@ function Bag() {
 			}
 		]
 	};
-
+	var item_HTML = ``;
+	if (data) {
+		data.forEach(function (v, i) {
+			item_HTML += `<div class="popup-bag__box">
+			<img src="./assets/css/img/popup/item.png" alt="" />
+		</div>`;
+		});
+	}
 	var HTML = `<div class="lb-popup__content popup-bag__content" style="--width:560px;--m-width:727;--pd:0px">
 		<div class="popup-bag__title">背包</div>
 		<div class="popup-bag__list">
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
-			<div class="popup-bag__box">
-				<img src="./assets/css/img/popup/item.png" alt="" />
-			</div>
+			${item_HTML}
 		</div>
 		<div class="popup-bag__notice">
 		用戶於個人名片或陣營簽到事件的獎勵箱皆會進入背包，可以於背包可選取您的獎勵，點擊【領取】後可進入獎勵發送頁面。</div>
@@ -418,7 +346,7 @@ function Bag() {
 // Bag();
 
 // 恭喜獲得 確認
-function RewardChecked() {
+function RewardChecked(data) {
 	var config = {
 		addClass: "gbox popup",
 		hasCloseBtn: true,
