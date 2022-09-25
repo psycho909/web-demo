@@ -34,8 +34,7 @@
 						priceList.value.push({ price: 0 });
 					};
 					let getTotal = Vue.computed(() => {
-						console.log(1);
-						if (priceList.value.length > 1) {
+						if (priceList.value.length > 0) {
 							return priceList.value.reduce((p, v, i) => {
 								return p + v.price;
 							}, 0);
