@@ -4,6 +4,7 @@
 	&-power {
 		&-group {
 			position: relative;
+			margin-bottom: 26px;
 		}
 		&-box {
 			position: relative;
@@ -43,6 +44,18 @@
 			width: 320px;
 			height: 350px;
 			position: relative;
+			margin-bottom: 22px;
+			&:before {
+				content: "";
+				width: 322px;
+				height: 352px;
+				background-size: cover;
+				background-image: url("../img/border.png");
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
 		}
 	}
 	&-rmp {
