@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function p(status) {
+				return new Promise((resolve, reject) => {
+					if (status) {
+						resolve("Yes");
+					} else {
+						reject("NO");
+					}
+				});
+			}
+			async function main() {
+				const val1 = await p(true).catch((error) => {
+					console.log(error);
+				});
+				const val2 = await p(false).catch((error) => {
+					console.log(error);
+				});
+				console.log(val1);
+			}
+			main();
+			async function f() {
+				try {
+					await Promise.reject("出错了");
+				} catch (e) {
+					console.log(e);
+				}
+				return await Promise.resolve("hello world");
+			}
+
+			// f().then((v) => console.log(v));
+			// hello world
+		</script>
+	</body>
+</html>
