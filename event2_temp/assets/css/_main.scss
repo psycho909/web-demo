@@ -1,0 +1,45 @@
+.main {
+	&-top {
+		&-group {
+			display: flex;
+		}
+	}
+	&-slide {
+		&-box {
+			width: 980px;
+			height: 420px;
+			position: relative;
+			margin-right: 30px;
+			&:before {
+				content: "";
+				width: 970px;
+				height: 420px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
+				filter: blur(6px);
+			}
+		}
+	}
+	&-waterball {
+		&-box {
+			width: 320px;
+			height: 363px;
+			position: relative;
+			margin-right: 30px;
+			&:before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
+				filter: blur(6px);
+			}
+		}
+	}
+}
