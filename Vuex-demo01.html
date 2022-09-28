@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
@@ -15,7 +14,7 @@
 			<h2>{{welcome}}</h2>
 			<h2>{{welcome2}}</h2>
 			<h3>{{count}} - {{count2}}</h3>
-			<h3>{{$store.state.count}}</h3>
+			<h3>count - {{$store.state.people[0]?.age}}</h3>
 			<input type="text" v-model="welcome" />
 			<button @click="submitMessage">submit</button>
 			<button @click="pressed">Increment Counter</button>
@@ -42,7 +41,8 @@
 				plugins: [myPlugin, myPlugin2],
 				state: {
 					message: "Hello From Vuex",
-					count: 0
+					count: 0,
+					people: []
 				},
 				mutations: {
 					INCREMENT(state, payload) {
@@ -55,10 +55,14 @@
 					},
 					changeMessage(state, payload) {
 						state.message = payload;
+					},
+					ADD_PEOPLE(state, payload) {
+						state.people.push({ age: 12 });
 					}
 				},
 				actions: {
 					increment(context, payload) {
+						context.commit("ADD_PEOPLE");
 						context.commit("INCREMENT", payload);
 						context.dispatch("sayHi");
 					},

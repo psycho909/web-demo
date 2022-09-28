@@ -1,0 +1,56 @@
+.speedometer {
+	&-wrap {
+		width: 168px;
+		height: 146px;
+		position: relative;
+		background-size: cover;
+		background-image: url("../img/speedometer.png");
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	}
+	&-container {
+		width: 146px;
+		height: 146px;
+		position: relative;
+	}
+	.details {
+		display: flex;
+		position: absolute;
+		top: 116px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		align-items: center;
+	}
+	.text {
+		font-size: 12px;
+		color: #fff;
+		margin-right: 4px;
+	}
+	.speed {
+		font-size: 12px;
+		color: #fff;
+		padding: 4px 8px;
+		border: 1px solid #fff;
+		border-radius: 4px;
+	}
+	.progress {
+		width: 146px;
+		height: 146px;
+		position: absolute;
+		top: 6px;
+		left: 0;
+		border-radius: 50%;
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, 0);
+			width: 4px;
+			height: 50%;
+			border-radius: 50%;
+			background-color: #f1252e;
+		}
+	}
+}

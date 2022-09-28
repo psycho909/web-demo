@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style>
+			body {
+				font-family: "Roboto", sans-serif;
+				color: white;
+				font-size: 13px;
+			}
+
+			#canvas-holder {
+				min-width: 200px;
+				mwidth: 70%;
+				margin: auto;
+				margin-bottom: 20px;
+				position: relative;
+			}
+
+			.container {
+				background: #000;
+				background-image: linear-gradient(58deg, rgba(48, 35, 174, 0.44) -20%, rgba(200, 109, 215, 0.64) 100%);
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+
+			.card {
+				background-color: #613984;
+				padding: 20px;
+				border-radius: 4px;
+				float: left;
+				margin: 10px;
+				width: 40%;
+			}
+
+			.text-center {
+				text-align: center;
+			}
+
+			.data-dot {
+				margin: 7px 0 0 0;
+				font-size: 0.9em;
+				font-weight: 400;
+				display: inline-block;
+			}
+			.data-dot:before {
+				content: "";
+				width: 10px;
+				height: 10px;
+				border-radius: 10px;
+				display: inline-block;
+				margin-right: 10px;
+			}
+			.data-dot-green:before {
+				background-color: #58f484;
+			}
+			.data-dot-blue:before {
+				background-color: #5ffafc;
+			}
+		</style>
+	</head>
+	<body>
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" />
+
+		<div class="container">
+			<div class="card">
+				<div id="canvas-holder">
+					<canvas id="chart-area" />
+				</div>
+
+				<div class="text-center">
+					<span class="data-dot data-dot-green"> 4 Dagen over in sprint </span>
+					<br />
+					<span class="data-dot data-dot-blue"> 8 Punten over in sprint </span>
+				</div>
+			</div>
+			<div class="card">
+				<div id="canvas-holder">
+					<canvas id="chart-2" />
+				</div>
+			</div>
+		</div>
+		<script>
+			var config = {
+				type: "doughnut",
+				data: {
+					datasets: [
+						{
+							data: [7, 3],
+							backgroundColor: ["#58F484", "rgba(0,0,0,0)"],
+							borderColor: "#613984",
+							borderWidth: 8,
+							hoverBorderColor: "#613984"
+						},
+						{
+							data: [48, 12],
+							backgroundColor: ["#5FFAFC", "rgba(0,0,0,0)"],
+							borderColor: "#613984",
+							hoverBorderColor: "#613984"
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					cutoutPercentage: 70
+				}
+			};
+
+			var ctx = document.getElementById("chart-area").getContext("2d");
+			var myDoughnut = new Chart(ctx, config);
+		</script>
+	</body>
+</html>

@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.4/radial/gauge.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
@@ -13,12 +13,6 @@
 				margin: 0;
 				padding: 0;
 			}
-			@import url(https://fonts.googleapis.com/css?family=Ubuntu);
-			html,
-			body {
-				height: 100%;
-			}
-
 			body {
 				background-color: #2a2a2a;
 				padding-top: 40px;
@@ -125,28 +119,470 @@
 				transition: all 200ms ease;
 			}
 
-			.content {
-				width: 50%;
-				margin: auto;
+			#ball {
+				width: 200px;
+				height: 200px;
+				background-color: #4874af;
+				border-radius: 50%;
 			}
-
-			canvas {
+			#canvas-one {
+				width: 135px;
+				margin: auto;
+				margin-bottom: 20px;
+				position: relative;
+			}
+			.canvas-two-group {
+				position: relative;
 				width: 200px;
 				height: 200px;
 			}
-
-			.control {
-				margin-top: 10px;
+			.canvas-two-box {
+				width: 135px;
+				height: 135px;
+				margin: auto;
+				margin-bottom: 20px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
-			#ball {
-				background-color: #4874af;
+			.canvas-two {
+				position: absolute;
+			}
+			.canvas-two--big {
+				width: 200px !important;
+				height: 200px !important;
+			}
+
+			#wrapper {
+				margin: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			p {
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			#info {
+				opacity: 0.2;
+				margin: 0;
+				text-align: center;
+			}
+			body {
+				margin: 0;
+				background: #3d3d44;
+				font-family: "Jaldi", sans-serif;
+				font-size: 14px;
+				color: white;
+			}
+			#termometer {
+				width: 42px;
+				background: #38383f;
+				height: 160px;
+				position: relative;
+				border: 6px solid #bdbdbd;
+				border-radius: 100vmax;
+				z-index: 1;
+				margin-bottom: 50px;
+				box-sizing: border-box;
+			}
+			#termometer:before,
+			#termometer:after {
+				position: absolute;
+				content: "";
 				border-radius: 50%;
+			}
+			#termometer:before {
+				transform: translateX(-50%);
+				width: 30px;
+				height: 100%;
+				background-color: #343b41;
+				bottom: 0;
+				left: 50%;
+				border-radius: 100vmax;
+			}
+			#termometer:after {
+				transform: translateX(-50%);
+				width: 72px;
+				height: 72px;
+				background-color: #343b41;
+				bottom: -52px;
+				border: 6px solid #bdbdbd;
+				z-index: -3;
+				left: 50%;
+				box-sizing: border-box;
+			}
+			.temperature-box {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 16px;
+				height: 140px;
+				border-radius: 20px 20px 0 0;
+				overflow: hidden;
+			}
+			#temperature {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+				width: 100%;
+				background-size: 100% 240px;
+				transition: all 0.2s ease-in-out;
+			}
+			#termometer #temperature {
+				position: absolute;
+			}
+
+			#graduations {
+				width: 42px;
+				height: 42px;
+				position: absolute;
+				bottom: -38px;
+				left: 50%;
+				transform: translateX(-50%);
+				background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+				border-radius: 50%;
+			}
+			#playground {
+				font-size: 1.1em;
+			}
+			#playground #range {
+				display: flex;
+			}
+			#playground #range input[type="text"] {
+				width: 2em;
+				background: transparent;
+				border: none;
+				color: inherit;
+				font: inherit;
+				margin: 0 5px;
+				padding: 0px 5px;
+				border-bottom: 2px solid transparent;
+				transition: all 0.2s ease-in-out;
+			}
+			#playground #range input[type="text"]:focus {
+				border-color: #3dcadf;
+				outline: none;
+			}
+			#playground #range input[type="text"]:first-child {
+				text-align: right;
+			}
+			#playground #unit {
+				width: 100%;
+				margin: 0;
+				text-align: center;
+			}
+			#playground #unit:hover {
+				cursor: pointer;
+			}
+			.temperature-line {
+				width: 12px;
+				height: 5px;
+				border-radius: 4px;
+				background-color: #bdbdbd;
+				position: absolute;
+				bottom: 0;
+				right: -16px;
+			}
+			.temperature-line[data-type="1"] {
+				bottom: calc(100% / 7 * 1);
+			}
+			.temperature-line[data-type="2"] {
+				bottom: calc(100% / 7 * 2);
+			}
+			.temperature-line[data-type="3"] {
+				bottom: calc(100% / 7 * 3);
+			}
+			.temperature-line[data-type="4"] {
+				bottom: calc(100% / 7 * 4);
+			}
+			.temperature-line[data-type="5"] {
+				bottom: calc(100% / 7 * 5);
+			}
+			.temperature-line[data-type="6"] {
+				bottom: calc(100% / 7 * 6);
+			}
+			.line-bar {
+				position: relative;
+				width: 390px;
+				height: 19px;
+				background-color: #474b64;
+				border-radius: 12px;
+				overflow: hidden;
+			}
+			.line-bar span {
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+				width: 20%;
+				height: 100%;
+				border-radius: 0 12px 12px 0;
+			}
+			/** Speedometer Styles **/
+
+			.speedometer-container {
+				width: 48rem;
+				height: 48rem;
+				position: relative;
+				background-color: #000;
+				box-shadow: 0 0 10rem rgba(0, 0, 0, 0.75);
+			}
+			.speedometer-container::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: radial-gradient(circle at top left, #fff, transparent);
+				opacity: 0.12;
+			}
+			.overlay {
+				pointer-events: none;
+			}
+			.overlay::before,
+			.overlay::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+			.overlay::before {
+				background-image: radial-gradient(circle at top left, #25fabb, transparent);
+				opacity: 0.04;
+			}
+			.overlay::after {
+				background-image: radial-gradient(circle at bottom right, #874bd7, transparent);
+				opacity: 0.2;
+			}
+			.speedometer .inner-ring {
+				width: 21rem;
+				height: 21rem;
+				position: absolute;
+				top: calc(50% - 12.5rem);
+				left: calc(50% - 10.5rem);
+			}
+			.speedometer .inner-ring::before,
+			.speedometer .inner-ring::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border: 2px solid transparent;
+				border-top: 2px solid #3b3d45;
+				border-right: 2px solid #3b3d45;
+				border-radius: 50%;
+			}
+			.speedometer .inner-ring::before {
+				transform: rotate(-75deg);
+			}
+			.speedometer .inner-ring::after {
+				transform: rotate(-15deg);
+			}
+			.speedometer .outer-ring {
+				width: 32rem;
+				height: 32rem;
+				position: absolute;
+				top: calc(50% - 18rem);
+				left: calc(50% - 16rem);
+				border-radius: 50%;
+			}
+			.speedometer .digit-ring {
+				position: absolute;
+				top: calc(50% - 2rem);
+				left: 50%;
+			}
+			.speedometer .tick {
+				width: 0.8rem;
+				border-top: 2px solid #3b3d45;
+				position: absolute;
+				top: calc(50% - 0.1rem);
+				left: calc(50% - 0.4rem);
+			}
+			.speedometer .tick:nth-child(6n + 1) {
+				width: 1.6rem;
+				left: calc(50% - 0.8rem);
+				border-color: #787a81;
+			}
+			.speedometer .digit {
+				width: 2rem;
+				height: 2rem;
+				position: absolute;
+				top: calc(50% - 1rem);
+				left: calc(50% - 1rem);
+				font-weight: bold;
+				text-align: center;
+				line-height: 2rem;
+			}
+			.speedometer .details {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 21rem;
+				height: 21rem;
+				position: absolute;
+				top: calc(50% - 12.5rem);
+				left: calc(50% - 10.5rem);
+			}
+			.speedometer .label {
+				font-size: 1.2rem;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+			.speedometer .speed {
+				font-size: 6rem;
+				color: #fff;
+			}
+			.speedometer .unit {
+				font-size: 1.6rem;
+			}
+			.speedometer .progress {
+				width: 21rem;
+				height: 21rem;
+				position: absolute;
+				top: calc(50% - 12.5rem);
+				left: calc(50% - 10.5rem);
+				border-radius: 50%;
+			}
+			.speedometer .progress::before {
+				content: "";
+				position: absolute;
+				top: -0.2rem;
+				left: calc(50% - 0.3rem);
+				width: 0.6rem;
+				height: 0.6rem;
+				border-radius: 50%;
+				background-color: #f1252e;
+				box-shadow: 0 0 6rem 2rem rgba(241, 37, 46, 0.35);
+			}
+			.speedometer .retry-button {
+				width: 10rem;
+				border: 2px solid #3b3d45;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				position: absolute;
+				left: calc(50% - 5rem);
+				bottom: 13.5rem;
+				font-size: 1.2rem;
+				font-weight: bold;
+				text-align: center;
+				text-transform: uppercase;
+				line-height: 3rem;
+				color: #666;
+				border-radius: 3rem;
+				background-color: transparent;
+				cursor: pointer;
+				outline: none;
+				transition: background-color 250ms ease-out;
+			}
+			.speedometer .retry-button:hover,
+			.speedometer .retry-button:focus {
+				background-color: rgba(59, 61, 69, 0.15);
+			}
+			.speedometer footer {
+				display: flex;
+				justify-content: center;
+				padding: 3.5rem 0;
+				position: absolute;
+				top: auto;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+			.speedometer .stat {
+				flex-grow: 1;
+				width: 0;
+				padding: 1rem 0;
+				text-align: center;
+			}
+			.speedometer .stat:not(:last-child) {
+				border-right: 2px solid rgba(255, 255, 255, 0.05);
+			}
+			.speedometer .stat label {
+				display: block;
+				margin-bottom: 0.75rem;
+				font-size: 1.2rem;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+			.speedometer .stat p {
+				font-size: 1.4rem;
+				color: #fff;
 			}
 		</style>
 	</head>
 	<body>
-		<canvas id="ball"></canvas>
+		<div class="speedometer-wrap">
+			<section class="speedometer-container">
+				<div class="speedometer">
+					<div class="inner-ring"></div>
+					<div class="outer-ring"><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span></div>
+					<div class="digit-ring"><span class="digit">0</span><span class="digit">40</span><span class="digit">80</span><span class="digit">120</span><span class="digit">160</span><span class="digit">200</span><span class="digit">240</span><span class="digit">280</span><span class="digit">320</span><span class="digit">360</span><span class="digit">400</span></div>
+					<div class="details">
+						<p class="speed">87.3</p>
+					</div>
+					<div class="progress"></div>
+					<button class="retry-button">Retry</button>
+				</div>
+				<div class="overlay"></div>
+			</section>
+		</div>
+		<div class="line-bar">
+			<span></span>
+		</div>
+		<div id="wrapper">
+			<div id="termometer">
+				<div class="temperature-box">
+					<div id="temperature" style="height: 0" data-value="0°C"></div>
+				</div>
+				<div id="graduations"></div>
+				<span class="temperature-line" data-type="1"></span>
+				<span class="temperature-line" data-type="2"></span>
+				<span class="temperature-line" data-type="3"></span>
+				<span class="temperature-line" data-type="4"></span>
+				<span class="temperature-line" data-type="5"></span>
+				<span class="temperature-line" data-type="6"></span>
+			</div>
 
+			<div id="playground">
+				<div id="range">
+					<input id="minTemp" type="text" value="-20" />
+					<input type="range" min="-20" max="50" value="42" />
+					<input id="maxTemp" type="text" value="50" />
+				</div>
+				<p id="unit">Celcius C°</p>
+			</div>
+
+			<p id="info">Click on the values to change them!</p>
+		</div>
+		<div class="canvas-two-group">
+			<div class="canvas-two-box">
+				<canvas class="canvas-two" id="canvas-two-1"></canvas>
+			</div>
+			<div class="canvas-two-box canvas-two--big">
+				<canvas class="canvas-two" id="canvas-two-2"></canvas>
+			</div>
+		</div>
+		<canvas class="chart__canvas" id="canvas-one"></canvas>
+		<canvas id="ball"></canvas>
+		<div class="control">
+			<input type="range" min="0" max="100" step="1" id="rate" />
+		</div>
 		<div class="gauge-cont" data-percentage="80">
 			<div class="gauge">
 				<div class="inner"></div>
@@ -157,6 +593,217 @@
 		</div>
 		<button type="button" class="run">Run</button>
 		<script>
+			// =====================
+			var ticks = $(".tick");
+			var digits = $(".digit");
+			var details = $(".details");
+			var progress = $(".progress");
+
+			var outerRingRadius = 164;
+			var digitRingRadius = 145;
+
+			ticks.each(function (i) {
+				var angle = 210 - i * 4;
+				var theta = deg2rad(angle);
+				var radius = outerRingRadius + (i % 6 ? 0 : 4);
+				var x = Math.cos(theta) * radius;
+				var y = Math.sin(theta) * -radius;
+				var transform = [`translate(${x}px, ${y}px)`, `rotate(${-angle}deg)`].join(" ");
+				$(this).css({
+					"-webkit-transform": transform,
+					"-moz-transform": transform,
+					transform: transform
+				});
+			});
+
+			digits.each(function (i) {
+				var angle = 210 - i * 24;
+				var theta = deg2rad(angle);
+				var x = Math.cos(theta) * digitRingRadius;
+				var y = Math.sin(theta) * -digitRingRadius;
+				$(this).css({
+					"-webkit-transform": `translate(${x}px, ${y}px)`,
+					"-moz-transform": `translate(${x}px, ${y}px)`,
+					transform: `translate(${x}px, ${y}px)`
+				});
+			});
+
+			$(".retry-button").on("click", function () {
+				statValueCurrent = 0;
+				updateDetails();
+			});
+
+			var frameCount = 100;
+			var frameInterval = 0.3;
+			var digitValueMax = 400;
+			var statValueMax = 400;
+			var statValueCurrent = 0;
+			var statValueInterval = statValueMax / frameCount;
+
+			updateDetails();
+
+			function updateDetails() {
+				if (statValueCurrent.toFixed(1) > statValueMax) {
+					return;
+				}
+				setStatValue(statValueCurrent.toFixed(1));
+				statValueCurrent += statValueInterval;
+				setTimeout(updateDetails, frameInterval);
+			}
+
+			function setStatValue(value) {
+				var angle = -120 + 240 * (value / digitValueMax);
+				progress.css({
+					transform: `rotate(${angle}deg)`
+				});
+				details.find(".speed").text(value);
+			}
+
+			function deg2rad(angle) {
+				return angle * (Math.PI / 180);
+			}
+
+			function rad2deg(angle) {
+				return angle * (180 / Math.PI);
+			}
+
+			// =====================
+			const units = {
+				Celcius: "°C",
+				Fahrenheit: "°F"
+			};
+
+			const configUnit = {
+				minTemp: -20,
+				maxTemp: 50,
+				unit: "Celcius"
+			};
+
+			// Change min and max temperature values
+
+			const tempValueInputs = document.querySelectorAll("input[type='text']");
+			tempValueInputs.forEach((input) => {
+				input.addEventListener("change", (event) => {
+					const newValue = event.target.value;
+					if (isNaN(newValue)) {
+						return (input.value = configUnit[input.id]);
+					} else {
+						configUnit[input.id] = input.value;
+						range[input.id.slice(0, 3)] = configUnit[input.id]; // Update range
+						return setTemperature(); // Update temperature
+					}
+				});
+			});
+
+			// Switch unit of temperature
+
+			const unitP = document.getElementById("unit");
+
+			unitP.addEventListener("click", () => {
+				configUnit.unit = configUnit.unit === "Celcius" ? "Fahrenheit" : "Celcius";
+				unitP.innerHTML = configUnit.unit + " " + units[configUnit.unit];
+				return setTemperature();
+			});
+
+			// Change temperature
+
+			const range = document.querySelector("input[type='range']");
+			const temperature = document.getElementById("temperature");
+
+			function setTemperature() {
+				temperature.style.height = ((range.value - configUnit.minTemp) / (configUnit.maxTemp - configUnit.minTemp)) * 100 + "%";
+				temperature.dataset.value = range.value + units[configUnit.unit];
+			}
+
+			range.addEventListener("input", setTemperature);
+			setTimeout(setTemperature, 1000);
+
+			const hoverLabel = {
+				id: "hoverLabel",
+				afterDraw(chart, args, options) {
+					const {
+						ctx,
+						chartArea: { left, right, top, bottom, width, height }
+					} = chart;
+					ctx.save();
+					ctx.font = "32px Arial";
+					ctx.fillStyle = "#6FCF97";
+					ctx.textAlign = "center";
+					ctx.fillText(chart.data.datasets[0].data[0] + "%", width / 2, height / 2 + top + 5);
+				}
+			};
+			// 雙圈
+			var ctx2 = document.getElementById("canvas-two-1").getContext("2d");
+			var config2 = {
+				type: "doughnut",
+				data: {
+					datasets: [
+						{
+							data: [60, 40],
+							backgroundColor: ["rgba(0,0,0,0)", "#474B64"],
+							borderWidth: 0
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					cutout: "80%"
+				},
+				plugins: [hoverLabel]
+			};
+
+			var myDoughnut2 = new Chart(ctx2, config2);
+
+			var ctx3 = document.getElementById("canvas-two-2").getContext("2d");
+			var config3 = {
+				type: "doughnut",
+				data: {
+					datasets: [
+						{
+							data: [60, 40],
+							backgroundColor: ["#EBD59D", "rgba(0,0,0,0)"],
+							borderWidth: 0
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					cutout: "70%"
+				},
+				plugins: []
+			};
+
+			var myDoughnut3 = new Chart(ctx3, config3);
+			myDoughnut3.resize(200, 200);
+			// 單圈
+			var ctx = document.getElementById("canvas-one").getContext("2d");
+			var gradient = ctx.createLinearGradient(0, 0, 0, 450);
+			gradient.addColorStop(0, "rgba(197,248,167, 1)");
+			gradient.addColorStop(1, "rgba(165,250,187, 1)");
+
+			var config = {
+				type: "doughnut",
+				data: {
+					datasets: [
+						{
+							data: [60, 40],
+							backgroundColor: [gradient, "#474B64"],
+							borderWidth: 0
+						}
+					]
+				},
+				options: {
+					responsive: true,
+					cutout: "80%",
+					cutoutPercentage: 70,
+					rotation: 180
+				},
+				plugins: [hoverLabel]
+			};
+
+			var myDoughnut = new Chart(ctx, config);
+
+			// 速度儀
 			$(".run").on("click", function (e) {
 				setGauge(100);
 			});
@@ -173,33 +820,29 @@
 					style: "transform: rotate(" + pointerDegrees + "deg)"
 				});
 			}
-			var rateDom = document.getElementById("rate") || 36,
-				flatDom = document.getElementById("flat") || 200,
-				speedDom = document.getElementById("speed") || 3,
-				distanceDom = document.getElementById("distance") || 87,
-				waveDom = document.getElementById("wave") || 24;
+
+			// 水球
+			var rateDom = 100,
+				flatDom = 200,
+				speedDom = 3,
+				distanceDom = 87,
+				waveDom = 24;
 			function drawCircle(ctx, mW, color) {
 				ctx.beginPath();
 				ctx.arc(mW / 2, mW / 2, mW / 2 - 1, 0, 2 * Math.PI);
 				ctx.beginPath();
 				ctx.arc(mW / 2, mW / 2, mW / 2 - 2, 0, 2 * Math.PI);
-
 				ctx.clip();
 			}
 			// 曲线函数
 			function drawSin(ctx, mW, color1, color2, wav, dY) {
 				ctx.save();
-				// var lineargradient = ctx.createLinearGradient(33, 0, 33, 66); // 创建一个线性渐变
-				// lineargradient.addColorStop(0, color1);
-				// lineargradient.addColorStop(1, color2);
 				ctx.beginPath();
 				ctx.moveTo(0, mW);
 				ctx.lineTo(0, dY);
-				// ctx.bezierCurveTo(mW / 4, dY - wav, (mW *3) / 4, dY + wav, mW, dY);
 				ctx.quadraticCurveTo(mW / 4, dY - wav, mW / 2, dY);
 				ctx.lineTo(mW / 2, dY);
 				ctx.quadraticCurveTo((mW * 3) / 4, dY + wav, mW, dY);
-				//  ctx.stroke();
 				ctx.lineTo(mW, mW);
 				ctx.lineTo(0, mW);
 				ctx.fillStyle = color1;
@@ -211,10 +854,7 @@
 				var canvas1 = document.getElementById("ball");
 
 				var mW = canvas1.clientWidth;
-				// console.log(mW);
-				// 设置Canvas元素的高
 				canvas1.style.height = mW;
-				// 设置Canvas画布的宽高
 				canvas1.width = canvas1.height = mW;
 
 				var canvas2 = document.createElement("canvas"),
@@ -227,29 +867,28 @@
 				canvas3.width = mW;
 				canvas3.height = mW;
 
-				var x = 0,
-					flat = 300,
-					speed = 7,
-					rate = 0.6,
-					distance = 180,
-					wave = 30;
+				var x = 0;
+				var flat = 300;
+				var speed = 7;
+				// 	rate = 0.6,
+				var distance = 180;
+				var wave = 30;
 
-				rateDom = rate * 100;
-				flatDom = flat;
-				speedDom = speed;
-				distanceDom = distance;
-				waveDom = wave;
+				// rateDom = document.getElementById('rate')
+				// rateDom = rate * 100;
+				// flatDom = flat;
+				// speedDom = speed;
+				// distanceDom = distance;
+				// waveDom = wave;
 
 				var ctx1 = canvas1.getContext("2d");
 
 				drawCircle(ctx1, mW, "#4874AF");
 				drawSin(ctx2, mW, "#4ED1FF", "#4ED1FF", wave, mW - mW * rate);
 				drawSin(ctx3, mW, "rgba(78, 209, 255, 0.6)", "rgba(78, 209, 255, 0.6)", wave, mW - mW * rate);
-				//  ctx1.drawImage(canvas2, 0, 0)
 
 				var rate1 = rate,
 					wave1 = wave;
-
 				function animation() {
 					rate = parseInt(rateDom) / 100;
 					flat = parseInt(flatDom);
@@ -268,10 +907,17 @@
 					wave = parseInt(waveDom);
 
 					ctx1.clearRect(0, 0, mW, mW);
+
 					ctx1.drawImage(canvas2, x, 0, mW + flat, mW);
 					ctx1.drawImage(canvas2, x - mW - flat, 0, mW + flat, mW);
 					ctx1.drawImage(canvas3, x + distance, 0, mW + flat, mW);
 					ctx1.drawImage(canvas3, x - mW + distance - flat, 0, mW + flat, mW);
+
+					ctx1.font = "900 40px Arial";
+					ctx1.fillStyle = "#fff";
+					ctx1.textAlign = "center";
+					ctx1.fillText(rate * 100 + "%", canvas1.width / 2, canvas1.height / 2);
+
 					x >= mW - speed + flat ? (x = 0) : (x += speed);
 					requestAnimationFrame(animation);
 				}

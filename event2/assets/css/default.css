@@ -1,0 +1,457 @@
+#canvas-one {
+  width: 135px;
+  margin: auto;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.canvas-two-group {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.canvas-two-box {
+  width: 135px;
+  height: 135px;
+  margin: auto;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.canvas-two {
+  position: absolute;
+}
+
+.canvas-two--big {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+#wrapper {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#ball {
+  width: 200px;
+  height: 200px;
+  background-color: #4874af;
+  border-radius: 50%;
+}
+
+#termometer {
+  width: 42px;
+  background: #38383f;
+  height: 160px;
+  position: relative;
+  border: 6px solid #bdbdbd;
+  border-radius: 100vmax;
+  z-index: 1;
+  margin-bottom: 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#termometer:before,
+#termometer:after {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+}
+
+#termometer:before {
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 30px;
+  height: 100%;
+  background-color: #343b41;
+  bottom: 0;
+  left: 50%;
+  border-radius: 100vmax;
+}
+
+#termometer:after {
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 72px;
+  height: 72px;
+  background-color: #343b41;
+  bottom: -52px;
+  border: 6px solid #bdbdbd;
+  z-index: -3;
+  left: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.temperature-box {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 16px;
+  height: 140px;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+#temperature {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: -webkit-gradient(linear, left top, right top, from(#ff0844), to(#ffb199));
+  background: -o-linear-gradient(left, #ff0844 0%, #ffb199 100%);
+  background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+  width: 100%;
+  background-size: 100% 240px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+#termometer #temperature {
+  position: absolute;
+}
+
+#graduations {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  bottom: -38px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: -webkit-gradient(linear, left top, right top, from(#ff0844), to(#ffb199));
+  background: -o-linear-gradient(left, #ff0844 0%, #ffb199 100%);
+  background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+  border-radius: 50%;
+}
+
+#playground {
+  font-size: 1.1em;
+}
+
+#playground #range {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#playground #range input[type=text] {
+  width: 2em;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0 5px;
+  padding: 0px 5px;
+  border-bottom: 2px solid transparent;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+#playground #range input[type=text]:focus {
+  border-color: #3dcadf;
+  outline: none;
+}
+
+#playground #range input[type=text]:first-child {
+  text-align: right;
+}
+
+#playground #unit {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+#playground #unit:hover {
+  cursor: pointer;
+}
+
+.temperature-line {
+  width: 12px;
+  height: 5px;
+  border-radius: 4px;
+  background-color: #bdbdbd;
+  position: absolute;
+  bottom: 0;
+  right: -16px;
+}
+
+.temperature-line[data-type="1"] {
+  bottom: 14.2857142857%;
+}
+
+.temperature-line[data-type="2"] {
+  bottom: 28.5714285714%;
+}
+
+.temperature-line[data-type="3"] {
+  bottom: 42.8571428571%;
+}
+
+.temperature-line[data-type="4"] {
+  bottom: 57.1428571429%;
+}
+
+.temperature-line[data-type="5"] {
+  bottom: 71.4285714286%;
+}
+
+.temperature-line[data-type="6"] {
+  bottom: 85.7142857143%;
+}
+
+.speedometer-wrap {
+  width: 168px;
+  height: 146px;
+  position: relative;
+  background-size: cover;
+  background-image: url("../img/speedometer.png");
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+.speedometer-container {
+  width: 146px;
+  height: 146px;
+  position: relative;
+}
+.speedometer .details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 116px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.speedometer .text {
+  font-size: 12px;
+  color: #fff;
+  margin-right: 4px;
+}
+.speedometer .speed {
+  font-size: 12px;
+  color: #fff;
+  padding: 4px 8px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+.speedometer .progress {
+  width: 146px;
+  height: 146px;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  border-radius: 50%;
+}
+.speedometer .progress:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  width: 4px;
+  height: 50%;
+  border-radius: 50%;
+  background-color: #f1252e;
+}
+
+.line-bar {
+  position: relative;
+  width: 390px;
+  height: 19px;
+  background-color: #474b64;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.line-bar span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: -webkit-gradient(linear, left top, right top, from(#ff0844), to(#ffb199));
+  background: -o-linear-gradient(left, #ff0844 0%, #ffb199 100%);
+  background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+  width: 20%;
+  height: 100%;
+  border-radius: 0 12px 12px 0;
+}
+
+.gauge {
+  width: 200px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  width: 200px;
+  height: 100px;
+  display: block;
+  background-color: #444444;
+  border-radius: 200px 200px 0 0;
+  z-index: 1;
+}
+
+.inner:after {
+  content: "";
+  width: 120px;
+  height: 60px;
+  top: 40px;
+  left: 40px;
+  background-color: #2a2a2a;
+  border-radius: 200px 200px 0 0;
+  position: absolute;
+  z-index: 3;
+}
+
+.spinner {
+  width: 200px;
+  height: 100px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#f6f688), to(#d3f79e));
+  background-image: -o-linear-gradient(left, #f6f688, #d3f79e);
+  background-image: linear-gradient(to right, #f6f688, #d3f79e);
+  position: absolute;
+  z-index: 2;
+  -webkit-transform-origin: top center;
+      -ms-transform-origin: top center;
+          transform-origin: top center;
+  -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-transition: -webkit-transform 2s linear;
+  transition: -webkit-transform 2s linear;
+  -o-transition: transform 2s linear;
+  transition: transform 2s linear;
+  transition: transform 2s linear, -webkit-transform 2s linear;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  border-radius: 0 0 200px 200px;
+}
+
+.spinner.alt {
+  background-color: #e14e54;
+}
+
+.gauge-cont {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin-left: 30px;
+}
+
+.gauge-cont:first-child {
+  margin: 0;
+}
+
+.pointer {
+  display: block;
+  width: 6px;
+  height: 105px;
+  background-color: #fff;
+  border-radius: 4px 4px 0 0;
+  position: absolute;
+  z-index: 4;
+  bottom: 0px;
+  left: 97px;
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transform-origin: center bottom;
+      -ms-transform-origin: center bottom;
+          transform-origin: center bottom;
+  -webkit-transition: -webkit-transform 2s linear;
+  transition: -webkit-transform 2s linear;
+  -o-transition: transform 2s linear;
+  transition: transform 2s linear;
+  transition: transform 2s linear, -webkit-transform 2s linear;
+}
+
+.pointer-knob {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  position: absolute;
+  left: 90px;
+  bottom: -10px;
+  z-index: 5;
+  border-radius: 20px;
+}
+
+.reset {
+  display: inline-block;
+  margin-top: 30px;
+  background-color: #e14e54;
+  color: #fff;
+  font-family: "Ubuntu", sans-serif;
+  padding: 10px 30px;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: 2px;
+  border-bottom: 3px solid #c22127;
+  -webkit-box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.reset.active {
+  background-color: #70b37d;
+  border-color: #539d62;
+  -webkit-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial;
+}
+
+body {
+  background-color: #262835;
+}
