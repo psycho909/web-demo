@@ -31,8 +31,74 @@
 				</div>
 				<div class="main">
 					<div class="main-top-group">
-						<div class="main-slide-box"></div>
-						<div class="main-waterball-box"></div>
+						<div class="main-slides-box">
+							<div class="main-slides__slide">
+								<div class="main-slides__card">
+									<div class="main-slides__card-top">
+										<div class="main-slides__card-top__num">220</div>
+										<div class="main-slides__card-top__text">
+											<span>L-Low</span>
+											<span>120</span>
+										</div>
+									</div>
+									<div class="main-slides__card-body">
+										<div id="line1" class="line-bar" style="--width: 390">
+											<span style="--width: 0"></span>
+										</div>
+									</div>
+									<div class="main-slides__card-bottom">
+										<span class="abel">Level of Service tank</span>
+										<span class="antonio">日用罐液位</span>
+									</div>
+								</div>
+								<div class="main-slides__box">
+									<div class="main-slides__box-top">
+										<span class="warning"></span>
+										SB bunkering staiton emergency shutdown
+									</div>
+									<div class="main-slides__box-bottom">
+										<div class="main-slides__box-bottom-left">
+											<div class="main-slides__box-bottom-text--1">
+												<span>Low</span>
+												<span>-35℃</span>
+											</div>
+											<div class="main-slides__box-bottom-text--2">Temp. of HP fuel gas supply line</div>
+											<div class="main-slides__box-bottom-text--3">-30℃</div>
+										</div>
+										<div class="main-slides__box-bottom-right">
+											<div id="termometer1" class="temperature-wrap">
+												<div class="temperature-box">
+													<div class="temperature-temperature" style="height: 0" data-value="0"></div>
+												</div>
+												<div class="temperature-graduations"></div>
+												<span class="temperature-line" data-type="1"></span>
+												<span class="temperature-line" data-type="2"></span>
+												<span class="temperature-line" data-type="3"></span>
+												<span class="temperature-line" data-type="4"></span>
+												<span class="temperature-line" data-type="5"></span>
+												<span class="temperature-line" data-type="6"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="main-waterball-box">
+							<div class="main-waterball__box">
+								<div class="main-waterball__box-title">Level of Service tank</div>
+								<canvas class="main-waterball__box-chart" id="ball"></canvas>
+								<div class="main-waterball__box-num">
+									<div class="main-waterball__box-num-box">
+										<span>Range</span>
+										<span>0~3000mm</span>
+									</div>
+									<div class="main-waterball__box-num-box">
+										<span>L-LOW</span>
+										<span>0~3000mm</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="main-speedomester-group">
 						<div class="main-speedomester-box"></div>
@@ -77,24 +143,6 @@
 				<div class="pointer-knob"></div>
 				<div class="gauge-num"></div>
 			</div>
-		</div>
-		<canvas id="ball"></canvas>
-
-		<div id="line1" class="line-bar" style="--width: 390">
-			<span style="--width: 0"></span>
-		</div>
-
-		<div id="termometer1" class="temperature-wrap">
-			<div class="temperature-box">
-				<div class="temperature-temperature" style="height: 0" data-value="0"></div>
-			</div>
-			<div class="temperature-graduations"></div>
-			<span class="temperature-line" data-type="1"></span>
-			<span class="temperature-line" data-type="2"></span>
-			<span class="temperature-line" data-type="3"></span>
-			<span class="temperature-line" data-type="4"></span>
-			<span class="temperature-line" data-type="5"></span>
-			<span class="temperature-line" data-type="6"></span>
 		</div>
 		<div class="doughnut-two-group">
 			<div class="doughnut-two">

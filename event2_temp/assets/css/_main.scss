@@ -5,7 +5,7 @@
 			margin-bottom: 37px;
 		}
 	}
-	&-slide {
+	&-slides {
 		&-box {
 			width: 980px;
 			height: 420px;
@@ -21,6 +21,20 @@
 				transform: translate(-50%, -50%);
 				background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
 				filter: blur(6px);
+			}
+		}
+		&__card {
+			&-bottom {
+				span {
+					color: #fff;
+					display: block;
+					&:first-child {
+						font-size: 22px;
+					}
+					&:last-child {
+						font-size: 16px;
+					}
+				}
 			}
 		}
 	}

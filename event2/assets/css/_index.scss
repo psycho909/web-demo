@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Antonio&family=Coda&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abel&family=Antonio&family=Arimo&family=Coda&family=Roboto&display=swap");
 * {
 	padding: 0;
 	margin: 0;
@@ -10,6 +10,16 @@ body {
 	background-color: #1e1e1e;
 }
 
+.warning {
+	width: 29px;
+	height: 26px;
+	background-size: cover;
+	background-image: url("../img/icon.png");
+	display: inline-block;
+}
+.abel {
+	font-family: "Abel", sans-serif;
+}
 .coda {
 	font-family: "Coda", cursive;
 }

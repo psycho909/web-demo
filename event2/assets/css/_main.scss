@@ -5,7 +5,7 @@
 			margin-bottom: 37px;
 		}
 	}
-	&-slide {
+	&-slides {
 		&-box {
 			width: 980px;
 			height: 420px;
@@ -21,6 +21,151 @@
 				transform: translate(-50%, -50%);
 				background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
 				filter: blur(6px);
+			}
+		}
+		&__slide {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			z-index: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		&__card {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			padding: 15px;
+			width: 420px;
+			height: 234px;
+			border: 2px solid #4f4f4f;
+			border-radius: 5px;
+			margin-right: 62px;
+			&-top {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				&__num {
+					font-weight: 700;
+					font-size: 50px;
+					color: #f2f2f2;
+				}
+				&__text {
+					display: flex;
+					margin-left: auto;
+					span {
+						display: inline-block;
+						&:first-child {
+							font-family: "Antonio";
+							font-style: normal;
+							font-weight: 400;
+							font-size: 20px;
+							color: #f2994a;
+							margin-right: 4px;
+						}
+						&:last-child {
+							display: flex;
+							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+							padding: 4px 8px;
+							width: 37px;
+							height: 29px;
+							border: 1px solid #f2994a;
+							border-radius: 6px;
+							color: #f2994a;
+						}
+					}
+				}
+			}
+			&-bottom {
+				span {
+					color: #fff;
+					display: block;
+					&:first-child {
+						font-size: 22px;
+					}
+					&:last-child {
+						font-size: 16px;
+					}
+				}
+			}
+		}
+		&__box {
+			width: 376px;
+			position: relative;
+			// display: flex;
+			&-top {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: "Abel";
+				font-style: normal;
+				font-weight: 400;
+				font-size: 19px;
+				color: #eb5757;
+				padding-bottom: 12px;
+				border-bottom: 2px solid #828282;
+				margin-bottom: 16px;
+				span {
+					margin-right: 6px;
+				}
+			}
+			&-bottom {
+				display: flex;
+				&-text {
+					&--1 {
+						margin-bottom: 10px;
+						display: flex;
+						align-items: center;
+						span {
+							&:first-child {
+								font-family: "Antonio";
+								font-style: normal;
+								font-weight: 400;
+								font-size: 20px;
+								color: #f2c94c;
+								margin-right: 8px;
+							}
+							&:last-child {
+								display: flex;
+								flex-direction: row;
+								justify-content: center;
+								align-items: center;
+								padding: 4px 8px;
+								width: 51px;
+								height: 29px;
+								border: 1px solid #f2c94c;
+								border-radius: 6px;
+								color: #f2c94c;
+							}
+						}
+					}
+					&--2 {
+						font-family: "Abel";
+						font-style: normal;
+						font-weight: 400;
+						font-size: 22px;
+						color: #ffffff;
+						margin-bottom: 14px;
+					}
+					&--3 {
+						display: flex;
+						align-items: flex-end;
+						font-family: "Arimo", sans-serif;
+						font-weight: 700;
+						font-size: 55px;
+						color: #f2f2f2;
+					}
+				}
+				&-left {
+					padding: 10px;
+					width: 240px;
+				}
+				&-right {
+				}
 			}
 		}
 	}
@@ -40,6 +185,59 @@
 				transform: translate(-50%, -50%);
 				background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
 				filter: blur(6px);
+			}
+		}
+		&__box {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+			width: 342px;
+			position: relative;
+			z-index: 1;
+			&-title {
+				font-family: "Abel";
+				font-style: normal;
+				font-weight: 400;
+				font-size: 22px;
+				color: #fff;
+				margin-bottom: 15px;
+			}
+			&-chart {
+				margin-bottom: 10px;
+			}
+			&-num {
+				display: flex;
+				&-box {
+					span {
+						display: inline-block;
+						vertical-align: middle;
+						&:first-child {
+							display: inline-flex;
+							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+							padding: 4px 5px;
+							border: 1px solid #56ccf2;
+							border-radius: 6px;
+							font-size: 14px;
+							color: #56ccf2;
+							font-family: "Antonio";
+						}
+						&:last-child {
+							font-family: "Antonio";
+							font-style: normal;
+							font-weight: 400;
+							font-size: 16px;
+							color: #e0e0e0;
+						}
+					}
+					margin-right: 20px;
+					&:last-child {
+						margin-right: 0;
+					}
+				}
 			}
 		}
 	}

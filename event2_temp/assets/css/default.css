@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Antonio&family=Coda&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Antonio&family=Abel&family=Coda&family=Roboto&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -10,6 +10,10 @@ html,
 body {
   font-family: Arial;
   background-color: #1e1e1e;
+}
+
+.abel {
+  font-family: "Abel", sans-serif;
 }
 
 .coda {
@@ -205,13 +209,13 @@ body {
   display: flex;
   margin-bottom: 37px;
 }
-.main-slide-box {
+.main-slides-box {
   width: 980px;
   height: 420px;
   position: relative;
   margin-right: 30px;
 }
-.main-slide-box:before {
+.main-slides-box:before {
   content: "";
   width: 970px;
   height: 420px;
@@ -226,6 +230,16 @@ body {
   background: linear-gradient(180deg, rgba(105, 136, 123, 0.31) -2.77%, rgba(89, 102, 62, 0) 118.03%);
   -webkit-filter: blur(6px);
           filter: blur(6px);
+}
+.main-slides__card-bottom span {
+  color: #fff;
+  display: block;
+}
+.main-slides__card-bottom span:first-child {
+  font-size: 22px;
+}
+.main-slides__card-bottom span:last-child {
+  font-size: 16px;
 }
 .main-waterball-box {
   width: 320px;
