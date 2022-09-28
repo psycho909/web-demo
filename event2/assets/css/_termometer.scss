@@ -1,130 +1,96 @@
-#termometer {
-	width: 42px;
-	background: #38383f;
-	height: 160px;
-	position: relative;
-	border: 6px solid #bdbdbd;
-	border-radius: 100vmax;
-	z-index: 1;
-	margin-bottom: 50px;
-	box-sizing: border-box;
-}
-#termometer:before,
-#termometer:after {
-	position: absolute;
-	content: "";
-	border-radius: 50%;
-}
-#termometer:before {
-	transform: translateX(-50%);
-	width: 30px;
-	height: 100%;
-	background-color: #343b41;
-	bottom: 0;
-	left: 50%;
-	border-radius: 100vmax;
-}
-#termometer:after {
-	transform: translateX(-50%);
-	width: 72px;
-	height: 72px;
-	background-color: #343b41;
-	bottom: -52px;
-	border: 6px solid #bdbdbd;
-	z-index: -3;
-	left: 50%;
-	box-sizing: border-box;
-}
-.temperature-box {
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 16px;
-	height: 140px;
-	border-radius: 20px 20px 0 0;
-	overflow: hidden;
-}
-#temperature {
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
-	width: 100%;
-	background-size: 100% 240px;
-	transition: all 0.2s ease-in-out;
-}
-#termometer #temperature {
-	position: absolute;
-}
-
-#graduations {
-	width: 42px;
-	height: 42px;
-	position: absolute;
-	bottom: -38px;
-	left: 50%;
-	transform: translateX(-50%);
-	background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
-	border-radius: 50%;
-}
-#playground {
-	font-size: 1.1em;
-}
-#playground #range {
-	display: flex;
-}
-#playground #range input[type="text"] {
-	width: 2em;
-	background: transparent;
-	border: none;
-	color: inherit;
-	font: inherit;
-	margin: 0 5px;
-	padding: 0px 5px;
-	border-bottom: 2px solid transparent;
-	transition: all 0.2s ease-in-out;
-}
-#playground #range input[type="text"]:focus {
-	border-color: #3dcadf;
-	outline: none;
-}
-#playground #range input[type="text"]:first-child {
-	text-align: right;
-}
-#playground #unit {
-	width: 100%;
-	margin: 0;
-	text-align: center;
-}
-#playground #unit:hover {
-	cursor: pointer;
-}
-.temperature-line {
-	width: 12px;
-	height: 5px;
-	border-radius: 4px;
-	background-color: #bdbdbd;
-	position: absolute;
-	bottom: 0;
-	right: -16px;
-}
-.temperature-line[data-type="1"] {
-	bottom: calc(100% / 7 * 1);
-}
-.temperature-line[data-type="2"] {
-	bottom: calc(100% / 7 * 2);
-}
-.temperature-line[data-type="3"] {
-	bottom: calc(100% / 7 * 3);
-}
-.temperature-line[data-type="4"] {
-	bottom: calc(100% / 7 * 4);
-}
-.temperature-line[data-type="5"] {
-	bottom: calc(100% / 7 * 5);
-}
-.temperature-line[data-type="6"] {
-	bottom: calc(100% / 7 * 6);
+.temperature {
+	&-wrap {
+		width: 42px;
+		background: #38383f;
+		height: 160px;
+		position: relative;
+		border: 6px solid #bdbdbd;
+		border-radius: 100vmax;
+		z-index: 1;
+		margin-bottom: 50px;
+		box-sizing: border-box;
+		&:before,
+		&:after {
+			position: absolute;
+			content: "";
+			border-radius: 50%;
+		}
+		&:before {
+			transform: translateX(-50%);
+			width: 30px;
+			height: 100%;
+			background-color: #343b41;
+			bottom: 0;
+			left: 50%;
+			border-radius: 100vmax;
+		}
+		&:after {
+			transform: translateX(-50%);
+			width: 72px;
+			height: 72px;
+			background-color: #343b41;
+			bottom: -52px;
+			border: 6px solid #bdbdbd;
+			z-index: -3;
+			left: 50%;
+			box-sizing: border-box;
+		}
+	}
+	&-box {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 16px;
+		height: 140px;
+		border-radius: 20px 20px 0 0;
+		overflow: hidden;
+	}
+	&-temperature {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+		width: 100%;
+		background-size: 100% 240px;
+		transition: all 0.2s ease-in-out;
+	}
+	&-graduations {
+		width: 42px;
+		height: 42px;
+		position: absolute;
+		bottom: -38px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+		border-radius: 50%;
+	}
+	&-line {
+		width: 12px;
+		height: 5px;
+		border-radius: 4px;
+		background-color: #bdbdbd;
+		position: absolute;
+		bottom: 0;
+		right: -16px;
+		&[data-type="1"] {
+			bottom: calc(100% / 7 * 1);
+		}
+		&[data-type="2"] {
+			bottom: calc(100% / 7 * 2);
+		}
+		&[data-type="3"] {
+			bottom: calc(100% / 7 * 3);
+		}
+		&[data-type="4"] {
+			bottom: calc(100% / 7 * 4);
+		}
+		&[data-type="5"] {
+			bottom: calc(100% / 7 * 5);
+		}
+		&[data-type="6"] {
+			bottom: calc(100% / 7 * 6);
+		}
+	}
 }

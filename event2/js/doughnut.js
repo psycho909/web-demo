@@ -1,84 +1,128 @@
-// 雙圈
-const hoverLabel = {
-	id: "hoverLabel",
-	afterDraw(chart, args, options) {
-		const {
-			ctx,
-			chartArea: { left, right, top, bottom, width, height }
-		} = chart;
-		ctx.save();
-		ctx.font = "32px Arial";
-		ctx.fillStyle = "#6FCF97";
-		ctx.textAlign = "center";
-		ctx.fillText(chart.data.datasets[0].data[0] + "%", width / 2, height / 2 + top + 5);
+export class Doughnut {
+	constructor(target) {
+		this.ctx = document.querySelector(target).getContext("2d");
+		this.config = {
+			type: "doughnut",
+			data: {
+				datasets: [
+					{
+						data: [0, 100],
+						backgroundColor: [],
+						borderWidth: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				cutout: "80%",
+				rotation: 180
+			},
+			plugins: []
+		};
+		this.chart = null;
+		this.DoughnutInit();
 	}
-};
-var ctx2 = document.getElementById("canvas-two-1").getContext("2d");
-var config2 = {
-	type: "doughnut",
-	data: {
-		datasets: [
-			{
-				data: [60, 40],
-				backgroundColor: ["rgba(0,0,0,0)", "#474B64"],
-				borderWidth: 0
+	TextLabel() {
+		return {
+			id: "textLabel",
+			afterDraw(chart, args, options) {
+				const {
+					ctx,
+					chartArea: { left, right, top, bottom, width, height }
+				} = chart;
+				ctx.save();
+				ctx.font = "28px Arial";
+				ctx.fillStyle = "#6FCF97";
+				ctx.textAlign = "center";
+				ctx.fillText(chart.data.datasets[0].data[0] + "%", width / 2, height / 2 + top + 5);
 			}
-		]
-	},
-	options: {
-		responsive: true,
-		cutout: "80%"
-	},
-	plugins: [hoverLabel]
-};
+		};
+	}
+	DoughnutColor(ctx, color1, color2) {
+		var gradient = ctx.createLinearGradient(0, 0, 0, 450);
+		gradient.addColorStop(0, color1);
+		gradient.addColorStop(1, color2);
+		return gradient;
+	}
+	DoughnutInit() {
+		this.config.data.datasets[0].backgroundColor = [this.DoughnutColor(this.ctx, "rgba(197,248,167, 1)", "rgba(165,250,187, 1)"), "#474B64"];
+		this.config.plugins = [this.TextLabel()];
+		this.chart = new Chart(this.ctx, this.config);
+	}
+	DoughnutUpdate(data) {
+		this.chart.config.data.datasets[0].data = data;
+		this.chart.update();
+	}
+}
 
-var myDoughnut2 = new Chart(ctx2, config2);
-
-var ctx3 = document.getElementById("canvas-two-2").getContext("2d");
-var config3 = {
-	type: "doughnut",
-	data: {
-		datasets: [
-			{
-				data: [60, 40],
-				backgroundColor: ["#EBD59D", "rgba(0,0,0,0)"],
-				borderWidth: 0
+export class DoughnutTwo {
+	constructor(target1, target2) {
+		this.ctx1 = document.querySelector(target1).getContext("2d");
+		this.ctx2 = document.querySelector(target2).getContext("2d");
+		this.config1 = {
+			type: "doughnut",
+			data: {
+				datasets: [
+					{
+						data: [0, 100],
+						backgroundColor: ["rgba(0,0,0,0)", "#474B64"],
+						borderWidth: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				cutout: "70%"
+			},
+			plugins: []
+		};
+		this.config2 = {
+			type: "doughnut",
+			data: {
+				datasets: [
+					{
+						data: [0, 100],
+						backgroundColor: ["#EBD59D", "rgba(0,0,0,0)"],
+						borderWidth: 0
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				cutout: "80%"
+			},
+			plugins: []
+		};
+		this.chart1 = null;
+		this.chart2 = null;
+		this.DoughnutInit();
+	}
+	TextLabel() {
+		return {
+			id: "textLabel",
+			afterDraw(chart, args, options) {
+				const {
+					ctx,
+					chartArea: { left, right, top, bottom, width, height }
+				} = chart;
+				ctx.save();
+				ctx.font = "28px Arial";
+				ctx.fillStyle = "#6FCF97";
+				ctx.textAlign = "center";
+				ctx.fillText(chart.data.datasets[0].data[0] + "%", width / 2, height / 2 + top + 5);
 			}
-		]
-	},
-	options: {
-		responsive: true,
-		cutout: "70%"
-	},
-	plugins: []
-};
-
-var myDoughnut3 = new Chart(ctx3, config3);
-myDoughnut3.resize(200, 200);
-// 單圈
-var ctx = document.getElementById("canvas-one").getContext("2d");
-var gradient = ctx.createLinearGradient(0, 0, 0, 450);
-gradient.addColorStop(0, "rgba(197,248,167, 1)");
-gradient.addColorStop(1, "rgba(165,250,187, 1)");
-
-var config = {
-	type: "doughnut",
-	data: {
-		datasets: [
-			{
-				data: [60, 40],
-				backgroundColor: [gradient, "#474B64"],
-				borderWidth: 0
-			}
-		]
-	},
-	options: {
-		responsive: true,
-		cutout: "80%",
-		cutoutPercentage: 70,
-		rotation: 180
-	},
-	plugins: [hoverLabel]
-};
-
-var myDoughnut = new Chart(ctx, config);
+		};
+	}
+	DoughnutInit() {
+		// this.config.data.datasets[0].backgroundColor = [DoughnutColor(this.ctx, "rgba(197,248,167, 1)", "rgba(165,250,187, 1)"), "#474B64"];
+		this.config1.plugins = [this.TextLabel()];
+		this.chart1 = new Chart(this.ctx1, this.config1);
+		this.chart2 = new Chart(this.ctx2, this.config2);
+	}
+	DoughnutUpdate(data) {
+		this.chart1.config.data.datasets[0].data = data;
+		this.chart1.update();
+		this.chart2.config.data.datasets[0].data = data;
+		this.chart2.update();
+	}
+}

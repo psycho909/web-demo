@@ -1,17 +1,19 @@
 .line-bar {
+	--width: 378;
 	position: relative;
-	width: 390px;
-	height: 19px;
+	width: calc(var(--with) * 1px);
+	height: 12px;
 	background-color: #474b64;
-	border-radius: 12px;
+	border-radius: 100vmax;
 	overflow: hidden;
 }
 .line-bar span {
+	--width: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
 	background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
-	width: 20%;
+	width: calc(var(--width) * 1%);
 	height: 100%;
 	border-radius: 0 12px 12px 0;
 }

@@ -5,11 +5,60 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<link rel="stylesheet" href="./assets/css/default.css" />
 	</head>
 	<body>
+		<div id="app">
+			<div class="header coda"><span>Methane Content Indication</span></div>
+			<div class="container">
+				<div class="aside">
+					<div class="aside-power-group">
+						<div class="aside-power-box"></div>
+						<div class="aside-power-box"></div>
+						<div class="aside-power-box"></div>
+					</div>
+					<div class="aside-esd-group">
+						<div class="aside-esd-box"></div>
+						<div class="aside-esd-box"></div>
+						<div class="aside-esd-box"></div>
+					</div>
+					<div class="aside-rmp-group">
+						<div class="aside-rmp-box"></div>
+					</div>
+				</div>
+				<div class="main">
+					<div class="main-top-group">
+						<div class="main-slide-box"></div>
+						<div class="main-waterball-box"></div>
+					</div>
+					<div class="main-speedomester-group">
+						<div class="main-speedomester-box"></div>
+						<div class="main-speedomester-box"></div>
+						<div class="main-speedomester-box"></div>
+					</div>
+					<div class="main-doughnut-group">
+						<div class="main-doughnut-single">
+							<div class="main-doughnut-box"></div>
+							<div class="main-doughnut-box"></div>
+							<div class="main-doughnut-box"></div>
+						</div>
+						<div class="main-doughnut-double">
+							<div class="main-doughnut-box"></div>
+							<div class="main-doughnut-box"></div>
+							<div class="main-doughnut-box"></div>
+						</div>
+					</div>
+					<div class="main-statistics-group">
+						<div class="main-statistics-box"></div>
+						<div class="main-statistics-box"></div>
+						<div class="main-statistics-box"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="speedometer-wrap">
 			<section class="speedometer-container">
 				<div class="speedometer">
@@ -18,7 +67,46 @@
 				</div>
 			</section>
 		</div>
-		<script src="./js/speedometer.js" type="module"></script>
+		<div class="gauge-wrap">
+			<div id="gauge1" class="gauge-box" data-min="0" data-max="300">
+				<div class="gauge-inner">
+					<div class="inner"></div>
+					<div class="spinner"></div>
+				</div>
+				<div class="pointer"></div>
+				<div class="pointer-knob"></div>
+				<div class="gauge-num"></div>
+			</div>
+		</div>
+		<canvas id="ball"></canvas>
+
+		<div id="line1" class="line-bar" style="--width: 390">
+			<span style="--width: 0"></span>
+		</div>
+
+		<div id="termometer1" class="temperature-wrap">
+			<div class="temperature-box">
+				<div class="temperature-temperature" style="height: 0" data-value="0"></div>
+			</div>
+			<div class="temperature-graduations"></div>
+			<span class="temperature-line" data-type="1"></span>
+			<span class="temperature-line" data-type="2"></span>
+			<span class="temperature-line" data-type="3"></span>
+			<span class="temperature-line" data-type="4"></span>
+			<span class="temperature-line" data-type="5"></span>
+			<span class="temperature-line" data-type="6"></span>
+		</div>
+		<div class="doughnut-two-group">
+			<div class="doughnut-two">
+				<canvas id="doughnut2"></canvas>
+			</div>
+			<div class="doughnut-two--big">
+				<canvas id="doughnut2-1"></canvas>
+			</div>
+		</div>
+		<div class="doughnut-one"><canvas id="doughnut1"></canvas></div>
+
+		<!-- <script src="./js/doughnut.js"></script> -->
 		<script src="./js/default.js" type="module"></script>
 	</body>
 </html>

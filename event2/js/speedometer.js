@@ -1,49 +1,30 @@
-var details = $(".details");
-var progress = $(".progress");
-
-var frameCount = 100;
-var frameInterval = 0.3;
-var digitValueMax = 400;
-var statValueMax = 360;
-var statValueCurrent = 0;
-var statValueInterval = statValueMax / frameCount;
-
-updateDetails();
-function updateDetails() {
-	if (statValueCurrent.toFixed(1) > statValueMax) {
-		return;
+export default class Speedometer {
+	constructor(max) {
+		this.details = $(".details");
+		this.progress = $(".progress");
+		this.frameCount = 100;
+		this.frameInterval = 0.3;
+		this.digitValueMax = 400;
+		this.statValueMax = max;
+		this.statValueCurrent = 0;
 	}
+	statValueInterval() {
+		return this.statValueMax / this.frameCount;
+	}
+	updateDetails() {
+		if (this.statValueCurrent > this.statValueMax) {
+			return;
+		}
 
-	setStatValue(Math.round(statValueCurrent));
-	statValueCurrent += statValueInterval;
-	setTimeout(updateDetails, frameInterval);
+		this.setStatValue(Math.round(this.statValueCurrent));
+		this.statValueCurrent += this.statValueInterval();
+		setTimeout(this.updateDetails.bind(this), this.frameInterval);
+	}
+	setStatValue(value) {
+		var angle = -136 + 272 * (value / this.digitValueMax);
+		this.progress.css({
+			transform: `rotate(${angle}deg)`
+		});
+		this.details.find(".speed").text(value);
+	}
 }
-
-function setStatValue(value) {
-	var angle = -136 + 272 * (value / digitValueMax);
-	progress.css({
-		transform: `rotate(${angle}deg)`
-	});
-	details.find(".speed").text(value);
-}
-
-function deg2rad(angle) {
-	return angle * (Math.PI / 180);
-}
-
-function rad2deg(angle) {
-	return angle * (180 / Math.PI);
-}
-
-// export const updateDetails = (statValueMax) => {
-// 	console.log(statValueMax);
-// 	var statValueCurrent = 0;
-// 	var statValueInterval = statValueMax / frameCount;
-// 	if (statValueCurrent.toFixed(1) > statValueMax) {
-// 		return;
-// 	}
-
-// 	setStatValue(Math.round(statValueCurrent));
-// 	statValueCurrent += statValueInterval;
-// 	setTimeout(() => updateDetails(statValueMax), frameInterval);
-// };

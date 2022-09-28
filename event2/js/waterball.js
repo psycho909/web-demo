@@ -1,102 +1,105 @@
-var rateDom = 100,
-	flatDom = 200,
-	speedDom = 3,
-	distanceDom = 87,
-	waveDom = 24;
-function drawCircle(ctx, mW, color) {
-	ctx.beginPath();
-	ctx.arc(mW / 2, mW / 2, mW / 2 - 1, 0, 2 * Math.PI);
-	ctx.beginPath();
-	ctx.arc(mW / 2, mW / 2, mW / 2 - 2, 0, 2 * Math.PI);
-	ctx.clip();
-}
-// 曲线函数
-function drawSin(ctx, mW, color1, color2, wav, dY) {
-	ctx.save();
-	ctx.beginPath();
-	ctx.moveTo(0, mW);
-	ctx.lineTo(0, dY);
-	ctx.quadraticCurveTo(mW / 4, dY - wav, mW / 2, dY);
-	ctx.lineTo(mW / 2, dY);
-	ctx.quadraticCurveTo((mW * 3) / 4, dY + wav, mW, dY);
-	ctx.lineTo(mW, mW);
-	ctx.lineTo(0, mW);
-	ctx.fillStyle = color1;
-	ctx.fill();
-	ctx.restore();
-}
+export default class WaterBall {
+	constructor(canvas1) {
+		this.canvas1 = canvas1;
+		this.canvas2 = null;
+		this.canvas3 = null;
+		this.rateDom = 100;
+		this.flatDom = 200;
+		this.speedDom = 3;
+		this.distanceDom = 87;
+		this.waveDom = 24;
+		this.rate1 = 0;
+		this.wave1 = 0;
+		this.distance = 100;
+		this.wave = 30;
+		this.speed = 7;
+		this.flat = 300;
+		this.x = 0;
+		this.ctx1 = null;
+		this.ctx2 = null;
+		this.ctx3 = null;
+		this.rate = 0;
+		this.flat = 0;
+		this.mw = 0;
+	}
+	drawCircle(ctx, mW, color) {
+		ctx.beginPath();
+		ctx.arc(mW / 2, mW / 2, mW / 2 - 1, 0, 2 * Math.PI);
+		ctx.beginPath();
+		ctx.arc(mW / 2, mW / 2, mW / 2 - 2, 0, 2 * Math.PI);
+		ctx.clip();
+	}
+	drawSin(ctx, mW, color1, color2, wav, dY) {
+		ctx.save();
+		ctx.beginPath();
+		ctx.moveTo(0, mW);
+		ctx.lineTo(0, dY);
+		ctx.quadraticCurveTo(mW / 4, dY - wav, mW / 2, dY);
+		ctx.lineTo(mW / 2, dY);
+		ctx.quadraticCurveTo((mW * 3) / 4, dY + wav, mW, dY);
+		ctx.lineTo(mW, mW);
+		ctx.lineTo(0, mW);
+		ctx.fillStyle = color1;
+		ctx.fill();
+		ctx.restore();
+	}
 
-function init() {
-	var canvas1 = document.getElementById("ball");
+	init() {
+		this.mW = this.canvas1.clientWidth;
+		this.canvas1.style.height = this.mW;
+		this.canvas1.width = this.canvas1.height = this.mW;
 
-	var mW = canvas1.clientWidth;
-	canvas1.style.height = mW;
-	canvas1.width = canvas1.height = mW;
+		this.canvas2 = document.createElement("canvas");
+		this.ctx2 = this.canvas2.getContext("2d");
+		this.canvas2.width = this.mW;
+		this.canvas2.height = this.mW;
 
-	var canvas2 = document.createElement("canvas"),
-		ctx2 = canvas2.getContext("2d");
-	canvas2.width = mW;
-	canvas2.height = mW;
+		this.canvas3 = document.createElement("canvas");
+		this.ctx3 = this.canvas3.getContext("2d");
+		this.canvas3.width = this.mW;
+		this.canvas3.height = this.mW;
 
-	var canvas3 = document.createElement("canvas"),
-		ctx3 = canvas3.getContext("2d");
-	canvas3.width = mW;
-	canvas3.height = mW;
+		this.ctx1 = this.canvas1.getContext("2d");
 
-	var x = 0;
-	var flat = 300;
-	var speed = 7;
-	// 	rate = 0.6,
-	var distance = 180;
-	var wave = 30;
+		this.drawCircle(this.ctx1, this.mW, "#4874AF");
+		this.drawSin(this.ctx2, this.mW, "#4ED1FF", "#4ED1FF", this.wave, this.mW - this.mW * this.rateDom);
+		this.drawSin(this.ctx3, this.mW, "rgba(78, 209, 255, 0.6)", "rgba(78, 209, 255, 0.6)", this.wave, this.mW - this.mW * this.rateDom);
 
-	// rateDom = document.getElementById('rate')
-	// rateDom = rate * 100;
-	// flatDom = flat;
-	// speedDom = speed;
-	// distanceDom = distance;
-	// waveDom = wave;
+		this.rate1 = this.rateDom;
+		this.wave1 = this.wave;
 
-	var ctx1 = canvas1.getContext("2d");
+		this.animation();
+	}
+	animation() {
+		this.rate = parseInt(this.rateDom) / 100;
+		this.flat = parseInt(this.flatDom);
 
-	drawCircle(ctx1, mW, "#4874AF");
-	drawSin(ctx2, mW, "#4ED1FF", "#4ED1FF", wave, mW - mW * rate);
-	drawSin(ctx3, mW, "rgba(78, 209, 255, 0.6)", "rgba(78, 209, 255, 0.6)", wave, mW - mW * rate);
-
-	var rate1 = rate,
-		wave1 = wave;
-	function animation() {
-		rate = parseInt(rateDom) / 100;
-		flat = parseInt(flatDom);
-
-		if (rate !== rate1 || wave1 !== wave) {
-			ctx2.clearRect(0, 0, mW, mW);
-			ctx3.clearRect(0, 0, mW, mW);
-			rate1 = rate;
-			wave1 = wave;
-			drawSin(ctx2, mW, "#4ED1FF", "#4ED1FF", wave, mW - mW * rate);
-			drawSin(ctx3, mW, "rgba(78, 209, 255, 0.6)", "rgba(78, 209, 255, 0.6)", wave, mW - mW * rate);
+		if (this.rate !== this.rate1 || this.wave1 !== this.wave) {
+			this.ctx2.clearRect(0, 0, this.mW, this.mW);
+			this.ctx3.clearRect(0, 0, this.mW, this.mW);
+			this.rate1 = this.rate;
+			this.wave1 = this.wave;
+			this.drawSin(this.ctx2, this.mW, "#4ED1FF", "#4ED1FF", this.wave, this.mW - this.mW * this.rate);
+			this.drawSin(this.ctx3, this.mW, "rgba(78, 209, 255, 0.6)", "rgba(78, 209, 255, 0.6)", this.wave, this.mW - this.mW * this.rate);
 		}
 
-		speed = parseInt(speedDom);
-		distance = parseInt(distanceDom);
-		wave = parseInt(waveDom);
+		this.speed = parseInt(this.speedDom);
+		this.distance = parseInt(this.distanceDom);
+		this.wave = parseInt(this.waveDom);
 
-		ctx1.clearRect(0, 0, mW, mW);
+		this.ctx1.clearRect(0, 0, this.mW, this.mW);
 
-		ctx1.drawImage(canvas2, x, 0, mW + flat, mW);
-		ctx1.drawImage(canvas2, x - mW - flat, 0, mW + flat, mW);
-		ctx1.drawImage(canvas3, x + distance, 0, mW + flat, mW);
-		ctx1.drawImage(canvas3, x - mW + distance - flat, 0, mW + flat, mW);
+		this.ctx1.drawImage(this.canvas2, this.x, 0, this.mW + this.flat, this.mW);
+		this.ctx1.drawImage(this.canvas2, this.x - this.mW - this.flat, 0, this.mW + this.flat, this.mW);
+		this.ctx1.drawImage(this.canvas3, this.x + this.distance, 0, this.mW + this.flat, this.mW);
+		this.ctx1.drawImage(this.canvas3, this.x - this.mW + this.distance - this.flat, 0, this.mW + this.flat, this.mW);
 
-		ctx1.font = "900 40px Arial";
-		ctx1.fillStyle = "#fff";
-		ctx1.textAlign = "center";
-		ctx1.fillText(rate * 100 + "%", canvas1.width / 2, canvas1.height / 2);
+		this.ctx1.font = "900 40px Arial";
+		this.ctx1.fillStyle = "#fff";
+		this.ctx1.textAlign = "center";
+		this.ctx1.fillText(this.rate * 100 + "%", this.canvas1.width / 2, this.canvas1.height / 2);
 
-		x >= mW - speed + flat ? (x = 0) : (x += speed);
-		requestAnimationFrame(animation);
+		this.x >= this.mW - this.speed + this.flat ? (this.x = 0) : (this.x += this.speed);
+		requestAnimationFrame(this.animation.bind(this));
 	}
-	animation();
 }
-init();
