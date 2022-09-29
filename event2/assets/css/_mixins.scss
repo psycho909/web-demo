@@ -1,0 +1,17 @@
+@function strip-unit($number) {
+	@if type-of($number) == "number" and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+@function vw($size, $breakpoint: 1920) {
+	@return (strip-unit($size) / $breakpoint) * 100vw;
+}
+
+@mixin media($breakpoint: 1920px) {
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+}

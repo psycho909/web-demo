@@ -3,4 +3,8 @@
 	height: 200px;
 	background-color: #4874af;
 	border-radius: 50%;
+	@include media {
+		width: vw(200);
+		height: vw(200);
+	}
 }

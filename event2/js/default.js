@@ -44,3 +44,10 @@ var doughnut5 = new DoughnutTwo("#doughnut5", "#doughnut5-1", "#FEEBBA", "#89640
 doughnut5.DoughnutUpdate([50, 50]);
 var doughnut6 = new DoughnutTwo("#doughnut6", "#doughnut6-1", "#FEEBBA", "#896404");
 doughnut6.DoughnutUpdate([80, 20]);
+
+const swiper = new Swiper(".swiper", {
+	loop: true,
+	pagination: {
+		el: ".swiper-pagination"
+	}
+});

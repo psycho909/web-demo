@@ -2,6 +2,10 @@
 	width: 135px;
 	height: 135px;
 	position: relative;
+	@include media {
+		width: vw(135);
+		height: vw(135);
+	}
 }
 
 .doughnut-two {
@@ -11,10 +15,18 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	@include media {
+		width: vw(105);
+		height: vw(105);
+	}
 	&-group {
 		position: relative;
 		width: 135px;
 		height: 135px;
+		@include media {
+			width: vw(135);
+			height: vw(135);
+		}
 	}
 	&--big {
 		width: 135px;
@@ -23,6 +35,10 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		@include media {
+			width: vw(135);
+			height: vw(135);
+		}
 	}
 }
 
@@ -33,12 +49,18 @@
 		justify-content: center;
 		&__left {
 			margin-right: 15px;
+			@include media {
+				margin-right: vw(15);
+			}
 		}
 		&__right {
 			width: 260px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
+			@include media {
+				width: vw(260);
+			}
 			div {
 				&:nth-child(1) {
 					font-family: "Abel";
@@ -46,6 +68,10 @@
 					letter-spacing: -0.01em;
 					color: #ffffff;
 					margin-bottom: 8px;
+					@include media {
+						font-size: vw(22);
+						margin-bottom: vw(8);
+					}
 				}
 				&:nth-child(2) {
 					font-family: "Roboto";
@@ -54,6 +80,10 @@
 					font-size: 16px;
 					color: #bdbdbd;
 					margin-bottom: 8px;
+					@include media {
+						font-size: vw(16);
+						margin-bottom: vw(8);
+					}
 				}
 				&:nth-child(3) {
 					font-family: "Antonio";
@@ -62,6 +92,9 @@
 					font-size: 20px;
 					color: #828282;
 					display: flex;
+					@include media {
+						font-size: vw(20);
+					}
 				}
 				span {
 					display: flex;
@@ -76,6 +109,13 @@
 					font-size: 16px;
 					margin-left: 4px;
 					margin-right: 4px;
+					@include media {
+						padding: vw(4) vw(8);
+						border-radius: vw(6);
+						font-size: vw(16);
+						margin-right: vw(4);
+						margin-left: vw(4);
+					}
 				}
 			}
 		}
