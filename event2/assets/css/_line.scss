@@ -9,10 +9,12 @@
 }
 .line-bar span {
 	--width: 0;
+	--color1: #ff0844;
+	--color2: #ffb199;
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%);
+	background: linear-gradient(90deg, var(--color1) 0%, var(--color2) 100%);
 	width: calc(var(--width) * 1%);
 	height: 100%;
 	border-radius: 0 12px 12px 0;
@@ -65,6 +67,30 @@
 		}
 	}
 	&__body {
+		margin-bottom: 29px;
+		position: relative;
+		&:before {
+			content: attr(data-min);
+			position: absolute;
+			top: 14px;
+			left: 0;
+			font-family: "Antonio";
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+			color: #bdbdbd;
+		}
+		&:after {
+			content: attr(data-max);
+			position: absolute;
+			top: 14px;
+			right: 0;
+			font-family: "Antonio";
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+			color: #bdbdbd;
+		}
 	}
 	&__bottom {
 		span {

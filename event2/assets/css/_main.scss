@@ -213,19 +213,21 @@
 		&-box {
 			position: relative;
 			width: 410px;
-			height: 135px;
 			margin-right: 35px;
-			border: 1px solid #fff;
 			&:last-child {
 				margin-right: 0;
 			}
 		}
-		&-single {
+		&-one {
 			display: flex;
 			margin-bottom: 85px;
+			align-items: center;
+			justify-content: center;
 		}
 		&-double {
 			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 	&-statistics {

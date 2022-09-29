@@ -25,3 +25,59 @@
 		transform: translate(-50%, -50%);
 	}
 }
+
+.doughnut {
+	&-card {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&__left {
+			margin-right: 15px;
+		}
+		&__right {
+			width: 260px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			div {
+				&:nth-child(1) {
+					font-family: "Abel";
+					font-size: 22px;
+					letter-spacing: -0.01em;
+					color: #ffffff;
+					margin-bottom: 8px;
+				}
+				&:nth-child(2) {
+					font-family: "Roboto";
+					font-style: normal;
+					font-weight: 400;
+					font-size: 16px;
+					color: #bdbdbd;
+					margin-bottom: 8px;
+				}
+				&:nth-child(3) {
+					font-family: "Antonio";
+					font-style: normal;
+					font-weight: 400;
+					font-size: 20px;
+					color: #828282;
+					display: flex;
+				}
+				span {
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+					padding: 4px 8px;
+					border: 1px solid #f2c94c;
+					border-radius: 6px;
+					color: #f2c94c;
+					font-family: "Abel";
+					font-size: 16px;
+					margin-left: 4px;
+					margin-right: 4px;
+				}
+			}
+		}
+	}
+}

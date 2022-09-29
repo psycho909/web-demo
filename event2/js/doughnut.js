@@ -1,6 +1,8 @@
 export class Doughnut {
-	constructor(target) {
+	constructor(target, color1 = "rgba(197, 248, 167, 1)", color2 = "rgba(165, 250, 187, 1)") {
 		this.ctx = document.querySelector(target).getContext("2d");
+		this.color1 = color1;
+		this.color2 = color2;
 		this.config = {
 			type: "doughnut",
 			data: {
@@ -39,13 +41,13 @@ export class Doughnut {
 		};
 	}
 	DoughnutColor(ctx, color1, color2) {
-		var gradient = ctx.createLinearGradient(0, 0, 0, 450);
+		var gradient = ctx.createLinearGradient(0, 0, 165, 165);
 		gradient.addColorStop(0, color1);
 		gradient.addColorStop(1, color2);
 		return gradient;
 	}
 	DoughnutInit() {
-		this.config.data.datasets[0].backgroundColor = [this.DoughnutColor(this.ctx, "rgba(197,248,167, 1)", "rgba(165,250,187, 1)"), "#474B64"];
+		this.config.data.datasets[0].backgroundColor = [this.DoughnutColor(this.ctx, this.color1, this.color2), "#474B64"];
 		this.config.plugins = [this.TextLabel()];
 		this.chart = new Chart(this.ctx, this.config);
 	}
@@ -56,9 +58,11 @@ export class Doughnut {
 }
 
 export class DoughnutTwo {
-	constructor(target1, target2) {
+	constructor(target1, target2, color1 = "rgba(197, 248, 167, 1)", color2 = "rgba(165, 250, 187, 1)") {
 		this.ctx1 = document.querySelector(target1).getContext("2d");
 		this.ctx2 = document.querySelector(target2).getContext("2d");
+		this.color1 = color1;
+		this.color2 = color2;
 		this.config1 = {
 			type: "doughnut",
 			data: {
@@ -113,8 +117,14 @@ export class DoughnutTwo {
 			}
 		};
 	}
+	DoughnutColor(ctx, color1, color2) {
+		var gradient = ctx.createLinearGradient(0, 0, 0, 450);
+		gradient.addColorStop(0, color1);
+		gradient.addColorStop(1, color2);
+		return gradient;
+	}
 	DoughnutInit() {
-		// this.config.data.datasets[0].backgroundColor = [DoughnutColor(this.ctx, "rgba(197,248,167, 1)", "rgba(165,250,187, 1)"), "#474B64"];
+		this.config2.data.datasets[0].backgroundColor = [this.DoughnutColor(this.ctx2, this.color1, this.color2), "rgba(0,0,0,0)"];
 		this.config1.plugins = [this.TextLabel()];
 		this.chart1 = new Chart(this.ctx1, this.config1);
 		this.chart2 = new Chart(this.ctx2, this.config2);

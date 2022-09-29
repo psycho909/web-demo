@@ -1,7 +1,7 @@
 export default class Speedometer {
-	constructor(max) {
-		this.details = $(".details");
-		this.progress = $(".progress");
+	constructor(target, max) {
+		this.details = $(target).find(".details");
+		this.progress = $(target).find(".progress");
 		this.frameCount = 100;
 		this.frameInterval = 0.3;
 		this.digitValueMax = 400;
