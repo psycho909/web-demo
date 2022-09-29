@@ -1,4 +1,61 @@
 .temperature {
+	&__card {
+		display: flex;
+		justify-content: center;
+		&-text {
+			&--1 {
+				margin-bottom: 10px;
+				display: flex;
+				align-items: center;
+				span {
+					&:first-child {
+						font-family: "Antonio";
+						font-style: normal;
+						font-weight: 400;
+						font-size: 20px;
+						color: #f2c94c;
+						margin-right: 8px;
+					}
+					&:last-child {
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						padding: 4px 8px;
+						width: 51px;
+						height: 29px;
+						border: 1px solid #f2c94c;
+						border-radius: 6px;
+						color: #f2c94c;
+					}
+				}
+			}
+			&--2 {
+				font-family: "Abel";
+				font-style: normal;
+				font-weight: 400;
+				font-size: 22px;
+				color: #ffffff;
+				margin-bottom: 14px;
+			}
+			&--3 {
+				display: flex;
+				align-items: flex-end;
+				font-family: "Arimo", sans-serif;
+				font-weight: 700;
+				font-size: 55px;
+				color: #f2f2f2;
+			}
+		}
+		&-left {
+			--width: 240;
+			padding: 10px;
+			width: calc(var(--width) * 1px);
+			margin-right: 25px;
+		}
+		&-right {
+		}
+	}
 	&-wrap {
 		width: 42px;
 		background: #38383f;

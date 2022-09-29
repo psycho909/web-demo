@@ -33,70 +33,15 @@
 			justify-content: center;
 		}
 		&__card {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: flex-start;
-			padding: 15px;
+			margin-right: 62px;
+			border: 2px solid #4f4f4f;
 			width: 420px;
 			height: 234px;
-			border: 2px solid #4f4f4f;
-			border-radius: 5px;
-			margin-right: 62px;
-			&-top {
-				width: 100%;
-				display: flex;
-				align-items: center;
-				&__num {
-					font-weight: 700;
-					font-size: 50px;
-					color: #f2f2f2;
-				}
-				&__text {
-					display: flex;
-					margin-left: auto;
-					span {
-						display: inline-block;
-						&:first-child {
-							font-family: "Antonio";
-							font-style: normal;
-							font-weight: 400;
-							font-size: 20px;
-							color: #f2994a;
-							margin-right: 4px;
-						}
-						&:last-child {
-							display: flex;
-							flex-direction: row;
-							justify-content: center;
-							align-items: center;
-							padding: 4px 8px;
-							width: 37px;
-							height: 29px;
-							border: 1px solid #f2994a;
-							border-radius: 6px;
-							color: #f2994a;
-						}
-					}
-				}
-			}
-			&-bottom {
-				span {
-					color: #fff;
-					display: block;
-					&:first-child {
-						font-size: 22px;
-					}
-					&:last-child {
-						font-size: 16px;
-					}
-				}
-			}
+			padding: 15px;
 		}
 		&__box {
 			width: 376px;
 			position: relative;
-			// display: flex;
 			&-top {
 				display: flex;
 				justify-content: center;
@@ -251,7 +196,7 @@
 			position: relative;
 			padding: 12px;
 			width: 416px;
-			height: 162px;
+			// height: 162px;
 			border: 2px solid #4f4f4f;
 			border-radius: 5px;
 			margin-right: 25px;
@@ -289,9 +234,11 @@
 			display: flex;
 		}
 		&-box {
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 			position: relative;
 			padding: 15px;
-			gap: 5px;
 			width: 410px;
 			height: 234px;
 			border: 2px solid #4f4f4f;

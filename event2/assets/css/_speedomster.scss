@@ -1,4 +1,51 @@
 .speedometer {
+	&__card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&-left {
+			margin-right: 12px;
+		}
+		&-right {
+			display: flex;
+			flex-direction: column;
+			span {
+				&:nth-child(1) {
+					font-family: "Cambay";
+					font-style: normal;
+					font-weight: 700;
+					font-size: 24px;
+					color: #ffffff;
+					line-height: 1;
+				}
+				&:nth-child(2) {
+					font-family: "Roboto";
+					font-style: normal;
+					font-weight: 400;
+					font-size: 16px;
+					color: #868686;
+					margin-bottom: 8px;
+				}
+				&:nth-child(3) {
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+					padding: 5px 0px;
+					width: 200px;
+					height: 43px;
+					background: #27ae60;
+					border-radius: 4px;
+					font-family: "Abel";
+					font-style: normal;
+					font-weight: 400;
+					font-size: 26px;
+					color: #fff;
+				}
+			}
+		}
+	}
 	&-wrap {
 		width: 168px;
 		height: 146px;
