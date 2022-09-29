@@ -2345,3 +2345,11 @@ body {
 .main-statistics-box:last-child {
   margin-right: 0;
 }
+.main-statistics-box .temperature__card {
+  margin-right: 60px;
+}
+@media screen and (max-width: 1920px) {
+  .main-statistics-box .temperature__card {
+    margin-right: 3.125vw;
+  }
+}

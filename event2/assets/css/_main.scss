@@ -381,6 +381,12 @@
 			&:last-child {
 				margin-right: 0;
 			}
+			.temperature__card {
+				margin-right: 60px;
+				@include media {
+					margin-right: vw(60);
+				}
+			}
 		}
 	}
 }
