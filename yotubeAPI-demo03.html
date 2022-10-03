@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://www.youtube.com/iframe_api"></script>
+	</head>
+	<body>
+		<div>
+			<div class="embed-responsive embed-responsive-16by9">
+				<iframe id="player1" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&allowsInlineMediaPlayback=true&playsinline=1"></iframe>
+			</div>
+
+			<!-- 播放相關按鈕-->
+			<div class="row align-items-center pt-4">
+				<div class="col text-center">
+					<div class="btn-group">
+						<button class="btn btn-outline-dark" id="play1" type="button">播放</button>
+						<button class="btn btn-outline-dark" id="pause1" type="button">暫停</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="embed-responsive embed-responsive-16by9">
+				<iframe id="player2" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&allowsInlineMediaPlayback=true&playsinline=1"></iframe>
+			</div>
+
+			<!-- 播放相關按鈕-->
+			<div class="row align-items-center pt-4">
+				<div class="col text-center">
+					<div class="btn-group">
+						<button class="btn btn-outline-dark" id="play2" type="button">播放</button>
+						<button class="btn btn-outline-dark" id="pause2" type="button">暫停</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var player1;
+			var player2;
+			function onYouTubeIframeAPIReady() {
+				player1 = new YT.Player("player1", {
+					events: {
+						onReady: onPlayerReady
+					}
+				});
+			}
+
+			function onPlayerReady(e) {
+				const play1 = document.getElementById("play1");
+				const pause1 = document.getElementById("pause1");
+
+				//- 播放、暫停、停止
+				play1.addEventListener("click", () => {
+					e.target.mute().playVideo();
+				});
+				pause1.addEventListener("click", () => e.target.pauseVideo());
+			}
+		</script>
+	</body>
+</html>
