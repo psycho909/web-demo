@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#canvas {
+				width: calc(995 / 1920 * 100vw);
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script>
+			var canvas = document.querySelector("#canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.width = 995;
+			canvas.height = 24;
+
+			// 44 + 6;
+			function Draw() {
+				var x = 0;
+				for (var i = 0; i < 20; i++) {
+					x = i * 44 + 6 * i;
+					ctx.beginPath();
+					ctx.fillStyle = "#D8D3BF";
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "#4B453E";
+					ctx.fillRect(x, 0, 44, 23);
+					ctx.strokeRect(x, 0, 44, 23);
+					ctx.save();
+				}
+			}
+			function DrawProgress(p) {
+				var x = 0;
+				for (var i = 0; i < p; i++) {
+					x = i * 44 + 6 * i;
+					ctx.beginPath();
+					ctx.fillStyle = "#4B453E";
+					ctx.lineWidth = "1";
+					ctx.strokeStyle = "#4B453E";
+					ctx.fillRect(x, 0, 44, 23);
+					ctx.strokeRect(x, 0, 44, 23);
+					ctx.save();
+				}
+			}
+			Draw();
+			DrawProgress(3);
+		</script>
+	</body>
+</html>
