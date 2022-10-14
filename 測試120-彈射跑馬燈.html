@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.marquee__part {
+				margin-right: 48px;
+			}
+			.marquee-box {
+				background: #3b7fff;
+				overflow: hidden;
+				position: relative;
+				padding: 32px 0;
+			}
+			.marquee {
+				width: 300%;
+				background: #3b7fff;
+				color: #eee;
+				text-transform: uppercase;
+				font-weight: 600;
+				font-size: 1.667vw;
+				padding: 32px 0;
+				display: flex;
+			}
+
+			.marquee__inner {
+				display: flex;
+				flex: auto;
+				flex-direction: row;
+				flex-shrink: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+
+		<script>
+			var JSON_DATA = {
+				listData: [
+					{
+						characterName: "マリーナ",
+						viewer_id: 444381092,
+						time: "17:00"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 477526441,
+						time: "17:00"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 971945576,
+						time: "17:01"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 306959865,
+						time: "17:05"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 757880426,
+						time: "17:06"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 538997175,
+						time: "17:07"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 739659292,
+						time: "17:10"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 739659292,
+						time: "17:11"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 280832041,
+						time: "17:12"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:13"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 791661024,
+						time: "17:17"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 731434642,
+						time: "17:19"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 732946114,
+						time: "17:20"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 351088907,
+						time: "17:21"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 934768783,
+						time: "17:23"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 419656425,
+						time: "17:24"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 432983055,
+						time: "17:26"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 426235349,
+						time: "17:28"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 205033058,
+						time: "17:31"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 205033058,
+						time: "17:31"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 408113206,
+						time: "17:32"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 609125388,
+						time: "17:33"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 378186250,
+						time: "17:35"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 685486457,
+						time: "17:36"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 685486457,
+						time: "17:36"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 879455389,
+						time: "17:42"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 225949682,
+						time: "17:43"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 125706578,
+						time: "17:45"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 997713202,
+						time: "17:45"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 800606572,
+						time: "17:47"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 588263035,
+						time: "17:49"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 588263035,
+						time: "17:49"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 197884716,
+						time: "17:50"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 276575762,
+						time: "17:50"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 263711565,
+						time: "17:51"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 263711565,
+						time: "17:51"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 263711565,
+						time: "17:51"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 263711565,
+						time: "17:51"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 340518198,
+						time: "17:52"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 929091224,
+						time: "17:53"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 609125388,
+						time: "17:54"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 626345567,
+						time: "17:58"
+					},
+					{
+						characterName: "マリーナ",
+						viewer_id: 956536173,
+						time: "17:58"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 372329914,
+						time: "17:58"
+					}
+				],
+				data: null,
+				code: 1,
+				message: null,
+				url: null
+			};
+			var t1 = gsap.timeline();
+			var DATA_TEMP = [];
+			var inNow = new Date();
+			var inHour = inNow.getHours();
+			var inMin = inNow.getMinutes();
+			async function GetData(i = 1) {
+				const data = await axios(`https://jsonplaceholder.typicode.com/todos/${i}`);
+				return data;
+			}
+			function FIlterData(min) {
+				var DATA_FILTER = DATA_TEMP.filter(function (v, i) {
+					var data_min = v.time.split(":")[1];
+					if (min == data_min && !v.anim) {
+						v.anim = true;
+						return v;
+					}
+				});
+				if (DATA_FILTER.length > 0) {
+					MarqueeHTMLRender(DATA_FILTER);
+					MarqueeRun().then(() => callData(DATA_TEMP));
+				} else {
+					callData(DATA_TEMP);
+				}
+			}
+			function MarqueeHTMLRender(data) {
+				var HTML = ``;
+				var innerHTML = ``;
+				var app = document.getElementById("app");
+				var marqueeHTML = "";
+				var marqueeBoxHTML = "";
+				if (!document.querySelector(".marquee")) {
+					marqueeBoxHTML = document.createElement("div");
+					marqueeHTML = document.createElement("div");
+					marqueeBoxHTML.className = "marquee-box";
+					marqueeHTML.className = "marquee";
+					app.insertAdjacentElement("beforeEnd", marqueeBoxHTML);
+					marqueeBoxHTML.insertAdjacentElement("beforeEnd", marqueeHTML);
+				} else {
+					marqueeHTML = document.querySelector(".marquee");
+				}
+				data.forEach(function (v, i) {
+					innerHTML += `<div class="marquee__part">${v.time} ${v.characterName}</div>`;
+				});
+				HTML = `<div class="marquee__inner">${innerHTML}</div>`;
+				marqueeHTML.innerHTML = HTML;
+			}
+			function MarqueeRun(callback) {
+				var start,
+					end,
+					duration,
+					distance = 0;
+
+				$(".marquee__inner")
+					.eq(0)
+					.find(".marquee__part")
+					.each(function (index, v) {
+						distance += $(v).outerWidth(true);
+					});
+
+				start = distance;
+				end = -distance;
+				duration = Math.abs(end - start) / 60;
+				gsap.set(".marquee", {
+					x: window.innerWidth
+				});
+				return t1.to(".marquee", {
+					x: end,
+					duration: duration,
+					ease: Linear.easeNone
+				});
+			}
+			function callData(data) {
+				setTimeout(() => {
+					var now = new Date();
+					var hour = now.getHours();
+					var min = now.getMinutes();
+					if (min == inMin) {
+						GetData(inMin).then((res) => {
+							let { data } = res;
+							++inMin;
+							DATA_TEMP = JSON_DATA.listData;
+							FIlterData(min);
+						});
+					} else {
+						FIlterData(min);
+					}
+				}, 1000);
+			}
+
+			GetData(1).then((res) => {
+				let { data } = res;
+				++inMin;
+				var now = new Date();
+				var hour = now.getHours();
+				var min = now.getMinutes();
+				DATA_TEMP = JSON_DATA.listData;
+				FIlterData(min);
+			});
+		</script>
+	</body>
+</html>
