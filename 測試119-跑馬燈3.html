@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.marquee__part {
+				margin-right: 48px;
+			}
+			.box {
+				background: #3b7fff;
+				overflow: hidden;
+				position: relative;
+				padding: 32px 0;
+			}
+			.marquee {
+				background: #3b7fff;
+				color: #eee;
+				text-transform: uppercase;
+				font-weight: 600;
+				font-size: 1.667vw;
+				padding: 32px 0;
+				display: flex;
+			}
+
+			.marquee__inner {
+				display: flex;
+				flex: auto;
+				flex-direction: row;
+				flex-shrink: 0;
+			}
+			.anim2 {
+				/* color: red; */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<section class="marquee marquee1"></section>
+			<section class="marquee marquee2"></section>
+		</div>
+		<script>
+			var marqueeTexts1 = ["Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor"];
+			var marqueeTexts2 = ["Est iusto pariatur veritatis magnam itaque? Quas voluptas"];
+			function Move(target, text, speed = 100) {
+				var start,
+					end,
+					duration,
+					distance = 0;
+				var w = window.innerWidth;
+				var HTML = ``;
+				var innerHTML = ``;
+				var _target = `${target} .marquee__inner`;
+				text.forEach(function (v, i) {
+					innerHTML += `<div class="marquee__part">${v}</div>`;
+				});
+				HTML = `<div class="marquee__inner">${innerHTML}</div>`;
+
+				$(target).append(HTML);
+				$(target)
+					.find(".marquee__inner")
+					.eq(0)
+					.find(".marquee__part")
+					.each(function (index, v) {
+						distance += $(v).outerWidth(true);
+					});
+				// start = distance < w ? w : distance;
+				start = distance > w ? distance : w;
+				end = -distance;
+				// duration = Math.abs(end - start) / speed;
+				duration = Math.abs(distance > w ? distance : w) / speed;
+				duration2 = distance / speed;
+
+				gsap.set(_target, {
+					x: start + 100
+				});
+
+				console.log(target, distance, start, end, duration);
+				gsap.to(_target, {
+					x: end,
+					duration: duration2,
+					ease: Linear.easeNone
+				});
+			}
+			Move(".marquee1", marqueeTexts1);
+			Move(".marquee2", marqueeTexts2);
+		</script>
+	</body>
+</html>

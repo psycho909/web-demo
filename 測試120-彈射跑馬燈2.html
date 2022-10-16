@@ -14,36 +14,27 @@
 				padding: 0;
 				margin: 0;
 			}
-			.marquee__part {
-				margin-right: 48px;
-			}
-			.marquee-box {
+			.marquee {
 				background: #3b7fff;
 				overflow: hidden;
 				position: relative;
 				padding: 32px 0;
 			}
-			.marquee {
-				width: 300%;
-				background: #3b7fff;
-				color: #eee;
-				text-transform: uppercase;
-				font-weight: 600;
-				font-size: 1.667vw;
-				padding: 32px 0;
-				display: flex;
-			}
-
 			.marquee__inner {
 				display: flex;
 				flex: auto;
 				flex-direction: row;
 				flex-shrink: 0;
 			}
+			.marquee__part {
+				margin-right: 48px;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app"></div>
+		<div id="app">
+			<div class="marquee"></div>
+		</div>
 
 		<script>
 			var JSON_DATA = {
@@ -97,6 +88,56 @@
 						characterName: "アルク",
 						viewer_id: 865281126,
 						time: "17:13"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:13"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:13"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:14"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:15"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:15"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:15"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:15"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:15"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:16"
+					},
+					{
+						characterName: "アルク",
+						viewer_id: 865281126,
+						time: "17:16"
 					},
 					{
 						characterName: "アルク",
@@ -176,7 +217,7 @@
 					{
 						characterName: "アルク",
 						viewer_id: 879455389,
-						time: "17:42"
+						time: "17:40"
 					},
 					{
 						characterName: "アルク",
@@ -186,7 +227,7 @@
 					{
 						characterName: "マリーナ",
 						viewer_id: 125706578,
-						time: "17:45"
+						time: "17:44"
 					},
 					{
 						characterName: "マリーナ",
@@ -301,26 +342,15 @@
 			function MarqueeHTMLRender(data) {
 				var HTML = ``;
 				var innerHTML = ``;
-				var app = document.getElementById("app");
-				var marqueeHTML = "";
-				var marqueeBoxHTML = "";
-				if (!document.querySelector(".marquee")) {
-					marqueeBoxHTML = document.createElement("div");
-					marqueeHTML = document.createElement("div");
-					marqueeBoxHTML.className = "marquee-box";
-					marqueeHTML.className = "marquee";
-					app.insertAdjacentElement("beforeEnd", marqueeBoxHTML);
-					marqueeBoxHTML.insertAdjacentElement("beforeEnd", marqueeHTML);
-				} else {
-					marqueeHTML = document.querySelector(".marquee");
-				}
+				var marquee = document.querySelector(".marquee");
 				data.forEach(function (v, i) {
 					innerHTML += `<div class="marquee__part">${v.time} ${v.characterName}</div>`;
 				});
 				HTML = `<div class="marquee__inner">${innerHTML}</div>`;
-				marqueeHTML.innerHTML = HTML;
+				marquee.innerHTML = HTML;
 			}
 			function MarqueeRun(callback) {
+				var w = window.innerWidth;
 				var start,
 					end,
 					duration,
@@ -333,15 +363,14 @@
 						distance += $(v).outerWidth(true);
 					});
 
-				start = distance;
-				end = -distance;
-				duration = Math.abs(end - start) / 60;
-				gsap.set(".marquee", {
-					x: window.innerWidth
+				start = w;
+				end = distance < w ? -w : -distance;
+				gsap.set(".marquee .marquee__inner", {
+					x: start + 100
 				});
-				return t1.to(".marquee", {
+				return t1.to(".marquee .marquee__inner", {
 					x: end,
-					duration: duration,
+					duration: 10,
 					ease: Linear.easeNone
 				});
 			}

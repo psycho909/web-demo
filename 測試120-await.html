@@ -9,10 +9,17 @@
 	</head>
 	<body>
 		<script>
+			function Some(text) {
+				console.log(text);
+				return text;
+			}
 			async function GetUsers() {
 				const user1 = await axios("https://reqres.in/api/users?delay=2");
+				let some1 = Some(1);
 				const user2 = await axios("https://reqres.in/api/users?delay=1");
+				let some2 = Some(2);
 				const user3 = await axios("https://reqres.in/api/users?delay=3");
+				let some3 = Some(3);
 				return [user1, user2, user3];
 			}
 			GetUsers().then((res) => {
