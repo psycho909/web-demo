@@ -12,12 +12,41 @@
 		<div id="app">
 			<div>{{age}} - {{getAge}}</div>
 			<input type="text" v-model="age" />
+			<select class="select-group__control" v-model="selected">
+				<optgroup label="淺色系">
+					<option :value="option.value" v-for="option in style1">{{option.text}}</option>
+				</optgroup>
+				<optgroup label="深色系">
+					<option :value="option.value" v-for="option in style2">{{option.text}}</option>
+				</optgroup>
+			</select>
 		</div>
 		<script>
 			var vm = new Vue({
 				el: "#app",
 				data: {
-					age: 1
+					age: 1,
+					selected: "blue1",
+					style1: [
+						{ value: "red1", text: "紅" },
+						{ value: "orange1", text: "橘" },
+						{ value: "yellow1", text: "黃" },
+						{ value: "green1", text: "綠" },
+						{ value: "blue1", text: "藍" },
+						{ value: "indigo1", text: "靛" },
+						{ value: "purple1", text: "紫" },
+						{ value: "grayscale1", text: "黑白灰" }
+					],
+					style2: [
+						{ value: "red2", text: "紅" },
+						{ value: "orange2", text: "橘" },
+						{ value: "yellow2", text: "黃" },
+						{ value: "green2", text: "綠" },
+						{ value: "blue2", text: "藍" },
+						{ value: "indigo2", text: "靛" },
+						{ value: "purple2", text: "紫" },
+						{ value: "grayscale2", text: "黑白灰" }
+					]
 				},
 				watch: {
 					age: {

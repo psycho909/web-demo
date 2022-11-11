@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" />
+		<link rel="stylesheet" href="https://raw.githack.com/qoosdd89382/fancyBoxFbPopup/main/sub_style_newpopup.css" />
+		<!-- <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+		<style>
+			.scroll::-webkit-scrollbar {
+				width: 5px;
+			}
+			.scroll::-webkit-scrollbar-track {
+				background: #fff;
+			}
+			.scroll::-webkit-scrollbar-thumb {
+				background: #ccc;
+			}
+
+			.-htmlNotScroll {
+				overflow: hidden !important;
+			}
+			.contentFiller {
+				overflow: hidden;
+				overflow-y: auto !important;
+				max-height: 440px;
+				padding: 0 15px;
+			}
+			/*font-----------------------------------------------------------------------------------*/
+			html {
+				font-family: Verdana, "Microsoft JhengHei", "微軟正黑體", sans-serif;
+			}
+
+			/*color-------------------------------------------------------------------------------------*/
+			.btn-container {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.btn-container .btn {
+				border: none;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 1.5;
+				letter-spacing: 1px;
+				text-align: center;
+				width: 140px;
+				height: 48px;
+				margin: 0 20px;
+				box-sizing: border-box;
+				-webkit-border-radius: 24px;
+				-moz-border-radius: 24px;
+				border-radius: 24px;
+				cursor: pointer;
+				outline: none;
+			}
+
+			.btn-container .btn.cancel {
+				color: #01b1b1;
+				background-color: transparent;
+				border: solid 1px #01b1b1;
+			}
+
+			.btn-container .btn.confirm {
+				color: #ffffff;
+				background-image: linear-gradient(to right, #093e7e, #2ad2b8);
+			}
+
+			/*---------------------------------------------------
+  
+  ---------------------------------------------------*/
+			.flex-Box {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 10px 0;
+			}
+
+			.flex-Box p {
+				color: #0087d5;
+				font-size: 18px;
+				font-weight: 500;
+			}
+			.flex-Box img {
+				display: block;
+			}
+
+			.chartImg {
+				display: block;
+				background: url(../img/redemption/chart.jpg) left center no-repeat;
+				background-size: 90% 90%;
+				width: 522px;
+				height: 325px;
+			}
+
+			.popup p.ransom_Note {
+				color: #828282;
+				font-size: 13px;
+				line-height: 20px;
+			}
+
+			.main-wrap {
+				margin: 30px 0;
+			}
+
+			.main-wrap ul {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: justify;
+				-ms-flex-pack: justify;
+				justify-content: space-between;
+				margin: 0;
+				padding: 0;
+			}
+
+			.main-wrap ul li {
+				position: relative;
+				list-style: none;
+			}
+
+			.main-wrap ul li .top-title {
+				text-align: center;
+				margin-bottom: 17px;
+				font-size: 16px;
+				color: #191919;
+			}
+
+			.main-wrap ul li .bottom-container .number {
+				text-align: center;
+				margin-bottom: 14px;
+				color: #0087d5;
+				font-size: 22px;
+				font-weight: 600;
+			}
+
+			.main-wrap ul li .bottom-container .number span.amount {
+				font-size: 28px;
+				letter-spacing: 0.03em;
+			}
+
+			.main-wrap ul li .bottom-container .number span.percent-mark.rajd-adj {
+				font-size: 16px;
+				font-weight: 600;
+				margin-left: -0.25em;
+			}
+
+			.main-wrap ul li .bottom-container .desc {
+				font-size: 16px;
+				text-align: center;
+				line-height: 43px;
+			}
+
+			@media screen and (max-width: 768px) {
+				.ransom_text_img {
+					background: url(../img/redemption/step06_S.png) top center no-repeat;
+					display: block;
+					width: 417px;
+					height: 523px;
+					background-size: 100% 100%;
+				}
+				.main-wrap ul {
+					-webkit-box-orient: vertical;
+					-webkit-box-direction: normal;
+					-ms-flex-direction: column;
+					flex-direction: column;
+					-webkit-box-pack: start;
+					-ms-flex-pack: start;
+					justify-content: flex-start;
+					margin-bottom: 0;
+				}
+
+				.main-wrap ul li {
+					width: 100%;
+					padding-bottom: 10px;
+					border-bottom: 1px solid #cbedfa;
+					margin-bottom: 15px;
+				}
+
+				.main-wrap ul li .top-title {
+					font-size: 14px;
+					margin-bottom: 2px;
+					text-align: left;
+				}
+				.main-wrap ul li .bottom-container {
+					display: -webkit-box;
+					display: -ms-flexbox;
+					display: flex;
+					-webkit-box-pack: justify;
+					-ms-flex-pack: justify;
+					justify-content: space-between;
+				}
+				.main-wrap ul li .bottom-container .number {
+					margin-bottom: 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a data-fancybox class="fancybox" data-src="#ransom05" href="javascript:void(0)">閱讀ETF投資須知</a>
+
+		<!--負報酬率02 start-->
+
+		<div class="popup info" style="display: none" id="ransom05">
+			<div class="contentFiller scroll">
+				<strong>投資小提醒</strong>
+
+				<div class="flex-Box">
+					<div><img src="img/redemption/redemption_icon_05.png" /></div>
+
+					<p>等待契機的來臨</p>
+				</div>
+				<p>股神巴菲特：「股市是把錢從不耐煩的人轉移到有耐心的人手中」。<span class="blue">財富的累積需擁有等待契機的耐心！</span></p>
+				<p class="mt10">信任奈米投，機會不溜走。</p>
+				<div class="chartImg"></div>
+				<p class="ransom_Note mt10">說明: 模擬投資報酬以假設月初投入，每月複利計算。較佳情況假設以年化報酬率為10%計算，一般情況假設以年化報酬率為5%計算。數值僅供參考，並未加可能產生的費用，亦未考慮浮動利率及通貨膨脹率，也無保證和實際投資狀況相符。</p>
+				<div class="btn-container mt30">
+					<a href="javascript:;">再想一下</a>
+					<!-- <div class="btn cancel">再想一下</div>
+					<div class="btn confirm">確定贖回</div> -->
+					<!-- <input class="btn cancel" type="button" value="再想一下" />
+					<input class="btn confirm" type="button" value="確定贖回" /> -->
+				</div>
+			</div>
+		</div>
+		<!--負報酬率02 end-->
+		<script>
+			$("[data-fancybox]").fancybox({
+				touch: false,
+				beforeShow: function () {
+					$("html").addClass("-htmlNotScroll");
+				},
+				beforeClose: function () {
+					$("html").removeClass("-htmlNotScroll");
+				}
+			});
+		</script>
+	</body>
+</html>

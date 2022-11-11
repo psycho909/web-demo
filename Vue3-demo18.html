@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="personReactive.name" />
+			<button type="button" @click="submit">submit</button>
+		</div>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js"
+    id="game-footer" prod="新楓之谷" theme="dark"></script>
+		<script>
+			const { reactive, ref, toRef, toRefs } = Vue;
+			var app = Vue.createApp({
+				setup() {
+					const personRef = ref({ name: "Chen" });
+					const personReactive = reactive({ name: "Chen", count: 0 });
+					console.log(personRef.value.name, personReactive);
+					const InsertCookie = () => {
+						var body = document.getElementsByTagName("body")[0];
+						var _script = document.createElement("script");
+						_script.src = "https://tw.beanfun.com/MapleStory/menuBar/topBar.js";
+						_script.async = true;
+						body.insertAdjacentElement("beforeend", _script);
+					};
+					const submit = () => {
+						InsertCookie();
+						console.log(personReactive);
+					};
+					return {
+						personReactive,
+						submit
+					};
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

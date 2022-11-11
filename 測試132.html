@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			html {
+				font-size: 768px;
+			}
+			.box {
+				width: calc(var(--w, 300) / 768 * 1rem);
+				height: calc(var(--h, 300) / 768 * 1rem);
+				background-color: #000;
+			}
+			@media screen and (max-width: 768px) {
+				html {
+					font-size: 100vw;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" style="--w: 600; --h: 600"></div>
+		<script>
+			const np = (t = 200) => {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve(1);
+					}, t);
+				});
+			};
+
+			const pp = async () => {
+				let str = "";
+				if (await np(1000)) {
+					str += "1th";
+				}
+				if (await np(100)) {
+					str += "2th";
+				}
+				if (await np(3000)) {
+					str += "3th";
+				}
+				return await p(200);
+			};
+			// console.log(pp());
+			// const foo = async () => {
+			// 	let res = 1;
+
+			// 	// await new Promise((resolve, reject) => {
+			// 	// 	res = 2;
+			// 	// 	resolve(res);
+			// 	// });
+			// 	await setTimeout(() => {
+			// 		res = 3;
+			// 	}, 0);
+
+			// 	return res;
+			// };
+
+			// foo()
+			// 	.then((res) => {
+			// 		console.log("res:", res);
+			// 	})
+			// 	.catch((error) => {
+			// 		console.log("error:", error);
+			// 	});
+			// const p = () => {
+			// 	return new Promise((resolve, reject) => {
+			// 		reject("p rejected");
+			// 	});
+			// };
+
+			// const foo = async () => {
+			// 	try {
+			// 		const res = await p();
+			// 		console.log("res:", res);
+			// 	} catch (error) {
+			// 		console.log("error:", error);
+			// 	}
+			// 	console.log("后续代码");
+			// };
+
+			// foo();
+			// const p1 = () => {
+			// 	return new Promise((resolve, reject) => {
+			// 		reject("p1 rejected");
+			// 	});
+			// };
+
+			// const p2 = () => {
+			// 	return new Promise((resolve, reject) => {
+			// 		resolve("p2 resolved");
+			// 	});
+			// };
+
+			// const foo = async () => {
+			// 	try {
+			// 		const res1 = await p1();
+			// 		console.log("res1:", res1);
+			// 		const res2 = await p2();
+			// 		console.log("res2:", res2);
+			// 	} catch (error) {
+			// 		console.log("error:", error);
+			// 	}
+			// };
+
+			// foo();
+			const p1 = () => {
+				return new Promise((resolve, reject) => {
+					reject("p1 rejected");
+				});
+			};
+
+			const p2 = () => {
+				return new Promise((resolve, reject) => {
+					resolve("p2 resolved");
+				});
+			};
+
+			const foo = async () => {
+				const res1 = await p1();
+				console.log("res1:", res1);
+				const res2 = await p2();
+				console.log("res2:", res2);
+				console.log("error:", error);
+			};
+
+			foo()
+				.then((res) => {
+					console.log("res:", res);
+				})
+				.catch((error) => {
+					console.log("error:", error);
+				});
+		</script>
+	</body>
+</html>

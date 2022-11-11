@@ -321,7 +321,8 @@
 			var inHour = inNow.getHours();
 			var inMin = inNow.getMinutes();
 			async function GetData(i = 1) {
-				const data = await axios(`https://jsonplaceholder.typicode.com/todos/${i}`);
+				const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${i}`);
+				const data = await res.json();
 				return data;
 			}
 			function FIlterData(min) {
@@ -370,7 +371,7 @@
 				});
 				return t1.to(".marquee .marquee__inner", {
 					x: end,
-					duration: 10,
+					duration: 20,
 					ease: Linear.easeNone
 				});
 			}
@@ -392,7 +393,7 @@
 				}, 1000);
 			}
 
-			GetData(1).then((res) => {
+			GetData().then((res) => {
 				let { data } = res;
 				++inMin;
 				var now = new Date();
