@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				font-size: 36px;
+				font-weight: bold;
+				background-color: red;
+				display: inline-block;
+				line-height: 12px;
+				margin-top: 24px;
+				padding: 0 0 24px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">測試</div>
+		<script>
+			function Run1() {
+				function delayedResponse() {
+					return new Promise((resolve, reject) => {
+						setTimeout(resolve, 1000);
+					});
+				}
+
+				async function time(label, fn) {
+					const start = new Date();
+					await fn();
+					console.log((new Date() - start) / 1000, `seconds to load ${label}`);
+				}
+
+				time("sequential", async () => {
+					await delayedResponse();
+					await delayedResponse();
+					await delayedResponse();
+				});
+
+				time("parallel", async () => {
+					await Promise.all([delayedResponse(), delayedResponse(), delayedResponse()]);
+				});
+			}
+			Run1();
+
+			function Run2() {
+				function delayedResponse(msg) {
+					return new Promise((resolve, reject) => {
+						setTimeout(resolve, 1000, msg + ": done");
+					});
+				}
+
+				async function time(label, fn) {
+					const start = new Date();
+					await fn();
+					console.log((new Date() - start) / 1000, `seconds to load ${label}`);
+				}
+
+				// the code we are benchmarking
+
+				async function sequential() {
+					const res1 = await delayedResponse("first");
+					const res2 = await delayedResponse("second");
+					const res3 = await delayedResponse("third");
+					console.log([res1, res2, res3]);
+				}
+
+				async function parallel() {
+					const results = await Promise.all([delayedResponse("first"), delayedResponse("second"), delayedResponse("third")]);
+					console.log(results);
+				}
+
+				time("sequential", sequential);
+				time("parallel", parallel);
+			}
+
+			Run2();
+		</script>
+	</body>
+</html>

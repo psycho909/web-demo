@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script type="text/babel">
+			const DataContext = React.createContext();
+
+			const Button = () => {
+				const data = React.useContext(DataContext);
+				const pay = () => {
+					window.alert(`你已成功購買 ${data.title}`);
+				};
+
+				return (
+					<button type="button" onClick={pay}>
+						點我購買({data.price} $)
+					</button>
+				);
+			};
+
+			const Card = ({ data }) => {
+				return (
+					<div>
+						<h5>產品名稱：{data.title}</h5>
+						<Button />
+					</div>
+				);
+			};
+
+			const Products = () => {
+				const [data, setData] = React.useState({
+					title: "PlayStation5",
+					price: 75000
+				});
+
+				return (
+					<DataContext.Provider value={data}>
+						<ul>
+							<li key={data.title}>
+								<Card data={data} />
+							</li>
+						</ul>
+					</DataContext.Provider>
+				);
+			};
+
+			function App() {
+				let [count, setCount] = React.useState(0);
+				React.useEffect(() => {
+					console.log("useEffect");
+					return () => {
+						console.log("Clear");
+					};
+				}, [count]);
+				return (
+					<div>
+						<Products />
+						<div>{count}</div>
+						<button onClick={() => setCount(() => ++count)}>反轉</button>
+					</div>
+				);
+			}
+
+			const app = document.getElementById("app");
+			const root = ReactDOM.createRoot(app);
+			root.render(<App />);
+		</script>
+	</body>
+</html>
