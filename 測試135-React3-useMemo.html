@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script type="text/babel">
+			function App() {
+				const [users, setUsers] = React.useState([]);
+				const [state, setState] = React.useState(false);
+				const exampleMemo = React.useMemo(() => 1 + 1, []);
+				const exampleCallback = React.useCallback(() => 1 + 1, []);
+				// const newUsers=React.useMemo(()=>{},[users])
+
+				const getData = async () => {
+					// 有時候會發生 CORS，只需要重新整理即可
+					const { data } = await axios.get("https://randomuser.me/api/?results=10");
+					setUsers(data.results);
+				};
+				React.useEffect(() => {
+					getData();
+				}, []);
+				React.useEffect(() => {
+					console.log("useMemo", exampleMemo);
+					console.log("useCallback", exampleCallback);
+				});
+				const filterUsers = React.useMemo(() => {
+					return users.sort((a, b) => {
+						if (state) {
+							return a.dob.age < b.dob.age ? 1 : -1;
+						}
+						return a.dob.age > b.dob.age ? 1 : -1;
+					});
+				}, [state]);
+
+				return (
+					<div>
+						<button onClick={() => setState(true)} className="border-4 border-indigo-500">
+							年齡大到小
+						</button>
+						<button onClick={() => setState(false)} className="border-4 border-indigo-500 ml-4">
+							年齡小到大
+						</button>
+						<hr className="my-4" />
+						<ul>
+							{users.map((user) => (
+								<li key={user.email}>{user.name.first + user.name.last}</li>
+							))}
+						</ul>
+					</div>
+				);
+			}
+
+			const app = document.getElementById("app");
+			const root = ReactDOM.createRoot(app);
+			root.render(<App />);
+		</script>
+	</body>
+</html>
