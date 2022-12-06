@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/ckeditor/5/ckeditor.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<div class="btn">btn</div>
+
+		<script>
+			// var Content_Update;
+
+			// Content_Update.setData("123213");
+			$(".btn").on("click", function () {
+				// console.log(window.editor.getData());
+				// Content_Update.setData("123213");
+				LB();
+			});
+
+			function LB(msg, url, callback) {
+				var config = {
+					addClass: "default",
+					hasCloseBtn: true,
+					hasActionBtn: true,
+					afterClose: function () {
+						$.gbox.close();
+					},
+					afterOpen: function () {
+						ClassicEditor.create(document.querySelector(".editor"), {
+							toolbar: {
+								items: ["bold", "italic", "link"]
+							}
+						})
+							.then((editor) => {
+								window.Content_Update = editor;
+							})
+							.catch((error) => {
+								console.error(error);
+							});
+						setTimeout(() => {
+							Content_Update.setData("123213");
+						}, 0);
+					},
+					actionBtns: [
+						{
+							text: "text1",
+							class: "btn",
+							click: function () {
+								$.gbox.close();
+							}
+						}
+					]
+				};
+
+				var HTML = `<div class="editor"></div>`;
+				$.gbox.open(HTML, config);
+			}
+			LB();
+		</script>
+	</body>
+</html>

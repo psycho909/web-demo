@@ -8,6 +8,7 @@ var ckedit = {
 	mounted() {
 		console.log("mounted");
 		ClassicEditor.create(document.querySelector("#editor"), {
+			image: {},
 			toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
 			heading: {
 				options: [

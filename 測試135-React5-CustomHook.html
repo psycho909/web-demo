@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/babel-standalone/6.26.0/browser-polyfill.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/es6-promise.auto.min.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script type="text/babel">
+			const useKeyDown = () => {
+				const [keyDown, setKeyDown] = React.useState("");
+
+				React.useEffect(() => {
+					document.addEventListener("keydown", (event) => {
+						setKeyDown(event.key);
+					});
+					return () => {
+						document.removeEventListener("keydown", () => {
+							setKeyDown("");
+						});
+					};
+				}, []);
+
+				return keyDown;
+			};
+			function App() {
+				const keyDown = useKeyDown();
+
+				return (
+					<div>
+						<p>{keyDown}</p>
+					</div>
+				);
+			}
+
+			const app = document.getElementById("app");
+			const root = ReactDOM.createRoot(app);
+			root.render(<App />);
+		</script>
+	</body>
+</html>

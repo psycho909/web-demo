@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<title>Document</title>
+		<style>
+			.box {
+				width: 100px;
+				padding: 100px;
+				background-color: #000;
+				position: relative;
+			}
+			.inner {
+				background-color: blue;
+				margin-bottom: -100px;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="inner">
+				<p>111</p>
+				<p>111</p>
+				<p>111</p>
+				<p>111</p>
+				<p>111</p>
+			</div>
+		</div>
+		<canvas id="canvas"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.width = 60;
+			canvas.height = 60;
+
+			var img = new Image();
+			img.src = "https://tw.hicdn.beanfun.com/beanfun/promo/LineageNew/E20210311/images/items/1/1.png";
+			img.onload = function () {
+				ctx.drawImage(img, 0, 0, 60, 60);
+			};
+		</script>
+	</body>
+</html>
