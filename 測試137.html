@@ -5,6 +5,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js" integrity="sha512-lteuRD+aUENrZPTXWFRPTBcDDxIGWe5uu0apPEn+3ZKYDwDaEErIK9rvR0QzUGmUQ55KFE2RqGTVoZsKctGMVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<style>
 			@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap");
 		</style>
@@ -17,33 +20,30 @@
 				background: #e9eef1;
 				background-repeat: no-repeat;
 			}
+			#app {
+				/* overflow: hidden; */
+			}
 			.box {
-				width: 1440px;
-				height: 608px;
+				/* width: 1440px; */
+				/* height: 608px; */
 				position: relative;
 				background-size: contain;
 				margin: 0 auto;
-			}
-			.box:before {
-				content: "";
-				width: 240px;
-				height: 240px;
-				border: 1px solid blue;
-				position: absolute;
-				top: 28px;
-				left: 235px;
-				border-radius: 50%;
-				z-index: 2;
+				overflow: hidden;
+				padding: 24px 0;
+				box-sizing: border-box;
 			}
 			.box:after {
 				content: "";
 				width: 1920px;
-				height: 3px;
-				background-color: #000;
+				height: 262px;
+				/* background-color: #000; */
+				background-size: 1920px 262px;
+				background-image: url("https://i.imgur.com/QGvtEkT.png");
 				position: absolute;
-				top: 183px;
+				top: 17px;
 				left: 50%;
-				transform: translateX(-50%);
+				margin-left: -1124px;
 				border-radius: 50%;
 				z-index: 2;
 			}
@@ -55,23 +55,29 @@
 				padding: 0 12px;
 			}
 			.time-slogan {
-				font-family: "Noto Sans TC", sans-serif;
+				/* font-family: "Noto Sans TC", sans-serif;
 				font-size: 36px;
 				color: #0f5c88;
 				font-weight: 900;
 				padding: 0 12px;
-				text-align: center;
+				text-align: center; */
 				position: absolute;
-				top: 148px;
-				left: 46px;
+				top: 121px;
+				left: 0px;
+				width: 288px;
+				height: 212px;
+				background-size: cover;
+				background-image: url("https://i.imgur.com/OD0rVqR.png");
 			}
 			.time {
 				width: 962px;
 				height: 398px;
-				position: absolute;
+				margin: 160px auto 0;
+				position: relative;
+				/* position: absolute;
 				top: 160px;
 				left: 50%;
-				transform: translateX(-50%);
+				transform: translateX(-50%); */
 				background-color: #f4f8f9;
 				border-radius: 24px;
 				box-shadow: 0 0 12px rgba(147, 204, 211, 0.5);
@@ -90,33 +96,33 @@
 					overflow: hidden;
 				}
 				.box {
-					width: calc(700 / 768 * 100vw);
-				}
-				.box:before {
-					top: 0;
-					left: 0;
-					width: calc(240 / 768 * 100vw);
-					height: calc(240 / 768 * 100vw);
+					padding: calc(24 / 768 * 100vw) 0;
+					/* width: calc(700 / 768 * 100vw); */
 				}
 				.box:after {
 					width: calc(1920 / 768 * 100vw);
-					height: calc(3 / 768 * 100vw);
-					top: calc(180 / 768 * 100vw);
+					height: calc(262 / 768 * 100vw);
+					top: calc(17 / 768 * 100vw);
+					background-size: calc(1920 / 768 * 100vw) calc(262 / 768 * 100vw);
+					margin-left: calc(-1124 / 768 * 100vw);
 				}
 				.time {
 					width: calc(700 / 768 * 100vw);
 					height: auto;
-					top: calc(160 / 768 * 100vw);
 					display: flex;
 					flex-direction: column;
 					padding: calc(36 / 768 * 100vw) 0;
+					margin: calc(160 / 768 * 100vw) auto 0;
 				}
 				.time-slogan {
 					position: relative;
+					/* font-size: calc(36 / 768 * 100vw);
+					padding: 0 calc(12 / 768 * 100vw); */
 					top: 0;
 					left: 0;
-					font-size: calc(36 / 768 * 100vw);
-					padding: 0 calc(12 / 768 * 100vw);
+					width: calc(288 / 768 * 100vw);
+					height: calc(212 / 768 * 100vw);
+					margin: 0 auto;
 				}
 				.time-box {
 					position: relative;
@@ -134,14 +140,11 @@
 		</style>
 	</head>
 	<body>
-		<div class="app">
+		<div id="app">
+			<div id="getting-started"></div>
 			<div class="box">
 				<div class="time">
-					<div class="time-slogan">
-						<div>2022</div>
-						<div>新戶安心禮</div>
-						<div>優惠倒數</div>
-					</div>
+					<div class="time-slogan"></div>
 					<div class="time-box">
 						<div class="font">7</div>
 						<div class="font">:</div>
@@ -154,5 +157,10 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			$("#getting-started").countdown("2022/12/30", function (event) {
+				$(this).html(event.strftime("%w weeks %d days %H:%M:%S"));
+			});
+		</script>
 	</body>
 </html>
