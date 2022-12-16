@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/style.css" />
+		<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+		<title>POP說明</title>
+		<style>
+			#box {
+				font-size: 56px;
+				color: var(--color, #fff);
+			}
+		</style>
+	</head>
+
+	<body>
+		<section>
+			<div class="main">
+				<div class="container">
+					<button class="btn">Button 1</button>
+				</div>
+				<div class="container">
+					<button class="btn">Button 2</button>
+				</div>
+				<div class="container">
+					<button class="btn">Button 3</button>
+				</div>
+
+				<p class="text"></p>
+			</div>
+			<div id="box" style="--color: red">BOX</div>
+		</section>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var oMain = document.querySelector(".main");
+	oMain.addEventListener("click", function (e) {
+		let buttonOnly = e.target.closest("button");
+		console.log(buttonOnly.closest(".main"));
+	});
+	var a = 51000 + 15000;
+	var arr = [20000, 13133, 2888, 888, 990, 1120, 1799, 2722, 6988, 4800, 2793, 4921, 1080, 608, 390];
+
+	var t = arr.reduce((p, n, arr) => {
+		return p - n;
+	}, a);
+	console.log(t);
+
+	`
+	Cin Cin Osteria
+	Snail 蝸牛義大利餐廳
+	`;
+</script>

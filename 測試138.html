@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.select1 {
+				color: red;
+			}
+			.select1 option {
+				color: green;
+			}
+			.select1 .first {
+				color: blue;
+			}
+			.box {
+				border: 1px solid #000;
+				width: 300px;
+				display: flex;
+			}
+			.box1 {
+				padding: 12px;
+				flex-shrink: 0;
+				background-color: blue;
+				color: #fff;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.box2 {
+				word-break: break-all;
+				padding: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<select class="select1">
+			<option class="first" value="0">請選擇</option>
+			<option value="A">A</option>
+			<option value="B">B</option>
+			<option value="C">C</option>
+		</select>
+		<div class="box">
+			<div class="box1">
+				<span>B</span>
+				<span>A</span>
+				<span>C</span>
+				<span>D</span>
+			</div>
+			<div class="box2">
+				AAAAAAAAAAAAAAAAAAAAAAA <br />
+				AAAAAAAAAAAAAAAA <br />
+				AAAAAAAAAAAAAAAAAAAAAAAA <br />
+				AAAAAAAAAAAAAAAA <br />
+				AAAAAAAAAAAAAAAAAAAAAAAA <br />
+				AAAAAAAAAAA <br />
+			</div>
+		</div>
+	</body>
+</html>

@@ -5,6 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://unpkg.com/vue@next"></script>
 		<style>
 			span[num="0"] {
@@ -64,6 +66,7 @@
 	<body>
 		<div id="app">
 			<div>
+				<a href="javascript:;" class="btn">按鈕</a>
 				<div v-for="l in listFormat" class="box">
 					<span :num="l.a" v-show="l.a > 0">{{l.a}}</span>
 					<span :num="l.b">{{l.b}}</span>
@@ -71,6 +74,9 @@
 			</div>
 		</div>
 		<script>
+			$("body").on("click", ".btn", function () {
+				console.log(123);
+			});
 			var vm = Vue.createApp({
 				created() {
 					setTimeout(() => {
