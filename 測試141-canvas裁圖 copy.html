@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://unpkg.com/konva@8.3.14/konva.min.js"></script>
+		<meta charset="utf-8" />
+		<title>Konva Drag and Drop an Image Demo</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: #f0f0f0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script>
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+
+			function drawImage(imageObj) {
+				var stage = new Konva.Stage({
+					container: "container",
+					width: width,
+					height: height
+				});
+
+				var layer = new Konva.Layer();
+				// darth vader
+				var darthVaderImg = new Konva.Image({
+					image: imageObj,
+					width: 136,
+					height: 196,
+					draggable: true
+				});
+
+				// add cursor styling
+				darthVaderImg.on("mouseover", function () {
+					document.body.style.cursor = "pointer";
+				});
+				darthVaderImg.on("mouseout", function () {
+					document.body.style.cursor = "default";
+				});
+
+				layer.add(darthVaderImg);
+				stage.add(layer);
+			}
+			var imageObj = new Image();
+			imageObj.onload = function () {
+				drawImage(this);
+			};
+			imageObj.src = "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/ELSWORD/Event/E20221215/assets/css/images/slogan-right.png";
+		</script>
+	</body>
+</html>

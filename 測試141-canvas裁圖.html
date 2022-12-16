@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script>
+			var drawPolygon = function (ctx, conf) {
+				var x = (conf && conf.x) || 0;
+				var y = (conf && conf.y) || 0;
+				var num = (conf && conf.num) || 3;
+				var r = (conf && conf.r) || 100;
+				var width = (conf && conf.width) || 5;
+				var strokeStyle = conf && conf.strokeStyle;
+				var fillStyle = conf && conf.fillStyle;
+				ctx.beginPath;
+				var startX = x + r * Math.cos((2 * Math.PI * 0) / num);
+				var startY = y + r * Math.sin((2 * Math.PI * 0) / num);
+				ctx.moveTo(startX, startY);
+				for (var i = 1; i <= num; i++) {
+					var newX = x + r * Math.cos((2 * Math.PI * i) / num);
+					var newY = y + r * Math.sin((2 * Math.PI * i) / num);
+					ctx.lineTo(newX, newY);
+				}
+				ctx.closePath;
+
+				if (strokeStyle) {
+					ctx.strokeStyle = strokeStyle;
+					ctx.lineWidth = width;
+					ctx.lineJoin = "round";
+					ctx.stroke;
+				}
+				if (fillStyle) {
+					ctx.fillStyle = fillStyle;
+					ctx.fill;
+				}
+			};
+			var canvas = document.getElementById("canvas");
+			canvas.width = 800;
+			canvas.height = 600;
+			var context = canvas.getContext("2d");
+			context.fillStyle = "#000";
+			context.fillRect(0, 0, 800, 600);
+
+			context.beginPath();
+			// context.moveTo(0, 0);
+			// context.bezierCurveTo(450, 220, 450, 300, 400, 315);
+			// context.bezierCurveTo(350, 300, 350, 220, 400, 260);
+			// context.clip();
+			// context.closePath();
+
+			var img = new Image();
+			img.src = "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/ELSWORD/Event/E20221215/assets/css/images/slogan-right.png";
+			img.onload = function () {
+				context.drawImage(img, 0, 0, 136, 196);
+			};
+		</script>
+	</body>
+</html>

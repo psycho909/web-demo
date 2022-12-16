@@ -23,5 +23,8 @@
         "Android >= 6"
     ],
     "liveServer.settings.port": 5873,
+    "cSpell.words": [
+        "Konva"
+    ],
     // "previewServer.port": 62803
 }
