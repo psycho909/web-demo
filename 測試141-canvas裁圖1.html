@@ -9,6 +9,9 @@
 				padding: 0;
 				margin: 0;
 			}
+			#container {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -75,13 +78,14 @@
 				group.add(darthVaderImg);
 				layer.add(group);
 				stage.add(layer);
+
+				var img = new Image();
+				img.onload = function () {
+					drawImage(this);
+				};
+				img.crossOrigin = "Anonymous";
+				img.src = "https://i.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ";
 			}
-			var img = new Image();
-			img.onload = function () {
-				drawImage(this);
-			};
-			img.crossOrigin = "Anonymous";
-			img.src = "https://i.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ";
 
 			document.querySelector("#btn").addEventListener("click", function () {
 				var dataURL = stage.toDataURL();
