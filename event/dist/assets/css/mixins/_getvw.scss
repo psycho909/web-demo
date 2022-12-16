@@ -5,8 +5,8 @@
 
 	@return $number;
 }
-@function rem($size, $fontSize: 16, $zoom: 1) {
-	@return (strip-unit($size) / $fontSize) * $zoom * 1rem;
+@function rem($size, $breakpoint: 768, $zoom: 1) {
+	@return (strip-unit($size) / $breakpoint) * $zoom * 1rem;
 }
 @function vw($size, $breakpoint: 768) {
 	@return (strip-unit($size) / $breakpoint) * 100vw;

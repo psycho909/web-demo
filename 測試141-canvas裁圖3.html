@@ -12,166 +12,11 @@
 				padding: 0;
 				margin: 0;
 			}
-			#container {
-				display: none;
-			}
-			#btn {
-				display: block;
-			}
 		</style>
 	</head>
 	<body>
-		<button id="btn">Save</button>
-		<img src="" alt="" id="img" />
 		<div id="container"></div>
-		<canvas id="canvas"></canvas>
 		<script>
-			function drawShare(shareList) {
-				var lockXY = {
-					pc: [
-						[52, 163],
-						[716, 163],
-						[52, 420],
-						[716, 420],
-						[52, 678],
-						[716, 678]
-					],
-					mb: [
-						[s * 45, s * 160 + paddingTop],
-						[s * 575, s * 160 + paddingTop],
-						[s * 45, s * 395 + paddingTop],
-						[s * 575, s * 395 + paddingTop],
-						[s * 45, s * 638 + paddingTop],
-						[s * 575, s * 638 + paddingTop]
-					]
-				};
-				var itemXY = {
-					pc: [
-						[76, 182],
-						[736, 182],
-						[76, 447],
-						[736, 447],
-						[76, 708],
-						[736, 708]
-					],
-					mb: [
-						[s * 56, s * 182 + paddingTop],
-						[s * 586, s * 182 + paddingTop],
-						[s * 56, s * 420 + paddingTop],
-						[s * 586, s * 420 + paddingTop],
-						[s * 56, s * 660 + paddingTop],
-						[s * 586, s * 660 + paddingTop]
-					]
-				};
-				var textXY = {
-					pc: [
-						[120, 346],
-						[784, 346],
-						[120, 605],
-						[784, 605],
-						[120, 865],
-						[784, 865]
-					],
-					mb: [
-						[s * 93, s * 310 + paddingTop],
-						[s * 623, s * 310 + paddingTop],
-						[s * 93, s * 545 + paddingTop],
-						[s * 623, s * 545 + paddingTop],
-						[s * 93, s * 788 + paddingTop],
-						[s * 623, s * 788 + paddingTop]
-					]
-				};
-				var lockGroup = [];
-				var itemGroup = [];
-				var textGroup = [];
-
-				shareList.forEach(function (v, i) {
-					var lockImg = v.lock ? "images/btn-lock-on.png" : "images/btn-lock-off.png";
-					lockGroup.push(new drawImage(ctx, lockImg, lockXY[device][i][0], lockXY[device][i][1], lockW, lockH));
-					itemGroup.push(new drawImage(ctx, v.img, itemXY[device][i][0], itemXY[device][i][1]));
-					textGroup.push(new drawText(ctx, v.name, textXY[device][i][0], textXY[device][i][1]));
-				});
-
-				var bg = new drawImage(ctx, "images/lb-sh_are-bg.png", 0, 0 + paddingTop, bgW, bgH);
-				var timesBg = new drawImage(ctx, "images/lb-times-bg.png", 0, 0, timesBgW, timesBgH);
-				var timesNum = new drawText(ctx, "20", 93, 95, "#fff", 25);
-				var diceBg = new drawImage(ctx, "images/dice1.png", 350, 540, diceBgW, diceBgH);
-
-				function drawImage(target, name, x, y, w, h) {
-					this.image = new Image();
-					this.image.src = name;
-					this.x = x;
-					this.y = y;
-					this.w = w;
-					this.h = h;
-					this.target = target;
-					this.update = function () {
-						if (this.w) {
-							this.target.drawImage(this.image, this.x, this.y, this.w, this.h);
-						} else {
-							var itemW = this.image.naturalWidth;
-							var itemH = this.image.naturalHeight;
-							if (itemW > itemMaxWidth) {
-								this.target.drawImage(this.image, this.x, this.y, (itemMaxWidth / itemW) * itemW, (itemMaxWidth / itemH) * itemH);
-							} else {
-								if (device == "mb") {
-									this.target.drawImage(this.image, this.x, this.y, itemW * s, itemH * s);
-								} else {
-									this.target.drawImage(this.image, this.x, this.y, itemW, itemH);
-								}
-							}
-						}
-					};
-				}
-
-				function drawText(target, text, x, y, color, f) {
-					this.x = x;
-					this.y = y;
-					this.text = text;
-					this.target = target;
-					this.color = color;
-					this.f = f;
-					this.update = function () {
-						var totalSize = this.target.measureText(this.text).width;
-						var line = "";
-						if (this.color) {
-							this.target.font = "bold " + this.f + "px 微軟正黑體";
-							this.target.fillStyle = this.color;
-						}
-						this.target.fillText(this.text, this.x, this.y);
-					};
-				}
-
-				this.draw = function () {
-					ctx.clearRect(0, 0, width, height);
-					ctx.font = fz + "px 微軟正黑體";
-					ctx.fillStyle = "#5ed0ff";
-					ctx.textAlign = "center";
-					bg.update();
-
-					for (var i = 0; i < 6; i++) {
-						lockGroup[i].update();
-						itemGroup[i].update();
-						textGroup[i].update();
-					}
-					timesBg.update();
-					timesNum.update();
-					diceBg.update();
-
-					var _this = this;
-					timer = setTimeout(function () {
-						_this.draw();
-					}, 1000 / 60);
-				};
-			}
-			var shareList = [
-				{ type: 1, name: "頭盔1", lock: true, img: "images/8673.png" },
-				{ type: 2, name: "+6底比斯歐西里斯雙手劍", lock: false, img: "images/12345.png" },
-				{ type: 3, name: "盔甲", lock: false, img: "images/1234.png" },
-				{ type: 4, name: "脛甲", lock: false, img: "images/8673.png" },
-				{ type: 5, name: "裝備一五", lock: false, img: "images/8673.png" },
-				{ type: 6, name: "裝備一", lock: true, img: "images/8673.png" }
-			];
 			function drawPolygon(ctx, conf) {
 				var x = (conf && conf.x) || 0;
 				var y = (conf && conf.y) || 0;
@@ -202,93 +47,90 @@
 					ctx.fill;
 				}
 			}
-			var canvas = document.getElementById("canvas");
-			var ctx = canvas.getContext("2d");
-			var device = isMobile.any ? "mb" : "pc";
-			var s = isMobile.any ? window.innerWidth / 768 : 1;
-			var timer;
-			var stop = false;
-			var box = isMobile.any ? 125 * s : 157;
-			var fz = isMobile.any ? 28 * s : 18;
-			var paddingTop = isMobile.any ? 14 * s : 16;
-			var itemMaxWidth = isMobile.any ? 81 * s : 100;
-			var bgW = isMobile.any ? 718 * s : 898;
-			var bgH = isMobile.any ? 922 * s : 913;
-			var lockW = isMobile.any ? 22 * s : 27;
-			var lockH = isMobile.any ? 30 * s : 38;
-			var timesBgW = 193 * s;
-			var timesBgH = 136 * s;
-			var diceBgW = 200 * s;
-			var diceBgH = 284 * s;
-
-			canvas.width = isMobile.any ? 718 * s : 898;
-			canvas.height = isMobile.any ? (922 + paddingTop) * s : 913 + paddingTop;
-			var width = canvas.width;
-			var height = canvas.height;
-			var t = new drawShare(shareList);
-			// t.draw();
 			var darthVader = "http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg";
 			var yoda = "http://www.html5canvastutorials.com/demos/assets/yoda.jpg";
-			var img1 = new Image();
-			img1.src = darthVader;
-			img1.onload = function () {
-				ctx.drawImage(img1, 0, 0, 100, 100);
-			};
-			var img2 = new Image();
-			img2.src = yoda;
-			img2.onload = function () {
-				ctx.drawImage(img2, 100, 100, 100, 100);
-			};
 
 			var stage = new Konva.Stage({
 				container: "container",
-				width: 200,
-				height: 200
+				width: 600,
+				height: 600
 			});
-			function drawImage(imageObj) {
-				var layer = new Konva.Layer();
-				var group = new Konva.Group({
-					clipFunc: function (ctx) {
-						drawPolygon(ctx, {
-							x: 100,
-							y: 100,
-							num: 6,
-							r: 100,
-							strokeStyle: "blue",
-							fillStyle: "#9da"
-						});
-					}
-				});
+			var layer1 = new Konva.Layer();
+			var layer2 = new Konva.Layer();
+			var group = new Konva.Group({
+				clipFunc: function (ctx) {
+					drawPolygon(ctx, {
+						x: 300,
+						y: 300,
+						num: 6,
+						r: 100,
+						strokeStyle: "blue",
+						fillStyle: "#9da"
+					});
+				}
+			});
+			var group2 = new Konva.Group();
+			function drawImage1(imageObj) {
 				var darthVaderImg = new Konva.Image({
 					image: imageObj,
-					width: 2500,
-					height: 1667,
-					draggable: true
+					x: 0,
+					y: 0,
+					width: 605,
+					height: 456
 				});
 
 				group.add(darthVaderImg);
-				layer.add(group);
-				stage.add(layer);
 			}
+			function drawImage2(imageObj, x, y, w, h) {
+				var img = new Konva.Image({
+					image: imageObj,
+					x: x || 0,
+					y: y || 0,
+					width: w || 100,
+					height: h || 100
+				});
+				group2.add(img);
+			}
+
+			var simpleText = new Konva.Text({
+				x: stage.width() / 2,
+				y: 15,
+				text: "Simple Text",
+				fontSize: 30,
+				fontFamily: "Calibri",
+				fill: "green"
+			});
+			var complexText = new Konva.Text({
+				x: 20,
+				y: 60,
+				text: "COMPLEX TEXT\n\nAll the world's a stage, and all the men and women merely players. They have their exits and their entrances.",
+				fontSize: 18,
+				fontFamily: "Calibri",
+				fill: "#555",
+				width: 300,
+				padding: 20,
+				align: "center"
+			});
 			var img3 = new Image();
 			img3.onload = function () {
-				drawImage(this);
+				drawImage1(this);
 			};
 			img3.crossOrigin = "Anonymous";
-			img3.src = "https://i.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ";
+			img3.src = "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/ELSWORD/Event/E20221215/assets/css/images/slide2.png";
 
-			document.querySelector("#btn").addEventListener("click", function () {
-				var dataURL = stage.toDataURL();
-				var elemImg = document.querySelector("#img");
-				// console.log(dataURL);
-				// elemImg.setAttribute("src", dataURL);
+			var Vader = new Image();
+			Vader.onload = function () {
+				drawImage2(this, 0, 0, 605, 456);
+			};
+			Vader.crossOrigin = "Anonymous";
+			Vader.src = "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/ELSWORD/Event/E20221215/assets/css/images/slide1.png";
 
-				var img = new Image();
-				img.src = dataURL;
-				img.onload = function () {
-					ctx.drawImage(img, 150, 150, 100, 100);
-				};
-			});
+			layer1.add(group2);
+			layer1.add(simpleText);
+			layer1.add(complexText);
+			layer2.add(group);
+
+			stage.add(layer1, layer2);
 		</script>
 	</body>
 </html>

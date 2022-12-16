@@ -20,7 +20,6 @@
 
 		<title>{{title}}</title>
 		<!-- CSS -->
-		<link href="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/default.css" />
 
 		<!-- JS -->
@@ -30,106 +29,23 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/1.1.2/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.1.0/vuex.global.js"></script>
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
 		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
-		<!-- GTM -->
-		<script>
-			(function (w, d, s, l, i) {
-				w[l] = w[l] || [];
-				w[l].push({
-					"gtm.start": new Date().getTime(),
-					event: "gtm.js"
-				});
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s),
-					dl = l != "dataLayer" ? "&l=" + l : "";
-				j.async = true;
-				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, "script", "dataLayer", "{{GTM}}");
-		</script>
 	</head>
 
 	<body>
-		<!-- GTM -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{GTM}}" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
-
 		<!-- 內容開始 -->
-		<div class="index">
-			<div class="top-info">
-				<a href="javascript:;" class="top-info__history"></a>
-				<a href="javascript:;" class="top-info__bag on"></a>
-				<div class="top-info__coin-box">
-					<a href="javascript:;" class="top-info__coin"></a>
-					<span>9999999</span>
-				</div>
-			</div>
-			<div class="container">
-				<!-- 標題區 -->
-				<div class="index-header">
-					<div class="index-header__slogan1">陣營戰</div>
-					<div class="index-header__slogan2">勢力問鼎 征服亞丁</div>
-					<a href="javascript:;" class="index-header__btn"><span>即刻加入</span></a>
-				</div>
-				<!-- 活動資訊 -->
-				<div class="event-info">
-					<div class="event-info__title">活動資訊</div>
-					<div class="event-info__pop-group">
-						<div class="event-info__pop-box">
-							<div class="event-info__pop-border"><div class="event-info__pop-card"></div></div>
-							<div class="event-info__pop-text">個人名片</div>
-						</div>
-						<div class="event-info__pop-box">
-							<div class="event-info__pop-border">
-								<div class="event-info__pop-faction">
-									<span class="event-info__pop-faction--1"></span>
-									<span class="event-info__pop-faction--2"></span>
-									<span class="event-info__pop-faction--3"></span>
-								</div>
-							</div>
-							<div class="event-info__pop-text">陣營競爭</div>
-						</div>
-					</div>
-				</div>
-				<!-- 陣營戰排行 -->
-				<div class="faction-rank">
-					<div class="faction-rank__title">陣營戰排行</div>
-					<div class="faction-rank__group">
-						<div class="faction-rank__list">
-							<div class="faction-rank__faction" data-rank="2" data-faction="kent"></div>
-							<div class="faction-rank__faction" data-rank="1" data-faction="heine"></div>
-							<div class="faction-rank__faction" data-rank="3" data-faction="aden"></div>
-						</div>
-					</div>
-					<div class="faction-rank__tab-group">
-						<a href="javascript:;" class="faction-rank__tab-btn">攻城掠地</a>
-						<a href="javascript:;" class="faction-rank__tab-btn">陣營聲量</a>
-						<a href="javascript:;" class="faction-rank__tab-btn">團隊養成</a>
-						<a href="javascript:;" class="faction-rank__tab-btn">遊戲活耀</a>
-					</div>
-				</div>
-
-				<!-- 注意事項 -->
-				<div class="notice">
-					<div class="notice__title">注意事項</div>
-					<ol class="notice__list">
-						<li class="notice__li">背包虛擬寶物兌換時，獎勵將發送至當前在線上的遊戲角色。若要避免獎勵置入錯誤，請玩家先登入遊戲，並且正確選擇要發送的伺服器與角色名稱。</li>
-						<li class="notice__li">【獎勵物品】未標示數量的均為1個。</li>
-						<li class="notice__li">活動開始起，所有參與本活動玩家將視同同意本活動最後公告之內容。</li>
-						<li class="notice__li">玩家如因個人線路不穩導致斷線或連接失敗等問題，或因其他非可歸責於本公司之事<br />由，本公司將一概不負任何責任，活動亦將照常舉行且不另作其他補償。</li>
-						<li class="notice__li">活動所標示之各項達成條件，將依本公司系統紀錄之數據為主，而非玩家自行判定是否達成活動條件。</li>
-						<li class="notice__li">本公司將保留變更獎項內容以及核准兌換與否之權利，詳細組合明細、寶箱內容及異動說明，本公司將在活動網頁中公告，公告內容均以本活動網頁最後一次公佈之內容為準，請玩家密切注意網頁公佈訊息。</li>
-						<li class="notice__li">如活動內容中註明:「此為機會中獎商品」，購買或參與活動不代表即可獲得特定商品。</li>
-						<li class="notice__li">如有發現任何遊戲BUG或其他問題，應立即向【客服回報】系統反映，不得利用遊戲bug或其他問題擅自破壞遊戲平衡，否則本公司得依網路連線遊戲服務定型化契約，向該玩家進行懲處並請求損害賠償。</li>
-					</ol>
-				</div>
-			</div>
+		<div id="app">
+			<sec1></sec1>
+			<sec2></sec2>
+			<sec3></sec3>
 		</div>
 
 		<!-- footer -->
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂M" theme="dark"></script>
-		<script src="./js/lightbox.js"></script>
-		<script src="./js/default.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂國際服" theme="dark"></script>
+		<script type="module" src="./js/default.js"></script>
 	</body>
 </html>
