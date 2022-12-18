@@ -36,4 +36,48 @@ body {
 #app {
 	width: 100%;
 	position: relative;
+	background-position: center 0;
+	background-size: 1920px 432px;
+	background-image: url("./img/bg.jpg");
+	background-repeat: repeat-y;
+	@include media {
+		background-size: vw(768) vw(173);
+	}
+}
+.sec {
+	&2 {
+		&-wrap {
+			position: relative;
+			background-color: rgba(#484848, 0.06);
+		}
+	}
+}
+.container {
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+}
+.ball {
+	width: 56px;
+	height: 56px;
+	background-size: cover;
+	@include media {
+		width: vw(56);
+		height: vw(56);
+	}
+	&[data-type="allin"] {
+		background-image: url("./img/ball-allin.png");
+	}
+	&[data-type="coin"] {
+		background-image: url("./img/ball-coin.png");
+	}
+	&[data-type="elder"] {
+		background-image: url("./img/ball-elder.png");
+	}
+	&[data-type="epic"] {
+		background-image: url("./img/ball-epic.png");
+	}
+	&[data-type="legend"] {
+		background-image: url("./img/ball-legend.png");
+	}
 }

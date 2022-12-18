@@ -1,0 +1,24 @@
+.sec3 {
+	&-title {
+		width: 451px;
+		height: 145px;
+		background-image: url("./img/title-notice.png");
+		background-size: cover;
+		@include media {
+			width: vw(357);
+			height: vw(116);
+			background-image: url("./img/m-title-notice.png");
+		}
+	}
+	&-list {
+		font-size: 30px;
+		color: #fd6f61;
+		padding-left: 82px;
+		@include media {
+			font-size: vw(30);
+			padding-left: vw(60);
+		}
+		&__li {
+		}
+	}
+}

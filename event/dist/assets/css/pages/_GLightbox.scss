@@ -39,37 +39,18 @@
 		pointer-events: none;
 	}
 	&__close {
+		width: 45px;
+		height: 46px;
 		position: absolute;
 		top: 0;
 		right: -40px;
-		background-color: var(--btnBg, #ff9c00);
-		border-radius: 4px;
+		background-image: url("./img/lb-btn-close.png");
 		@include media {
-			width: vw(60) !important;
-			height: vw(60) !important;
+			width: vw(45);
+			height: vw(46);
 			right: 0;
 			border-radius: vw(4);
 			top: vw(-84);
-		}
-		&:before {
-			content: "";
-			width: 1px;
-			height: 80%;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			background-color: var(--btnText, #fff);
-			transform: translate(-50%, -50%) rotate(45deg);
-		}
-		&:after {
-			content: "";
-			width: 1px;
-			height: 80%;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			background-color: var(--btnText, #fff);
-			transform: translate(-50%, -50%) rotate(-45deg);
 		}
 	}
 	&__wrap {
@@ -181,5 +162,260 @@
 		.g-yt__img {
 			display: none;
 		}
+	}
+}
+.lb-btn {
+	&__confirm {
+		width: 229px;
+		height: 91px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-confirm.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(229);
+			height: vw(91);
+		}
+	}
+	&__get {
+		width: 229px;
+		height: 91px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-get.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(229);
+			height: vw(91);
+		}
+	}
+	&__no {
+		width: 229px;
+		height: 91px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-no.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(229);
+			height: vw(91);
+		}
+	}
+	&__play {
+		width: 229px;
+		height: 91px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-play.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(229);
+			height: vw(91);
+		}
+	}
+	&__submit {
+		width: 199px;
+		height: 84px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-submit.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(199);
+			height: vw(84);
+		}
+	}
+	&__select-all {
+		width: 199px;
+		height: 84px;
+		background-size: 200%;
+		background-image: url("./img/lb-btn-select-all.png");
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(199);
+			height: vw(84);
+		}
+	}
+}
+.lb-title-award {
+	width: 316px;
+	height: 88px;
+	background-size: cover;
+	background-image: url("./img/lb-title-award.png");
+	@include media {
+		width: vw(316);
+		height: vw(88);
+	}
+}
+.lb-title-box-award {
+	width: 516px;
+	height: 88px;
+	background-size: cover;
+	background-image: url("./img/lb-title-box-award.png");
+	@include media {
+		width: vw(516);
+		height: vw(88);
+	}
+}
+.lb-title-coin-history {
+	width: 316px;
+	height: 88px;
+	background-size: cover;
+	background-image: url("./img/lb-title-coin-history.png");
+	@include media {
+		width: vw(316);
+		height: vw(88);
+	}
+}
+.lb-title-event-info {
+	width: 481px;
+	height: 88px;
+	background-size: cover;
+	background-image: url("./img/lb-title-event-info.png");
+	@include media {
+		width: vw(481);
+		height: vw(88);
+	}
+}
+.lb-title-reward-info {
+	width: 563px;
+	height: 88px;
+	background-image: url("./img/lb-title-reward-info.png");
+	background-size: cover;
+	@include media {
+		width: vw(563);
+		height: vw(88);
+	}
+}
+.lb-text-check-login {
+	width: 417px;
+	height: 38px;
+	background-size: cover;
+	background-image: url("./img/lb-text-check-login.png");
+	@include media {
+		width: vw(417);
+		height: vw(38);
+	}
+}
+.lb-text-get-award {
+	width: 413px;
+	height: 88px;
+	background-size: cover;
+	background-image: url("./img/lb-text-get-award.png");
+	@include media {
+		width: vw(413);
+		height: vw(88);
+	}
+}
+.lb-text-play {
+	width: 423px;
+	height: 39px;
+	background-size: cover;
+	background-image: url("./img/lb-text-play.png");
+	@include media {
+		width: vw(423);
+		height: vw(39);
+	}
+}
+.lb-text-want-award {
+	width: 319px;
+	height: 38px;
+	background-image: url("./img/lb-text-want-award.png");
+	background-size: cover;
+	@include media {
+		width: vw(319);
+		height: vw(38);
+	}
+}
+.lb-tab-award1 {
+	width: 599px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-award1.png");
+	@include media {
+		width: vw(599);
+		height: vw(65);
+	}
+}
+.lb-tab-award2 {
+	width: 384px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-award2.png");
+	@include media {
+		width: vw(384);
+		height: vw(65);
+	}
+}
+.lb-tab-coin-history1 {
+	width: 599px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-coin-history1.png");
+	@include media {
+		width: vw(599);
+		height: vw(65);
+	}
+}
+.lb-tab-event-info1 {
+	width: 875px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-event-info1.png");
+	@include media {
+		width: vw(623);
+		height: vw(65);
+		background-image: url("./img/m-lb-tab-event-info1.png");
+	}
+}
+.lb-tab-event-info2 {
+	width: 875px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-event-info2.png");
+	@include media {
+		width: vw(623);
+		height: vw(65);
+		background-image: url("./img/m-lb-tab-event-info2.png");
+	}
+}
+.lb-tab-event-info3 {
+	width: 875px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-event-info3.png");
+	@include media {
+		width: vw(623);
+		height: vw(65);
+		background-image: url("./img/m-lb-tab-event-info3.png");
+	}
+}
+.lb-tab-event-info4 {
+	width: 875px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-event-info4.png");
+	@include media {
+		width: vw(623);
+		height: vw(65);
+		background-image: url("./img/m-lb-tab-event-info4.png");
+	}
+}
+.lb-tab-reward-info1 {
+	width: 798px;
+	height: 65px;
+	background-size: cover;
+	background-image: url("./img/lb-tab-reward-info1.png");
+	@include media {
+		width: vw(634);
+		height: vw(65);
+		background-image: url("./img/m-lb-tab-reward-info1.png");
 	}
 }

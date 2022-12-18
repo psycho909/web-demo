@@ -1,0 +1,118 @@
+.logo {
+	width: 277px;
+	height: 118px;
+	background-image: url("./img/logo.png");
+	background-size: cover;
+	@include media {
+		width: vw(278);
+		height: vw(114);
+		background-image: url("./img/m-logo.png");
+	}
+}
+.sec1 {
+	&-top {
+		&__account {
+			width: 310px;
+			height: 76px;
+			background-size: cover;
+			background-image: url("./img/account-bg.png");
+			@include media {
+				width: vw(310);
+				height: vw(76);
+			}
+		}
+		&__login {
+			width: 120px;
+			height: 78px;
+			background-size: 200%;
+			background-image: url("./img/btn-login.png");
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(120);
+				height: vw(78);
+			}
+		}
+		&__logout {
+			width: 120px;
+			height: 78px;
+			background-size: 200%;
+			background-image: url("./img/btn-logout.png");
+			@include hover {
+				background-position-x: 100%;
+			}
+			@include media {
+				width: vw(120);
+				height: vw(78);
+			}
+		}
+	}
+	&-slogan1 {
+		width: 827px;
+		height: 733px;
+		background-size: cover;
+		background-image: url("./img/slogan1.png");
+		@include media {
+			width: vw(641);
+			height: vw(568);
+		}
+	}
+	&-slogan2 {
+		width: 311px;
+		height: 738px;
+		background-size: cover;
+		background-image: url("./img/slogan2.png");
+		@include media {
+			width: vw(720);
+			height: vw(224);
+			background-image: url("./img/m-slogan2.png");
+		}
+	}
+	&-time {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 35px;
+		color: #f54e46;
+		font-weight: bold;
+		@include media {
+			font-size: vw(35);
+		}
+	}
+	&-btns {
+		&__btn {
+			width: 303px;
+			height: 122px;
+			background-size: 200%;
+			@include media {
+				width: vw(188);
+				height: vw(84);
+			}
+			&[data-btn="event-info"] {
+				background-image: url("./img/btn-event-info.png");
+				@include media {
+					background-image: url("./img/m-btn-event-info.png");
+				}
+			}
+			&[data-btn="award-info"] {
+				background-image: url("./img/btn-award-info.png");
+				@include media {
+					background-image: url("./img/m-btn-award-info.png");
+				}
+			}
+			&[data-btn="coin-history"] {
+				background-image: url("./img/btn-coin-history.png");
+				@include media {
+					background-image: url("./img/m-btn-coin-history.png");
+				}
+			}
+			&[data-btn="get-award"] {
+				background-image: url("./img/btn-get-award.png");
+				@include media {
+					background-image: url("./img/m-btn-get-award.png");
+				}
+			}
+		}
+	}
+}
