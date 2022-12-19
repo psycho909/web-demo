@@ -142,6 +142,10 @@
 }
 .lb-btn {
 	font-size: 0;
+	&__group {
+		display: flex;
+		justify-content: center;
+	}
 	&__confirm {
 		width: 229px;
 		height: 91px;
@@ -199,6 +203,7 @@
 		height: 84px;
 		background-size: 200%;
 		background-image: url("./img/lb-btn-submit.png");
+		font-size: 0;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -212,6 +217,7 @@
 		height: 84px;
 		background-size: 200%;
 		background-image: url("./img/lb-btn-select-all.png");
+		font-size: 0;
 		@include hover {
 			background-position-x: 100%;
 		}
@@ -220,6 +226,10 @@
 			height: vw(84);
 		}
 	}
+}
+.lb-notice {
+	font-weight: bold;
+	margin-top: 28px;
 }
 .lb-title {
 	position: absolute;
@@ -312,12 +322,12 @@
 	}
 }
 .lb-text-want-award {
-	width: 319px;
+	width: 379px;
 	height: 38px;
 	background-image: url("./img/lb-text-want-award.png");
 	background-size: cover;
 	@include media {
-		width: vw(319);
+		width: vw(379);
 		height: vw(38);
 	}
 }
@@ -524,6 +534,169 @@
 		&__source {
 			flex: 1;
 			flex-shrink: 0;
+		}
+	}
+}
+.lb-award-get {
+	.lb-content {
+		width: 599px;
+		margin: 0 auto;
+		padding: 28px 0;
+		text-align: left;
+		line-height: 1.5;
+		&:nth-child(2) {
+			display: flex;
+		}
+		&__tab {
+			position: relative;
+			z-index: 1;
+		}
+		&__account {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		&__select {
+			width: 350px;
+			height: 114px;
+			border: 1px solid #953e3e;
+			margin-top: -28px;
+			position: relative;
+			z-index: 0;
+			background-image: url("./img/triangle.png");
+			background-size: 23px 14px;
+			background-position: calc((350 - 23 - 17) * 1px) center;
+			background-repeat: no-repeat;
+			select {
+				border: none;
+				appearance: none;
+				-moz-appearance: none;
+				-webkit-appearance: none;
+				width: 100%;
+				height: 100%;
+				background-color: transparent;
+				color: #ff6c5e;
+				text-align: center;
+				cursor: pointer;
+			}
+			select::-ms-expand {
+				display: none;
+			}
+		}
+		&__box {
+			display: flex;
+			text-align: center;
+			padding-left: 8px;
+			&:nth-child(odd) {
+				background-color: rgba(#ffbcb6, 0.2);
+			}
+			& > div {
+				padding: 12px;
+			}
+		}
+		&__date {
+			width: 100px;
+			flex-shrink: 0;
+			border-right: 1px solid #953e3e;
+		}
+		&__name {
+			flex: 1;
+			flex-shrink: 0;
+			border-right: 1px solid #953e3e;
+		}
+		&__checkbox {
+			width: 60px;
+			flex-shrink: 0;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			input {
+				display: none;
+				&:checked + span {
+					&:before {
+						content: "";
+						width: 29px;
+						height: 28px;
+						background-image: url("./img/lb-check.png");
+						position: absolute;
+						top: -6px;
+						left: 4px;
+						background-size: cover;
+					}
+				}
+			}
+			&-style {
+				position: relative;
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				border: 1px solid #fff;
+				box-shadow: inset 0 0 8px rgba(#ff6c5e, 0.3);
+			}
+		}
+		&__btns {
+			display: flex;
+			flex-direction: column;
+			margin-left: autoi;
+		}
+	}
+}
+.lb-check-award {
+}
+.lb-play-end {
+	.lb-content {
+		margin: 0 auto;
+		padding: 28px 0;
+		text-align: left;
+		margin-bottom: 50px;
+		&__award {
+			&-li {
+				display: flex;
+				align-items: center;
+				margin-bottom: 6px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+			&-type {
+				width: 90px;
+				height: 65px;
+				font-size: 30px;
+				font-weight: bold;
+				color: #ffedb5;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-right: 18px;
+				@include media {
+					width: vw(90);
+					height: vw(65);
+					font-size: vw(30);
+				}
+				&[data-type="epic"] {
+					background-color: $epic;
+				}
+				&[data-type="legend"] {
+					background-color: $legend;
+				}
+				&[data-type="elder"] {
+					background-color: $elder;
+				}
+				&[data-type="myth"] {
+					background-color: $myth;
+				}
+			}
+			&-text {
+				font-size: 24px;
+				font-weight: bold;
+				color: #ed685b;
+				letter-spacing: -1px;
+				@include media {
+					font-size: vw(30);
+				}
+			}
 		}
 	}
 }

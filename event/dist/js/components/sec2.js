@@ -1,15 +1,21 @@
 import lightbox from "./GLightbox.js";
 let sec2 = {
 	setup() {
+		let playCheckLB = Vue.ref(false);
+		let playEndLB = Vue.ref(true);
 		const onRemove = () => {
 			messageLB.value = false;
 		};
+		const play = () => {};
 		return {
 			onRemove,
+			playCheckLB,
+			playEndLB,
+			play
 		};
 	},
 	components: {
-		lightbox,
+		lightbox
 	},
 	template: `
    
@@ -107,7 +113,38 @@ let sec2 = {
             </div>
         </div>
     </div>
-    `,
+    <lightbox v-model:showLightbox="playCheckLB" class-name="w640 lb-check-award" :action="false">
+        <template #lightbox-content>
+            <div class="lb-text lb-text-play"></div>
+            <div class="lb-btn__group">
+                <a href="javascript:;" class="lb-btn lb-btn__play" @click="play">轉起來</a>
+                <a href="javascript:;" class="lb-btn lb-btn__no" @click="()=>playCheckLB=false">先不要</a>
+            </div>
+        </template>
+    </lightbox>
+    <lightbox v-model:showLightbox="playEndLB" class-name="w640 lb-play-end" :action="false">
+        <template #lightbox-title>
+            <div class="lb-title lb-title-box-award"></div>
+        </template>
+        <template #lightbox-content>
+            <div class="lb-content">
+                <div class="lb-content__award-li">
+                    <span class="lb-content__award-type" data-type="epic">史詩</span>
+                    <span class="lb-content__award-text">二十個系統字二十個字二十個系統字二十個字</span>
+                </div>
+                <div class="lb-content__award-li">
+                    <span class="lb-content__award-type" data-type="epic">史詩</span>
+                    <span class="lb-content__award-text">二十個系統字二十個字二十個系統字二十個字</span>
+                </div>
+                <div class="lb-content__award-li">
+                    <span class="lb-content__award-type" data-type="epic">史詩</span>
+                    <span class="lb-content__award-text">二十個系統字二十個字二十個系統字二十個字</span>
+                </div>
+            </div>
+            <div class="lb-notice green">獎勵可於[領獎專區]確認，並可選擇角色來領取。</div>
+        </template>
+    </lightbox>
+    `
 };
 
 export default sec2;

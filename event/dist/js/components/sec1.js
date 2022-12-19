@@ -3,16 +3,30 @@ let sec1 = {
 	setup() {
 		let eventInfoLB = Vue.ref(false);
 		let awardInfoLB = Vue.ref(false);
-		let coinHistoryLB = Vue.ref(true);
+		let coinHistoryLB = Vue.ref(false);
+		let awardGetLB = Vue.ref(false);
+		let checkAwardLB = Vue.ref(true);
+		let awardCompletedLB = Vue.ref(true);
 
+		let awardGet = () => {
+			console.log("awardGet");
+		};
+		let awardNo = () => {
+			console.log("awardNo");
+		};
 		return {
 			eventInfoLB,
 			awardInfoLB,
 			coinHistoryLB,
+			awardGetLB,
+			checkAwardLB,
+			awardCompletedLB,
+			awardGet,
+			awardNo
 		};
 	},
 	components: {
-		lightbox,
+		lightbox
 	},
 	template: `
         <div class="sec sec1">
@@ -32,8 +46,8 @@ let sec1 = {
                 <div class="sec1-btns">
                     <a href="javascript:;" class="sec1-btns__btn" data-btn="event-info" @click="()=>eventInfoLB=true">活動介紹</a>
                     <a href="javascript:;" class="sec1-btns__btn" data-btn="award-info" @click="()=>awardInfoLB=true">獎勵介紹</a>
-                    <a href="javascript:;" class="sec1-btns__btn" data-btn="coin-history">代幣紀錄</a>
-                    <a href="javascript:;" class="sec1-btns__btn" data-btn="get-award">領獎專區</a>
+                    <a href="javascript:;" class="sec1-btns__btn" data-btn="coin-history" @click="()=>coinHistoryLB=true">代幣紀錄</a>
+                    <a href="javascript:;" class="sec1-btns__btn" data-btn="get-award" @click="()=>awardGetLB=true">領獎專區</a>
                 </div>
             </div>
         </div>
@@ -149,7 +163,69 @@ let sec1 = {
                 </div>
             </template>
         </lightbox>
-    `,
+        <lightbox v-model:showLightbox="awardGetLB" class-name="w640 lb-award-get" :action="false">
+            <template #lightbox-title>
+                <div class="lb-title lb-title-award"></div>
+            </template>
+            <template #lightbox-content>
+                <div class="lb-content">
+                    <div class="lb-content__tab lb-tab-award1"></div>
+                    <div class="lb-content__box">
+                        <div class="lb-content__date">8/17</div>
+                        <div class="lb-content__name">十五個系統字十五個系統字唷唷唷</div>
+                        <label class="lb-content__checkbox">
+                            <input type="checkbox" name="item1" />
+                            <span class="lb-content__checkbox-style"></span>
+                        </label>
+                    </div>
+                    <div class="lb-content__box">
+                        <div class="lb-content__date">8/17</div>
+                        <div class="lb-content__name">十五個系統字十五個系統字唷唷唷</div>
+                        <label class="lb-content__checkbox">
+                            <input type="checkbox" name="item1" />
+                            <span class="lb-content__checkbox-style"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="lb-content">
+                    <div class="lb-content__account">
+                        <div class="lb-content__tab lb-tab-award2"></div>
+                        <div class="lb-content__select">
+                            <select name="account" className="lb-content__select-control">
+                                <option value="-1">請選擇帳號</option>
+                                <option value="1">十個系統字十個系統字</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="lb-content__btns">
+                        <a href="javascript:;" class="lb-content__btn lb-btn__select-all">一次全選</a>
+                        <a href="javascript:;" class="lb-content__btn lb-btn__submit">確認送出</a>
+                    </div>
+                </div>
+                <div class="lb-content__progress">
+                
+                </div>
+            </template>
+        </lightbox>
+        <lightbox v-model:showLightbox="checkAwardLB" class-name="w640 lb-check-award" :action="false">
+            <template #lightbox-content>
+                <div class="lb-text lb-text-want-award"></div>
+                <div class="lb-btn__group">
+                    <a href="javascript:;" class="lb-btn lb-btn__get" @click="awardGet">我要領</a>
+                    <a href="javascript:;" class="lb-btn lb-btn__no" @click="awardNo">先不要</a>
+                </div>
+                <div class="lb-notice green">領取後無法進行更改，還請留意選取角色。</div>
+            </template>
+        </lightbox>
+        <lightbox v-model:showLightbox="awardCompletedLB" class-name="w640 lb-check-award" :action="false">
+            <template #lightbox-content>
+                <div class="lb-text lb-text-get-award"></div>
+                <div class="lb-btn__group">
+                    <a href="javascript:;" class="lb-btn lb-btn__get" @click="()=>awardCompletedLB=false">確定</a>
+                </div>
+            </template>
+        </lightbox>
+    `
 };
 
 export default sec1;

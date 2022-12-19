@@ -78,6 +78,9 @@ body {
 	width: 1200px;
 	margin: 0 auto;
 	position: relative;
+	@include media {
+		width: 100%;
+	}
 }
 .ball {
 	width: 56px;
