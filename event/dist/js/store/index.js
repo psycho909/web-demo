@@ -1,6 +1,15 @@
 const store = new Vuex.createStore({
 	state: {
-		message: "Message",
+		message: "",
+		login: false,
+	},
+	mutations: {
+		toggleLogin(state) {
+			state.login = !state.login;
+		},
+		setMessage(state, text) {
+			state.setMessage = text;
+		},
 	},
 });
 

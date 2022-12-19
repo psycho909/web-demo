@@ -1,9 +1,16 @@
 .sec3 {
+	.container {
+		padding-top: 141px;
+		padding-bottom: 275px;
+	}
 	&-title {
 		width: 451px;
 		height: 145px;
 		background-image: url("./img/title-notice.png");
 		background-size: cover;
+		font-size: 0;
+		margin-left: -11px;
+		margin-bottom: 52px;
 		@include media {
 			width: vw(357);
 			height: vw(116);
@@ -14,11 +21,16 @@
 		font-size: 30px;
 		color: #fd6f61;
 		padding-left: 82px;
+		line-height: 1.5;
 		@include media {
 			font-size: vw(30);
 			padding-left: vw(60);
 		}
 		&__li {
+			margin-bottom: 20px;
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 }

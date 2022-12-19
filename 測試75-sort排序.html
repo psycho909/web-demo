@@ -89,16 +89,16 @@
 			document.getElementById("input").addEventListener("keyup", function (e) {
 				console.log(e);
 			});
-			// var data = [
-			// 	{ date: "2021/12/02 12:00:00", num: 1, title: "A" },
-			// 	{ date: "2021/12/01 12:00:00", num: 3, title: "C" },
-			// 	{ date: "2021/12/01 12:00:00", num: 2, title: "B" },
-			// 	{ date: "2021/12/07 12:00:00", num: 6, title: "G" },
-			// 	{ date: "2021/12/06 12:00:00", num: 7, title: "F" },
-			// 	{ date: "2021/12/08 12:00:00", num: 4, title: "D" },
-			// 	{ date: "2021/12/05 12:00:00", num: 8, title: "E" },
-			// 	{ date: "2021/12/04 12:00:00", num: 5, title: "H" }
-			// ];
+			var data = [
+				{ date: "2021/12/02 12:00:00", num: 1, title: "A", show: 0 },
+				{ date: "2021/12/01 12:00:00", num: 3, title: "C", show: 1 },
+				{ date: "2021/12/01 12:00:00", num: 2, title: "B", show: 1 },
+				{ date: "2021/12/07 12:00:00", num: 6, title: "G", show: 0 },
+				{ date: "2021/12/06 12:00:00", num: 7, title: "F", show: 1 },
+				{ date: "2021/12/08 12:00:00", num: 4, title: "D", show: 0 },
+				{ date: "2021/12/05 12:00:00", num: 8, title: "E", show: 1 },
+				{ date: "2021/12/04 12:00:00", num: 5, title: "H", show: 0 }
+			];
 			// var index = 0;
 			// var obj = data.reduce((acc, i) => {
 			// 	if (acc[data[index].date]) {
@@ -112,14 +112,65 @@
 			// }, {});
 
 			// console.log(obj);
-			// data.sort((a, b) => {
-			// 	if (+new Date(a.date) == +new Date(b.date)) {
-			// 		return a.num - b.num;
-			// 	}
-			// 	return a.date > b.date ? 1 : -1;
-			// });
+			data.sort((a, b) => {
+				if (+new Date(a.date) == +new Date(b.date)) {
+					return a.num > b.num ? -1 : 1;
+				}
+				return a.date > b.date ? -1 : 1;
+			});
 
-			// console.log(data);
+			console.log(data);
+
+			[
+				{
+					date: "2021/12/08 12:00:00",
+					num: 4,
+					title: "D",
+					show: 0
+				},
+				{
+					date: "2021/12/07 12:00:00",
+					num: 6,
+					title: "G",
+					show: 0
+				},
+				{
+					date: "2021/12/06 12:00:00",
+					num: 7,
+					title: "F",
+					show: 1
+				},
+				{
+					date: "2021/12/05 12:00:00",
+					num: 8,
+					title: "E",
+					show: 1
+				},
+				{
+					date: "2021/12/04 12:00:00",
+					num: 5,
+					title: "H",
+					show: 0
+				},
+				{
+					date: "2021/12/02 12:00:00",
+					num: 1,
+					title: "A",
+					show: 0
+				},
+				{
+					date: "2021/12/01 12:00:00",
+					num: 3,
+					title: "C",
+					show: 1
+				},
+				{
+					date: "2021/12/01 12:00:00",
+					num: 2,
+					title: "B",
+					show: 1
+				}
+			];
 		</script>
 	</body>
 </html>

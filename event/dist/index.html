@@ -42,6 +42,22 @@
 			<sec1></sec1>
 			<sec2></sec2>
 			<sec3></sec3>
+			<lightbox v-model:show-lightbox="loginLB" class-name="w640" :close="false">
+				<template #lightbox-content>
+					<div class="lb-text lb-text-check-login"></div>
+				</template>
+				<template #lightbox-btn>
+					<a href="javascript:;" class="lb-btn lb-btn__confirm" @click="onConfirm">確認</a>
+				</template>
+			</lightbox>
+			<lightbox v-model:show-lightbox="messageLB">
+				<template #lightbox-content>
+					<div class="lb-text">{{messageLBText}}</div>
+				</template>
+				<template #lightbox-btn>
+					<a href="javascript:;" class="btn btn__submit" @click="onCancel">確認</a>
+				</template>
+			</lightbox>
 		</div>
 
 		<!-- footer -->

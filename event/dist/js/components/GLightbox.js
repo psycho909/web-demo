@@ -48,9 +48,7 @@ let GLightbox = {
                     </slot>
                 </template>
                 <div class="g-lightbox__container">
-                    <div class="g-lightbox__title" v-if="slotTile">
-                        <slot name="lightbox-title"></slot>
-                    </div>
+                    <slot name="lightbox-title"></slot>
                     <div class="g-lightbox__content">
                         <slot name="lightbox-content"></slot>
                     </div>

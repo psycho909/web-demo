@@ -6,7 +6,7 @@ let sec3 = {
 		};
 	},
 	template: `
-    <div class="sec sec3-wrap">
+    <div class="sec sec3">
        <div class="container">
             <div class="sec3-title">注意事項</div>
             <ol class="sec3-list">

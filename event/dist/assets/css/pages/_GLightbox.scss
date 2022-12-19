@@ -15,20 +15,6 @@
 		height: 100%;
 		vertical-align: middle;
 	}
-	&.left {
-		.g-lightbox__content,
-		.g-lightbox__title,
-		.g-lightbox__img {
-			text-align: left;
-		}
-	}
-	&.center {
-		.g-lightbox__content,
-		.g-lightbox__title,
-		.g-lightbox__img {
-			text-align: center;
-		}
-	}
 	&__module {
 		width: 100%;
 		height: 100%;
@@ -42,9 +28,10 @@
 		width: 45px;
 		height: 46px;
 		position: absolute;
-		top: 0;
-		right: -40px;
+		top: -54px;
+		right: 0;
 		background-image: url("./img/lb-btn-close.png");
+		font-size: 0;
 		@include media {
 			width: vw(45);
 			height: vw(46);
@@ -56,34 +43,87 @@
 	&__wrap {
 		position: relative;
 		width: 675px;
-		margin: 32px auto;
+		margin: 120px auto;
 		vertical-align: middle;
 		display: inline-block;
+		background-repeat: no-repeat, repeat-y;
+		background-position: center bottom, center 0;
+		padding: 4px;
+		&:before {
+			content: "";
+			width: calc(100% - 16px);
+			height: 52px;
+			background-image: url("./img/coin-title-deco-top-left.png"), url("./img/coin-title-deco-top-right.png");
+			background-size: 51px 52px;
+			background-position: left 0, right 0;
+			background-repeat: no-repeat;
+			position: absolute;
+			top: 8px;
+			left: 50%;
+			transform: translateX(-50%);
+			@include media {
+				width: calc(100% - vw(4));
+				height: vw(52);
+				background-size: vw(51) vw(52);
+				top: vw(4);
+			}
+		}
+		&:after {
+			content: "";
+			width: calc(100% - 16px);
+			height: 52px;
+			background-image: url("./img/coin-title-deco-bottom-left.png"), url("./img/coin-title-deco-bottom-right.png");
+			background-size: 51px 52px;
+			background-position: left 0, right 0;
+			background-repeat: no-repeat;
+			position: absolute;
+			bottom: 8px;
+			left: 50%;
+			transform: translateX(-50%);
+			@include media {
+				width: calc(100% - vw(4));
+				height: vw(52);
+				background-size: vw(51) vw(52);
+				bottom: vw(4);
+			}
+		}
 		@include media {
 			width: vw(728);
 			margin: vw(180) auto;
 		}
 	}
-	&__title {
-		font-size: 28px;
-		margin-bottom: 18px;
-		// color: #363636;
-		@include media {
-			font-size: vw(36);
-			margin-bottom: vw(18);
+	&.w640 {
+		.g-lightbox__wrap {
+			width: 640px;
+			background-image: url("./img/lb-bg-deco-s.png"), url("./img/bg.jpg");
+			background-size: 665px 129px, 1920px 432px;
+		}
+		.lb-text {
+			margin: 60px auto 40px;
+		}
+	}
+	&.w960 {
+		.g-lightbox__wrap {
+			width: 960px;
+			background-image: url("./img/lb-bg-deco-b.png"), url("./img/bg.jpg");
+			background-size: 961px 142px, 1920px 432px;
+		}
+		.g-lightbox__container {
 		}
 	}
 	&__container {
 		width: 100%;
-		background-color: var(--bg, #fff);
 		color: rgb(74, 74, 74);
 		padding: 20px 20px 30px;
 		box-sizing: border-box;
-		border-radius: 10px;
-		font-size: 20px;
 		white-space: normal;
 		word-break: break-all;
-		color: var(--text, #363636);
+		border: 1px solid #ed685b;
+		color: #fd6f61;
+		font-size: 25px;
+		.green {
+			color: #40b182;
+		}
 		@include media {
 			padding: vw(20) vw(20) vw(30);
 			border-radius: vw(10);
@@ -91,28 +131,6 @@
 		}
 	}
 	&__content {
-		text-align: center;
-		img {
-			max-width: 100%;
-			display: inline-block;
-		}
-		.table {
-			display: inline-block;
-			float: none !important;
-		}
-		&:after {
-			content: "";
-			clear: both;
-			display: table;
-		}
-	}
-	&__text {
-		& + .g-lightbox__img {
-			margin-top: 24px;
-			@include media {
-				margin-top: vw(32);
-			}
-		}
 	}
 	&__img {
 		font-size: 0;
@@ -121,50 +139,9 @@
 			display: inline-block;
 		}
 	}
-
-	&__btn {
-		width: 185px;
-		height: 43px;
-		font-size: 18px;
-		text-decoration: none;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 10px;
-		margin: 0 auto;
-		background-color: var(--btnBg, #ff9c00);
-		color: var(--btnText, #fff);
-		@include media {
-			width: vw(300);
-			height: vw(68);
-			font-size: vw(32);
-			border-radius: vw(10);
-		}
-		&-group {
-			margin-top: 24px;
-			@include media {
-				margin-top: vw(24);
-			}
-		}
-	}
-	&__video {
-		height: 450px;
-		overflow: hidden;
-		@include media {
-			height: vw(450);
-		}
-		.g-yt {
-			height: 100%;
-		}
-		.g-yt__box {
-			height: 100%;
-		}
-		.g-yt__img {
-			display: none;
-		}
-	}
 }
 .lb-btn {
+	font-size: 0;
 	&__confirm {
 		width: 229px;
 		height: 91px;
@@ -244,6 +221,12 @@
 		}
 	}
 }
+.lb-title {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .lb-title-award {
 	width: 316px;
 	height: 88px;
@@ -293,6 +276,10 @@
 		width: vw(563);
 		height: vw(88);
 	}
+}
+.lb-text {
+	text-align: center;
+	margin: 0 auto;
 }
 .lb-text-check-login {
 	width: 417px;
@@ -417,5 +404,126 @@
 		width: vw(634);
 		height: vw(65);
 		background-image: url("./img/m-lb-tab-reward-info1.png");
+	}
+}
+.lb-eventInfo {
+	.lb-content {
+		width: 875px;
+		margin: 0 auto;
+		padding: 28px 0;
+		text-align: left;
+		line-height: 1.5;
+		&__box {
+			padding-bottom: 64px;
+			&:last-child {
+				padding-bottom: 0;
+			}
+		}
+		&__ol {
+			padding-left: 46px;
+			li {
+				margin-bottom: 18px;
+			}
+		}
+		&__inner {
+			&-ul {
+				list-style: square;
+				padding-left: 46px;
+			}
+		}
+	}
+}
+
+.lb-award {
+	.lb-content {
+		width: 798px;
+		margin: 0 auto;
+		padding: 28px 0;
+		text-align: left;
+		line-height: 1.5;
+		&__box {
+			display: flex;
+			flex-wrap: wrap;
+			padding-left: 12px;
+			padding-top: 12px;
+			padding-bottom: 24px;
+			border-bottom: 1px solid #953e3e;
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+		&__lv {
+			width: 156px;
+			height: 55px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #ffedb5;
+			&[data-type="epic"] {
+				background-color: $epic;
+			}
+			&[data-type="legend"] {
+				background-color: $legend;
+			}
+			&[data-type="elder"] {
+				background-color: $elder;
+			}
+			&[data-type="myth"] {
+				background-color: $myth;
+			}
+		}
+		&__name {
+			font-size: 30px;
+			color: #ff6c5e;
+			font-weight: bold;
+			width: 625px;
+			flex-shrink: 0;
+			text-align: center;
+		}
+		&__info {
+			font-size: 25px;
+			color: #3fb182;
+		}
+	}
+}
+.lb-coin-history {
+	.lb-content {
+		width: 599px;
+		margin: 0 auto;
+		padding: 28px 0;
+		text-align: left;
+		line-height: 1.5;
+		&__box {
+			display: flex;
+			text-align: center;
+			padding-left: 8px;
+			&:nth-child(odd) {
+				background-color: rgba(#ffbcb6, 0.2);
+			}
+		}
+		&__date {
+			width: 100px;
+			flex-shrink: 0;
+			border-right: 1px solid #953e3e;
+			position: relative;
+		}
+		&__total {
+			width: 158px;
+			flex-shrink: 0;
+			border-right: 1px solid #953e3e;
+			position: relative;
+			&:before {
+				content: "";
+				width: 1px;
+				height: 100%;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+		}
+		&__source {
+			flex: 1;
+			flex-shrink: 0;
+		}
 	}
 }
