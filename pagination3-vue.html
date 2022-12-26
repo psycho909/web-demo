@@ -120,7 +120,7 @@
 				data: function () {
 					return {
 						dataList: [], // 資料
-						totalPage: 200, // 資料總筆數
+						totalPage: 13, // 資料總筆數
 						pages: [], // 總頁碼數量
 						pagesList: [], // 當前頁碼數組
 						currentPage: 1, // 當前頁碼
@@ -189,6 +189,10 @@
 					},
 					// 上一頁
 					HandlePrevClick() {
+						if (this.currentPage - 1 < 1) {
+							this.currentPage = 1;
+							return;
+						}
 						this.SetCurrentPage(this.currentPage - 1);
 						if (this.currentPage % this.pageNumberLimit == 0) {
 							this.SetMaxPageNumberLimit(this.maxPageNumberLimit - this.pageNumberLimit);
@@ -199,6 +203,11 @@
 					},
 					// 下一頁
 					HandleNextClick() {
+						console.log(this.pagesList.length);
+						if (this.currentPage + 1 > this.pagesList.length) {
+							this.currentPage = this.pagesList.length;
+							return;
+						}
 						this.SetCurrentPage(this.currentPage + 1);
 						if (this.currentPage > this.maxPageNumberLimit) {
 							this.SetMaxPageNumberLimit(this.maxPageNumberLimit + this.pageNumberLimit);
@@ -211,7 +220,11 @@
 					HandleJumpClick(jump) {
 						var jumpPage = 0;
 						if (jump > 0) {
-							jumpPage = this.currentPage - (this.currentPage % jump) + 11;
+							if (this.currentPage % jump == 0) {
+								jumpPage = this.currentPage + 1;
+							} else {
+								jumpPage = this.currentPage - (this.currentPage % jump) + 11;
+							}
 						} else {
 							jumpPage = this.currentPage - (this.currentPage % jump) - 9;
 						}

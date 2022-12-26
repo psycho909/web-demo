@@ -63,6 +63,7 @@
 			</div>
 			<canvas class="canvas canvas-2" width="180" height="180"></canvas>
 			<canvas class="canvas canvas-3" width="300" height="300"></canvas>
+			<canvas class="canvas canvas-4" width="704" height="773"></canvas>
 		</div>
 		<script>
 			function CanvasSprite(target, step, speed) {
@@ -158,10 +159,11 @@
 			var c1 = new CanvasSprite($(".canvas-1"), 45, 45);
 			var c2 = new CanvasSprite($(".canvas-2"), 60, 60);
 			var c3 = new CanvasSprite($(".canvas-3"), 60, 60);
+			var c4 = new CanvasSprite($(".canvas-4"), 8, 60);
 			var anim = {
 				c1: {
 					play: function () {
-						c1.Loop();
+						c1.Run();
 					},
 					stop: function () {
 						c1.Stop();
@@ -187,25 +189,26 @@
 			loadingProgress({
 				loadedFN: function () {
 					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.allSettled([c1.PreLoad("./tile/tile"), c2.PreLoad("./bt_default/bt_default_"), c3.PreLoad("./bt_over/bt_over_")]).then((res) => {
+					Promise.allSettled([c1.PreLoad("./tile/tile"), c2.PreLoad("./bt_default/bt_default_"), c3.PreLoad("./bt_over/bt_over_"), c4.PreLoad("./m/")]).then((res) => {
 						$("#loadingProgress").hide();
 					});
 				},
 				autoHide: false
 			});
 			$("#play").on("click", function () {
-				var c1 = "c1";
+				// var c1 = "c1";
 				// anim[c1].play();
-				Object.entries(anim).forEach((a, i) => {
-					if (a[0] == c1) {
-						a[1].play();
-					} else {
-						a[1].stop();
-					}
-				});
+				// Object.entries(anim).forEach((a, i) => {
+				// 	if (a[0] == c1) {
+				// 		a[1].play();
+				// 	} else {
+				// 		a[1].stop();
+				// 	}
+				// });
 				// c1.Loop();
 				// c2.Loop();
 				// c3.Loop();
+				c4.Run();
 			});
 			$("#stop").on("click", function () {
 				c1.Stop();

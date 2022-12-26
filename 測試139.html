@@ -12,10 +12,24 @@
 				font-size: 56px;
 				color: var(--color, #fff);
 			}
+			.bg {
+				position: fixed;
+				width: 1920px;
+				height: 1080px;
+				top: 0;
+				left: 0;
+			}
+			.bg:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 		</style>
 	</head>
 
 	<body>
+		<div class="bg"></div>
 		<section>
 			<div class="main">
 				<div class="container">
