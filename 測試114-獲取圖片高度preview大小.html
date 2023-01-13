@@ -8,6 +8,7 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
 		<!-- GTM -->
 		<script>
 			(function (w, d, s, l, i) {
@@ -24,16 +25,84 @@
 				f.parentNode.insertBefore(j, f);
 			})(window, document, "script", "dataLayer", "GTM-PTL7HNM");
 		</script>
+		<style>
+			#foo {
+				opacity: 0;
+			}
+			.img1 {
+				background: url(https://tw.adnew.beanfun.com/ad_image/BFWebCommon_Image/1672898153115.jpg);
+			}
+			.img2 {
+				background: url(https://images.unsplash.com/5/unsplash-kitsune-4.jpg?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce40ce8b8ba365e5e6d06401e5485390);
+			}
+			.img3 {
+				background: url(https://images.unsplash.com/5/unsplash-kitsune-4.jpg?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9&s=fb86e2e09fceac9b363af536b93a1275);
+			}
+		</style>
 	</head>
 	<body>
 		<!-- GTM -->
 		<noscript>
 			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTL7HNM" height="0" width="0" style="display: none; visibility: hidden"></iframe>
 		</noscript>
+		<div class="img1"></div>
+		<div class="img2"></div>
+		<div class="img3"></div>
+		<input type="text" id="url" />
 		<input type="file" id="file" />
 		<button type="button" class="btn">送出</button>
 		<img src="" alt="" id="img" />
+		<video id="foo" src="https://tw.hicdn.beanfun.com/beanfun/promo/MapleStory/E20230104/assets/smoke-b08e0c09.mp4"></video>
+		<script src="https://cdn.jsdelivr.net/npm/get-css-data@2"></script>
 		<script>
+			var urlList = [];
+			// $("*").each(function () {
+			// 	console.log($(this).css("background-image"));
+			// 	if ($(this).css("background-image") != "none" && $(this).css("background-image").indexOf(",") == -1) {
+			// 		var bgUrl = $(this)
+			// 			.css("background-image")
+			// 			.replace(/"/g, "")
+			// 			.replace(/url\(|\)$/gi, "");
+			// 		if (urlList.indexOf(bgUrl) == -1) {
+			// 			urlList.push(bgUrl);
+			// 		}
+			// 	}
+			// });
+			const imgLoading = async (data) => {
+				function promise(data) {
+					return new Promise(function (resolve, reject) {
+						var img = new Image();
+						img.src = data;
+						img.onload = function () {
+							resolve(true);
+						};
+						img.onerror = function () {
+							resolve(false);
+						};
+					});
+				}
+				let promiseAll = [];
+				data.forEach((v, i) => {
+					promiseAll.push(promise(v));
+				});
+				return await Promise.all(promiseAll);
+			};
+			console.log("start");
+			var htmlAll = [...document.querySelectorAll("*")];
+			urlList = htmlAll
+				.map((v, i) => {
+					if (window.getComputedStyle(v).getPropertyValue("background-image") !== "none") {
+						return window
+							.getComputedStyle(v)
+							.getPropertyValue("background-image")
+							.replace(/"/g, "")
+							.replace(/url\(|\)$/gi, "");
+					}
+				})
+				.filter(Boolean);
+			imgLoading(urlList).then((res) => {
+				console.log(res);
+			});
 			var fileUploader = document.querySelector("#file");
 			var imageView = document.querySelector("#img");
 			var fileReader = new FileReader();
@@ -52,17 +121,39 @@
 				img.src = this.result;
 				console.log(this.result);
 			});
+			function getImageSizeInBytes(imgURL) {
+				var request = new XMLHttpRequest();
+				request.open("HEAD", imgURL, false);
+				request.send(null);
+				var headerText = request.getAllResponseHeaders();
+				var re = /Content\-Length\s*:\s*(\d+)/i;
+				re.exec(headerText);
+				return (parseInt(RegExp.$1) / 1024).toFixed(2) + "kb";
+			}
 			const checkImage = async (url) => {
 				return new Promise((resolve, reject) => {
 					var elem = new Image();
 					setTimeout(() => {
-						elem.onload = () => resolve(true);
+						elem.onload = () => {
+							var xhr = new XMLHttpRequest();
+							xhr.open("GET", elem.src, true);
+							xhr.responseType = "arraybuffer";
+							xhr.onreadystatechange = function () {
+								if (this.readyState == this.DONE) {
+									// resolve("Image size = " + this.response.byteLength + " bytes.");
+									console.log(this.response.byteLength);
+								}
+							};
+							xhr.send(null);
+							resolve(getImageSizeInBytes(elem.src));
+						};
 						elem.onerror = () => resolve(false);
 						elem.src = url;
 					}, 2000);
 				});
 			};
 			$(".btn").on("click", async function () {
+				let imgUrl = document.querySelector("#url").value;
 				// var img = new Image();
 				// img.onload = function () {
 				// 	console.log(this.width); // image is loaded; sizes are available
@@ -75,11 +166,11 @@
 				// 	console.log(res);
 				// });
 				console.log("Start");
-				let arr = ["https://fakeimg.pl/440x320/282828/eae0d0/?retina=1", "https://fakeimg.pl/440x320/282828/eae0d0/?retina=1", "https://fakeimg.pl/440x320/282828/eae0d0/?retina=1", "https://fakeimg.pl/440x320/282828/eae0d0/?retina=1"];
-
-				for (let i = 0; i < arr.length; i++) {
-					console.log(await checkImage(arr[i]));
-				}
+				// let arr = ["https://tw.hicdn.beanfun.com/beanfun/promo/Mabi/E20221208_next_1st/assets/image/bg1-character.png"];
+				console.log(await checkImage(imgUrl));
+				// for (let i = 0; i < arr.length; i++) {
+				// 	console.log(await checkImage(arr[i]));
+				// }
 				console.log("End");
 				// var img = await checkImage("https://fakeimg.pl/440x320/282828/eae0d0/?retina=1");
 				// if (img) {
@@ -98,10 +189,13 @@
 						$.gbox.close();
 					}
 				};
-				var HTML = '<div class="lb-title lb-title__error"></div>\
-				<div class="lb-container">\
-					<div class="lb-content lb-content--center lb-content--error">' + msg + "</div>\
-				</div>";
+				var HTML =
+					'<div class="lb-title lb-title__error"></div>\
+					<div class="lb-container">\
+						<div class="lb-content lb-content--center lb-content--error">' +
+					msg +
+					"</div>\
+					</div>";
 				$.gbox.open(HTML, config);
 			}
 		</script>

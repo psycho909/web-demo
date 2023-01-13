@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+		<style>
+			.pagination-ul {
+				display: flex;
+				list-style: none;
+			}
+			.pagination-ul li {
+				padding: 0 6px;
+				cursor: pointer;
+			}
+			.pagination-ul li span {
+				padding: 0 6px;
+				background-color: rgba(0, 0, 0, 0.15);
+			}
+			.pagination-ul li.active {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{userData}}</div>
+			<div>{{userData2}}</div>
+			<input type="text" v-model="userData.first" />
+			<input type="text" v-model="userData.last" />
+			<button type="button" @click="reset">reset</button>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				setup() {
+					let initData = () => {
+						return {
+							first: "Chen",
+							last: "Ching"
+						};
+					};
+					let userData = Vue.reactive(initData());
+					let userData2 = Vue.ref(initData());
+					let reset = () => {
+						userData = {
+							first: "123",
+							last: 321
+						};
+						userData2.value = {
+							first: "123",
+							last: 321
+						};
+						// Object.assign(userData, initData());
+					};
+					return {
+						userData,
+						userData2,
+						reset
+					};
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

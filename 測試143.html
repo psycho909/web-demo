@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				overflow: auto;
+				display: flex;
+				min-width: 1200px;
+				position: fixed;
+				width: 100%;
+			}
+			.box {
+				font-size: 24px;
+				padding: 24px 48px;
+				border: 1px solid #000;
+			}
+			.t {
+				margin-left: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box">A</div>
+			<div class="box">B</div>
+			<div class="box">C</div>
+			<div class="box">D</div>
+			<div class="box">E</div>
+			<div class="box">E</div>
+			<div class="box">E</div>
+			<div class="box">E</div>
+			<div class="box t">T</div>
+			<div class="box">T</div>
+			<div class="box">E</div>
+		</div>
+		<script>
+			let arr = [1, 2, 33, 3, 2, 1, 312, 312, 312, 321, 3, 213, 123];
+			let SetPages = async (type) => {
+				return new Promise((resolve, reject) => {
+					let count = 0;
+					let len = 100;
+					for (let index = 1; index <= len; index++) {
+						count++;
+					}
+					if (count == len) {
+						if (type) {
+							setTimeout(() => {
+								resolve("resolve");
+							}, 1000);
+						} else {
+							setTimeout(() => {
+								reject("reject");
+							}, 1000);
+						}
+					}
+				});
+			};
+			let RenderPageNumbers = () => {
+				console.log("RenderPageNumbers");
+			};
+			let InitPagination = async () => {
+				await SetPages(false);
+				await SetPages(true);
+				RenderPageNumbers();
+			};
+
+			// InitPagination()
+			// 	.then((res) => {
+			// 		console.log(res);
+			// 	})
+			// 	.catch((err) => {
+			// 		console.log(err);
+			// 	});
+
+			const sleep = (ms, type) => {
+				return new Promise((resolve, reject) => {
+					// console.log(`[sleep-${ms}] invoke`);
+					setTimeout(() => {
+						// console.log(`[sleep-${ms}] resolve`);
+						// if (ms === 2000) {
+						//   reject(ms)
+						// return
+						// }
+						if (type) {
+							resolve(ms);
+						} else {
+							reject(ms);
+						}
+					}, ms);
+				});
+			};
+			const promises = [sleep(1000, true), sleep(3000, false), sleep(2000, true)];
+			async function asyncPromiseAllSettled() {
+				const results = await Promise.allSettled(promises);
+				console.log("[Promise.allSettled] results", results);
+				return results;
+			}
+			asyncPromiseAllSettled().then((res) => {
+				console.log(res);
+			});
+		</script>
+	</body>
+</html>

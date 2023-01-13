@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				border: 1px solid red;
+				height: 400px;
+				overflow: auto;
+			}
+			.box::-webkit-scrollbar {
+				width: var(--scroll-width, 5px);
+				height: var(--scroll-height, 8px);
+				background-color: var(--scroll-bar-color, #ddd); /* or add it to the track */
+			}
+
+			.box::-webkit-scrollbar-thumb {
+				background: var(--scroll-bar-thumb, #000);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			Dear all,<br />
+			因應2月初天堂M將進行版本改版，<br />
+			因此會產生網頁製作需求，<br />
+			目前預計會進行兩組網頁的製作。<br />
+			整體排程預估：<br />
+			※預登和改版介紹頁將同時於2/7 14:00對外<br />
+			預豋期間:2023年2月7日14時00分 — 2023年2月14日23時59分<br />
+			序號查詢開放期間:2023年2月15日14時00分 — 2023年3月10日23時59分<br />
+			網頁開放期間：2月7日14時00分 — 2023年3月14日23時59分<br />
+			Dear all,<br />
+			因應2月初天堂M將進行版本改版，<br />
+			因此會產生網頁製作需求，<br />
+			目前預計會進行兩組網頁的製作。<br />
+			整體排程預估：<br />
+			※預登和改版介紹頁將同時於2/7 14:00對外<br />
+			預豋期間:2023年2月7日14時00分 — 2023年2月14日23時59分<br />
+			序號查詢開放期間:2023年2月15日14時00分 — 2023年3月10日23時59分<br />
+			網頁開放期間：2月7日14時00分 — 2023年3月14日23時59分<br />
+			Dear all,<br />
+			因應2月初天堂M將進行版本改版，<br />
+			因此會產生網頁製作需求，<br />
+			目前預計會進行兩組網頁的製作。<br />
+			整體排程預估：<br />
+			※預登和改版介紹頁將同時於2/7 14:00對外<br />
+			預豋期間:2023年2月7日14時00分 — 2023年2月14日23時59分<br />
+			序號查詢開放期間:2023年2月15日14時00分 — 2023年3月10日23時59分<br />
+			網頁開放期間：2月7日14時00分 — 2023年3月14日23時59分<br />
+			Dear all,<br />
+			因應2月初天堂M將進行版本改版，<br />
+			因此會產生網頁製作需求，<br />
+			目前預計會進行兩組網頁的製作。<br />
+			整體排程預估：<br />
+			※預登和改版介紹頁將同時於2/7 14:00對外<br />
+			預豋期間:2023年2月7日14時00分 — 2023年2月14日23時59分<br />
+			序號查詢開放期間:2023年2月15日14時00分 — 2023年3月10日23時59分<br />
+			網頁開放期間：2月7日14時00分 — 2023年3月14日23時59分<br />
+			Dear all,<br />
+			因應2月初天堂M將進行版本改版，<br />
+			因此會產生網頁製作需求，<br />
+			目前預計會進行兩組網頁的製作。<br />
+			整體排程預估：<br />
+			※預登和改版介紹頁將同時於2/7 14:00對外<br />
+			預豋期間:2023年2月7日14時00分 — 2023年2月14日23時59分<br />
+			序號查詢開放期間:2023年2月15日14時00分 — 2023年3月10日23時59分<br />
+			網頁開放期間：2月7日14時00分 — 2023年3月14日23時59分<br />
+		</div>
+		<script>
+			const fetchPosts = async () => {
+				try {
+					const response = await axios.get("<https://jsonplaceholder.typicode.com/posts>");
+					// const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+					// Do something with the response
+					return response;
+				} catch (error) {
+					if (axios.isAxiosError(error)) {
+						console.log("error1:", error.status);
+						console.error("error2:", error.response);
+						// Do something with this error...
+					} else {
+						console.error("error3:", error);
+					}
+					return error;
+				}
+			};
+			fetchPosts().then((res) => {
+				console.log(res);
+			});
+		</script>
+	</body>
+</html>

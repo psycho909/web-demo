@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+
+		<style>
+			.pagination-ul {
+				display: flex;
+				list-style: none;
+			}
+			.pagination-ul li {
+				padding: 0 6px;
+				cursor: pointer;
+			}
+			.pagination-ul li span {
+				padding: 0 6px;
+				background-color: rgba(0, 0, 0, 0.15);
+			}
+			.pagination-ul li.active {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{userData}}</div>
+			<input type="text" v-model="userData.first" />
+			<input type="text" v-model="userData.last" />
+			<button type="button" @click="reset">reset</button>
+			<button type="button" class="open" @click="open">打開</button>
+			<lightbox v-model:show-lightbox="awardGetLB" :action="false">
+				<template #lightbox-close>
+					<a href="javascript:;" class="g-lightbox__close icon-close" @click="awardCloseBtn">close</a>
+				</template>
+				<template #lightbox-content>
+					<div>
+						<ul>
+							<li v-for="d in dataList">{{d.email}}</li>
+						</ul>
+						<pagination :current-page="currentPage" :total-page="totalPage" :items-per-page="itemsPerPage" @update="Random"></pagination>
+					</div>
+				</template>
+			</lightbox>
+		</div>
+		<script>
+			let lightbox = {
+				props: {
+					showLightbox: {
+						type: Boolean,
+						default: false
+					},
+					style: {
+						type: [String, Object]
+					},
+					action: {
+						default: true
+					},
+					close: {
+						default: true
+					},
+					className: {
+						default: ""
+					},
+					scroll: {
+						default: false
+					}
+				},
+				setup(props, { emit }) {
+					const lightboxRef = Vue.ref(null);
+					const closeBtn = () => {
+						emit("update:showLightbox", false);
+					};
+					Vue.onMounted(() => {
+						console.log("onMounted");
+					});
+					Vue.onUnmounted(() => {
+						console.log("onUnmounted");
+					});
+					Vue.watchEffect(async () => {
+						if (props.showLightbox) {
+							if (!document.querySelector("body").classList.contains("ov-hidden")) {
+								document.querySelector("body").classList.add("ov-hidden");
+							}
+							if (props.scroll) {
+								await Vue.nextTick();
+								$(".lb-content__scroll").mCustomScrollbar({
+									theme: "light",
+									contentTouchScroll: true,
+									mouseWheel: {
+										preventDefault: true
+									},
+									advanced: { extraDraggableSelectors: ".account-list" }
+								});
+							}
+						} else {
+							document.querySelector("body").classList.remove("ov-hidden");
+						}
+					});
+					return {
+						closeBtn
+					};
+				},
+				template: `
+					<Teleport to="body">
+						<div class="g-lightbox" :style="[style ? style : '']" :class="className" v-if="showLightbox">
+							<div class="g-lightbox__module"></div>
+							<div class="g-lightbox__wrap">
+								<template v-if="close">
+									<slot name="lightbox-close">
+										<a href="javascript:;" class="g-lightbox__close icon-close" @click="closeBtn">close</a>
+									</slot>
+								</template>
+								<div class="g-lightbox__container">
+									<slot name="lightbox-title"></slot>
+									<div class="g-lightbox__content">
+										<slot name="lightbox-content"></slot>
+									</div>
+									<div class="g-lightbox__btn-group" v-if="action">
+										<slot name="lightbox-btn">
+											<a href="javascript:;" class="g-lightbox__btn" @click="closeBtn">確定</a>
+										</slot>
+									</div>
+								</div>
+							</div>
+						</div>
+					</Teleport>
+					`
+			};
+
+			let pagination = {
+				props: {
+					totalPage: {
+						type: Number,
+						default: 0
+					},
+					currentPage: {
+						type: Number,
+						default: 1
+					},
+					itemsPerPage: {
+						type: Number,
+						default: 10
+					}
+				},
+				setup(props, { emit }) {
+					let paginationData = Vue.reactive({ pages: [], pagesList: [], pageNumberLimit: 10, maxPageNumberLimit: 10, minPageNumberLimit: 0 });
+					let api = Vue.ref(false);
+					let currentPageTemp = Vue.ref(props.currentPage);
+					let SetPages = async () => {
+						return new Promise((resolve) => {
+							let count = 0;
+							let len = Math.ceil(props.totalPage / props.itemsPerPage);
+							for (let i = 1; i <= len; i++) {
+								count++;
+								paginationData.pages.push(i);
+							}
+							if (count == len) {
+								resolve(true);
+							}
+						});
+					};
+
+					let SetCurrentPage = (page) => {
+						currentPageTemp.value = page;
+					};
+
+					let SetMaxPageNumberLimit = (maxPageNumber) => {
+						paginationData.maxPageNumberLimit = maxPageNumber;
+					};
+					let SetMinPageNumberLimit = (minPageNumber) => {
+						paginationData.minPageNumberLimit = minPageNumber;
+					};
+					let RenderPageNumbers = () => {
+						paginationData.pagesList = paginationData.pages
+							.map(function (number) {
+								if (number < paginationData.maxPageNumberLimit + 1 && number > paginationData.minPageNumberLimit) {
+									return number;
+								} else {
+									return null;
+								}
+							})
+							.filter(Boolean);
+					};
+					let HandleClick = (page) => {
+						if (page == props.currentPage) {
+							return;
+						}
+						if (!api.value) {
+							SetCurrentPage(page);
+							UpdateCurrentPage(page);
+							RenderPageNumbers();
+						}
+					};
+					let HandlePrevClick = () => {
+						if (!api.value) {
+							if (currentPageTemp.value - 1 < 1) {
+								currentPageTemp.value = 1;
+								return;
+							}
+							SetCurrentPage(currentPageTemp.value - 1);
+							if (currentPageTemp.value % paginationData.pageNumberLimit == 0) {
+								SetMaxPageNumberLimit(paginationData.maxPageNumberLimit - paginationData.pageNumberLimit);
+								SetMinPageNumberLimit(paginationData.minPageNumberLimit - paginationData.pageNumberLimit);
+							}
+							UpdateCurrentPage(currentPageTemp.value);
+							RenderPageNumbers();
+						}
+					};
+					let HandleNextClick = () => {
+						if (!api.value) {
+							if (currentPageTemp.value + 1 > paginationData.pages.length) {
+								currentPageTemp.value = paginationData.pages.length;
+								return;
+							}
+							SetCurrentPage(currentPageTemp.value + 1);
+							if (currentPageTemp.value > paginationData.maxPageNumberLimit) {
+								SetMaxPageNumberLimit(paginationData.maxPageNumberLimit + paginationData.pageNumberLimit);
+								SetMinPageNumberLimit(paginationData.minPageNumberLimit + paginationData.pageNumberLimit);
+							}
+							UpdateCurrentPage(currentPageTemp.value);
+							RenderPageNumbers();
+						}
+					};
+					let HandleJumpClick = (jump) => {
+						if (!api.value) {
+							var jumpPage = 0;
+							if (jump > 0) {
+								if (currentPageTemp.value % jump == 0) {
+									jumpPage = currentPageTemp.value + 1;
+								} else {
+									jumpPage = currentPageTemp.value - (currentPageTemp.value % jump) + 11;
+								}
+							} else {
+								jumpPage = currentPageTemp.value - (currentPageTemp.value % jump) - 9;
+							}
+							if (jumpPage > paginationData.pages.length || jumpPage <= 0) {
+								return;
+							}
+							SetCurrentPage(jumpPage);
+							if (jump > 0) {
+								SetMaxPageNumberLimit(paginationData.maxPageNumberLimit + paginationData.pageNumberLimit);
+								SetMinPageNumberLimit(paginationData.minPageNumberLimit + paginationData.pageNumberLimit);
+							} else {
+								SetMaxPageNumberLimit(paginationData.maxPageNumberLimit - paginationData.pageNumberLimit);
+								SetMinPageNumberLimit(paginationData.minPageNumberLimit - paginationData.pageNumberLimit);
+							}
+							UpdateCurrentPage(currentPageTemp.value);
+							RenderPageNumbers();
+						}
+					};
+					let InitPagination = async () => {
+						await SetPages();
+						RenderPageNumbers();
+					};
+					let UpdateCurrentPage = () => {
+						api.value = true;
+						emit("update", currentPageTemp.value);
+					};
+					Vue.onMounted(() => {
+						InitPagination();
+					});
+					Vue.onUnmounted(() => {
+						paginationData.pages = [];
+						paginationData.pagesList = [];
+						paginationData.maxPageNumberLimit = 10;
+						paginationData.minPageNumberLimit = 0;
+						emit("update", 1);
+					});
+					Vue.watchEffect(() => {
+						if (props.currentPage) {
+							api.value = false;
+						}
+					});
+					return {
+						paginationData,
+						HandleClick,
+						HandleJumpClick,
+						HandlePrevClick,
+						HandleNextClick,
+						currentPageTemp,
+						UpdateCurrentPage
+					};
+				},
+				template: `
+					<div class="pagination">
+						<ul class="pagination-ul">
+							<li><span @click="HandleJumpClick(-10)">&lt;&lt;</span></li>
+							<li><span @click="HandlePrevClick">&lt;</span></li>
+							<li :id="page" v-for="page in paginationData.pagesList" :class="[page == currentPageTemp?'active':'']">
+								<span @click="HandleClick(page)">{{page}}</span>
+							</li>
+							<li><span @click="HandleNextClick">&gt;</span></li>
+							<li><span @click="HandleJumpClick(10)">&gt;&gt;</span></li>
+						</ul>
+                	</div>
+                `
+			};
+			var app = Vue.createApp({
+				components: {
+					pagination,
+					lightbox
+				},
+				setup() {
+					let currentPage = Vue.ref(1);
+					let totalPage = Vue.ref(300);
+					let itemsPerPage = Vue.ref(10);
+					let dataList = Vue.ref([]);
+					let awardGetLB = Vue.ref(false);
+					let initData = () => {
+						return {
+							first: "Chen",
+							last: "Ching"
+						};
+					};
+					let userData = Vue.reactive(initData());
+					Vue.onMounted(() => {
+						fetch("https://randomuser.me/api/?results=10")
+							.then((response) => response.json())
+							.then((json) => {
+								data = json.results;
+								dataList.value = data;
+							});
+					});
+					let Random = (page) => {
+						$("#loadingProgress").show();
+						fetch("https://randomuser.me/api/?results=10")
+							.then((response) => response.json())
+							.then((json) => {
+								data = json.results;
+								dataList.value = data;
+								currentPage.value = page;
+								$("#loadingProgress").hide();
+							});
+					};
+					let open = () => {
+						awardGetLB.value = true;
+					};
+					let awardCloseBtn = () => {
+						awardGetLB.value = false;
+					};
+					let reset = () => {
+						Object.assign(userData, initData());
+					};
+					return {
+						currentPage,
+						totalPage,
+						itemsPerPage,
+						Random,
+						dataList,
+						awardGetLB,
+						awardCloseBtn,
+						open,
+						userData,
+						reset
+					};
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				width: 100%;
+				padding: 1rem;
+				border: 2px solid #000;
+				border-radius: 12px;
+			}
+			.box-inner {
+				background-color: red;
+				width: 100%;
+				height: 300px;
+				border-radius: 12px;
+			}
+			.container {
+				display: flex;
+			}
+			.container p {
+				font-size: clamp(0.75rem, calc(100cqw / 40), 2rem);
+				text-align: center;
+			}
+			.page-header {
+				display: flex;
+			}
+			@container style (display:flex) {
+				.page-header__start {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					border-right: 1px solid lightgrey;
+					color: red;
+				}
+			}
+			figure {
+				container-name: figure;
+				--featured: true;
+			}
+
+			/* Featured figure style. */
+			@container figure style(--featured: true) {
+				img {
+					/* Custom styling */
+				}
+
+				figcaption {
+					/* Custom styling */
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="box-inner"></div>
+		</div>
+		<div class="container">
+			<p>群众的眼睛是雪亮了，《CSS新世界》上架快一年了依然排在京东Web开发书籍前几。</p>
+		</div>
+		<div class="page-header">
+			<div class="page-header__start">page-header__start</div>
+		</div>
+		<figure>
+			<img src="cheesecake.jpg" alt="" />
+			<figcaption>....</figcaption>
+		</figure>
+	</body>
+</html>
