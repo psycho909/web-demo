@@ -18,19 +18,19 @@
 			var runnningTest = false;
 			var testResult = [];
 			var testPercentage = 0;
-			var testTimes = 1000;
+			var testTimes = 100;
 			var tableData = [
 				{
 					name: "B",
-					p: 0.69
+					p: 0.978
 				},
 				{
-					name: "A",
-					p: 0.3
+					name: "SR",
+					p: 0.02
 				},
 				{
-					name: "S",
-					p: 0.01
+					name: "SSR",
+					p: 0.002
 				}
 			];
 			function StartTest1() {
@@ -57,7 +57,7 @@
 									chanceBySetting: tableData[index].p * 100 + "%"
 								});
 							});
-							console.log(testResult);
+							console.table(testResult);
 						} else {
 							const item = getItemByChange();
 							chance[item.name]++;

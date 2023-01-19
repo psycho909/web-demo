@@ -11,6 +11,7 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 		<style>
 			.pagination-ul {
@@ -49,7 +50,7 @@
 					};
 					let userData = Vue.reactive(initData());
 					let userData2 = Vue.ref(initData());
-					let reset = () => {
+					let reset = _.debounce(async function () {
 						userData = {
 							first: "123",
 							last: 321
@@ -58,8 +59,8 @@
 							first: "123",
 							last: 321
 						};
-						// Object.assign(userData, initData());
-					};
+						console.log("请求的结果");
+					}, 300);
 					return {
 						userData,
 						userData2,
