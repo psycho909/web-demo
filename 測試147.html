@@ -6,7 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
 		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
 			button {
 				width: clamp(200px, 50vw, 600px);
 			}
@@ -14,40 +20,55 @@
 				width: 300px;
 				text-align: center;
 			}
+			.grid {
+				display: grid;
+				height: 100vh;
+				grid-template-columns: var(--left, 100px) 1fr;
+				transition: 0.3s all;
+			}
+			.left {
+				background-color: green;
+			}
+			.right {
+				background-color: red;
+			}
+			.grid:has(.left:hover) {
+				--left: 30%;
+			}
 		</style>
 	</head>
 	<body>
-		<button>我的宽度是？</button>
-		<select id="select">
-			<option value="-1">select1</option>
-			<option value="1">select2</option>
-		</select>
+		<div id="app">
+			<div>{{msg}}</div>
+			<button type="button" @click="Reset">reset</button>
+			<div class="grid">
+				<div class="left"></div>
+				<div class="right"></div>
+			</div>
+		</di>
 		<script>
-			// if (!window.localStorage.getItem("page")) {
-			// 	window.localStorage.setItem("page", "new");
-			// }
-
-			// document.addEventListener("visibilitychange", () => {
-			// 	if (document.visibilityState === "hidden") {
-			// 		if (window.localStorage.getItem("page")) {
-			// 			window.localStorage.removeItem("page");
-			// 		}
-			// 		console.log(" >> This window is hidden");
-			// 	} else {
-			// 		console.log(" >> This window is visible");
-			// 	}
-			// });
-			window.addEventListener("beforeunload", (event) => {
-				// 阻止浏览器默认事件，也就是阻止关闭和刷新页面
-				event.preventDefault();
-				// chrome浏览器需要设置返回值
-				event.returnValue = true;
-				// alert("close");
-				window.localStorage.removeItem("page");
-			});
 			axios.get("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/lineagenew/E20230112_ChangeJob/head/js/head.json").then((res) => {
 				console.log(res);
 			});
+
+			Vue.createApp({
+				setup(){
+					let msg=Vue.ref({
+						name:"Chen",
+						parent:{
+							mom:{
+								brother:"5"
+							}
+						}
+					})
+					let Reset=()=>{
+						msg.value={}
+					}
+					return {
+						msg,Reset
+					}
+				}
+			}).mount("#app")
 		</script>
 	</body>
 </html>
