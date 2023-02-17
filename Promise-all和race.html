@@ -50,6 +50,26 @@
 			Promise.allSettled([p1, p2, p3]).then(function (res) {
 				console.log("allSettled", res);
 			});
+
+			async function doSomething() {
+				try {
+					let a = await P(100, 1, true);
+					let b = await P(100, 2, false);
+					let c = await P(100, 3, true);
+					return [a, b, c];
+				} catch (err) {
+					console.log("err", err);
+					return err;
+				}
+			}
+
+			doSomething()
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		</script>
 	</body>
 </html>
