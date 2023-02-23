@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>測試</title>
 		<style>
 			* {
 				padding: 0;
@@ -19,39 +19,39 @@
 		<canvas id="canvas"></canvas>
 		<script>
 			var canvas = document.querySelector("#canvas");
-			var ctx = canvas.getContext("2d");
 			canvas.width = 995;
 			canvas.height = 24;
 
+			const ctx = canvas.getContext("2d");
+			function draw(x, color) {
+				ctx.beginPath();
+				ctx.fillStyle = color;
+				ctx.lineWidth = "1";
+				ctx.strokeStyle = color;
+				ctx.fillRect(x, 0, 44, 23);
+				ctx.strokeRect(x, 0, 44, 23);
+				ctx.save();
+			}
 			// 44 + 6;
-			function Draw() {
-				var x = 0;
-				for (var i = 0; i < 20; i++) {
-					x = i * 44 + 6 * i;
-					ctx.beginPath();
-					ctx.fillStyle = "#D8D3BF";
-					ctx.lineWidth = "1";
-					ctx.strokeStyle = "#4B453E";
-					ctx.fillRect(x, 0, 44, 23);
-					ctx.strokeRect(x, 0, 44, 23);
-					ctx.save();
+			function drawInitial() {
+				let x = 0;
+				const step = 44 + 6;
+				const totalSteps = 20;
+				for (let i = 0; i < totalSteps; i++) {
+					draw(x, "#D8D3BF");
+					x += step;
 				}
 			}
-			function DrawProgress(p) {
-				var x = 0;
-				for (var i = 0; i < p; i++) {
-					x = i * 44 + 6 * i;
-					ctx.beginPath();
-					ctx.fillStyle = "#4B453E";
-					ctx.lineWidth = "1";
-					ctx.strokeStyle = "#4B453E";
-					ctx.fillRect(x, 0, 44, 23);
-					ctx.strokeRect(x, 0, 44, 23);
-					ctx.save();
+			function drawProgress(p) {
+				let x = 0;
+				const step = 44 + 6;
+				for (let i = 0; i < p; i++) {
+					draw(x, "#4B453E");
+					x += step;
 				}
 			}
-			Draw();
-			DrawProgress(3);
+			drawInitial();
+			drawProgress(3);
 		</script>
 	</body>
 </html>

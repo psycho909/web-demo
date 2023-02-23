@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet" />
+		<style>
+			div:is(.cool, .fun) {
+				color: red;
+			}
+			:is(ul) li {
+				color: green;
+			}
+			:is(ul) li:nth-child(1) {
+				color: blue;
+			}
+			.inter {
+				font-family: "Inter";
+				font-weight: bold;
+				font-size: 40px;
+			}
+			.noto {
+				font-family: "Noto Sans TC", sans-serif;
+				color: #ff8300;
+				font-size: 55px;
+			}
+			.regular {
+				font-weight: 400;
+			}
+			.bold {
+				font-weight: 700;
+			}
+			.black {
+				font-weight: 900;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="noto">快速升級加入新世界！</div>
+		<div class="inter">Step1、請輸入原進階驗證號碼並完成驗證</div>
+		<div class="inter">完成手機簡訊驗證，輕鬆兩步驟取得快速升級券 現在完成加碼抽1萬樂豆！</div>
+		<div class="cool">match</div>
+		<div class="fun">match</div>
+		<p class="fun">not match</p>
+		<ul>
+			<li>123</li>
+			<li>321</li>
+			<li>8943352220w0</li>
+		</ul>
+		<input type="text" name="auth-token" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
+		<div class="input-group">
+			<input class="input" id="input" type="text" maxlength="1" />
+			<input class="input" type="text" maxlength="1" />
+			<input class="input" type="text" maxlength="1" />
+			<input class="input" type="text" maxlength="1" />
+		</div>
+		<script>
+			$(".input").on("input", function (e) {
+				let value = e.target.value;
+				let reg = value.match(/^\d+$/);
+				if (reg == null) {
+					e.target.value = "";
+					return;
+				}
+				if (e.target.nextElementSibling == null) {
+					return;
+				}
+				_.debounce(function (e) {
+					e.target.nextElementSibling.focus();
+				}, 400)(e);
+			});
+			function normal() {
+				console.log("normal");
+			}
+			function p(text) {
+				return new Promise((resolve, reject) => {
+					console.log("Promise", text);
+					resolve(`then - ${text}`);
+				});
+			}
+			const delay = (t, v) => {
+				return new Promise((resolve) => {
+					setTimeout(() => resolve(v), t);
+				});
+			};
+			const getValsAsyncAwait = async () => {
+				console.log("ready async");
+				const val2 = await Promise.resolve(1);
+				console.log("val2", val2);
+				const val = await p("async");
+				console.log("val", val);
+				console.log("await async");
+				return val;
+			};
+
+			getValsAsyncAwait().then((res) => {
+				console.log("getValsAsyncAwait ", res);
+			});
+			p("promise").then((res) => {
+				setTimeout(() => {
+					console.log(res);
+				}, 0);
+			});
+			p("promise").then((res) => {
+				console.log(res);
+			});
+			normal();
+			console.log("console");
+			setTimeout(() => {
+				console.log("setTimeout");
+			}, 0);
+			/*
+			執行順序
+			promise會比async await 還早執行
+			promise 內部程序跟console一樣依照順序執行
+			console或一般function執行完後才執行resolve
+			如果resolve 內用seTimeout會最後執行
+
+			promise內部->
+			*/
+		</script>
+	</body>
+</html>

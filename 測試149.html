@@ -76,51 +76,75 @@
 			}
 			console.log(format(1234567));
 			function API() {
-				return fetch("https://linmos.azurewebsites.net/api/v1/exchange/4").then((res) => res.text());
+				return axios.get("https://linmos.azurewebsites.net/api/v1/exchange/4");
 			}
 
-			function RunJPY(title = "", type = "買") {
-				API()
-					.then((html) => {
-						var parser = new DOMParser();
-						var doc = parser.parseFromString(html, "text/html");
-						var docTable = doc.querySelectorAll(".table tbody tr");
-						var res = [];
-						let all;
-						docTable.forEach(function (tr, i) {
-							var tds = tr.querySelectorAll("td");
-							var tmpObj;
-							if (tds.length == 0) return;
-							var rateTitle = tds[0].querySelector(".hidden-phone").innerText.trim();
-							tmpObj = {
-								title: rateTitle,
-								priceIN: tds[3].innerText.trim(),
-								priceOUT: tds[4].innerText.trim()
-							};
-							if (tmpObj.title.length > 0 && tmpObj.priceIN != "-") {
-								res.push(tmpObj);
-							}
-						});
-						if (title) {
-							all = res.filter(function (r, i) {
-								return r.title.includes(title);
-							})[0];
-						} else {
-							return res;
-						}
-						if (type == "賣") {
-							return all.priceOUT;
-						}
-						if (type == "買") {
-							return all.priceIN;
-						}
-					})
-					.then((res) => {
-						console.log(res);
-					});
-			}
+			Promise.allSettled([API()]).then((res) => {
+				// console.log(res[0].value.data);
+				let htmlStr = res[0].value.data;
+				htmlStr = htmlStr.replace(/<img[^>]*>/gi, "");
 
-			RunJPY();
+				var dom = $(htmlStr);
+				var datetime = $.trim(dom.find(".container .text-info > .time").text());
+				var dataTable = dom.find("table tbody tr");
+				var res = {};
+				res.datetime = datetime;
+				// res.cashRate = [];
+				res.spotRate = [];
+				dataTable.each(function () {
+					var tds = $(this).find("td");
+					var tmpObj;
+
+					if (tds.length == 0) return;
+
+					var rateTitle = $.trim(tds.eq(0).find(".hidden-phone").text());
+
+					// tmpObj = {
+					// 	title: rateTitle,
+					// 	priceIN: $.trim(tds.eq(1).text()),
+					// 	priceOUT: $.trim(tds.eq(2).text())
+					// };
+					// if (tmpObj.title.length > 0 && tmpObj.priceIN != "-") {
+					// 	res.cashRate.push(tmpObj);
+					// }
+
+					if (rateTitle.includes("JPY")) {
+						tmpObj = {
+							title: rateTitle,
+							priceIN: $.trim(tds.eq(3).text()),
+							priceOUT: $.trim(tds.eq(4).text())
+						};
+						if (tmpObj.title.length > 0 && tmpObj.priceIN != "-") {
+							res.spotRate.push(tmpObj);
+						}
+					}
+				});
+				console.log(res);
+			});
+			// const sender = beanfunWebTraceSDK.init({
+			// 	BUID: "GAMA-bf-01",
+			// 	property: "beanfun",
+			// 	sourceProperty: "gtw"
+			// });
+			// const result = sender.passEvent(
+			// 	new beanfunWebTraceSDK.events.ClickEvent({
+			// 		eventId: "4004",
+			// 		event: "gtw_home_page_item_click"
+			// 	})
+			// );
+
+			// function test({ start = 5, end = 1, step = -1 } = {}) {
+			// 	console.log(start);
+			// }
+			// test();
+			// function to() {
+			// 	return [1, 2];
+			// }
+			// async function doSomething() {
+			// 	const [error1, result1] = await to();
+			// 	console.log(error1, result1);
+			// }
+			// doSomething();
 		</script>
 	</body>
 </html>
