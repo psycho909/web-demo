@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<div id="btn">按鈕</div>
+		<script>
+			function p() {
+				return new Promise((resolve, reject) => {
+					resolve(1);
+				});
+			}
+			function ready(status) {
+				g1(status);
+			}
+			function g1(status) {
+				var defaults = {
+					afterOpen: function () {
+						$("#o").on("click", function () {
+							p().then((res) => {
+								g2("", status);
+							});
+						});
+					}
+				};
+				let HTML = `
+                <div>Box1</div>
+                <button id="o">OPEN</button>
+                `;
+				$.gbox.open(HTML, defaults);
+			}
+			function g2(url = "", status) {
+				let HTML = `
+                <div>Box2</div>
+                <div>${status}</div>
+                `;
+				$.gbox.open(HTML);
+			}
+			$("#btn").on("click", function () {
+				ready(1);
+			});
+		</script>
+	</body>
+</html>
