@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<div id="app">
+			{{$i18n.locale}}
 			<select v-model="$i18n.locale">
 				<option value="-1">請選擇</option>
 				<option :value="item.lang" v-for="item in localeOptions">{{item.name}}</option>
@@ -23,7 +24,7 @@
 			console.log(navigator.language);
 			// Ready translated locale messages
 			const messages = {
-				zh: {
+				"zh-TW": {
 					title: "標題",
 					message: {
 						hello: "哈囉 i18n {0}"
@@ -45,7 +46,7 @@
 
 			// Create VueI18n instance with options
 			const i18n = new VueI18n({
-				locale: navigator.language || "zh",
+				locale: navigator.language || "zh-TW",
 				fallbackLocale: "en",
 				formatFallbackMessages: true,
 				messages // set locale messages
@@ -63,7 +64,7 @@
 								name: "English"
 							},
 							{
-								lang: "zh",
+								lang: "zh-TW",
 								name: "繁體中文"
 							},
 							{
