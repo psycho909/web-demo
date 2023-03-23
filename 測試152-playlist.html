@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<audio id="audio" controls preload="true" tabindex="0">
+				<source src="./mp3/1.mp3" data-track-number="1" />
+				<source src="./mp3/2.mp3" data-track-number="2" />
+				<source src="./mp3/3.mp3" data-track-number="3" />
+			</audio>
+		</div>
+		<script>
+			let headerListData = [];
+			let headerListDataFilter = [];
+			let pc = [
+				{ guid: 964, img: "964123" },
+				{ guid: 965, img: "965223" },
+				{ guid: 966, img: "966323" },
+				{ guid: 967, img: "967" }
+			];
+			let mb = [
+				{ guid: 969, img: "9691234" },
+				{ guid: 970, img: "9703234" },
+				{ guid: 971, img: "9712234" }
+			];
+			headerListData = [...pc, ...mb];
+			let bnMap = [
+				[964, 969],
+				[965, 970],
+				[966, 971],
+				[967, 972],
+				[968, 973]
+			];
+
+			for (let i = 0; i < headerListData.length; i++) {
+				for (let j = 0; j < bnMap.length; j++) {
+					let index = bnMap[j].indexOf(headerListData[i].guid);
+					if (index > -1) {
+						if (headerListDataFilter[j]) {
+							if (index == 0) {
+								let temp = {
+									web: headerListData[i].img
+								};
+								headerListDataFilter[j] = { ...headerListDataFilter[j], ...temp };
+							}
+							if (index == 1) {
+								let temp = {
+									mobile: headerListData[i].img
+								};
+								headerListDataFilter[j] = { ...headerListDataFilter[j], ...temp };
+							}
+						} else {
+							if (index == 0) {
+								headerListDataFilter[j] = {
+									web: headerListData[i].img
+								};
+							}
+							if (index == 1) {
+								headerListDataFilter[j] = {
+									mobile: headerListData[i].img
+								};
+							}
+						}
+					}
+				}
+			}
+			// let result = pc.concat(mb).reduce((acc, cur) => {
+			// 	let index = acc.findIndex((item) => item.guid === cur.guid);
+			// 	if (index === -1) {
+			// 		acc.push({guid:cur});
+			// 	} else {
+			// 		acc[index] = cur;
+			// 	}
+			// 	return acc;
+			// }, []);
+			// console.log(result);
+			// for (let i = 0; i < pc.length; i++) {
+			// 	for (let j = 0; j < mb.length; j++) {
+			// 		if (pc[i].guid === mb[j].guid) {
+			// 			headerListData.push({ guid: pc[i].guid, pc: pc[i].img, mb: mb[j].img });
+			// 		}
+			// 	}
+			// }
+			console.log(headerListDataFilter);
+
+			let webBN = [964, 965, 966, 967, 968];
+			let mobileBN = [969, 970, 971, 972, 973];
+		</script>
+	</body>
+</html>

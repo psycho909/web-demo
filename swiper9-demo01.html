@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<style>
+			.swiper {
+				width: 600px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button type="button" @click="add">add</button>
+			<!-- Slider main container -->
+			<div class="swiper">
+				<!-- Additional required wrapper -->
+				<div class="swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide" v-for="user in list">{{user.email}}</div>
+				</div>
+				<!-- If we need pagination -->
+				<div class="swiper-pagination"></div>
+
+				<!-- If we need navigation buttons -->
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
+
+		<script>
+			const app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						list: [{ email: "1" }, { email: "21" }, { email: "31" }, { email: "11" }, { email: "41" }],
+						swiper: null
+					};
+				},
+				mounted() {
+					this.swiper = new Swiper(".swiper", {
+						// Optional parameters
+						loop: true,
+
+						// If we need pagination
+						pagination: {
+							el: ".swiper-pagination",
+							clickable: true
+						},
+
+						// Navigation arrows
+						navigation: {
+							nextEl: ".swiper-button-next",
+							prevEl: ".swiper-button-prev"
+						}
+					});
+					this.swiper.on("update", function () {
+						console.log("update");
+					});
+				},
+				watch: {
+					list(newVal, oldVal) {
+						if (newVal) {
+							console.log(newVal);
+							this.$nextTick(() => {
+								this.swiper.update();
+							});
+						}
+					}
+				},
+				methods: {
+					add() {
+						axios.get("https://randomuser.me/api/?results=10").then((res) => {
+							this.list = res.data.results;
+						});
+					}
+				}
+			});
+			// let swiper = new Swiper(".swiper", {
+			// 	// Optional parameters
+			// 	loop: true,
+
+			// 	// If we need pagination
+			// 	pagination: {
+			// 		el: ".swiper-pagination"
+			// 	},
+
+			// 	// Navigation arrows
+			// 	navigation: {
+			// 		nextEl: ".swiper-button-next",
+			// 		prevEl: ".swiper-button-prev"
+			// 	}
+			// });
+			// swiper.on("afterInit", function () {
+			// 	console.log("afterInit");
+			// });
+			// swiper.on("slideChange", function () {
+			// 	console.log("slide changed");
+			// });
+
+			// $(".swiper-wrapper").append('<div class="swiper-slide">Slide 4</div>')
+			// swiper.update()
+		</script>
+	</body>
+</html>

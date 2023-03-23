@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #000;
+			}
+			.box {
+				width: 720px;
+				height: 445px;
+				border-radius: 32px;
+				border: 2px solid #ff97ed;
+				margin: 64px;
+				box-shadow: 0 0 24px rgba(255, 81, 196, 1), inset 0 0 16px rgba(255, 81, 196, 1), inset 0 0 32px rgba(0, 0, 0, 1), inset 0 0 72px rgba(0, 0, 0, 1);
+				background-color: #201c76;
+				/* background-image: url("./images/lb-bg-repeat.png"); */
+				background-image: linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 0);
+				background-size: 40px 40px, 40px 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+		<div id="app">
+			<div id="myInput">sadadasdasdasasdasd</div>
+			<a href="javascript:;" id="copy">複製</a>
+		</div>
+		<script>
+			document.querySelector("#copy").addEventListener("click", function () {
+				var copyText = document.getElementById("myInput");
+				navigator.clipboard.writeText(copyText.innerText);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js" integrity="sha512-wS6VWtjvRcylhyoArkahZUkzZFeKB7ch/MHukprGSh1XIidNvHG1rxPhyFnL73M0FC1YXPIXLRDAoOyRJNni/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			#slider {
+				position: relative;
+				width: 100%;
+				height: 300px;
+				overflow: hidden;
+			}
+
+			.slide {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				transition: opacity 0.5s ease-in-out;
+			}
+
+			.slide.active {
+				opacity: 1;
+			}
+
+			.slide img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<button type="button" class="btn">按鈕</button>
+
+		<script>
+			var obj = {
+				email: "eve.holt@reqres.in",
+				password: "pistol"
+			};
+			fetch("https://tw-event.beanfun.com/communication/api/ga4/H5AccountVerification", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({ AccessToken: 123123 })
+			}).then((res) => console.log(res));
+
+			axios({
+				method: "POST",
+				url: "https://reqres.in/api/register",
+				data: obj
+			});
+			function loadingShow() {
+				$("#loadingProgress").show();
+			}
+			// Loading隱藏
+			function loadingHide() {
+				$("#loadingProgress").hide();
+			}
+			function p() {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve(1);
+					}, 10000);
+				});
+			}
+			$(".btn").on("click", function () {
+				loadingShow();
+				p()
+					.then((res) => {
+						$.gbox.open("OPEN");
+					})
+					.finally(() => {
+						loadingHide();
+					});
+			});
+			function format(number) {
+				let reg = /\d{1,3}(?=(\d{3})+$)/g;
+				return String(number).replace(reg, function (match) {
+					return match + ",";
+				});
+			}
+			console.log(format(1234567));
+			function API() {
+				return fetch("https://linmos.azurewebsites.net/api/v1/exchange/4").then((res) => res.text());
+			}
+
+			function RunJPY(title = "", type = "買") {
+				API()
+					.then((html) => {
+						var parser = new DOMParser();
+						var doc = parser.parseFromString(html, "text/html");
+						var docTable = doc.querySelectorAll(".table tbody tr");
+						var res = [];
+						let all;
+						docTable.forEach(function (tr, i) {
+							var tds = tr.querySelectorAll("td");
+							var tmpObj;
+							if (tds.length == 0) return;
+							var rateTitle = tds[0].querySelector(".hidden-phone").innerText.trim();
+							tmpObj = {
+								title: rateTitle,
+								priceIN: tds[3].innerText.trim(),
+								priceOUT: tds[4].innerText.trim()
+							};
+							if (tmpObj.title.length > 0 && tmpObj.priceIN != "-") {
+								res.push(tmpObj);
+							}
+						});
+						if (title) {
+							all = res.filter(function (r, i) {
+								return r.title.includes(title);
+							})[0];
+						} else {
+							return res;
+						}
+						if (type == "賣") {
+							return all.priceOUT;
+						}
+						if (type == "買") {
+							return all.priceIN;
+						}
+					})
+					.then((res) => {
+						console.log(res);
+					});
+			}
+
+			RunJPY();
+		</script>
+	</body>
+</html>
