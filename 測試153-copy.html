@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js" integrity="sha512-OTbGFYPLe3jhy4bUwbB8nls0TFgz10kn0TLkmyA+l3FyivDs31zsXCjOis7YGDtE2Jsy0+fzW+3/OVoPVujPmQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<style>
 			* {
 				padding: 0;
@@ -25,9 +26,14 @@
 				background-image: linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 0);
 				background-size: 40px 40px, 40px 40px;
 			}
+			#Doughnut {
+				width: 400px;
+				height: 400px;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="Doughnut"></div>
 		<div class="box"></div>
 		<div id="app">
 			<div id="myInput">sadadasdasdasasdasd</div>
@@ -38,6 +44,162 @@
 				var copyText = document.getElementById("myInput");
 				navigator.clipboard.writeText(copyText.innerText);
 			});
+
+			var color = ["#09ECDF", "#00AFC5", "#7C60EC", "#FAD952", "#26BE77", "#fca626", "#FE3D67", "#C0FF6A", "#FE3D67", "#64BFF5"];
+			var textStyle = {
+				color: "#fff",
+				fontSize: 18,
+				fontWeight: "bold",
+				textBorderWidth: 1,
+				textBorderColor: "rgba(0,0,0,.5)",
+				textShadowColor: "rgba(111 207 151,.5)",
+				textShadowBlur: 2
+			};
+
+			// 6FCF97
+			var borderColor = "#18E9D9";
+			// 圓環圖
+			function Doughnut2(dom, title, data) {
+				let temp = {
+					emphasis: {
+						disabled: true
+					},
+					label: {
+						show: false
+					},
+					tooltip: {
+						show: false
+					},
+					itemStyle: {
+						color: "rgba(255,255,255,0.1)"
+					}
+				};
+				let dataFilter = data.map(function (v, i) {
+					if (v.name == "") {
+						v = { ...v, ...temp };
+					}
+					return v;
+				});
+				var myChart = echarts.init(dom, null, {
+					renderer: "canvas",
+					useDirtyRect: false
+				});
+				var option = {
+					// hover 懸浮框
+					tooltip: {
+						trigger: "item",
+						borderColor: borderColor // 懸浮框顏色
+					},
+					title: {
+						text: title,
+						left: "center",
+						top: "center",
+						textStyle: {
+							color: borderColor,
+							fontSize: 18
+						}
+					},
+					series: [
+						{
+							type: "pie",
+							label: {
+								// b 數據名
+								// c 數據值
+								formatter: "{d}%",
+								position: "inside",
+								textStyle: textStyle
+							},
+							data: dataFilter,
+							radius: ["40%", "60%"]
+						}
+					],
+					color: color
+				};
+				myChart.setOption(option);
+				let width = dom.clientWidth;
+				myChart.resize({ height: width });
+				window.addEventListener("resize", function () {
+					width = dom.clientWidth;
+					myChart.resize({ height: width });
+				});
+				myChart.on("mousemove", (e) => {
+					if (e.data.name == "") {
+						myChart.getZr().setCursorStyle("default");
+					}
+				});
+			}
+
+			let pipelineData = [
+				{
+					title: "實施率",
+					data: [
+						{
+							value: 77.65,
+							name: "已實施"
+						},
+						{
+							value: 22.3523,
+							name: ""
+						}
+					]
+				},
+				{
+					title: "大園實施率",
+					data: [
+						{
+							value: 100,
+							name: "已實施"
+						},
+						{
+							value: 0,
+							name: ""
+						}
+					]
+				},
+				{
+					title: "菓林實施率",
+					data: [
+						[
+							{
+								value: 3.08,
+								name: "已實施"
+							},
+							{
+								value: 96.92,
+								name: ""
+							}
+						]
+					]
+				},
+				{
+					title: "高鐵實施率",
+					data: [
+						{
+							value: 100,
+							name: "已實施"
+						},
+						{
+							value: 0,
+							name: ""
+						}
+					]
+				},
+				{
+					title: "機場實施率",
+					data: [
+						{
+							value: 100,
+							name: "已實施"
+						},
+						{
+							value: 0,
+							name: ""
+						}
+					]
+				}
+			];
+
+			Doughnut2(document.querySelector("#Doughnut"), pipelineData[0].title, pipelineData[0].data);
 		</script>
 	</body>
 </html>
