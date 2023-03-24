@@ -10,6 +10,7 @@
 			* {
 				padding: 0;
 				margin: 0;
+				box-sizing: border-box;
 			}
 			body {
 				background-color: #000;
@@ -30,9 +31,61 @@
 				width: 400px;
 				height: 400px;
 			}
+			#chart-container {
+				width: 400px;
+				height: 400px;
+			}
+			.item-name {
+				width: 120px;
+				height: 30px;
+				margin: 60px;
+				background-size: cover;
+				background-image: url("./images/lb-chance-name.png");
+				filter: drop-shadow(0 0 12px rgba(255, 69, 192, 0.75)) drop-shadow(0 0 18px rgba(255, 69, 192, 0.75));
+			}
+			.nav-right {
+				padding: 12px;
+				width: 120px;
+				border: 1px solid #fff;
+				position: fixed;
+				right: 0;
+				bottom: 0;
+			}
+			.nav-right a {
+				color: #fff;
+				text-decoration: none;
+				padding: 6px;
+				width: 100%;
+				text-align: center;
+			}
+			.nav-right__list {
+				display: flex;
+				flex-direction: column;
+				height: 0;
+				transition: all 0.3s;
+				overflow: hidden;
+			}
+			.nav-right__toggle {
+				padding: 6px;
+				width: 100%;
+				display: block;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="nav-right">
+			<a href="javascript:;" class="nav-right__toggle">其他功能</a>
+			<div class="nav-right__list">
+				<a href="javascript:;" class="nav-right__item" data-type="buy">購買解碼器</a>
+				<a href="javascript:;" class="nav-right__item" data-type="itembox">物品箱</a>
+				<a href="javascript:;" class="nav-right__item" data-type="workshop">工作坊</a>
+				<a href="javascript:;" class="nav-right__item" data-type="recycle">精煉爐</a>
+				<a href="javascript:;" class="nav-right__item" data-type="search-serial">序號查詢區</a>
+				<a href="javascript:;" class="nav-right__item" data-type="search-consume">消費紀錄查詢</a>
+			</div>
+		</div>
+		<div class="item-name"></div>
+		<div id="chart-container"></div>
 		<div id="Doughnut"></div>
 		<div class="box"></div>
 		<div id="app">
@@ -60,38 +113,18 @@
 			var borderColor = "#18E9D9";
 			// 圓環圖
 			function Doughnut2(dom, title, data) {
-				let temp = {
-					emphasis: {
-						disabled: true
-					},
-					label: {
-						show: false
-					},
-					tooltip: {
-						show: false
-					},
-					itemStyle: {
-						color: "rgba(255,255,255,0.1)"
-					}
-				};
-				let dataFilter = data.map(function (v, i) {
-					if (v.name == "") {
-						v = { ...v, ...temp };
-					}
-					return v;
-				});
 				var myChart = echarts.init(dom, null, {
 					renderer: "canvas",
 					useDirtyRect: false
 				});
+				var app = {};
 				var option = {
-					// hover 懸浮框
 					tooltip: {
 						trigger: "item",
 						borderColor: borderColor // 懸浮框顏色
 					},
 					title: {
-						text: title,
+						text: "數據名",
 						left: "center",
 						top: "center",
 						textStyle: {
@@ -102,6 +135,7 @@
 					series: [
 						{
 							type: "pie",
+							radius: ["40%", "60%"],
 							label: {
 								// b 數據名
 								// c 數據值
@@ -109,15 +143,17 @@
 								position: "inside",
 								textStyle: textStyle
 							},
-							data: dataFilter,
-							radius: ["40%", "60%"]
+							data: [
+								{ value: 1048, name: "Search Engine" },
+								{ value: 735, name: "Direct" }
+							]
 						}
 					],
 					color: color
 				};
 				myChart.setOption(option);
-				let width = dom.clientWidth;
-				myChart.resize({ height: width });
+				// let width = dom.clientWidth;
+				// myChart.resize({ height: width });
 				window.addEventListener("resize", function () {
 					width = dom.clientWidth;
 					myChart.resize({ height: width });
@@ -200,6 +236,48 @@
 			];
 
 			Doughnut2(document.querySelector("#Doughnut"), pipelineData[0].title, pipelineData[0].data);
+
+			var dom = document.getElementById("chart-container");
+			var myChart = echarts.init(dom, null, {
+				renderer: "canvas",
+				useDirtyRect: false
+			});
+			var app = {};
+			var option = {
+				tooltip: {
+					trigger: "item",
+					borderColor: borderColor // 懸浮框顏色
+				},
+				title: {
+					text: "數據名",
+					left: "center",
+					top: "center",
+					textStyle: {
+						color: borderColor,
+						fontSize: 18
+					}
+				},
+				series: [
+					{
+						type: "pie",
+						radius: ["40%", "60%"],
+						label: {
+							// b 數據名
+							// c 數據值
+							formatter: "{d}%",
+							position: "inside",
+							textStyle: textStyle
+						},
+						data: [
+							{ value: 1048, name: "Search Engine" },
+							{ value: 735, name: "Direct" }
+						]
+					}
+				],
+				color: color
+			};
+
+			myChart.setOption(option);
 		</script>
 	</body>
 </html>
