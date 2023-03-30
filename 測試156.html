@@ -13,24 +13,23 @@
 				console.log(Object.keys(data).length);
 			}
 			axios.get("./js/test.json").then((res) => {
-				let { paths, definitions } = res.data;
-				let temp = [];
-				let obj = {};
-				for (let v in paths) {
-					if (paths[v]?.post) {
-						temp = [...temp, ...flatData(paths[v].post)];
-					}
-				}
-				temp = [...new Set(temp)];
-				temp.forEach((v, i) => {
-					obj[v] = {};
-				});
-				for (let v in definitions) {
-					if (obj[v]) {
-						obj[v] = definitions[v];
-					}
-				}
-				console.log(obj);
+				// let { paths, definitions } = res.data;
+				// let temp = [];
+				// let obj = {};
+				// for (let v in paths) {
+				// 	if (paths[v]?.post) {
+				// 		temp = [...temp, ...flatData(paths[v].post)];
+				// 	}
+				// }
+				// temp = [...new Set(temp)];
+				// temp.forEach((v, i) => {
+				// 	obj[v] = {};
+				// });
+				// for (let v in definitions) {
+				// 	if (obj[v]) {
+				// 		obj[v] = definitions[v];
+				// 	}
+				// }
 			});
 			let data = {
 				post: {
@@ -79,7 +78,13 @@
 				return refs;
 			}
 
-			// console.log(flatData(data));
+			console.log(flatData(data));
+			let handleValue = (value) => {
+				console.log(value);
+			};
+			Object.values(data).flatMap((value) => {
+				console.log(value);
+			});
 		</script>
 	</body>
 </html>
