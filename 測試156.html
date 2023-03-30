@@ -9,58 +9,44 @@
 	</head>
 	<body>
 		<script>
-			let i = 0;
 			axios.get("./js/test.json").then((res) => {
 				let { paths, definitions } = res.data;
-				let temp = {};
+				let temp = [];
+				let obj = {};
 				for (let v in paths) {
 					if (paths[v]?.post) {
-						if (paths[v].post?.parameters) {
-							if (paths[v].post.parameters?.length) {
-								for (let i = 0; i < paths[v].post.parameters.length; i++) {
-									if (paths[v].post.parameters[i].schema?.$ref) {
-										let key = paths[v].post.parameters[i].schema.$ref.split("/").at(-1);
-										temp[key] = {};
-									}
-								}
-							} else {
-								if (paths[v].post.parameters?.schema) {
-									if (paths[v].post.parameters.schema?.$ref) {
-										let key = paths[v].post.parameters?.schema.$ref.split("/").at(-1);
-										temp[key] = {};
-									}
-								}
-							}
-						}
-					}
-					if (paths[v]?.get) {
-						if (paths[v].get?.parameters) {
-							if (paths[v].get.parameters?.length) {
-								for (let i = 0; i < paths[v].get.parameters.length; i++) {
-									if (paths[v].get.parameters[i]?.schema) {
-										if (paths[v].get.parameters[i]?.schema.$ref) {
-											let key = paths[v].get.parameters[i].schema.$ref.split("/").at(-1);
-											temp[key] = {};
-										}
-									}
-								}
-							} else {
-								if (paths[v].get.parameters?.schema) {
-									if (paths[v].get.parameters?.schema.$ref) {
-										let key = paths[v].get.parameters?.schema.$ref.split("/").at(-1);
-										temp[key] = {};
-									}
-								}
-							}
-						}
+						temp = [...temp, ...flatData(paths[v].post)];
 					}
 				}
-				// console.log(temp);
-				// for (let v in definitions) {
-				// 	temp[v] = definitions[v];
-				// }
-				// console.log(temp);
+				temp = [...new Set(temp)];
+				temp.forEach((v, i) => {
+					obj[v] = {};
+				});
+				for (let v in definitions) {
+					if (obj[v]) {
+						obj[v] = definitions[v];
+					}
+				}
+				console.log(obj);
 			});
+			function flatData(data) {
+				const refs = Object.values(data)
+					.filter((value) => typeof value === "object")
+					.flatMap((value) => {
+						const refs = [];
+						const findRefs = (obj) => {
+							if (typeof obj === "object") {
+								if (obj.$ref) {
+									refs.push(obj.$ref.split("/").at(-1));
+								}
+								Object.values(obj).forEach(findRefs);
+							}
+						};
+						findRefs(value);
+						return refs;
+					});
+				return refs;
+			}
 		</script>
 	</body>
 </html>
