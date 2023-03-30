@@ -9,82 +9,109 @@
 	</head>
 	<body>
 		<script>
-			function ObjectKeys(data) {
-				console.log(Object.keys(data).length);
-			}
-			axios.get("./js/test.json").then((res) => {
-				// let { paths, definitions } = res.data;
-				// let temp = [];
-				// let obj = {};
-				// for (let v in paths) {
-				// 	if (paths[v]?.post) {
-				// 		temp = [...temp, ...flatData(paths[v].post)];
-				// 	}
-				// }
-				// temp = [...new Set(temp)];
-				// temp.forEach((v, i) => {
-				// 	obj[v] = {};
-				// });
-				// for (let v in definitions) {
-				// 	if (obj[v]) {
-				// 		obj[v] = definitions[v];
-				// 	}
-				// }
-			});
-			let data = {
-				post: {
-					tags: ["Appointment12th"],
-					summary: "進行事前預約",
-					description: "台灣玩家需要綁定beanfun!App才能參加活動",
-					operationId: "Appointment12th_DoAppt",
-					consumes: ["application/json", "text/json", "application/xml", "text/xml", "application/x-www-form-urlencoded"],
-					produces: ["application/json", "text/json", "application/xml", "text/xml"],
-					parameters: [
-						{
-							name: "input",
-							in: "body",
-							required: true,
-							schema: {
-								$ref: "#/definitions/Appointment12th_Login_Input"
-							}
+						function ObjectKeys(data) {
+							console.log(Object.keys(data).length);
 						}
-					],
-					responses: {
-						200: {
-							description: "OK",
-							schema: {
-								$ref: "#/definitions/CommonResultWithData[String]"
-							}
-						}
-					}
-				}
-			};
-			function flatData(data) {
-				const refs = Object.values(data)
-					.filter((value) => typeof value === "object")
-					.flatMap((value) => {
-						const refs = [];
-						const findRefs = (obj) => {
-							if (typeof obj === "object") {
-								if (obj.$ref) {
-									refs.push(obj.$ref.split("/").at(-1));
+						axios.get("./js/test.json").then((res) => {
+							// let { paths, definitions } = res.data;
+							// let temp = [];
+							// let obj = {};
+							// for (let v in paths) {
+							// 	if (paths[v]?.post) {
+							// 		temp = [...temp, ...flatData(paths[v].post)];
+							// 	}
+							// }
+							// temp = [...new Set(temp)];
+							// temp.forEach((v, i) => {
+							// 	obj[v] = {};
+							// });
+							// for (let v in definitions) {
+							// 	if (obj[v]) {
+							// 		obj[v] = definitions[v];
+							// 	}
+							// }
+						});
+						let data = {
+							post: {
+								tags: ["Appointment12th"],
+								summary: "進行事前預約",
+								description: "台灣玩家需要綁定beanfun!App才能參加活動",
+								operationId: "Appointment12th_DoAppt",
+								consumes: ["application/json", "text/json", "application/xml", "text/xml", "application/x-www-form-urlencoded"],
+								produces: ["application/json", "text/json", "application/xml", "text/xml"],
+								parameters: [
+									{
+										name: "input",
+										in: "body",
+										required: true,
+										schema: {
+											$ref: "#/definitions/Appointment12th_Login_Input"
+										}
+									}
+								],
+								responses: {
+									200: {
+										description: "OK",
+										schema: {
+											$ref: "#/definitions/CommonResultWithData[String]"
+										}
+									}
 								}
-								Object.values(obj).forEach(findRefs);
 							}
 						};
-						findRefs(value);
-						return refs;
-					});
-				return refs;
-			}
+						function flatData(data) {
+							const refs = Object.values(data)
+								.filter((value) => typeof value === "object")
+								.flatMap((value) => {
+									const refs = [];
+									const findRefs = (obj) => {
+										if (typeof obj === "object") {
+											if (obj.$ref) {
+												refs.push(obj.$ref.split("/").at(-1));
+											}
+											Object.values(obj).forEach(findRefs);
+										}
+									};
+									findRefs(value);
+									return refs;
+								});
+							return refs;
+						}
 
-			console.log(flatData(data));
-			let handleValue = (value) => {
-				console.log(value);
-			};
-			Object.values(data).flatMap((value) => {
-				console.log(value);
-			});
+						console.log(flatData(data));
+						let handleValue = (value) => {
+							console.log(value);
+						};
+						Object.values(data).flatMap((value) => {
+							console.log(value);
+						});
+
+						public List<string> FlatData(Dictionary<string, object> data)
+			{
+			    var refs = data.Values
+			        .Where(value => value is Dictionary<string, object>)
+			        .SelectMany(value =>
+			        {
+			            var refs = new List<string>();
+			            void FindRefs(object obj)
+			            {
+			                if (obj is Dictionary<string, object> dict)
+			                {
+			                    if (dict.TryGetValue("$ref", out var value) && value is string str)
+			                    {
+			                        refs.Add(str.Split('/').Last());
+			                    }
+			                    foreach (var v in dict.Values)
+			                    {
+			                        FindRefs(v);
+			                    }
+			                }
+			            }
+			            FindRefs(value);
+			            return refs;
+			        });
+			    return refs.ToList();
+			}
 		</script>
 	</body>
 </html>
