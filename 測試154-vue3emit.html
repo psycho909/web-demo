@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
+	</head>
+	<body>
+		<div id="app">
+			<div>213</div>
+			<child @handle-click="handleClick"></child>
+		</div>
+		<script>
+			let child = {
+				emits: ["handleClick"],
+				setup(props, { emit }) {
+					let handleClick = () => {
+						emit("handleClick", "AAA");
+					};
+					return { handleClick };
+				},
+				template: `<a href="javascript:;" @click="handleClick">按鈕</a>`
+			};
+
+			let app = Vue.createApp({
+				setup() {
+					let handleClick = (data) => {
+						console.log(data);
+					};
+					return { handleClick };
+				},
+				components: {
+					child: child
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

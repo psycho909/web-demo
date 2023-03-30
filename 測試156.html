@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+	<body>
+		<script>
+			let i = 0;
+			axios.get("./js/test.json").then((res) => {
+				let { paths, definitions } = res.data;
+				let temp = {};
+				for (let v in paths) {
+					if (paths[v]?.post) {
+						if (paths[v].post?.parameters) {
+							if (paths[v].post.parameters?.length) {
+								for (let i = 0; i < paths[v].post.parameters.length; i++) {
+									if (paths[v].post.parameters[i].schema?.$ref) {
+										let key = paths[v].post.parameters[i].schema.$ref.split("/").at(-1);
+										temp[key] = {};
+									}
+								}
+							} else {
+								if (paths[v].post.parameters?.schema) {
+									if (paths[v].post.parameters.schema?.$ref) {
+										let key = paths[v].post.parameters?.schema.$ref.split("/").at(-1);
+										temp[key] = {};
+									}
+								}
+							}
+						}
+					}
+					if (paths[v]?.get) {
+						if (paths[v].get?.parameters) {
+							if (paths[v].get.parameters?.length) {
+								for (let i = 0; i < paths[v].get.parameters.length; i++) {
+									if (paths[v].get.parameters[i]?.schema) {
+										if (paths[v].get.parameters[i]?.schema.$ref) {
+											let key = paths[v].get.parameters[i].schema.$ref.split("/").at(-1);
+											temp[key] = {};
+										}
+									}
+								}
+							} else {
+								if (paths[v].get.parameters?.schema) {
+									if (paths[v].get.parameters?.schema.$ref) {
+										let key = paths[v].get.parameters?.schema.$ref.split("/").at(-1);
+										temp[key] = {};
+									}
+								}
+							}
+						}
+					}
+				}
+				// console.log(temp);
+				// for (let v in definitions) {
+				// 	temp[v] = definitions[v];
+				// }
+				// console.log(temp);
+			});
+		</script>
+	</body>
+</html>
