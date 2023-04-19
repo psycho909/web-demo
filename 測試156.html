@@ -6,9 +6,170 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="櫻桃小丸子" theme="dark"></script>
+		<style>
+			:root {
+				--active-bg: #000;
+			}
+			.nav-item {
+				position: relative;
+				width: 24px;
+				height: 24px;
+			}
+			ul {
+				display: flex;
+				justify-content: center;
+				background-color: #222;
+				padding-top: 4rem;
+			}
+			li {
+				--default-bg: lightgrey;
+				--active-bg: #fff;
+				position: relative;
+				padding: 1rem 2rem;
+				background-color: var(--default-bg);
+				border-top-left-radius: 12px;
+				border-top-right-radius: 12px;
+			}
+			li:first-child:after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				width: 24px;
+				height: 24px;
+				-webkit-mask-image: linear-gradient(to top, red, red), radial-gradient(circle 15px at center, green 80%, transparent 81%);
+				-webkit-mask-size: 12px 12px, 100%;
+				-webkit-mask-composite: subtract;
+				-webkit-mask-repeat: no-repeat, repeat;
+				right: 100%;
+				background-color: var(--default-bg);
+				-webkit-mask-position: bottom right, center;
+			}
+			li:first-child:before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				width: 24px;
+				height: 24px;
+				-webkit-mask-image: linear-gradient(to top, red, red), radial-gradient(circle 15px at center, green 80%, transparent 81%);
+				-webkit-mask-size: 12px 12px, 100%;
+				-webkit-mask-composite: subtract;
+				-webkit-mask-repeat: no-repeat, repeat;
+				left: 100%;
+				background-color: var(--default-bg);
+				-webkit-mask-position: bottom left, center;
+			}
+			li.active {
+				color: #222;
+				background-color: var(--active-bg);
+				z-index: 1;
+			}
+			li.active:before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				width: 24px;
+				height: 24px;
+				-webkit-mask-image: linear-gradient(to top, red, red), radial-gradient(circle 15px at center, green 80%, transparent 81%);
+				-webkit-mask-size: 12px 12px, 100%;
+				-webkit-mask-composite: subtract;
+				-webkit-mask-repeat: no-repeat, repeat;
+				left: 100%;
+				-webkit-mask-position: bottom left, center;
+				background-color: var(--active-bg);
+			}
+			li.active:after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				width: 24px;
+				height: 24px;
+				-webkit-mask-image: linear-gradient(to top, red, red), radial-gradient(circle 15px at center, green 80%, transparent 81%);
+				-webkit-mask-size: 12px 12px, 100%;
+				-webkit-mask-composite: subtract;
+				-webkit-mask-repeat: no-repeat, repeat;
+				right: 100%;
+				-webkit-mask-position: bottom right, center;
+				background-color: var(--active-bg);
+			}
+			.container {
+				position: relative;
+			}
+			.fixed {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				z-index: 999;
+			}
+
+			.content {
+				/* 先进行 transform 变换 */
+				transform: translate(-50%, -50%);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				z-index: 1;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="container">
+			<div class="fixed">fixed</div>
+			<div class="content">content</div>
+		</div>
+		<!-- <ul>
+			<li>Home</li>
+			<li>About</li>
+			<li class="active">Contact</li>
+			<li>Dashboard</li>
+		</ul> -->
 		<script>
+			var observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					// if(mutation.previousSibling)
+					// console.log(mutation);
+					// console.log(mutation.previousSibling.classList.contains("UNI-footer"));
+					if (mutation.previousSibling) {
+						if (mutation.previousSibling.nodeName == "DIV") {
+							if (mutation.previousSibling.classList.contains("UNI-footer")) {
+								console.log($(".UNI-footer").size());
+								observer.disconnect();
+							}
+						}
+					}
+				});
+			});
+			var config = { attributes: true, childList: true, characterData: true };
+			let target = document.querySelector("body");
+			observer.observe(target, config);
+
+			// 刪除Cookie
+			function deleteCookie(name) {
+				document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+			}
+
+			// 增加Cookie
+			function setCookie(name, value = true, hours = 1) {
+				let date = new Date();
+				date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+				const expires = "expires=" + date.toUTCString();
+				document.cookie = name + "=" + value + "; " + expires + "; path=/";
+			}
+			// 獲取Cookie
+			function getCookie(name) {
+				var nameString = name + "=";
+				var value = document.cookie.split(";").filter(function (item) {
+					return item.indexOf(nameString) > -1;
+				});
+				if (value.length) {
+					return value[0].trim().substring(nameString.length, value[0].length);
+				} else {
+					return false;
+				}
+			}
 			function ObjectKeys(data) {
 				console.log(Object.keys(data).length);
 			}

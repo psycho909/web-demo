@@ -5,12 +5,70 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			.btn {
+				width: 148px;
+				height: 65px;
+				border-radius: 5px;
+				background-image: linear-gradient(to bottom, #9b6cee, #cb9ef6);
+				box-shadow: inset 0 0 8px rgba(255, 255, 255), 0 7px 0 #4f2595;
+				display: block;
+				font-size: 23px;
+				font-weight: 900;
+				color: #000;
+				text-decoration: none;
+				text-align: center;
+				line-height: 72px;
+			}
+			.btn:hover {
+				background-image: linear-gradient(to bottom, #6cafee, #9ec5f6);
+				box-shadow: inset 0 0 8px rgba(255, 255, 255), 0 7px 0 #256a95;
+			}
+		</style>
 	</head>
 	<body>
+		<a href="javascript:;" class="btn">複製</a>
+		<p>Click the button to share this page on Facebook:</p>
+		<button onclick="shareToFacebook()">Share on Facebook</button>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="" theme="dark"></script>
 		<script>
-			let a = 100;
+			function shareToFacebook() {
+				var url = "https://gama-event.beanfun.com/index?Url=4762830AA330740056F6BB3A26B0A32C&Id=1007&pageTypeSeq=1";
+				var encodedUrl = encodeURIComponent(url);
 
-			function name() {}
+				var facebookShareLink = "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl;
+
+				window.open(facebookShareLink, "_blank");
+			}
+
+			function p(type = true) {
+				return new Promise((resolve, reject) => {
+					if (type) {
+						resolve("成功");
+					} else {
+						reject("失敗");
+					}
+				});
+			}
+			p()
+				.then((res) => {
+					console.log(res);
+					return p(false);
+				})
+				.then((res) => {
+					console.log(res);
+					return 321;
+				})
+				.then((res) => {
+					console.log(res);
+					return 111;
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+				.finally((res) => {
+					console.log("finally", res);
+				});
 		</script>
 	</body>
 </html>

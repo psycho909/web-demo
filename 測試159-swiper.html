@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+	</head>
+	<body>
+		<div class="box1">
+			<swiper-container init="false">
+				<swiper-slide>Slide 1</swiper-slide>
+				<swiper-slide>Slide 2</swiper-slide>
+				<swiper-slide>Slide 3</swiper-slide>
+			</swiper-container>
+		</div>
+		<div class="box2">
+			<swiper-container init="false">
+				<swiper-slide>Slide A</swiper-slide>
+				<swiper-slide>Slide B</swiper-slide>
+				<swiper-slide>Slide C</swiper-slide>
+			</swiper-container>
+		</div>
+		<script>
+			// swiper element
+			const swiperEl1 = document.querySelector(".box1 swiper-container");
+			// swiper parameters
+			const swiperParams1 = {
+				slidesPerView: 1,
+				on: {
+					init() {}
+				}
+			};
+			// now we need to assign all parameters to Swiper element
+			Object.assign(swiperEl1, swiperParams1);
+			// and now initialize it
+			swiperEl1.initialize();
+
+			// swiper element
+			const swiperEl2 = document.querySelector(".box2 swiper-container");
+			// swiper parameters
+			const swiperParams2 = {
+				slidesPerView: 1,
+				on: {
+					init() {}
+				}
+			};
+			// now we need to assign all parameters to Swiper element
+			Object.assign(swiperEl2, swiperParams2);
+			// and now initialize it
+			swiperEl2.initialize();
+		</script>
+	</body>
+</html>
