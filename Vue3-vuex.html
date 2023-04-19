@@ -24,7 +24,7 @@
 			const myStore = {
 				state: {
 					count: 1,
-					user: "",
+					user: ""
 				},
 				mutations: {
 					ADD_COUNT(state) {
@@ -32,38 +32,40 @@
 					},
 					SET_NAME(state, payload) {
 						state.user = payload.data;
-					},
+					}
 				},
 				actions: {
 					add: function (context) {
 						context.commit("ADD_COUNT");
 					},
 					addName: function (context, data) {
+						console.log(data);
 						context.commit({
 							type: "SET_NAME",
-							data: data,
+							data: data
 						});
-					},
-				},
+					}
+				}
 			};
 			const myVuex = Vuex.createStore(myStore);
 			var vue3Composition = {
 				setup() {
 					const store = Vuex.useStore();
 					const state = Vue.reactive({
-						name: "",
+						name: ""
 					});
 					const pointRef = Vue.ref({
-						idx: 0,
+						idx: 0
 					});
 					const pointReactive = Vue.reactive({
-						idx: 100,
+						idx: 100
 					});
 					function increment() {
 						store.dispatch("add");
 						// state.count++;
 					}
 					function setName() {
+						console.log(state.name);
 						store.dispatch("addName", state.name);
 					}
 					setTimeout(() => {
@@ -71,7 +73,7 @@
 						pointReactive.idx = 1;
 					}, 1000);
 					return { state, increment, setName, pointRef, pointReactive };
-				},
+				}
 			};
 			var app = Vue.createApp(vue3Composition).use(myVuex).mount("#app");
 		</script>

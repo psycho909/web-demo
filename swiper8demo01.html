@@ -603,34 +603,10 @@
 				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 				z-index: 1;
 			}
-
-			.swiper-container-horizontal > .swiper-pagination-bullets,
-			.swiper-pagination-custom,
-			.swiper-pagination-fraction {
-				bottom: 0;
-			}
-
-			.swiper-pagination-bullet {
-				background: transparent none repeat scroll 0 0;
-				border: 1px solid #ee0f6f;
-				border-radius: 10px;
-				display: inline-block;
-				height: 10px;
-				opacity: 1;
-				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-				width: 26px;
-				-webkit-transition: 0.2s;
-				transition: 0.2s;
-			}
-
-			.swiper-pagination-bullet-active {
-				background: rgba(0, 0, 0, 0) -webkit-linear-gradient(left, #ee0f6f 0%, #f89482 100%) repeat scroll 0 0;
-				background: rgba(0, 0, 0, 0) linear-gradient(to right, #ee0f6f 0%, #f89482 100%) repeat scroll 0 0;
-				border: medium none;
-				height: 12px;
-				opacity: 1;
-				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-				width: 12px;
+			@media screen and (max-width: 768px) {
+				.two .swiper-slide {
+					width: calc(300 / 768 * 100vw);
+				}
 			}
 		</style>
 	</head>
@@ -666,7 +642,6 @@
 					</div>
 					<!-- Add Pagination -->
 				</div>
-				<div class="swiper-pagination"></div>
 			</div>
 		</div>
 
@@ -688,7 +663,7 @@
 			var swiper = new Swiper(".swiper-container.two", {
 				effect: "coverflow",
 				// grabCursor: true,
-				loop: true,
+				loop: false,
 				centeredSlides: true,
 				slidesPerView: "auto",
 				coverflowEffect: {
@@ -697,9 +672,6 @@
 					depth: 150,
 					modifier: 1.5,
 					slideShadows: false
-				},
-				pagination: {
-					el: ".swiper-pagination"
 				}
 			});
 		</script>
