@@ -11,6 +11,8 @@
 	<body>
 		<div id="app">
 			<div>{{age}} - {{getAge}}</div>
+			<div ref="dom">msg - {{msg}}</div>
+			<button type="button" class="" @click="handleUpdate">更新</button>
 			<input type="text" v-model="age" />
 			<select class="select-group__control" v-model="selected">
 				<optgroup label="淺色系">
@@ -25,6 +27,7 @@
 			var vm = new Vue({
 				el: "#app",
 				data: {
+					msg: 0,
 					age: 1,
 					selected: "blue1",
 					style1: [
@@ -61,7 +64,22 @@
 						return this.age;
 					}
 				},
-				methods: {}
+				methods: {
+					handleUpdate() {
+						this.msg = "222";
+						this.msg = "333";
+						this.msg = "444";
+						setTimeout(() => {
+							this.msg = "555";
+						});
+
+						Promise.resolve((this.msg = "666"));
+
+						this.$nextTick(() => {
+							console.log(this.$refs.dom.innerHTML); // 666
+						});
+					}
+				}
 			});
 		</script>
 	</body>
