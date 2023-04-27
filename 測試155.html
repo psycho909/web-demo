@@ -27,10 +27,16 @@
 		</style>
 	</head>
 	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div id="g"></div>
 		<a href="javascript:;" class="btn">複製</a>
+		<a href="javascript:;" class="go">Go</a>
 		<p>Click the button to share this page on Facebook:</p>
 		<button onclick="shareToFacebook()">Share on Facebook</button>
-		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="" theme="dark"></script>
+		<!-- <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="" theme="dark"></script> -->
 		<script>
 			function shareToFacebook() {
 				var url = "https://gama-event.beanfun.com/index?Url=4762830AA330740056F6BB3A26B0A32C&Id=1007&pageTypeSeq=1";
@@ -69,6 +75,36 @@
 				.finally((res) => {
 					console.log("finally", res);
 				});
+
+			function getPromiseWait() {
+				let success, fail;
+				const promise = new Promise((resolve, reject) => {
+					success = resolve;
+					fail = reject;
+				});
+				return { promise, resolve: success, reject: fail };
+			}
+			const { promise, resolve } = getPromiseWait();
+
+			async function play() {
+				const res = await promise;
+				console.log("ok", res);
+			}
+
+			document.querySelector(".btn").addEventListener("click", function () {
+				play();
+			});
+
+			document.querySelector(".go").addEventListener("click", function () {
+				console.log("GO");
+				setTimeout(() => {
+					resolve("GoGo");
+				}, 2000);
+			});
+
+			console.log(Array.from("div"));
+			console.log(document.querySelectorAll("div"));
+			console.log(document.getElementById("g"));
 		</script>
 	</body>
 </html>

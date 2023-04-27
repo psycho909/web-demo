@@ -5,24 +5,45 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-
+		<link rel="stylesheet" href="./js/vue-virtual-scroller.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.13.11/index.iife.js" integrity="sha512-oIPU2u+jJcKqnlPF1/IYag+AloOZpCbQgY8JlzaMZiGqRCSl91ume/4NUy5Ec28hb9QkGFP4715NQ2hFocOGTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<!-- <script src="https://cdn.bootcdn.net/ajax/libs/pinia/2.0.34/pinia.esm-browser.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
 	</head>
 	<body>
-		<div id="app"></div>
+		<div id="app">
+			<component is="child2"></component>
+		</div>
 		<script type="module">
-			// import Vue from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.esm-browser.min.js";
-			import { createPinia } from "https://cdn.bootcdn.net/ajax/libs/pinia/2.0.34/pinia.esm-browser.min.js";
 			const { reactive, ref, toRef, toRefs } = Vue;
-			const pinia = createPinia();
+
+			var child1 = {
+				template: `
+					<div>Child</div>
+				`
+			};
+			var child2 = {
+				template: `
+					<div>
+						<div>Child2</div>
+						<hr/>
+						<component is="child1"></component>
+					</div>
+				`,
+				components: {
+					child1
+				}
+			};
+			let components = {
+				child1: child1,
+				child2: child2
+			};
 			var app = Vue.createApp({
 				setup() {
-					return {};
-				}
+					let message = ref("Message");
+					return { message };
+				},
+				components
 			});
-			app.use(pinia);
 			app.mount("#app");
 		</script>
 	</body>
