@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/8.3.2/swiper-bundle.min.css" rel="stylesheet" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/8.3.2/swiper-bundle.min.js"></script>
+		<style>
+			.features-video-box {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			.features-video-swiper {
+				margin-left: auto;
+				margin-right: auto;
+				position: relative;
+				overflow: hidden;
+				z-index: 1;
+				width: 59.375vw;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video-swiper {
+					width: 100vw;
+				}
+			}
+			.features-video-swiper .swiper-slide-active:before {
+				content: none;
+			}
+			.features-video__slide {
+				width: 40.8854166667vw;
+				height: 27.03125vw;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__slide {
+					width: 81.3802083333vw;
+					height: 54.0364583333vw;
+				}
+			}
+			.features-video__slide:before {
+				/* content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: rgba(0, 0, 0, 0.65);
+				border-radius: 1.5625vw; */
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__slide:before {
+					border-radius: 3.90625vw;
+				}
+			}
+			.features-video__slide:after {
+				content: "";
+				width: 4.1666666667vw;
+				height: 4.3229166667vw;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				background-image: url("./images/video-play.png");
+				background-size: cover;
+				cursor: pointer;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__slide:after {
+					width: 8.203125vw;
+					height: 8.59375vw;
+				}
+			}
+			.features-video__link {
+				width: 100%;
+				height: 100%;
+				background-color: #6ccabc;
+				border: 0.2604166667vw solid #ffe269;
+				border-radius: 1.5625vw;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: center;
+				-ms-flex-pack: center;
+				justify-content: center;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__link {
+					border: 0.6510416667vw solid #ffe269;
+					border-radius: 3.90625vw;
+				}
+			}
+			.features-video__link img {
+				max-width: 39.84375vw;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__link img {
+					max-width: 78.6458333333vw;
+				}
+			}
+			.features-video__prev {
+				width: 3.125vw;
+				height: 5.9375vw;
+				background-size: cover;
+				background-image: url("./images/video-prev.png");
+				left: 6.1458333333vw;
+			}
+			.features-video__prev:after {
+				content: none;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__prev {
+					width: 6.1197916667vw;
+					height: 11.71875vw;
+					left: 3.2552083333vw;
+				}
+			}
+			.features-video__next {
+				width: 3.125vw;
+				height: 5.9375vw;
+				background-size: cover;
+				background-image: url("./images/video-next.png");
+				right: 6.1458333333vw;
+			}
+			.features-video__next:after {
+				content: none;
+			}
+			@media screen and (max-width: 768px) {
+				.features-video__next {
+					width: 6.1197916667vw;
+					height: 11.71875vw;
+					right: 3.2552083333vw;
+				}
+			}
+			img {
+				max-width: 100% !important;
+			}
+			.text {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-size: 50px;
+				color: blue;
+				font-weight: bold;
+			}
+			.swiper-slide > a {
+				transition: all 0.3s;
+			}
+			.swiper-slide.features-video__slide.swiper-slide-active {
+				z-index: 10;
+			}
+			.swiper-slide.features-video__slide.swiper-slide-active > a {
+				transform: scale(1);
+			}
+			.swiper-slide.features-video__slide.swiper-slide-prev > a {
+				/* transform: scale(0.75) translateX(calc(700 / 1920 * 100vw)); */
+				transform: scale(0.75);
+			}
+			.swiper-slide.features-video__slide.swiper-slide-next > a {
+				/* transform: scale(0.75) translateX(calc(-700 / 1920 * 100vw)); */
+				transform: scale(0.75);
+			}
+			@media screen and (max-width: 768px) {
+				.swiper-slide.features-video__slide.swiper-slide-prev > a {
+					transform: scale(0.75) translateX(calc(700 / 768 * 100vw));
+				}
+				.swiper-slide.features-video__slide.swiper-slide-next > a {
+					transform: scale(0.75) translateX(calc(-700 / 768 * 100vw));
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- Swiper -->
+			<div class="features-video-box">
+				<div class="swiper features-video-swiper">
+					<div class="swiper-wrapper" data-device="web">
+						<div class="swiper-slide features-video__slide" data-guid1="984" data-guid2="987">
+							<a href="javascript:;" class="features-video__link"
+								><div class="text">1</div>
+								<picture
+									><source media="(max-width:768px)" srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057990279.png" />
+									<img srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" src="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" alt="" /></picture
+							></a>
+						</div>
+						<div class="swiper-slide features-video__slide" data-guid1="985" data-guid2="988">
+							<a href="javascript:;" class="features-video__link"
+								><div class="text">2</div>
+								<picture
+									><source media="(max-width:768px)" srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057990279.png" />
+									<img srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" src="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" alt="" /></picture
+							></a>
+						</div>
+						<div class="swiper-slide features-video__slide" data-guid1="984" data-guid2="987">
+							<a href="javascript:;" class="features-video__link"
+								><div class="text">3</div>
+								<picture
+									><source media="(max-width:768px)" srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057990279.png" />
+									<img srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" src="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" alt="" /></picture
+							></a>
+						</div>
+						<div class="swiper-slide features-video__slide" data-guid1="985" data-guid2="988">
+							<a href="javascript:;" class="features-video__link"
+								><div class="text">4</div>
+								<picture
+									><source media="(max-width:768px)" srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057990279.png" />
+									<img srcset="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" src="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png" alt="" /></picture
+							></a>
+						</div>
+					</div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var swiper = new Swiper(".features-video-swiper", {
+				// slidesPerView: 3,
+				centeredSlides: true,
+				loop: true,
+				setWrapperSize: true,
+				// freeMode: true,
+				slidesPerView: "auto",
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev"
+				}
+			});
+		</script>
+	</body>
+</html>

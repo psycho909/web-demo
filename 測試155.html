@@ -5,6 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			.btn {
 				width: 148px;
@@ -27,6 +29,8 @@
 		</style>
 	</head>
 	<body>
+		<iframe src="./測試161.html" width="100" height="100" frameborder="0"></iframe>
+		<a class="website" href="https://cmcfl.beanfun.com/Main?lan=zh" target="_blank">小丸子官網</a>
 		<div></div>
 		<div></div>
 		<div></div>
@@ -38,6 +42,9 @@
 		<button onclick="shareToFacebook()">Share on Facebook</button>
 		<!-- <script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="" theme="dark"></script> -->
 		<script>
+			$(".website").on("click", function () {
+				window.open("https://tinyjpg.com/");
+			});
 			function shareToFacebook() {
 				var url = "https://gama-event.beanfun.com/index?Url=4762830AA330740056F6BB3A26B0A32C&Id=1007&pageTypeSeq=1";
 				var encodedUrl = encodeURIComponent(url);
