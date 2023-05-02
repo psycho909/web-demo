@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./js/vue-virtual-scroller.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script defer type="module">
+			// import { createApp, defineAsyncComponent } from "https://unpkg.com/vue@3.0.11/dist/vue.esm-browser.js";
+
+			var child2 = {
+				template: `
+					<div>
+						<div>Child2</div>
+					</div>
+				`
+			};
+			const AsyncComponent = Vue.defineAsyncComponent({
+				// 異步載入組件
+				loader: () => import("./Vue3-demo21.js"),
+				// 加載組件時顯示的等待狀態
+				loadingComponent: {
+					template: "<div>Loading...</div>"
+				},
+				// 異常發生時顯示的錯誤狀態
+				errorComponent: {
+					template: "<div>An error occurred</div>"
+				}
+			});
+			const app = Vue.createApp({
+				template: `
+					<div>
+					<h1>My App</h1>
+					<Suspense>
+						<template #default>
+						<AsyncComponent />
+						</template>
+						<template #fallback>
+						<div>Loading...Loading...</div>
+						</template>
+					</Suspense>
+					</div>
+				`,
+				components: {
+					AsyncComponent
+				}
+			});
+			app.mount("#app", true);
+		</script>
+	</body>
+</html>

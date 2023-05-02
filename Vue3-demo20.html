@@ -6,16 +6,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="stylesheet" href="./js/vue-virtual-scroller.css" />
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app">
-			<component is="child2"></component>
+			<div v-cloak>currentPage:{{currentPage}}</div>
+			<template v-if="currentPage">
+				<component :is="currentPage"></component>
+			</template>
+			<template v-else> 其他訊息 </template>
 		</div>
-		<script type="module">
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<script defer type="module">
 			const { reactive, ref, toRef, toRefs } = Vue;
-
 			var child1 = {
 				template: `
 					<div>Child</div>
@@ -25,13 +32,8 @@
 				template: `
 					<div>
 						<div>Child2</div>
-						<hr/>
-						<component is="child1"></component>
 					</div>
-				`,
-				components: {
-					child1
-				}
+				`
 			};
 			let components = {
 				child1: child1,
@@ -39,12 +41,24 @@
 			};
 			var app = Vue.createApp({
 				setup() {
-					let message = ref("Message");
-					return { message };
+					let page = ref("child1");
+					const currentPage = Vue.computed(() => {
+						switch (page.value) {
+							case "child1":
+								return "child1";
+							case "child2":
+								return "child2";
+							case "child3":
+								return "child4";
+							default:
+								return null;
+						}
+					});
+					return { currentPage };
 				},
 				components
 			});
-			app.mount("#app");
+			app.mount("#app", true);
 		</script>
 	</body>
 </html>
