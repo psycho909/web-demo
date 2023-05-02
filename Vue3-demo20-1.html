@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./js/vue-virtual-scroller.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div v-cloak>currentPage:{{currentPage}}</div>
+			<template v-if="currentPage">
+				<Suspense timeout="0">
+					<component :is="currentPage" @change="handleChange" :key="currentPage"></component>
+					<template #fallback>
+						<div>Loading...</div>
+					</template>
+				</Suspense>
+			</template>
+			<template v-else>其他訊息</template>
+		</div>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<script defer type="module">
+			const { reactive, ref, toRef, toRefs, onErrorCaptured } = Vue;
+
+			const child1 = Vue.defineAsyncComponent({
+				loader: () => import("./Vue3-demo20-1.js"),
+				loadingComponent: {
+					template: "<div>Loading...</div>"
+				},
+				errorComponent: {
+					template: `
+			    <div>
+			      <h2>載入失敗</h2>
+			    </div>
+			  `
+				},
+				delay: 200,
+				timeout: 0 //
+			});
+			var child2 = {
+				async setup(props, { emit }) {
+					const res = await axios.get("https://reqres.in/api/users?delay=3");
+					const post = await res.data;
+					const handleChange = () => {
+						emit("change", "child1");
+						// await new Promise(resolve => setTimeout(resolve, 50))
+						// throw new Error('Oops!')
+					};
+					return {
+						handleChange
+					};
+				},
+				template: `
+						<div>
+							<div>Child2</div>
+							<button @click="handleChange">change</button>
+						</div>
+					`
+			};
+			let components = {
+				child1,
+				child2
+			};
+			var app = Vue.createApp({
+				setup() {
+					let currentPage = ref("child2");
+					const handleChange = (value) => {
+						currentPage.value = value;
+					};
+
+					onErrorCaptured((err) => {
+						console.log("Caught error", err.message);
+					});
+					return { currentPage, handleChange };
+				},
+				components
+			});
+			app.mount("#app", true);
+		</script>
+	</body>
+</html>
