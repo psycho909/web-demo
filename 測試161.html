@@ -38,9 +38,39 @@
 				background-image: url("./images/btn-top.png");
 				filter: hue-rotate(180deg);
 			}
+			.shopinfo__purchaseInfo-content {
+				width: 1140px;
+			}
+			.shopinfo__purchaseInfo-head {
+				display: grid;
+				grid-template-columns: 1fr 300px 160px 280px;
+			}
+			.shopinfo__purchaseInfo-head span:first-child {
+				grid-column: 2;
+			}
+			.shopinfo__purchaseInfo-li {
+				display: grid;
+				grid-template-columns: 1fr 300px 160px 280px;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="shopinfo__purchaseInfo-content">
+			<div class="shopinfo__purchaseInfo-title">購買商品資訊</div>
+			<div class="shopinfo__purchaseInfo-head">
+				<span>商品名稱、數量</span>
+				<span>組數</span>
+				<span>金額</span>
+			</div>
+			<ul class="shopinfo__purchaseInfo-list">
+				<li class="shopinfo__purchaseInfo-li">
+					<span>圖片</span>
+					<span>一二三四五六七八九十 一二三四五六七八九十</span>
+					<span>1</span>
+					<span>12,345 樂豆點</span>
+				</li>
+			</ul>
+		</div>
 		<div class="icon"></div>
 		<div class="box"></div>
 	</body>
