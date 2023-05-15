@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">{{msg}}</div>
+		<div id="app">
+			<my-counter></my-counter>
+			<my-input></my-input>
+		</div>
+
+		<script type="module">
+			import { createApp } from "https://unpkg.com/vue@3.2.8/dist/vue.esm-bundler.js";
+			import { MyCounter, MyInput } from "./Vue3-demo22-ts.js";
+			const app = createApp({});
+			app.component("my-counter", MyCounter);
+			app.component("my-input", MyInput);
+			app.mount("#app");
+		</script>
+		<!-- <script type="module" src="./Vue3-demo22-ts.ts"></script> -->
+		<!-- <script>
+			const app = Vue.createApp({
+				data() {
+					return {
+						msg: "Heelo"
+					};
+				}
+			});
+			// app.component('my-counter', MyCounter)
+			// app.component('my-input', MyInput)
+			app.mount("#app");
+		</script> -->
+	</body>
+</html>
