@@ -316,10 +316,10 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollTrigger.min.js"></script>
 
 		<script>
-			const scroll = new LocomotiveScroll({
-				el: document.querySelector("[data-scroll-container]"),
-				smooth: true
-			});
+			// const scroll = new LocomotiveScroll({
+			// 	el: document.querySelector("[data-scroll-container]"),
+			// 	smooth: true
+			// });
 			let cards = document.querySelectorAll("[data-guideline-card]");
 			let container = document.querySelector("[data-guideline-card-container]");
 
@@ -402,7 +402,7 @@
 			ScrollTrigger.create({
 				trigger: ".lGuideline-container",
 				animation: scrollCardsAnimation(),
-				scroller: ".scroll-container",
+				// scroller: ".scroll-container",
 				start: "top",
 				end: "+=3600px",
 				scrub: true,
@@ -411,6 +411,85 @@
 			});
 
 			gsap.registerPlugin(ScrollTrigger);
+
+			// var t1 = gsap.timeline({
+			// 	scrollTrigger: {
+			// 		trigger: ".lGuideline-container",
+			// 		// animation: scrollCardsAnimation(),
+			// 		// scroller: ".scroll-container",
+			// 		start: "top",
+			// 		end: "+=100%",
+			// 		scrub: true,
+			// 		pin: true,
+			// 		markers: true,
+			// 		pinType: "transform"
+			// 	}
+			// });
+
+			// t1.from(
+			// 	container,
+			// 	{
+			// 		x: "105%",
+			// 		duration: 6
+			// 	},
+			// 	"-=1"
+			// )
+			// 	.to(
+			// 		cards[0],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.7"
+			// 	)
+			// 	.to(
+			// 		cards[1],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 4
+			// 		},
+			// 		"-=4.4"
+			// 	)
+			// 	.to(
+			// 		cards[1],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.0"
+			// 	)
+			// 	.to(
+			// 		cards[2],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 3
+			// 		},
+			// 		"-=3.5"
+			// 	)
+			// 	.to(
+			// 		cards[2],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.0"
+			// 	)
+			// 	.to(
+			// 		cards[3],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 3
+			// 		},
+			// 		"-=3.0"
+			// 	)
+			// 	.to(
+			// 		cards[3],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=1.3"
+			// 	);
 		</script>
 	</body>
 </html>
