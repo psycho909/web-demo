@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			#container {
+				width: 600px;
+				height: 600px;
+				position: relative;
+				background-color: #ddd;
+			}
+			.element {
+				width: 50px;
+				height: 50px;
+				background-color: red;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				opacity: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container" class="container">
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+			<div class="element box"></div>
+		</div>
+		<script>
+			// 隨機生成角度和距離
+			function getRandomAngleAndDistance() {
+				const angle = Math.random() * Math.PI * 2; // 0~360度之間的角度
+				const distance = Math.random() * 200 + 100; // 100~300之間的距離
+				return { angle, distance };
+			}
+
+			// 獲取容器中心座標
+			function getCenterPoint() {
+				const container = document.getElementById("container");
+				const centerX = container.offsetWidth / 2;
+				const centerY = container.offsetHeight / 2;
+				return { x: centerX, y: centerY };
+			}
+
+			// 創建動畫
+			function createAnimation() {
+				const container = document.getElementById("container");
+				const boxes = container.querySelectorAll(".box");
+
+				boxes.forEach((box) => {
+					// 獲取元素中心座標
+					const boxCenterX = box.offsetLeft + box.offsetWidth / 2;
+					const boxCenterY = box.offsetTop + box.offsetHeight / 2;
+
+					// 獲取容器中心座標
+					const centerPoint = getCenterPoint();
+
+					// 隨機生成角度和距離
+					const { angle, distance } = getRandomAngleAndDistance();
+
+					// 計算元素目標座標
+					const targetX = centerPoint.x + Math.cos(angle) * distance;
+					const targetY = centerPoint.y + Math.sin(angle) * distance;
+
+					// 計算動畫時間和緩動函數
+					const duration = Math.random() * 2 + 1; // 1~3秒之間的時間
+					const ease = "power1.inOut"; // 緩動函數
+					// const ease = "power1.out"; // 緩動函數
+
+					// 創建動畫
+					gsap.to(box, {
+						x: targetX - boxCenterX,
+						y: targetY - boxCenterY,
+						duration,
+						opacity: 1,
+						ease
+					});
+				});
+			}
+
+			createAnimation();
+		</script>
+	</body>
+</html>
