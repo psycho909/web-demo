@@ -21,10 +21,17 @@
 			body {
 				background-color: #ececec;
 			}
-			.info {
-				height: 600px;
+			.lFellows-slider-item-thumbnail-img.-cover {
+				transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+				clip-path: circle(0 at 50% 50%);
+				will-change: clip-path;
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
 			}
-			.guildline {
+			.lGuideline-card-item-front:hover img:last-child {
+				clip-path: circle(100% at 50% 50%);
 			}
 		</style>
 	</head>
@@ -257,11 +264,8 @@
 									<div class="lGuideline-card" data-guideline-card-container>
 										<div class="lGuideline-card-item -card1" data-guideline-card>
 											<div class="lGuideline-card-item-front">
-												<div class="lGuideline-card-item-headline">
-													<img class="lGuideline-card-item-number -l01" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number01.png" width="72" height="130" alt="" loading="lazy" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number01.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_number01@2x.png 2x" />
-													<div class="cFlatText lGuideline-card-item-title" data-flat-text>志</div>
-												</div>
-												<div class="cFlatText lGuideline-card-item-text" data-flat-text>RKN (Ritsumeikan Knowledge Nodes)およびRARAの理念を深く理解するとともに、達成目標の実現を通じて、多様な研究者を繋ぐNodes（結合点）となることを志向すること。</div>
+												<img class="lFellows-slider-item-thumbnail-img" src="https://rara.ritsumei.ac.jp/cms/wp-content/uploads/2022/04/b-fellows_takahashi.jpg" alt="" loading="lazy" />
+												<img class="lFellows-slider-item-thumbnail-img -cover" src="https://rara.ritsumei.ac.jp/cms/wp-content/uploads/2022/04/b-fellows_takahashi-1.jpg" alt="" loading="lazy" />
 											</div>
 											<div class="lGuideline-card-item-back">
 												<img class="lGuideline-card-item-back-illust -l01" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust01.png" width="234" height="302" alt="" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust01.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_illust01@2x.png 2x" />

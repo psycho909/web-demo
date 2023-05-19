@@ -82,7 +82,7 @@
 				this.el = this.target[0].getContext("2d");
 				$(this.el.canvas).addClass("loading");
 			};
-			CanvasSprite.prototype.PreLoad = function (path) {
+			CanvasSprite.prototype.PreLoad = function (path, name = "") {
 				var count = 0;
 				var _this = this;
 				return new Promise((resolve, reject) => {
