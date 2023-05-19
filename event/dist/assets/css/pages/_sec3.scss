@@ -1,0 +1,258 @@
+.sec3 {
+	height: 1080px;
+	overflow: hidden;
+	@include media {
+		height: vw(1334);
+	}
+	&-title {
+		width: 1200px;
+		height: 202px;
+		background-size: 100%;
+		background-image: url("./images/sec3-title.png");
+		position: absolute;
+		top: 129px;
+		left: 50%;
+		transform: translateX(-50%);
+		@include media {
+			width: vw(768);
+			height: vw(240);
+			background-image: url("./images/m-sec3-title.png");
+			position: relative;
+			top: 0;
+			left: 0;
+			transform: none;
+			margin-top: vw(16);
+		}
+	}
+	&-content {
+		width: 1200px;
+		position: relative;
+		margin: 280px auto 0;
+		z-index: 1;
+		@include media {
+			width: 100%;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+	&-flim {
+		&-left {
+			width: 303px;
+			position: absolute;
+			top: 30px;
+			left: 0;
+			transform: translateX(-100%);
+			display: flex;
+			flex-direction: column;
+			@include media {
+				width: 100%;
+				position: relative;
+				top: 0;
+				transform: none;
+				display: grid;
+				grid-template-columns: repeat(2, vw(303));
+				justify-content: center;
+				gap: vw(12);
+				margin-bottom: vw(6);
+			}
+			&__btn {
+				width: 100%;
+				height: 121px;
+				background-size: cover;
+				background-image: url("./images/sec3-btn-off.png");
+				font-size: 28px;
+				text-decoration: none;
+				color: #3c3c3c;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 16px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+				@include hover {
+					background-image: url("./images/sec3-btn-on.png");
+					color: #6747a2;
+				}
+				&.active {
+					background-image: url("./images/sec3-btn-on.png");
+					color: #6747a2;
+				}
+				span {
+					width: 140px;
+					@include media {
+						width: vw(150);
+					}
+				}
+				@include media {
+					width: vw(303);
+					height: vw(121);
+					font-size: vw(28);
+					margin-bottom: 0;
+				}
+			}
+		}
+		&-box {
+			width: 1067px;
+			height: 666px;
+			background-image: url("./images/sec3-content-bg.png");
+			background-size: cover;
+			margin: 0 auto;
+			@include media {
+				width: vw(764);
+				height: vw(760);
+				background-image: url("./images/m-sec3-content-bg.png");
+			}
+		}
+		&-swiper {
+			width: 640px;
+			margin: 0 auto;
+			padding-top: 64px;
+			position: relative;
+			@include media {
+				width: vw(574);
+				padding-top: vw(144);
+			}
+			.swiper-pagination {
+				display: flex;
+				justify-content: center;
+				gap: 40px;
+				@include media {
+					gap: vw(46);
+					bottom: vw(-84);
+				}
+				.swiper-pagination-bullet {
+					width: 22px;
+					height: 22px;
+					margin: 0;
+					opacity: 1;
+					background-color: #0e0022;
+					box-shadow: inset 0 0 10px rgba(#e7c2f4, 0.56);
+					position: relative;
+					@include media {
+						width: vw(22);
+						height: vw(22);
+						box-shadow: inset 0 0 vw(10) rgba(#e7c2f4, 0.56);
+					}
+					&:last-child {
+						&:before {
+							content: none;
+						}
+					}
+					&:before {
+						content: "";
+						width: 30px;
+						height: 1px;
+						background-color: rgba(#e7c2f4, 0.5);
+						position: absolute;
+						top: 50%;
+						right: -100%;
+						transform: translateX(12px) translateY(-50%);
+						@include media {
+							width: vw(30);
+							transform: translateX(vw(12)) translateY(-50%);
+						}
+					}
+					&.swiper-pagination-bullet-active {
+						background-color: #724fa6;
+					}
+				}
+			}
+			.swiper-button-prev {
+				width: 35px;
+				height: 75px;
+				background-image: url("./images/sec3-arrow-left-off.png");
+				background-size: cover;
+				font-size: 0;
+				z-index: 9;
+				top: 318px;
+				left: -138px;
+				right: unset;
+				opacity: 1;
+				&.swiper-button-lock {
+					display: block;
+				}
+				@include media {
+					width: vw(35);
+					height: vw(75);
+					top: vw(294);
+					left: vw(-54);
+				}
+				&:after {
+					font-size: 0;
+				}
+			}
+			.swiper-button-next {
+				width: 34px;
+				height: 75px;
+				background-image: url("./images/sec3-arrow-right-off.png");
+				background-size: cover;
+				font-size: 0;
+				z-index: 9;
+				top: 318px;
+				right: -138px;
+				left: unset;
+				opacity: 1;
+				&.swiper-button-lock {
+					display: block;
+				}
+				&:after {
+					font-size: 0;
+				}
+				@include media {
+					width: vw(34);
+					height: vw(75);
+					top: vw(294);
+					right: vw(-54);
+				}
+			}
+		}
+		&-slide {
+			& > * {
+				opacity: 0;
+			}
+			&.swiper-slide-active {
+				& > * {
+					opacity: 1;
+				}
+			}
+			&__source {
+				width: 640px;
+				height: 360px;
+				background-color: var(--color, #1d0048);
+				margin-bottom: 6px;
+				@include media {
+					width: vw(574);
+					height: vw(294);
+					margin-bottom: vw(12);
+				}
+			}
+			&__info {
+				font-size: 24px;
+				color: #3c3c3c;
+				@include media {
+					font-size: vw(30);
+					margin-bottom: vw(12);
+				}
+			}
+			&__btn {
+				width: 207px;
+				height: 87px;
+				background-size: cover;
+				background-image: url("./images/sec3-btn-more-off.png");
+				font-size: 0;
+				margin: 0 auto;
+				display: block;
+				@include hover {
+					background-image: url("./images/sec3-btn-more-on.png");
+				}
+				@include media {
+					width: vw(247);
+					height: vw(96);
+					background-image: url("./images/m-sec3-btn-more.png");
+				}
+			}
+		}
+	}
+}
