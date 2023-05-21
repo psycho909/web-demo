@@ -1,8 +1,44 @@
 .sec3 {
-	height: 1080px;
 	overflow: hidden;
+	padding-bottom: 84px;
 	@include media {
-		height: vw(1334);
+		padding-bottom: vw(96);
+	}
+	&-meteor {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 305px;
+		height: 186px;
+		background-image: url("./images/sec3-meteor.png");
+		background-size: cover;
+		@include media {
+			width: vw(305);
+			height: vw(186);
+		}
+		&1 {
+			top: 0;
+			right: 0;
+			animation: meteor1 6s ease-out infinite;
+		}
+		&2 {
+			top: 512px;
+			right: 0;
+			transform: scale(0.5);
+			animation: meteor2 4s ease-out infinite;
+			@include media {
+				top: vw(512);
+			}
+		}
+		&3 {
+			top: 212px;
+			right: 0;
+			opacity: 0.5;
+			animation: meteor3 8s ease-out infinite;
+			@include media {
+				top: vw(212);
+			}
+		}
 	}
 	&-title {
 		width: 1200px;
@@ -25,7 +61,13 @@
 		}
 	}
 	&-content {
-		width: 1200px;
+		display: grid;
+		grid-template-columns: 1fr 1067px 1fr;
+		position: relative;
+		width: 1920px;
+		transform: translateX(-50%);
+		left: 50%;
+		// width: 1200px;
 		position: relative;
 		margin: 280px auto 0;
 		z-index: 1;
@@ -34,17 +76,20 @@
 			margin: 0 auto;
 			display: flex;
 			flex-direction: column;
+			left: 0;
+			transform: none;
 		}
 	}
 	&-flim {
 		&-left {
-			width: 303px;
-			position: absolute;
-			top: 30px;
-			left: 0;
-			transform: translateX(-100%);
+			width: vw2(303px);
+			// position: absolute;
+			// top: 30px;
+			// left: 0;
+			// transform: translateX(-100%);
 			display: flex;
 			flex-direction: column;
+			margin-left: auto;
 			@include media {
 				width: 100%;
 				position: relative;
@@ -58,16 +103,16 @@
 			}
 			&__btn {
 				width: 100%;
-				height: 121px;
+				height: vw2(121px);
 				background-size: cover;
 				background-image: url("./images/sec3-btn-off.png");
-				font-size: 28px;
+				font-size: vw2(28px);
 				text-decoration: none;
 				color: #3c3c3c;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				margin-bottom: 16px;
+				margin-bottom: vw2(16px);
 				&:last-child {
 					margin-bottom: 0;
 				}
@@ -80,7 +125,7 @@
 					color: #6747a2;
 				}
 				span {
-					width: 140px;
+					width: vw2(140px);
 					@include media {
 						width: vw(150);
 					}
@@ -118,6 +163,8 @@
 				display: flex;
 				justify-content: center;
 				gap: 40px;
+				bottom: -43px;
+				top: unset;
 				@include media {
 					gap: vw(46);
 					bottom: vw(-84);

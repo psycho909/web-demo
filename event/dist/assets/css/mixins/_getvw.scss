@@ -12,7 +12,7 @@
 	@return (strip-unit($size) / $breakpoint) * 100vw;
 }
 @function vw2($size, $breakpoint: 1920) {
-	@return ($size / $breakpoint) * 100vw;
+	@return (strip-unit($size) / $breakpoint) * 0.9 * 100vw;
 }
 @function vh0($size, $breakpoint: 1080) {
 	@return ($size / $breakpoint) * 1.2 * 100vh;

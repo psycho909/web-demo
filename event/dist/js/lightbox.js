@@ -11,16 +11,16 @@ var config = {
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
+			}
 		},
 		{
 			text: "text2",
 			class: "btn",
 			click: function () {
 				$.gbox.close();
-			},
-		},
-	],
+			}
+		}
+	]
 };
 
 export const MessageLB = (msg, url, callback) => {
@@ -41,16 +41,27 @@ export const MessageLB = (msg, url, callback) => {
 							callback();
 						}
 					}
-				},
+				}
 			},
 			{
 				text: "取消",
 				class: "btn-cancel",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
+	});
+};
+
+export const SkillVideo = (msg, url, callback) => {
+	let HTML = `
+		<div class="lb-style1__source"></div>
+	`;
+	$.gbox.open(HTML, {
+		addClass: "default lb-style1",
+		hasCloseBtn: true,
+		hasActionBtn: false
 	});
 };
 
@@ -77,16 +88,16 @@ export const EventInfo = (msg, url, callback) => {
 							callback();
 						}
 					}
-				},
+				}
 			},
 			{
 				text: "取消",
 				class: "btn-more",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	});
 };
 
@@ -104,16 +115,16 @@ function LB(msg, url, callback) {
 				class: "btn",
 				click: function () {
 					$.gbox.close();
-				},
+				}
 			},
 			{
 				text: "text2",
 				class: "btn",
 				click: function () {
 					$.gbox.close();
-				},
-			},
-		],
+				}
+			}
+		]
 	};
 
 	var HTML = "";

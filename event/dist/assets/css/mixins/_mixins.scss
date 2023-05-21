@@ -24,8 +24,8 @@
 		@content;
 	}
 }
-@mixin media2($width: 768px, $height: 1080px) {
-	@media screen and (min-width: $width) and (max-height: $height) {
+@mixin media2($width: 1300px) {
+	@media screen and (max-width: $breakpoint) {
 		@content;
 	}
 }

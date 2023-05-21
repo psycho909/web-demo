@@ -1,5 +1,5 @@
 :root {
-	--bg-color: #fff;
+	--bg-color: #1e1a38;
 	--safe-area-left: 0;
 	--safe-area-right: 0;
 	--safe-area-top: 0;
@@ -23,17 +23,22 @@
 #footer {
 	bottom: calc(1em + var(--safe-area-bottom));
 }
+html {
+	// scroll-behavior: smooth;
+}
 body {
 	background-color: var(--bg-color, #fff);
 	position: relative;
 	min-width: 1200px;
 	background-image: url("./images/bg.jpg");
 	background-position: center 0;
-	background-size: 1920px 3240px;
+	background-size: 1920px 3440px;
+	background-repeat: no-repeat;
 	@include media {
+		--bg-color: #1b1634;
 		background-image: url("./images/m-bg.jpg");
 		background-position: center 0;
-		background-size: vw(768) vw(4002);
+		background-size: vw(768) vw(4202);
 		min-width: 100%;
 	}
 }
@@ -117,5 +122,64 @@ body {
 	@include media {
 		width: vw(184);
 		height: vw(72);
+	}
+}
+@keyframes flash {
+	0%,
+	50%,
+	to {
+		opacity: 1;
+	}
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+
+@keyframes moveRight {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(300%);
+	}
+}
+@keyframes moveLeft {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-300%);
+	}
+}
+@keyframes meteor1 {
+	0% {
+		top: 0;
+		right: 0;
+	}
+	100% {
+		top: 720px;
+		right: 1920px;
+	}
+}
+
+@keyframes meteor2 {
+	0% {
+		top: 512px;
+		right: 0;
+	}
+	100% {
+		top: 1220px;
+		right: 1920px;
+	}
+}
+@keyframes meteor3 {
+	0% {
+		top: 212px;
+		right: 0;
+	}
+	100% {
+		top: 920px;
+		right: 1920px;
 	}
 }

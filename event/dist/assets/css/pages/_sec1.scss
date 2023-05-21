@@ -25,8 +25,87 @@
 		transform: translateX(-50%);
 		width: 1920px;
 		height: 1080px;
+		display: none;
 		@include media {
 			display: none;
+		}
+	}
+	&-cloud {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-size: cover;
+		@include media {
+			display: block;
+		}
+		&1 {
+			width: 735px;
+			height: 254px;
+			top: 33px;
+			left: -480px;
+			background-image: url("./images/sec1-cloud1.png");
+			@include media {
+				width: vw(735);
+				height: vw(254);
+				top: vw(33);
+				left: vw(-760);
+				animation: moveRight 10s linear infinite;
+			}
+		}
+		&2 {
+			width: 497px;
+			height: 288px;
+			top: -18px;
+			left: 576px;
+			background-image: url("./images/sec1-cloud2.png");
+			@include media {
+				width: vw(497);
+				height: vw(288);
+				top: vw(-18);
+				left: vw(776);
+				animation: moveLeft 6s linear infinite;
+			}
+		}
+		&3 {
+			width: 675px;
+			height: 233px;
+			top: 121px;
+			left: 1022px;
+			background-image: url("./images/sec1-cloud3.png");
+			@include media {
+				width: vw(675);
+				height: vw(233);
+				top: vw(121);
+				left: vw(1022);
+			}
+		}
+		&4 {
+			width: 911px;
+			height: 145px;
+			top: 319px;
+			left: -783px;
+			background-image: url("./images/sec1-cloud4.png");
+			@include media {
+				width: vw(911);
+				height: vw(148);
+				top: vw(319);
+				left: vw(-903);
+				animation: moveRight 12s linear infinite;
+			}
+		}
+		&5 {
+			width: 911px;
+			height: 145px;
+			top: 418px;
+			left: 688px;
+			background-image: url("./images/sec1-cloud5.png");
+			@include media {
+				width: vw(911);
+				height: vw(148);
+				top: vw(418);
+				left: vw(688);
+				animation: moveLeft 9s linear infinite;
+			}
 		}
 	}
 	&-left {

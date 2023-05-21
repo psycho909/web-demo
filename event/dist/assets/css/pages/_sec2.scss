@@ -1,5 +1,5 @@
 .sec2 {
-	height: 1080px;
+	// height: 1080px;
 	overflow: hidden;
 	@include media {
 		height: vw(1334);
@@ -9,17 +9,18 @@
 		height: 177px;
 		background-size: cover;
 		background-image: url("./images/sec2-title.png");
-		position: absolute;
-		top: 98px;
-		left: 50%;
-		transform: translateX(-50%);
+		margin: 98px auto 36px;
+		position: relative;
+		// position: absolute;
+		// top: 98px;
+		// left: 50%;
+		// transform: translateX(-50%);
 		@include media {
 			width: vw(453);
 			height: vw(177);
-			top: 0;
-			left: 0;
-			transform: none;
-			margin-top: vw(127);
+			// top: 0;
+			// left: 0;
+			// transform: none;
 			position: relative;
 			margin: vw(127) auto vw(36);
 		}
@@ -32,6 +33,7 @@
 			left: 137px;
 			background-color: #92ffee;
 			transform: rotate(45deg);
+			animation: flash 2s infinite;
 			@include media {
 				width: vw(10);
 				height: vw(10);
@@ -48,6 +50,8 @@
 			left: 316px;
 			background-color: #92ffee;
 			transform: rotate(45deg);
+			animation: flash 1.6s infinite;
+			animation-delay: 0.5s;
 			@include media {
 				width: vw(10);
 				height: vw(10);
@@ -109,6 +113,10 @@
 			}
 		}
 	}
+	&-container {
+		width: 100%;
+		overflow: hidden;
+	}
 	&-wrap {
 		position: relative;
 		z-index: 1;
@@ -132,7 +140,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin: 350px auto 0;
+		margin: 0 auto;
 		@include media {
 			width: 100%;
 			margin: 0 auto;
@@ -142,6 +150,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		transform-style: preserve-3d;
 		&.active {
 			.sec2-card__item-front {
 				transform: rotateY(0deg);
@@ -150,6 +159,11 @@
 				.sec2-card__item-front--img2 {
 					clip-path: circle(100% at 50% 50%);
 				}
+			}
+		}
+		@include hover {
+			.sec2-card__item-front--img2 {
+				clip-path: circle(100% at 50% 50%);
 			}
 		}
 		&[data-event="1"] {
@@ -187,6 +201,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			transform: rotateY(180deg);
 			@include media {
 				display: none;
 			}
@@ -233,13 +248,13 @@
 					width: 100%;
 					height: 100%;
 					background-size: cover;
-					background-image: url("./images/sec2-card-front.png");
+					background-image: url("./images/sec2-card-hover.png");
 				}
 				&--img2 {
 					width: 100%;
 					height: 100%;
 					background-size: cover;
-					background-image: url("./images/sec2-card-hover.png");
+					background-image: url("./images/sec2-card-front.png");
 					transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
 					clip-path: circle(0 at 50% 50%);
 					will-change: clip-path;

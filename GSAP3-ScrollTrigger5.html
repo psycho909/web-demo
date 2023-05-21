@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./css/locomotive-scroll.css" />
+		<link rel="stylesheet" href="https://rara.ritsumei.ac.jp/assets/css/index.css?v=4" />
+		<script src="./js/locomotive-scroll.js"></script>
+		<!-- <script src="https://rara.ritsumei.ac.jp/assets/js/vendor.js?v=3"></script>
+		<script src="https://rara.ritsumei.ac.jp/assets/js/lib.js?v=3"></script>
+		<script src="https://rara.ritsumei.ac.jp/assets/js/main.js?v=3"></script>
+		<script src="https://rara.ritsumei.ac.jp/assets/js/index.js?v=4"></script> -->
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background-color: #ececec;
+			}
+			.lFellows-slider-item-thumbnail-img.-cover {
+				transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+				clip-path: circle(0 at 50% 50%);
+				will-change: clip-path;
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.lGuideline-card-item-front:hover img:last-child {
+				clip-path: circle(100% at 50% 50%);
+			}
+			.test-box {
+				width: 100%;
+				height: 1080px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="cBase" data-menu-hidden data-transition-hidden>
+			<div class="scroll-container" data-scroll-container>
+				<div data-router-wrapper>
+					<div data-router-view="pIndex">
+						<main class="cMain">
+							<div class="lGuideline guildline" data-guideline id="guideline">
+								<div class="lGuideline-container">
+									<div class="lGuideline-title">
+										<div class="lGuideline-title-inner">
+											<h2 class="lGuideline-title-svg" data-svg-title>
+												<svg viewBox="0 0 1148.2 149.5">
+													<style type="text/css">
+														.st0 {
+															fill: #e6e6e6;
+															stroke: #000000;
+															stroke-width: 0.2;
+															stroke-miterlimit: 10;
+														}
+													</style>
+													<path class="st0" data-svg-title-item d="M143.5,129.3v3.1c-22.5,9.5-39.7,15.5-63.4,15.5c-43.3,0-80-26.3-80-72.2c0-46.6,40.7-75.6,84.6-75.6              c16.6,0,33.4,2.9,49.1,8.2L133,44.8h-2.7c-5.2-24.4-22.1-39.7-47.5-39.7c-36.3,0-58.4,27.7-58.4,62.8c0,41.6,29.6,72.9,71.4,72.9              c19.1,0,18.9-5,18.9-18.7v-12.6c0-23.3-6.1-25.8-28.4-28.6v-3.1h62.2v3.1c-14.7,2.9-15.3,8.8-15.3,21.8v26.5h10.3V129.3z"></path>
+													<path class="st0" data-svg-title-item d="M303.5,2.7v3.2c-19.1,2.1-20.4,13.9-21.2,41.6l-1.3,46c-0.6,27.1-12.2,54.6-58.8,54.6              c-65.1,0-58.4-47-58.4-63.8v-47c-0.6-21.6-0.8-27.9-26-31.3V2.8h72.5V6c-27.5,4-27.9,8.2-27.9,31.3v43.1c0,4-6.7,58.2,50.8,58.2              c45.4,0,41-43.3,41-68.9V47.4c0-26.7-2.1-38.9-31.5-41.6V2.6h60.8V2.7z"></path>
+													<path class="st0" data-svg-title-item d="M354.9,111c0.6,21.6,0.8,27.9,26,31.3v3.1h-70.5v-3.1c25.2-3.4,25.4-9.7,26-31.3V37.1              c-0.6-21.6-0.8-27.9-26-31.3V2.6H381v3.2c-25.2,3.4-25.4,9.7-26,31.3V111H354.9z"></path>
+													<path class="st0" data-svg-title-item d="M437.9,2.2l-50.8,1.7v2.9c23.9,3.4,24.2,9.7,24.8,31.3V111c-0.6,21.6-0.8,27.9-26,31.3v3.1l62.6,0.4              c72.2,0.6,91.6-41.4,91.6-71.4C540,52.6,530.3-0.7,437.9,2.2z M458.9,140.6c-26,0-28.6-13.4-28.6-27.5V6.4              c45.6-0.2,85.3,20.8,85.3,71.2C515.6,125.5,483,140.6,458.9,140.6z"></path>
+													<path class="st0" data-svg-title-item d="M524.4,142.3c25.2-3.4,25.4-9.7,26-31.3V37.1c-0.6-21.6-0.8-27.9-26-31.3V2.6h112.8l-2.5,32.3h-3.2              c-1.5-27.1-21-27.3-42.2-27.3h-20.4v59.9h21.8c15.8,0,27.7-1.3,30-19.3h3.1V95h-3.1c-2.7-18.5-14.3-18.7-30-18.7h-21.8v34.4              c0,12.4-2.9,29.6,31.5,29.6c26.5,0,39.5-10.1,44.7-36.5h3.2c-0.2,16-2.9,29-7.1,41.6H524.4V142.3z"></path>
+													<path class="st0" data-svg-title-item d="M650.4,142.3c25.2-3.4,25.4-9.7,26-31.3V37.1c-0.6-21.6-0.8-27.9-26-31.3V2.6H721v3.2c-25.2,3.4-26,9.7-26,31.3              V106c0,10.5,0,21.6,3.1,31.7l25.6,1.9c31.9,2.3,37.2-7.6,53.3-34.4l2.7,1.3l-12,39.1H650.4V142.3z"></path>
+													<path class="st0" data-svg-title-item d="M821.1,111c0.6,21.6,0.8,27.9,26,31.3v3.1h-70.6v-3.1c25.2-3.4,25.4-9.7,26-31.3V37.1              c-0.6-21.6-0.8-27.9-26-31.3V2.6h70.6v3.2c-25.2,3.4-25.4,9.7-26,31.3V111z"></path>
+													<path class="st0" data-svg-title-item d="M991.4,112.5l-1.1-76.7c-0.2-20-5.7-25.8-29.4-30V2.6h57.3v3.2c-14.5,1.9-17.2,9.9-18.9,23.5              c-2.9,23.1-1.9,73.7-0.8,119.5l-2.7,0.6c-33.6-39.7-71-76.4-106.5-114.7v38.7c0,52.1-1.3,62.8,29.2,68.9v3.1h-62.8v-3.1              c28.4-2.9,27.3-22.3,27.3-69.9V40.9c0-21-3.4-29.2-30-35.1V2.6h34.7L991.4,112.5z"></path>
+													<path class="st0" data-svg-title-item d="M1024.2,142.3c25.2-3.4,25.4-9.7,26-31.3V37.1c-0.6-21.6-0.8-27.9-26-31.3V2.6H1137l-2.5,32.3h-3.2              c-1.5-27.1-21-27.3-42.2-27.3h-20.4v59.9h21.8c15.8,0,27.7-1.3,30-19.3h3.2V95h-3.2c-2.7-18.5-14.3-18.7-30-18.7h-21.8v34.4              c0,12.4-2.9,29.6,31.5,29.6c26.5,0,39.5-10.1,44.7-36.5h3.2c-0.2,16-2.9,29-7.1,41.6h-116.8V142.3z"></path>
+												</svg>
+											</h2>
+											<div class="lGuideline-title-sub">
+												<div class="cSubTitle -right" data-subtitle="true">
+													<div class="cFlatText cSubTitle-inner" data-flat-text><span class="cSubTitle-text" data-subtitle-item>R</span><span class="cSubTitle-text" data-subtitle-item>A</span><span class="cSubTitle-text" data-subtitle-item>R</span><span class="cSubTitle-text" data-subtitle-item>A</span><span class="cSubTitle-text" data-subtitle-item>行</span><span class="cSubTitle-text" data-subtitle-item>動</span><span class="cSubTitle-text" data-subtitle-item>指</span><span class="cSubTitle-text" data-subtitle-item>針</span></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="lGuideline-card" data-guideline-card-container>
+										<div class="lGuideline-card-item -card1" data-guideline-card>
+											<div class="lGuideline-card-item-front">
+												<img class="lFellows-slider-item-thumbnail-img" src="https://rara.ritsumei.ac.jp/cms/wp-content/uploads/2022/04/b-fellows_takahashi.jpg" alt="" loading="lazy" />
+												<img class="lFellows-slider-item-thumbnail-img -cover" src="https://rara.ritsumei.ac.jp/cms/wp-content/uploads/2022/04/b-fellows_takahashi-1.jpg" alt="" loading="lazy" />
+											</div>
+											<div class="lGuideline-card-item-back">
+												<img class="lGuideline-card-item-back-illust -l01" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust01.png" width="234" height="302" alt="" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust01.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_illust01@2x.png 2x" />
+											</div>
+										</div>
+										<div class="lGuideline-card-item -card2 -large" data-guideline-card>
+											<div class="lGuideline-card-item-front">
+												<div class="lGuideline-card-item-headline">
+													<img class="lGuideline-card-item-number -l02" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number02.png" width="93" height="132" alt="" loading="lazy" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number02.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_number02@2x.png 2x" />
+													<div class="cFlatText lGuideline-card-item-title" data-flat-text>共創</div>
+												</div>
+												<div class="cFlatText lGuideline-card-item-text" data-flat-text>多様な価値観や文化、習慣を尊重し、地域や国籍にとらわれることのない研究パートナーシップの構築を追及するとともに、他者に配慮した包括的なリーダーシップを発揮すること。</div>
+											</div>
+											<div class="lGuideline-card-item-back">
+												<img class="lGuideline-card-item-back-illust -l02" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust02.png" width="235" height="307" alt="" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust02.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_illust02@2x.png 2x" />
+											</div>
+										</div>
+										<div class="lGuideline-card-item -card3" data-guideline-card>
+											<div class="lGuideline-card-item-front">
+												<div class="lGuideline-card-item-headline">
+													<img class="lGuideline-card-item-number -l03" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number03.png" width="81" height="135" alt="" loading="lazy" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number03.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_number03@2x.png 2x" />
+													<div class="cFlatText lGuideline-card-item-title" data-flat-text>変革</div>
+												</div>
+												<div class="cFlatText lGuideline-card-item-text" data-flat-text>本大学を中心に国内外の研究者を結集した学際融合研究の実践に向けた戦略とビジョンを示し、次世代研究大学を牽引する社会共生価値を創出すること。</div>
+											</div>
+											<div class="lGuideline-card-item-back">
+												<img class="lGuideline-card-item-back-illust -l03" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust03.png" width="220" height="301" alt="" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust03.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_illust03@2x.png 2x" />
+											</div>
+										</div>
+										<div class="lGuideline-card-item -card4" data-guideline-card>
+											<div class="lGuideline-card-item-front">
+												<div class="lGuideline-card-item-headline">
+													<img class="lGuideline-card-item-number -l04" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number04.png" width="98" height="133" alt="" loading="lazy" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_number04.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_number04@2x.png 2x" />
+													<div class="cFlatText lGuideline-card-item-title" data-flat-text>信頼</div>
+												</div>
+												<div class="cFlatText lGuideline-card-item-text" data-flat-text>世界水準の研究・教育を展開する研究者として国際社会から広く信頼されるとともに、国際通用性のある先進研究アカデミーとしての認知度向上に努めること。</div>
+											</div>
+											<div class="lGuideline-card-item-back">
+												<img class="lGuideline-card-item-back-illust -l04" src="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust04.png" width="295" height="297" alt="" srcset="https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/1x/b-guideline_illust04.png 1x, https://rara.ritsumei.ac.jp/assets/img/index/guideline/pc/2x/b-guideline_illust04@2x.png 2x" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="test-box"></div>
+						</main>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollTrigger.min.js"></script>
+
+		<script>
+			// const scroll = new LocomotiveScroll({
+			// 	el: document.querySelector("[data-scroll-container]"),
+			// 	smooth: true
+			// });
+			let cards = document.querySelectorAll("[data-guideline-card]");
+			let container = document.querySelector("[data-guideline-card-container]");
+
+			function scrollCardsAnimation() {
+				var t1 = gsap.timeline();
+				var je = "power1.out";
+				return t1
+					.from(
+						container,
+						{
+							x: "105%",
+							duration: 6
+						},
+						"-=1"
+					)
+					.to(
+						cards[0],
+						{
+							rotateY: -180,
+							ease: je,
+							duration: 3
+						},
+						"-=2.7"
+					)
+					.to(
+						cards[1],
+						{
+							x: "0%",
+							ease: je,
+							duration: 4
+						},
+						"-=4.4"
+					)
+					.to(
+						cards[1],
+						{
+							rotateY: -180,
+							ease: je,
+							duration: 3
+						},
+						"-=2.0"
+					)
+					.to(
+						cards[2],
+						{
+							x: "0%",
+							ease: je,
+							duration: 3
+						},
+						"-=3.5"
+					)
+					.to(
+						cards[2],
+						{
+							rotateY: -180,
+							ease: je,
+							duration: 3
+						},
+						"-=2.0"
+					)
+					.to(
+						cards[3],
+						{
+							x: "0%",
+							ease: je,
+							duration: 3
+						},
+						"-=3.0"
+					)
+					.to(
+						cards[3],
+						{
+							rotateY: -180,
+							ease: je,
+							duration: 3
+						},
+						"-=1.3"
+					);
+			}
+			ScrollTrigger.create({
+				trigger: ".lGuideline-container",
+				animation: scrollCardsAnimation(),
+				// scroller: ".scroll-container",
+				start: "top",
+				end: "+=200px",
+				scrub: true,
+				pin: true,
+				pinType: "transform",
+				markers: true
+			});
+
+			gsap.registerPlugin(ScrollTrigger);
+
+			// var t1 = gsap.timeline({
+			// 	scrollTrigger: {
+			// 		trigger: ".lGuideline-container",
+			// 		// animation: scrollCardsAnimation(),
+			// 		// scroller: ".scroll-container",
+			// 		start: "top",
+			// 		end: "+=100%",
+			// 		scrub: true,
+			// 		pin: true,
+			// 		markers: true,
+			// 		pinType: "transform"
+			// 	}
+			// });
+
+			// t1.from(
+			// 	container,
+			// 	{
+			// 		x: "105%",
+			// 		duration: 6
+			// 	},
+			// 	"-=1"
+			// )
+			// 	.to(
+			// 		cards[0],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.7"
+			// 	)
+			// 	.to(
+			// 		cards[1],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 4
+			// 		},
+			// 		"-=4.4"
+			// 	)
+			// 	.to(
+			// 		cards[1],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.0"
+			// 	)
+			// 	.to(
+			// 		cards[2],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 3
+			// 		},
+			// 		"-=3.5"
+			// 	)
+			// 	.to(
+			// 		cards[2],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=2.0"
+			// 	)
+			// 	.to(
+			// 		cards[3],
+			// 		{
+			// 			x: "0%",
+			// 			duration: 3
+			// 		},
+			// 		"-=3.0"
+			// 	)
+			// 	.to(
+			// 		cards[3],
+			// 		{
+			// 			rotateY: -180,
+			// 			duration: 3
+			// 		},
+			// 		"-=1.3"
+			// 	);
+		</script>
+	</body>
+</html>
