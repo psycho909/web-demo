@@ -303,7 +303,7 @@
 					height: 100%;
 					background-size: cover;
 					background-image: url("./images/sec2-card-front.png");
-					transition: clip-path 1s linear;
+					transition: clip-path 0.6s linear;
 					clip-path: circle(0 at 50% 50%);
 					will-change: clip-path;
 					display: block;

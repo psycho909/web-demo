@@ -132,14 +132,14 @@ const sec1 = {
 				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
 				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 25, 60);
 				if (props.event) {
-					step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 90);
-					step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 90);
-					step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 90);
-					step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 90);
+					step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 95);
+					step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 95);
+					step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 95);
+					step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 95);
 					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
 				} else {
-					step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 90);
-					step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 90);
+					step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 95);
+					step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 95);
 					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
 				}
 				Promise.allSettled(canvasArr).then((res) => {

@@ -26,7 +26,7 @@ const sec2 = {
 		};
 		let browserWidth = 1920;
 		let startWidth = 120;
-		let endWidth = 1200;
+		let endWidth = 1400;
 		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
 		let scrollEvent = Vue.ref(null);
 		window.addEventListener("resize", function () {

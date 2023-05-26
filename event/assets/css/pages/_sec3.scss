@@ -6,7 +6,7 @@
 	// background-size: vw3(1920px) vw3(3440px);
 	background-repeat: no-repeat;
 	z-index: 2;
-	// background-color: var(--bg-color, #fff);
+	background-color: var(--bg-color, #fff);
 	@include media {
 		padding-bottom: vw(96);
 		background-image: none;
