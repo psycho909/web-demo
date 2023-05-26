@@ -148,13 +148,13 @@
 		&__link {
 			color: #fdf5a6;
 			text-decoration: none;
-			margin-bottom: vw3(24px);
+			margin-bottom: vw3(36px);
 			position: relative;
 			@include media2 {
 				// margin-bottom: vw2(24);
 			}
 			@include media {
-				margin-bottom: vw(18);
+				margin-bottom: vw(32);
 			}
 			&:last-child {
 				margin-bottom: 0;
@@ -301,7 +301,7 @@
 			width: vw3(273px);
 			height: vw3(273px);
 			border-radius: 100vmax;
-			z-index: 2;
+			z-index: 3;
 			@include media {
 				width: vw(273);
 				height: vw(273);
@@ -424,6 +424,7 @@
 				top: vw3(16px);
 				left: vw3(290px);
 				display: none;
+				z-index: 2;
 				@include media {
 					display: none;
 				}

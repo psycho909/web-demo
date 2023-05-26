@@ -1,12 +1,12 @@
 .sec3 {
 	overflow: hidden;
 	padding-bottom: vw3(84px);
-	background-image: url(./images/bg.jpg);
-	background-position: center vw3(-2842px);
-	background-size: vw3(1920px) vw3(3440px);
+	// background-image: url(./images/bg.jpg);
+	// background-position: center vw3(-2842px);
+	// background-size: vw3(1920px) vw3(3440px);
 	background-repeat: no-repeat;
 	z-index: 2;
-	background-color: var(--bg-color, #fff);
+	// background-color: var(--bg-color, #fff);
 	@include media {
 		padding-bottom: vw(96);
 		background-image: none;

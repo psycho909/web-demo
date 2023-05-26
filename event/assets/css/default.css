@@ -1545,12 +1545,12 @@ body {
 .sec1-left__link {
   color: #fdf5a6;
   text-decoration: none;
-  margin-bottom: 1.25vw;
+  margin-bottom: 1.875vw;
   position: relative;
 }
 @media screen and (max-width: 769px) {
   .sec1-left__link {
-    margin-bottom: 2.34375vw;
+    margin-bottom: 4.1666666667vw;
   }
 }
 .sec1-left__link:last-child {
@@ -1684,7 +1684,7 @@ body {
   width: 14.21875vw;
   height: 14.21875vw;
   border-radius: 100vmax;
-  z-index: 2;
+  z-index: 3;
 }
 @media screen and (max-width: 769px) {
   .sec1-btn__link {
@@ -1827,6 +1827,7 @@ body {
   top: 0.8333333333vw;
   left: 15.1041666667vw;
   display: none;
+  z-index: 2;
 }
 @media screen and (max-width: 769px) {
   .sec1-btn__step2 .sec1-btn__link:before {
@@ -2424,12 +2425,8 @@ body {
 .sec3 {
   overflow: hidden;
   padding-bottom: 4.375vw;
-  background-image: url(./images/bg.jpg);
-  background-position: center -148.0208333333vw;
-  background-size: 100vw 179.1666666667vw;
   background-repeat: no-repeat;
   z-index: 2;
-  background-color: var(--bg-color, #fff);
 }
 @media screen and (max-width: 769px) {
   .sec3 {

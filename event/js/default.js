@@ -38,7 +38,7 @@ let app = Vue.createApp({
 			let add = 0;
 			let browserWidth = 1920;
 			if (page == "#sec2" && !mobile.value) {
-				add = parseInt((400 / browserWidth) * targetBrowserWidth.value);
+				add = parseInt((1000 / browserWidth) * targetBrowserWidth.value);
 			}
 			menuStatus.value = false;
 			$("body,html").animate(
