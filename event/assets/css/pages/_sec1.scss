@@ -519,6 +519,14 @@
 		position: absolute;
 		top: vw3(98px);
 		left: vw3(540px);
+		@include hover {
+			.sec1-character__canvas1 {
+				opacity: 0;
+			}
+			.sec1-character__canvas2 {
+				opacity: 1;
+			}
+		}
 		@include media {
 			width: vw(829);
 			height: vw(829);
@@ -528,9 +536,25 @@
 		&.loading {
 			background-image: url("./images/character/Comp1_00000.png");
 		}
-		&__canvas {
-			width: 100%;
-			height: 100%;
+		&__canvas1 {
+			width: vw3(829);
+			height: vw3(829);
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			@include media {
+				display: none;
+			}
+		}
+		&__canvas2 {
+			width: vw3(829);
+			height: vw3(829);
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0;
 			@include media {
 				display: none;
 			}

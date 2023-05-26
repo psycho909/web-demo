@@ -26,7 +26,7 @@ const sec2 = {
 		};
 		let browserWidth = 1920;
 		let startWidth = 120;
-		let endWidth = 600;
+		let endWidth = 1000;
 		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
 		let scrollEvent = Vue.ref(null);
 		window.addEventListener("resize", function () {
@@ -60,19 +60,27 @@ const sec2 = {
 					var je = "power1.out";
 					return t1
 						.from(
-							container.value,
+							".sec2-title",
 							{
-								x: "105%",
+								x: "0",
 								duration: 6
 							},
 							"-=1"
+						)
+						.to(
+							".sec2-wrap",
+							{
+								x: "0",
+								duration: 6
+							},
+							"-=2.7"
 						)
 						.to(
 							cards.value[0],
 							{
 								rotateY: -180,
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=2.7"
 						)
@@ -81,7 +89,7 @@ const sec2 = {
 							{
 								x: "0%",
 								ease: je,
-								duration: 4
+								duration: 6
 							},
 							"-=4.4"
 						)
@@ -90,7 +98,7 @@ const sec2 = {
 							{
 								rotateY: -180,
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=2.0"
 						)
@@ -99,7 +107,7 @@ const sec2 = {
 							{
 								x: "0%",
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=3.5"
 						)
@@ -108,7 +116,7 @@ const sec2 = {
 							{
 								rotateY: -180,
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=2.0"
 						)
@@ -117,7 +125,7 @@ const sec2 = {
 							{
 								x: "0%",
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=3.0"
 						)
@@ -126,7 +134,7 @@ const sec2 = {
 							{
 								rotateY: -180,
 								ease: je,
-								duration: 3
+								duration: 6
 							},
 							"-=1.3"
 						);
@@ -135,8 +143,8 @@ const sec2 = {
 					trigger: trigger,
 					animation: scrollCardsAnimation(),
 					// scroller: ".scroll-container",
-					start: "-=20%",
-					end: "+=60%",
+					start: scrollStart.value,
+					end: scrollEnd.value,
 					scrub: true,
 					pin: true,
 					pinType: "transform"

@@ -146,7 +146,7 @@ export function particlesBg(id) {
 	particlesJS(id, {
 		particles: {
 			number: {
-				value: 100,
+				value: 60,
 				density: {
 					enable: false,
 					value_area: 0
@@ -154,6 +154,21 @@ export function particlesBg(id) {
 			},
 			color: {
 				value: "#fff"
+			},
+			shape: {
+				type: "image", //[image,circle,star...]如果是image以下不管用
+				stroke: {
+					width: 1, //筆畫
+					color: "#f0f" //筆畫顏色
+				},
+				polygon: {
+					nb_sides: 5
+				},
+				image: {
+					src: "./assets/css/images/gold.png",
+					width: 20,
+					height: 20
+				}
 			},
 			opacity: {
 				value: 0.5,
@@ -167,7 +182,7 @@ export function particlesBg(id) {
 			},
 			size: {
 				value: 5, //產生大小
-				random: true, //隨機
+				random: false, //隨機
 				anim: {
 					enable: false, //產生閃爍
 					speed: 40,

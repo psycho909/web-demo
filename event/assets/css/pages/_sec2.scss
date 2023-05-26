@@ -33,7 +33,7 @@
 			left: vw3(137px);
 			background-color: #92ffee;
 			transform: rotate(45deg);
-			animation: flash 2s infinite;
+			// animation: flash 2s infinite;
 			@include media {
 				width: vw(10);
 				height: vw(10);
@@ -50,8 +50,8 @@
 			left: vw3(316px);
 			background-color: #92ffee;
 			transform: rotate(45deg);
-			animation: flash 1.6s infinite;
-			animation-delay: 0.5s;
+			// animation: flash 1.6s infinite;
+			// animation-delay: 0.5s;
 			@include media {
 				width: vw(10);
 				height: vw(10);
@@ -122,10 +122,12 @@
 	&-wrap {
 		position: relative;
 		z-index: 1;
+		transform: translateX(105%);
 		@include media {
 			width: 51vw;
 			height: vw(664);
 			margin: 0 auto;
+			transform: translateX(0);
 		}
 	}
 	&-swiper-wrap {
@@ -166,7 +168,7 @@
 
 		&[data-event="1"] {
 			.sec2-card__item-front--img1 {
-				background-image: url(./images/sec2/sec2-card1.png);
+				background-image: url(./images/sec2/sec2-card-border.png), url(./images/sec2/sec2-card1.png);
 			}
 			.sec2-card__item-front--img2 {
 				background-image: url(./images/sec2/sec2-card1.png);
@@ -174,7 +176,7 @@
 		}
 		&[data-event="2"] {
 			.sec2-card__item-front--img1 {
-				background-image: url(./images/sec2/sec2-card2.png);
+				background-image: url(./images/sec2/sec2-card-border.png), url(./images/sec2/sec2-card2.png);
 			}
 			.sec2-card__item-front--img2 {
 				background-image: url(./images/sec2/sec2-card2.png);
@@ -182,7 +184,7 @@
 		}
 		&[data-event="3"] {
 			.sec2-card__item-front--img1 {
-				background-image: url(./images/sec2/sec2-card3.png);
+				background-image: url(./images/sec2/sec2-card-border.png), url(./images/sec2/sec2-card3.png);
 			}
 			.sec2-card__item-front--img2 {
 				background-image: url(./images/sec2/sec2-card3.png);
@@ -190,7 +192,7 @@
 		}
 		&[data-event="4"] {
 			.sec2-card__item-front--img1 {
-				background-image: url(./images/sec2/sec2-card4.png);
+				background-image: url(./images/sec2/sec2-card-border.png), url(./images/sec2/sec2-card4.png);
 			}
 			.sec2-card__item-front--img2 {
 				background-image: url(./images/sec2/sec2-card4.png);
@@ -301,7 +303,7 @@
 					height: 100%;
 					background-size: cover;
 					background-image: url("./images/sec2-card-front.png");
-					transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1), -webkit-clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
+					transition: clip-path 1s linear;
 					clip-path: circle(0 at 50% 50%);
 					will-change: clip-path;
 					display: block;

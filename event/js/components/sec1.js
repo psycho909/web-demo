@@ -19,7 +19,8 @@ const sec1 = {
 		let step2C2 = Vue.ref(null);
 		let step3C1 = Vue.ref(null);
 		let step3C2 = Vue.ref(null);
-		let character = Vue.ref(null);
+		let characterC1 = Vue.ref(null);
+		let characterC2 = Vue.ref(null);
 		let join = false;
 		let joinDate = "";
 		let enter = false;
@@ -128,17 +129,18 @@ const sec1 = {
 			particlesBg("sec1");
 			if (!props.mobile) {
 				let canvasArr = [];
-				character.value = new CanvasSprite($(".sec1-character__canvas"), 25, 60);
+				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
+				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 25, 60);
 				if (props.event) {
-					step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 70);
-					step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 70);
-					step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 70);
-					step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 70);
-					canvasArr = [character.value.PreLoad("./assets/css/images/character/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
+					step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 90);
+					step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 90);
+					step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 90);
+					step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 90);
+					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
 				} else {
-					step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 70);
-					step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 70);
-					canvasArr = [character.value.PreLoad("./assets/css/images/character/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
+					step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 90);
+					step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 90);
+					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
 				}
 				Promise.allSettled(canvasArr).then((res) => {
 					emit("showLoading", true);
@@ -154,8 +156,9 @@ const sec1 = {
 						step3C1.value.target.parent().removeClass("loading");
 						step3C2.value.Loop();
 					}
-					character.value.Loop();
-					character.value.target.parent().removeClass("loading");
+					characterC1.value.Loop();
+					characterC2.value.Loop();
+					characterC1.value.target.parent().removeClass("loading");
 					document.querySelector("html").classList.remove("ovh");
 					emit("showLoading", false);
 				});
@@ -189,8 +192,8 @@ const sec1 = {
         <a class="sec1-left__link sec1-left__link--icon1">極限成長密藥</a>
         <a class="sec1-left__link sec1-left__link--icon2">皇家美髮券x3</a>
         <a class="sec1-left__link sec1-left__link--icon3">皇家整形券x3</a>
-        <a class="sec1-left__link sec1-left__link--icon4">Savior 名牌戒指交換券</a>
-        <a class="sec1-left__link sec1-left__link--icon5">Savior 聊天戒指交換券</a>
+        <a class="sec1-left__link sec1-left__link--icon4">Savior 名牌戒指</a>
+        <a class="sec1-left__link sec1-left__link--icon5">Savior 聊天戒指</a>
     </div>
     <div class="sec-wrap">
 		<div class="sec1-cloud sec1-cloud1"></div>
@@ -216,7 +219,8 @@ const sec1 = {
             </div>
         </div>
         <a href="javascript:;" class="sec1-character loading" @click="skillPop">
-            <canvas class="sec1-character__canvas" width="829" height="829"></canvas>
+            <canvas class="sec1-character__canvas1" width="829" height="829"></canvas>
+            <canvas class="sec1-character__canvas2" width="829" height="829"></canvas>
         </a>
     </div>
 </div>`
