@@ -266,6 +266,17 @@
 					background-size: cover;
 					background-image: url("./images/sec2-card-hover.png");
 					position: relative;
+					&:before {
+						content: "";
+						width: 100%;
+						height: 100%;
+						position: absolute;
+						top: 0;
+						left: 0;
+						background: url(./images/sec2/sec2-card-border.png);
+						background-size: cover;
+						z-index: 2;
+					}
 					.blue {
 						width: 100%;
 						height: 100%;

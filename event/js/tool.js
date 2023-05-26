@@ -146,7 +146,7 @@ export function particlesBg(id) {
 	particlesJS(id, {
 		particles: {
 			number: {
-				value: 60,
+				value: 40,
 				density: {
 					enable: false,
 					value_area: 0
@@ -166,8 +166,8 @@ export function particlesBg(id) {
 				},
 				image: {
 					src: "./assets/css/images/gold.png",
-					width: 20,
-					height: 20
+					width: 28,
+					height: 28
 				}
 			},
 			opacity: {
