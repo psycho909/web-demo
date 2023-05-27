@@ -69,7 +69,14 @@ let app = Vue.createApp({
 
 		window.addEventListener("scroll", function (e) {
 			let top = document.documentElement.scrollTop;
-			scrollTarget(top, $(".sec"));
+			let sec3Title = $("#sec3").offset().top;
+			let tempTop = sec3Title * 0.1;
+			if (top + tempTop >= sec3Title) {
+				$(".sec3-title").addClass("anim");
+			} else {
+				$(".sec3-title").removeClass("anim");
+			}
+			scrollTarget(top, $(".sec"), 100);
 		});
 
 		if (isMobile.any) {

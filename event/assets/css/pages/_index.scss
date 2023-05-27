@@ -193,3 +193,30 @@ body {
 		right: vw3(1920px);
 	}
 }
+@keyframes sec3title {
+	from {
+		background-position: 0px;
+	}
+
+	to {
+		background-position: -1400%;
+	}
+}
+@keyframes btnNormal {
+	from {
+		background-position: 0px;
+	}
+
+	to {
+		background-position: -2300%;
+	}
+}
+@keyframes character {
+	from {
+		background-position: 0px;
+	}
+
+	to {
+		background-position: -2500%;
+	}
+}

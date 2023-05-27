@@ -127,45 +127,47 @@ const sec1 = {
 		};
 		Vue.nextTick(() => {
 			particlesBg("sec1");
-			if (!props.mobile) {
-				let canvasArr = [];
-				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
-				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 25, 60);
-				if (props.event) {
-					step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 95);
-					step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 95);
-					step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 95);
-					step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 95);
-					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
-				} else {
-					step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 95);
-					step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 95);
-					canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
-				}
-				Promise.allSettled(canvasArr).then((res) => {
-					emit("showLoading", true);
-					if (props.event) {
-						step1C1.value.Loop();
-						step1C1.value.target.parent().removeClass("loading");
-						step1C2.value.Loop();
-						step2C1.value.Loop();
-						step2C1.value.target.parent().removeClass("loading");
-						step2C2.value.Loop();
-					} else {
-						step3C1.value.Loop();
-						step3C1.value.target.parent().removeClass("loading");
-						step3C2.value.Loop();
-					}
-					characterC1.value.Loop();
-					characterC2.value.Loop();
-					characterC1.value.target.parent().removeClass("loading");
-					document.querySelector("html").classList.remove("ovh");
-					emit("showLoading", false);
-				});
-			} else {
-				document.querySelector("html").classList.remove("ovh");
-				emit("showLoading", false);
-			}
+			// if (!props.mobile) {
+			// 	let canvasArr = [];
+			// 	characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
+			// 	characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 25, 60);
+			// 	if (props.event) {
+			// 		step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 95);
+			// 		step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 95);
+			// 		step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 95);
+			// 		step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 95);
+			// 		canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
+			// 	} else {
+			// 		step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 95);
+			// 		step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 95);
+			// 		canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
+			// 	}
+			// 	Promise.allSettled(canvasArr).then((res) => {
+			// 		emit("showLoading", true);
+			// 		if (props.event) {
+			// 			step1C1.value.Loop();
+			// 			step1C1.value.target.parent().removeClass("loading");
+			// 			step1C2.value.Loop();
+			// 			step2C1.value.Loop();
+			// 			step2C1.value.target.parent().removeClass("loading");
+			// 			step2C2.value.Loop();
+			// 		} else {
+			// 			step3C1.value.Loop();
+			// 			step3C1.value.target.parent().removeClass("loading");
+			// 			step3C2.value.Loop();
+			// 		}
+			// 		characterC1.value.Loop();
+			// 		characterC2.value.Loop();
+			// 		characterC1.value.target.parent().removeClass("loading");
+			// 		document.querySelector("html").classList.remove("ovh");
+			// 		emit("showLoading", false);
+			// 	});
+			// } else {
+			// 	document.querySelector("html").classList.remove("ovh");
+			// 	emit("showLoading", false);
+			// }
+			document.querySelector("html").classList.remove("ovh");
+			emit("showLoading", false);
 		});
 
 		Vue.onMounted(() => {
@@ -204,21 +206,29 @@ const sec1 = {
         <div class="sec1-btn-group">
             <div class="sec1-btn__step1 loading" v-show="event">
                 <a href="javascript:;" class="sec1-btn__link" @click="handleBtnEvent(1)" @mouseover="handleEnter" @mouseleave="handleLeave"></a>
-                <canvas class="canvas1 sec1-btn__step1-canvas1" width="400" height="400"></canvas>
+                <div class="sec1-btn--normal"></div>
+                <div class="sec1-btn--hover"></div>
+				<canvas class="canvas1 sec1-btn__step1-canvas1" width="400" height="400"></canvas>
                 <canvas class="canvas2 sec1-btn__step1-canvas2" width="400" height="400"></canvas>
             </div>
             <div class="sec1-btn__step2 loading" v-show="event">
                 <a href="javascript:;" class="sec1-btn__link" @click="handleBtnEvent(2)"></a>
+				<div class="sec1-btn--normal"></div>
+                <div class="sec1-btn--hover"></div>
                 <canvas class="canvas1 sec1-btn__step2-canvas1" width="400" height="400"></canvas>
                 <canvas class="canvas2 sec1-btn__step2-canvas2" width="400" height="400"></canvas>
             </div>
 			<div class="sec1-btn__step3 loading" v-show="!event">
                 <a href="https://maplestory.beanfun.com/main" class="sec1-btn__link" target="_blank"></a>
+				<div class="sec1-btn--normal"></div>
+                <div class="sec1-btn--hover"></div>
                 <canvas class="canvas1 sec1-btn__step3-canvas1" width="400" height="400"></canvas>
                 <canvas class="canvas2 sec1-btn__step3-canvas2" width="400" height="400"></canvas>
             </div>
         </div>
         <a href="javascript:;" class="sec1-character loading" @click="skillPop">
+			<div class="sec1-character--normal"></div>
+			<div class="sec1-character--hover"></div>
             <canvas class="sec1-character__canvas1" width="829" height="829"></canvas>
             <canvas class="sec1-character__canvas2" width="829" height="829"></canvas>
         </a>

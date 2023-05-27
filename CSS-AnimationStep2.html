@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			body {
+				background-color: #000;
+			}
+			.hi {
+				width: calc(1201 / 1920 * 100vw);
+				/*  矩形的宽高 */
+				height: calc(202 / 1920 * 100vw);
+				background-size: 1400%;
+				background-image: url("./images/sec3-title2.png");
+				/* 分10步完成0到-500px完成并无限重复 */
+				animation: sec3title 1.5s steps(14) infinite;
+				background-position-x: 0%;
+			}
+
+			@keyframes sec3title {
+				from {
+					background-position: 0px;
+				}
+
+				to {
+					background-position: -1400%;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="hi"></div>
+	</body>
+</html>

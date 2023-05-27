@@ -7,6 +7,7 @@
 	background-repeat: no-repeat;
 	z-index: 2;
 	background-color: var(--bg-color, #fff);
+	min-height: 100dvh;
 	@include media {
 		padding-bottom: vw(96);
 		background-image: none;
@@ -49,18 +50,23 @@
 		}
 	}
 	&-title {
-		width: vw3(1200px);
+		width: vw3(1201px);
 		height: vw3(202px);
-		background-size: 100%;
-		background-image: url("./images/sec3-title.png");
+		background-size: 1400%;
+		background-image: url("./images/sec3-title2.png");
 		position: absolute;
 		top: vw3(129px);
 		left: 50%;
 		transform: translateX(-50%);
+		background-position-x: 0%;
+		&.anim {
+			animation: sec3title 1.5s steps(14);
+		}
 		@include media {
 			width: vw(768);
 			height: vw(240);
-			background-image: url("./images/m-sec3-title.png");
+			background-image: url("./images/m-sec3-title2.png");
+			// background-size: cover;
 			position: relative;
 			top: 0;
 			left: 0;

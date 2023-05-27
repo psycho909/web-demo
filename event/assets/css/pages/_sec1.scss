@@ -313,6 +313,12 @@
 				& + .canvas1 + .canvas2 {
 					opacity: 1;
 				}
+				& + .sec1-btn--normal {
+					opacity: 0;
+				}
+				& + .sec1-btn--normal + .sec1-btn--hover {
+					opacity: 1;
+				}
 			}
 		}
 	}
@@ -326,10 +332,42 @@
 			gap: vw(32);
 		}
 	}
+	&-btn {
+		&--normal {
+			width: 100%;
+			height: 100%;
+			background-size: 2300%;
+			animation: btnNormal 1.75s steps(23) infinite;
+			background-image: url("./images/btn-normal2.png");
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			@include media {
+				display: none;
+			}
+		}
+		&--hover {
+			width: 100%;
+			height: 100%;
+			background-size: 2300%;
+			animation: btnNormal 1.75s steps(23) infinite;
+			background-image: url("./images/btn-hover2.png");
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0;
+			@include media {
+				display: none;
+			}
+		}
+	}
 	&-btn__step1 {
 		width: vw3(400);
 		height: vw3(400);
-		background-size: vw3(400) vw3(400);
+		// background-size: vw3(400) vw3(400);
+		// background-size: 2300%;
 		background-position: center center;
 		position: absolute;
 		top: vw3(537px);
@@ -352,13 +390,15 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 1;
+			z-index: 3;
 			@include media {
 				content: none;
 			}
 		}
 		&.loading {
-			background-image: url("./images/btn-normal/Normal_00000.png");
+			// background-image: url("./images/btn-normal/Normal_00000.png");
+			// background-image: url("./images/btn-normal2.png");
+			// animation: btnNormal 1.5s steps(23) infinite;
 			@include media {
 				background-image: url("./images/m-sec1-btn-step1.png");
 			}
@@ -369,6 +409,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
+			display: none;
 			@include media {
 				display: none;
 			}
@@ -408,7 +449,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 1;
+			z-index: 3;
 			@include media {
 				content: none;
 			}
@@ -527,6 +568,42 @@
 			.sec1-character__canvas2 {
 				opacity: 1;
 			}
+			.sec1-character--normal {
+				opacity: 0;
+			}
+			.sec1-character--hover {
+				opacity: 1;
+			}
+		}
+		&--normal {
+			width: 100%;
+			height: 100%;
+			background-size: 2500%;
+			animation: character 1.75s steps(25) infinite;
+			background-image: url("./images/character-normal.png");
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 1;
+			@include media {
+				display: none;
+			}
+		}
+		&--hover {
+			width: 100%;
+			height: 100%;
+			background-size: 2500%;
+			animation: character 1.75s steps(25) infinite;
+			background-image: url("./images/character-hover.png");
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0;
+			@include media {
+				display: none;
+			}
 		}
 		@include media {
 			width: vw(829);
@@ -535,7 +612,9 @@
 			left: vw(182);
 		}
 		&.loading {
-			background-image: url("./images/character/Comp1_00000.png");
+			@include media {
+				background-image: url("./images/character-normal/Comp 1_00000.png");
+			}
 		}
 		&__canvas1 {
 			width: vw3(829);
@@ -544,6 +623,7 @@
 			top: 0;
 			left: 0;
 			z-index: 2;
+			display: none;
 			@include media {
 				display: none;
 			}
@@ -556,6 +636,7 @@
 			left: 0;
 			z-index: 1;
 			opacity: 0;
+			display: none;
 			@include media {
 				display: none;
 			}
