@@ -2641,8 +2641,8 @@ body {
   background-position-x: 0%;
 }
 .sec3-title.anim {
-  -webkit-animation: sec3title 1.5s steps(14);
-          animation: sec3title 1.5s steps(14);
+  -webkit-animation: sec3title 1.2s steps(14);
+          animation: sec3title 1.2s steps(14);
 }
 @media screen and (max-width: 769px) {
   .sec3-title {

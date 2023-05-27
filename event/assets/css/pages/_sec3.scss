@@ -60,7 +60,7 @@
 		transform: translateX(-50%);
 		background-position-x: 0%;
 		&.anim {
-			animation: sec3title 1.5s steps(14);
+			animation: sec3title 1.2s steps(14);
 		}
 		@include media {
 			width: vw(768);
