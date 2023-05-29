@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: purple;
+			}
+			.aaa {
+				position: absolute;
+				top: 100px;
+				left: 300px;
+				width: 200px;
+				height: 46px;
+				background-image: url("./images/aaa.png");
+				animation: move 200s linear infinite;
+			}
+			.aaa:before {
+				content: "";
+				position: absolute;
+				top: 50%;
+				right: 0;
+				transform: translateY(-50%);
+				width: 100px;
+				height: 46px;
+				background-image: linear-gradient(to right, transparent 0%, purple 100%);
+			}
+			.aaa:after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				width: 100px;
+				height: 46px;
+				background-image: linear-gradient(to left, transparent 0%, purple 100%);
+			}
+			@keyframes move {
+				0% {
+					background-position-x: 0;
+				}
+				100% {
+					background-position-x: 20000px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aaa"></div>
+	</body>
+</html>
