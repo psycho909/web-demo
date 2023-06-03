@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.bg {
+				width: 100px;
+				height: 100px;
+				background: url("./images/character-normal.png");
+			}
+			.bg2 {
+				width: 300px;
+				height: 300px;
+				background: url("./images/character-hover.png");
+				position: relative;
+			}
+			.bg2:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-image: url("./images/jet.png");
+			}
+			.bg3 {
+				width: 300px;
+				height: 300px;
+				background-image: url("https://tw.hicdn.beanfun.com/beanfun/WebImage/1682046677223.png");
+			}
+			.bg4 {
+				width: 300px;
+				height: 300px;
+				background-image: url("https://tw.hicdn.beanfun.com/beanfun/WebImage/1682057898263.png");
+			}
+			.bg5 {
+				width: 300px;
+				height: 300px;
+				background-image: url("https://tw.hicdn.beanfun.com/beanfun/WebImage/1682046435267.png");
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bg3"></div>
+		<div class="bg4"></div>
+		<div class="bg"></div>
+		<div class="bg2"></div>
+		<div class="bg4"></div>
+		<div><img src="https://tw.hicdn.beanfun.com/beanfun/WebImage/1682046631707.png" alt="" /></div>
+		<video id="video" src="./video/btn01.mp4"></video>
+		<video>
+			<source src="./video/main-2.mp4" />
+		</video>
+		<script>
+			// document.querySelector("#video").addEventListener("loadeddata", (event) => {
+			// 	console.log("Yay! The readyState just increased to  " + "HAVE_CURRENT_DATA or greater for the first time.");
+			// });
+			const imgLoading = async (data) => {
+				let urlList = [];
+				let promiseAll = [];
+				let count = 0;
+				let all = document.querySelectorAll("*");
+				let ignore = ["SCRIPT", "STYLE", "HEAD", "HEAD", "TITLE", "META", "HTML"];
+				let regex = /url\("([^"]+)"\)/;
+				function getFileExtension1(filename) {
+					return /[.]/.exec(filename) ? /[^.]+$/.exec(filename)[0] : undefined;
+				}
+
+				let promiseSource = (sourceUrl) => {
+					return new Promise(function (resolve, reject) {
+						let source, video;
+						if (Object.prototype.toString.call(sourceUrl).indexOf("Video") > -1) {
+							// sourceUrl.play();
+							console.log(sourceUrl);
+
+							video = sourceUrl;
+							video.addEventListener("canplay", (event) => {
+								console.log("Yay! The readyState just increased to  " + "HAVE_CURRENT_DATA or greater for the first time.");
+							});
+							count++;
+							resolve(true);
+							// sourceUrl.onloadeddata = function (e) {
+							// 	console.log(e);
+							// 	count++;
+							// 	resolve(true);
+							// };
+							// sourceUrl.onerror = function () {
+							// 	console.log("error");
+							// 	count++;
+							// 	resolve(false);
+							// };
+						} else {
+							source = new Image();
+							source.src = sourceUrl;
+							source.onload = function () {
+								count++;
+								resolve(true);
+							};
+							source.onerror = function () {
+								count++;
+								resolve(false);
+							};
+						}
+					});
+				};
+
+				all.forEach(function (v, i) {
+					if (ignore.indexOf(v.tagName) > -1) {
+						return;
+					}
+					if (v.tagName == "IMG" && v.src) {
+						urlList.push(v.src);
+					}
+					if (v.tagName == "VIDEO") {
+						urlList.push(v);
+					}
+					if (window.getComputedStyle(v, "::before").backgroundImage !== "none") {
+						let matches = window.getComputedStyle(v, "::before").backgroundImage.match(regex);
+						if (matches && matches.length >= 2) {
+							let extractedUrl = matches[1];
+							urlList.push(extractedUrl);
+						}
+					}
+					if (window.getComputedStyle(v, "::after").backgroundImage !== "none") {
+						let matches = window.getComputedStyle(v, "::after").backgroundImage.match(regex);
+						if (matches && matches.length >= 2) {
+							let extractedUrl = matches[1];
+							urlList.push(extractedUrl);
+						}
+					}
+					if (window.getComputedStyle(v).backgroundImage !== "none") {
+						let matches = window.getComputedStyle(v).backgroundImage.match(regex);
+						if (matches && matches.length >= 2) {
+							let extractedUrl = matches[1];
+							urlList.push(extractedUrl);
+						}
+					}
+				});
+				console.log(urlList);
+				for (let i = 0; i < urlList.length; i++) {
+					let p = await promiseSource(urlList[i]);
+					promiseAll.push(p);
+					data.countNum(count, urlList.length);
+				}
+				return await Promise.all(promiseAll);
+			};
+			imgLoading({
+				countNum: function (count, length) {
+					console.log(Math.floor((count / length) * 100));
+				}
+			}).then((res) => {
+				console.log(100);
+			});
+		</script>
+	</body>
+</html>
