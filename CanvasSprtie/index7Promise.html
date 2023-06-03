@@ -6,8 +6,6 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -17,53 +15,39 @@
 				display: flex;
 			}
 			.c {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
+				width: calc(829 / 1920 * 100vw);
+				height: calc(829 / 1920 * 100vw);
 				position: relative;
 				display: inline-block;
 			}
 			.canvas {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
-				position: relative;
-				cursor: pointer;
-			}
-			.canvas-1 {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
-			}
-			.canvas-2 {
-				width: calc(180 / 1920 * 100vw);
-				height: calc(180 / 1920 * 100vw);
-			}
-			.canvas-3 {
-				width: calc(300 / 1920 * 100vw);
-				height: calc(300 / 1920 * 100vw);
-			}
-			.btn-box {
+				width: calc(829 / 1920 * 100vw);
+				height: calc(829 / 1920 * 100vw);
 				position: absolute;
 				top: 0;
 				left: 0;
-				z-index: 99;
-				display: flex;
+				cursor: pointer;
 			}
-			.loading {
-				background-color: #000;
+			.canvas-1 {
+				opacity: 1;
+			}
+			.canvas-2 {
+				opacity: 0;
+			}
+			.c:hover .canvas-1 {
+				opacity: 0;
+			}
+			.c:hover .canvas-2 {
+				opacity: 1;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="btn-box">
-			<button id="play" class="btn">播放</button>
-			<button id="stop" class="btn">停止</button>
-		</div>
 		<div class="flex">
 			<div class="c">
-				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
+				<canvas class="canvas canvas-1" width="829" height="829"></canvas>
+				<canvas class="canvas canvas-2" width="829" height="829"></canvas>
 			</div>
-			<canvas class="canvas canvas-2" width="180" height="180"></canvas>
-			<canvas class="canvas canvas-3" width="300" height="300"></canvas>
-			<canvas class="canvas canvas-4" width="704" height="773"></canvas>
 		</div>
 		<script>
 			function CanvasSprite(target, step, speed) {
@@ -87,9 +71,10 @@
 				var _this = this;
 				return new Promise((resolve, reject) => {
 					for (var i = 0; i < this.step; i++) {
-						var name = i;
+						let numPart = name.substring(name.lastIndexOf("_") + 1);
+						let newName = name.replace(numPart, i.toString().padStart(numPart.length, "0"));
 						this.imgArr[i] = new Image();
-						this.imgArr[i].src = path + name + ".png";
+						this.imgArr[i].src = path + newName + ".png";
 						this.imgArr[i].onload = function () {
 							_this.width = this.width;
 							_this.height = this.height;
@@ -156,64 +141,11 @@
 
 			canvas圖片縮放，直接調整canvas的class
 			*/
-			var c1 = new CanvasSprite($(".canvas-1"), 45, 45);
-			var c2 = new CanvasSprite($(".canvas-2"), 60, 60);
-			var c3 = new CanvasSprite($(".canvas-3"), 60, 60);
-			var c4 = new CanvasSprite($(".canvas-4"), 8, 60);
-			var anim = {
-				c1: {
-					play: function () {
-						c1.Run();
-					},
-					stop: function () {
-						c1.Stop();
-					}
-				},
-				c2: {
-					play: function () {
-						c2.Loop();
-					},
-					stop: function () {
-						c2.Stop();
-					}
-				},
-				c3: {
-					play: function () {
-						c3.Loop();
-					},
-					stop: function () {
-						c3.Stop();
-					}
-				}
-			};
-			loadingProgress({
-				loadedFN: function () {
-					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.allSettled([c1.PreLoad("./tile/tile"), c2.PreLoad("./bt_default/bt_default_"), c3.PreLoad("./bt_over/bt_over_"), c4.PreLoad("./m/")]).then((res) => {
-						$("#loadingProgress").hide();
-					});
-				},
-				autoHide: false
-			});
-			$("#play").on("click", function () {
-				// var c1 = "c1";
-				// anim[c1].play();
-				// Object.entries(anim).forEach((a, i) => {
-				// 	if (a[0] == c1) {
-				// 		a[1].play();
-				// 	} else {
-				// 		a[1].stop();
-				// 	}
-				// });
+			var c1 = new CanvasSprite($(".canvas-1"), 49, 60);
+			var c2 = new CanvasSprite($(".canvas-2"), 49, 60);
+			Promise.allSettled([c1.PreLoad("./character-normal/", "Comp 1_00000"), c2.PreLoad("./character-hover/", "Comp 1_00000")]).then((res) => {
 				c1.Loop();
 				c2.Loop();
-				c3.Loop();
-				c4.Run();
-			});
-			$("#stop").on("click", function () {
-				c1.Stop();
-				c2.Stop();
-				c3.Stop();
 			});
 		</script>
 	</body>

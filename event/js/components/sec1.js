@@ -127,6 +127,14 @@ const sec1 = {
 		};
 		Vue.nextTick(() => {
 			particlesBg("sec1");
+			let canvasArr = [];
+			characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 60);
+			characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 60);
+			canvasArr = [characterC1.value.PreLoad("../../../CanvasSprtie/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("../../../CanvasSprtie/character-hover/", "Comp 1_00000")];
+			Promise.allSettled(canvasArr).then((res) => {
+				characterC1.value.Loop();
+				characterC2.value.Loop();
+			});
 			// if (!props.mobile) {
 			// 	let canvasArr = [];
 			// 	characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
@@ -225,8 +233,6 @@ const sec1 = {
             </div>
         </div>
         <a href="javascript:;" class="sec1-character loading" @click="skillPop">
-			<div class="sec1-character--normal"></div>
-			<div class="sec1-character--hover"></div>
             <canvas class="sec1-character__canvas1" width="829" height="829"></canvas>
             <canvas class="sec1-character__canvas2" width="829" height="829"></canvas>
         </a>
