@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			img {
+				width: 400px;
+				height: 300px;
+				left: 200px;
+				position: absolute;
+				z-index: -1;
+			}
+
+			canvas {
+				margin-left: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg" alt="" />
+
+		<canvas id="canvas" width="400" height="300"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var context = canvas.getContext("2d");
+
+			context.beginPath();
+			context.fillStyle = "rgba(0, 0, 0, 0.5)"; // 半透明的顏色
+			context.fillRect(0, 0, 400, 300);
+
+			function getMousePos(event) {
+				var rect = canvas.getBoundingClientRect();
+				return {
+					x: event.clientX - rect.left,
+					y: event.clientY - rect.top
+				};
+			}
+
+			function getTouchPos(event) {
+				var rect = canvas.getBoundingClientRect();
+				return {
+					x: event.touches[0].clientX - rect.left,
+					y: event.touches[0].clientY - rect.top
+				};
+			}
+
+			function handleDraw(event) {
+				event.preventDefault();
+				var pos;
+				if (event.type === "mousemove") {
+					pos = getMousePos(event);
+				} else if (event.type === "touchmove") {
+					pos = getTouchPos(event);
+				}
+
+				context.globalCompositeOperation = "destination-out"; // 使用擦除效果
+				context.beginPath();
+				context.arc(pos.x, pos.y, 30, 0, Math.PI * 2);
+				context.fill();
+			}
+
+			canvas.addEventListener("mousedown", function (event) {
+				canvas.addEventListener("mousemove", handleDraw);
+			});
+
+			canvas.addEventListener("mouseup", function () {
+				canvas.removeEventListener("mousemove", handleDraw);
+			});
+
+			canvas.addEventListener("touchstart", function (event) {
+				canvas.addEventListener("touchmove", handleDraw);
+				event.preventDefault(); // 防止滑動時觸發其他事件
+			});
+
+			canvas.addEventListener("touchend", function () {
+				canvas.removeEventListener("touchmove", handleDraw);
+			});
+		</script>
+	</body>
+</html>

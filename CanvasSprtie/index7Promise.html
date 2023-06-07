@@ -95,37 +95,46 @@
 					}
 				});
 			};
-			CanvasSprite.prototype.Run = function (callback) {
-				clearInterval(this.loop);
-				var _this = this;
-				this.loop = setInterval(function () {
-					if (_this.index > _this.step - 1) {
-						_this.index = 0;
-						clearInterval(_this.loop);
+			CanvasSprite.prototype.run = function (callback) {
+				cancelAnimationFrame(this.loop);
+				const animate = () => {
+					if (this.index > this.step - 1) {
+						this.index = 0;
 						if (callback) {
 							callback();
 						}
 					}
-					_this.Draw(_this.index);
-
-					_this.index++;
-				}, this.speed);
+					this.draw(this.index);
+					this.index++;
+					this.loop = requestAnimationFrame(animate);
+				};
+				animate();
 			};
 			CanvasSprite.prototype.Loop = function () {
-				clearInterval(this.loop);
-				this.loop = setInterval(() => {
-					if (this.index > this.step - 1) {
-						this.index = 0;
-					}
-					this.Draw(this.index);
+				cancelAnimationFrame(this.animationFrame);
+				const _this = this;
+				let then = performance.now();
+				const fpsInterval = 1000 / this.speed;
 
-					this.index++;
-				}, this.speed);
+				function animate(now) {
+					_this.animationFrame = requestAnimationFrame(animate);
+
+					const elapsed = now - then;
+
+					if (elapsed > fpsInterval) {
+						then = now - (elapsed % fpsInterval);
+
+						_this.Draw(_this.index);
+						_this.index = (_this.index + 1) % _this.step;
+					}
+				}
+
+				animate(performance.now());
 			};
-			CanvasSprite.prototype.Stop = function () {
+			CanvasSprite.prototype.stop = function () {
 				this.index = 0;
-				clearInterval(this.loop);
-				this.Draw(this.index);
+				cancelAnimationFrame(this.loop);
+				this.draw(this.index);
 			};
 			CanvasSprite.prototype.Draw = function (index) {
 				this.el.clearRect(0, 0, this.width, this.height);

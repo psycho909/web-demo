@@ -128,8 +128,8 @@ const sec1 = {
 		Vue.nextTick(() => {
 			particlesBg("sec1");
 			let canvasArr = [];
-			characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 60);
-			characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 60);
+			characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
+			characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 0);
 			canvasArr = [characterC1.value.PreLoad("../../../CanvasSprtie/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("../../../CanvasSprtie/character-hover/", "Comp 1_00000")];
 			Promise.allSettled(canvasArr).then((res) => {
 				characterC1.value.Loop();

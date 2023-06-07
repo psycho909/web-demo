@@ -121,15 +121,25 @@ CanvasSprite.prototype.Run = function (callback) {
 	}, this.speed);
 };
 CanvasSprite.prototype.Loop = function () {
-	clearInterval(this.loop);
-	this.loop = setInterval(() => {
-		if (this.index > this.step - 1) {
-			this.index = 0;
-		}
-		this.Draw(this.index);
+	cancelAnimationFrame(this.animationFrame);
+	const _this = this;
+	let then = performance.now();
+	const fpsInterval = 1000 / this.speed;
 
-		this.index++;
-	}, this.speed);
+	function animate(now) {
+		_this.animationFrame = requestAnimationFrame(animate);
+
+		const elapsed = now - then;
+
+		if (elapsed > fpsInterval) {
+			then = now - (elapsed % fpsInterval);
+
+			_this.Draw(_this.index);
+			_this.index = (_this.index + 1) % _this.step;
+		}
+	}
+
+	animate(performance.now());
 };
 CanvasSprite.prototype.Stop = function () {
 	this.index = 0;
