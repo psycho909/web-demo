@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#app {
+				max-width: 1920px;
+				width: 100%;
+				block-size: 100vh;
+				position: relative;
+				margin: 0 auto;
+				container: banner / inline-size;
+			}
+			.sec1-btn {
+				width: calc(273 / 1920 * 100cqw);
+				height: calc(273 / 1920 * 100cqw);
+				background-size: cover;
+				background-image: url("./images/m-sec1-btn-step1.png");
+			}
+			.character {
+				width: calc(652 / 1920 * 100cqw);
+				height: calc(819 / 1920 * 100cqw);
+				background-size: cover;
+				background-image: url("./images/m-sec1-hero.png");
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			.h1-title {
+				font-size: calc(60 / 1920 * 100cqi);
+				font-family: sans-serif, "微軟正黑體";
+			}
+			.test {
+				font-size: 72px;
+				color: #000;
+			}
+			@container banner (width > 480px) {
+				.test {
+					color: red;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="test">test</div>
+			<div v-for="l in list">{{l.name}} <span v-if="open">開啟</span></div>
+			<h1 class="h1-title">container-type cqw功能</h1>
+			<div class="btn sec1-btn"></div>
+			<div class="character"></div>
+		</div>
+		<script>
+			let app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						list: [{ name: "A" }, { name: "B" }, { name: "C" }],
+						open: false
+					};
+				}
+			});
+		</script>
+	</body>
+</html>

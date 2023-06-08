@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="view-transition" content="same-origin" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(2, 200px);
+				gap: 16px;
+			}
+			.grid a {
+				height: 200px;
+				text-decoration: none;
+				color: #fff;
+				justify-content: center;
+				align-items: center;
+				background-color: #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid">
+			<a href="./one.html" style="view-transition-name: one">One</a>
+			<a href="./two.html" style="view-transition-name: two">Two</a>
+			<a href="./three.html" style="view-transition-name: three">Three</a>
+			<a href="./four.html" style="view-transition-name: four">Four</a>
+		</div>
+	</body>
+</html>
