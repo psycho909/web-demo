@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				position: relative;
+			}
+			.svg {
+				position: absolute;
+				width: 0;
+				height: 0;
+			}
+			.clipped {
+				width: 687px;
+				height: 2342px;
+				background: linear-gradient(0deg, rgba(197, 178, 231, 1) 0%, rgba(243, 198, 205, 1) 100%);
+				background-size: cover;
+				-webkit-clip-path: url(#my-clip-path);
+				clip-path: url(#my-clip-path);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="clipped"></div>
+			<svg class="svg">
+				<clipPath id="my-clip-path" clipPathUnits="objectBoundingBox">
+					<path d="M3.500,760.500 L50.500,740.500 L50.500,1314.500 L3.500,1294.500 L3.500,760.500 Z" />
+				</clipPath>
+			</svg>
+		</div>
+		<script>
+			let obj = [
+				["A", "A", "B", "C", "D"],
+				["A", "B", "B", "C", "D"],
+				["A", "A", "C", "C", "D"],
+				["B", "B", "C", "C", "D"],
+				["A", "B", "C", "C", "D"]
+			];
+			let total = {};
+			obj.forEach((o, i) => {
+				let A = o.filter((a, i) => a == "A")?.length || 0;
+				if (total[A]) {
+					total[A] += 1;
+				} else {
+					total[A] = 1;
+				}
+			});
+		</script>
+	</body>
+</html>

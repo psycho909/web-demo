@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
@@ -12,13 +12,27 @@
 				padding: 0;
 				margin: 0;
 			}
+			html {
+				/* container: html / inline-size; */
+			}
+			body {
+				background-color: yellow;
+				background-image: url("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/TEST/v6/01/bg2.jpg");
+				background-size: calc(1920 / 1920 * 100cqw) calc(1080 / 1920 * 100cqw);
+				background-position: center 0;
+				min-height: 100vh;
+				/* block-size: 100vh; */
+			}
 			#app {
 				max-width: 1920px;
 				width: 100%;
-				block-size: 100vh;
+				/* block-size: 100vh; */
 				position: relative;
 				margin: 0 auto;
-				container: banner / inline-size;
+			}
+			.test {
+			}
+			.bbb {
 			}
 			.sec1-btn {
 				width: calc(273 / 1920 * 100cqw);
@@ -42,22 +56,70 @@
 			.test {
 				font-size: 72px;
 				color: #000;
+				& span {
+					color: blue;
+				}
 			}
-			@container banner (width > 480px) {
+			.bbb {
+				font-size: 72px;
+				color: #000;
+				@nest span & {
+					background-color: red;
+				}
+			}
+			@container app (width > 480px) {
 				.test {
+					background-color: #000;
+				}
+			}
+			@container app (width > 480px) {
+				.test {
+					background-color: #000;
+				}
+			}
+			@container test (width > 480px) {
+				.test span {
 					color: red;
 				}
+			}
+			@container bbb (width > 480px) {
+				.bbb span {
+					color: green;
+				}
+			}
+
+			.fixed {
+				width: calc(60 / 1920 * 100cqw);
+				height: calc(60 / 1920 * 100cqw);
+				background: red;
+				position: fixed;
+				left: calc(60 / 1920 * 100cqw);
+				bottom: calc(60 / 1920 * 100cqw);
+			}
+			.box {
+				width: calc(1000 / 1920 * 100cqw);
+				height: calc(1000 / 1920 * 100cqw);
+				margin: 0 auto;
+				outline: 1px solid lime;
+				background-color: rgba(0, 0, 0, 0.5);
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
-			<div class="test">test</div>
+			<div class="box"></div>
+			<div class="dark large">
+				dark
+				<div class="header">header</div>
+			</div>
+			<div class="test"><span>test</span></div>
+			<div class="bbb"><span>test</span></div>
 			<div v-for="l in list">{{l.name}} <span v-if="open">開啟</span></div>
 			<h1 class="h1-title">container-type cqw功能</h1>
 			<div class="btn sec1-btn"></div>
 			<div class="character"></div>
 		</div>
+		<div class="fixed"></div>
 		<script>
 			let app = new Vue({
 				el: "#app",

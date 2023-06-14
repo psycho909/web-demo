@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				position: relative;
+			}
+			.svg {
+				position: absolute;
+				width: 0;
+				height: 0;
+			}
+			.clipped {
+				width: 687px;
+				height: 2342px;
+				background: linear-gradient(0deg, rgba(197, 178, 231, 1) 0%, rgba(243, 198, 205, 1) 100%);
+				background-size: cover;
+				-webkit-clip-path: url(#my-clip-path);
+				clip-path: url(#my-clip-path);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="clipped"></div>
+			<svg class="svg">
+				<clipPath id="my-clip-path" clipPathUnits="objectBoundingBox">
+					<!-- <path class="st0" d="M2.5,449.5l21,9v11l-21-9V449.5z" />
+					<path class="st0" d="M2.5,466.5l21,9v11l-21-9V466.5z" />
+					<path class="st0" d="M2.5,483.5l21,9v11l-21-9V483.5z" /> -->
+					<path d="M1,0.407 v-0.103 l-0.042,-0.005 V0.01 h-0.142 L0.809,0.001 H0.483 l-0.01,0.009 h-0.434 v0.071 l-0.034,0.004 v0.103 l0.034,0.004 v0.128 L0.003,0.325 v0.229 l0.036,0.004 v0.43 h0.423 l0.018,0.012 h0.355 l0.018,-0.012 h0.108 v-0.082 l0.042,-0.005 v-0.229 l-0.042,-0.005 v-0.255 L1,0.407 M0.039,0.557 L0.007,0.553 v-0.227 l0.032,-0.004 V0.557 M0.478,0.01 l0.009,-0.008 h0.319 l0.009,0.008 H0.478 M0.999,0.673 v0.228 l-0.037,0.005 v-0.237 L0.999,0.673"></path>
+					<!-- <path class="st0" d="M684.8,699.8l-21-9v-11l21,9V699.8z" />
+					<path class="st0" d="M684.8,682.8l-21-9v-11l21,9V682.8z" />
+					<path class="st0" d="M684.8,665.8l-21-9v-11l21,9V665.8z" /> -->
+				</clipPath>
+			</svg>
+		</div>
+		<script>
+			let obj = [
+				["A", "A", "B", "C", "D"],
+				["A", "B", "B", "C", "D"],
+				["A", "A", "C", "C", "D"],
+				["B", "B", "C", "C", "D"],
+				["A", "B", "C", "C", "D"]
+			];
+			let total = {};
+			obj.forEach((o, i) => {
+				let A = o.filter((a, i) => a == "A")?.length || 0;
+				if (total[A]) {
+					total[A] += 1;
+				} else {
+					total[A] = 1;
+				}
+			});
+		</script>
+	</body>
+</html>
