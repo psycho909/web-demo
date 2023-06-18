@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
+
+		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+
+			#map {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="map"></div>
+		<script>
+			function onEachFeature(feature, layer) {
+				if (feature.properties && feature.properties.NAME_2014) {
+					layer.bindPopup(feature.properties.NAME_2014);
+				}
+			}
+			function onMapClick(e) {
+				popup
+					.setLatLng(e.latlng)
+					.setContent("You clicked the map at " + e.latlng.toString())
+					.openOn(map);
+			}
+			//  建立 Leaflet 地圖
+			var map = L.map("map", {
+				center: [24.985917, 121.554285],
+				zoom: 18
+			});
+			//  設定圖資來源
+			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
+
+			fetch("./map.json")
+				.then((res) => {
+					return res.json();
+				})
+				.then((res) => {
+					L.geoJSON(res, {
+						//  樣式可透過function操作
+						style: function (feature) {
+							console.log(feature);
+							if (feature.properties.COUNTYID == 65) {
+								console.log(feature.properties.NAME_2014);
+								return { color: "#4f45c0" };
+							} else {
+								return { color: "#ff0000" };
+							}
+						},
+						onEachFeature: onEachFeature
+					}).addTo(map);
+
+					var popup = L.popup();
+
+					map.on("click", onMapClick);
+				});
+		</script>
+	</body>
+</html>
