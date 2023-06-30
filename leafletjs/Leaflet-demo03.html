@@ -10,6 +10,8 @@
 
 		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -27,11 +29,30 @@
 				width: 100%;
 				height: 100%;
 			}
+			.btn-group {
+				display: flex;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 99999;
+				gap: 1rem;
+			}
+			.btn {
+				font-size: 18px;
+				background-color: #ddd;
+				padding: 1rem 3rem;
+				text-decoration: none;
+				color: #000;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div id="map"></div>
+		<div class="btn-group">
+			<a href="javascript:;" id="btn1" class="btn">圖資1</a>
+			<a href="javascript:;" id="btn2" class="btn">圖資2</a>
+		</div>
 		<script>
 			function onEachFeature(feature, layer) {
 				if (feature.properties && feature.properties.NAME_2014) {
@@ -49,34 +70,65 @@
 				center: [24.985917, 121.554285],
 				zoom: 18
 			});
+			let getLayer;
 			//  設定圖資來源
 			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 
-			fetch("./map.json")
-				.then((res) => {
-					return res.json();
-				})
-				.then((res) => {
-					L.geoJSON(res, {
-						//  樣式可透過function操作
-						style: function (feature) {
-							console.log(feature);
-							if (feature.properties.COUNTYID == 65) {
-								console.log(feature.properties.NAME_2014);
-								return { color: "#4f45c0" };
-							} else {
-								return { color: "#ff0000" };
-							}
-						},
-						onEachFeature: onEachFeature
-					}).addTo(map);
+			$("#btn1").on("click", function () {
+				if (getLayer) {
+					map.removeLayer(getLayer);
+				}
+				fetch("./map.json")
+					.then((res) => {
+						return res.json();
+					})
+					.then((res) => {
+						getLayer = L.geoJSON(res, {
+							//  樣式可透過function操作
+							style: function (feature) {
+								if (feature.properties.COUNTYID == 65) {
+									return { color: "#4f45c0" };
+								} else {
+									return { color: "#ff0000" };
+								}
+							},
+							onEachFeature: onEachFeature
+						});
+						getLayer.addTo(map);
+						var popup = L.popup();
 
-					var popup = L.popup();
+						map.on("click", onMapClick);
+					});
+			});
+			$("#btn2").on("click", function () {
+				if (getLayer) {
+					map.removeLayer(getLayer);
+				}
 
-					map.on("click", onMapClick);
-				});
+				fetch("https://twland.ronny.tw/index/search?lands[]=臺北市華興段三小段141號")
+					.then((res) => {
+						return res.json();
+					})
+					.then((res) => {
+						getLayer = L.geoJSON(res, {
+							//  樣式可透過function操作
+							style: function (feature) {
+								if (feature.properties.COUNTYID == 65) {
+									return { color: "#4f45c0" };
+								} else {
+									return { color: "#ff0000" };
+								}
+							},
+							onEachFeature: onEachFeature
+						});
+						getLayer.addTo(map);
+						var popup = L.popup();
+
+						map.on("click", onMapClick);
+					});
+			});
 		</script>
 	</body>
 </html>
