@@ -1,0 +1,101 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	background-color: #29d4f8;
+}
+.btn-login {
+	width: 59px;
+	height: 35px;
+	background-image: url("./images/btn-login.png");
+	background-size: 200%;
+	position: absolute;
+	top: 100px;
+	left: 100px;
+}
+.btn-login:hover {
+	background-position-x: 100%;
+	filter: drop-shadow(0 0 4px #ffde42) drop-shadow(0 0 8px #ffde42) drop-shadow(0 0 12px #ffde42);
+}
+.btn-home {
+	width: 68px;
+	height: 68px;
+	background-image: url("./images/btn-home.png");
+	background-size: cover;
+	position: absolute;
+	top: 200px;
+	left: 200px;
+	filter: drop-shadow(0 0 4px #ffde42) drop-shadow(0 0 8px #ffde42) drop-shadow(0 0 12px #ffde42);
+}
+.btn-open {
+	width: 178px;
+	height: 66px;
+	position: absolute;
+	top: 400px;
+	left: 400px;
+	/* border-radius: 32px;
+	box-shadow: 0 0 12px #ffe49a, 0 0 12px #ffe49a; */
+	/* filter: drop-shadow(0 0 4px #ffde42) drop-shadow(0 0 8px #ffde42) drop-shadow(0 0 12px #ffde42); */
+}
+.btn-open:before {
+	content: "";
+	width: 96%;
+	height: 96%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 26px;
+	box-shadow: 0 0 12px #ffe49a, 0 0 12px #ffe49a, 0 0 16px #ffe49a, 0 0 20px #ffe49a;
+}
+.btn-open:after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-image: url("./images/btn-open.png");
+	background-size: 200%;
+}
+.btn-open:hover:after {
+	background-position-x: 100%;
+	/* filter: drop-shadow(0 0 12px #ffe49a); */
+}
+
+/* 寫一個半透明按鈕 */
+.btn-play {
+	width: 262px;
+	height: 120px;
+	position: absolute;
+	top: 600px;
+	left: 600px;
+	/* border-radius: 32px;
+	box-shadow: 0 0 12px #ffe49a, 0 0 12px #ffe49a; */
+	/* filter: drop-shadow(0 0 4px #ffde42) drop-shadow(0 0 8px #ffde42) drop-shadow(0 0 12px #ffde42); */
+}
+.btn-play:after {
+	content: "轉起來";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-image: url("./images/btn-bg-off.png");
+	/* background-size: 200%; */
+	font-size: 35px;
+	color: #2760a0;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.btn-play:hover:after {
+	background-image: url("./images/btn-bg-on.png");
+	/* background-position-x: 100%; */
+	/* filter: drop-shadow(0 0 12px #ffe49a); */
+}
+/* 寬度600px,使用flex,橫向置中 */
