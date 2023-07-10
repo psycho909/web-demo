@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/style/gbox/gbox.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<style>
+			:where(.head:hover) .main {
+				color: red;
+				translate: 10px 10px;
+				transition: all 0.3s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="head">
+				<pre>{{activeGboxId}}</pre>
+				<pre>{{gboxes}}</pre>
+			</div>
+			<button @click="openGbox(1)">打开Gbox 1</button>
+			<button @click="openGbox(2)">打开Gbox 2</button>
+
+			<gbox v-for="gbox in gboxes" :key="gbox.id" :gbox-id="gbox.id" :content="gbox.content" :options="gbox.options" :is-open="gbox.isOpen" @after-close="afterCloseCallback(gbox.id)"></gbox>
+		</div>
+		<script>
+			Vue.component("gbox", {
+				props: ["gboxId", "content", "options", "isOpen"],
+				template: `
+			              <div v-if="isOpen" class="gbox" :id="'gbox-' + gboxId">
+			    <div class="gbox-module"></div>
+			    <div class="gbox-wrap">
+			      <div class="gbox-content" v-html="content"></div>
+			      <div class="gbox-title" v-if="options.titleBar" v-html="options.titleBar"></div>
+			      <button class="gbox-close" v-if="options.hasCloseBtn" @click="close">&#xd7;</button>
+			      <div v-if="options.hasActionBtn" class="gbox-action">
+			        <a
+			          v-for="(actionBtn, index) in options.actionBtns"
+			          :key="index"
+			          :class="['gbox-btn', actionBtn.class]"
+			          :id="actionBtn.id"
+			          :href="actionBtn.target || 'javascript:;'"
+			          :target="actionBtn.target ? '_blank' : '_self'"
+			          @click="handleClick(actionBtn)"
+			        >
+			          {{ actionBtn.text }}
+			        </a>
+			      </div>
+			    </div>
+			  </div>
+			`,
+				mounted() {
+					// 监听点击背景关闭
+					// document.addEventListener("click", this.handleClickOutside);
+				},
+				destroyed() {
+					// 移除监听器
+					// document.removeEventListener("click", this.handleClickOutside);
+				},
+				methods: {
+					handleClickOutside(event) {
+						// 点击组件外部时，关闭当前 Gbox
+						const gboxElement = document.getElementById(`gbox-${this.gboxId}`);
+						if (gboxElement && !gboxElement.contains(event.target)) {
+							this.close();
+						}
+					},
+					close() {
+						this.$emit("after-close");
+					},
+					handleClick(actionBtn) {
+						if (typeof actionBtn.click === "function") {
+							actionBtn.click();
+						} else if (typeof actionBtn.click === "string") {
+							if (actionBtn.targetClose) {
+								this.close();
+							}
+							window.open(actionBtn.click, "_blank");
+						}
+					}
+				}
+			});
+
+			let app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						num: 0,
+						people: [{ isOpen: false }, { isOpen: false }],
+						gboxes: [
+							{
+								id: 1,
+								content: "这是 Gbox 1",
+								options: {
+									titleBar: "弹窗标题",
+									hasCloseBtn: true,
+									hasActionBtn: true,
+									actionBtns: [
+										{
+											text: "确定",
+											click: () => {
+												alert("点击了确定按钮");
+												this.closePopup();
+											}
+										},
+										{
+											text: "取消",
+											targetClose: true,
+											click: "取消"
+										}
+									],
+									afterClose: () => {
+										console.log("弹窗已关闭");
+									}
+								},
+								isOpen: false
+							},
+							{
+								id: 2,
+								content: "这是 Gbox 2",
+								options: {
+									titleBar: "弹窗标题",
+									hasCloseBtn: true,
+									hasActionBtn: true,
+									actionBtns: [
+										{
+											text: "确定",
+											click: () => {
+												alert("点击了确定按钮");
+												this.closePopup();
+											}
+										},
+										{
+											text: "取消",
+											targetClose: true,
+											click: "取消"
+										}
+									],
+									afterClose: () => {
+										console.log("弹窗已关闭");
+									}
+								},
+								isOpen: false
+							}
+						],
+						activeGboxId: 0 // 当前打开的 Gbox 的 ID
+					};
+				},
+				methods: {
+					openGbox(gboxId) {
+						this.gboxes.forEach((gbox, index) => {
+							if (gbox.id === gboxId) {
+								gbox.isOpen = true;
+							} else {
+								gbox.isOpen = false;
+							}
+						});
+						// this.activeGboxId = gboxId;
+						// this.$forceUpdate();
+					},
+					closeGbox(gboxId) {
+						// 关闭指定的 Gbox
+						const gbox = this.gboxes.find((gbox) => gbox.id === gboxId);
+						gbox.isOpen = false;
+					},
+					afterCloseCallback(gboxId) {
+						console.log(`Gbox ${gboxId} 关闭后的处理逻辑`);
+						const gbox = this.gboxes.find((gbox) => gbox.id === gboxId);
+						gbox.isOpen = false;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
