@@ -5,18 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<title>Document</title>
 		<link rel="stylesheet" href="./測試172.css" />
 	</head>
 	<body>
-		<div class="item">
-			<div class="gift"><img src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/CSO/event/E20230517/assets/style/img/gift/superAS.png" alt="" /></div>
-			<div class="gift-content">
-				<div class="gift-content-name">超A解碼器(1個)</div>
-				<div class="gift-content-player">LQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKPLQKAJACXBOFGOMMCHMKP</div>
-				<div class="gift-content-time">2023/07/06 12:00:19</div>
-			</div>
-		</div>
+		<div class="text-over">十一個字十一個字十一個字十一個字</div>
 		<!-- 輪播圖 -->
 		<div class="btn-login"></div>
 		<div class="btn-home"></div>
@@ -28,6 +22,22 @@
 			<option value="3">C</option>
 		</select>
 		<script>
+			function getUsers1() {
+				return axios.get("https://reqres.in/api/users?delay=1").then((response) => response.data);
+			}
+			function getUsers2() {
+				return axios.get("https://reqres.in/api/users?delay=2").then((response) => response.data);
+			}
+			async function moreUser() {
+				try {
+					const result1 = await getUsers1();
+					const result2 = await getUsers2();
+					console.log(result1, result2);
+				} catch (error) {
+					console.log("An error occurred:", error.message);
+				}
+			}
+			moreUser();
 			$("#select").on("change", function () {
 				console.log($(this).val());
 			});

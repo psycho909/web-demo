@@ -76,6 +76,7 @@ body {
 	box-shadow: 0 0 12px #ffe49a, 0 0 12px #ffe49a; */
 	/* filter: drop-shadow(0 0 4px #ffde42) drop-shadow(0 0 8px #ffde42) drop-shadow(0 0 12px #ffde42); */
 }
+
 .btn-play:after {
 	content: "轉起來";
 	width: 100%;
@@ -98,4 +99,16 @@ body {
 	/* background-position-x: 100%; */
 	/* filter: drop-shadow(0 0 12px #ffe49a); */
 }
-/* 寬度600px,使用flex,橫向置中 */
+.item {
+	display: flex;
+	width: 600px;
+	word-break: break-all;
+}
+.text-over {
+	width: 20ch;
+	background-color: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0.5rem;
+}
