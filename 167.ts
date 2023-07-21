@@ -35,3 +35,7 @@ type IsArray<T> = T extends any[] ? true : false;
 const myArray = [1, 23];
 
 type IsMyArray = IsArray<typeof myArray>;
+
+function add<T extends number>(a: T, b: T) {
+	return a + b;
+}

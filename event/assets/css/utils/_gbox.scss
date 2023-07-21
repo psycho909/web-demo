@@ -74,8 +74,7 @@
 			}
 		}
 		@include media {
-			width: vw(248);
-			height: vw(47);
+			min-width: vw(248);
 			background-size: cover;
 			background-repeat: no-repeat;
 			filter: drop-shadow(vw(2) vw(8) vw(8) rgba(#000, 0.75));
@@ -90,9 +89,10 @@
 			border: vw3(4px) solid #ffe788;
 			color: #ffe788;
 			padding: vw3(12px) vw3(52px);
+			letter-spacing: -1px;
 			@include media {
 				font-size: vw(32);
-				padding: vw(12) vw(52);
+				padding: vw(12) vw(32);
 			}
 		}
 		&.btn-more {
@@ -105,6 +105,7 @@
 				background-position-x: 100%;
 			}
 			@include media {
+				min-width: auto;
 				width: vw(327);
 				height: vw(72);
 			}
@@ -119,8 +120,11 @@
 				background-position-x: 100%;
 			}
 			@include media {
+				min-width: auto;
 				width: vw(184);
 				height: vw(72);
+				background-size: 100%;
+				background-image: url("./images/m-btn-calender2.png");
 			}
 		}
 	}
@@ -201,8 +205,8 @@
 		background-image: url("./images/btn-close.png");
 		background-size: cover;
 		@include media {
-			width: vw3(43px);
-			height: vw3(44px);
+			width: vw(43px);
+			height: vw(44px);
 			right: vw(46);
 			top: vw(-48);
 			right: vw(4);
@@ -314,6 +318,10 @@
 			max-width: 100%;
 			max-height: 100%;
 		}
+		iframe {
+			max-width: 100%;
+			max-height: 100%;
+		}
 		@include media {
 			width: vw(710);
 			height: vw(356);
@@ -333,12 +341,20 @@
 	}
 	.g-calendar {
 		font-size: 0;
-		margin-right: auto;
+		// margin-right: auto;
 	}
 }
 .lb-content {
 	font-size: vw3(36px);
 	@include media {
 		font-size: vw(36);
+	}
+}
+.lb-btn-group {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	.btn-more {
+		margin-left: auto;
 	}
 }

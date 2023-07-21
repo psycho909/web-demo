@@ -162,10 +162,10 @@
 			&--icon1 {
 				&:before {
 					content: "";
-					width: vw3(29px);
-					height: vw3(30px);
+					width: vw3(36px);
+					height: vw3(36px);
 					background-size: cover;
-					background-image: url("./images/sec1-icon1.png");
+					background-image: url("./images/sec1-icon11.png");
 					position: absolute;
 					top: 50%;
 					left: vw3(-63px);
@@ -176,8 +176,8 @@
 						// left: vw2(-63);
 					}
 					@include media {
-						width: vw(29);
-						height: vw(30);
+						width: vw(36);
+						height: vw(36);
 						left: vw(-62);
 					}
 				}
@@ -506,7 +506,7 @@
 		background-position: center center;
 		position: absolute;
 		top: vw3(537px);
-		left: vw3(188px);
+		left: vw3(163px);
 		@include media {
 			width: vw(273);
 			height: vw(273);
@@ -525,7 +525,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 1;
+			z-index: 3;
 			@include media {
 				content: none;
 			}
@@ -586,8 +586,9 @@
 			left: 0;
 			z-index: 1;
 			opacity: 1;
+			display: none;
 			@include media {
-				// display: none;
+				display: none;
 			}
 		}
 		&--hover {
@@ -608,8 +609,8 @@
 		@include media {
 			width: vw(829);
 			height: vw(829);
-			top: vw(165);
-			left: vw(182);
+			top: vw(205);
+			left: vw(202);
 		}
 		&.loading {
 			@include media {
@@ -623,6 +624,11 @@
 			top: 0;
 			left: 0;
 			z-index: 2;
+			// display: none;
+			@include media {
+				width: vw(829);
+				height: vw(829);
+			}
 		}
 		&__canvas2 {
 			width: vw3(829);
@@ -632,6 +638,10 @@
 			left: 0;
 			z-index: 1;
 			opacity: 0;
+			// display: none;
+			@include media {
+				display: none;
+			}
 		}
 	}
 }

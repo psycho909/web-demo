@@ -33,6 +33,12 @@ const sec2 = {
 			targetBrowserWidth.value = document.documentElement.clientWidth;
 			scrollEvent.value.refresh();
 		});
+		let eventCardDataFilter = Vue.computed(() => {
+			let now = new Date().getTime();
+			return eventCardData.value.filter((v, i) => {
+				return now >= new Date(v.open).getTime() && now <= new Date(v.close).getTime();
+			});
+		});
 		let scrollStart = Vue.computed(() => {
 			return "-=" + parseInt((startWidth / browserWidth) * targetBrowserWidth.value) + "px";
 		});
@@ -148,7 +154,7 @@ const sec2 = {
 					end: scrollEnd.value,
 					scrub: true,
 					pin: true,
-					pinType: "transform",
+					// pinType: "transform",
 					onEnter: function () {
 						let h1 = $(".sec1").outerHeight(true);
 						let h2 = $(".sec2").outerHeight(true);
@@ -156,23 +162,26 @@ const sec2 = {
 					}
 					// markers: true
 				});
-
+				// scrollEvent.value.config({
+				// 	// default is "resize,visibilitychange,DOMContentLoaded,load" so we can remove "resize" from the list:
+				// 	autoRefreshEvents: "DOMContentLoaded,load"
+				// });
 				gsap.registerPlugin(ScrollTrigger);
 			}
 		});
-		return { goSlide, currentEvent, eventPop, eventCardData };
+		return { goSlide, currentEvent, eventPop, eventCardDataFilter };
 	},
 	template: `
     <div class="sec sec2" id="sec2">
         <div class="sec2-container">
 		<div class="sec2-title"></div>
             <div class="sec2-tab">
-                <div class="sec2-tab__title" :class="[currentEvent == index+1?'active':'']" v-for="(event,index) in eventCardData" @click="goSlide(index)">{{event.title}}</div>
+                <div class="sec2-tab__title" :class="[currentEvent == index+1?'active':'']" v-for="(event,index) in eventCardDataFilter" @click="goSlide(index)">{{event.title}}</div>
             </div>
             <div class="sec2-wrap">
                 <div class="sec2-swiper-wrap">
                     <div class="sec2-content swiper-wrapper" data-sec2-content>
-                        <div class="sec2-card" :class="[mobile?'swiper-slide':'']" v-for="(event,index) in eventCardData" :data-event="(index+1)" data-sec2-card @click="eventPop(event,mobileType)">
+                        <div class="sec2-card" :class="[mobile?'swiper-slide':'']" v-for="(event,index) in eventCardDataFilter" :data-event="event.id" data-sec2-card @click="eventPop(event,mobileType)">
                             <div class="sec2-card__title">{{event.title}}</div>
                             <div class="sec2-card__item">
                                 <div class="sec2-card__item-front">

@@ -3,51 +3,67 @@ export const removeCalenderTime = "2023/6/20 12:00";
 export const surveyCake = "https://survey.beanfun.com/s/0DGl3";
 export const step2Event = [
 	{
-		title: "究極燃燒",
-		info: "等級練1送2，升等速度狂飆300%，直衝LV250！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop1.png",
-		show: false,
-		calender: {
-			text: "6/20 究極燃燒，等級突破就是現在！",
-			begin: "2023/6/20 00:00",
-			end: "2020/6/20 23:59"
-		}
-	},
-	{
-		title: "溫餐廳",
-		info: "活動限定地圖〈溫餐廳〉熱鬧開張，和冒險夥伴一起盡情探索吧！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop2.png",
-		show: false,
-		calender: {
-			text: "6/20 溫餐廳，熱鬧開張！",
-			begin: "2023/6/20 00:00",
-			end: "2020/6/20 23:59"
-		}
-	},
-	{
+		id: 1,
 		title: "卡莉的旅程",
-		info: "新職業〈卡莉〉席捲登場,快來享受全新冒險吧！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop3.png",
-		show: false,
+		info: "新職業〈卡莉〉席捲登場，快來享受全新冒險吧！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9402",
+		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop3.png",
+		yt: "eFHwK1ikRdc",
+		show: "2023/6/20 10:00",
+		open: "2023/6/6 10:00",
+		close: "2023/9/19 23:59",
 		calender: {
 			text: "7/5 全新職業-卡莉，席捲登場！",
-			begin: "2023/7/5 15:00",
-			end: "2020/7/5 23:59"
+			begin: "2023/7/5 14:00",
+			end: "2023/7/5 23:59"
 		}
 	},
 	{
-		title: "桃花境咖凌",
-		info: "新地圖〈桃花境〉開放！超強Boss〈咖凌〉等你征服！",
-		link: "",
-		img: "./assets/css/images/sec2/sec2-pop4.jpg",
-		show: false,
+		id: 2,
+		title: "究極燃燒",
+		info: "等級練1送2，升等速度狂飆300%，直衝LV250！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9403",
+		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop1.png",
+		yt: "3xJIaGXDRcE",
+		show: "2023/6/20 10:00",
+		open: "2023/6/6 10:00",
+		close: "2023/9/19 23:59",
 		calender: {
-			text: "8/9 桃花境咖凌，等你征服！",
-			begin: "2023/8/9 00:00",
-			end: "2020/8/9 23:59"
+			text: "6/20 究極燃燒，等級突破就是現在！",
+			begin: "2023/6/20 10:00",
+			end: "2023/6/20 23:59"
+		}
+	},
+	{
+		id: 3,
+		title: "溫餐廳",
+		info: "活動限定地圖〈溫餐廳〉熱鬧開張，和冒險夥伴一起盡情探索吧！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9401",
+		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop2.png",
+		yt: "",
+		show: "2023/6/20 10:00",
+		open: "2023/6/6 10:00",
+		close: "2023/9/19 23:59",
+		calender: {
+			text: "6/20 溫餐廳，熱鬧開張！",
+			begin: "2023/6/20 10:00",
+			end: "2023/6/20 23:59"
+		}
+	},
+	{
+		id: 4,
+		title: "第六顆星",
+		info: "第六顆星章節任務開放～獎勵超澎派，越早開始領越多！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9438",
+		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop6.png",
+		yt: "",
+		show: "2023/6/20 10:00",
+		open: "2023/6/20 10:00",
+		close: "2023/9/19 23:59",
+		calender: {
+			text: "7/5 第六顆星任務開放！",
+			begin: "2023/7/5 14:00",
+			end: "2023/7/5 23:59"
 		}
 	}
 ];
@@ -175,7 +191,7 @@ export function particlesBg(id) {
 					nb_sides: 5
 				},
 				image: {
-					src: "./assets/css/images/gold.png",
+					src: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/gold.png",
 					width: 28,
 					height: 28
 				}

@@ -7,8 +7,14 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/3.1.1/vuex.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.1.0/vuex.global.min.js"></script>
+		<script type="text/javascript" src="./js/game-footer2.js" id="game-footer" prod="" theme=""></script>
 		<style>
 			* {
 				padding: 0;
@@ -19,10 +25,137 @@
 				width: 2ch; /* 1ch為1個數字0寬度，2ch 為1個中文寬度 */
 			}
 		</style>
+		<script>
+			document.addEventListener("DOMContentLoaded", function (event) {
+				console.log("DOMContentLoaded");
+			});
+		</script>
 	</head>
 	<body>
-		<div id="app">{{msg}}</div>
-		<div class="text">這是標題</div>
+		<div class="box"></div>
+		<div id="app">
+			{{msg}}
+			<div>{{count}}</div>
+			<button @click="handleClick">click</button>
+			<div class="text">這是標題</div>
+			<light-box :visible="visible">
+				<div>123</div>
+			</light-box>
+		</div>
+
 		<script src="./167.js"></script>
+		<script>
+			// 創建一個新的 <script> 元素
+			var scriptElement = document.createElement("script");
+			scriptElement.src = "./js/cookie-bar.js";
+			scriptElement.id = "cookie-bar";
+
+			// 將 <script> 元素插入到 HTML 頁面中的 <body> 元素結尾前
+			var body = document.body || document.getElementsByTagName("body")[0];
+			body.appendChild(scriptElement);
+
+			// 添加腳本載入完成後的回調事件
+			scriptElement.onload = function () {
+				// 腳本載入完成後，在整個頁面的 DOM 和圖片等內容都載入完成後執行
+				window.onload = function () {
+					var option = setOption();
+					componentPrivacy(option);
+				};
+			};
+			// use vue3 composition api create component lightbox
+			// 使用html vue3 cdn
+			// 多個lightbox component 會共用一個visible
+			const LightBox = {
+				props: {
+					visible: Boolean
+				},
+				setup(props, context) {
+					let visible = Vue.computed(() => props.visible);
+					return {
+						visible
+					};
+				},
+				template: `
+				<div class="lightbox" v-if="visible">
+					<slot></slot>
+				</div>
+			`
+			};
+
+			let store = Vuex.createStore({
+				state() {
+					return {
+						message: "hello Message",
+						count: 0
+					};
+				},
+				mutations: {
+					increment(state) {
+						state.count++;
+					}
+				}
+			});
+			let app = Vue.createApp({
+				components: {
+					LightBox
+				},
+				setup() {
+					let msg = Vue.ref("hello");
+					// use store state count
+					let count = Vue.computed(() => store.state.count);
+					let visible = Vue.ref(false);
+					// create handleClick function use store increment
+					let handleClick = () => {
+						store.commit("increment");
+						visible.value = !visible.value;
+					};
+					let data = {
+						prod: "天堂國際服",
+						theme: "dark"
+					};
+					gf_updateFooter(data);
+					return {
+						msg,
+						handleClick,
+						count,
+						visible
+					};
+				}
+			});
+			app.use(store);
+			app.mount("#app");
+
+			function p(timeout) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve(1);
+					}, timeout);
+				});
+			}
+
+			async function test() {
+				let a = await p(5000);
+				console.log(a);
+				console.log("run2");
+			}
+
+			axios
+				.all([
+					axios.get("https://jsonplaceholder.typicode.com/posts"),
+					axios.get("https://reqres.in/api/users?delay=3"),
+					axios.post("https://reqres.in/api/login", {
+						email: "peter@klaven"
+					})
+				])
+				.then(
+					axios.spread((res1, res2) => {
+						console.log(res1.data);
+						console.log(res2.data);
+					})
+				)
+				.catch((err) => {
+					console.log(err);
+				});
+		</script>
 	</body>
 </html>

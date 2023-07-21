@@ -24,6 +24,10 @@ let app = Vue.createApp({
 		let loadRightBar = Vue.ref(true);
 		let targetBrowserWidth = Vue.ref(document.documentElement.clientWidth);
 		let num = Vue.ref(0);
+		let anim = Vue.ref(false);
+		let login = Vue.ref(false);
+		let account = Vue.ref("");
+		let type = Vue.ref(0);
 		window.addEventListener("resize", function () {
 			targetBrowserWidth.value = document.documentElement.clientWidth;
 		});
@@ -36,6 +40,9 @@ let app = Vue.createApp({
 			);
 		};
 		let goPage = (page) => {
+			if (document.querySelector(page) === null) {
+				return;
+			}
 			let browserWidth = 1920;
 			let tempTop = 0;
 			let topBar = $(".top-bar").outerHeight(true);
@@ -80,9 +87,9 @@ let app = Vue.createApp({
 			let sec3Title = $("#sec3").offset().top;
 			let tempTop = sec3Title * 0.1;
 			if (top + tempTop >= sec3Title) {
-				$(".sec3-title").addClass("anim");
+				anim.value = true;
 			} else {
-				$(".sec3-title").removeClass("anim");
+				anim.value = false;
 			}
 			scrollTarget(top, $(".sec"), 100);
 		});
@@ -117,17 +124,33 @@ let app = Vue.createApp({
 		});
 
 		Vue.onMounted(() => {
+			if ($("#Token").val() !== "") {
+				login.value = true;
+				account.value = $("#GameAccount").val();
+			}
+			let itemType;
+			if (window.sessionStorage.getItem("type")) {
+				itemType = window.sessionStorage.getItem("type");
+				window.sessionStorage.removeItem("type");
+			}
 			loadingProgress({
 				countFN: function (count, length) {
 					num.value = Math.round((count / length) * 100);
-					// console.log(Math.round((count / length) * 100));
 				},
 				loadedFN: function () {
-					num.value = 100;
-					showLoading.value = false;
-					$(".loadingProgress").removeClass("init");
-					document.querySelector("html").classList.remove("ovh");
-					// console.log(100);
+					setTimeout(() => {
+						num.value = 100;
+						showLoading.value = false;
+						$(".loadingProgress").removeClass("init");
+						document.querySelector("html").classList.remove("ovh");
+						if (itemType === null) {
+						} else {
+							if ($("#Token").val() == "") {
+							} else {
+								type.value = itemType;
+							}
+						}
+					}, 400);
 				},
 				detectVideo: true,
 				autoHide: true
@@ -148,7 +171,11 @@ let app = Vue.createApp({
 			event,
 			showCalender,
 			loadRightBar,
-			num
+			num,
+			anim,
+			login,
+			account,
+			type
 		};
 	},
 	components: {

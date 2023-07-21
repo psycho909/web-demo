@@ -2,22 +2,58 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
 		<style>
+			/* 浮動選單 */
+			.fancybox__slide {
+				padding: 20px;
+			}
+
 			#calendar {
 				/* height: 100vh; */
 			}
 		</style>
 	</head>
 	<body>
+		<button data-fancybox data-src="#dialog-content" class="">Launch Dialog</button>
 		<div id="calendar"></div>
+		<div id="dialog-content" style="display: none; max-width: 500px">
+			<h2 class="mb-4 text-xl text-slate-900 font-semibold">Hello, world!</h2>
+			<p class="mb-4"><input type="text" class="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5" /></p>
+			<p class="mb-4">Try hitting the tab key and notice how the focus stays within the dialog itself.</p>
+			<p class="mb-4">To close dialog hit the esc button, click on the overlay or just click the close button.</p>
+			<p>Element used to launch the modal would receive focus back after closing.</p>
+		</div>
 		<script>
+			// 寫一個slide
+
+			// 寫一個vue實例
+			new Vue({
+				el: "#app",
+				data() {
+					return {
+						msg: ""
+					};
+				},
+				methods: {
+					handleClick() {
+						console.log("click");
+					}
+				}
+			});
+
+			// document.oncontextmenu = function () {
+			// 	window.event.returnValue = false;
+			// };
 			var calendarEl = document.getElementById("calendar");
 
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				initialView: "dayGridMonth",
-				initialDate: "2023-06-07",
+				initialDate: "2023-07-07",
 				headerToolbar: {
 					left: "prev,next today",
 					center: "title",
@@ -26,7 +62,11 @@
 				events: [
 					{
 						title: "All Day Event",
-						start: "2023-06-01"
+						start: "2023-07-01",
+						extendedProps: {
+							department: "BioChemistry",
+							name: "Cjem"
+						}
 					},
 					{
 						title: "Long Event",
@@ -75,6 +115,21 @@
 					console.log(info.event);
 				},
 				dateClick: function (info) {
+					new Fancybox(
+						[
+							{
+								src: "<p>測試</p><p>測試</p><p>測試</p><p>測試</p><p>測試</p>",
+								type: "html"
+							}
+						],
+						{
+							on: {
+								done: (fancybox, eventName) => {
+									console.log(`Fancybox eventName: ${eventName}`);
+								}
+							}
+						}
+					);
 					console.log("dateClick");
 				}
 			});

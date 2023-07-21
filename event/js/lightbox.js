@@ -54,6 +54,7 @@ export const MessageLB2 = (msg, url, callback) => {
 		actionBtns: [
 			{
 				text: "抽限定紀念徽章",
+				id: "badgedraw",
 				class: "btn-confirm",
 				target: true,
 				click: function () {
@@ -83,24 +84,41 @@ export const SkillVideo = (msg, url, callback) => {
 export const EventInfo = (data, mobileType) => {
 	let mobileHTML = ``;
 	let HTML = "";
+	let now = new Date().getTime();
+	let open = new Date(data.show).getTime();
+	let tempHTML = `<div class='lb-focus' style='color:#fff;text-align:center;'>【詳細內容請看 6/11 SHOWCASE】</div>`;
+	let moreHTML = "";
+	let sourceHTML = "";
+	let _show = now >= open;
 	if (mobileType == "google") {
-		mobileHTML = `<a class="g-calendar-google gbox-btn btn-calender2" href="javascript:;">Google 活動行事曆提醒</a>`;
+		mobileHTML = `<a class="g-calendar-google gbox-btn btn-calender2 g-calendar-${data.id}" href="javascript:;">Google 活動行事曆提醒</a>`;
 	}
 	if (mobileType == "apple") {
-		mobileHTML = `<a class="g-calendar-ios gbox-btn btn-calender2" href="javascript:;">IOS 活動行事曆提醒</a>`;
+		mobileHTML = `<a class="g-calendar-ios gbox-btn btn-calender2 g-calendar-${data.id}" href="javascript:;">IOS 活動行事曆提醒</a>`;
+	}
+	if (_show) {
+		moreHTML = `<a class="gbox-btn btn-more" id="btn-more-${data.id}" target="_blank" href="${data.link}">瞭解更多</a>`;
+		tempHTML = ``;
+	}
+	if (data.yt !== "" && _show) {
+		sourceHTML = `<iframe v-if="event.YoutubeID" width="640" height="360" src="https://www.youtube.com/embed/${data.yt}?autoplay=1&mute=1'" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+	} else {
+		sourceHTML = `<img src="${data.img}" alt="" />`;
 	}
 	let calenderHTML = `
-	<div class="g-calendar" begin="${data.calender.begin}" end="${data.calender.end}" title="《新楓之谷maplestory》全新職業-卡莉，席捲登場！" description="${data.calender.text}" autoDetectDevice="true">\
+	<div class="g-calendar" begin="${data.calender.begin}" end="${data.calender.end}" title="${data.calender.text}" description="${data.calender.text}" autoDetectDevice="true">\
 		${mobileHTML}
 	</div>
 	`;
 	HTML = `
-	<div class="lb-style2__source ${data.show ? "" : "comming"}">
-			<img src="${data.img}" alt="" />
+		<div id="savior00${data.id}" class="lb-style2__source ${_show ? "" : "comming"}">
+			${sourceHTML}
 		</div>
-		<div class="lb-style2__text">${data.info}</div>
-		${calenderHTML}
-		<a class="gbox-btn btn-more" target="_blank" href="${data.link}">瞭解更多</a>
+		<div class="lb-style2__text">${data.info}${tempHTML}</div>
+		<div class="lb-btn-group">
+			${calenderHTML}
+			${moreHTML}
+		</div>
 	`;
 
 	$.gbox.open(HTML, {

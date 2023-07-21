@@ -10,15 +10,13 @@ const sec1 = {
 		event: {
 			type: Boolean,
 			default: true
+		},
+		t: {
+			type: Number,
+			default: 0
 		}
 	},
 	setup(props, { emit }) {
-		let step1C1 = Vue.ref(null);
-		let step1C2 = Vue.ref(null);
-		let step2C1 = Vue.ref(null);
-		let step2C2 = Vue.ref(null);
-		let step3C1 = Vue.ref(null);
-		let step3C2 = Vue.ref(null);
 		let characterC1 = Vue.ref(null);
 		let characterC2 = Vue.ref(null);
 		let join = false;
@@ -66,9 +64,9 @@ const sec1 = {
 				let msg = `
 						<div class="lb-content">
 							<div>${joinDate}</div>
-							<div>已完成預約登入</div>
+							<div>已完成預先登錄</div>
 							<br />
-							<div>2023/7/5 23:59前</div>
+							<div>2023/07/05 23:59前</div>
 							<div>發送獎勵</div>
 						</div>
 					`;
@@ -95,9 +93,9 @@ const sec1 = {
 					let msg = `
 						<div class="lb-content">
 							<div>${joinDate}</div>
-							<div>已完成預約登入</div>
+							<div>已完成預先登錄</div>
 							<br />
-							<div>2023/7/5 23:59前</div>
+							<div>2023/07/05 23:59前</div>
 							<div>發送獎勵</div>
 						</div>
 					`;
@@ -119,68 +117,43 @@ const sec1 = {
 					}
 				})
 				.finally(() => {
-					if (window.sessionStorage.getItem("type")) {
-						window.sessionStorage.removeItem("type");
-					}
 					emit("showLoading", false);
 				});
 		};
 		Vue.nextTick(() => {
 			particlesBg("sec1");
-			let canvasArr = [];
-			characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
-			characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 0);
-			canvasArr = [characterC1.value.PreLoad("../../../CanvasSprtie/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("../../../CanvasSprtie/character-hover/", "Comp 1_00000")];
-			Promise.allSettled(canvasArr).then((res) => {
-				characterC1.value.Loop();
-				characterC2.value.Loop();
-			});
-			// if (!props.mobile) {
-			// 	let canvasArr = [];
-			// 	characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 28, 60);
-			// 	characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 25, 60);
-			// 	if (props.event) {
-			// 		step1C1.value = new CanvasSprite($(".sec1-btn__step1-canvas1"), 23, 95);
-			// 		step1C2.value = new CanvasSprite($(".sec1-btn__step1-canvas2"), 23, 95);
-			// 		step2C1.value = new CanvasSprite($(".sec1-btn__step2-canvas1"), 23, 95);
-			// 		step2C2.value = new CanvasSprite($(".sec1-btn__step2-canvas2"), 23, 95);
-			// 		canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step1C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step1C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000"), step2C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step2C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
-			// 	} else {
-			// 		step3C1.value = new CanvasSprite($(".sec1-btn__step3-canvas1"), 23, 95);
-			// 		step3C2.value = new CanvasSprite($(".sec1-btn__step3-canvas2"), 23, 95);
-			// 		canvasArr = [characterC1.value.PreLoad("./assets/css/images/character-normal/", "Comp1_00000"), characterC2.value.PreLoad("./assets/css/images/character-hover/", "Comp1_00000"), step3C1.value.PreLoad("./assets/css/images/btn-normal/", "Normal_00000"), step3C2.value.PreLoad("./assets/css/images/btn-hover/", "Hover_00000")];
-			// 	}
-			// 	Promise.allSettled(canvasArr).then((res) => {
-			// 		emit("showLoading", true);
-			// 		if (props.event) {
-			// 			step1C1.value.Loop();
-			// 			step1C1.value.target.parent().removeClass("loading");
-			// 			step1C2.value.Loop();
-			// 			step2C1.value.Loop();
-			// 			step2C1.value.target.parent().removeClass("loading");
-			// 			step2C2.value.Loop();
-			// 		} else {
-			// 			step3C1.value.Loop();
-			// 			step3C1.value.target.parent().removeClass("loading");
-			// 			step3C2.value.Loop();
-			// 		}
-			// 		characterC1.value.Loop();
-			// 		characterC2.value.Loop();
-			// 		characterC1.value.target.parent().removeClass("loading");
-			// 		document.querySelector("html").classList.remove("ovh");
-			// 		emit("showLoading", false);
-			// 	});
-			// } else {
-			// 	document.querySelector("html").classList.remove("ovh");
-			// 	emit("showLoading", false);
-			// }
-		});
-
-		Vue.onMounted(() => {
-			if (window.sessionStorage.getItem("type")) {
-				handleBtnEvent(window.sessionStorage.getItem("type"));
+			if (!props.mobile) {
+				let canvasArr = [];
+				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
+				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 0);
+				canvasArr = [characterC1.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-hover/", "Comp 1_00000")];
+				Promise.allSettled(canvasArr).then((res) => {
+					characterC1.value.Loop();
+					characterC2.value.Loop();
+					characterC1.value.target.parent().removeClass("loading");
+				});
+			} else {
+				let canvasArr = [];
+				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
+				canvasArr = [characterC1.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-normal/", "Comp 1_00000")];
+				Promise.allSettled(canvasArr).then((res) => {
+					characterC1.value.Loop();
+					characterC1.value.target.parent().removeClass("loading");
+				});
 			}
 		});
+
+		Vue.watch(
+			() => props.t,
+			(newVal, oldVal) => {
+				handleBtnEvent(props.t);
+			}
+		);
+		// Vue.onMounted(() => {
+		// 	if (window.sessionStorage.getItem("type")) {
+		// 		handleBtnEvent(window.sessionStorage.getItem("type"));
+		// 	}
+		// });
 		return {
 			skillPop,
 			handleEnter,
@@ -192,11 +165,11 @@ const sec1 = {
 	},
 	template: `<div class="sec sec1" id="sec1">
     <div class="sec1-bg" v-if="!mobile">
-        <video poster="./assets/video/bg-preview.jpg" muted autoplay loop playsinline>
-			<source src="./assets/video/bg.mp4" type="video/mp4" />
+        <video poster="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg-preview.jpg" muted autoplay loop playsinline>
+			<source src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg.mp4" type="video/mp4" />
 		</video>
     </div>
-    <div class="sec1-left" @mouseover="handleLeftEnter" @mouseleave="handleLeftLeave">
+    <div class="sec1-left" @mouseover="handleLeftEnter" @mouseleave="handleLeftLeave" v-show="event">
         <a class="sec1-left__link sec1-left__link--icon1">極限成長密藥</a>
         <a class="sec1-left__link sec1-left__link--icon2">皇家美髮券x3</a>
         <a class="sec1-left__link sec1-left__link--icon3">皇家整形券x3</a>
@@ -233,6 +206,7 @@ const sec1 = {
             </div>
         </div>
         <a href="javascript:;" class="sec1-character loading" @click="skillPop">
+			<div class="sec1-character--normal"></div>
             <canvas class="sec1-character__canvas1" width="829" height="829"></canvas>
             <canvas class="sec1-character__canvas2" width="829" height="829"></canvas>
         </a>

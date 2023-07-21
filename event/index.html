@@ -36,8 +36,8 @@
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollTrigger.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/g-calendar/g-calendar.js"></script>
 		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
@@ -46,40 +46,50 @@
 	<body>
 		<!-- 內容開始 -->
 		<div id="app">
-			<loading :show-loading="showLoading"><div class="loadingProgress-num">{{num}}</div></loading>
+			<loading :show-loading="showLoading"
+				><div class="loadingProgress-num">{{ num }}</div></loading
+			>
 			<!-- 上方浮動選單 -->
 			<div class="top-bar">
 				<a href="https://maplestory.beanfun.com/main" class="top-bar__logo" target="_blank">logo</a>
 				<a href="javascript:;" class="top-bar__open" @click="handleMenu(true)"></a>
-				<div class="top-bar-box" :class="[menuStatus?'show':'']">
+				<div class="top-bar-box" :class="[menuStatus?'show':'',login?'login':'']">
 					<a href="javascript:;" class="top-bar__close" @click="handleMenu(false)"></a>
 					<div class="top-bar__content">
 						<div class="top-bar__item" :class="[currentPage == 'sec1'?'active':'']" @click="goPage('#sec1')"><a href="javascript::">全新職業卡莉</a></div>
 						<div class="top-bar__item" :class="[currentPage == 'sec2'?'active':'']" @click="goPage('#sec2')"><a href="javascript::">Savior版本活動</a></div>
 						<div class="top-bar__item" :class="[currentPage == 'sec3'?'active':'']" @click="goPage('#sec3')"><a href="javascript::">美味楓潮</a></div>
 					</div>
-					<div class="top-bar__social">
-						<a href="https://maplestory.beanfun.com/main" class="btn-home" target="_blank"></a>
-						<a href="https://www.facebook.com/www.maplestory.msfans.com.tw" class="btn-f" target="_blank"></a>
-						<a href="https://www.instagram.com/maplestory_tw/ " class="btn-i" target="_blank"></a>
+					<div class="top-bar__right">
+						<template v-if="login">
+							<div class="top-bar__username">{{ account }}</div>
+							<a href="../../logout/logout.aspx" class="top-bar__logout"></a>
+						</template>
+						<div class="top-bar__social">
+							<a href="https://maplestory.beanfun.com/main" class="btn-home" target="_blank"></a>
+							<a href="https://www.facebook.com/www.maplestory.msfans.com.tw" class="btn-f" target="_blank"></a>
+							<a href="https://www.instagram.com/maplestory_tw/ " class="btn-i" target="_blank"></a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 右邊浮動選單 -->
 			<div class="right-bar loading" :class="[loadRightBar?'':'unloading']">
-				<div v-if="showCalender" class="g-calendar" begin="2023/06/20 00:00" end="2023/06/20 23:59" title="《新楓之谷maplestory》全新職業-卡莉，席捲登場！" description="6/20 全新職業-卡莉 席捲登場" autoDetectDevice="true">
+				<div v-if="showCalender" class="g-calendar" begin="2023/06/20 10:00" end="2023/06/20 23:59" title="《新楓之谷》6/20 Savior全新改版 正式開始" description="《新楓之谷》6/20 Savior全新改版 正式開始" autoDetectDevice="true">
 					<a class="g-calendar-google btn-calender" href="javascript:;" v-if="mobileType == 'google' ">Google 活動行事曆提醒</a>
 					<a class="g-calendar-ios btn-calender" href="javascript:;" v-if="mobileType == 'apple' ">IOS 活動行事曆提醒</a>
 				</div>
 				<a href="javascript:;" class="btn-top" @click="goTop">TOP</a>
 			</div>
 			<!-- 全新職業卡莉 -->
-			<sec1 :mobile="mobile" :event="event" @show-loading="handleLoading"></sec1>
+			<sec1 :mobile="mobile" :event="event" @show-loading="handleLoading" :t="type"></sec1>
 			<!-- Savior版本活動 -->
 			<sec2 :mobile="mobile" :mobile-type="mobileType"></sec2>
 			<!-- 品牌活動 -->
-			<sec3 :mobile="mobile" @show-loading="handleLoading"></sec3>
+			<sec3 :mobile="mobile" @show-loading="handleLoading" :anim="anim"></sec3>
 		</div>
+		<input id="Token" type="hidden" value="<%=Token %>" />
+		<input id="GameAccount" type="hidden" value="<%=GameAccountDisplayName %>" />
 		<!-- footer -->
 		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="新楓之谷" theme="dark"></script>
 		<script type="module" src="./js/default.js"></script>
