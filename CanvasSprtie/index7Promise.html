@@ -66,7 +66,7 @@
 				this.el = this.target[0].getContext("2d");
 				$(this.el.canvas).addClass("loading");
 			};
-			CanvasSprite.prototype.PreLoad = function (path, name = "") {
+			CanvasSprite.prototype.PreLoad = function (path, name = "", fn) {
 				var count = 0;
 				var _this = this;
 				return new Promise((resolve, reject) => {
@@ -75,25 +75,52 @@
 						let newName = name.replace(numPart, i.toString().padStart(numPart.length, "0"));
 						this.imgArr[i] = new Image();
 						this.imgArr[i].src = path + newName + ".png";
+					}
+					for (var i = 0; i < this.step; i++) {
 						this.imgArr[i].onload = function () {
 							_this.width = this.width;
 							_this.height = this.height;
+							fn.countFn(count, _this.step);
 							++count;
 							if (count == _this.step) {
 								$(_this.el.canvas).removeClass("loading");
-								_this.Draw(0);
 								resolve(true);
+								_this.Draw(0);
 							}
 						};
 						this.imgArr[i].onerror = function () {
 							++count;
 							if (count == _this.step) {
 								$(_this.el.canvas).removeClass("loading");
-								reject(true);
 							}
 						};
 					}
 				});
+				// return new Promise((resolve, reject) => {
+				// 	for (var i = 0; i < this.step; i++) {
+				// 		let numPart = name.substring(name.lastIndexOf("_") + 1);
+				// 		let newName = name.replace(numPart, i.toString().padStart(numPart.length, "0"));
+				// 		this.imgArr[i] = new Image();
+				// 		this.imgArr[i].src = path + newName + ".png";
+				// 		this.imgArr[i].onload = function () {
+				// 			_this.width = this.width;
+				// 			_this.height = this.height;
+				// 			++count;
+				// 			if (count == _this.step) {
+				// 				$(_this.el.canvas).removeClass("loading");
+				// 				_this.Draw(0);
+				// 				resolve(true);
+				// 			}
+				// 		};
+				// 		this.imgArr[i].onerror = function () {
+				// 			++count;
+				// 			if (count == _this.step) {
+				// 				$(_this.el.canvas).removeClass("loading");
+				// 				reject(true);
+				// 			}
+				// 		};
+				// 	}
+				// });
 			};
 			CanvasSprite.prototype.run = function (callback) {
 				cancelAnimationFrame(this.loop);
@@ -150,9 +177,26 @@
 
 			canvas圖片縮放，直接調整canvas的class
 			*/
-			var c1 = new CanvasSprite($(".canvas-1"), 49, 60);
-			var c2 = new CanvasSprite($(".canvas-2"), 49, 60);
-			Promise.allSettled([c1.PreLoad("./character-normal/", "Comp 1_00000"), c2.PreLoad("./character-hover/", "Comp 1_00000")]).then((res) => {
+			var c1Step = 49;
+			var c2Step = 49;
+			var c1 = new CanvasSprite($(".canvas-1"), c1Step, 60);
+			var c2 = new CanvasSprite($(".canvas-2"), c2Step, 60);
+			let countTotal = 0;
+			Promise.allSettled([
+				c1.PreLoad("./character-normal/", "Comp 1_00000", {
+					countFn: function (count, step) {
+						countTotal++;
+						console.log("normal", count, step);
+					}
+				}),
+				c2.PreLoad("./character-hover/", "Comp 1_00000", {
+					countFn: function (count, step) {
+						countTotal++;
+						console.log("normal", count, step);
+					}
+				})
+			]).then((res) => {
+				console.log(countTotal / (c1Step + c2Step));
 				c1.Loop();
 				c2.Loop();
 			});
