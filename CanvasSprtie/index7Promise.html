@@ -6,6 +6,7 @@
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -80,7 +81,7 @@
 						this.imgArr[i].onload = function () {
 							_this.width = this.width;
 							_this.height = this.height;
-							fn.countFn(count, _this.step);
+							fn.onProgress(count, _this.step);
 							++count;
 							if (count == _this.step) {
 								$(_this.el.canvas).removeClass("loading");
@@ -182,15 +183,20 @@
 			var c1 = new CanvasSprite($(".canvas-1"), c1Step, 60);
 			var c2 = new CanvasSprite($(".canvas-2"), c2Step, 60);
 			let countTotal = 0;
+			loadingProgress({
+				countFN: function (progress) {
+					console.log(progress);
+				}
+			});
 			Promise.allSettled([
 				c1.PreLoad("./character-normal/", "Comp 1_00000", {
-					countFn: function (count, step) {
+					onProgress: function (count, step) {
 						countTotal++;
 						console.log("normal", count, step);
 					}
 				}),
 				c2.PreLoad("./character-hover/", "Comp 1_00000", {
-					countFn: function (count, step) {
+					onProgress: function (count, step) {
 						countTotal++;
 						console.log("normal", count, step);
 					}
