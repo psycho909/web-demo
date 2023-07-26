@@ -4,26 +4,10 @@ export const surveyCake = "https://survey.beanfun.com/s/0DGl3";
 export const step2Event = [
 	{
 		id: 1,
-		title: "卡莉的旅程",
-		info: "新職業〈卡莉〉席捲登場，快來享受全新冒險吧！",
-		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9402",
-		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop3.png",
-		yt: "eFHwK1ikRdc",
-		show: "2023/6/20 10:00",
-		open: "2023/6/6 10:00",
-		close: "2023/9/19 23:59",
-		calender: {
-			text: "7/5 全新職業-卡莉，席捲登場！",
-			begin: "2023/7/5 14:00",
-			end: "2023/7/5 23:59"
-		}
-	},
-	{
-		id: 2,
 		title: "究極燃燒",
 		info: "等級練1送2，升等速度狂飆300%，直衝LV250！",
 		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9403",
-		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop1.png",
+		img: "./assets/css/images2/sec2/sec2-pop1.png",
 		yt: "3xJIaGXDRcE",
 		show: "2023/6/20 10:00",
 		open: "2023/6/6 10:00",
@@ -35,11 +19,27 @@ export const step2Event = [
 		}
 	},
 	{
+		id: 2,
+		title: "楓之谷探險隊",
+		info: "楓之谷探險隊熱血出發，挖掘法老王的寶物！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9548",
+		img: "./assets/css/images2/sec2/sec2-pop2.png",
+		yt: "",
+		show: "2023/6/20 10:00",
+		open: "2023/6/6 10:00",
+		close: "2023/9/19 23:59",
+		calender: {
+			text: "7/26 楓之谷探險隊熱血出發！",
+			begin: "2023/7/26 10:00",
+			end: "2023/7/26 23:59"
+		}
+	},
+	{
 		id: 3,
 		title: "溫餐廳",
 		info: "活動限定地圖〈溫餐廳〉熱鬧開張，和冒險夥伴一起盡情探索吧！",
-		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9401",
-		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop2.png",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9546",
+		img: "./assets/css/images2/sec2/sec2-pop3.png",
 		yt: "",
 		show: "2023/6/20 10:00",
 		open: "2023/6/6 10:00",
@@ -52,18 +52,18 @@ export const step2Event = [
 	},
 	{
 		id: 4,
-		title: "第六顆星",
-		info: "第六顆星章節任務開放～獎勵超澎派，越早開始領越多！",
-		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9438",
-		img: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/sec2/sec2-pop6.png",
+		title: "桃花境咖凌",
+		info: "新地區〈桃花境〉開放！Boss〈咖凌〉等你征服！",
+		link: "https://tw-event.beanfun.com/MapleStory/eventad/EventAD.aspx?EventADID=9554",
+		img: "./assets/css/images2/sec2/sec2-pop4.png",
 		yt: "",
-		show: "2023/6/20 10:00",
+		show: "2023/8/9 10:00",
 		open: "2023/6/20 10:00",
 		close: "2023/9/19 23:59",
 		calender: {
-			text: "7/5 第六顆星任務開放！",
-			begin: "2023/7/5 14:00",
-			end: "2023/7/5 23:59"
+			text: "8/9 新地區桃花境，盛大開放！",
+			begin: "2023/8/9 10:00",
+			end: "2023/8/9 23:59"
 		}
 	}
 ];
@@ -96,8 +96,11 @@ CanvasSprite.prototype.PreLoad = function (path, name = "") {
 	var _this = this;
 	return new Promise((resolve, reject) => {
 		for (var i = 0; i < this.step; i++) {
-			let numPart = name.substring(name.lastIndexOf("_") + 1);
-			let newName = name.replace(numPart, i.toString().padStart(numPart.length, "0"));
+			let numPartIndex = name.lastIndexOf("_") + 1;
+			let numPart = name.substring(numPartIndex);
+			let _num = i.toString().padStart(numPart.length, "0");
+			// let newName = name.replace(numPart, _num);
+			let newName = name.slice(0, numPartIndex) + _num;
 			this.imgArr[i] = new Image();
 			this.imgArr[i].src = path + newName + ".png";
 			this.imgArr[i].onload = function () {
@@ -191,7 +194,7 @@ export function particlesBg(id) {
 					nb_sides: 5
 				},
 				image: {
-					src: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/gold.png",
+					src: "./assets/css/images/gold.png",
 					width: 28,
 					height: 28
 				}

@@ -122,23 +122,31 @@ const sec1 = {
 		};
 		Vue.nextTick(() => {
 			particlesBg("sec1");
+			let link1 = "./assets/css/images2/character-normal/";
+			let link2 = "./assets/css/images2/character-hover/";
 			if (!props.mobile) {
 				let canvasArr = [];
-				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
-				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 49, 0);
-				canvasArr = [characterC1.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-normal/", "Comp 1_00000"), characterC2.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-hover/", "Comp 1_00000")];
+				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 45, 0);
+				characterC2.value = new CanvasSprite($(".sec1-character__canvas2"), 45, 0);
+				canvasArr = [characterC1.value.PreLoad(link1, "NORMAL_00000"), characterC2.value.PreLoad(link2, "HOVER_00000")];
 				Promise.allSettled(canvasArr).then((res) => {
 					characterC1.value.Loop();
 					characterC2.value.Loop();
 					characterC1.value.target.parent().removeClass("loading");
+					$(".loadingProgress").removeClass("init");
+					emit("showLoading", false);
+					document.querySelector("html").classList.remove("ovh");
 				});
 			} else {
 				let canvasArr = [];
-				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 49, 0);
-				canvasArr = [characterC1.value.PreLoad("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images/character-normal/", "Comp 1_00000")];
+				characterC1.value = new CanvasSprite($(".sec1-character__canvas1"), 45, 30);
+				canvasArr = [characterC1.value.PreLoad(link1, "NORMAL_00000")];
 				Promise.allSettled(canvasArr).then((res) => {
 					characterC1.value.Loop();
 					characterC1.value.target.parent().removeClass("loading");
+					$(".loadingProgress").removeClass("init");
+					emit("showLoading", false);
+					document.querySelector("html").classList.remove("ovh");
 				});
 			}
 		});
@@ -165,38 +173,13 @@ const sec1 = {
 	},
 	template: `<div class="sec sec1" id="sec1">
     <div class="sec1-bg" v-if="!mobile">
-        <video poster="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg-preview.jpg" muted autoplay loop playsinline>
-			<source src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg.mp4" type="video/mp4" />
+        <video muted autoplay loop playsinline>
+			<source src="./assets/video/bg2.mp4" type="video/mp4" />
 		</video>
     </div>
-    <div class="sec1-left" @mouseover="handleLeftEnter" @mouseleave="handleLeftLeave" v-show="event">
-        <a class="sec1-left__link sec1-left__link--icon1">極限成長密藥</a>
-        <a class="sec1-left__link sec1-left__link--icon2">皇家美髮券x3</a>
-        <a class="sec1-left__link sec1-left__link--icon3">皇家整形券x3</a>
-        <a class="sec1-left__link sec1-left__link--icon4">Savior 名牌戒指</a>
-        <a class="sec1-left__link sec1-left__link--icon5">Savior 聊天戒指</a>
-    </div>
     <div class="sec-wrap">
-		<div class="sec1-cloud sec1-cloud1"></div>
-		<div class="sec1-cloud sec1-cloud2"></div>
-		<div class="sec1-cloud sec1-cloud4"></div>
-		<div class="sec1-cloud sec1-cloud5"></div>
         <div class="sec1-title"></div>
         <div class="sec1-btn-group">
-            <div class="sec1-btn__step1 loading" v-show="event">
-                <a href="javascript:;" class="sec1-btn__link" @click="handleBtnEvent(1)" @mouseover="handleEnter" @mouseleave="handleLeave"></a>
-                <div class="sec1-btn--normal"></div>
-                <div class="sec1-btn--hover"></div>
-				<canvas class="canvas1 sec1-btn__step1-canvas1" width="400" height="400"></canvas>
-                <canvas class="canvas2 sec1-btn__step1-canvas2" width="400" height="400"></canvas>
-            </div>
-            <div class="sec1-btn__step2 loading" v-show="event">
-                <a href="javascript:;" class="sec1-btn__link" @click="handleBtnEvent(2)"></a>
-				<div class="sec1-btn--normal"></div>
-                <div class="sec1-btn--hover"></div>
-                <canvas class="canvas1 sec1-btn__step2-canvas1" width="400" height="400"></canvas>
-                <canvas class="canvas2 sec1-btn__step2-canvas2" width="400" height="400"></canvas>
-            </div>
 			<div class="sec1-btn__step3 loading" v-show="!event">
                 <a href="https://maplestory.beanfun.com/main" class="sec1-btn__link" target="_blank"></a>
 				<div class="sec1-btn--normal"></div>
@@ -207,8 +190,8 @@ const sec1 = {
         </div>
         <a href="javascript:;" class="sec1-character loading" @click="skillPop">
 			<div class="sec1-character--normal"></div>
-            <canvas class="sec1-character__canvas1" width="829" height="829"></canvas>
-            <canvas class="sec1-character__canvas2" width="829" height="829"></canvas>
+            <canvas class="sec1-character__canvas1" width="928" height="928"></canvas>
+            <canvas class="sec1-character__canvas2" width="928" height="928"></canvas>
         </a>
     </div>
 </div>`

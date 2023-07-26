@@ -18,12 +18,12 @@
 		margin: 0;
 		padding: 0;
 		font-size: vw3(35px);
-		color: #3b3d4d;
+		color: #461204;
 		width: vw3(449px);
 		height: vw3(104px);
 		background-position: center center;
 		background-repeat: no-repeat;
-		background-image: url("./images/lb-info-title-bg.png");
+		background-image: url("./images2/lb-info-title-bg.png");
 		background-size: cover;
 		position: absolute;
 		top: vw3(-130px);
@@ -98,7 +98,7 @@
 		&.btn-more {
 			width: vw3(327px);
 			height: vw3(72px);
-			background: url("./images/btn-more.png") -0 -0;
+			background: url("./images2/btn-more.png") -0 -0;
 			background-size: 200%;
 			font-size: 0;
 			@include hover {
@@ -113,7 +113,7 @@
 		&.btn-calender2 {
 			width: vw3(184px);
 			height: vw3(72px);
-			background: url("./images/btn-calender2.png") -0 -0;
+			background: url("./images2/btn-calender2.png") -0 -0;
 			font-size: 0;
 			background-size: 200%;
 			@include hover {
@@ -124,7 +124,7 @@
 				width: vw(184);
 				height: vw(72);
 				background-size: 100%;
-				background-image: url("./images/m-btn-calender2.png");
+				background-image: url("./images2/m-btn-calender2.png");
 			}
 		}
 	}
@@ -136,7 +136,7 @@
 		font-size: 0;
 		top: calc(vw3(-117px) - vw3(37px));
 		right: vw3(46px);
-		background-image: url("./images/btn-close.png");
+		background-image: url("./images2/btn-close.png");
 		background-size: cover;
 		@include media {
 			width: vw(43);
@@ -155,7 +155,7 @@
 	.gbox-wrap {
 		max-width: vw3(968px);
 		height: vw3(601px);
-		background-image: url("./images/lb-video-bg.png");
+		background-image: url("./images2/lb-video-bg.png");
 		background-size: cover;
 		@include media {
 			max-width: vw(681);
@@ -170,12 +170,12 @@
 			left: 50%;
 			transform: translateX(-50%);
 			background-size: cover;
-			background-image: url("./images/lb-video-top.png");
+			background-image: url("./images2/lb-video-top.png");
 			@include media {
 				width: vw(768);
 				height: vw(129);
 				top: vw(-14);
-				background-image: url("./images/m-lb-video-top.png");
+				background-image: url("./images2/m-lb-video-top.png");
 			}
 		}
 		&:after {
@@ -187,11 +187,11 @@
 			left: 50%;
 			transform: translateX(-50%);
 			background-size: cover;
-			background-image: url("./images/lb-video-bottom.png");
+			background-image: url("./images2/lb-video-bottom.png");
 			@include media {
 				width: vw(768);
 				height: vw(128);
-				background-image: url("./images/m-lb-video-bottom.png");
+				background-image: url("./images2/m-lb-video-bottom.png");
 				bottom: vw(-90);
 			}
 		}
@@ -202,7 +202,7 @@
 		font-size: 0;
 		top: vw3(-48px);
 		right: vw3(4px);
-		background-image: url("./images/btn-close.png");
+		background-image: url("./images2/btn-close.png");
 		background-size: cover;
 		@include media {
 			width: vw(43px);
@@ -237,12 +237,12 @@
 .lb-style2 {
 	.gbox-wrap {
 		max-width: vw3(948px);
-		background-image: url("./images/lb-info-border-repeat.png");
+		background-image: url("./images2/lb-info-border-repeat.png");
 		background-size: vw3(948px) vw3(13px);
 		@include media {
 			max-width: vw(768);
 			background-size: vw(768) vw(30);
-			background-image: url("./images/m-lb-info-border-repeat.png");
+			background-image: url("./images2/m-lb-info-border-repeat.png");
 		}
 		&:before {
 			content: "";
@@ -252,12 +252,12 @@
 			top: vw3(-117px);
 			left: 0;
 			background-size: cover;
-			background-image: url("./images/lb-info-border-top.png");
+			background-image: url("./images2/lb-info-border-top.png");
 			@include media {
 				height: vw(118);
 				top: vw(-116);
 				background-size: vw(768) vw(118);
-				background-image: url("./images/m-lb-info-border-top.png");
+				background-image: url("./images2/m-lb-info-border-top.png");
 			}
 		}
 		&:after {
@@ -268,12 +268,12 @@
 			bottom: vw3(-117px);
 			left: 0;
 			background-size: cover;
-			background-image: url("./images/lb-info-border-bottom.png");
+			background-image: url("./images2/lb-info-border-bottom.png");
 			@include media {
 				height: vw(118);
 				bottom: vw(-116);
 				background-size: vw(768) vw(118);
-				background-image: url("./images/m-lb-info-border-bottom.png");
+				background-image: url("./images2/m-lb-info-border-bottom.png");
 			}
 		}
 	}
@@ -307,7 +307,7 @@
 				width: vw3(633px);
 				height: vw3(356px);
 				background-size: cover;
-				background-image: url("./images/sec2/sec2-comingsoon.png");
+				background-image: url("./images2/sec2/sec2-comingsoon.png");
 				@include media {
 					width: vw(633);
 					height: vw(356);
@@ -357,4 +357,7 @@
 	.btn-more {
 		margin-left: auto;
 	}
+}
+.lb-focus {
+	display: none;
 }

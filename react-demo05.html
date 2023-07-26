@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/babel">
+			const app = document.querySelector("#app");
+			const root = ReactDOM.createRoot(app);
+
+			const List = ({ todoList, updateTodo }) => {
+				return (
+					<ul>
+						{todoList.map((todo) => (
+							<li className="py-4" key={todo.id}>
+								<label className={todo.status ? "line-though" : ""}>
+									<input type="checkbox" data-id={todo.id} className="mr-2" checked={todo.status} onChange={updateTodo} />
+									{todo.name}
+								</label>
+							</li>
+						))}
+					</ul>
+				);
+			};
+
+			const App = () => {
+				const [todoList, setTodoList] = React.useState(JSON.parse(localStorage.getItem("todoList")) || []);
+
+				React.useEffect(() => {
+					window.localStorage.setItem("todoList", JSON.stringify(todoList));
+				}, [todoList]);
+
+				const addTodo = () => {
+					const input = document.querySelector("#todoInput");
+					setTodoList([
+						...todoList,
+						{
+							id: Date.now(),
+							name: input.value,
+							status: false
+						}
+					]);
+					input.value = "";
+					window.localStorage.setItem("todoList", JSON.stringify(todoList));
+				};
+				const remoteAllTodo = () => {
+					setTodoList([]);
+				};
+
+				const updateTodo = (event) => {
+					const id = event.target.dataset.id;
+					const newTodoList = todoList.map((todo) => {
+						if (todo.id === Number(id)) {
+							todo.status = !todo.status;
+						}
+						return todo;
+					});
+					setTodoList([...newTodoList]);
+					window.localStorage.setItem("todoList", JSON.stringify(todoList));
+				};
+				return (
+					<div>
+						<div className="bg-indigo-500 p-5 h-screen">
+							<div className="max-w-[768px] m-auto bg-white p-5">
+								<h1 className="text-center text-2xl mb-4">React ToDoList</h1>
+								<div className="flex">
+									<input id="todoInput" type="text" className="w-full rounded-l-lg border-l-2 border-y-2 border-indigo-300 pl-4 focus:outline-indigo-500 focus:outline-none focus:outline-offset-0" placeholder="請輸入你的代辦事項" />
+									<button className="w-[50px] h-[50px] border-0 bg-sky-500 hover:bg-sky-600 rounded-r-lg text-white transition duration-700" onClick={addTodo}>
+										+
+									</button>
+								</div>
+								<List todoList={todoList} updateTodo={updateTodo} />
+								<div className="flex justify-between items-center">
+									<p>
+										目前有 <span className="font-medium">{todoList.length}</span> 個事項待完成
+									</p>
+
+									<button type="button" className="bg-red-300 p-2 rounded-md hover:bg-red-400 transition duration-700" onClick={remoteAllTodo}>
+										Clear All Task
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				);
+			};
+
+			root.render(<App />);
+		</script>
+	</body>
+</html>

@@ -22,17 +22,17 @@
 		color: #fff;
 		width: vw4(160);
 		height: vw4(160);
-		border: 1px solid #ffee00;
+		border: 1px solid #ff9253;
 		border-radius: 100vmax;
 		display: none;
 		align-items: center;
 		justify-content: center;
-		box-shadow: 0 0 0 vw4(8) #1e1a38, 0 0 0 vw4(16) #f91;
+		box-shadow: 0 0 0 vw4(8) #1e1a38, 0 0 0 vw4(16) #c5432c;
 		@include media {
 			width: vw(160);
 			height: vw(160);
 			font-size: vw(60);
-			box-shadow: 0 0 0 vw(8) #1e1a38, 0 0 0 vw(16) #f91;
+			box-shadow: 0 0 0 vw(8) #1e1a38, 0 0 0 vw(16) #c5432c;
 		}
 	}
 }

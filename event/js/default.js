@@ -138,22 +138,19 @@ let app = Vue.createApp({
 					num.value = Math.round((count / length) * 100);
 				},
 				loadedFN: function () {
-					setTimeout(() => {
-						num.value = 100;
-						showLoading.value = false;
-						$(".loadingProgress").removeClass("init");
-						document.querySelector("html").classList.remove("ovh");
-						if (itemType === null) {
+					// showLoading.value = false;
+					// $(".loadingProgress").removeClass("init");
+					// document.querySelector("html").classList.remove("ovh");
+					if (itemType === null) {
+					} else {
+						if ($("#Token").val() == "") {
 						} else {
-							if ($("#Token").val() == "") {
-							} else {
-								type.value = itemType;
-							}
+							type.value = itemType;
 						}
-					}, 400);
+					}
 				},
 				detectVideo: true,
-				autoHide: true
+				autoHide: false
 			});
 		});
 		return {

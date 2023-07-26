@@ -22,7 +22,7 @@
 		<title>《新楓之谷maplestory》全新職業-卡莉，席捲登場！</title>
 		<!-- CSS -->
 		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/8.3.2/swiper-bundle.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="./assets/css/default.css" />
+		<link rel="stylesheet" href="./assets/css/default2.css" />
 
 		<!-- JS -->
 		<!-- jQuery -->
@@ -46,9 +46,7 @@
 	<body>
 		<!-- 內容開始 -->
 		<div id="app">
-			<loading :show-loading="showLoading"
-				><div class="loadingProgress-num">{{ num }}</div></loading
-			>
+			<loading :show-loading="showLoading"><div class="loadingProgress-num">{{ num }}</div></loading>
 			<!-- 上方浮動選單 -->
 			<div class="top-bar">
 				<a href="https://maplestory.beanfun.com/main" class="top-bar__logo" target="_blank">logo</a>
@@ -62,7 +60,7 @@
 					</div>
 					<div class="top-bar__right">
 						<template v-if="login">
-							<div class="top-bar__username">{{ account }}</div>
+							<div class="top-bar__username">account</div>
 							<a href="../../logout/logout.aspx" class="top-bar__logout"></a>
 						</template>
 						<div class="top-bar__social">
@@ -75,10 +73,6 @@
 			</div>
 			<!-- 右邊浮動選單 -->
 			<div class="right-bar loading" :class="[loadRightBar?'':'unloading']">
-				<div v-if="showCalender" class="g-calendar" begin="2023/06/20 10:00" end="2023/06/20 23:59" title="《新楓之谷》6/20 Savior全新改版 正式開始" description="《新楓之谷》6/20 Savior全新改版 正式開始" autoDetectDevice="true">
-					<a class="g-calendar-google btn-calender" href="javascript:;" v-if="mobileType == 'google' ">Google 活動行事曆提醒</a>
-					<a class="g-calendar-ios btn-calender" href="javascript:;" v-if="mobileType == 'apple' ">IOS 活動行事曆提醒</a>
-				</div>
 				<a href="javascript:;" class="btn-top" @click="goTop">TOP</a>
 			</div>
 			<!-- 全新職業卡莉 -->

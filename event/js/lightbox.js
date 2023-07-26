@@ -86,7 +86,7 @@ export const EventInfo = (data, mobileType) => {
 	let HTML = "";
 	let now = new Date().getTime();
 	let open = new Date(data.show).getTime();
-	let tempHTML = `<div class='lb-focus' style='color:#fff;text-align:center;'>【詳細內容請看 6/11 SHOWCASE】</div>`;
+	let tempHTML = `<div class='lb-focus' style='color:#fff;text-align:center;'></div>`;
 	let moreHTML = "";
 	let sourceHTML = "";
 	let _show = now >= open;
