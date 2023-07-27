@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style>
+			.box {
+				width: 300px;
+				height: 150px;
+				padding: 20px;
+				text-align: center;
+				font-size: 24px;
+				border: 20px solid transparent;
+				/* 使用 border-image 屬性指定圖像來當作邊框 */
+				border-image: url("./images/border-image-example.png") 30 round;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/babel">
+			const app = document.querySelector("#app");
+			const root = ReactDOM.createRoot(app);
+
+			const useKeyDown = () => {
+				const [keyDown, setKeyDown] = React.useState("");
+				React.useEffect(() => {
+					const handleKeyDown = (e) => {
+						setKeyDown(e.key);
+					};
+					window.addEventListener("keydown", handleKeyDown);
+					return () => {
+						window.removeEventListener("keydown", handleKeyDown);
+						setKeyDown("");
+					};
+				}, []);
+
+				return keyDown;
+			};
+
+			const useLog = (text) => {
+				React.useEffect(() => {
+					console.log(text);
+				}, [text]);
+			};
+			const App = () => {
+				const [text, setText] = React.useState("");
+				useLog(text);
+
+				return (
+					<div>
+						<div className="box"></div>
+						input: <input type="text" onChange={(e) => setText(e.target.value)} />
+						<h1>你目前按下的按鈕是：{text}</h1>
+					</div>
+				);
+			};
+
+			root.render(<App />);
+		</script>
+	</body>
+</html>

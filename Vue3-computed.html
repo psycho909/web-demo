@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>computed: {{ total }}</p>
+			<p>computed: {{ total }}</p>
+			<p>computed: {{ total }}</p>
+			<p>computed: {{ total }}</p>
+			<p>computed: {{ total }}</p>
+
+			<p>methods: {{ add() }}</p>
+			<p>methods: {{ add() }}</p>
+			<p>methods: {{ add() }}</p>
+			<p>methods: {{ add() }}</p>
+			<p>methods: {{ add() }}</p>
+		</div>
+		<script>
+			var { reactive, ref, computed } = Vue;
+			Vue.createApp({
+				setup() {
+					const num1 = ref(2);
+					const total = computed(() => {
+						console.log("computed");
+						return num1.value * 2;
+					});
+
+					const add = () => {
+						console.log("methods");
+						return num1.value * 2;
+					};
+
+					return {
+						total,
+						add
+					};
+				}
+			}).mount("#app");
+		</script>
+	</body>
+</html>

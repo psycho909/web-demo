@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<style></style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/babel">
+			const app = document.querySelector("#app");
+			const root = ReactDOM.createRoot(app);
+			const CountContext = React.createContext();
+
+			const initialState = {
+				count: 9
+			};
+			const reduce = (state, action) => {
+				switch (action.type) {
+					case "add":
+						return { count: state.count + 1 };
+					case "sub":
+						return { count: state.count - 1 };
+					default:
+						return state;
+				}
+			};
+
+			const Child = () => {
+				const [state, dispatch] = React.useContext(CountContext);
+				return (
+					<div>
+						Child Count: {state.count}
+						<br />
+						<button type="button" className="bg-blue-400 p-4 text-white hover:bg-blue-700" onClick={() => dispatch({ type: "add" })}>
+							Decrement
+						</button>
+						｜
+						<button type="button" className="bg-blue-400 p-4 text-white hover:bg-blue-700" onClick={() => dispatch({ type: "sub" })}>
+							Increment
+						</button>
+					</div>
+				);
+			};
+
+			const App = () => {
+				const countReducer = React.useReducer(reduce, initialState);
+				return (
+					<div>
+						App Count: {countReducer[0].count}
+						<CountContext.Provider value={countReducer}>
+							<Child />
+						</CountContext.Provider>
+					</div>
+				);
+			};
+
+			root.render(<App />);
+		</script>
+	</body>
+</html>
