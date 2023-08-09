@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.lb-btn {
+				display: inline-block;
+				font-size: 30px;
+				color: #ffdfa6;
+				border-radius: 12px;
+				background-image: linear-gradient(to bottom, #a76f16 0%, #4a2501 56%, #814600 100%);
+				padding: 8px 44px;
+				border: 1px solid #d3a11f;
+				box-shadow: 0 0 9px #542200;
+			}
+			.lb-btn:hover {
+				color: #fff;
+				background-image: linear-gradient(to bottom, #a71616 0%, #4a0101 56%, #810000 100%);
+				border: 1px solid #c00100;
+			}
+			.box1 {
+				width: 526px;
+				height: 402px;
+				background: #4c382a;
+				box-shadow: inset 0 0 70px #000000, 0 0 18px #000000;
+				border-width: 2px;
+				border-style: solid;
+				border-image: linear-gradient(to bottom, #e2b54a 0%, #ffe8b2 13%, #caa755 24%, #926a1d 35%, #a98540 46%, #ffde8f 58%, #ffe8b2 72%, #fdd575 83%, #ab8438 91%, #ffd675 100%) 1;
+				outline: 2px solid #1d0202;
+			}
+			.box2 {
+				width: 570px;
+				height: 91px;
+				background: #4c382a;
+				box-shadow: inset 0 0 40px #000000, 0 0 3px #000000;
+				border-width: 2px;
+				border-style: solid;
+				border-image: linear-gradient(to bottom, #f2d99e 0%, #9f7827 100%) 1;
+				outline: 2px solid #740c0c;
+			}
+			.btn {
+				font-size: 30px;
+				color: #fefade;
+				padding: 0 32px;
+				background: #714501;
+				box-shadow: inset 0 0 7px rgba(#000, 0.58), 0 0 9px rgba(#000, 0.82);
+				border-width: 2px;
+				border-style: solid;
+				border-image: linear-gradient(to bottom, #f2d99e 0%, #9f7827 100%) 1;
+				text-align: center;
+				display: inline-block;
+			}
+			.btn:hover {
+				color: #efeeee;
+				background: #710101;
+				border-image: linear-gradient(to bottom, #9b0404 0%, #fc0106 50%, #9f0404 100%) 1;
+			}
+			.gbox.decorated .gbox-wrap {
+				width: 638px;
+				max-width: none;
+				padding: 40px 0;
+				margin: 40px 0;
+				border-image: url(./images/gradient.png) 40/40px stretch stretch;
+				border-radius: 40px;
+			}
+			.gbox.decorated .gbox-wrap:before,
+			.gbox.decorated .gbox-wrap:after {
+				content: "";
+				width: 100%;
+				height: 220px;
+				left: 0;
+				pointer-events: none;
+			}
+			.gbox.decorated .gbox-wrap .gbox-content {
+				min-height: 80px;
+				padding: 0 40px;
+				font-size: 28px;
+				color: #fff;
+			}
+			.gbox.decorated .gbox-wrap .gbox-content h2 {
+				margin: 0;
+			}
+			.gbox.decorated .gbox-wrap .gbox-content h3 {
+				margin: 0;
+				font-size: 28px;
+			}
+			.gbox.decorated .gbox-wrap .gbox-content .notice {
+				text-align: left;
+			}
+			.gbox.decorated .gbox-wrap .gbox-action {
+				font-size: 0;
+				position: relative;
+				z-index: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" id="userInput" />
+		<button onclick="insertSanitizedInput(userInput.value)">Insert</button>
+		<div class="btn">刪除隊伍</div>
+		<div class="lb-btn">確定</div>
+		<div class="box1"></div>
+		<div class="box2"></div>
+
+		<script>
+			function sanitizeInput(input) {
+				return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			}
+
+			function validateInput(input) {
+				var pattern = /^[a-zA-Z0-9_]+$/;
+				return pattern.test(input);
+			}
+
+			function insertSanitizedInput(userInput) {
+				if (validateInput(userInput)) {
+					var sanitizedUserInput = sanitizeInput(userInput);
+					var paragraph = document.createElement("p");
+					paragraph.textContent = sanitizedUserInput;
+					document.body.appendChild(paragraph);
+				} else {
+					console.log("輸入含有非法字符");
+				}
+			}
+
+			if (validateInput(userInput)) {
+				insertSanitizedInput(userInput);
+				console.log("輸入合法");
+			} else {
+				console.log("輸入含有非法字符");
+			}
+
+			function MessageLB(msg, url, callback) {
+				$.gbox.open(`<div class="lb-message__content">${msg}</div>`, {
+					addClass: "default decorated",
+					hasCloseBtn: true,
+					hasActionBtn: true,
+					actionBtns: [
+						{
+							text: "確定",
+							class: "lb-btn2",
+							target: false,
+							click: function () {
+								if (url) window.location.href = url;
+								else {
+									$.gbox.close();
+									if (callback) {
+										callback();
+									}
+								}
+							}
+						}
+					]
+				});
+			}
+		</script>
+	</body>
+</html>
