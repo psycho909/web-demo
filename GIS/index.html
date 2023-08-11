@@ -1,45 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant-TW">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title>Getting Start TGOS MAP</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./assets/css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="./assets/css/jquery-ui.structure.min.css" />
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="./js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="http://api.tgos.tw/TGOS_API/tgos?ver=2&AppID=x+JLVSx85Lk=&APIKey=in8W74q0ogpcfW/STwicK8D5QwCdddJf05/7nb+OtDh8R99YN3T0LurV4xato3TpL/fOfylvJ9Wv/khZEsXEWxsBmg+GEj4AuokiNXCh14Rei21U5GtJpIkO++Mq3AguFK/ISDEWn4hMzqgrkxNe1Q==" charset="utf-8"></script>
-
-		<script type="text/javascript">
-			var pMap;
-			var MapOptions;
-			function InitWnd() {
-				var pOMap = document.getElementById("TGMap");
-				pMap = new TGOS.TGOnlineMap(pOMap, TGOS.TGCoordSys.EPSG3826); //宣告TGOnlineMap地圖物件並設定坐標系統
-				pMap.setZoom(7);
-			}
-			function get_Envelope() {
-				alert(pMap.getBounds()); //取出地圖的邊框Envelope物件
-			}
-			function set_Envelope() {
-				var fixleft = Number(document.getElementById("fixleft").value);
-				var fixtop = Number(document.getElementById("fixtop").value);
-				var fixright = Number(document.getElementById("fixright").value);
-				var fixbottom = Number(document.getElementById("fixbottom").value);
-				pMap.fitBounds(new TGOS.TGEnvelope(fixleft, fixtop, fixright, fixbottom));
-				//傳入Envelope物件以設定地圖的邊框範圍
-				pMap.setZoom(7); //指定地圖層級
-			}
-			function MoveMap() {
-				var X = Number(document.getElementById("txt_X").value);
-				var Y = Number(document.getElementById("txt_Y").value);
-				pMap.panBy(X, Y); //輸入坐標x,y，以此點做為平移基準，可對地圖進行平移
-			}
-		</script>
 	</head>
+	<body>
+		<body onload="InitWnd();">
+			<!-- 地圖 -->
+			<div id="TGMap"></div>
+			<!-- 左邊選單 -->
+			<div id="menu">
+				<div class="menu-item">
+					<a href="javascript:;" class="btn-layer" data-target="layer">圖層</a>
+				</div>
+			</div>
+			<!-- 具縮小功能之浮動視窗 -->
+			<div id="layer" class="fixd-box">
+				<div class="fixed-close">關閉</div>
+				<div class="fixed-title">圖層</div>
+				<div class="fixed-content">
+					<!-- 棄置場址 -->
+					<label for="layer-a" class="layer-label">
+						<input type="checkbox" name="layer" id="layer-a" class="layer-input" />
+						<span class="layer-text">棄置場址</span>
+					</label>
+					<!-- 道路路網 -->
+					<label for="layer-b" class="layer-label">
+						<input type="checkbox" name="layer" id="layer-b" class="layer-input" />
+						<span class="layer-text">道路路網</span>
+					</label>
+					<!-- 再利用機構 -->
+					<label for="layer-c" class="layer-label">
+						<input type="checkbox" name="layer" id="layer-c" class="layer-input" />
+						<span class="layer-text">再利用機構</span>
+					</label>
+					<!-- 產源 -->
+					<label for="layer-e" class="layer-label">
+						<input type="checkbox" name="layer" id="layer-e" class="layer-input" />
+						<span class="layer-text">產源</span>
+					</label>
+				</div>
+			</div>
 
-	<body style="margin: 0px" onload="InitWnd();">
-		<div id="TGMap" style="width: 640px; height: 480px; border: 1px solid #c0c0c0"></div>
-		<br />
-		<button onclick="get_Envelope();" style="width: 200px; height: 22px">取得地圖邊框坐標範圍</button><br />
-		<button onclick="set_Envelope();" style="width: 200px; height: 22px">輸入坐標設定地圖邊框範圍</button>
-		左<input type="text" id="fixleft" value="303838" size="6" /> 上<input type="text" id="fixtop" value="2771872" size="7" /> 右<input type="text" id="fixright" value="305526" size="6" /> 下<input type="text" id="fixbottom" value="2770608" size="7" /><br />
-		<button onclick="MoveMap();" style="width: 200px; height: 22px">輸入平移距離</button>
-		X<input type="text" id="txt_X" value="1000" size="8" /> Y<input type="text" id="txt_Y" value="1000" size="8" />
+			<!-- 地名搜尋功能 -->
+			<div id="search">
+				<input type="text" />
+				<a href="javascript:;" class="btn-search">搜尋</a>
+			</div>
+			<!-- 縮放功能 -->
+			<div id="scrollMap">
+				<a href="javascript:;" class="btn-zoomIn"></a>
+				<div class="zoomText">7</div>
+				<a href="javascript:;" class="btn-zoomOut"></a>
+			</div>
+			<script src="./js/default.js"></script>
+		</body>
 	</body>
 </html>
