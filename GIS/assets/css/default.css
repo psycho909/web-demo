@@ -194,6 +194,7 @@ body {
 #TGMap {
   width: 100%;
   height: 100%;
+  height: 100dvh;
 }
 
 #draggable {
@@ -221,7 +222,7 @@ body {
 @media screen and (max-width: 768px) {
   .menu {
     top: 8.59375vw;
-    right: 0.78125vw;
+    right: 1.5625vw;
     left: unset;
     width: auto;
     height: auto;
@@ -423,6 +424,10 @@ body {
   padding: 8px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  display: none;
+}
+.analyze-item.show {
+  display: block;
 }
 @media screen and (max-width: 768px) {
   .analyze-item {
@@ -637,7 +642,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap {
-    right: 0.78125vw;
+    right: 1.5625vw;
     padding: 1.0416666667vw;
   }
 }
@@ -647,7 +652,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap-zoomText {
-    margin: 1.0416666667vw 0;
+    margin: 2.0833333333vw 0;
     font-size: 3.90625vw;
   }
 }
@@ -668,8 +673,8 @@ body {
 }
 @media screen and (max-width: 768px) {
   .scrollMap-btn {
-    width: 5.2083333333vw;
-    height: 5.2083333333vw;
+    width: 6.5104166667vw;
+    height: 6.5104166667vw;
   }
 }
 .scrollMap-btn__zoomIn {
@@ -708,6 +713,7 @@ body {
   display: flex;
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
           box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  border-radius: 100vmax;
 }
 @media screen and (max-width: 768px) {
   .search {
@@ -718,20 +724,22 @@ body {
   }
 }
 .search-input {
-  width: 196px;
+  width: 300px;
   font-size: 16px;
   padding: 6px;
   border: 0;
+  border-radius: 100vmax 0 0 100vmax;
 }
 @media screen and (max-width: 768px) {
   .search-input {
-    width: 52.0833333333vw;
+    width: 65.1041666667vw;
     font-size: 3.90625vw;
     padding: 1.5625vw;
     border-radius: 100vmax;
   }
 }
 .search-btn {
+  border-radius: 0 100vmax 100vmax 0;
   background-color: #6f9bfc;
   text-decoration: none;
   color: #fff;

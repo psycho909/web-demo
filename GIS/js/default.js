@@ -1,6 +1,10 @@
 var pMap;
 var MapOptions;
 var messageBox = null;
+var markers = new Array();
+var LocMarker = null;
+var addrcon;
+var addrpoint = "";
 // var TViewer = TViewer || new TViewerBase();
 // 初始化地圖
 function InitWnd() {
@@ -11,18 +15,6 @@ function InitWnd() {
 		disableDefaultUI: true, //disableDefaultUI(是否關閉所有地圖物件)
 		scrollwheel: true, //scrollwheel(是否允許使用者使用滑鼠滾輪縮放地圖)
 		mapTypeControl: false, //mapTypeControl(是否開啟地圖類型控制項)
-		mapTypeControlOptions: {
-			//mapTypeControlOptions(指定提供的地圖類型)
-			mapTypeIds: [TGOS.TGMapTypeId.ROADMAP, TGOS.TGMapTypeId.F2IMAGE],
-			//mapTypeId(設定地圖控制項中欲顯示之底圖圖磚類型按鈕
-			//上行範例只提供福衛混和地圖及福衛二號衛星影像兩類)
-			//若不設定則預設顯示所有類型的底圖圖磚按鈕供使用者切換
-			controlPosition: TGOS.TGControlPosition.RIGHT_TOP,
-			//controlPosition(設定地圖類型控制項在地圖的位置)
-			mapTypeControlStyle: TGOS.TGMapTypeControlStyle.DEFAULT
-			//mapTypeControlstyle(設定地圖類型控制項樣式)
-			//(可設定參數有：DEFAULT / HORIZONTAL_BAR / DROPDOWN_MENU)
-		},
 		navigationControl: false, //navigationControl(是否開啟縮放控制列)
 		scaleControl: false, //scaleControl(是否開啟比例尺控制項)
 		draggable: true, //draggable(設定地圖是否可被拖曳)
@@ -135,10 +127,14 @@ function makeDraggable(element) {
 
 const boxes = document.querySelectorAll(".fixed-box");
 boxes.forEach(makeDraggable);
-
+let type;
 $(".menu-item").on("click", function () {
-	let type = $(this).data("target");
+	type = $(this).data("target");
 	// $("#" + type).draggable();
+	if ($("#" + type).is(":visible")) {
+		$("#" + type).hide();
+		return;
+	}
 	$("#" + type).show();
 	$(".fixed-box")
 		.not("#" + type)
@@ -166,4 +162,141 @@ $(".scrollMap-btn").on("click", function () {
 		pMap.setZoom(zoom);
 	}
 	$(".scrollMap-zoomText").text(pMap.getZoom());
+});
+
+// 分析
+$("#analyze-select").on("change", function () {
+	let type = $(this).val();
+	$(".analyze-item").removeClass("show");
+	if (type === "1") {
+		$(".analyze-item--1").addClass("show");
+	}
+	if (type === "2") {
+		$(".analyze-item--2").addClass("show");
+	}
+	if (type === "3") {
+		$(".analyze-item--3").addClass("show");
+	}
+});
+
+function getTextaddrloc(inputValue) {
+	clearAll();
+	//------------------地址定位---------------------
+	var Add = inputValue; //取得文字輸入框內的地址
+	var LService = new TGOS.TGLocateService(); //宣告一個新的定位服務
+	var request = {
+		//設定定位所需的參數, 使用address進行地址定位
+		address: Add
+	};
+	LService.locateTWD97(request, function (result, status) {
+		//進行定位查詢, 並指定回傳資訊為TWD97坐標系統
+		if (status != "OK") {
+			//確認該查詢地址是否可以查詢成功
+			alert(status); //若該地址無法進行查詢則顯示錯誤狀態碼
+			return;
+		} else {
+			addrpoint = result[0].geometry.location; //利用geometry.location取得地址點位(TGPoint)
+			LocMarker = new TGOS.TGMarker(pMap, addrpoint, addrcon); //繪出地址定位點
+			pMap.setCenter(addrpoint); //指定地圖起始中心點坐標
+		}
+	});
+}
+
+function clearAll() {
+	if (LocMarker) {
+		LocMarker.setMap(null); //假設地圖上已存在查詢後得到的地址標記點, 則先行移除
+		LocMarker = null;
+	}
+
+	if (markers.length > 0) {
+		//假設地圖上已存在查詢後得到的標記點, 則先行移除
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+		}
+		markers = [];
+	}
+}
+// ==================== 地名搜尋 ====================
+$(".search-btn").on("click", function () {
+	let inputValue = $(".search-input").val();
+	getTextaddrloc(inputValue);
+});
+
+const searchInput = document.querySelector(".search-input");
+searchInput.addEventListener("keydown", function (event) {
+	// Check if the pressed key is the Enter key (key code 13)
+	if (event.keyCode === 13) {
+		const inputValue = searchInput.value;
+		getTextaddrloc(inputValue);
+		// Perform your search operation here
+	}
+});
+// ==================== 圖層 ====================
+let layer = [];
+$(".layer-input").on("change", function () {
+	$(this).each(function () {
+		let type = $(this).val();
+		if ($(this).prop("checked")) {
+			layer.push(type);
+		} else {
+			layer.splice(layer.indexOf(type), 1);
+		}
+	});
+});
+
+// ==================== 分析 ====================
+// 分析功能區塊
+let analyzeType1 = 7; // 環域分析
+let analyzeType2 = 7; // 道路關聯性
+let analyzeType3 = -1; // 密度關聯性
+
+// 環域分析
+$(".analyze-item--1 .analyze-range__btn[data-type='minus']").on("click", function () {
+	analyzeType1--;
+	if (analyzeType1 < 0) {
+		return;
+	}
+	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
+});
+$(".analyze-item--1 .analyze-range__btn[data-type='plus']").on("click", function () {
+	analyzeType1++;
+	$(".analyze-item--1 .analyze-range__info").text(analyzeType1);
+});
+// 執行分析
+$(".analyze-item--1 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--1 .analyze-area__select").val();
+});
+
+// 道路關聯性
+$(".analyze-item--2 .analyze-range__btn[data-type='minus']").on("click", function () {
+	analyzeType2--;
+	if (analyzeType2 < 0) {
+		return;
+	}
+	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
+});
+
+$(".analyze-item--2 .analyze-range__btn[data-type='plus']").on("click", function () {
+	analyzeType2++;
+	$(".analyze-item--2 .analyze-range__info").text(analyzeType2);
+});
+// 執行分析
+$(".analyze-item--2 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--2 .analyze-area__select").val();
+});
+
+// 執行分析
+$(".analyze-item--3 .analyze-range__submit").on("click", function () {
+	// 區域
+	let area = $(".analyze-item--3 .analyze-area__select").val();
+	// 行政區
+	let range = $(".analyze-item--3 .analyze-range__select").val();
+});
+
+// 阻止手機縮放
+document.addEventListener("gesturestart", function (event) {
+	// 阻止兩指縮放畫面
+	event.preventDefault();
 });

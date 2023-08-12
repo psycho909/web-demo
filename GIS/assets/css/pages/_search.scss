@@ -4,24 +4,27 @@
 	left: calc(56px + 16px);
 	display: flex;
 	box-shadow: 0 0 6px rgba(#000, 0.6);
+	border-radius: 100vmax;
 	@include media {
 		top: vw(50 + 16);
 		left: vw(6);
 		box-shadow: 0 0 vw(6) rgba(#000, 0.6);
 	}
 	&-input {
-		width: 196px;
+		width: 300px;
 		font-size: 16px;
 		padding: 6px;
 		border: 0;
+		border-radius: 100vmax 0 0 100vmax;
 		@include media {
-			width: vw(400);
+			width: vw(500);
 			font-size: vw(30);
 			padding: vw(12);
 			border-radius: 100vmax;
 		}
 	}
 	&-btn {
+		border-radius: 0 100vmax 100vmax 0;
 		background-color: #6f9bfc;
 		text-decoration: none;
 		color: #fff;
