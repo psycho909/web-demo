@@ -192,7 +192,7 @@ function getTextaddrloc(inputValue) {
 		//進行定位查詢, 並指定回傳資訊為TWD97坐標系統
 		if (status != "OK") {
 			//確認該查詢地址是否可以查詢成功
-			alert(status); //若該地址無法進行查詢則顯示錯誤狀態碼
+			alert("請輸入地址"); //若該地址無法進行查詢則顯示錯誤狀態碼
 			return;
 		} else {
 			addrpoint = result[0].geometry.location; //利用geometry.location取得地址點位(TGPoint)
