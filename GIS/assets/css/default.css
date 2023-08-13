@@ -329,7 +329,7 @@ body {
   .fixed-box {
     top: unset;
     bottom: 10.4166666667vw;
-    left: 50%;
+    left: 20%;
     min-width: 80%;
   }
 }
@@ -391,6 +391,48 @@ body {
 @media screen and (max-width: 768px) {
   .fixed-box__content .layer-text {
     margin-left: 1.5625vw;
+  }
+}
+
+.layer-sliderBar {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12px 6px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 14px;
+}
+@media screen and (max-width: 768px) {
+  .layer-sliderBar {
+    padding: 2.0833333333vw 1.0416666667vw;
+    font-size: 3.3854166667vw;
+  }
+}
+.layer-sliderBar .sliderRange {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0 6px;
+}
+@media screen and (max-width: 768px) {
+  .layer-sliderBar .sliderRange {
+    margin: 0 1.0416666667vw;
   }
 }
 
@@ -639,11 +681,15 @@ body {
   color: #00a24b;
   padding: 4px;
   border-radius: 100vmax;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 @media screen and (max-width: 768px) {
   .scrollMap {
     right: 1.5625vw;
     padding: 1.0416666667vw;
+    -webkit-box-shadow: 0 0 0.78125vw rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0.78125vw rgba(0, 0, 0, 0.5);
   }
 }
 .scrollMap-zoomText {
@@ -760,6 +806,41 @@ body {
     padding: 0 1.5625vw;
     font-size: 3.90625vw;
     display: none;
+  }
+}
+
+#SearchResultBox {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  min-width: calc(100% - 56px);
+  max-height: 250px;
+  overflow: auto;
+  padding: 0;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  z-index: 2;
+  display: none;
+  width: 200px;
+}
+@media screen and (max-width: 768px) {
+  #SearchResultBox {
+    min-width: 100%;
+  }
+}
+
+.SearchResultRow {
+  padding: 8px;
+  border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
+  overflow: auto;
+}
+@media screen and (max-width: 768px) {
+  .SearchResultRow {
+    padding: 1.0416666667vw;
   }
 }
 
