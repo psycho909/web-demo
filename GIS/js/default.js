@@ -393,7 +393,7 @@ $(".layer-input").on("change", function () {
 				pData: null,
 				style: {
 					fillColor: "#fc6f6f",
-					strokeColor: "#fc6f6f",
+					strokeColor: "#bd2c2c",
 					strokeWeight: 1,
 					fillOpacity: 0.8
 				},
@@ -406,7 +406,7 @@ $(".layer-input").on("change", function () {
 				pData: null,
 				style: {
 					fillColor: "#03db6b",
-					strokeColor: "#03db6b",
+					strokeColor: "#0fa156",
 					strokeWeight: 1,
 					fillOpacity: 0.8
 				},
@@ -419,7 +419,7 @@ $(".layer-input").on("change", function () {
 				pData: null,
 				style: {
 					fillColor: "#000bff",
-					strokeColor: "#000bff",
+					strokeColor: "#040977",
 					strokeWeight: 1,
 					fillOpacity: 0.8
 				},
