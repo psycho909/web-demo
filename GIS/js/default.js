@@ -6,10 +6,8 @@ var LocMarker = null;
 let LocateMarker = null;
 var addrcon;
 var addrpoint = "";
-let pData = {};
-var styles = [];
-var polygon = null;
-let markerImg, pTGMarker;
+
+// 地名模糊搜尋
 function ExecuteComplexLocate(aSearchData, aResultBoxId, aRowClassName, aTop, pageNumber) {
 	var _this = this;
 	if (aSearchData == "" || aSearchData == "請輸入地標或地址") {
@@ -225,10 +223,11 @@ function makeDraggable(element) {
 	document.addEventListener("touchend", stopDragging);
 }
 
+// 選單浮動
 const boxes = document.querySelectorAll(".fixed-box");
 boxes.forEach(makeDraggable);
 
-// 選單
+// 選單開啟
 let type;
 $(".menu-item").on("click", function () {
 	$("#SearchResultBox").empty().hide();
@@ -243,10 +242,12 @@ $(".menu-item").on("click", function () {
 		.not("#" + type)
 		.hide();
 });
+// 浮動選單關閉按鈕
 $(".fixed-box__close").on("click", function () {
 	$(this).closest(".fixed-box").hide();
 });
 
+// 地圖縮放功能
 $(".scrollMap-btn").on("click", function () {
 	let type = $(this).data("type");
 	let zoom = pMap.getZoom();
@@ -267,7 +268,7 @@ $(".scrollMap-btn").on("click", function () {
 	$(".scrollMap-zoomText").text(pMap.getZoom());
 });
 
-// 分析
+// 選單 - 分析切換
 $("#analyze-select").on("change", function () {
 	let type = $(this).val();
 	$(".analyze-item").removeClass("show");
@@ -368,6 +369,7 @@ function drawGeoJson(data) {
 }
 
 let layer = [];
+// 圖層 - 新增/刪除
 $(".layer-input").on("change", function () {
 	$(this).each(function () {
 		let type = $(this).val();
@@ -435,6 +437,7 @@ $(".layer-input").on("change", function () {
 	drawGeoJson(layer);
 });
 
+// 圖層 - 透明度
 $("#sliderRange").on("change", function () {
 	$(".tgoverlay").css("opacity", $(this).val());
 });
