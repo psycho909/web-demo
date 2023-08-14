@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.2/swiper-bundle.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MarukoFantasyLand/official/assets/css/default.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.2/swiper-bundle.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="features-video-box">
+				<div class="swiper features-video-swiper" v-if="!init">
+					<template v-if="mobileDevice">
+						<div class="swiper-wrapper" :class="[mobile.length > 1?'':'one']" data-device="mobile">
+							<div class="swiper-slide features-video__slide" v-for="video in mobile" :data-guid1="video.guid1" :data-guid2="video.guid2">
+								<a href="javascript:;" class="features-video__link">
+									<picture>
+										<source media="(max-width:768px)" :srcset="video.mobile" />
+										<img :srcset="video.web" :src="video.web" alt="" />
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-button-prev features-video__prev" v-if="mobile.length > 1"></div>
+						<div class="swiper-button-next features-video__next" v-if="mobile.length > 1"></div>
+					</template>
+					<template v-else>
+						<div class="swiper-wrapper" :class="[web.length > 1?'':'one']" data-device="web">
+							<div class="swiper-slide features-video__slide" v-for="video in web" :data-guid1="video.guid1" :data-guid2="video.guid2">
+								<a href="javascript:;" class="features-video__link">
+									<picture>
+										<source media="(max-width:768px)" :srcset="video.mobile" />
+										<img :srcset="video.web" :src="video.web" alt="" />
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div class="swiper-button-prev features-video__prev" v-if="web.length > 1"></div>
+						<div class="swiper-button-next features-video__next" v-if="web.length > 1"></div>
+					</template>
+				</div>
+			</div>
+		</div>
+		<script>
+			let app = Vue.createApp({
+				setup() {
+					let mobileDevice = Vue.ref(false);
+					let web = Vue.ref([]);
+					let mobile = Vue.ref([]);
+					let init = Vue.ref(true);
+					let featureVideo = [
+						{
+							guid1: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.mp4",
+							guid2: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.mp4",
+							web: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.jpg",
+							mobile: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.jpg"
+						},
+						{
+							guid1: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.mp4",
+							guid2: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.mp4",
+							web: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.jpg",
+							mobile: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.jpg"
+						}
+					];
+					if (isMobile.any) {
+						mobileDevice.value = true;
+					} else {
+						mobileDevice.value = false;
+					}
+					Vue.onMounted(() => {
+						if (featureVideo.length > 0) {
+							Vue.nextTick(() => {
+								featureVideo.forEach(function (v, i) {
+									if (v.guid1) {
+										web.value.push(v);
+									}
+									if (v.guid2) {
+										mobile.value.push(v);
+									}
+								});
+								if (web.value.length > 1 && !mobileDevice.value) {
+									setTimeout(() => {
+										new Swiper(".features-video-swiper", {
+											effect: "coverflow",
+											grabCursor: false,
+											loop: true,
+											centeredSlides: true,
+											slidesPerView: "auto",
+											coverflowEffect: {
+												rotate: 0,
+												stretch: "53%",
+												depth: 400,
+												modifier: 1,
+												slideShadows: false
+											},
+											simulateTouch: false,
+											navigation: {
+												nextEl: ".features-video__next",
+												prevEl: ".features-video__prev"
+											}
+										});
+									}, 0);
+								}
+								if (mobile.value.length > 1 && mobileDevice.value) {
+									setTimeout(() => {
+										new Swiper(".features-video-swiper", {
+											effect: "coverflow",
+											grabCursor: false,
+											loop: true,
+											centeredSlides: true,
+											slidesPerView: "auto",
+											coverflowEffect: {
+												rotate: 0,
+												depth: 200,
+												modifier: 1.5,
+												slideShadows: false
+											},
+											simulateTouch: false,
+											navigation: {
+												nextEl: ".features-video__next",
+												prevEl: ".features-video__prev"
+											}
+										});
+									}, 0);
+								}
+							});
+						}
+					});
+					return { web, mobile, mobileDevice };
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>
