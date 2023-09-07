@@ -8,9 +8,16 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script>
+			var name = "AVVV";
+		</script>
+		<script src="./測試175.js"></script>
 	</head>
 	<body>
 		<button type="button" id="openLBBox" class="btn">按鈕1</button>
+
+		<p>Video Length: <span id="length"></span> seconds</p>
+		<p>Video Size: <span id="size"></span> bytes</p>
 		<div>
 			<p>
 				Clicked: <span id="value">0</span> times
@@ -19,5 +26,50 @@
 			</p>
 		</div>
 		<script type="module" src="./測試175-1.js"></script>
+		<script>
+			function getVideoInfo(videoUrl) {
+				return new Promise((resolve, reject) => {
+					const videoElement = document.createElement("video");
+					videoElement.style.display = "none"; // Hide the video element
+					videoElement.setAttribute("id", "testVideo");
+					videoElement.addEventListener("loadedmetadata", () => {
+						const videoLength = videoElement.duration;
+						fetch(videoUrl)
+							.then((response) => response.headers.get("content-length"))
+							.then((contentLength) => {
+								const sizeInBytes = parseInt(contentLength);
+								const sizeInMB = sizeInBytes / (1024 * 1024);
+								document.querySelector("#testVideo").remove();
+								resolve({
+									size: sizeInMB.toFixed(2) + " MB",
+									length: videoLength
+								});
+							})
+							.catch((error) => {
+								reject(new Error("Error fetching video size: " + error));
+								document.querySelector("#testVideo").remove();
+							});
+					});
+
+					videoElement.addEventListener("error", () => {
+						reject(new Error("Error loading video"));
+					});
+
+					videoElement.src = videoUrl;
+					document.body.appendChild(videoElement); // Append the hidden video element
+				});
+			}
+
+			const sizeElement = document.getElementById("size");
+
+			getVideoInfo("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg2.mp4")
+				.then((videoInfo) => {
+					console.log(videoInfo);
+					sizeElement.textContent = videoInfo.size;
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		</script>
 	</body>
 </html>

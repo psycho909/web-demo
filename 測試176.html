@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			.top {
+				font-size: 20px;
+				font-weight: bold;
+				font-family: Arial, Helvetica, sans-serif;
+				color: #8c4142;
+				position: relative;
+				display: flex;
+				align-items: center;
+			}
+			.top:before {
+				content: "";
+				border-bottom: 10px solid #8c4142;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 0 solid transparent;
+				display: inline-block;
+				margin-right: 7px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="top">TOP</div>
+		<button type="button" id="openLBBox" class="btn">按鈕1</button>
+
+		<p>Video Length: <span id="length"></span> seconds</p>
+		<p>Video Size: <span id="size"></span> bytes</p>
+		<div>
+			<p>
+				Clicked: <span id="value">0</span> times
+				<button id="increment">+</button>
+				<button id="decrement">-</button>
+			</p>
+		</div>
+		<script>
+			function CheckData() {
+				return new Promise((resolve, reject) => {
+					resolve({
+						data: {
+							Code: 1,
+							Url: "",
+							Message: "",
+							Data: {
+								ServerList: "",
+								MemberData: ""
+							}
+						}
+					});
+				});
+			}
+			async function handleCheckData() {
+				try {
+					const CheckDataData = await CheckData();
+					const checkDataCode = await CheckDataData.data.Code;
+					if (checkDataCode === 1) {
+						throw new Error(CheckDataData.data.Message);
+					}
+					if (checkDataCode === -2) {
+						throw new Error(CheckDataData.data.Message);
+					}
+
+					if (checkDataCode === -1 || checkDataCode === 9999) {
+						throw new Error(CheckDataData.data.Message);
+					}
+				} catch (e) {
+					throw e;
+				}
+			}
+
+			async function a1() {
+				try {
+					await handleCheckData();
+				} catch (e) {
+					console.log("error a1");
+					throw e; // Re-throw the error to be caught by the next catch block
+				}
+			}
+			async function a2() {
+				console.log("a2");
+			}
+			$(async function () {
+				try {
+					await a1();
+					await a2();
+				} catch (e) {
+					console.log("error in main:", e); // Catch any error thrown in a1 or a2
+				}
+			});
+
+			let content = [
+				{ component: "GFixed", uid: "53f20bfc-43a0-4884-9337-f3a21e7ce35c", content: { position: "left", hamburger: "hamburger-left", style: "green2", menus: [{ text: "A", link: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/WorldFlipper/official/images/home/box3-fb-icon.png", target: false, validText: true, validUrl: true }] }, update: false, init: false },
+				{ component: "GBg", uid: 1, content: { color: "#fff", pc: "", mobile: "", w: 1920, h: 958, mw: "", mh: "", validPC: true, validMobile: true }, update: false, init: true },
+				{ component: "GSlogan", uid: "8452c21e-64a3-454a-ab80-08833494b310", content: { link: "", mt: "250", mb: "24", mobile_mt: 0, mobile_mb: 0, pc: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/WorldFlipper/official/images/home/box3-fb-icon.png", mobile: "", validPC: true, validMobile: true, validUrl: true }, update: false, init: false },
+				{
+					component: "GArea",
+					uid: "42dc87ae-d33a-4c5a-b258-2e5c212b234c",
+					content: {
+						subContent: [
+							{ component: "GText", uid: "c134cde2-53bf-4b9f-ae09-c88464ef88a8", content: { align: "left", style: "orange2", text: "<p>A</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false },
+							{ component: "GText", uid: "b6659e7e-78c6-4570-8fa9-140b0a04bb9e", content: { align: "left", style: "blue2", text: "<p>B</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false }
+						],
+						mt: 0,
+						mb: 54,
+						mobile_mt: 0,
+						mobile_mb: 0
+					},
+					update: false,
+					init: false
+				},
+				{ component: "GText", uid: "d4722a11-801c-4d0c-8a0f-8ce6db5ae1d8", content: { align: "left", style: "blue2", text: "<p>文字區塊<br>&nbsp;</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false },
+				{ component: "GText", uid: "b73cf0d4-d977-4f3e-89d9-4f27869a67e6", content: { align: "left", style: "green2", text: "<p>VS</p>", mt: 0, mb: "70", mobile_mt: 0, mobile_mb: 0 }, update: false, init: false },
+				{
+					component: "GArea",
+					uid: "42dc87ae-d33a-4c5a-b258-2e5c212b234c",
+					content: {
+						subContent: [
+							{ component: "GText", uid: "c934cde2-53bf-4b9f-ae09-c88464ef88a8", content: { align: "left", style: "orange2", text: "<p>A</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false },
+							{ component: "GText", uid: "b6659e7e-78c6-4570-8fa9-140b0a04bb9e", content: { align: "left", style: "blue2", text: "<p>B</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false }
+						],
+						mt: 0,
+						mb: 54,
+						mobile_mt: 0,
+						mobile_mb: 0
+					},
+					update: false,
+					init: false
+				}
+			];
+			function moveSubContentDown(data, targetUID) {
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].component === "GArea") {
+						const subContentIndex = data[i].content.subContent.findIndex((subItem) => subItem.uid === targetUID);
+						if (subContentIndex !== -1 && subContentIndex < data[i].content.subContent.length - 1) {
+							const removedSubContent = data[i].content.subContent.splice(subContentIndex, 1)[0];
+							data[i].content.subContent.splice(subContentIndex + 1, 0, removedSubContent);
+							return true; // Return true to indicate the move was successful
+						}
+					}
+				}
+				return false; // Return false if move was not possible
+			}
+			function moveSubContentUp(data, targetUID) {
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].component === "GArea") {
+						const subContentIndex = data[i].content.subContent.findIndex((subItem) => subItem.uid === targetUID);
+						if (subContentIndex > 0) {
+							const removedSubContent = data[i].content.subContent.splice(subContentIndex, 1)[0];
+							data[i].content.subContent.splice(subContentIndex - 1, 0, removedSubContent);
+							return true; // Return true to indicate the move was successful
+						}
+					}
+				}
+				return false; // Return false if move was not possible
+			}
+			function updateSubContentUpdate(data, targetUID) {
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].component === "GArea") {
+						const subContentIndex = data[i].content.subContent.findIndex((subItem) => subItem.uid === targetUID);
+						if (subContentIndex !== -1) {
+							data[i].content.subContent[subContentIndex].update = false;
+							return true; // Return true to indicate the update was successful
+						}
+					}
+				}
+				return false; // Return false if update was not possible
+			}
+
+			var targetUID = "c934cde2-53bf-4b9f-ae09-c88464ef88a8";
+			var moveSuccessful = moveSubContentDown(content, targetUID);
+
+			if (moveSuccessful) {
+				console.log("Moved subContent with UID:", targetUID, "down successfully.");
+				console.log("Updated content:", content);
+			} else {
+				console.log("Couldn't move subContent with UID", targetUID, "down.");
+			}
+
+			// 幫我從這data component GArea裡面content subContent 找出 'c934cde2-53bf-4b9f-ae09-c88464ef88a8'那一筆資料並回傳
+			// { component: "GText", uid: "c934cde2-53bf-4b9f-ae09-c88464ef88a8", content: { align: "left", style: "orange2", text: "<p>A</p>", mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false }
+			// 和找出是哪一筆component GArea的index
+			// 並寫出function
+		</script>
+	</body>
+</html>

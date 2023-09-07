@@ -10,25 +10,92 @@
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
 		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<style>
 			* {
 				padding: 0;
 				margin: 0;
 			}
+			.default .gbox-wrap {
+				background-color: #fff;
+			}
+			.slide-box .swiper {
+				width: 100%;
+				height: 300px;
+			}
+
+			.slide-box .swiper-slide {
+				background-position: center;
+				background-size: cover;
+			}
+
+			.slide-box .swiper-slide img {
+				display: block;
+				width: 100%;
+			}
+			.features-video__link {
+				position: relative;
+			}
+			.features-video__img {
+				position: relative;
+				z-index: 1;
+				transition: all 0.3s;
+			}
+			.features-video__hover {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 0;
+				opacity: 0;
+				transition: all 0.3s;
+			}
+			.features-video__link:hover .features-video__img {
+				opacity: 0;
+			}
+			.features-video__link:hover .features-video__hover {
+				opacity: 1;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
+			<child>
+				<div class="slider-box">
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+							</div>
+						</div>
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</child>
 			<div class="features-video-box">
-				<div class="swiper features-video-swiper" v-if="!init">
+				<div class="swiper features-video-swiper">
 					<template v-if="mobileDevice">
 						<div class="swiper-wrapper" :class="[mobile.length > 1?'':'one']" data-device="mobile">
 							<div class="swiper-slide features-video__slide" v-for="video in mobile" :data-guid1="video.guid1" :data-guid2="video.guid2">
 								<a href="javascript:;" class="features-video__link">
-									<picture>
+									<picture class="features-video__img">
 										<source media="(max-width:768px)" :srcset="video.mobile" />
 										<img :srcset="video.web" :src="video.web" alt="" />
 									</picture>
+									<img :srcset="video.hover" class="features-video__hover" alt="" v-if="video.hover" />
 								</a>
 							</div>
 						</div>
@@ -37,12 +104,13 @@
 					</template>
 					<template v-else>
 						<div class="swiper-wrapper" :class="[web.length > 1?'':'one']" data-device="web">
-							<div class="swiper-slide features-video__slide" v-for="video in web" :data-guid1="video.guid1" :data-guid2="video.guid2">
+							<div class="swiper-slide features-video__slide" v-for="video in web" :data-guid1="video.guid1" :data-guid2="video.guid2" @click="LB">
 								<a href="javascript:;" class="features-video__link">
-									<picture>
+									<picture class="features-video__img">
 										<source media="(max-width:768px)" :srcset="video.mobile" />
 										<img :srcset="video.web" :src="video.web" alt="" />
 									</picture>
+									<img :srcset="video.hover" class="features-video__hover" alt="" v-if="video.hover" />
 								</a>
 							</div>
 						</div>
@@ -53,24 +121,119 @@
 			</div>
 		</div>
 		<script>
+			setTimeout(function () {
+				(function (gobal) {
+					var s = document.createElement("script");
+					s.async = 1;
+					s.src = "https://alpha-tw.beanfun.com/3KO/removable/pchome/js/topbar.js";
+					s.id = "top-bar";
+					//產品
+					s.setAttribute("prod", "艾爾之光");
+
+					$("head")
+						.append(s)
+						.ready(function () {
+							gobal.callTopBar;
+						});
+				})(window);
+			}, 1000);
+			function Message(msg, url, callback) {
+				var config = {
+					addClass: "default",
+					hasCloseBtn: true,
+					hasActionBtn: false,
+					afterClose: function () {
+						$.gbox.close();
+					},
+					afterOpen: function () {
+						var swiper = new Swiper(".mySwiper", {
+							spaceBetween: 30,
+							navigation: {
+								nextEl: ".swiper-button-next",
+								prevEl: ".swiper-button-prev"
+							},
+							pagination: {
+								el: ".swiper-pagination",
+								clickable: true
+							}
+						});
+					}
+				};
+
+				var HTML = `
+					<div class="slider-box">
+						<div class="swiper mySwiper">
+							<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+							</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				`;
+				$.gbox.open(HTML, config);
+			}
+			let child = {
+				setup() {
+					Vue.onMounted(() => {
+						var swiper = new Swiper(".mySwiper", {
+							spaceBetween: 30,
+							slidesPerGroup: 1,
+							slidesPerView: 2,
+							navigation: {
+								nextEl: ".swiper-button-next",
+								prevEl: ".swiper-button-prev"
+							},
+							pagination: {
+								el: ".swiper-pagination",
+								clickable: true
+							}
+						});
+					});
+					return {};
+				},
+				template: `
+					<div>
+						<h1>Child</h1>
+						<slot></slot>
+					</div>
+				`
+			};
+
 			let app = Vue.createApp({
+				components: {
+					child: child
+				},
 				setup() {
 					let mobileDevice = Vue.ref(false);
 					let web = Vue.ref([]);
 					let mobile = Vue.ref([]);
-					let init = Vue.ref(true);
 					let featureVideo = [
 						{
 							guid1: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.mp4",
 							guid2: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.mp4",
-							web: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.jpg",
-							mobile: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.jpg"
+							web: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop2.png",
+							mobile: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop2.png",
+							hover: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop3.png"
 						},
 						{
 							guid1: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.mp4",
 							guid2: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.mp4",
-							web: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.jpg",
-							mobile: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-2.jpg"
+							web: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop2.png",
+							mobile: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop2.png",
+							hover: "https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/css/images2/sec2/sec2-pop3.png"
 						},
 						{
 							guid1: "https://tw.hicdn.beanfun.com/feature-video/2021/08/26/20210826160000-1.mp4",
@@ -96,6 +259,11 @@
 					} else {
 						mobileDevice.value = false;
 					}
+
+					let LB = () => {
+						Message();
+					};
+
 					Vue.onMounted(() => {
 						if (featureVideo.length > 0) {
 							Vue.nextTick(() => {
@@ -155,7 +323,7 @@
 							});
 						}
 					});
-					return { web, mobile, mobileDevice };
+					return { web, mobile, mobileDevice, LB };
 				}
 			});
 			app.mount("#app");

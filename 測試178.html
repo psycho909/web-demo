@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box {
+				height: 20000px;
+			}
+			.gbox-content {
+				height: 400px;
+				overflow: auto;
+				overscroll-behavior: contain;
+			}
+			.box-inner {
+				height: 1000px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="tearCanvas"></canvas>
+		<div class="box"></div>
+		<script>
+			function Open() {
+				let dom = `<div class="box-inner"></div>`;
+				$.gbox.open(dom);
+			}
+			// Open();
+			// 获取 Canvas 元素和上下文
+			const canvas = document.getElementById("tearCanvas");
+			const ctx = canvas.getContext("2d");
+
+			// 设置 Canvas 大小
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+
+			// 初始化变量
+			let isTearing = false;
+			let tearStrength = 20; // 初始撕裂强度
+			let currentTearStrength = 0; // 当前撕裂强度
+			let lastX = 0;
+			let lastY = 0;
+
+			// 随机生成抽奖纸的背景
+			function createRandomBackground() {
+				const colors = ["#f5f5f5", "#e0e0e0", "#d3d3d3", "#cccccc"];
+				const numColors = colors.length;
+				const rows = 10;
+				const cols = 10;
+
+				for (let i = 0; i < rows; i++) {
+					for (let j = 0; j < cols; j++) {
+						const randomColor = colors[Math.floor(Math.random() * numColors)];
+						ctx.fillStyle = randomColor;
+						ctx.fillRect(j * (canvas.width / cols), i * (canvas.height / rows), canvas.width / cols, canvas.height / rows);
+					}
+				}
+			}
+
+			createRandomBackground();
+
+			// 绘制撕开的效果
+			function drawTear(x, y) {
+				if (!isTearing) return;
+
+				ctx.globalCompositeOperation = "destination-out";
+				ctx.strokeStyle = "rgba(0,0,0,1)";
+				ctx.lineWidth = currentTearStrength;
+				ctx.lineCap = "round";
+
+				ctx.beginPath();
+				ctx.moveTo(lastX, lastY);
+				ctx.lineTo(x, y);
+				ctx.stroke();
+				ctx.closePath();
+
+				lastX = x;
+				lastY = y;
+			}
+
+			// 启动慢慢撕开效果
+			function startTear() {
+				isTearing = true;
+
+				// 定时减小撕裂强度
+				const tearInterval = setInterval(() => {
+					currentTearStrength -= 0.5;
+					if (currentTearStrength <= 0) {
+						clearInterval(tearInterval);
+						isTearing = false;
+						ctx.globalCompositeOperation = "source-over"; // 恢复默认绘制模式
+					}
+				}, 30);
+			}
+
+			// 滑鼠事件监听
+			canvas.addEventListener("mousedown", (e) => {
+				isTearing = true;
+				currentTearStrength = tearStrength;
+				lastX = e.clientX - canvas.getBoundingClientRect().left;
+				lastY = e.clientY - canvas.getBoundingClientRect().top;
+				startTear();
+			});
+			console.log(123);
+			canvas.addEventListener("mousemove", (e) => {
+				drawTear(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+			});
+
+			canvas.addEventListener("mouseup", () => {
+				isTearing = false;
+				ctx.globalCompositeOperation = "source-over"; // 恢复默认绘制模式
+			});
+
+			canvas.addEventListener("mouseout", () => {
+				isTearing = false;
+				ctx.globalCompositeOperation = "source-over"; // 恢复默认绘制模式
+			});
+		</script>
+	</body>
+</html>
