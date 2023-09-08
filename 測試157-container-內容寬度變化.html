@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.1/vue.global.prod.js"></script> -->
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
@@ -18,6 +18,11 @@
 			#app {
 				width: 100%;
 				position: relative;
+			}
+			.wrap.desktop {
+				width: 767px;
+				margin: 0 auto;
+				background-color: #f1f1f1;
 			}
 			.wrap.mobile {
 				width: 767px;
@@ -31,15 +36,27 @@
 			.content {
 				display: grid;
 				grid-template-columns: 1fr;
+				text-align: center;
 			}
 			.main {
 				display: grid;
-				grid-template-columns: 1fr 1fr;
+				grid-template-columns: 100px 1fr 100px;
+			}
+			@container mobile (max-width: 1200px) {
+				.content {
+					background-color: #eee;
+				}
+				.main-left {
+					background-color: blue;
+				}
+				.main-right {
+					background-color: yellow;
+				}
 			}
 			@container mobile (max-width: 767px) {
 				/* <stylesheet> */
 				.content {
-					background-color: red;
+					background-color: #ddd;
 				}
 				.content {
 					display: grid;
@@ -48,6 +65,12 @@
 				.main {
 					display: grid;
 					grid-template-columns: 1fr;
+				}
+				.main-left {
+					background-color: red;
+				}
+				.main-right {
+					background-color: gray;
 				}
 			}
 			.ul {
@@ -69,12 +92,15 @@
 		<div class="mixin"></div>
 		<a href="javascript:;" id="btn">按鈕</a>
 		<div id="app">
-			<input type="checkbox" v-model="toggle" />
-			<div class="wrap" :class="[toggle?'mobile':'']">
+			<input type="checkbox" name="check" :value="false" v-model="checked" />
+			<input type="radio" name="width" value="desktop" v-model="toggle" />
+			<input type="radio" name="width" value="mobile" v-model="toggle" />
+			<div class="wrap" :class="[checked?toggle:'']">
 				<div class="content">
 					<div class="header">Header</div>
 					<div class="main">
 						<div class="main-left">Left</div>
+						<div class="main-middle">Middle</div>
 						<div class="main-right">Right</div>
 					</div>
 					<div class="footer">Footer</div>
@@ -96,7 +122,8 @@
 			let app = Vue.createApp({
 				data() {
 					return {
-						toggle: false
+						toggle: false,
+						checked: false
 					};
 				}
 			});
