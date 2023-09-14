@@ -27,9 +27,20 @@
 				display: inline-block;
 				margin-right: 7px;
 			}
+			.d {
+				& h2 & {
+					color: red;
+				}
+			}
 		</style>
 	</head>
 	<body>
+		<div class="d">
+			<h2>
+				Jello
+				<div class="d">123</div>
+			</h2>
+		</div>
 		<div class="top">TOP</div>
 		<button type="button" id="openLBBox" class="btn">按鈕1</button>
 
