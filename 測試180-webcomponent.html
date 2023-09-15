@@ -6,9 +6,19 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<web-dropdown label="下拉菜單組件" option="1" options="[{'label':'Option 1','value':1},{'label':'Option 2','value':2}]"></web-dropdown>
+		<web-dropdown label="下拉菜单组件" option="2" options='[{ "label": "Option 1", "value": 1 }, { "label": "Option 2", "value": 2 }]'></web-dropdown>
 		<script type="module">
 			import "./測試180-dropdown.js";
+			document.querySelector("web-dropdown").addEventListener("onOptionChange", (event) => {
+				console.log(event.detail);
+			});
+			// document.onclick = function () {
+			// 	console.log(this);
+			// };
+
+			// document.addEventListener("click", function () {
+			// 	console.log(this);
+			// });
 		</script>
 	</body>
 </html>

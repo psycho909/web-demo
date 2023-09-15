@@ -2,6 +2,100 @@ import "./測試180-button.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
+<style>
+.dropdown {
+    box-sizing: border-box;
+    padding: 3px 8px 8px;
+    cursor: pointer;
+  }
+
+  .dropdown.open .dropdown-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 16px;
+  }
+
+  button {
+    width: 100%;
+    position: relative;
+    padding-right: 45px;
+    padding-left: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .dropdown-list-container {
+    position: relative;
+  }
+
+  .dropdown-list {
+    position: absolute;
+    width: 100%;
+    display: none;
+    max-height: 192px;
+    overflow-y: auto;
+    margin: 4px 0 0;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid #a1a1a1;
+    box-shadow: 0 2px 4px 0 rgba('0,0,0', 0.05), 0 2px 8px 0 rgba('161,161,161', 0.4);
+    list-style: none;
+  }
+
+  .dropdown-list li {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    padding: 0 7px;
+    border-right: none;
+    border-left: none;
+    border-width: 0;
+    font-size: 16px;
+    flex-shrink: 0;
+    height: 40px;
+  }
+
+  .dropdown-list li:not(.selected) {
+    box-shadow: none;
+  }
+
+  .dropdown-list li.selected {
+    color: #66b1ff;
+    font-weight: 700;
+    z-index: 99;
+  }
+
+  .dropdown-list li:hover {
+    color: #66b1ff;
+    background-color: #ecf5ff;
+  }
+
+  .dropdown-list li:active,
+  .dropdown-list li:hover,
+  .dropdown-list li.selected {
+    border-right: none;
+    border-left: none;
+    border-width: 1px;
+  }
+
+  .dropdown-list li:focus {
+    border-width: 2px;
+  }
+
+  .dropdown-list li:disabled {
+    color: rgba('0,0,0', 0.6);
+    font-weight: 300;
+  }
+</style>
 <div class="dropdown">
     <span class="label">Label</span>
     <my-button></my-button>
@@ -22,6 +116,17 @@ class Dropdown extends HTMLElement {
 		this.$button = this._ropdownRoot.querySelector("my-button");
 		this.$dropdown = this._ropdownRoot.querySelector(".dropdown");
 		this.$dropdownList = this._ropdownRoot.querySelector(".dropdown-list");
+
+		this.open = false;
+		this.$button.addEventListener("onCustomClick", (event) => {
+			console.log("Click");
+			this.toggleOpen();
+		});
+	}
+
+	toggleOpen(event) {
+		this.open = !this.open;
+		this.open ? this.$dropdown.classList.add("open") : this.$dropdown.classList.remove("open");
 	}
 
 	static get observedAttributes() {
@@ -52,7 +157,8 @@ class Dropdown extends HTMLElement {
 		this.setAttribute("options", JSON.stringify(value));
 	}
 
-	attributeChangeCallback(name, oldVal, newVal) {
+	attributeChangedCallback(name, oldVal, newVal) {
+		console.log(name, oldVal, newVal);
 		this.render();
 	}
 
@@ -63,7 +169,27 @@ class Dropdown extends HTMLElement {
 		}
 
 		this.$label.innerHTML = this.label;
-		this.$button.setAttribute("text", this.options.find((item) => item.value === parseInt(this.option) || (this.options && this.options[0])).label);
+		this.$button.setAttribute("text", (this.options.find((item) => item.value === parseInt(this.option)) || (this.options && this.options[0])).label);
+		this.$dropdownList.innerHTML = "";
+		this.options.forEach((item) => {
+			let option = item;
+			let $option = document.createElement("li");
+
+			if (this.option && this.option == option.value) {
+				$option.classList.add("selected");
+			}
+			$option.addEventListener("click", () => {
+				this.option = option.value;
+				this.toggleOpen();
+				this.dispatchEvent(
+					new CustomEvent("onOptionChange", {
+						detail: { detail: { ...option, option, options: this.options } }
+					})
+				);
+			});
+			$option.innerHTML = option.label;
+			this.$dropdownList.appendChild($option);
+		});
 	}
 }
 
