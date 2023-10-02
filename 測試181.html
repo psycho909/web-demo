@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="ZXing for JS" />
+		<title>ZXing TypeScript | Decoding from image file</title>
+		<style>
+			iframe body {
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<iframe src="https://alpha-tw.beanfun.com/3KO/removable/maplestory/E20230606/index.html" frameborder="0"></iframe>
+		<script>
+			let obj = [
+				{
+					component: "GFixed"
+				},
+				{
+					component: "GArea",
+					content: {
+						pc: { paddingTop: 80, paddingBottom: 80 },
+						mobile: { paddingTop: 100, paddingBottom: 100 },
+						subContent: [
+							{ component: "GBg", uid: "2", content: { color: "#000000", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB.jpg", w: 1920, h: 927, mw: 768, mh: 2065, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{
+								component: "GIcon",
+								uid: "3",
+								content: {
+									icons: [
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon1.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon1.png", link: "", validPC: true, validMobile: true, validLink: true, w: 62, h: 62, mw: 62, mh: 62 },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon2.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon2.png", link: "", validPC: true, validMobile: true, validLink: true, w: 62, h: 62, mw: 62, mh: 62 },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon3.png", effectImg: "", validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/icon3.png", link: "", validPC: true, validMobile: true, validLink: true, w: 166, h: 62, mw: 166, mh: 62 }
+									]
+								},
+								update: false,
+								init: false
+							},
+							{ component: "GLogo", uid: "4", content: { link: "", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/logo.png", mobile: "", validPC: true, validMobile: true, validLink: true, w: 208, h: 75 }, update: false, init: false },
+							{
+								component: "GDNNav",
+								uid: "5",
+								content: {
+									pcMarginTop: 0,
+									mobileMarginTop: 0,
+									pcItemMarginBottom: 0,
+									mobileItemMarginBottom: 0,
+									navs: [
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc.png", effectCheck: "true", effectImg: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc-effect1.png", effectImgW: 832, effectImgH: 110, validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-mb.png", w: 832, h: 110, mw: 758, mh: 150, link: "", validPC: true, validMobile: true, validLink: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc.png", effectCheck: "true", effectImg: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc-effect2.png", effectImgW: 832, effectImgH: 110, validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-mb.png", w: 832, h: 110, mw: 758, mh: 150, link: "", validPC: true, validMobile: true, validLink: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc.png", effectCheck: false, effectImg: "", effectImgW: "", effectImgH: "", validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-mb.png", w: 832, h: 110, mw: 758, mh: 150, link: "", validPC: true, validMobile: true, validLink: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-pc.png", effectCheck: false, effectImg: "", effectImgW: "", effectImgH: "", validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/nav-mb.png", w: 832, h: 110, mw: 758, mh: 150, link: "", validPC: true, validMobile: true, validLink: true }
+									]
+								},
+								update: false,
+								init: false
+							},
+							{
+								component: "GDNImg",
+								uid: "6",
+								content: {
+									imgs: [
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1.png", effectCheck: "true", effectImg: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-2.png", effectImgW: 282, effectImgH: 137, validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-mb.png", w: 282, h: 137, mw: 326, mh: 160, link: "", validPC: true, validMobile: true, validLink: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-2.png", effectCheck: "true", effectImg: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-2-effect1.png", effectImgW: 282, effectImgH: 137, validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-2-mb.png", w: 282, h: 137, mw: 326, mh: 160, link: "", validPC: true, validMobile: true, validLink: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1.png", effectCheck: false, effectImg: "", effectImgW: "", effectImgH: "", validEffectImg: true, mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img1-mb.png", w: 282, h: 137, mw: 326, mh: 160, link: "", validPC: true, validMobile: true, validLink: true }
+									]
+								},
+								update: false,
+								init: false
+							}
+						]
+					}
+				},
+				{
+					component: "GArea",
+					content: {
+						subContent: [
+							{ component: "GBg", uid: "3cc29561-cf01-487a-8935-2c9ce95fa3761", content: { color: "#fff", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC2.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB2.jpg", w: 1920, h: 1100, mw: 768, mh: 794, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{ component: "GSlogan", uid: "3cc29561-cf01-487a-8935-2c9ce95fa3762", content: { link: "", mt: 0, mb: "50", mobile_mt: 0, mobile_mb: 0, pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", validPC: true, validMobile: true, validUrl: true }, update: false, init: false },
+							{
+								component: "GImg",
+								uid: "ff92f481-7e16-496e-818c-4666ac9b7d97",
+								content: {
+									num: "3",
+									imgs: [
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1-mb.jpg", type: "", validPC: true, validMobile: true, validEffectImg: true, effectCheck: false, effectImg: "", card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", text: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true, autoplay: { open: false, delay: 3, validDelay: true } }, target: { link: "", attribute: true, validUrl: true } },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1-mb.jpg", type: "", validPC: true, validMobile: true, validEffectImg: true, effectCheck: false, effectImg: "", card: { title: "", text: "", style: "", url: "" }, autoplay: { open: false, delay: 2, validDelay: true }, pop: { show: false, type: "text", align: "left", text: "", style: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true }, target: { link: "", attribute: true, validUrl: true } },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img2-1-mb.jpg", type: "", validPC: true, validMobile: true, validEffectImg: true, effectCheck: false, effectImg: "", card: { title: "", text: "", style: "", url: "" }, autoplay: { open: false, delay: 2, validDelay: true }, pop: { show: false, type: "text", align: "left", text: "", style: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true }, target: { link: "", attribute: true, validUrl: true } }
+									],
+									mt: 0,
+									mb: "0",
+									mobile_mt: 0,
+									mobile_mb: 0
+								},
+								update: false,
+								init: false
+							},
+							{ title: "GImg", label: "圖片-純圖片", limit: 0, status: true, order: 5, type: [1, 2], group: "Child" }
+						],
+						pc: { paddingTop: 80, paddingBottom: 80 },
+						mobile: { paddingTop: 100, paddingBottom: 100 }
+					}
+				},
+				{
+					component: "GArea",
+					content: {
+						subContent: [
+							{ component: "GBg", uid: "ac98d6db-f40f-4102-a9e0-a0ddc224aa9f1", content: { color: "#fff", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC3.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB3.jpg", w: 1920, h: 969, mw: 768, mh: 1000, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{ component: "GImg", uid: "8e66d3d1-282b-4123-8518-7b0d6411e095", content: { num: 1, imgs: [{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img3-1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img3-1-mb.jpg", type: "", validPC: true, validMobile: true, validEffectImg: true, effectCheck: false, effectImg: "", card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", text: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true, autoplay: { open: false, delay: 3, validDelay: true } }, target: { link: "", attribute: true, validUrl: true } }], mt: 0, mb: "0", mobile_mt: 0, mobile_mb: 0 }, update: false, init: false },
+							{ component: "GImg", uid: "4c10488c-689c-4220-97e0-f0486d3f3360", content: { num: 1, imgs: [{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img3-2.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/img3-2-mb.jpg", type: "", validPC: true, validMobile: true, validEffectImg: true, effectCheck: false, effectImg: "", card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", text: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true, autoplay: { open: false, delay: 3, validDelay: true } }, target: { link: "", attribute: true, validUrl: true } }], mt: 0, mb: "0", mobile_mt: 0, mobile_mb: 0 }, update: false, init: false }
+						],
+						pc: { paddingTop: 80, paddingBottom: 80 },
+						mobile: { paddingTop: 100, paddingBottom: 100 }
+					}
+				},
+				{
+					component: "GArea",
+					content: {
+						subContent: [
+							{ component: "GBg", uid: "abee6bf8-f6ee-4df3-954f-ae76776f5a081", content: { color: "#000000", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC2.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB2.jpg", w: 1920, h: 1100, mw: 768, mh: 794, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{ component: "GSlogan", uid: "abee6bf8-f6ee-4df3-954f-ae76776f5a082", content: { link: "", mt: 0, mb: "50", mobile_mt: 0, mobile_mb: 0, pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", validPC: true, validMobile: true, validUrl: true }, update: false, init: false },
+							{
+								component: "GSlide",
+								uid: "73aaa165-bdd3-4e8e-9740-24e912db001f",
+								content: {
+									group: "false",
+									control: "all",
+									num: 1,
+									mt: 0,
+									mb: "",
+									mobile_mt: 0,
+									mobile_mb: 0,
+									autoplay: { open: false, delay: 3, validDelay: true },
+									slides: [
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1-mb.jpg", type: "", url: "", attribute: false, validPC: true, validMobile: true, validUrl: true, card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", thumb: true, autoplay: { open: false, delay: 2, validDelay: true } }, target: { link: "", attribute: true, validUrl: true }, effectCheck: false, effectImg: "", validEffectImg: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1-mb.jpg", type: "", url: "", attribute: false, validPC: true, validMobile: true, validUrl: true, card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", autoplay: { open: false, delay: 2, validDelay: true } }, target: { link: "", attribute: true, validUrl: true }, effectCheck: false, effectImg: "", validEffectImg: true },
+										{ pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slide1-mb.jpg", type: "", url: "", attribute: false, validPC: true, validMobile: true, validUrl: true, card: { title: "", text: "", style: "", url: "" }, pop: { show: false, type: "text", align: "left", style: "", slides: [{ pc: "", mobile: "", open: false, url: "", attribute: false, validPC: true, validMobile: true, validUrl: true }], closeCheckRedirect: false, closeRedirect: "", num: 1, control: "all", autoplay: { open: false, delay: 2, validDelay: true } }, target: { link: "", attribute: true, validUrl: true }, effectCheck: false, effectImg: "", validEffectImg: true }
+									]
+								},
+								update: false,
+								init: false
+							}
+						],
+						pc: { paddingTop: 80, paddingBottom: 80 },
+						mobile: { paddingTop: 100, paddingBottom: 100 }
+					}
+				},
+				{
+					component: "GArea",
+					content: {
+						subContent: [
+							{ component: "GBg", uid: "795822ef-1e6c-4877-a2da-155fe7afb2b31", content: { color: "#fff", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC4.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB4.jpg", w: 1920, h: 1037, mw: 768, mh: 762, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{ component: "GSlogan", uid: "795822ef-1e6c-4877-a2da-155fe7afb2b32", content: { link: "", mt: 0, mb: "50", mobile_mt: 0, mobile_mb: 0, pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan2.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan2.png", validPC: true, validMobile: true, validUrl: true }, update: false, init: false },
+							{ component: "GVideo", uid: "691d1fbe-1d51-4156-beb0-2601eb5d34f4", content: { num: 1, preview: false, type: "click", app: true, videos: [{ url: "https://www.youtube.com/watch?v=KCQYIFT7wLc", show: false, validUrl: true }], mt: 0, mb: 54, mobile_mt: 0, mobile_mb: 0 }, update: false, init: false }
+						],
+						pc: { paddingTop: 80, paddingBottom: 80 },
+						mobile: { paddingTop: 100, paddingBottom: 100 }
+					}
+				},
+				{
+					component: "GArea",
+					content: {
+						subContent: [
+							{ component: "GBg", uid: "31a9383a-8490-45aa-b879-8376506bb15c1", content: { color: "#000000", pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/PC2.jpg", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/MB2.jpg", w: 1920, h: 1100, mw: 768, mh: 794, validPC: true, validMobile: true, type: { pc: "img", mobile: "img" } }, update: false, init: false },
+							{ component: "GSlogan", uid: "31a9383a-8490-45aa-b879-8376506bb15c2", content: { link: "", mt: 0, mb: "50", mobile_mt: 0, mobile_mb: 0, pc: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", mobile: "https://alpha-tw.beanfun.com/3KO/removable/pchome/images/DN/slogan1.png", validPC: true, validMobile: true, validUrl: true }, update: false, init: false },
+							{
+								component: "GText",
+								uid: "4c21729c-2bd5-42a3-9dfd-27948831c66e",
+								content: {
+									align: "left",
+									style: "red2",
+									text: '<p>是子的事離美；<a href="http://127.0.0.1:5173/">未面記能速漸化</a>，企了聽個起；多別的出叫員多這前，散有去市園放家專加區國信例後裡單引開不福病，以電一皮自問念步層前整不天物小，因案寫其大因白識見；收安明在美知格二布的。半見客實城一說中立了。事好布，明首之金市靈向根高走門！首安況議得現。 技沒檢類一上位，展把開痛苦且，共引的親；林些軍頭李後縣代時！雜大城天，做輕主名領出究不能苦處思性國喜文立長、一過城面的相照什行實演常參，反線香這式、光是三府好常就長樂動心果研看組師裡間大心。我發我片長那？ 意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。</p><p>是子的事離美；未面記能速漸化，企了聽個起；多別的出叫員多這前，散有去市園放家專加區國信例後裡單引開不福病，以電一皮自問念步層前整不天物小，因案寫其大因白識見；收安明在美知格二布的。半見客實城一說中立了。事好布，明首之金市靈向根高走門！首安況議得現。 技沒檢類一上位，展把開痛苦且，共引的親；林些軍頭李後縣代時！雜大城天，做輕主名領出究不能苦處思性國喜文立長、一過城面的相照什行實演常參，反線香這式、光是三府好常就長樂動心果研看組師裡間大心。我發我片長那？ 意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。意終孩念及是，信特河公試己去四是士子；感上理廣為一。代同我主；輕回年你香。收業傳年著漸資家廣的政較代未民一公廠話好間消護法金部，見黑外，鄉事達於才不綠持，師向裡自市的是。遊外實日苦立歡；國千話哥苦深，喜畫陽老福平製到你們口草此。們它在十：懷打球見員。車車作不、他油雲代四職童什對葉到火年部，部一這行包其直原足營起走設個舉銷中個著感第主喜家就他位……為想速幾是用電，的中然；之熱格日底怎長……主舞市子：看維該話而：質工爸真市前公力民發識驗腦陸統樂事。</p>',
+									type: "collapse",
+									collapse: { num: "23", close: "收起來-", open: "展開看更+" },
+									scrollbar: { num: 3 },
+									mt: 0,
+									mb: "",
+									mobile_mt: 0,
+									mobile_mb: 0
+								},
+								update: false,
+								init: false
+							}
+						]
+					}
+				}
+			];
+			// 計算obj的長度
+			const objLength = obj.length;
+
+			// 初始化GArea物件數量和subContent總長度
+			let gAreaCount = 0;
+			let totalSubContentLength = 0;
+
+			// 遍歷obj中的每個物件
+			for (let i = 0; i < objLength; i++) {
+				// 檢查物件的component是否為"GArea"
+				if (obj[i].component === "GArea") {
+					// 增加符合條件的物件計數
+					gAreaCount++;
+
+					// 檢查該物件是否有subContent屬性
+					if (obj[i].content && obj[i].content.subContent) {
+						console.log(obj[i], obj[i].content.subContent);
+						// 取得subContent的長度並加到totalSubContentLength中
+						totalSubContentLength += obj[i].content.subContent.length;
+					}
+				}
+			}
+
+			// 計算結果
+			const totalLength = objLength + totalSubContentLength;
+
+			console.log(`obj的長度為: ${objLength}`);
+			console.log(`符合條件的GArea物件數量為: ${gAreaCount}`);
+			console.log(`GArea物件中subContent的總長度為: ${totalSubContentLength}`);
+			console.log(`obj長度和GArea物件中subContent的長度加起來為: ${totalLength}`);
+		</script>
+	</body>
+</html>

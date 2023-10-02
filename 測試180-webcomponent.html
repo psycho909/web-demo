@@ -6,19 +6,63 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<button id="btn1">按鈕1</button>
+		<button id="btn2">按鈕2</button>
+		<my-button text="我的按鈕"></my-button>
+		<my-element>
+			<h2 slot="title">This is slot H2</h2>
+			<p slot="content">This is slot content</p>
+		</my-element>
 		<web-dropdown label="下拉菜单组件" option="2" options='[{ "label": "Option 1", "value": 1 }, { "label": "Option 2", "value": 2 }]'></web-dropdown>
+		<template id="myTemplate">
+			<style>
+				.my-component {
+					background-color: lightblue;
+					padding: 10px;
+				}
+			</style>
+			<div class="my-component">
+				<slot name="title"></slot>
+				<slot name="content"></slot>
+			</div>
+		</template>
 		<script type="module">
 			import "./測試180-dropdown.js";
+			import "./測試180-button.js";
+			document.querySelector("my-button").addEventListener("onCustomClick", (event) => {
+				console.log(event);
+			});
 			document.querySelector("web-dropdown").addEventListener("onOptionChange", (event) => {
 				console.log(event.detail);
 			});
-			// document.onclick = function () {
-			// 	console.log(this);
-			// };
 
-			// document.addEventListener("click", function () {
-			// 	console.log(this);
-			// });
+			class MyElement extends HTMLElement {
+				constructor() {
+					super();
+					let template = document.querySelector("#myTemplate");
+					this._shadowRoot = this.attachShadow({ mode: "open" });
+					this._shadowRoot.appendChild(template.content.cloneNode(true));
+				}
+			}
+
+			customElements.define("my-element", MyElement);
+
+			function aP() {
+				return new Promise((resolve) => {
+					setTimeout(() => {
+						resolve("A");
+					}, 10000);
+				});
+			}
+			async function StepMore() {
+				console.log("Start");
+				let a = await aP();
+				console.log("End");
+				return a;
+			}
+			document.querySelector("#btn2").addEventListener("click", async function () {
+				await StepMore();
+			});
 		</script>
 	</body>
 </html>

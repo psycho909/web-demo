@@ -52,8 +52,10 @@ class Button extends HTMLElement {
 			);
 		});
 	}
-
+	// 必寫 元素插入到文檔的操作
 	connectedCallback() {}
+	// 元素從文檔中移除時的操作
+	disconnectedCallback() {}
 	static get observedAttributes() {
 		return ["text"];
 	}
@@ -69,6 +71,7 @@ class Button extends HTMLElement {
 	render() {
 		this.$button.innerHTML = this.text;
 	}
+	// 監聽屬性變化的操作
 	attributeChangedCallback(name, oldVal, newVal) {
 		this.render();
 	}
