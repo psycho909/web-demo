@@ -5,6 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="author" content="ZXing for JS" />
 		<title>ZXing TypeScript | Decoding from image file</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<style>
 			iframe body {
 				overflow: hidden;
@@ -13,8 +16,26 @@
 	</head>
 
 	<body>
-		<iframe src="https://alpha-tw.beanfun.com/3KO/removable/maplestory/E20230606/index.html" frameborder="0"></iframe>
+		<div id="box"></div>
+		<!-- <iframe src="https://alpha-tw.beanfun.com/3KO/removable/maplestory/E20230606/index.html" frameborder="0"></iframe> -->
 		<script>
+			let HTML = ``;
+			for (var i = 0; i < 20; i++) {
+				HTML += `<div class="text">123</div>`;
+			}
+
+			document.querySelector("#box").insertAdjacentHTML("beforeend", HTML);
+
+			for (let i = 0; i < document.querySelectorAll("#box div").length; i++) {
+				document.querySelectorAll("#box div")[i].addEventListener("click", function () {
+					console.log(i);
+				});
+			}
+			// document.querySelectorAll("#box div").forEach((element) => {
+			// 	element.addEventListener("click", (event) => {
+			// 		$.gbox.open("123");
+			// 	});
+			// });
 			let obj = [
 				{
 					component: "GFixed"

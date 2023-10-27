@@ -40,9 +40,11 @@ template.innerHTML = `
 class Button extends HTMLElement {
 	constructor() {
 		super();
+		// 開啟影子節點
 		this._shadowRoot = this.attachShadow({ mode: "open" });
+		// 插入模板消息
 		this._shadowRoot.appendChild(template.content.cloneNode(true));
-
+		// 獲取模板節點
 		this.$button = this._shadowRoot.querySelector("button");
 		this.$button.addEventListener("click", () => {
 			this.dispatchEvent(
