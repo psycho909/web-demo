@@ -4,15 +4,41 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			#radio1 {
+				display: none;
+			}
+			.label-radio {
+				border: 1px solid #000;
+				width: 100px;
+				height: 25px;
+				display: block;
+			}
+			#radio1:checked + .label-radio {
+				border: 1px solid red;
+			}
+			#radio2:checked + .label-radio {
+				border: 1px solid red;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="box">
+			<input type="radio" id="radio1" name="gender" />
+			<label class="label-radio" for="radio1">
+				<span class="label-span"></span>
+			</label>
+		</div>
+		<div class="box">
+			<input type="radio" id="radio2" name="gender" />
+			<label class="label-radio" for="radio2">
+				<span class="label-span"></span>
+			</label>
+		</div>
+		<my-com id="my-com" card-content="ha! you~"><div id="slot-div">click</div></my-com>
 		<button id="btn1">按鈕1</button>
 		<button id="btn2">按鈕2</button>
 		<my-button text="我的按鈕"></my-button>
-		<my-element>
-			<h2 slot="title">This is slot H2</h2>
-			<p slot="content">This is slot content</p>
-		</my-element>
 		<web-dropdown label="下拉菜单组件" option="2" options='[{ "label": "Option 1", "value": 1 }, { "label": "Option 2", "value": 2 }]'></web-dropdown>
 		<template id="myTemplate">
 			<style>
@@ -36,17 +62,6 @@
 				console.log(event.detail);
 			});
 
-			class MyElement extends HTMLElement {
-				constructor() {
-					super();
-					let template = document.querySelector("#myTemplate");
-					this._shadowRoot = this.attachShadow({ mode: "open" });
-					this._shadowRoot.appendChild(template.content.cloneNode(true));
-				}
-			}
-
-			customElements.define("my-element", MyElement);
-
 			function aP() {
 				return new Promise((resolve) => {
 					setTimeout(() => {
@@ -62,6 +77,80 @@
 			}
 			document.querySelector("#btn2").addEventListener("click", async function () {
 				await StepMore();
+			});
+			class MyComponent extends HTMLElement {
+				constructor() {
+					super();
+					this.render = this.render.bind(this);
+					this.ClickEvent = this.ClickEvent.bind(this);
+					this.ClickEvent2 = this.ClickEvent2.bind(this);
+					this.root = this.attachShadow({ mode: "open" });
+					this.root.appendChild(this.render());
+				}
+				connectedCallback() {
+					this.root.getElementById("card-title").addEventListener("click", this.ClickEvent);
+					this.root.getElementById("card-slot").addEventListener("click", this.ClickEvent2);
+				}
+				disconnectedCallback() {
+					this.root.getElementById("card-title").removeEventListener("click", this.ClickEvent);
+					this.root.getElementById("card-slot").removeEventListener("click", this.ClickEvent2);
+				}
+				static get observedAttributes() {
+					// 只有'card-content'這個屬性要監看變化
+					return ["card-content", "card-title"];
+				}
+				attributeChangedCallback(name, oldValue, newValue) {
+					// 當'card-content'這個屬性變化時使用
+					if (name === "card-content") {
+						console.log("CHANGE");
+						// this.shadowRoot.getElementById("card-content").innerHTML = newValue;
+					}
+				}
+				set cardContent(value) {
+					// 如果有和屬性連動的話，建議只改屬性值，實際的變化留到attributeChangedCallback中再修改
+					// this.setAttribute("card-content", value);
+					this.shadowRoot.getElementById("card-content").innerHTML = value;
+				}
+				get cardContent() {
+					// return this.getAttribute("card-content");
+					return this.shadowRoot.getElementById("card-content").innerHTML;
+				}
+				set cardTitle(value) {
+					// 因為沒有和屬性連動的話，可以直接變動shadow DOM
+					this.shadowRoot.getElementById("card-title").innerHTML = value;
+				}
+				get cardTitle() {
+					return this.shadowRoot.getElementById("card-title").innerHTML;
+				}
+				ClickEvent() {
+					console.log("ClickEvent");
+				}
+				ClickEvent2() {
+					const newEvent = new CustomEvent("clickSlot", { bubbles: true, composed: true, detail: { text: "Hello World" } }); // bubbles: 是否冒泡, composed: 是否跨影子節點
+					this.dispatchEvent(newEvent);
+				}
+				render() {
+					const template = document.createElement("template");
+					template.innerHTML = `
+						<div>
+							<h2 id='card-title'>title</h2>
+							<h3 id='card-content'>content</h3>
+							<slot id='card-slot'></slot>
+						</div>
+					`;
+					return template.content;
+				}
+			}
+			customElements.define("my-com", MyComponent);
+			const myCom = document.querySelector("#my-com");
+			console.log(myCom.cardContent);
+			myCom.cardContent = "Card Content";
+			myCom.cardTitle = "Hello World";
+			myCom.addEventListener("click", (event) => {
+				console.log("click2");
+			});
+			myCom.addEventListener("clickSlot", (event) => {
+				console.log(event.detail.text);
 			});
 		</script>
 	</body>
