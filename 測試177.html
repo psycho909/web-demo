@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function debounce(delay) {
+				return function (target, key, descriptor) {
+					const originalMethod = descriptor.value;
+					let timer;
+					descriptor.value = function (...args) {
+						clearTimeout(timer);
+						timer = setTimeout(() => {
+							originalMethod.apply(this, args);
+						}, delay);
+					};
+					return descriptor;
+				};
+			}
+
+			class MyClass {
+				constructor() {
+					// 构造函数
+				}
+
+				@debounce(1000) // 应用 debounce 装饰器，设置防抖延迟为 1000 毫秒
+				myMethod() {
+					console.log("方法被调用");
+					// 这里可以放入需要防抖的方法逻辑
+				}
+			}
+			const myInstance = new MyClass();
+
+			myInstance.myMethod(); // 这个调用会触发 myMethod，输出 "方法被调用"
+			myInstance.myMethod(); // 这个调用不会立即触发 myMethod，因为防抖延迟还未过去
+		</script>
+	</body>
+</html>
