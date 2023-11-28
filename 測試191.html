@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>圖片品質壓縮</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+	</head>
+	<body>
+		<input type="file" id="fileInput" accept="image/jpeg, image/png, image/gif" multiple />
+		<label for="qualityInput">品質（0-1）：</label>
+		<input type="number" id="qualityInput" min="0" max="1" step="0.1" value="0.92" />
+		<button onclick="compressImages()">進行品質壓縮</button>
+		<br />
+		<div id="imagePreviews"></div>
+		<a id="downloadLink" href="#" download="compressed_images.zip" style="display: none">下載壓縮圖片</a>
+
+		<script>
+			function compressImages() {
+				const fileInput = document.getElementById("fileInput");
+				const files = fileInput.files;
+
+				if (files.length === 0) {
+					alert("請選擇圖片文件！");
+					return;
+				}
+
+				const imagePreviews = document.getElementById("imagePreviews");
+				imagePreviews.innerHTML = ""; // 清除之前的預覽
+
+				for (let i = 0; i < files.length; i++) {
+					const file = files[i];
+					const imageType = /^image\//;
+
+					if (!imageType.test(file.type)) {
+						console.error("文件不是圖片：", file.name);
+						continue;
+					}
+
+					const img = document.createElement("img");
+					img.src = URL.createObjectURL(file);
+					img.width = 100; // 設定預覽圖大小
+					img.height = 100;
+
+					imagePreviews.appendChild(img);
+				}
+
+				if (files.length === 1) {
+					compressSingleFile(files[0]);
+				} else {
+					compressMultipleFiles(files);
+				}
+			}
+
+			function compressSingleFile(file) {
+				const qualityInput = document.getElementById("qualityInput");
+				const quality = parseFloat(qualityInput.value);
+
+				const img = document.createElement("img");
+				img.src = URL.createObjectURL(file);
+
+				img.onload = function () {
+					const canvas = document.createElement("canvas");
+					const ctx = canvas.getContext("2d");
+
+					canvas.width = img.width;
+					canvas.height = img.height;
+					ctx.drawImage(img, 0, 0);
+
+					ctx.canvas.toBlob(
+						function (blob) {
+							const downloadLink = document.getElementById("downloadLink");
+							const filename = file.name; // 保持原始檔名
+							downloadLink.href = URL.createObjectURL(blob);
+							downloadLink.setAttribute("download", filename);
+							downloadLink.style.display = "inline-block";
+						},
+						file.type, // 使用原始的 MIME 类型
+						quality
+					);
+				};
+			}
+
+			function compressMultipleFiles(files) {
+				const qualityInput = document.getElementById("qualityInput");
+				const quality = parseFloat(qualityInput.value);
+
+				const zip = new JSZip();
+				const imagesFolder = zip.folder("compressed_images");
+
+				let processedFiles = 0;
+
+				for (let i = 0; i < files.length; i++) {
+					const file = files[i];
+					const imageType = /^image\//;
+
+					if (!imageType.test(file.type)) {
+						console.error("文件不是圖片：", file.name);
+						continue;
+					}
+
+					const img = document.createElement("img");
+					img.src = URL.createObjectURL(file);
+
+					img.onload = function () {
+						const canvas = document.createElement("canvas");
+						const ctx = canvas.getContext("2d");
+
+						canvas.width = img.width;
+						canvas.height = img.height;
+						ctx.drawImage(img, 0, 0);
+
+						ctx.canvas.toBlob(
+							function (blob) {
+								const filename = file.name; // 保持原始檔名
+								imagesFolder.file(filename, blob);
+
+								processedFiles++;
+
+								if (processedFiles === files.length) {
+									zip.generateAsync({ type: "blob" }).then(function (content) {
+										const downloadLink = document.getElementById("downloadLink");
+										downloadLink.href = URL.createObjectURL(content);
+										downloadLink.setAttribute("download", "compressed_images.zip");
+										downloadLink.style.display = "inline-block";
+									});
+								}
+							},
+							file.type, // 使用原始的 MIME 类型
+							quality
+						);
+					};
+				}
+			}
+		</script>
+	</body>
+</html>
