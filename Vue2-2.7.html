@@ -14,7 +14,7 @@
 		<div id="app">
 			<div>{{msg}} - {{user.first}} - {{user.last}}</div>
 			<div>{{mergeName}}</div>
-			<button type="button" class="add" @click="add">+</button>
+			<button type="button" class="add" @click="add;todo2()">Add+</button>
 			<hr />
 			<child ref="ch"></child>
 			<button type="button" class="add" @click="todo">todo ref</button>
@@ -95,9 +95,9 @@
 						});
 						useStore.loadData();
 					}
-					// function todo() {
-					// 	console.log(this.$refs.ch);
-					// }
+					function todo2() {
+						console.log("Todo");
+					}
 					Vue.watchEffect(function () {
 						console.log(msg.value);
 					});
@@ -111,7 +111,8 @@
 						mergeName,
 						count,
 						title,
-						list
+						list,
+						todo2
 					};
 				},
 				pinia,

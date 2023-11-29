@@ -14,11 +14,12 @@
 			<input type="text" @keyup="handleEnter" />
 		</div>
 		<script>
-			var { reactive } = Vue;
+			var { reactive, ref } = Vue;
 			Vue.createApp({
 				setup() {
 					let bookList = reactive([{ name: "BOOKA" }, { name: "Tissue" }, { name: "Fav" }]);
 					let itemRefs = reactive([]);
+					let objectRefs = ref([]);
 					const setItemRef = (el) => {
 						itemRefs.push(el);
 					};
@@ -30,13 +31,16 @@
 					});
 
 					function handleEnter(e) {
-						console.log(e);
+						itemRefs.push(1);
+						objectRefs.value.push({ name: "Chen" });
+						console.log(objectRefs.value);
 					}
 					return {
 						bookList,
 						itemRefs,
 						setItemRef,
-						handleEnter
+						handleEnter,
+						objectRefs
 					};
 				}
 			}).mount("#app");

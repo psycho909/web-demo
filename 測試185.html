@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div class="num num100000" data-value="0">0</div>
+		<div class="num num10000" data-value="">0</div>
+		<div class="num num1000" data-value="">0</div>
+		<div class="num num100" data-value="">0</div>
+		<div class="num num10" data-value="">0</div>
+		<div class="num num1" data-value="">0</div>
+		<script>
+			const targetNumber = 345678;
+			const duration = 3000; // 动画持续时间（毫秒）
+			const steps = 50; // 动画步数
+
+			const increment = targetNumber / steps;
+			const delay = duration / steps;
+
+			let currentNumber = 0;
+
+			function animateNumbers() {
+				const num100000 = document.querySelector(".num100000");
+				const num10000 = document.querySelector(".num10000");
+				const num1000 = document.querySelector(".num1000");
+				const num100 = document.querySelector(".num100");
+				const num10 = document.querySelector(".num10");
+				const num1 = document.querySelector(".num1");
+
+				const interval = setInterval(() => {
+					currentNumber += increment;
+					if (currentNumber >= targetNumber) {
+						clearInterval(interval);
+						currentNumber = targetNumber;
+					}
+
+					const formattedNumber = ("000000" + Math.floor(currentNumber)).slice(-6);
+					num100000.textContent = formattedNumber[0];
+					num100000.setAttribute("data-value", formattedNumber[0]);
+					num10000.textContent = formattedNumber[1];
+					num10000.setAttribute("data-value", formattedNumber[1]);
+					num1000.textContent = formattedNumber[2];
+					num1000.setAttribute("data-value", formattedNumber[2]);
+					num100.textContent = formattedNumber[3];
+					num100.setAttribute("data-value", formattedNumber[3]);
+					num10.textContent = formattedNumber[4];
+					num10.setAttribute("data-value", formattedNumber[4]);
+					num1.textContent = formattedNumber[5];
+					num1.setAttribute("data-value", formattedNumber[5]);
+				}, delay);
+			}
+
+			animateNumbers();
+		</script>
+	</body>
+</html>

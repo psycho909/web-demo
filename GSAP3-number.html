@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.11.5/gsap.min.js"></script>
+		<style>
+			body {
+				background-color: #490d5b;
+			}
+			.yt {
+				width: 61px;
+				height: 61px;
+				background-size: cover;
+				background-image: url("./images/icon-yt.png");
+				filter: drop-shadow(0 0 2px #ff1990) drop-shadow(0 0 6px #ff1990) drop-shadow(0 0 10px #ff1990);
+			}
+			.item {
+				width: 82px;
+				height: 83px;
+				background-size: cover;
+				background-image: url("./images/reserve-item.png");
+				position: relative;
+				filter: brightness(50%);
+			}
+			.item:after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: #000;
+				mix-blend-mode: color;
+			}
+			.number {
+				width: 107px;
+				height: 134px;
+				background-image: url("./images/num_sprites.png");
+				margin: 36px auto;
+				filter: drop-shadow(0 0 12px rgba(32, 1, 87, 0.5)) drop-shadow(0 0 12px rgba(32, 1, 87, 0.5));
+			}
+			.number.number1 {
+				background-position-x: -100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="number number1"></div>
+		<div class="item"></div>
+		<div class="yt"></div>
+		<div class="counter counter-0">0</div>
+		<div class="counter counter-00">0</div>
+		<div class="counter counter-000">0</div>
+		<div class="counter counter-0000">0</div>
+		<div class="counter counter-00000">0</div>
+		<div class="counter counter-000000">0</div>
+		<script>
+						使用gsap3 實現數字動畫
+			const targetNumber = 134256;
+
+			獲取目標數字的update
+			並在目標counter-0並放入數字
+			每10位數counter-00並放入數字
+			每100位數counter-000並放入數字
+			每1000位數counter-0000並放入數字之類
+						document.addEventListener("DOMContentLoaded", function () {
+							const targetNumber = 9010;
+
+							function updateCounters() {
+								const counterElements = document.querySelectorAll(".counter");
+								const numberString = targetNumber.toString();
+
+								for (let i = 0; i < counterElements.length; i++) {
+									const digitIndex = numberString.length - counterElements.length + i;
+									if (digitIndex >= 0) {
+										gsap.to(counterElements[i], {
+											duration: 0.5,
+											innerHTML: numberString.charAt(digitIndex),
+											ease: "power1.inOut"
+										});
+									}
+								}
+							}
+
+							updateCounters();
+						});
+
+						// // GSAP 3 動畫程式碼
+						// const counter = document.querySelector(".counter");
+
+						// // 這裡的數字是你想要增長到的數字，這裡是100
+						// const targetNumber = 134256;
+
+						// // TweenMax 或 TweenLite 動畫設定
+						// gsap.to(counter, {
+						// 	duration: 3, // 動畫時間
+						// 	innerHTML: targetNumber, // 目標數字
+						// 	roundProps: "innerHTML", // 以整數方式更新數字
+						// 	ease: "power1.out", // 動畫運動曲線
+						// 	onUpdate: function () {
+						// 		const currentNumber = counter.innerHTML.toString();
+						// 		const digits = currentNumber.split("").reverse();
+
+						// 		// 將每一位數放入相應的 data-number 屬性中
+						// 		for (let i = 0; i < digits.length; i++) {
+						// 			const digitPlace = Math.pow(10, i);
+						// 			const dataAttribute = "data-number" + digitPlace;
+						// 			counter.setAttribute(dataAttribute, digits[i]);
+						// 		}
+						// 	}
+						// });
+		</script>
+	</body>
+</html>

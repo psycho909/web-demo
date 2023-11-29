@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script>
+		<style>
+			.box:empty {
+				position: relative;
+				padding: 1rem;
+				background-color: rgba(0, 0, 0, 0.12);
+				overflow: hidden;
+			}
+			.box:empty:after {
+				content: "";
+				box-sizing: border-box;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 0;
+				background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+				animation: b-skeleton-animate-wave 1.75s linear infinite;
+			}
+			@keyframes b-skeleton-animate-wave {
+				0% {
+					transform: translateX(-100%);
+				}
+				100% {
+					transform: translateX(100%);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box">{{username}}</div>
+			<div>{{count}}</div>
+			<button type="button" class="" @click="add">add</button>
+		</div>
+		<script>
+			let vm = Vue.createApp({
+				setup() {
+					let count = Vue.ref(0);
+					let username = Vue.ref("");
+					let add = () => {
+						count.value++;
+						username.value = "Chen";
+					};
+
+					Vue.watch(
+						() => count.value > 10,
+						(newVal) => {
+							console.log(newVal);
+						}
+					);
+
+					Vue.watchEffect(() => {
+						if (count.value) {
+							console.log(count.value);
+						}
+					});
+					return {
+						add,
+						count,
+						username
+					};
+				}
+			});
+			vm.mount("#app");
+		</script>
+	</body>
+</html>

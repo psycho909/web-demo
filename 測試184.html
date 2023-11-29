@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script>
+			const DelayData = async () => {
+				try {
+					const res = await axios.get("https://reqres.in/api/users?delay=3");
+					const { data, page, support, total } = res;
+					return { data, page, support, total };
+				} catch (error) {
+					throw { error };
+				}
+			};
+			const ErrorData = async () => {
+				try {
+					const res = await axios
+						.post("https://reqres.in/api/login", {
+							email: "peter@klaven"
+						})
+						.catch((err) => {
+							throw { error: "Error" };
+						});
+					// const { data, page, support, total } = res;
+					return res;
+				} catch (error) {
+					throw error;
+				}
+			};
+			async function All() {
+				try {
+					let d = await DelayData();
+					// let er = await ErrorData();
+					console.log(d);
+				} catch (error) {
+					console.log("error:", error);
+				}
+			}
+			All();
+		</script>
+	</body>
+</html>

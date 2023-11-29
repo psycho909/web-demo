@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/cookie-bar/cookie-bar.js" id="cookie-bar"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<h1>AA</h1>
+		<div class="token"></div>
+		<simple-greeting></simple-greeting>
+		<input type="text" id="hfData" value="asdasdas" />
+		<script type="module">
+			import { LitElement, html, css } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+
+			export class SimpleGreeting extends LitElement {
+				static properties = {
+					name: {},
+					article: { attribute: false },
+					_counter: { type: Number }
+				};
+				// Define scoped styles right with your component, in plain CSS
+				static styles = css`
+					:host {
+						color: blue;
+					}
+				`;
+
+				constructor() {
+					super();
+					// Declare reactive properties
+					this.name = "World";
+					this.attribute = {
+						title: "My Article",
+						text: "Some write text"
+					};
+					this._counter = 0;
+				}
+
+				// Render the UI as a function of component state
+				render() {
+					return html`<p>Hello, ${this.name}! ${this.attribute.title}</p>`;
+				}
+			}
+			customElements.define("simple-greeting", SimpleGreeting);
+		</script>
+		<script>
+			// 增加資料到 sessionStorage，設定時間或不設定時間（永不過期）
+			function addToSessionStorageWithExpiration(key, value, expirationMinutes = null) {
+				const now = new Date();
+				let item;
+				if (expirationMinutes !== null) {
+					item = {
+						value: value,
+						expiration: now.getTime() + expirationMinutes * 60 * 1000 // 設定過期時間
+					};
+				} else {
+					item = {
+						value: value,
+						expiration: null // 或者可以使用一个特殊值代表永不过期，比如 -1
+					};
+				}
+				sessionStorage.setItem(key, JSON.stringify(item));
+			}
+
+			// 從 sessionStorage 讀取資料，檢查時間是否過期
+			function readFromSessionStorage(key) {
+				const itemStr = sessionStorage.getItem(key);
+				if (!itemStr) return null;
+
+				const item = JSON.parse(itemStr);
+				if (item.expiration !== null) {
+					const now = new Date().getTime();
+					if (now > item.expiration) {
+						sessionStorage.removeItem(key); // 清除過期資料
+						return null;
+					}
+				}
+
+				return item.value;
+			}
+
+			// 從 sessionStorage 刪除資料
+			function removeFromSessionStorage(key) {
+				sessionStorage.removeItem(key);
+			}
+
+			// 隨機亂數並給予時間戳記給#hfData
+			$("#hfData").val(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + Date.now());
+
+			if (readFromSessionStorage("test") == null) {
+				addToSessionStorageWithExpiration("test", $("#hfData").val(), 1);
+				document.querySelector(".token").innerHTML = readFromSessionStorage("test");
+			} else {
+				document.querySelector(".token").innerHTML = readFromSessionStorage("test");
+			}
+		</script>
+	</body>
+</html>
