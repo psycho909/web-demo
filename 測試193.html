@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			body {
+				background-color: purple;
+			}
+			.form {
+				width: 370px;
+			}
+			.form-input {
+				display: grid;
+				grid-template-columns: minmax(100px, max-content) 1fr;
+			}
+			.inner {
+				display: inline-grid;
+				grid-template-columns: repeat(5, 168px);
+				gap: 1px;
+				background-color: #555f65;
+				padding-top: 1px;
+				padding-bottom: 1px;
+			}
+			.box {
+				width: 168px;
+				height: 69px;
+				background-color: #1a1a1d;
+			}
+			.wrap {
+				padding: 1rem;
+				background-color: red;
+			}
+
+			.accordion {
+				background-color: #000;
+				color: #fff;
+				width: 300px;
+			}
+			.accordion-body {
+				display: grid;
+				grid-template-rows: 0fr;
+				transition: 0.25s grid-template-rows ease;
+			}
+			.accordion:hover .accordion-body {
+				grid-template-rows: 1fr;
+			}
+			.accordion-body > div {
+				overflow: hidden;
+			}
+			.title {
+				width: 479px;
+				height: 99px;
+				background-image: url("./images/invite-title.png");
+				position: relative;
+			}
+			.title:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 5%;
+				height: 100%;
+				background-color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="btn">按鈕</div>
+		<input id="ipt" type="text" value="12312@dsfs" />
+		<div class="title"></div>
+		<div class="wrap">
+			<div class="inner">
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+			</div>
+		</div>
+
+		<div class="accordion">
+			<div class="accordion-title">Hover</div>
+			<div class="accordion-body">
+				<div>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos neque itaque temporibus excepturi aliquam est mollitia necessitatibus earum repellendus incidunt, natus voluptatum repellat maxime expedita minus non similique assumenda laborum?</p>
+				</div>
+			</div>
+		</div>
+		<div class="form" style="width: 370px; display: grid; row-gap: 12px">
+			<div class="form-input" style="display: grid; grid-template-columns: minmax(100px, max-content) 1fr">
+				<div class="span">GID</div>
+				<input id="pw" name="game" type="text" />
+			</div>
+			<div class="form-input" style="display: grid; grid-template-columns: minmax(100px, max-content) 1fr">
+				<div class="span">GAME</div>
+				<input id="pw" name="game" type="text" />
+			</div>
+			<div class="form-input" style="display: grid; grid-template-columns: minmax(100px, max-content) 1fr">
+				<div class="span"></div>
+				<div><input id="button1" name="Submit" type="button" value="送出" /></div>
+			</div>
+		</div>
+
+		<script>
+			// function generateLineShareButton() {
+			// 	var url = window.location.href;
+			// 	var title = document.querySelector("h1").textContent;
+			// 	var content = document.querySelector(".content").textContent;
+			// 	var image = document.createElement("img");
+			// 	image.src = "https://example.com/images/line-share-button.png";
+			// 	image.alt = "LINE 分享按鈕";
+			// 	var a = document.createElement("a");
+			// 	a.href = `https://line.me/R/msg/text/?${title}&${url}`;
+			// 	a.target = "_blank";
+			// 	a.appendChild(image);
+			// 	document.body.appendChild(a);
+			// }
+
+			// generateLineShareButton();
+
+			document.querySelector("#btn").addEventListener("click", function () {
+				console.log(document.querySelector("#ipt").value);
+			});
+			window.addEventListener("storage", function (event) {
+				console.log(event);
+			});
+
+			function p(number) {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						if (number == 9312) {
+							resolve({
+								Code: 1,
+								Data: ""
+							});
+						} else {
+							resolve({
+								Code: 0,
+								Data: ""
+							});
+						}
+					}, 1000);
+				});
+			}
+
+			async function Test(MessageNumber) {
+				let { Code, Data } = await p(MessageNumber);
+				if (Code === 1) {
+					return Data.InvitationCode;
+				}
+				return Code; // Returning Code when it's not equal to 1
+			}
+
+			async function generateUniqueRandomNumbers() {
+				const testedNumbers = new Set();
+				let attempts = 0;
+				const startTime = performance.now();
+				while (true) {
+					attempts++;
+					const randomNumber = Math.floor(Math.random() * 10000)
+						.toString()
+						.padStart(4, "0");
+
+					if (!testedNumbers.has(randomNumber)) {
+						testedNumbers.add(randomNumber);
+						const result = await Test(randomNumber);
+
+						console.log(`Testing number: ${randomNumber}, Attempts: ${attempts}`);
+
+						if (result == 1) {
+							const endTime = performance.now();
+							const totalTime = endTime - startTime;
+							console.log(`Code is not 1 for MessageNumber ${randomNumber}. Stopping after ${attempts} attempts.`);
+							console.log(`Total time taken: ${totalTime} milliseconds`);
+							break;
+						}
+					}
+				}
+			}
+
+			// Run the function to generate unique random numbers and test them
+			// generateUniqueRandomNumbers();
+		</script>
+	</body>
+</html>
