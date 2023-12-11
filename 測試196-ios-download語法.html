@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button onclick="downloadVideo()">Download Video</button>
+		<script>
+			function downloadFileFromURL(url, fileName) {
+				fetch(url)
+					.then((response) => response.blob())
+					.then((blob) => {
+						const link = document.createElement("a");
+						link.href = URL.createObjectURL(blob);
+						link.download = fileName;
+						link.click();
+					})
+					.catch((error) => console.error("Error downloading file:", error));
+			}
+			function downloadVideo() {
+				downloadFileFromURL("https://tw.hicdn.beanfun.com/beanfun/GamaWWW/MapleStory/Event/E20230606/assets/video/bg2.mp4", "video");
+			}
+		</script>
+	</body>
+</html>

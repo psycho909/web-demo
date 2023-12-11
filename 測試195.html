@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>姓名：{{name}}</p>
+			<p>年龄：{{age}}岁</p>
+			<p>爱好：{{info.hobbies.join('、')}}</p>
+			<p>地址：{{info.address.provice}} - {{info.address.city}}</p>
+			<p>描述：{{info.description}}</p>
+			<button @click="modifyInfo">修改数据</button>
+		</div>
+		<script>
+			var app = Vue.createApp({
+				setup() {
+					const name = Vue.ref();
+					const age = Vue.ref(10);
+					const info = Vue.reactive({
+						hobbies: ["唱歌", "畫圖"],
+						address: {
+							provice: "台北市",
+							city: "中山區"
+						},
+						description: "我是一個好人"
+					});
+					const modifyInfo = () => {
+						name.value = "小明";
+						age.value = 20;
+						info.hobbies.push("跳舞");
+						info.address.provice = "台中市";
+						info.address.city = "西屯區";
+						info.description = "我是一個壞人";
+					};
+
+					Vue.watchEffect(() => {
+						// console.log(name.value, "name");
+					});
+					Vue.watchEffect(
+						() => {
+							console.log(age.value, "更新DOM");
+						},
+						{
+							flush: "sync"
+						}
+					);
+					return {
+						name,
+						age,
+						info,
+						modifyInfo
+					};
+				}
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>

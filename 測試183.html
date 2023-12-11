@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			.g-music__title-box {
 				white-space: nowrap; /* 讓文字不斷行 */
@@ -16,6 +18,12 @@
 	<body>
 		<div class="g-music__title-box"><div class="inner">手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件手風琴文字物件</div></div>
 		<script>
+			$(function () {
+				console.log("jquery");
+			});
+			window.onload = function () {
+				console.log("ONLOAD");
+			};
 			function p() {
 				return new Promise((resolve, reject) => {
 					console.log("Promise Inner");
@@ -46,9 +54,6 @@
 			document.addEventListener("DOMContentLoaded", function () {
 				console.log("DOMContentLoaded");
 			});
-			window.onload = function () {
-				console.log("ONLOAD");
-			};
 		</script>
 	</body>
 </html>
