@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Space Themed Webpage</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+		<style>
+			/* Custom styles can be added here if necessary, especially if Tailwind doesn't support certain properties. */
+			.star-background {
+				background-image: url("https://placehold.co/768x864?text=Space+Background&fontsize=20");
+			}
+
+			.placeholder {
+				background-color: #2b2b2b;
+			}
+		</style>
+	</head>
+
+	<body class="star-background bg-cover bg-center min-h-screen text-white">
+		<div class="container mx-auto px-4">
+			<header class="flex justify-between items-center py-4">
+				<div class="flex space-x-4">
+					<a href="#" class="bg-purple-700 p-2 rounded-md shadow-lg">遊戲專區</a>
+					<a href="#" class="bg-purple-700 p-2 rounded-md shadow-lg">最新消息</a>
+				</div>
+				<div class="flex space-x-4">
+					<a href="#" class="text-3xl">
+						<i class="fab fa-windows"></i>
+					</a>
+					<a href="#" class="text-3xl">
+						<i class="fab fa-apple"></i>
+					</a>
+					<a href="#" class="text-3xl">
+						<i class="fab fa-facebook-square"></i>
+					</a>
+				</div>
+			</header>
+
+			<main>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+					<div class="placeholder rounded-lg h-64"></div>
+					<div class="rounded-lg shadow-xl p-4 bg-purple-900 bg-opacity-75">
+						<h2 class="text-2xl font-bold mb-2">NEW AGE 2023 轉服優惠 開始報名</h2>
+						<p class="mb-4">主播資訊：</p>
+						<p class="mb-4">直播時間：</p>
+						<div class="bg-blue-600 p-2 text-center rounded-md">
+							<a href="#" class="text-lg">觀看直播</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-purple-900 bg-opacity-75 p-4 rounded-lg shadow-xl my-8">
+					<h2 class="text-2xl font-bold mb-2">NEW AGE 2023 轉服優惠 開始報名</h2>
+					<p class="mb-4">為所有等待新生活之勇士們準備一個最優惠的轉服環境。</p>
+					<p class="mb-4">歡迎熱愛遊戲的你加入我們！感受全新的 NEW AGE！</p>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="placeholder rounded-lg h-32"></div>
+						<div class="placeholder rounded-lg h-32"></div>
+					</div>
+					<div class="bg-blue-600 p-2 text-center rounded-md mt-4">
+						<a href="#" class="text-lg">立即報名</a>
+					</div>
+				</div>
+			</main>
+
+			<footer class="text-center py-4">
+				<p>版權所有©2023 Gamania. All rights reserved.</p>
+			</footer>
+		</div>
+	</body>
+</html>

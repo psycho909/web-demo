@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>刮刮樂效果</title>
+		<style>
+			canvas {
+				border: 1px solid #000;
+				background: url(http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg);
+				background-size: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="scratchCanvas" width="600" height="300"></canvas>
+
+		<script>
+			const canvas = document.getElementById("scratchCanvas");
+			const ctx = canvas.getContext("2d");
+			const brushSize = 30; // 可以調整的筆刷大小
+
+			let isScratching = false;
+			let revealedPercent = 0;
+			let isCompleted = false; // 新增一個標誌來檢查是否完成
+			// 加載底圖
+			const baseImage = new Image();
+			baseImage.crossOrigin = "anonymous";
+			baseImage.src = "http://n.sinaimg.cn/photo/transform/700/w1000h500/20200317/512d-iqyryku6022748.jpg";
+
+			// 加載蓋層
+			const coverImage = new Image();
+			coverImage.crossOrigin = "anonymous";
+			coverImage.src = "./images/395137681e2c0a3dfc10987c3f5cc32f.jpg";
+
+			coverImage.onload = () => {
+				ctx.drawImage(coverImage, 0, 0, 600, 300);
+			};
+			function getMousePos(canvas, evt) {
+				const rect = canvas.getBoundingClientRect();
+				return {
+					x: evt.clientX - rect.left,
+					y: evt.clientY - rect.top
+				};
+			}
+
+			function scratchCanvas(evt) {
+				if (!isScratching || isCompleted) return; // 檢查是否正在刮且未完成
+
+				const pos = getMousePos(canvas, evt);
+				ctx.globalCompositeOperation = "destination-out";
+				ctx.beginPath();
+				ctx.arc(pos.x, pos.y, brushSize, 0, 2 * Math.PI);
+				ctx.fill();
+
+				// 檢查刮開面積
+				checkRevealedPercent();
+			}
+
+			function checkRevealedPercent() {
+				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+				const pixels = imageData.data;
+				const totalPixels = canvas.width * canvas.height;
+				let revealedPixels = 0;
+
+				for (let i = 0; i < pixels.length; i += 4) {
+					// 每4個元素代表一個像素
+					if (pixels[i + 3] === 0) {
+						// 檢查alpha值是否為0（完全透明）
+						revealedPixels++;
+					}
+				}
+
+				revealedPercent = (revealedPixels / totalPixels) * 100;
+
+				// 檢查是否超過50%
+				if (revealedPercent > 50) {
+					isCompleted = true; // 設置完成標誌為true
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ctx.globalCompositeOperation = "source-over"; // 重設混合模式
+					ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+					showCustomText();
+				}
+			}
+
+			function showCustomText() {
+				console.log(123);
+				ctx.font = "40px Arial";
+				ctx.fillStyle = "#000000";
+				ctx.textAlign = "center";
+				ctx.fillText("恭喜刮中獎項", canvas.width / 2, canvas.height / 2);
+			}
+
+			canvas.addEventListener("mousedown", () => {
+				isScratching = true;
+			});
+			canvas.addEventListener("mousemove", scratchCanvas);
+			canvas.addEventListener("mouseup", () => {
+				isScratching = false;
+			});
+		</script>
+	</body>
+</html>
