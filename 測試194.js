@@ -48,6 +48,13 @@
 			}
 		});
 	}
+	/**
+	 * @param {*} url 分享網址
+	 * @param {*} title  分享標題
+	 * @param {*} description  分享描述
+	 * @param {*} hashtags 分享標籤
+	 * @returns {Object} 回傳分享連結
+	 */
 	exports.generateSocialShareUrls = function (url, title, description, hashtags) {
 		// Encode the common parameters
 		const encodedUrl = encodeURIComponent(url);
@@ -77,7 +84,7 @@
 
 		return shareUrls;
 	};
-	// Initialize function
+	// 可用來初始化分享按鈕
 	exports.initSocialShare = function () {
 		updateShareLinks();
 	};
