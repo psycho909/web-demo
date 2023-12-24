@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const array = [
+				{
+					id: 545,
+					date: "2023-10-01",
+					isImportant: false
+				},
+				{
+					id: 322,
+					date: "2023-10-03",
+					isImportant: false
+				},
+				{
+					id: 543,
+					date: "2023-10-21",
+					isImportant: true
+				},
+				{
+					id: 423,
+					date: "2023-10-02",
+					isImportant: false
+				},
+				{
+					id: 135,
+					date: "2023-11-01",
+					isImportant: true
+				}
+			];
+
+			array.sort((a, b) => {
+				return new Date(a.date) - new Date(b.date);
+			});
+			console.log(array);
+
+			var votes = [
+				{ title: "Apple", votes: 1 },
+				{ title: "Milk", votes: 2 },
+				{ title: "Carrot", votes: 3 },
+				{ title: "Banana", votes: 2 }
+			];
+			votes.sort(function (vote1, vote2) {
+				// Sort by votes
+				// If the first item has a higher number, move it down
+				// If the first item has a lower number, move it up
+				if (vote1.votes > vote2.votes) return 1;
+				if (vote1.votes < vote2.votes) return -1;
+
+				// If the votes number is the same between both items, sort alphabetically
+				// If the first item comes first in the alphabet, move it up
+				// Otherwise move it down
+				if (vote1.title > vote2.title) return 1;
+				if (vote1.title < vote2.title) return -1;
+			});
+			console.log(votes);
+		</script>
+	</body>
+</html>

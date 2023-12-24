@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.flex {
+				display: flex;
+			}
+			.canvas-1 {
+				width: calc(1920 / 1920 * 100vw);
+				height: calc(1080 / 1920 * 100vw);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btn-box">
+			<button id="play" class="btn">播放</button>
+			<button id="stop" class="btn">停止</button>
+		</div>
+		<div class="flex">
+			<div class="c">
+				<canvas class="canvas canvas-1" width="1920" height="1080"></canvas>
+			</div>
+		</div>
+		<script>
+			function CanvasSprite(target, step, speed) {
+				this.imgArr = [];
+				this.index = 0;
+				this.loop = false;
+				this.target = target;
+				this.el = null;
+				this.step = step;
+				this.width = 0;
+				this.height = 0;
+				this.speed = speed || step / 2;
+				this.Init();
+			}
+			CanvasSprite.prototype.Init = function () {
+				this.el = this.target[0].getContext("2d");
+				$(this.el.canvas).addClass("loading");
+			};
+			CanvasSprite.prototype.PreLoad = function (path, name = "") {
+				var count = 0;
+				var _this = this;
+				return new Promise((resolve, reject) => {
+					for (var i = 0; i < this.step; i++) {
+						let currentIndex = parseInt(name) + i; // Adjust here to add the loop index to the base name
+						let newName = currentIndex.toString(); // Convert the new index to a string
+						this.imgArr[i] = new Image();
+						this.imgArr[i].src = path + newName + ".png";
+						this.imgArr[i].onload = function () {
+							_this.width = this.width;
+							_this.height = this.height;
+							++count;
+							if (count == _this.step) {
+								$(_this.el.canvas).removeClass("loading");
+								_this.Draw(0);
+								resolve(true);
+							}
+						};
+						this.imgArr[i].onerror = function () {
+							++count;
+							if (count == _this.step) {
+								$(_this.el.canvas).removeClass("loading");
+								reject(true);
+							}
+						};
+					}
+				});
+			};
+
+			CanvasSprite.prototype.Run = function (callback) {
+				clearInterval(this.loop);
+				var _this = this;
+				this.loop = setInterval(function () {
+					if (_this.index > _this.step - 1) {
+						_this.index = 0;
+						clearInterval(_this.loop);
+						if (callback) {
+							callback();
+						}
+					}
+					_this.Draw(_this.index);
+
+					_this.index++;
+				}, this.speed);
+			};
+			CanvasSprite.prototype.Loop = function () {
+				console.log(1);
+				clearInterval(this.loop);
+				this.loop = setInterval(() => {
+					console.log(this.index, this.step - 1);
+					if (this.index > this.step - 1) {
+						this.index = 0;
+					}
+					this.Draw(this.index);
+
+					this.index++;
+				}, this.speed);
+			};
+			CanvasSprite.prototype.Stop = function () {
+				this.index = 0;
+				clearInterval(this.loop);
+				this.Draw(this.index);
+			};
+			CanvasSprite.prototype.Draw = function (index) {
+				this.el.clearRect(0, 0, this.width, this.height);
+				if (this.imgArr[index].complete) {
+					this.el.drawImage(this.imgArr[index], 0, 0);
+				}
+			};
+
+			let link1 = "./slide1-2/";
+			var c1 = new CanvasSprite($(".canvas-1"), 143, 45);
+			let canvasArr = [];
+			canvasArr = [c1.PreLoad(link1, "20000")];
+			Promise.allSettled(canvasArr).then((res) => {
+				console.log(c1);
+			});
+			// Promise.allSettled([c1.PreLoad("./tile/tile")]).then((res) => {
+			// 	$("#loadingProgress").hide();
+			// });
+			$("#play").on("click", function () {
+				c1.Loop();
+			});
+			$("#stop").on("click", function () {
+				c1.Stop();
+			});
+		</script>
+	</body>
+</html>
