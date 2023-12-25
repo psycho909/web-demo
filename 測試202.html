@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.11.5/gsap.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				background-color: #001747;
+			}
+			.box {
+				width: 50px;
+				height: 50px;
+				background: #000;
+				position: absolute;
+				top: 10px;
+				left: 10%;
+			}
+			@keyframes shakeAnimation {
+				0% {
+					transform: translate(0px, 0px);
+				}
+				25% {
+					transform: translate(-5px, -5px);
+				}
+				50% {
+					transform: translate(5px, 5px);
+				}
+				75% {
+					transform: translate(-5px, 5px);
+				}
+				100% {
+					transform: translate(5px, -5px);
+				}
+			}
+
+			.shake {
+				animation: shakeAnimation 6s infinite;
+			}
+			@keyframes smoothShake {
+				0%,
+				100% {
+					transform: translate(0, 0);
+				}
+				10%,
+				30%,
+				50%,
+				70%,
+				90% {
+					transform: translate(-10px, -10px);
+				}
+				20%,
+				40%,
+				60%,
+				80% {
+					transform: translate(10px, 10px);
+				}
+			}
+
+			.smooth-shake {
+				animation: smoothShake 5s ease-in-out infinite;
+			}
+			@keyframes boatSwing {
+				0% {
+					transform: translate(0, 0);
+				}
+				25% {
+					transform: translate(-5%, 5%);
+				}
+				50% {
+					transform: translate(0, 0);
+				}
+				75% {
+					transform: translate(-5%, 5%);
+				}
+				100% {
+					transform: translate(0, 0);
+				}
+			}
+
+			.boat-swing {
+				animation: boatSwing 3s ease-in-out infinite;
+			}
+			.meter {
+				width: 208px;
+				height: 293px;
+				background-size: cover;
+				background-image: url("./images/slide5-meter1.png");
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			@keyframes moveToBottomCenter {
+				from {
+					top: 0;
+					right: 0;
+				}
+				to {
+					top: 100%;
+					right: 50%;
+					opacity: 0;
+				}
+			}
+
+			.meter2 {
+				animation: moveToBottomCenter 3s ease-in-out forwards;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box boat-swing"></div>
+		<div class="meter meter2"></div>
+		<script>
+			// gsap.to(".meter",{
+			//     x:"-10",
+			//     y:"-10"
+			// })
+		</script>
+	</body>
+</html>
