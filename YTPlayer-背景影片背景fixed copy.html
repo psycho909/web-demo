@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://pupunzi.com/mb.components/mb.YTPlayer/demo/style/jquery.mb.YTPlayer.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.3.1/jquery.mb.YTPlayer.min.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+				font-family: Arial;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="header">
+				<div id="myPlayer" style="background: #000; height: 200px; width: 200px; position: relative"></div>
+				<div id="customElement" class="player" data-property="{videoURL:'http://youtu.be/-LIyrQPenhk',containment:'#myPlayer',showControls:true,autoPlay:true, mute:true, startAt:0, opacity:1}"></div>
+			</div>
+			<div class="header">
+				<div id="myPlayer2" style="background: #000; height: 200px; width: 200px; position: relative"></div>
+				<div id="customElement2" class="player" data-property="{videoURL:'http://youtu.be/-LIyrQPenhk',containment:'#myPlayer2',showControls:true,autoPlay:true, mute:true, startAt:0, opacity:1}"></div>
+			</div>
+			<div class="section section-1">SECTION 1</div>
+			<div class="section section-2">SECTION 2</div>
+			<div class="section section-3">SECTION 3</div>
+			<div class="section section-4">SECTION 4</div>
+			<div class="top"></div>
+		</div>
+
+		<script>
+			$(function () {
+				$("#customElement").mb_YTPlayer();
+				$("#customElement2").mb_YTPlayer();
+			});
+		</script>
+	</body>
+</html>

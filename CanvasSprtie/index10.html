@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.4.0/gsap.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.flex {
+				display: flex;
+			}
+			.c {
+				width: calc(800 / 1920 * 100vw);
+				height: calc(800 / 1920 * 100vw);
+				position: relative;
+				display: inline-block;
+			}
+			.canvas {
+				width: calc(800 / 1920 * 100vw);
+				height: calc(800 / 1920 * 100vw);
+				position: relative;
+				cursor: pointer;
+			}
+			.canvas-1 {
+				width: calc(800 / 1920 * 100vw);
+				height: calc(800 / 1920 * 100vw);
+			}
+			.btn-box {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 99;
+				display: flex;
+			}
+			.loading {
+				background-color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btn-box">
+			<button id="play" class="btn">播放</button>
+			<button id="stop" class="btn">停止</button>
+		</div>
+		<div class="flex">
+			<div class="c">
+				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
+			</div>
+		</div>
+		<script>
+			function CanvasSprite(target, step, speed) {
+				this.imgArr = [];
+				this.index = 0;
+				this.loop = false;
+				this.target = target;
+				this.el = null;
+				this.step = step;
+				this.width = 0;
+				this.height = 0;
+				this.speed = speed || step / 2;
+				this.Init();
+			}
+			CanvasSprite.prototype.Init = function () {
+				this.el = this.target[0].getContext("2d");
+				this.el.imageSmoothingEnabled = false;
+				$(this.el.canvas).addClass("loading");
+			};
+			CanvasSprite.prototype.PreLoad = function (spriteImagePath) {
+				var _this = this;
+				return new Promise((resolve, reject) => {
+					this.imgArr[0] = new Image();
+					this.imgArr[0].src = spriteImagePath;
+					this.imgArr[0].onload = function () {
+						_this.width = this.width;
+						_this.height = this.height / _this.step; // 確保高度是單個動畫幀的高度
+						$(_this.el.canvas).removeClass("loading");
+						_this.Draw(0);
+						resolve(true);
+					};
+					this.imgArr[0].onerror = function () {
+						$(_this.el.canvas).removeClass("loading");
+						reject(true);
+					};
+				});
+			};
+
+			CanvasSprite.prototype.Run = function (durationInSeconds = 1, callback) {
+				clearInterval(this.loop);
+				const _this = this;
+				let startTime = performance.now();
+				// 計算每一步的間隔時間
+				let stepInterval = (durationInSeconds * 1000) / this.step;
+
+				function runAnimation(now) {
+					const elapsed = now - startTime;
+
+					if (elapsed > stepInterval * _this.index) {
+						_this.Draw(_this.index);
+						_this.index++;
+					}
+
+					if (_this.index < _this.step) {
+						requestAnimationFrame(runAnimation);
+					} else {
+						_this.index = 0;
+						if (callback) {
+							callback();
+						}
+					}
+				}
+
+				requestAnimationFrame(runAnimation);
+			};
+
+			CanvasSprite.prototype.Loop = function (speedMultiplier = 1) {
+				cancelAnimationFrame(this.animationFrame);
+				const _this = this;
+				let then = performance.now();
+				// 根據速度乘數調整 fpsInterval
+				let fpsInterval = 1000 / this.speed / speedMultiplier;
+
+				function animate(now) {
+					_this.animationFrame = requestAnimationFrame(animate);
+
+					const elapsed = now - then;
+
+					if (elapsed > fpsInterval) {
+						then = now - (elapsed % fpsInterval);
+
+						_this.Draw(_this.index);
+						_this.index = (_this.index + 1) % _this.step;
+					}
+				}
+
+				animate(performance.now());
+			};
+			CanvasSprite.prototype.Stop = function () {
+				this.index = 0;
+				cancelAnimationFrame(this.animationFrame); // 取消動畫幀請求
+				this.Draw(this.index); // 繪製第一幀（或任何應該顯示的幀）
+			};
+
+			CanvasSprite.prototype.Draw = function (index) {
+				// 清除整個 canvas
+				this.el.clearRect(0, 0, this.el.canvas.width, this.el.canvas.height);
+				let frameWidth = 800; // 假設每幀的寬度為 800 像素
+				let frameHeight = 800; // 假設每幀的高度也為 800 像素
+				let xPos = frameWidth * index; // 計算當前幀的 x 軸位置
+				// 從 sprite 圖片中提取正確的部分來顯示
+				this.el.drawImage(this.imgArr[0], xPos, 0, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+			};
+
+			var sprite = new CanvasSprite($(".canvas-1"), 45, 0);
+
+			// 預加載 sprite 圖片
+			sprite
+				.PreLoad("./tile.png")
+				.then(function () {
+					// 圖片加載成功後播放動畫
+					// sprite.Run(5); // 動畫在 5 秒內播放完
+					sprite.Draw(0);
+				})
+				.catch(function (error) {
+					console.error("動畫加載失敗:", error);
+				});
+
+			// var c1 = new CanvasSprite($(".canvas-1"), 45, 0);
+			// loadingProgress({
+			// 	loadedFN: function () {
+			// 		// 進入判斷所有圖片Loading完後關閉Loading
+			// 		Promise.allSettled([c1.PreLoad("./tile.png")]).then((res) => {
+			// 			$("#loadingProgress").hide();
+			// 		});
+			// 	},
+			// 	autoHide: false
+			// });
+			$("#play").on("click", function () {
+				sprite.Loop();
+			});
+			$("#stop").on("click", function () {
+				sprite.Stop();
+			});
+		</script>
+	</body>
+</html>
