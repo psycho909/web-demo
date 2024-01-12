@@ -37,8 +37,8 @@
 				height: calc(180 / 1920 * 100vw);
 			}
 			.canvas-3 {
-				width: calc(300 / 1920 * 100vw);
-				height: calc(300 / 1920 * 100vw);
+				width: calc(1920 / 1920 * 100vw);
+				height: calc(1080 / 1920 * 100vw);
 			}
 			.btn-box {
 				position: absolute;
@@ -62,7 +62,7 @@
 				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
 			</div>
 			<canvas class="canvas canvas-2" width="180" height="180"></canvas>
-			<canvas class="canvas canvas-3" width="300" height="300"></canvas>
+			<canvas class="canvas canvas-3" width="1920" height="1080"></canvas>
 		</div>
 		<script>
 			function CanvasSprite(target, step, speed) {
@@ -199,7 +199,7 @@
 			loadingProgress({
 				loadedFN: function () {
 					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.allSettled([c1.PreLoad("./tile/", "tile"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./bt_over/", "bt_over_")]).then((res) => {
+					Promise.allSettled([c1.PreLoad("./tile/", "tile"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./slide1-2/", "20000")]).then((res) => {
 						$("#loadingProgress").hide();
 					});
 				},
