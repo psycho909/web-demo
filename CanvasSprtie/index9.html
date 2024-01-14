@@ -123,32 +123,30 @@
 				});
 			};
 
-			CanvasSprite.prototype.Run = function (durationInSeconds = 1, callback) {
+			CanvasSprite.prototype.Run = function (durationInSeconds = 1) {
 				clearInterval(this.loop);
 				const _this = this;
 				let startTime = performance.now();
-				// 計算每一步的間隔時間
 				let stepInterval = (durationInSeconds * 1000) / this.step;
 
-				function runAnimation(now) {
-					const elapsed = now - startTime;
+				return new Promise((resolve, reject) => {
+					function runAnimation(now) {
+						const elapsed = now - startTime;
 
-					if (elapsed > stepInterval * _this.index) {
-						_this.Draw(_this.index);
-						_this.index++;
-					}
+						if (elapsed > stepInterval * _this.index) {
+							_this.Draw(_this.index);
+							_this.index++;
+						}
 
-					if (_this.index < _this.step) {
-						requestAnimationFrame(runAnimation);
-					} else {
-						_this.index = 0;
-						if (callback) {
-							callback();
+						if (_this.index < _this.step) {
+							requestAnimationFrame(runAnimation);
+						} else {
+							_this.index = 0;
+							resolve(); // 當動畫完成時解決 Promise
 						}
 					}
-				}
-
-				requestAnimationFrame(runAnimation);
+					requestAnimationFrame(runAnimation);
+				});
 			};
 
 			CanvasSprite.prototype.Loop = function (speedMultiplier = 1) {
