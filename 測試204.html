@@ -1,70 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8" />
 		<title>CSS Sprite Generator</title>
+		<!-- Include CSS and JavaScript files here -->
 		<style>
 			.thumb {
 				height: 75px;
 				border: 1px solid #000;
 				margin: 10px 5px 0 0;
 			}
-			#sprite-preview img {
-				max-width: 100%;
-			}
 		</style>
 	</head>
 	<body>
-		<h1>CSS Sprite Generator</h1>
+		<div id="sprite-generator">
+			<input type="file" id="image-upload" multiple />
+			<div id="image-list"></div>
+			<!-- Container for image thumbnails -->
 
-		<input type="file" id="image-upload" multiple />
-		<br />
-		Layout:
-		<select id="layout-options">
-			<option value="horizontal">Horizontal</option>
-			<option value="vertical">Vertical</option>
-		</select>
-		<br />
-		Margin (px):
-		<input type="number" id="margin-size" value="0" />
-		<br />
-		<button id="generate-sprite">Generate Sprite</button>
-		<br />
-		<div id="image-list"></div>
-		<h3>Sprite Preview:</h3>
-		<div id="sprite-preview"></div>
-		<a id="download-sprite" href="#" style="display: none">Download Sprite</a>
-
+			<select id="layout-options">
+				<option value="horizontal">Horizontal</option>
+				<option value="vertical">Vertical</option>
+			</select>
+			<input type="number" id="margin-size" placeholder="Margin size (px)" />
+			<button id="generate-sprite">Generate Sprite</button>
+			<div id="image-list"></div>
+			<!-- Container for image thumbnails -->
+			<a id="download-sprite" href="#" style="display: none">Download Sprite</a>
+			<div id="sprite-preview"></div>
+			<pre id="css-code"></pre>
+		</div>
 		<script>
+			// Global Variables
 			let spriteImages = [];
+			let spriteCanvas, spriteCtx;
 
+			// Event Listeners
 			document.getElementById("image-upload").addEventListener("change", handleFileSelect, false);
 			document.getElementById("generate-sprite").addEventListener("click", generateSprite);
+			document.getElementById("layout-options").addEventListener("change", updateLayoutPreview);
+			document.getElementById("margin-size").addEventListener("change", updateLayoutPreview);
 
 			function handleFileSelect(evt) {
-				let files = evt.target.files;
+				let files = Array.from(evt.target.files);
+
+				// Sort files by name
+				files.sort((a, b) => a.name.localeCompare(b.name));
+
+				// Clear previous images
 				spriteImages = [];
 				document.getElementById("image-list").innerHTML = "";
 
-				for (let i = 0, f; (f = files[i]); i++) {
-					if (!f.type.match("image.*")) {
-						continue;
+				// Create a promise for each file read
+				let fileReadPromises = files.map((file) => {
+					if (!file.type.match("image.*")) {
+						return Promise.resolve(null); // Resolve non-image files immediately
 					}
 
-					let reader = new FileReader();
-					reader.onload = (function (theFile) {
-						return function (e) {
+					return new Promise((resolve, reject) => {
+						let reader = new FileReader();
+						reader.onload = (e) => {
 							let img = new Image();
 							img.src = e.target.result;
 							spriteImages.push(img);
 
-							let span = document.createElement("span");
-							span.innerHTML = `<img class="thumb" src="${e.target.result}" title="${escape(theFile.name)}"/><br>${escape(theFile.name)}`;
-							document.getElementById("image-list").appendChild(span);
+							let thumbnailHtml = `<img class="thumb" src="${e.target.result}" title="${escape(file.name)}"/><br>${escape(file.name)}`;
+							resolve(thumbnailHtml);
 						};
-					})(f);
-					reader.readAsDataURL(f);
-				}
+						reader.onerror = reject;
+						reader.readAsDataURL(file);
+					});
+				});
+
+				// Wait for all files to be read
+				Promise.all(fileReadPromises)
+					.then((thumbnails) => {
+						thumbnails.forEach((thumbnailHtml) => {
+							if (thumbnailHtml) {
+								// Only append if the file was an image
+								let span = document.createElement("span");
+								span.innerHTML = thumbnailHtml;
+								document.getElementById("image-list").appendChild(span);
+							}
+						});
+					})
+					.catch((error) => {
+						console.error("Error reading files:", error);
+					});
 			}
 
 			function generateSprite() {
@@ -81,26 +102,27 @@
 				if (layout === "horizontal") {
 					spriteImages.forEach((img) => {
 						spriteHeight = Math.max(spriteHeight, img.height);
-						spriteWidth += img.width;
+						spriteWidth += img.width + margin;
 					});
-					spriteWidth += margin * (spriteImages.length - 1);
 				} else {
+					// Vertical
 					spriteImages.forEach((img) => {
 						spriteWidth = Math.max(spriteWidth, img.width);
-						spriteHeight += img.height;
+						spriteHeight += img.height + margin;
 					});
-					spriteHeight += margin * (spriteImages.length - 1);
 				}
 
-				let spriteCanvas = document.createElement("canvas");
+				// Create canvas
+				spriteCanvas = document.createElement("canvas");
 				spriteCanvas.width = spriteWidth;
 				spriteCanvas.height = spriteHeight;
-				let ctx = spriteCanvas.getContext("2d");
+				spriteCtx = spriteCanvas.getContext("2d");
 
+				// Draw images on canvas
 				let x = 0,
 					y = 0;
 				spriteImages.forEach((img) => {
-					ctx.drawImage(img, x, y);
+					spriteCtx.drawImage(img, x, y);
 					if (layout === "horizontal") {
 						x += img.width + margin;
 					} else {
@@ -108,62 +130,19 @@
 					}
 				});
 
-				// Try creating a Blob from the canvas
-				spriteCanvas.toBlob(function (blob) {
-					if (blob) {
-						createDownloadLink(blob);
-					} else {
-						// Fallback method using toDataURL
-						console.warn("Falling back to toDataURL method for blob creation.");
-						let dataURL = spriteCanvas.toDataURL("image/png");
-						fetch(dataURL)
-							.then((res) => res.blob())
-							.then(createDownloadLink)
-							.catch((e) => console.error("Error in fallback blob creation:", e));
-					}
-				}, "image/png");
+				// Create download link
+				let downloadLink = document.getElementById("download-sprite");
+				downloadLink.href = spriteCanvas.toDataURL("image/png");
+				downloadLink.download = "sprite.png";
+				downloadLink.style.display = "block";
 			}
 
-			function createDownloadLink(blob) {
-				console.log("Blob size:", blob.size); // Log the Blob size for debugging
-				if (blob.size > 0) {
-					// Create an Object URL from the Blob
-					let url = URL.createObjectURL(blob);
-
-					// Find or create the download link element
-					let downloadLink = document.getElementById("download-sprite");
-					if (!downloadLink) {
-						downloadLink = document.createElement("a");
-						document.body.appendChild(downloadLink);
-					}
-
-					// Set the properties of the download link
-					downloadLink.href = url;
-					downloadLink.download = "sprite.png";
-					downloadLink.style.display = "block";
-					downloadLink.textContent = "Download Sprite"; // Add text to the download link
-
-					// Create an image element for preview
-					let newImg = document.createElement("img");
-					newImg.onload = function () {
-						// Release memory when the image is loaded
-						URL.revokeObjectURL(url);
-					};
-					newImg.src = url;
-					newImg.style.maxWidth = "100%"; // Optional: Ensure the preview image is not too large
-
-					// Display the sprite image for preview
-					let previewContainer = document.getElementById("sprite-preview");
-					if (previewContainer) {
-						previewContainer.innerHTML = ""; // Clear existing content
-						previewContainer.appendChild(newImg);
-					} else {
-						console.error("Preview container not found");
-					}
-				} else {
-					console.error("Blob is empty or corrupted.");
-				}
+			function updateLayoutPreview() {
+				// Optionally, implement a live preview of the layout
 			}
+
+			// Initial call to update the layout preview
+			updateLayoutPreview();
 		</script>
 	</body>
 </html>
