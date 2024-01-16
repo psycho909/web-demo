@@ -29,8 +29,8 @@
 				cursor: pointer;
 			}
 			.canvas-1 {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
+				width: calc(1000 / 1920 * 100vw);
+				height: calc(429 / 1920 * 100vw);
 			}
 			.canvas-2 {
 				width: calc(180 / 1920 * 100vw);
@@ -59,7 +59,7 @@
 		</div>
 		<div class="flex">
 			<div class="c">
-				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
+				<canvas class="canvas canvas-1" width="1000" height="429"></canvas>
 			</div>
 			<canvas class="canvas canvas-2" width="180" height="180"></canvas>
 			<canvas class="canvas canvas-3" width="1920" height="1080"></canvas>
@@ -86,37 +86,38 @@
 				var _this = this;
 				return new Promise((resolve, reject) => {
 					for (var i = 0; i < this.step; i++) {
-						let currentIndex;
+						let currentIndex = i;
 						let newName;
 
-						// 檢查 name 是否包含數字
-						if (/\d/.test(name)) {
-							// name 包含數字，從這些數字遞增
-							currentIndex = parseInt(name.replace(/\D/g, ""), 10) + i;
-							// 保留非數字部分，並將遞增的數字添加到末尾
-							newName = name.replace(/\d/g, "") + currentIndex.toString().padStart(name.length - name.replace(/\D/g, "").length, "0");
+						// 如果name是空的或不包含数字，直接在name后加上索引
+						if (name === "" || !/\d/.test(name)) {
+							newName = name + currentIndex;
 						} else {
-							// name 不包含數字，直接將索引添加到 name 末尾
-							newName = name + i;
+							// 如果name包含数字，找到数字部分并递增
+							let paddedIndex = (parseInt(name.match(/\d+$/)[0], 10) + currentIndex).toString();
+							// 用0填充数字保持相同长度
+							paddedIndex = paddedIndex.padStart(name.match(/\d+$/)[0].length, "0");
+							// 替换name中的数字部分
+							newName = name.replace(/\d+$/, paddedIndex);
 						}
 
 						this.imgArr[i] = new Image();
 						this.imgArr[i].src = path + newName + ".png";
 						this.imgArr[i].onload = function () {
-							_this.width = this.width;
-							_this.height = this.height;
-							++count;
-							if (count == _this.step) {
+							_this.width = _this.imgArr[0].width; // 確保寬度取自第一張圖片
+							_this.height = _this.imgArr[0].height; // 確保高度取自第一張圖片
+							count++;
+							if (count === _this.step) {
 								$(_this.el.canvas).removeClass("loading");
 								_this.Draw(0);
 								resolve(true);
 							}
 						};
 						this.imgArr[i].onerror = function () {
-							++count;
-							if (count == _this.step) {
+							count++;
+							if (count === _this.step) {
 								$(_this.el.canvas).removeClass("loading");
-								reject(true);
+								reject(new Error("Image failed to load at index: " + currentIndex));
 							}
 						};
 					}
@@ -191,13 +192,13 @@
 
 			canvas圖片縮放，直接調整canvas的class
 			*/
-			var c1 = new CanvasSprite($(".canvas-1"), 45, 0);
+			var c1 = new CanvasSprite($(".canvas-1"), 12, 0);
 			var c2 = new CanvasSprite($(".canvas-2"), 60, 0);
 			var c3 = new CanvasSprite($(".canvas-3"), 60, 0);
 			loadingProgress({
 				loadedFN: function () {
 					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.allSettled([c1.PreLoad("./tile/", "tile"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./slide1-2/", "20000")]).then((res) => {
+					Promise.allSettled([c1.PreLoad("./gold/", "A 獎_rander_00001"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./slide1-2/", "20000")]).then((res) => {
 						$("#loadingProgress").hide();
 					});
 				},
@@ -213,7 +214,9 @@
 				// 		a[1].stop();
 				// 	}
 				// });
-				c1.Loop();
+				c1.Run().then(() => {
+					console.log("DONE");
+				});
 				c2.Loop();
 				c3.Loop();
 			});
