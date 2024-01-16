@@ -32,6 +32,10 @@
 				width: calc(800 / 1920 * 100vw);
 				height: calc(800 / 1920 * 100vw);
 			}
+			.canvas-2 {
+				width: calc(1000 / 1920 * 100vw);
+				height: calc(429 / 1920 * 100vw);
+			}
 			.btn-box {
 				position: absolute;
 				top: 0;
@@ -53,6 +57,7 @@
 			<div class="c">
 				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
 			</div>
+			<canvas class="canvas canvas-2" width="1000" height="429"></canvas>
 		</div>
 		<script>
 			function CanvasSprite(target, step, frameWidth, frameHeight, speed) {
@@ -156,6 +161,7 @@
 			};
 
 			var sprite = new CanvasSprite($(".canvas-1"), 45, 800, 800, 0);
+			var sprite2 = new CanvasSprite($(".canvas-2"), 12, 1000, 426, 0);
 
 			// 預加載 sprite 圖片
 			sprite
@@ -168,7 +174,16 @@
 				.catch(function (error) {
 					console.error("動畫加載失敗:", error);
 				});
-
+			sprite2
+				.PreLoad("./S.png")
+				.then(function () {
+					// 圖片加載成功後播放動畫
+					// sprite.Run(5); // 動畫在 5 秒內播放完
+					sprite.Draw(0);
+				})
+				.catch(function (error) {
+					console.error("動畫加載失敗:", error);
+				});
 			// var c1 = new CanvasSprite($(".canvas-1"), 45, 0);
 			// loadingProgress({
 			// 	loadedFN: function () {
@@ -183,9 +198,13 @@
 				sprite.Run().then((res) => {
 					console.log(res);
 				});
+				sprite2.Run().then((res) => {
+					console.log(res);
+				});
 			});
 			$("#stop").on("click", function () {
 				sprite.Stop();
+				sprite2.Stop();
 			});
 		</script>
 	</body>
