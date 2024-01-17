@@ -15,26 +15,16 @@
 			}
 			.flex {
 				display: flex;
-			}
-			.c {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
-				position: relative;
-				display: inline-block;
-			}
-			.canvas {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
-				position: relative;
-				cursor: pointer;
-			}
-			.canvas-1 {
-				width: calc(800 / 1920 * 100vw);
-				height: calc(800 / 1920 * 100vw);
-			}
-			.canvas-2 {
 				width: calc(1000 / 1920 * 100vw);
 				height: calc(429 / 1920 * 100vw);
+			}
+			.canvas {
+				width: calc(1000 / 1920 * 100vw);
+				height: calc(429 / 1920 * 100vw);
+				position: absolute;
+				cursor: pointer;
+				top: 0;
+				left: 0;
 			}
 			.btn-box {
 				position: absolute;
@@ -46,6 +36,15 @@
 			.loading {
 				background-color: #000;
 			}
+			.canvas-s {
+				z-index: 1;
+			}
+			.canvas-a {
+				z-index: 2;
+			}
+			.canvas-b {
+				z-index: 3;
+			}
 		</style>
 	</head>
 	<body>
@@ -54,10 +53,9 @@
 			<button id="stop" class="btn">停止</button>
 		</div>
 		<div class="flex">
-			<div class="c">
-				<canvas class="canvas canvas-1" width="800" height="800"></canvas>
-			</div>
-			<canvas class="canvas canvas-2" width="1000" height="429"></canvas>
+			<canvas class="canvas canvas-s" width="1000" height="429"></canvas>
+			<canvas class="canvas canvas-a" width="1000" height="429"></canvas>
+			<canvas class="canvas canvas-b" width="1000" height="429"></canvas>
 		</div>
 		<script>
 			function CanvasSprite(target, step, frameWidth, frameHeight, speed) {
@@ -160,26 +158,34 @@
 				this.el.drawImage(this.imgArr[0], xPos, 0, this.frameWidth, this.frameHeight, 0, 0, this.frameWidth, this.frameHeight);
 			};
 
-			var sprite = new CanvasSprite($(".canvas-1"), 45, 800, 800, 0);
-			var sprite2 = new CanvasSprite($(".canvas-2"), 12, 1000, 426, 0);
+			var s = new CanvasSprite($(".canvas-s"), 12, 1000, 429, 0);
+			var a = new CanvasSprite($(".canvas-a"), 12, 1000, 429, 0);
+			var b = new CanvasSprite($(".canvas-b"), 12, 1000, 429, 0);
 
 			// 預加載 sprite 圖片
-			sprite
-				.PreLoad("./tile.png")
+			s.PreLoad("./S.png")
 				.then(function () {
 					// 圖片加載成功後播放動畫
 					// sprite.Run(5); // 動畫在 5 秒內播放完
-					sprite.Draw(0);
+					s.target.hide();
 				})
 				.catch(function (error) {
 					console.error("動畫加載失敗:", error);
 				});
-			sprite2
-				.PreLoad("./S.png")
+			a.PreLoad("./A.png")
 				.then(function () {
 					// 圖片加載成功後播放動畫
 					// sprite.Run(5); // 動畫在 5 秒內播放完
-					sprite.Draw(0);
+					a.target.hide();
+				})
+				.catch(function (error) {
+					console.error("動畫加載失敗:", error);
+				});
+			b.PreLoad("./B.png")
+				.then(function () {
+					// 圖片加載成功後播放動畫
+					// sprite.Run(5); // 動畫在 5 秒內播放完
+					b.Draw(0);
 				})
 				.catch(function (error) {
 					console.error("動畫加載失敗:", error);
@@ -195,16 +201,20 @@
 			// 	autoHide: false
 			// });
 			$("#play").on("click", function () {
-				sprite.Run().then((res) => {
-					console.log(res);
-				});
-				sprite2.Run().then((res) => {
-					console.log(res);
+				b.Run().then((res) => {
+					b.target.hide();
+					a.target.show();
+					a.Run().then((res) => {
+						a.target.hide();
+						s.target.show();
+						s.Run().then((res) => {});
+					});
 				});
 			});
 			$("#stop").on("click", function () {
-				sprite.Stop();
-				sprite2.Stop();
+				s.Stop();
+				a.Stop();
+				b.Stop();
 			});
 		</script>
 	</body>
