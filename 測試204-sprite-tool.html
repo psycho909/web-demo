@@ -4,10 +4,14 @@
 		<title>CSS Sprite Generator</title>
 		<!-- Include CSS and JavaScript files here -->
 		<style>
+			#image-list {
+				display: flex;
+				font-size: 12px;
+			}
 			.thumb {
 				height: 75px;
 				border: 1px solid #000;
-				margin: 10px 5px 0 0;
+				margin: 0;
 			}
 		</style>
 	</head>
@@ -42,45 +46,48 @@
 
 			function handleFileSelect(evt) {
 				let files = Array.from(evt.target.files);
+				let thumbnailData = []; // Array to store thumbnail HTML and filenames
 
-				// Sort files by name
-				files.sort((a, b) => a.name.localeCompare(b.name));
-
-				// Clear previous images
+				// Clear previous images and thumbnails
 				spriteImages = [];
 				document.getElementById("image-list").innerHTML = "";
 
-				// Create a promise for each file read
 				let fileReadPromises = files.map((file) => {
-					if (!file.type.match("image.*")) {
-						return Promise.resolve(null); // Resolve non-image files immediately
-					}
-
 					return new Promise((resolve, reject) => {
+						if (!file.type.match("image.*")) {
+							resolve(null); // Resolve non-image files immediately
+							return;
+						}
+
 						let reader = new FileReader();
 						reader.onload = (e) => {
 							let img = new Image();
-							img.src = e.target.result;
-							spriteImages.push(img);
+							img.onload = () => {
+								// Store image and filename
+								spriteImages.push({ img: img, name: file.name });
 
-							let thumbnailHtml = `<img class="thumb" src="${e.target.result}" title="${escape(file.name)}"/><br>${escape(file.name)}`;
-							resolve(thumbnailHtml);
+								// Prepare thumbnail HTML
+								let thumbnailHtml = `<img class="thumb" src="${e.target.result}" title="${escape(file.name)}"/><br>${escape(file.name)}`;
+								resolve({ html: thumbnailHtml, name: file.name });
+							};
+							img.src = e.target.result;
 						};
-						reader.onerror = reject;
+						reader.onerror = () => reject(new Error(`Failed to read file ${file.name}`));
 						reader.readAsDataURL(file);
 					});
 				});
 
-				// Wait for all files to be read
+				// Wait for all files to be read and thumbnails prepared
 				Promise.all(fileReadPromises)
-					.then((thumbnails) => {
-						thumbnails.forEach((thumbnailHtml) => {
-							if (thumbnailHtml) {
-								// Only append if the file was an image
-								let span = document.createElement("span");
-								span.innerHTML = thumbnailHtml;
-								document.getElementById("image-list").appendChild(span);
-							}
+					.then((thumbnailObjects) => {
+						// Filter out nulls and sort by file name
+						let sortedThumbnails = thumbnailObjects.filter((t) => t !== null).sort((a, b) => a.name.localeCompare(b.name));
+
+						// Append sorted thumbnails
+						sortedThumbnails.forEach((t) => {
+							let span = document.createElement("span");
+							span.innerHTML = t.html;
+							document.getElementById("image-list").appendChild(span);
 						});
 					})
 					.catch((error) => {
@@ -94,23 +101,25 @@
 					return;
 				}
 
+				// Sort the spriteImages array by name
+				spriteImages.sort((a, b) => a.name.localeCompare(b.name));
+
 				let layout = document.getElementById("layout-options").value;
 				let margin = parseInt(document.getElementById("margin-size").value) || 0;
 				let spriteWidth = 0,
 					spriteHeight = 0;
 
-				if (layout === "horizontal") {
-					spriteImages.forEach((img) => {
-						spriteHeight = Math.max(spriteHeight, img.height);
-						spriteWidth += img.width + margin;
-					});
-				} else {
-					// Vertical
-					spriteImages.forEach((img) => {
-						spriteWidth = Math.max(spriteWidth, img.width);
-						spriteHeight += img.height + margin;
-					});
-				}
+				spriteImages.forEach((item) => {
+					if (layout === "horizontal") {
+						spriteHeight = Math.max(spriteHeight, item.img.height);
+						spriteWidth += item.img.width + margin;
+					} else {
+						spriteWidth = Math.max(spriteWidth, item.img.width);
+						spriteHeight += item.img.height + margin;
+					}
+				});
+
+				spriteWidth -= margin; // Adjust for the extra margin
 
 				// Create canvas
 				spriteCanvas = document.createElement("canvas");
@@ -121,12 +130,12 @@
 				// Draw images on canvas
 				let x = 0,
 					y = 0;
-				spriteImages.forEach((img) => {
-					spriteCtx.drawImage(img, x, y);
+				spriteImages.forEach((item) => {
+					spriteCtx.drawImage(item.img, x, y);
 					if (layout === "horizontal") {
-						x += img.width + margin;
+						x += item.img.width + margin;
 					} else {
-						y += img.height + margin;
+						y += item.img.height + margin;
 					}
 				});
 

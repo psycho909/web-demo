@@ -181,34 +181,12 @@
 				.catch(function (error) {
 					console.error("動畫加載失敗:", error);
 				});
-			b.PreLoad("./B.png")
-				.then(function () {
-					// 圖片加載成功後播放動畫
-					// sprite.Run(5); // 動畫在 5 秒內播放完
-					b.Draw(0);
-				})
-				.catch(function (error) {
-					console.error("動畫加載失敗:", error);
-				});
-			// var c1 = new CanvasSprite($(".canvas-1"), 45, 0);
-			// loadingProgress({
-			// 	loadedFN: function () {
-			// 		// 進入判斷所有圖片Loading完後關閉Loading
-			// 		Promise.allSettled([c1.PreLoad("./tile.png")]).then((res) => {
-			// 			$("#loadingProgress").hide();
-			// 		});
-			// 	},
-			// 	autoHide: false
-			// });
 			$("#play").on("click", function () {
-				b.Run().then((res) => {
-					b.target.hide();
-					a.target.show();
-					a.Run().then((res) => {
-						a.target.hide();
-						s.target.show();
-						s.Run().then((res) => {});
-					});
+				sprite.Run().then((res) => {
+					console.log(res);
+				});
+				sprite2.Run().then((res) => {
+					console.log(res);
 				});
 			});
 			$("#stop").on("click", function () {

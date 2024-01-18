@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图片压缩工具</title>
+		<!-- 引入 pica 库 -->
+		<script src="https://cdn.jsdelivr.net/npm/pica/dist/pica.min.js"></script>
+	</head>
+	<body>
+		<input type="file" id="imageInput" accept="image/*" />
+		<button id="compressBtn">压缩图片</button>
+		<br />
+		<img id="originalImage" style="display: none" />
+		<br />
+		<canvas id="canvas" style="display: none"></canvas>
+		<br />
+		<img id="compressedImage" />
+		<br />
+		<a id="downloadLink" style="display: none">下载压缩后的图片</a>
+	</body>
+</html>
