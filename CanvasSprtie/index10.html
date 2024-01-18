@@ -175,7 +175,7 @@
 					console.error("動畫加載失敗:", error);
 				});
 			sprite2
-				.PreLoad("./S.png")
+				.PreLoad("./B.png")
 				.then(function () {
 					// 圖片加載成功後播放動畫
 					// sprite.Run(5); // 動畫在 5 秒內播放完
@@ -198,6 +198,7 @@
 				sprite.Run().then((res) => {
 					console.log(res);
 				});
+				console.log(sprite2);
 				sprite2.Run().then((res) => {
 					console.log(res);
 				});

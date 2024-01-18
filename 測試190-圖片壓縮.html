@@ -7,16 +7,21 @@
 	<body>
 		<input type="file" id="fileInput" accept="image/jpeg, image/png, image/gif" multiple />
 		<label for="qualityInput">品質（0-1）：</label>
-		<input type="number" id="qualityInput" min="0" max="1" step="0.1" value="0.92" />
+		<input type="number" id="qualityInput" min="0" max="1" step="0.1" value="0.6" />
 		<button onclick="compressImages()">進行品質壓縮</button>
 		<br />
 		<div id="imagePreviews"></div>
 		<a id="downloadLink" href="#" download="compressed_images.zip" style="display: none">下載壓縮圖片</a>
 
 		<script>
+			document.getElementById("qualityInput").addEventListener("change", function () {
+				compressImages(); // 品質值改變時重新壓縮圖片
+			});
 			function compressImages() {
 				const fileInput = document.getElementById("fileInput");
 				const files = fileInput.files;
+				const qualityInput = document.getElementById("qualityInput");
+				const quality = parseFloat(qualityInput.value);
 
 				if (files.length === 0) {
 					alert("請選擇圖片文件！");
@@ -44,45 +49,28 @@
 				}
 
 				if (files.length === 1) {
-					compressSingleFile(files[0]);
+					compressSingleFile(files[0], quality);
 				} else {
-					compressMultipleFiles(files);
+					compressMultipleFiles(files, quality);
 				}
 			}
 
-			function compressSingleFile(file) {
-				const qualityInput = document.getElementById("qualityInput");
-				const quality = parseFloat(qualityInput.value);
-
+			function compressSingleFile(file, quality) {
 				const img = document.createElement("img");
 				img.src = URL.createObjectURL(file);
 
 				img.onload = function () {
-					const canvas = document.createElement("canvas");
-					const ctx = canvas.getContext("2d");
-
-					canvas.width = img.width;
-					canvas.height = img.height;
-					ctx.drawImage(img, 0, 0);
-
-					ctx.canvas.toBlob(
-						function (blob) {
-							const downloadLink = document.getElementById("downloadLink");
-							const filename = file.name; // 保持原始檔名
-							downloadLink.href = URL.createObjectURL(blob);
-							downloadLink.setAttribute("download", filename);
-							downloadLink.style.display = "inline-block";
-						},
-						file.type, // 使用原始的 MIME 类型
-						quality
-					);
+					redrawAndCompress(img, file, quality, function (blob) {
+						const downloadLink = document.getElementById("downloadLink");
+						const filename = file.name; // 保持原始檔名
+						downloadLink.href = URL.createObjectURL(blob);
+						downloadLink.setAttribute("download", filename);
+						downloadLink.style.display = "inline-block";
+					});
 				};
 			}
 
-			function compressMultipleFiles(files) {
-				const qualityInput = document.getElementById("qualityInput");
-				const quality = parseFloat(qualityInput.value);
-
+			function compressMultipleFiles(files, quality) {
 				const zip = new JSZip();
 				const imagesFolder = zip.folder("compressed_images");
 
@@ -100,19 +88,10 @@
 					const img = document.createElement("img");
 					img.src = URL.createObjectURL(file);
 
-					img.onload = function () {
-						const canvas = document.createElement("canvas");
-						const ctx = canvas.getContext("2d");
-
-						canvas.width = img.width;
-						canvas.height = img.height;
-						ctx.drawImage(img, 0, 0);
-
-						ctx.canvas.toBlob(
-							function (blob) {
-								const filename = file.name; // 保持原始檔名
-								imagesFolder.file(filename, blob);
-
+					img.onload = (function (file) {
+						return function () {
+							redrawAndCompress(this, file, quality, function (blob) {
+								imagesFolder.file(file.name, blob);
 								processedFiles++;
 
 								if (processedFiles === files.length) {
@@ -123,12 +102,27 @@
 										downloadLink.style.display = "inline-block";
 									});
 								}
-							},
-							file.type, // 使用原始的 MIME 类型
-							quality
-						);
-					};
+							});
+						};
+					})(file);
 				}
+			}
+
+			function redrawAndCompress(img, file, quality, callback) {
+				const canvas = document.createElement("canvas");
+				const ctx = canvas.getContext("2d");
+
+				canvas.width = img.width;
+				canvas.height = img.height;
+				ctx.drawImage(img, 0, 0);
+
+				ctx.canvas.toBlob(
+					function (blob) {
+						callback(blob);
+					},
+					file.type,
+					quality
+				);
 			}
 		</script>
 	</body>
