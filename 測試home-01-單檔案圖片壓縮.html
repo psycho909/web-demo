@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>圖片壓縮工具</title>
+	</head>
+	<body>
+		<input type="file" id="imageInput" accept="image/*" />
+		<br />
+		<label for="qualityInput">壓縮品質（0.1至1.0）：</label>
+		<input type="range" id="qualityInput" min="0.1" max="1.0" step="0.1" value="0.8" />
+		<span id="qualityValue">0.8</span>
+		<br />
+		<button id="compressBtn">壓縮圖片</button>
+		<br />
+		<img id="originalImage" style="display: none" />
+		<br />
+		<img id="compressedImage" />
+		<br />
+		<a id="downloadLink" style="display: none">下載壓縮後的圖片</a>
+		<script>
+			let originalFileName; // 用於存儲原始文件名
+
+			document.getElementById("imageInput").addEventListener("change", function (event) {
+				const file = event.target.files[0];
+				originalFileName = file.name; // 獲取原始文件名
+				const reader = new FileReader();
+
+				reader.onload = function (e) {
+					const originalImage = document.getElementById("originalImage");
+					originalImage.src = e.target.result;
+					originalImage.onload = function () {
+						compressImage(originalImage, file.type);
+					};
+				};
+
+				reader.readAsDataURL(file);
+			});
+
+			document.getElementById("qualityInput").addEventListener("input", function (event) {
+				document.getElementById("qualityValue").textContent = event.target.value;
+			});
+
+			document.getElementById("compressBtn").addEventListener("click", function () {
+				const downloadLink = document.getElementById("downloadLink");
+				downloadLink.style.display = "block";
+				downloadLink.href = document.getElementById("compressedImage").src;
+				downloadLink.download = originalFileName; // 使用原始文件名
+			});
+
+			function compressImage(image, fileType) {
+				const canvas = document.createElement("canvas");
+				const scale = 0.5; // 壓縮比例，可調整
+				const quality = parseFloat(document.getElementById("qualityInput").value);
+				canvas.width = image.width * scale;
+				canvas.height = image.height * scale;
+
+				const ctx = canvas.getContext("2d");
+				ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+				const compressedImage = document.getElementById("compressedImage");
+				const format = fileType.split("/")[1]; // 提取文件類型
+
+				if (format.toLowerCase() === "jpeg" || format.toLowerCase() === "jpg") {
+					compressedImage.src = canvas.toDataURL(`image/jpeg`, quality);
+				} else {
+					compressedImage.src = canvas.toDataURL(`image/${format}`);
+				}
+			}
+		</script>
+	</body>
+</html>
