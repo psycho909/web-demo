@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Radio Button Example</title>
+		<script src="path/to/your/javascript.js"></script>
+	</head>
+	<body>
+		<label> <input type="radio" name="option" id="optionA" onclick="handleRadio(this)" /> 選項 A </label>
+		<label> <input type="radio" name="option" id="optionB" onclick="handleRadio(this)" /> 選項 B </label>
+		<script>
+			let lastChecked;
+
+			function handleRadio(radio) {
+				if (radio === lastChecked) {
+					radio.checked = false;
+					lastChecked = null;
+				} else {
+					lastChecked = radio;
+				}
+			}
+		</script>
+	</body>
+</html>

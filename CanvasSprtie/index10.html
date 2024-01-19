@@ -181,12 +181,25 @@
 				.catch(function (error) {
 					console.error("動畫加載失敗:", error);
 				});
-			$("#play").on("click", function () {
-				sprite.Run().then((res) => {
-					console.log(res);
+			b.PreLoad("./B.png")
+				.then(function () {
+					// 圖片加載成功後播放動畫
+					// sprite.Run(5); // 動畫在 5 秒內播放完
+					b.Draw(0);
+				})
+				.catch(function (error) {
+					console.error("動畫加載失敗:", error);
 				});
-				sprite2.Run().then((res) => {
-					console.log(res);
+
+			$("#play").on("click", function () {
+				b.Run().then((res) => {
+					b.target.hide();
+					a.target.show();
+					a.Run().then((res) => {
+						a.target.hide();
+						s.target.show();
+						s.Run().then((res) => {});
+					});
 				});
 			});
 			$("#stop").on("click", function () {
