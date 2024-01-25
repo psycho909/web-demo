@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			*,
+			*:before,
+			*:after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				margin: 10px;
+				line-height: 1.2;
+			}
+
+			.container {
+				display: grid;
+				grid-gap: 1rem;
+				grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+				grid-auto-rows: 1rem;
+				list-style: none;
+			}
+
+			.item {
+				border-radius: 0.5rem;
+			}
+			.item:nth-child(4n + 1) {
+				background-color: #5b9bd5;
+			}
+			.item:nth-child(4n + 2) {
+				background-color: #ed7d31;
+			}
+			.item:nth-child(4n + 3) {
+				background-color: #ffc000;
+			}
+			.item:nth-child(4n) {
+				background-color: #70ad47;
+			}
+
+			.content {
+				padding: 1rem;
+			}
+
+			h3 {
+				font-size: 20px;
+				font-weight: bold;
+				padding-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="container">
+			<li class="item item1">
+				<div class="content">
+					<h3>1.</h3>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam voluptatibus hic laborum ea maiores, harum nobis. Placeat numquam ad laboriosam esse est porro, cum deserunt velit libero beatae quam necessitatibus. Iste sapiente commodi est labore amet quae rerum magni! Alias eum molestias sint nostrum optio ipsam quia delectus sunt. Rerum
+				</div>
+			</li>
+			<li class="item">
+				<div class="content">
+					<h3>2.</h3>
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus dolore natus ea
+				</div>
+			</li>
+			<li class="item">
+				<div class="content">
+					<h3>3.</h3>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum consectetur dicta velit dolore pariatur provident magni, natus officia
+				</div>
+			</li>
+			<li class="item">
+				<div class="content">
+					<h3>4.</h3>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi labore fugiat cupiditate totam, excepturi sit blanditiis magni nulla eaque, minima voluptatum, quaerat perferendis non harum atque provident expedita. Rem, reprehenderit?
+				</div>
+			</li>
+		</ul>
+		<script>
+			const grid = document.querySelector(".container");
+			const style = window.getComputedStyle(grid);
+			const allItems = document.querySelectorAll(".item");
+			const resizeGridItem = (item) => {
+				rowHeight = parseInt(style.getPropertyValue("grid-auto-rows"));
+				rowGap = parseInt(style.getPropertyValue("grid-row-gap"));
+				rowSpan = Math.ceil((item.querySelector(".content").getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
+				console.log(rowHeight + rowGap);
+			};
+			const resizeAllGridItems = () => {
+				allItems.forEach((ele) => {
+					resizeGridItem(ele);
+				});
+			};
+		</script>
+	</body>
+</html>

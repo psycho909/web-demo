@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			.waterfall {
+				column-count: 2; /* 這裡設置列數為2 */
+				column-gap: 20px; /* 這裡設置列之間的間隙 */
+			}
+
+			.item {
+				background-color: #f2f2f2; /* 設置背景顏色 */
+				margin-bottom: 20px; /* 每個項目之間的間隙 */
+				break-inside: avoid; /* 防止項目被分割到兩列 */
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="waterfall">
+			<div class="item">
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+			</div>
+			<div class="item">
+				<p>內容 2</p>
+				<p>內容 2</p>
+			</div>
+			<div class="item">
+				<p>內容 3</p>
+				<p>內容 3</p>
+				<p>內容 3</p>
+			</div>
+			<div class="item">
+				<p>內容 4</p>
+				<p>內容 4</p>
+			</div>
+			<div class="item">
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+			</div>
+		</div>
+	</body>
+</html>

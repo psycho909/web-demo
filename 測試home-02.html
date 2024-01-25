@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#container {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+			.item {
+				width: 50%; /* 兩列布局 */
+				box-sizing: border-box;
+				padding: 10px; /* 或任何你需要的內邊距 */
+				border: 1px solid #000;
+			}
+			.column {
+				width: 50%; /* 两列布局 */
+				float: left; /* 或者使用 flexbox */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div class="item">
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+				<p>內容 1</p>
+			</div>
+			<div class="item">
+				<p>內容 2</p>
+				<p>內容 2</p>
+			</div>
+			<div class="item">
+				<p>內容 3</p>
+				<p>內容 3</p>
+				<p>內容 3</p>
+			</div>
+			<div class="item">
+				<p>內容 4</p>
+				<p>內容 4</p>
+			</div>
+			<div class="item">
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+				<p>內容 5</p>
+			</div>
+		</div>
+		<script>
+			function adjustWaterfallLayout() {
+				const container = document.getElementById("container");
+				const items = document.querySelectorAll(".item");
+				const columns = [[], []]; // 存储两列的元素
+				const columnHeights = [0, 0]; // 两列的当前高度
+
+				items.forEach((item) => {
+					// 选择当前高度最小的列
+					const columnIndex = columnHeights[0] <= columnHeights[1] ? 0 : 1;
+
+					// 添加 div 到最短的列
+					columns[columnIndex].push(item);
+					columnHeights[columnIndex] += item.offsetHeight; // 获取实际高度
+				});
+
+				// 清空容器并重新添加元素
+				container.innerHTML = "";
+				columns.forEach((column) => {
+					const columnDiv = document.createElement("div");
+					columnDiv.className = "column";
+					column.forEach((item) => {
+						columnDiv.appendChild(item);
+					});
+					container.appendChild(columnDiv);
+				});
+			}
+
+			window.addEventListener("load", adjustWaterfallLayout);
+			window.addEventListener("resize", adjustWaterfallLayout);
+
+			// 新增内容的函数
+			function addNewItem(content) {
+				const newItem = document.createElement("div");
+				newItem.className = "item";
+				newItem.innerHTML = content;
+
+				document.getElementById("container").appendChild(newItem);
+				adjustWaterfallLayout(); // 重新调整布局
+			}
+		</script>
+	</body>
+</html>
