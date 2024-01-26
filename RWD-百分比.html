@@ -1,147 +1,166 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        #app{
-            width: 100%;
-            background-color: #eee;
-        }
-        .wrap{
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .w-50{
-            width: 50%;
-        }
-        .w-100{
-            width: 100%;
-        }
-        .ball{
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background-color: green;
-            margin: 0 auto;
-        }
-        .box-img{
-            width: 390px;
-            margin: 0 auto;
-        }
-        .box-img img{
-            width: 100%;
-            display: block;
-        }
-        header{
-            width: 100%;
-            max-width: 900px;
-            height: 0;
-            padding-bottom: 600px;
-            background-image: url('images/pexels-photo-6721422.jpg');
-            background-repeat: no-repeat;
-            background-position: center center;
-            margin: 0 auto;
-            background-size: contain;
-        }
-        .ball-img{
-            width: 208px;
-            height: 208px;
-            border-radius: 50%;
-            background-color: red;
-            text-align: center;
-            position: relative;
-            margin: 0 auto;
-        }
-        .ball-img img{
-            display: inline-block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-        }
-        @media screen and (max-width:1000px){
-            header{
-                padding-bottom: 60vw;
-            }
-            .ball{
-                width: 20vw;
-                height: 0;
-                padding-bottom: 20vw;
-            }
-            .box-img{
-                width: 39vw;
-            }
-            .ball-img{
-                width: 20.8vw;
-                height: 20.8vw;
-            }
-            .ball-img img{
-                width: 12.7vw;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <div class="wrap">
-            <header class="w-100">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			#app {
+				width: 100%;
+				background-color: #eee;
+			}
+			.wrap {
+				max-width: 1000px;
+				width: 100%;
+				margin: 0 auto;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.w-50 {
+				width: 50%;
+			}
+			.w-100 {
+				width: 100%;
+			}
+			.ball {
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				background-color: green;
+				margin: 0 auto;
+			}
+			.box-img {
+				width: 390px;
+				margin: 0 auto;
+			}
+			.box-img img {
+				width: 100%;
+				display: block;
+			}
+			header {
+				width: 100%;
+				max-width: 900px;
+				height: 0;
+				padding-bottom: 600px;
+				background-image: url("images/pexels-photo-6721422.jpg");
+				background-repeat: no-repeat;
+				background-position: center center;
+				margin: 0 auto;
+				background-size: contain;
+			}
+			.ball-img {
+				width: 208px;
+				height: 208px;
+				border-radius: 50%;
+				background-color: red;
+				text-align: center;
+				position: relative;
+				margin: 0 auto;
+			}
+			.ball-img img {
+				display: inline-block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			@media screen and (max-width: 1000px) {
+				header {
+					padding-bottom: 60vw;
+				}
+				.ball {
+					width: 20vw;
+					height: 0;
+					padding-bottom: 20vw;
+				}
+				.box-img {
+					width: 39vw;
+				}
+				.ball-img {
+					width: 20.8vw;
+					height: 20.8vw;
+				}
+				.ball-img img {
+					width: 12.7vw;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="wrap">
+				<header class="w-100"></header>
+				<div class="box w-50">
+					<div class="ball"></div>
+				</div>
+				<div class="box w-50">
+					<div class="ball"></div>
+				</div>
+				<div class="box w-100">
+					<div class="ball-img">
+						<img src="images/page1-btn-bf.png" alt="" />
+					</div>
+				</div>
+				<div class="box w-100">
+					<div class="box-img">
+						<img src="images/1.jpg" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
 
-            </header>
-            <div class="box w-50">
-                <div class="ball"></div>
-            </div>
-            <div class="box w-50">
-                <div class="ball"></div>
-            </div>
-            <div class="box w-100">
-                <div class="ball-img">
-                    <img src="images/page1-btn-bf.png" alt="">
-                </div>
-            </div>
-            <div class="box w-100">
-                <div class="box-img">
-                    <img src="images/1.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+		<script>
+			var runTime = (function () {
+				var runStatus = false;
+				var i = 0;
+				var runTime = function () {
+					i++;
+					console.log(i);
+				};
+				var oneMinRun = function (time) {
+					setInterval(function () {
+						if (runStatus) {
+							runTime();
+						}
+					}, time);
+				};
+				var init = function () {
+					runStatus = true;
+					runTime();
+					oneMinRun(1000);
+				};
+				return {
+					init: init
+				};
+			})();
+			runTime.init();
 
-    <script>
-    var runTime=(function(){
-        var runStatus=false;
-        var i=0
-        var runTime=function(){
-            i++;
-            console.log(i)
-        }
-        var oneMinRun=function(time){
-            setInterval(function(){
-                if(runStatus){
-                    runTime()
-                }
-            },time)
-        }
-        var init=function(){
-            runStatus=true;
-            runTime()
-            oneMinRun(1000)
-        }
-        return {
-            init:init
-        }
-    })()
-    runTime.init()
-    </script>
-</body>
+			// 倒數計時器，從10~0，到0後停止倒數
+			var countDown = (function () {
+				var countDown = function (time) {
+					var i = time;
+					var countDown = setInterval(function () {
+						console.log(i);
+						i--;
+						if (i < 0) {
+							clearInterval(countDown);
+						}
+					}, 1000);
+				};
+				var init = function () {
+					countDown(10);
+				};
+				return {
+					init: init
+				};
+			})();
+			countDown.init();
+		</script>
+	</body>
 </html>

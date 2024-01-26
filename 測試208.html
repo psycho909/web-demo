@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, 60px);
+			}
+			.item1 {
+				background-color: red;
+			}
+			.item2 {
+				background-color: green;
+			}
+			.item3 {
+				background-color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="fit-content loader"></div> -->
+		<div class="grid">
+			<div class="item item1">item1</div>
+			<div class="item item2">item2</div>
+			<div class="item item3">item3</div>
+		</div>
+		<script>
+			javascript: (function () {
+				var container = document.createElement("div");
+				container.style.position = "fixed";
+				container.style.top = "10px";
+				container.style.right = "10px";
+				container.style.zIndex = "9999";
+				container.style.backgroundColor = "white";
+				container.style.borderRadius = "10px";
+				container.style.padding = "10px";
+				container.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.3)";
+				container.style.display = "flex";
+				container.style.alignItems = "center";
+				var colorInput = document.createElement("input");
+				colorInput.type = "color";
+				colorInput.style.width = "30px";
+				colorInput.style.height = "30px";
+				colorInput.style.marginRight = "10px";
+				var copyButton = document.createElement("button");
+				copyButton.textContent = "Copy";
+				copyButton.style.padding = "5px 10px";
+				copyButton.style.marginRight = "10px";
+				copyButton.style.backgroundColor = "#4CAF50";
+				copyButton.style.color = "white";
+				copyButton.style.border = "none";
+				copyButton.style.borderRadius = "5px";
+				copyButton.style.cursor = "pointer";
+				var closeButton = document.createElement("button");
+				closeButton.textContent = "Close";
+				closeButton.style.padding = "5px 10px";
+				closeButton.style.backgroundColor = "#f44336";
+				closeButton.style.color = "white";
+				closeButton.style.border = "none";
+				closeButton.style.borderRadius = "5px";
+				closeButton.style.cursor = "pointer";
+				copyButton.addEventListener("click", function () {
+					var color = colorInput.value;
+					var tempInput = document.createElement("input");
+					tempInput.value = color;
+					document.body.appendChild(tempInput);
+					tempInput.select();
+					document.execCommand("copy");
+					document.body.removeChild(tempInput);
+					alert("Color copied to clipboard: " + color);
+				});
+				closeButton.addEventListener("click", function () {
+					container.remove();
+				});
+				container.appendChild(colorInput);
+				container.appendChild(copyButton);
+				container.appendChild(closeButton);
+				document.body.appendChild(container);
+			})();
+
+			console.log(Array(10000).fill({ Guid: 10106, ItemName: "星光裝備保護卷軸" }));
+			`
+            生活開銷：15000 元
+            投資：15000 元
+            娛樂：5000 元
+            長期儲蓄：10000 元
+            汽車保險：2000 元
+            約會：3000 元
+            `;
+		</script>
+	</body>
+</html>
