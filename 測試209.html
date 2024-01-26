@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				background-color: #000;
+			}
+
+			.arrow-next {
+				width: 8px;
+				height: 15px;
+				/* background-image: url("./images/arrow-nexr.png"); */
+				position: relative;
+			}
+			.arrow-next:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 4px;
+				transform: rotate(-45deg);
+				background-color: #fff;
+				width: 1px;
+				height: 9px;
+			}
+			.arrow-next:after {
+				content: "";
+				position: absolute;
+				top: 7px;
+				left: 4px;
+				transform: rotate(-135deg);
+				background-color: #fff;
+				width: 1px;
+				height: 9px;
+			}
+			.arrow-prev {
+				width: 8px;
+				height: 15px;
+				/* background-image: url("./images/arrow-prev.png"); */
+				position: relative;
+			}
+			.arrow-prev:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 4px;
+				transform: rotate(45deg);
+				background-color: #fff;
+				width: 1px;
+				height: 9px;
+			}
+			.arrow-prev:after {
+				content: "";
+				position: absolute;
+				top: 7px;
+				left: 4px;
+				transform: rotate(135deg);
+				background-color: #fff;
+				width: 1px;
+				height: 9px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="arrow-next"></div> -->
+		<!-- <div class="arrow-prev"></div> -->
+		<div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">Slide 1</div>
+				<div class="swiper-slide">Slide 2</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">Slide 5</div>
+				<div class="swiper-slide">Slide 6</div>
+				<div class="swiper-slide">Slide 7</div>
+				<div class="swiper-slide">Slide 8</div>
+				<div class="swiper-slide">Slide 9</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</body>
+</html>
