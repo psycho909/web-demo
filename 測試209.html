@@ -3,84 +3,70 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			body {
-				background-color: #000;
-			}
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content="{{description}}" />
+		<!-- 除了H5活動頁以外都要加上 -->
+		<meta name="open-default-browser" content="true" />
 
-			.arrow-next {
-				width: 8px;
-				height: 15px;
-				/* background-image: url("./images/arrow-nexr.png"); */
-				position: relative;
-			}
-			.arrow-next:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 4px;
-				transform: rotate(-45deg);
-				background-color: #fff;
-				width: 1px;
-				height: 9px;
-			}
-			.arrow-next:after {
-				content: "";
-				position: absolute;
-				top: 7px;
-				left: 4px;
-				transform: rotate(-135deg);
-				background-color: #fff;
-				width: 1px;
-				height: 9px;
-			}
-			.arrow-prev {
-				width: 8px;
-				height: 15px;
-				/* background-image: url("./images/arrow-prev.png"); */
-				position: relative;
-			}
-			.arrow-prev:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 4px;
-				transform: rotate(45deg);
-				background-color: #fff;
-				width: 1px;
-				height: 9px;
-			}
-			.arrow-prev:after {
-				content: "";
-				position: absolute;
-				top: 7px;
-				left: 4px;
-				transform: rotate(135deg);
-				background-color: #fff;
-				width: 1px;
-				height: 9px;
-			}
-		</style>
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="{{title}}" />
+		<meta property="og:description" content="{{description}}" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="{{url}}/assets/images/og-image.jpg" />
+
+		<title>{{title}}</title>
+		<!-- CSS -->
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
+		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
 	</head>
+
 	<body>
-		<!-- <div class="arrow-next"></div> -->
-		<!-- <div class="arrow-prev"></div> -->
-		<div class="swiper mySwiper">
+		<div class="swiper ngm-box">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide">Slide 1</div>
-				<div class="swiper-slide">Slide 2</div>
-				<div class="swiper-slide">Slide 3</div>
-				<div class="swiper-slide">Slide 4</div>
-				<div class="swiper-slide">Slide 5</div>
-				<div class="swiper-slide">Slide 6</div>
-				<div class="swiper-slide">Slide 7</div>
-				<div class="swiper-slide">Slide 8</div>
-				<div class="swiper-slide">Slide 9</div>
+				<div class="swiper-slide">
+					<a href="https://wp.nexon.com/info/class" target="_blank">
+						<img src="./images/01.jpg" alt="" />
+					</a>
+				</div>
+				<div class="swiper-slide">
+					<a href="https://wp.nexon.com/news/notice" target="_blank">
+						<img src="./images/02.jpg" alt="" />
+					</a>
+				</div>
 			</div>
-			<div class="swiper-button-next"></div>
-			<div class="swiper-button-prev"></div>
 			<div class="swiper-pagination"></div>
 		</div>
+
+		<script>
+			var swiper = new Swiper(".ngm-box", {
+				pagination: {
+					el: ".swiper-pagination",
+					type: "custom",
+					renderCustom: function (swiper, current, total) {
+						return `<div class="ngm-pagination-custom-box"><span class="swiper-button-next"></span><span>${current}</span> / <span>${total}</span><span class="swiper-button-prev"></span></div>`;
+					}
+				}
+				// navigation: {
+				// 	nextEl: ".swiper-button-next",
+				// 	prevEl: ".swiper-button-prev"
+				// }
+			});
+
+			// swiper.navigation.nextEl=".swiper-button-next"
+		</script>
 	</body>
 </html>
