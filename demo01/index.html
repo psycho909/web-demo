@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <meta name="viewport" content="width=750,user-scalable=0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="description" content="{{description}}" />
+		<!-- 除了H5活動頁以外都要加上 -->
+		<meta name="open-default-browser" content="true" />
+
+		<!-- fb meta -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="{{title}}" />
+		<meta property="og:description" content="{{description}}" />
+		<!-- Safari 數字過常會變成可撥打電話 -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- 1200x628 -->
+		<meta property="og:image" content="{{url}}/assets/images/og-image.jpg" />
+
+		<title>{{title}}</title>
+		<!-- CSS -->
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="./assets/css/default.css" />
+
+		<!-- JS -->
+		<!-- jQuery -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/isMobile/isMobile.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<!-- 如果有載入topBar.js則不需要，因為topBar.js已自帶GA_CodeNew.js -->
+		<script language="javascript" src="https://tw.beanfun.com/js/GA_CodeNew.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
+	</head>
+
+	<body>
+		<div class="swiper ngm-box">
+			<div class="swiper-wrapper"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<script>
+			// var swiper = new Swiper(".ngm-box", {
+			// 	loop: true,
+			// 	pagination: {
+			// 		el: ".swiper-pagination",
+			// 		type: "custom",
+			// 		renderCustom: function (swiper, current, total) {
+			// 			var html = `<div class="ngm-pagination-custom-box">
+			// 				<span class="swiper-button-next"></span>
+			// 				<span>${current}</span> / <span>${total}</span>
+			// 				<span class="swiper-button-prev"></span>
+			// 			</div>`;
+			// 			setTimeout(function () {
+			// 				document.querySelector(".swiper-button-next").addEventListener("click", function () {
+			// 					swiper.slideNext();
+			// 				});
+
+			// 				document.querySelector(".swiper-button-prev").addEventListener("click", function () {
+			// 					swiper.slidePrev();
+			// 				});
+			// 			}, 0);
+			// 			return html;
+			// 		}
+			// 	}
+			// });
+			function initializeSwiperWithBannerList(apiUrl) {
+				axios
+					.get(apiUrl)
+					.then(function (response) {
+						var bannerList = [
+							{ banner: "./assets/images/01.jpg", url: "https://wp.nexon.com/info/class" },
+							{ banner: "./assets/images/02.jpg", url: "https://wp.nexon.com/info/notice" }
+						];
+						var swiperWrapper = document.querySelector(".swiper-wrapper");
+
+						// 清空現有的幻燈片（如果有）
+						swiperWrapper.innerHTML = "";
+
+						// 為每個 banner 創建一個幻燈片
+						bannerList.forEach(function (banner) {
+							var slide = document.createElement("div");
+							slide.className = "swiper-slide";
+							slide.innerHTML = `<a href="${banner.url}" target="_blank">
+                                   <img src="${banner.banner}" alt="" />
+                               </a>`;
+							swiperWrapper.appendChild(slide);
+						});
+
+						// 重新初始化 Swiper
+						new Swiper(".ngm-box", {
+							loop: true,
+							pagination: {
+								el: ".swiper-pagination",
+								type: "custom",
+								renderCustom: function (swiper, current, total) {
+									var html = `<div class="ngm-pagination-custom-box">
+                                    <span class="ngm-button-prev"></span>
+                                    <span>${current}</span> / <span>${total}</span>
+                                    <span class="ngm-button-next"></span>
+                                </div>`;
+									setTimeout(function () {
+										document.querySelector(".ngm-button-next").addEventListener("click", function () {
+											swiper.slideNext();
+										});
+
+										document.querySelector(".ngm-button-prev").addEventListener("click", function () {
+											swiper.slidePrev();
+										});
+									}, 0);
+									return html;
+								}
+							}
+						});
+					})
+					.catch(function (error) {
+						console.error("載入 banner 列表失敗:", error);
+					});
+			}
+
+			// 使用這個函數，你只需提供 API 的 URL 即可
+			initializeSwiperWithBannerList("https://randomuser.me/api/");
+		</script>
+	</body>
+</html>
