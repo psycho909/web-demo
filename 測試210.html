@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.11.5/gsap.min.js"></script>
+		<style>
+			body {
+				background-color: #000;
+			}
+			.box {
+				width: 108px;
+				height: 111px;
+				background-size: cover;
+				background-image: url("./images/gift3.png");
+			}
+			.animate__animated {
+				animation-duration: 2s;
+				animation-iteration-count: infinite;
+			}
+			.animate__giftMove {
+				animation-name: giftMove;
+			}
+			.animate__giftJump {
+				animation-name: giftJump;
+			}
+			@keyframes giftMove {
+				0% {
+					transform: scaleX(1);
+				}
+				30% {
+					transform: scale3d(1, 0.95, 1);
+				}
+				40% {
+					transform: scale3d(0.95, 1.05, 1);
+				}
+				50% {
+					transform: scale3d(1.05, 0.85, 1);
+				}
+				65% {
+					transform: scale3d(0.95, 1.05, 1);
+				}
+				75% {
+					transform: scale3d(1.05, 0.95, 1);
+				}
+				100% {
+					transform: scaleX(1);
+				}
+			}
+
+			@keyframes giftJump {
+				0%,
+				20%,
+				53%,
+				100% {
+					animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+					transform: translateZ(0);
+				}
+				40%,
+				43% {
+					animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+					transform: translate3d(0, -10px, 0) scaleY(1.1);
+				}
+				70% {
+					animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+					transform: translate3d(0, -7px, 0) scaleY(1.05);
+				}
+				80% {
+					transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+					transform: translateZ(0) scaleY(0.95);
+				}
+				90% {
+					transform: translate3d(0, -4px, 0) scaleY(1.02);
+				}
+			}
+			.light {
+				width: 970px;
+				height: 1131px;
+				background-image: url("./images/light.png");
+				opacity: 0; /* 開始時不可見 */
+				transform: scale(0); /* 開始時縮小 */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box animate__animated animate__giftJump"></div>
+		<div class="box animate__animated animate__giftMove"></div>
+		<div class="light"></div>
+		<script>
+			light();
+			function light() {
+				const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+				// 添加淡入放大動畫
+				tl.fromTo(
+					".light",
+					{ opacity: 0, scale: 0 }, // 開始狀態
+					{
+						opacity: 1,
+						scale: 1,
+						duration: 0.5, // 持續時間 (秒)
+						ease: "power2.out" // 緩動函數
+					}
+				);
+
+				// 添加淡出縮小動畫
+				tl.to(".light", {
+					opacity: 0,
+					scale: 0,
+					duration: 0.5, // 持續時間 (秒)
+					ease: "power2.in" // 緩動函數
+				});
+				// gsap.fromTo(
+				// 	".light",
+				// 	{ opacity: 0, scale: 0 }, // 開始狀態
+				// 	{
+				// 		opacity: 1,
+				// 		scale: 1,
+				// 		duration: 0.5, // 持續時間 (秒)
+				// 		ease: "power2.out", // 緩動函數
+				// 		onComplete: () => {
+				// 			// 完成後執行淡出縮小
+				// 			gsap.to(".light", {
+				// 				opacity: 0,
+				// 				scale: 0,
+				// 				duration: 0.5,
+				// 				ease: "power2.in"
+				// 			});
+				// 		}
+				// 	}
+				// );
+			}
+		</script>
+	</body>
+</html>
