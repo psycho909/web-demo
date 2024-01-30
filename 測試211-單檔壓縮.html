@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+	</head>
+	<body>
+		<input type="file" accept="image/*" onchange="handleImageUpload(event);" />
+		<p id="main-thread-log"></p>
+		<script>
+			let logDom = document.querySelector("#main-thread-log");
+			function uploadToServer() {}
+			async function handleImageUpload(event) {
+				const file = event.target.files[0];
+				console.log("originalFile instanceof Blob", file instanceof Blob); // true
+				console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+				logDom.innerHTML = "Source image size:" + (file.size / 1024 / 1024).toFixed(2) + "mb";
+				const options = {
+					useWebWorker: true,
+					initialQuality: 0.6
+				};
+				imageCompression(file, options)
+					.then(function (output) {
+						logDom.innerHTML += ", output size:" + (output.size / 1024 / 1024).toFixed(2) + "mb";
+						console.log("output", output);
+						const downloadLink = URL.createObjectURL(output);
+						logDom.innerHTML += '&nbsp;<a href="' + downloadLink + '" download="' + file.name + '">download compressed image</a>';
+						// document.getElementById('preview-after-compress').src = downloadLink
+						return uploadToServer(output);
+					})
+					.catch(function (error) {
+						alert(error.message);
+					});
+			}
+		</script>
+	</body>
+</html>

@@ -49,7 +49,7 @@
 
 			function compressImage(image, fileType, fileName, zip) {
 				const canvas = document.createElement("canvas");
-				const scale = 0.5; // 壓縮比例
+				const scale = 1; // 壓縮比例
 				const quality = parseFloat(document.getElementById("qualityInput").value);
 				canvas.width = image.width * scale;
 				canvas.height = image.height * scale;

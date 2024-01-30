@@ -85,13 +85,33 @@
 		</style>
 	</head>
 	<body>
-		<div class="box animate__animated animate__giftJump"></div>
+		<div class="box gift"></div>
 		<div class="box animate__animated animate__giftMove"></div>
 		<div class="light"></div>
 		<script>
 			light();
+			gift();
+			function gift() {
+				// 設置總持續時間，以秒為單位
+				const totalDuration = 2;
+
+				// 創建一個時間線
+				const tl = gsap.timeline({
+					repeat: -1,
+					repeatDelay: 3 - totalDuration // 每次動畫後等待的時間
+				});
+
+				// 添加關鍵幀動畫
+				tl.to(".gift", { transform: "scaleX(1)", duration: 0.3 * totalDuration })
+					.to(".gift", { transform: "scale3d(1, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(".gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(".gift", { transform: "scale3d(1.05, 0.85, 1)", duration: 0.15 * totalDuration })
+					.to(".gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(".gift", { transform: "scale3d(1.05, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(".gift", { transform: "scaleX(1)", duration: 0.25 * totalDuration });
+			}
 			function light() {
-				const tl = gsap.timeline({ repeat: -1, yoyo: true });
+				const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
 
 				// 添加淡入放大動畫
 				tl.fromTo(
