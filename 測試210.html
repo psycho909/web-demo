@@ -82,10 +82,79 @@
 				opacity: 0; /* 開始時不可見 */
 				transform: scale(0); /* 開始時縮小 */
 			}
+			.gift {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				z-index: 1;
+			}
+			.gift1 {
+				width: 137px;
+				height: 107px;
+				left: -20px;
+				background-size: cover;
+				background-image: url("./images/gift1.png");
+				margin-top: -5px;
+			}
+			.gift2 {
+				width: 107px;
+				height: 110px;
+				background-size: cover;
+				background-image: url("./images/gift2.png");
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			.gift3 {
+				width: 108px;
+				height: 111px;
+				background-size: cover;
+				background-image: url("./images/gift3.png");
+				left: 100%;
+				margin-left: -108px;
+			}
+			.bar-box {
+				position: relative;
+				width: 742px;
+				margin-top: 200px;
+				margin-left: 100px;
+			}
+			.bar {
+				width: 742px;
+				height: 61px;
+				position: relative;
+				background-color: #206155;
+				border-radius: 100vmax;
+			}
+			.bar-progress {
+				width: calc(var(--progress, 0) * 1%);
+				height: 61px;
+				background-color: #ffc400;
+				border-radius: 100vmax;
+				box-shadow: inset 0 0 0 14px #206155;
+				position: relative;
+			}
+			.bar-progress:before {
+				content: "";
+				position: absolute;
+				top: 22px;
+				right: 28px;
+				background-color: #fff;
+				width: calc(100% - 56px);
+				height: 10px;
+				border-radius: 100vmax;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="box gift"></div>
+		<div class="bar-box">
+			<span class="gift gift1"></span>
+			<span class="gift gift2"></span>
+			<span class="gift gift3"></span>
+			<div class="bar" style="--progress: 0">
+				<div class="bar-progress"></div>
+			</div>
+		</div>
+		<div class="box anim-gift"></div>
 		<div class="box animate__animated animate__giftMove"></div>
 		<div class="light"></div>
 		<script>
@@ -102,13 +171,13 @@
 				});
 
 				// 添加關鍵幀動畫
-				tl.to(".gift", { transform: "scaleX(1)", duration: 0.3 * totalDuration })
-					.to(".gift", { transform: "scale3d(1, 0.95, 1)", duration: 0.1 * totalDuration })
-					.to(".gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
-					.to(".gift", { transform: "scale3d(1.05, 0.85, 1)", duration: 0.15 * totalDuration })
-					.to(".gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
-					.to(".gift", { transform: "scale3d(1.05, 0.95, 1)", duration: 0.1 * totalDuration })
-					.to(".gift", { transform: "scaleX(1)", duration: 0.25 * totalDuration });
+				tl.to(".anim-gift", { transform: "scaleX(1)", duration: 0.3 * totalDuration })
+					.to(".anim-gift", { transform: "scale3d(1, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(".anim-gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(".anim-gift", { transform: "scale3d(1.05, 0.85, 1)", duration: 0.15 * totalDuration })
+					.to(".anim-gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(".anim-gift", { transform: "scale3d(1.05, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(".anim-gift", { transform: "scaleX(1)", duration: 0.25 * totalDuration });
 			}
 			function light() {
 				const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
