@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.grid {
+				width: 600px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 6px;
+			}
+			.flex {
+				width: 600px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+			}
+			.grid-item {
+				background: yellow;
+				flex: min(calc(33% - 6px), calc(100% - 6px));
+			}
+			.box {
+				border: 1px solid #000;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="javascript:;" class="box">
+			<p>123</p>
+			<p>123</p>
+			<p>123</p>
+			<p>123</p>
+		</a>
+		<div class="flex">
+			<div class="grid-item">按鈕1</div>
+			<div class="grid-item">按鈕2</div>
+			<div class="grid-item">按鈕3</div>
+			<div class="grid-item">按鈕4</div>
+			<div class="grid-item">按鈕5</div>
+			<div class="grid-item">按鈕6</div>
+			<div class="grid-item">按鈕7</div>
+			<div class="grid-item">按鈕8</div>
+		</div>
+	</body>
+</html>
