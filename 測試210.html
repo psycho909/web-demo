@@ -87,30 +87,45 @@
 				top: 50%;
 				transform: translateY(-50%);
 				z-index: 1;
+				background-size: cover;
+			}
+			.gift span {
+				display: block;
+			}
+			.gift-item1 {
+				width: 137px;
+				height: 107px;
+				left: -20px;
+				margin-top: -5px;
 			}
 			.gift1 {
 				width: 137px;
 				height: 107px;
-				left: -20px;
-				background-size: cover;
 				background-image: url("./images/gift1.png");
-				margin-top: -5px;
+			}
+			.gift-item2 {
+				width: 107px;
+				height: 110px;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
 			.gift2 {
 				width: 107px;
 				height: 110px;
 				background-size: cover;
 				background-image: url("./images/gift2.png");
-				left: 50%;
-				transform: translate(-50%, -50%);
+			}
+			.gift-item3 {
+				width: 108px;
+				height: 111px;
+				left: 100%;
+				margin-left: -108px;
 			}
 			.gift3 {
 				width: 108px;
 				height: 111px;
 				background-size: cover;
 				background-image: url("./images/gift3.png");
-				left: 100%;
-				margin-left: -108px;
 			}
 			.bar-box {
 				position: relative;
@@ -147,9 +162,15 @@
 	</head>
 	<body>
 		<div class="bar-box">
-			<span class="gift gift1"></span>
-			<span class="gift gift2"></span>
-			<span class="gift gift3"></span>
+			<div class="gift gift-item1">
+				<span class="gift1"></span>
+			</div>
+			<div class="gift gift-item2">
+				<span class="gift2"></span>
+			</div>
+			<div class="gift gift-item3">
+				<span class="gift3"></span>
+			</div>
 			<div class="bar" style="--progress: 0">
 				<div class="bar-progress"></div>
 			</div>
@@ -159,8 +180,8 @@
 		<div class="light"></div>
 		<script>
 			light();
-			gift();
-			function gift() {
+			// gift(".gift2");
+			function gift(target) {
 				// 設置總持續時間，以秒為單位
 				const totalDuration = 2;
 
@@ -171,13 +192,13 @@
 				});
 
 				// 添加關鍵幀動畫
-				tl.to(".anim-gift", { transform: "scaleX(1)", duration: 0.3 * totalDuration })
-					.to(".anim-gift", { transform: "scale3d(1, 0.95, 1)", duration: 0.1 * totalDuration })
-					.to(".anim-gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
-					.to(".anim-gift", { transform: "scale3d(1.05, 0.85, 1)", duration: 0.15 * totalDuration })
-					.to(".anim-gift", { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
-					.to(".anim-gift", { transform: "scale3d(1.05, 0.95, 1)", duration: 0.1 * totalDuration })
-					.to(".anim-gift", { transform: "scaleX(1)", duration: 0.25 * totalDuration });
+				tl.to(target, { transform: "scaleX(1)", duration: 0.3 * totalDuration })
+					.to(target, { transform: "scale3d(1, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(target, { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(target, { transform: "scale3d(1.05, 0.85, 1)", duration: 0.15 * totalDuration })
+					.to(target, { transform: "scale3d(0.95, 1.05, 1)", duration: 0.1 * totalDuration })
+					.to(target, { transform: "scale3d(1.05, 0.95, 1)", duration: 0.1 * totalDuration })
+					.to(target, { transform: "scaleX(1)", duration: 0.25 * totalDuration });
 			}
 			function light() {
 				const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
@@ -201,25 +222,6 @@
 					duration: 0.5, // 持續時間 (秒)
 					ease: "power2.in" // 緩動函數
 				});
-				// gsap.fromTo(
-				// 	".light",
-				// 	{ opacity: 0, scale: 0 }, // 開始狀態
-				// 	{
-				// 		opacity: 1,
-				// 		scale: 1,
-				// 		duration: 0.5, // 持續時間 (秒)
-				// 		ease: "power2.out", // 緩動函數
-				// 		onComplete: () => {
-				// 			// 完成後執行淡出縮小
-				// 			gsap.to(".light", {
-				// 				opacity: 0,
-				// 				scale: 0,
-				// 				duration: 0.5,
-				// 				ease: "power2.in"
-				// 			});
-				// 		}
-				// 	}
-				// );
 			}
 		</script>
 	</body>
