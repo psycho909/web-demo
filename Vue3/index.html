@@ -17,6 +17,8 @@
 	<body>
 		<div id="app">{{message}} {{count}} <button @click="increment">add</button></div>
 		<script type="module">
+			console.log(123);
+
 			import { MessageLB } from "./lightbox.js";
 			import { useCounterStore } from "./store.js";
 			const pinia = Pinia.createPinia();
@@ -28,6 +30,9 @@
 					const increment = () => {
 						store.increment();
 						MessageLB(21312321);
+						setTimeout(() => {
+							location.href = "https://www.google.com";
+						}, 0);
 					};
 					return {
 						count,

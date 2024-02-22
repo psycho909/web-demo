@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<style>
+			.block {
+				margin: 16px 8px;
+				border: 1px solid #333333;
+			}
+			.auto-height {
+				background: rgb(204, 204, 204);
+				display: grid;
+				grid-template-rows: 0fr;
+				transition: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+			}
+			.auto-height {
+				&.open {
+					grid-template-rows: 1fr;
+				}
+			}
+			.box {
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="block">
+			<div class="block-title">
+				<div class="content">AAABBBCCC</div>
+				<div class="content">DDDEEEFFDSF</div>
+			</div>
+			<div class="auto-height">
+				<div class="box">
+					<div class="content">
+						从0到auto
+						<br />
+						从0到auto
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function () {
+				$(".block-title").click(function () {
+					$(".auto-height").toggleClass("open");
+				});
+			});
+		</script>
+	</body>
+</html>

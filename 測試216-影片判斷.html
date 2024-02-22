@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			async function checkVideo(url) {
+				// 判斷URL是否可能指向影片
+				const videoExtensions = [".mp4", ".avi", ".flv", ".mov", ".wmv", ".mkv"];
+				const isVideo = videoExtensions.some((extension) => url.endsWith(extension));
+				if (!isVideo) {
+					return { isVideo: false, canPlay: false, fileSize: null, corsError: false, sizeError: false };
+				}
+
+				try {
+					const response = await fetch(url, { method: "HEAD", mode: "cors" });
+					if (!response.ok) throw new Error("Network response was not ok.");
+
+					const contentType = response.headers.get("Content-Type");
+					const fileSize = parseInt(response.headers.get("Content-Length"), 10);
+					const canPlay = contentType && contentType.startsWith("video/");
+					const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+					const sizeError = fileSize > maxSize;
+
+					return { isVideo: true, canPlay: canPlay && !sizeError, fileSize, corsError: false, sizeError };
+				} catch (error) {
+					console.error("Error fetching video info:", error);
+					const isCorsError = error instanceof TypeError && error.message.includes("fetch");
+					return { isVideo: true, canPlay: false, fileSize: null, corsError: isCorsError, sizeError: false };
+				}
+			}
+
+			// 使用範例
+			checkVideo("https://warsofprasia.beanfun.com/pre-web/assets/img/pc/intro.mp4").then((info) => console.log(info));
+			checkVideo("https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-1.mp4").then((info) => console.log(info));
+		</script>
+	</body>
+</html>
