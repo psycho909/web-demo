@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue-demi/0.14.7/index.iife.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/pinia/2.1.7/pinia.iife.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+	</head>
+	<body>
+		<div id="app">{{message}} {{count}} <button @click="increment">add</button></div>
+		<script type="module">
+			import { MessageLB } from "./lightbox.js";
+			import { useCounterStore } from "./store.js";
+			const pinia = Pinia.createPinia();
+			const { storeToRefs } = Pinia;
+			const app = Vue.createApp({
+				setup() {
+					const store = useCounterStore();
+					const { count } = storeToRefs(store);
+					const increment = () => {
+						store.increment();
+						MessageLB(21312321);
+					};
+					return {
+						count,
+						increment
+					};
+				},
+				data() {
+					return {
+						message: "Hello Vue3"
+					};
+				}
+			});
+			app.use(pinia);
+			app.mount("#app");
+		</script>
+	</body>
+</html>

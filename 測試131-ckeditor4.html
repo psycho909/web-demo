@@ -5,20 +5,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<!-- <script src="https://alpha-tw.beanfun.com/3KO/removable/pchome/plugins/ckeditor/5/ckeditor.js"></script> -->
-		<script src="https://tw.hicdn.beanfun.com/plugins/ckeditor/5/ckeditor.js"></script>
+		<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 	</head>
 	<body>
 		<div class="btn">btn</div>
-		<div id="myButton">按鈕</div>
 		<script>
 			$(".btn").on("click", function () {
 				LB();
 			});
-			let editor;
 			function LB(msg, url, callback) {
 				var config = {
 					addClass: "default",
@@ -28,33 +26,28 @@
 						$.gbox.close();
 					},
 					afterOpen: function () {
-						ClassicEditor.create(document.querySelector(".editor"), {
-							toolbar: {
-								items: ["bold", "italic", "link"]
+						$.ajax({
+							url: "https://randomuser.me/api/",
+							dataType: "json",
+							success: function (data) {
+								CKEDITOR.replace("editor2");
 							}
-						})
-							.then((editor) => {
-								window.Content_Update = editor;
-							})
-							.catch((error) => {
-								console.error(error);
-							});
-						setTimeout(() => {
-							Content_Update.setData("123213");
-						}, 0);
+						});
 					},
 					actionBtns: [
 						{
-							text: "text1",
+							text: "text2",
 							class: "myButton",
 							click: function () {
-								$.gbox.close();
+								let data = CKEDITOR.instances.editor2.getData();
+								console.log(data);
+								// $.gbox.close();
 							}
 						}
 					]
 				};
 
-				var HTML = `<div class="editor"></div>`;
+				var HTML = `<textarea name="editor2"></textarea>`;
 				$.gbox.open(HTML, config);
 			}
 			LB();
