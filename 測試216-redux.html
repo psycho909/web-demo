@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button id="decrement">-</button>
+		<span id="count">0</span>
+		<button id="increment">+</button>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js" integrity="sha512-1/8Tj23BRrWnKZXeBruk6wTnsMJbi/lJsk9bsRgVwb6j5q39n0A00gFjbCTaDo5l5XrPVv4DZXftrJExhRF/Ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script>
+			// 1.定義reducer
+			const reducer = (state = { count: 0 }, action) => {
+				if (action.type === "INCREMENT") {
+					return { count: state.count + 1 };
+				}
+				if (action.type === "DECREMENT") {
+					return { count: state.count - 1 };
+				}
+				return state;
+			};
+			// 2.創建store
+			const store = Redux.createStore(reducer);
+
+			// 3.訂閱store
+			// 回調函數可在每次state改變時執行
+			// 5.渲染state
+			store.subscribe(() => {
+				console.log("state change", store.getState());
+				document.getElementById("count").innerText = store.getState().count;
+			});
+
+			// 4.更新state
+			const inBtn = document.getElementById("increment");
+			inBtn.addEventListener("click", () => {
+				store.dispatch({ type: "INCREMENT" });
+			});
+			const deBtn = document.getElementById("decrement");
+			deBtn.addEventListener("click", () => {
+				store.dispatch({ type: "DECREMENT" });
+			});
+		</script>
+	</body>
+</html>
