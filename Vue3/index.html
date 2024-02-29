@@ -15,10 +15,12 @@
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 	</head>
 	<body>
-		<div id="app">{{message}} {{count}} <button @click="increment">add</button></div>
+		<div id="app">
+			{{message}} {{count}}
+			<button @click="increment">add</button>
+			<button @click="decrement">sub</button>
+		</div>
 		<script type="module">
-			console.log(123);
-
 			import { MessageLB } from "./lightbox.js";
 			import { useCounterStore } from "./store.js";
 			const pinia = Pinia.createPinia();
@@ -30,13 +32,17 @@
 					const increment = () => {
 						store.increment();
 						MessageLB(21312321);
-						setTimeout(() => {
-							location.href = "https://www.google.com";
-						}, 0);
+						// setTimeout(() => {
+						// 	location.href = "https://www.google.com";
+						// }, 0);
+					};
+					const decrement = () => {
+						store.decrement();
 					};
 					return {
 						count,
-						increment
+						increment,
+						decrement
 					};
 				},
 				data() {
