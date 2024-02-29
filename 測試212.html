@@ -48,5 +48,24 @@
 			<div class="grid-item">按鈕7</div>
 			<div class="grid-item">按鈕8</div>
 		</div>
+		<script>
+			async function waitFun() {
+				setTimeout(() => {
+					return 1;
+				}, 1000);
+			}
+			function promiseFun() {
+				return new Promise((resolve, reject) => {
+					setTimeout(() => {
+						resolve(1);
+					}, 1000);
+				});
+			}
+			async function RunFun() {
+				let a = await promiseFun();
+				console.log(a);
+			}
+			RunFun();
+		</script>
 	</body>
 </html>

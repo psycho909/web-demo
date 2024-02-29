@@ -10,6 +10,13 @@ export const useCounterStore = defineStore("counter", {
 		},
 		decrement() {
 			this.count--;
+		},
+		promiseFun() {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(1);
+				}, 3000);
+			});
 		}
 	}
 });
