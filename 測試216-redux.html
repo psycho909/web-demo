@@ -27,6 +27,7 @@
 			// 3.訂閱store
 			// 回調函數可在每次state改變時執行
 			// 5.渲染state
+			// 6.測試
 			store.subscribe(() => {
 				console.log("state change", store.getState());
 				document.getElementById("count").innerText = store.getState().count;
