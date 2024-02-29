@@ -7,6 +7,16 @@ export const useCounterStore = defineStore("counter", {
 	actions: {
 		increment() {
 			this.count++;
+		},
+		decrement() {
+			this.count--;
+		},
+		promiseFun() {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(1);
+				}, 3000);
+			});
 		}
 	}
 });

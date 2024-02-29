@@ -15,38 +15,11 @@
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 	</head>
 	<body>
-		<div id="app">{{message}} {{count}} <button @click="increment">add</button></div>
-		<script type="module">
-			console.log(123);
-
-			import { MessageLB } from "./lightbox.js";
-			import { useCounterStore } from "./store.js";
-			const pinia = Pinia.createPinia();
-			const { storeToRefs } = Pinia;
-			const app = Vue.createApp({
-				setup() {
-					const store = useCounterStore();
-					const { count } = storeToRefs(store);
-					const increment = () => {
-						store.increment();
-						MessageLB(21312321);
-						setTimeout(() => {
-							location.href = "https://www.google.com";
-						}, 0);
-					};
-					return {
-						count,
-						increment
-					};
-				},
-				data() {
-					return {
-						message: "Hello Vue3"
-					};
-				}
-			});
-			app.use(pinia);
-			app.mount("#app");
-		</script>
+		<div id="app">
+			{{message}} {{count}}
+			<button @click="increment">add</button>
+			<button @click="decrement">sub</button>
+		</div>
+		<script type="module" src="./app.js"></script>
 	</body>
 </html>
