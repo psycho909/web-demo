@@ -1,0 +1,1 @@
+import{b9 as n,O as r,c as i,b4 as l,bb as c}from"./entry.JhK8AsVu.js";const d=n(async(t,e)=>{const a=r(),o=i(),s=t.fullPath===e.fullPath;return o.isClient&&a.open("준비중 입니다."),s?l("/"):c()});export{d as default};

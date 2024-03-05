@@ -20,7 +20,7 @@
 			* {
 				padding: 0;
 				margin: 0;
-				background-color: #000;
+				background-color: orangered;
 			}
 			.page--records-territory {
 				height: calc(var(--maxvh-without-navtop));
@@ -40,6 +40,12 @@
 				height: 100%;
 				width: 100%;
 			}
+			.territory-map__filter {
+				height: 0;
+				overflow: hidden;
+				visibility: hidden;
+				width: 0;
+			}
 			.territory-map__canvas {
 				box-sizing: border-box;
 				display: inline-flex;
@@ -47,13 +53,14 @@
 				position: relative;
 				width: 100%;
 			}
-			.map-area-2 > ._border[data-v-b44e1f3e] {
+			.map-area-2 > ._border {
 				box-sizing: border-box;
 				display: inline-flex;
 				position: absolute;
 				transform: translate3d(-50%, -50%, 0);
+				cursor: pointer;
 			}
-			.map-area-2 > ._border path[data-v-b44e1f3e] {
+			.map-area-2 > ._border path {
 				stroke-width: 1;
 				display: inline-block;
 				height: 100%;
@@ -63,12 +70,39 @@
 				stroke-dasharray: 0 3 0;
 				stroke: #ffffff80;
 			}
+			.map-area-2 > ._border.-hover path {
+				fill: url(#gradient-occupy-elf-border);
+				stroke: #ffffffe6;
+				stroke-width: 2;
+				stroke-dasharray: 0;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="page--records-territory">
-			<div class="layout__wrap">
+		<div class="page--records-territory" data-v-b44e1f3e>
+			<div class="layout__wrap" data-v-b44e1f3e>
 				<div class="territory-map">
+					<svg class="territory-map__filter" data-v-b44e1f3e="">
+						<defs data-v-b44e1f3e="">
+							<linearGradient id="gradient-hover-border" gradientTransform="rotate(90)" data-v-b44e1f3e="">
+								<stop offset="0%" stop-color="rgba(255,255,255,0.3)" data-v-b44e1f3e=""></stop>
+								<stop offset="110%" stop-color="rgba(255,238,204,1)" data-v-b44e1f3e=""></stop>
+							</linearGradient>
+						</defs>
+						<defs data-v-b44e1f3e="">
+							<linearGradient id="gradient-select-border" gradientTransform="rotate(90)" data-v-b44e1f3e="">
+								<stop offset="0%" stop-color="rgba(255,255,255,0.3)" data-v-b44e1f3e=""></stop>
+								<stop offset="110%" stop-color="rgba(255,178,64,1)" data-v-b44e1f3e=""></stop>
+							</linearGradient>
+						</defs>
+						<defs data-v-b44e1f3e="">
+							<linearGradient id="gradient-occupy-elf-border" gradientTransform="rotate(90)" data-v-b44e1f3e="">
+								<stop offset="0%" stop-color="rgba(31,26,18,0)" data-v-b44e1f3e=""></stop>
+								<stop offset="110%" stop-color="rgba(31,26,18,0.89)" data-v-b44e1f3e=""></stop>
+							</linearGradient>
+						</defs>
+					</svg>
+					<div class="map-area-2"></div>
 					<div class="territory-map__canvas">
 						<div class="map-area-2" data-v-b44e1f3e="" style="will-change: transform; box-sizing: border-box; position: absolute; left: 0px; top: 0px; pointer-events: none; width: 4095px; height: 4096px; transform-origin: 0px 0px; transform: translate3d(-499px, -1059px, 0px) scale(0.71)">
 							<!--[-->
@@ -96,7 +130,7 @@
 							<div data-v-b44e1f3e="" class="_border -occupy-elf" style="left: 56.4347%; top: 68.2373%">
 								<svg data-v-b44e1f3e="" xmlns="http://www.w3.org/2000/svg" width="399.67" height="273.23" viewBox="0 0 399.67 273.23" style="transform: scale(1)"><path data-v-b44e1f3e="" fill-rule="evenodd" clip-rule="evenodd" d="M26.8022 0.4375C70.3876 0.962941 113.989 1.48838 157.574 2.01382C197.137 9.01795 236.704 16.0273 276.267 23.0315C306.549 28.1125 336.842 33.1882 367.124 38.2692C377.975 51.752 388.835 65.2454 399.686 78.7282C399.334 104.47 398.987 130.221 398.635 155.968C372.555 195.197 346.463 234.437 320.382 273.667C262.444 270.162 204.484 266.663 146.545 263.158C137.617 229.356 128.689 195.549 119.761 161.748C98.0545 161.222 76.3432 160.697 54.6372 160.172C36.4342 153.514 18.2206 146.862 0.0175781 140.205C8.94578 93.6192 17.874 47.0231 26.8022 0.4375Z"></path></svg>
 							</div>
-							<div data-v-b44e1f3e="" class="_border -occupy-elf" style="left: 48.7912%; top: 50.8545%">
+							<div data-v-b44e1f3e="" class="_border -hover -occupy-elf" style="left: 48.7912%; top: 50.8545%">
 								<svg data-v-b44e1f3e="" xmlns="http://www.w3.org/2000/svg" width="340.32" height="263.77" viewBox="0 0 340.32 263.77" style="transform: scale(1)"><path data-v-b44e1f3e="" fill-rule="evenodd" clip-rule="evenodd" d="M169.476 0.245117C192.584 1.46939 215.692 2.69893 238.801 3.9232C244.767 4.82171 256.011 2.15247 259.808 5.49953C286.766 41.9283 313.729 78.3624 340.687 114.791C321.959 159.096 303.22 203.417 284.492 247.728C249.656 246.151 214.815 244.575 179.98 242.999C144.619 241.774 109.252 240.545 73.8916 239.321C49.3863 247.554 24.8705 255.783 0.365234 264.016C0.890423 213.054 1.41561 162.076 1.9408 111.113C17.8698 92.1973 33.804 73.2814 49.7329 54.3655C89.642 36.3271 129.567 18.2835 169.476 0.245117Z"></path></svg>
 							</div>
 							<div data-v-b44e1f3e="" class="_border" style="left: 61.0256%; top: 57.4951%">
