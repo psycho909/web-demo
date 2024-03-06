@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				background-color: #000;
+			}
+			.button-box {
+				width: 376px;
+				height: 191px;
+				background-image: url("./images/part3-main-btn3-bg.png");
+				position: relative;
+				filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 36px rgba(255, 255, 255, 0.5));
+				background-color: transparent;
+			}
+			.button {
+				width: 298px;
+				height: 94px;
+				border-radius: 46px;
+				font-size: 0;
+				background-image: linear-gradient(to bottom, #ffffff, #dbbcba);
+				box-shadow: 0 4px 0 #bd5265, inset 0 -4px 4px #d7b7b4;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				top: 50px;
+				left: 50%;
+				transform: translateX(-50%);
+				animation: shadow-animation 2s ease-in-out infinite;
+			}
+			.button-inner {
+				width: 280px;
+				height: 80px;
+				border-radius: 40px;
+				/* border: 2px solid #bd5265; */
+				/* box-shadow: 0 0px 2px #d69aa0, 0 2px 2px #d69aa0, inset 0 -3px 3px rgba(0, 0, 0, 0.2); */
+				cursor: pointer;
+				background-image: linear-gradient(to bottom, #ffffff 0%, #ffdfe8 100%);
+				position: relative;
+			}
+			.button-inner:before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-image: linear-gradient(to bottom, #ffffff 0%, #ff6790 100%);
+				animation: fadeOut 2s ease-in-out infinite alternate;
+				border-radius: 40px;
+			}
+			.button-inner:after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				border-radius: 40px;
+				box-shadow: 0 0px 2px #d69aa0, 0 2px 2px #d69aa0, inset 0 -3px 3px rgba(75, 75, 75, 0.25);
+				border: 2px solid #bd5265;
+				box-sizing: border-box;
+			}
+			.button-text {
+				width: 216px;
+				height: 57px;
+				background-image: url("./images/button-text.png");
+				background-size: cover;
+				background-position: center center;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: transparent;
+			}
+			@keyframes fadeOut {
+				to {
+					opacity: 0;
+				}
+			}
+			@keyframes shadow-animation {
+				0%,
+				100% {
+					filter: drop-shadow(0 0 0px white);
+				}
+				50% {
+					filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 9px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="button-box">
+			<div class="button">
+				<div class="button-inner"><div class="button-text"></div></div>
+			</div>
+		</div>
+		<script>
+			const getBrowserLocales = (options = {}) => {
+				const defaultOptions = {
+					languageCodeOnly: true
+				};
+				const opt = {
+					...defaultOptions,
+					...options
+				};
+				const browserLocales = navigator.languages === undefined ? [navigator.language] : navigator.languages;
+				if (!browserLocales) {
+					return undefined;
+				}
+				return browserLocales.map((locale) => {
+					const trimmedLocale = locale.trim();
+					return opt.languageCodeOnly ? trimmedLocale.split(/-|_/)[0] : trimmedLocale;
+				});
+			};
+			var json = {
+				listData: null,
+				data: {
+					approvedSeq: 1,
+					eventSeq: 1,
+					gameseq: 9,
+					gameName: "\u65B0\u6953\u4E4B\u8C37",
+					eventName: "test",
+					cookie: 1,
+					header: 1,
+					webtitle: "test",
+					webDescription: "",
+					ogTitle: "",
+					ogDescription: "",
+					ogUrl: "",
+					ga: "",
+					gtm: "",
+					url: null,
+					pageTypeSeq: 1,
+					detail: "[{\u0022component\u0022:\u0022GLang\u0022,\u0022uid\u0022:\u00225301e361-adf0-4b19-8553-8a2a253fed46\u0022,\u0022content\u0022:{\u0022default\u0022:\u0022\u0022,\u0022theme\u0022:0,\u0022langs\u0022:[{\u0022name\u0022:\u0022\u4E2D\u6587\u0022,\u0022url\u0022:\u0022https://www.google.com.tw/\u0022,\u0022val\u0022:\u0022zh\u0022},{\u0022name\u0022:\u0022\u0022,\u0022url\u0022:\u0022\u0022}]},\u0022update\u0022:false,\u0022init\u0022:false,\u0022first\u0022:false},{\u0022component\u0022:\u0022GBg\u0022,\u0022uid\u0022:1,\u0022content\u0022:{\u0022color\u0022:\u0022#fff\u0022,\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022\u0022,\u0022w\u0022:1920,\u0022h\u0022:420,\u0022mw\u0022:\u0022\u0022,\u0022mh\u0022:\u0022\u0022,\u0022validPC\u0022:true,\u0022validMobile\u0022:true},\u0022update\u0022:false,\u0022init\u0022:false},{\u0022component\u0022:\u0022GSlogan\u0022,\u0022uid\u0022:\u002248e4a9f5-dfbd-4b93-bca7-0851dcdb0268\u0022,\u0022content\u0022:{\u0022link\u0022:\u0022\u0022,\u0022mt\u0022:\u0022250\u0022,\u0022mb\u0022:\u002224\u0022,\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022\u0022,\u0022validPC\u0022:true,\u0022validMobile\u0022:true,\u0022validUrl\u0022:true},\u0022update\u0022:false,\u0022init\u0022:false,\u0022first\u0022:false},{\u0022component\u0022:\u0022GText\u0022,\u0022uid\u0022:\u002280c41f76-46c1-4e6a-a428-53660c1473d9\u0022,\u0022content\u0022:{\u0022align\u0022:\u0022left\u0022,\u0022style\u0022:\u0022red1\u0022,\u0022text\u0022:\u0022\u003Cp\u003E\u55E8 \u54C8\u54C8 123\u003C/p\u003E\u003Cp\u003E1231321\u6578\u5B57\u003C/p\u003E\u003Cp\u003Eadsda\u82F1\u6587\u003C/p\u003E\u003Cp\u003EADSAFSA\u82F1\u6587\u003C/p\u003E\u003Cp\u003E\uFF0C\u3002\u6A19\u9EDE\u7B26\u865F\u003C/p\u003E\u0022,\u0022mt\u0022:0,\u0022mb\u0022:54},\u0022update\u0022:false,\u0022init\u0022:false},{\u0022component\u0022:\u0022GSlide\u0022,\u0022uid\u0022:\u0022f70184d5-dcc6-46a8-ace6-b28946b55b21\u0022,\u0022content\u0022:{\u0022mb\u0022:54,\u0022mt\u0022:0,\u0022num\u0022:\u00222\u0022,\u0022autoplay\u0022:{\u0022open\u0022:false,\u0022delay\u0022:2,\u0022validDelay\u0022:true},\u0022slides\u0022:[{\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022open\u0022:false,\u0022url\u0022:\u0022\u0022,\u0022attribute\u0022:false,\u0022validPC\u0022:true,\u0022validMobile\u0022:true,\u0022validUrl\u0022:true},{\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022open\u0022:false,\u0022url\u0022:\u0022\u0022,\u0022attribute\u0022:false,\u0022validPC\u0022:true,\u0022validMobile\u0022:true,\u0022validUrl\u0022:true},{\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022\u0022,\u0022open\u0022:false,\u0022url\u0022:\u0022\u0022,\u0022attribute\u0022:false,\u0022validPC\u0022:true,\u0022validMobile\u0022:true,\u0022validUrl\u0022:true},{\u0022pc\u0022:\u0022https://tw.hicdn.beanfun.com/beanfun/WebImage/1676557784325.png\u0022,\u0022mobile\u0022:\u0022\u0022,\u0022open\u0022:false,\u0022url\u0022:\u0022\u0022,\u0022attribute\u0022:false,\u0022validPC\u0022:true,\u0022validMobile\u0022:true,\u0022validUrl\u0022:true}]},\u0022update\u0022:false,\u0022init\u0022:false},{\u0022component\u0022:\u0022GVideo\u0022,\u0022uid\u0022:\u00224319eb89-f095-434a-a693-6ab61eb11677\u0022,\u0022content\u0022:{\u0022num\u0022:1,\u0022preview\u0022:false,\u0022type\u0022:\u0022click\u0022,\u0022mt\u0022:0,\u0022videos\u0022:[{\u0022url\u0022:\u0022https://youtu.be/tJuhUqu4FZ8\u0022,\u0022show\u0022:false,\u0022validUrl\u0022:true}]},\u0022update\u0022:false,\u0022init\u0022:false}]",
+					beginDate: "2023-02-18T14:23:00",
+					endDate: "2023-02-23T14:23:00",
+					show: 1,
+					footer: 0,
+					gA4Name: "maplestory"
+				},
+				code: 1,
+				message: null,
+				url: null
+			};
+
+			let _data = json;
+			let { code, message, url, data } = _data;
+			let filterData = JSON.parse(data.detail).filter((v, i) => {
+				return v.component == "GLang";
+			});
+		</script>
+	</body>
+</html>
