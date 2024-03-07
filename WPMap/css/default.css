@@ -1,0 +1,433 @@
+:root {
+  --maxvh: 942px;
+  --maxvh-without-navtop: 793px;
+  --navtop-gap: 149px;
+  --navtop-height: 149px;
+  --nexon-gnb-height: 63px;
+  --nexon-gnb-gap: 63px;
+  --gnb-height: 86px;
+  --gnb-gap: 86px;
+  --event-gnb-height: 0px;
+  --event-gnb-gap: 0;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: orangered;
+}
+
+.page--records-territory {
+  height: calc(var(--maxvh-without-navtop));
+  overflow: hidden;
+  width: 100%;
+}
+
+.layout__wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
+.territory-map {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.territory-map__filter {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+
+.territory-map__canvas {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.map-area-1 ._land {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 50px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 25px 40px;
+  pointer-events: all;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  -o-transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  will-change: transform;
+  border: none;
+  background-color: transparent;
+}
+
+.map-area-1 ._land ._land-effect {
+  border-radius: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 30px;
+  left: 50%;
+  position: absolute;
+  top: 72%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+  -webkit-transition: opacity 0.5s ease 0.4s;
+  -o-transition: opacity 0.5s ease 0.4s;
+  transition: opacity 0.5s ease 0.4s;
+  width: 60px;
+  nimation-delay: 79ms;
+}
+
+.map-area-1 ._land ._land-effect:before {
+  border: 4px solid rgba(255, 255, 255, 0.7019607843);
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 30px 19px rgba(255, 255, 255, 0.7019607843);
+          box-shadow: 0 0 30px 19px rgba(255, 255, 255, 0.7019607843);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+          transform: scale(0.6);
+  width: 100%;
+}
+
+.map-area-1 ._land ._land-effect span {
+  -webkit-animation: wave-b44e1f3e 1.5s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+          animation: wave-b44e1f3e 1.5s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+  border: 3px solid #fff;
+  border-radius: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: inline-block;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.map-area-1 ._land ._land-effect span:nth-child(2) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+
+.map-area-1 ._land ._land-effect span:nth-child(3) {
+  -webkit-animation-delay: 0.65s;
+          animation-delay: 0.65s;
+}
+
+.map-area-1 ._land ._land-badge {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-filter: drop-shadow(0 4px 9px rgba(0, 0, 0, 0.5));
+          filter: drop-shadow(0 4px 9px rgba(0, 0, 0, 0.5));
+  height: 47px;
+  -webkit-transform: translateZ(0) scale(0.95);
+          transform: translateZ(0) scale(0.95);
+  -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  -o-transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  width: 35px;
+}
+
+.map-area-1 ._land ._land-badge.type--fortress {
+  background-image: url(./images/img_landbadge_fortress.png);
+}
+
+.map-area-1 ._land ._land-badge.type--garrison {
+  background-image: url(./images/img_landbadge_garrison.png);
+}
+
+.map-area-1 ._land ._land-more {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  bottom: -7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+  -webkit-transform: translate3d(-50%, 15px, 0);
+          transform: translate3d(-50%, 15px, 0);
+  -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  white-space: nowrap;
+}
+
+.map-area-1 ._land ._land-more ._land-name {
+  color: #302923;
+  font-family: WarsOfPrasia, serif;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(34, 17, 1, 0.3490196078);
+  border-radius: 9999px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 5px 14px 4px;
+  pointer-events: none;
+  -webkit-transform: translate3d(0, 5px, 0);
+          transform: translate3d(0, 5px, 0);
+  -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name p {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name ._land-plus {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.5019607843);
+  border: 2px solid rgba(0, 0, 0, 0.3019607843);
+  border-radius: 9999px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 5px;
+  margin-right: -8px;
+  margin-top: -1px;
+  opacity: 0;
+  position: relative;
+  -webkit-transform: translate3d(-15px, 0, 0);
+          transform: translate3d(-15px, 0, 0);
+  -webkit-transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  -o-transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 20px;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name ._land-plus > span {
+  -webkit-animation: outRing-b44e1f3e 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+          animation: outRing-b44e1f3e 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 10px;
+  margin-top: 3px;
+  width: 10px;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name ._land-plus i {
+  background-color: #fff;
+  height: 10px;
+  width: 10px;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name ._land-plus:nth-child(2) {
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+
+.map-area-1 ._land ._land-more ._land-guild-name ._land-plus i {
+  background-color: #fff;
+  height: 10px;
+  width: 10px;
+}
+
+.map-area-2 > ._border {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+  cursor: pointer;
+}
+
+.map-area-2 > ._border path {
+  stroke-width: 1;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  fill: rgba(0, 0, 0, 0);
+  -webkit-transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
+  transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
+  -o-transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
+  transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
+  transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
+  stroke-dasharray: 0 3 0;
+  stroke: rgba(255, 255, 255, 0.5019607843);
+}
+
+.map-area-2 > ._border.-hover path {
+  fill: url(#gradient-occupy-elf-border);
+  stroke: rgba(255, 255, 255, 0.9019607843);
+  stroke-width: 2;
+  stroke-dasharray: 0;
+}
+
+.map-canvas {
+  pointer-events: none;
+}
+
+.territory-map__scale {
+  bottom: 50px;
+  position: absolute;
+  right: 44px;
+  grid-gap: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@-webkit-keyframes wave-b44e1f3e {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes wave-b44e1f3e {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@-webkit-keyframes outRing-b44e1f3e {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes outRing-b44e1f3e {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}

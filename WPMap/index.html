@@ -4,268 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<style>
-			:root {
-				--maxvh: 942px;
-				--maxvh-without-navtop: 793px;
-				--navtop-gap: 149px;
-				--navtop-height: 149px;
-				--nexon-gnb-height: 63px;
-				--nexon-gnb-gap: 63px;
-				--gnb-height: 86px;
-				--gnb-gap: 86px;
-				--event-gnb-height: 0px;
-				--event-gnb-gap: 0;
-			}
-			* {
-				padding: 0;
-				margin: 0;
-			}
-			body {
-				background-color: orangered;
-			}
-			.page--records-territory {
-				height: calc(var(--maxvh-without-navtop));
-				overflow: hidden;
-				width: 100%;
-			}
-			.layout__wrap {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				padding-left: 0;
-				padding-right: 0;
-				width: 100%;
-			}
-			.territory-map {
-				box-sizing: border-box;
-				height: 100%;
-				width: 100%;
-			}
-			.territory-map__filter {
-				height: 0;
-				overflow: hidden;
-				visibility: hidden;
-				width: 0;
-			}
-			.territory-map__canvas {
-				box-sizing: border-box;
-				display: inline-flex;
-				height: 100%;
-				position: relative;
-				width: 100%;
-			}
-			.map-area-1 ._land {
-				align-items: center;
-				border-radius: 50px;
-				cursor: pointer;
-				display: inline-flex;
-				flex-direction: column;
-				justify-content: center;
-				padding: 25px 40px;
-				pointer-events: all;
-				position: absolute;
-				transform: translate3d(-50%, -50%, 0);
-				transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-				-webkit-user-select: none;
-				user-select: none;
-				will-change: transform;
-				border: none;
-				background-color: transparent;
-			}
-			.map-area-1 ._land ._land-effect {
-				border-radius: 100%;
-				box-sizing: border-box;
-				display: inline-flex;
-				height: 30px;
-				left: 50%;
-				position: absolute;
-				top: 72%;
-				transform: translate3d(-50%, -50%, 0);
-				transition: opacity 0.5s ease 0.4s;
-				width: 60px;
-				nimation-delay: 79ms;
-			}
-			.map-area-1 ._land ._land-effect:before {
-				border: 4px solid #ffffffb3;
-				border-radius: inherit;
-				box-shadow: 0 0 30px 19px #ffffffb3;
-				box-sizing: border-box;
-				content: "";
-				display: inline-block;
-				height: 100%;
-				left: 0;
-				top: 0;
-				transform: scale(0.6);
-				width: 100%;
-			}
-			.map-area-1 ._land ._land-effect span {
-				animation: wave-b44e1f3e 1.5s cubic-bezier(0.33, 1, 0.68, 1) infinite;
-				border: 3px solid #fff;
-				border-radius: inherit;
-				box-sizing: border-box;
-				display: inline-block;
-				height: 100%;
-				left: 0;
-				opacity: 0;
-				position: absolute;
-				top: 0;
-				width: 100%;
-			}
-			.map-area-1 ._land ._land-effect span:nth-child(2) {
-				animation-delay: 0.4s;
-			}
-			.map-area-1 ._land ._land-effect span:nth-child(3) {
-				animation-delay: 0.65s;
-			}
-			.map-area-1 ._land ._land-badge {
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-				background-size: contain;
-				filter: drop-shadow(0 4px 9px rgba(0, 0, 0, 0.5));
-				height: 47px;
-				transform: translateZ(0) scale(0.95);
-				transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
-				width: 35px;
-			}
-			.map-area-1 ._land ._land-badge.type--fortress {
-				background-image: url(https://wp.vod.nexoncdn.co.kr/global/img_landbadge_fortress.png);
-			}
-			.map-area-1 ._land ._land-badge.type--garrison {
-				background-image: url(https://wp.vod.nexoncdn.co.kr/global/img_landbadge_garrison.png);
-			}
-			.map-area-1 ._land ._land-more {
-				align-items: center;
-				bottom: -7px;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				left: 50%;
-				opacity: 0;
-				pointer-events: none;
-				position: absolute;
-				transform: translate3d(-50%, 0, 0);
-				transform: translate3d(-50%, 15px, 0);
-				transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
-				white-space: nowrap;
-			}
-			.map-area-1 ._land ._land-more ._land-name {
-				color: #302923;
-				font-family: WarsOfPrasia, serif;
-				font-size: 19px;
-				line-height: 1;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name {
-				align-items: center;
-				background-color: #22110159;
-				border-radius: 9999px;
-				box-sizing: border-box;
-				display: inline-flex;
-				margin-top: 10px;
-				padding: 5px 14px 4px;
-				pointer-events: none;
-				transform: translate3d(0, 5px, 0);
-				transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name p {
-				color: #fff;
-				font-size: 15px;
-				font-weight: 600;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name ._land-plus {
-				align-items: center;
-				background-color: #00000080;
-				border: 2px solid #0000004d;
-				border-radius: 9999px;
-				box-sizing: border-box;
-				display: inline-flex;
-				height: 20px;
-				justify-content: center;
-				margin-left: 5px;
-				margin-right: -8px;
-				margin-top: -1px;
-				opacity: 0;
-				position: relative;
-				transform: translate3d(-15px, 0, 0);
-				transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-				width: 20px;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name ._land-plus > span {
-				animation: outRing-b44e1f3e 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
-				border: 0.5px solid #0006;
-				border-radius: 9999px;
-				box-sizing: border-box;
-				height: 10px;
-				margin-top: 3px;
-				width: 10px;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name ._land-plus i {
-				background-color: #fff;
-				height: 10px;
-				width: 10px;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name ._land-plus:nth-child(2) {
-				animation-delay: 0.25s;
-			}
-			.map-area-1 ._land ._land-more ._land-guild-name ._land-plus i {
-				background-color: #fff;
-				height: 10px;
-				width: 10px;
-			}
-
-			.map-area-2 > ._border {
-				box-sizing: border-box;
-				display: inline-flex;
-				position: absolute;
-				transform: translate3d(-50%, -50%, 0);
-				cursor: pointer;
-			}
-			.map-area-2 > ._border path {
-				stroke-width: 1;
-				display: inline-block;
-				height: 100%;
-				width: 100%;
-				fill: #0000;
-				transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
-				stroke-dasharray: 0 3 0;
-				stroke: #ffffff80;
-			}
-			.map-area-2 > ._border.-hover path {
-				fill: url(#gradient-occupy-elf-border);
-				stroke: #ffffffe6;
-				stroke-width: 2;
-				stroke-dasharray: 0;
-			}
-			@keyframes wave-b44e1f3e {
-				0% {
-					opacity: 0;
-					transform: scale(0.1);
-				}
-				10% {
-					opacity: 1;
-				}
-				30% {
-					opacity: 1;
-				}
-				100% {
-					opacity: 0;
-					transform: scale(1);
-				}
-			}
-			@keyframes outRing-b44e1f3e {
-				0% {
-					opacity: 0;
-					transform: scale(0.1);
-				}
-				30% {
-					opacity: 1;
-				}
-				100% {
-					opacity: 0;
-					transform: scale(1);
-				}
-			}
-		</style>
+		<link rel="stylesheet" href="./css/default.css" />
 	</head>
 	<body>
 		<div class="page--records-territory" data-v-b44e1f3e>
@@ -624,19 +363,33 @@
 							</div>
 							<!--]-->
 						</div>
+						<canvas class="map-canvas" data-v-b44e1f3e="" width="1912" height="238"></canvas>
+					</div>
+					<div class="territory-map__scale" data-v-b44e1f3e="">
+						<button class="_scale-up" data-v-b44e1f3e=""><i class="i--plus" data-v-b44e1f3e=""></i><span data-v-b44e1f3e="">맵 확대</span></button><button class="_scale-down" data-v-b44e1f3e=""><i class="i--minus" data-v-b44e1f3e=""></i><span data-v-b44e1f3e="">맵 축소</span></button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script>
-			const l = new Image();
-			l.src = "https://wp.vod.nexoncdn.co.kr/page/records/bg_worldmap_1_new.jpg";
-			const p = new de({
-				image: l,
-				frame: Y.value,
-				canvas: V.value,
-				area: Z.value,
-				areaScale: Q.value,
+		<script type="module">
+			const r = {
+				hoverIndex: -1,
+				activeIndex: -1,
+				chainIndexs: [],
+				isActive: !1,
+				isMiniumMap: !1,
+				isMovingMap: !1
+			};
+			// import ImageMap2D from "./js/mapCanvas.js";
+			import ImageMap2D from "./js/mapCanvas2.js";
+			const imageElement = new Image();
+			imageElement.src = "./images/bg_worldmap_1_new.jpg";
+			const p = new ImageMap2D({
+				image: imageElement,
+				frame: document.querySelector(".territory-map"),
+				canvas: document.querySelector(".map-canvas"),
+				area: document.querySelector(".map-area-1"),
+				areaScale: document.querySelector(".map-area-2"),
 				initX: 50,
 				initY: 50,
 				limitCloseoutScale: 0.6,
@@ -663,6 +416,7 @@
 				p.on("changeScale", () => {
 					(r.isMiniumMap = p.focus.scale <= p.default.limitCloseoutScale), r.isMiniumMap && (r.isActive = !1);
 				});
+			p.create();
 		</script>
 	</body>
 </html>
