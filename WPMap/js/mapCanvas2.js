@@ -80,7 +80,6 @@ class ImageMap2D {
 		return s instanceof HTMLCanvasElement ? (t instanceof HTMLImageElement ? ((i.value = !0), i) : ((i.message = "필수: 실행 옵션 객체 내 image에 이미지 객체를 전달해주세요. new ImageMap2D({image: HTMLImageElement})"), i)) : ((i.message = "필수: 실행 옵션 객체 내 canvas에 canvas DOM을 전달해주세요. new ImageMap2D({canvas: HTMLCanvasElement})"), i);
 	}
 	async _init() {
-		console.log(123);
 		await this._setupImage(), this._setupElement(), this._setupEvent();
 	}
 	_setupinitSize() {
