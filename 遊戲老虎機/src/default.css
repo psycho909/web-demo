@@ -50,6 +50,7 @@
 }
 .gift-container.flat.autoTurn {
   -webkit-transition: var(--duration) ease-in-out;
+  -o-transition: var(--duration) ease-in-out;
   transition: var(--duration) ease-in-out;
   -webkit-transform: rotateX(var(--targetDeg));
           transform: rotateX(var(--targetDeg));
@@ -240,6 +241,7 @@ body {
   border-radius: 20px;
   background-color: #ea5e56;
   -webkit-transition: 350ms;
+  -o-transition: 350ms;
   transition: 350ms;
 }
 #SlotMachine .handler .stick2 {
@@ -263,6 +265,7 @@ body {
   background-color: #ea5e56;
   cursor: pointer;
   -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
   animation: ballLight 1s infinite alternate-reverse linear;
 }
@@ -332,6 +335,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
 }
 #SlotMachine .resultList.openResultList {

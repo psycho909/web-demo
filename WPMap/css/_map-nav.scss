@@ -1,0 +1,102 @@
+.page__nav {
+	height: auto;
+	position: relative;
+	width: 100%;
+	&__dimmed {
+		background: linear-gradient(0deg, #0000 2%, #000000c2);
+		box-sizing: border-box;
+		height: 130px;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 2;
+	}
+	&__depth1 {
+		@media (min-width: 769px) {
+			display: none;
+		}
+	}
+	&__depth2 {
+		display: flex;
+		justify-content: center;
+		margin-top: 30px;
+		padding-left: 30px;
+		position: absolute;
+		width: 100%;
+		grid-gap: 10px;
+		box-sizing: border-box;
+		pointer-events: none;
+		z-index: 2;
+		.button--selector {
+			background-color: #0006;
+			border: 1px solid #e3e1e0;
+			cursor: pointer;
+			min-height: 0;
+			padding: 8px 10px;
+			pointer-events: all;
+			position: relative;
+			&:after {
+				box-sizing: border-box;
+				content: "";
+				display: inline-block;
+				display: inline-flex;
+				height: 12px;
+				vertical-align: top;
+				width: 12px;
+				fill: currentColor;
+				background-color: #85827f;
+				background-color: #c2c0be;
+				background-position: 50%;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				background-size: contain;
+				flex: 0 0 auto;
+				margin-left: auto;
+				mask-image: url(../svg/icon_arrow_down.svg);
+				mask-position: center center;
+				-webkit-mask-position: center center;
+				mask-repeat: no-repeat;
+				-webkit-mask-repeat: no-repeat;
+				mask-size: 100% 100%;
+				-webkit-mask-size: 100% 100%;
+				min-height: 5px;
+				min-width: 5px;
+				transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+			}
+			._name {
+				color: #fff;
+				display: inline-block;
+				font-size: 12px;
+				font-weight: 500;
+				height: auto;
+				line-height: 1;
+			}
+			._value {
+				@media (min-width: 769px) {
+					color: #ffcd92;
+					font-size: 14px;
+					font-weight: 600;
+					min-width: 80px;
+					text-align: right;
+				}
+			}
+			.selector {
+				@media (min-width: 769px) {
+					max-height: 360px;
+				}
+				min-width: 100%;
+			}
+		}
+	}
+	&__depth3 {
+		@media (min-width: 769px) {
+			display: none;
+		}
+		background-color: #00000008;
+		border-bottom: 1px solid #0000001a;
+		border-top: 1px solid #0000001a;
+		padding: 10px 0;
+	}
+}

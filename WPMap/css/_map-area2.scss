@@ -1,0 +1,59 @@
+.map-area-2 {
+	._border {
+		box-sizing: border-box;
+		display: inline-flex;
+		position: absolute;
+		transform: translate3d(-50%, -50%, 0);
+		cursor: pointer;
+		path {
+			stroke-width: 1;
+			display: inline-block;
+			height: 100%;
+			width: 100%;
+			fill: #0000;
+			transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
+			stroke-dasharray: 0 3 0;
+			stroke: #ffffff80;
+		}
+		&.-occupy-elf {
+			&.-hover {
+				path {
+					fill: url(#gradient-occupy-elf-border);
+					stroke: #ffffffe6;
+				}
+				&.-select {
+					path {
+						fill: url(#gradient-occupy-elf-border);
+					}
+				}
+			}
+			&.-select {
+				path {
+					fill: url(#gradient-occupy-elf-border);
+					stroke: #ffffffe6;
+				}
+			}
+		}
+		&.-hover {
+			path {
+				stroke-width: 2;
+				stroke-dasharray: 0;
+				stroke: #ffe4bbe6;
+				fill: url(#gradient-hover-border);
+			}
+			&.-select {
+				path {
+					fill: url(#gradient-select-border);
+				}
+			}
+		}
+		&.-select {
+			path {
+				stroke-width: 2;
+				stroke-dasharray: 0;
+				stroke: #ffe4bbe6;
+				fill: url(#gradient-select-border);
+			}
+		}
+	}
+}

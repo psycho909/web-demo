@@ -1,0 +1,260 @@
+.map-detail {
+	box-sizing: border-box;
+	display: flex;
+	left: 50%;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 50%;
+	transform: translate3d(calc(400px - 50%), -50%, 0);
+	transition: opacity 0.2s ease;
+	width: 500px;
+	z-index: 3;
+	&.-active {
+		opacity: 1;
+		pointer-events: all;
+	}
+	&__close {
+		align-items: center;
+		background-color: #0000004d;
+		border: 1px solid #0000001a;
+		border-radius: 100vmax;
+		display: inline-flex;
+		height: 28px;
+		justify-content: center;
+		margin: 11px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 28px;
+		z-index: 3;
+		cursor: pointer;
+		i {
+			background-color: #fff;
+			border-radius: 9999px;
+			height: 15px;
+			width: 15px;
+		}
+		span {
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			width: 1px;
+			clip: rect(0, 0, 0, 0);
+			border-width: 0;
+			white-space: nowrap;
+		}
+	}
+	&__box {
+		background-image: url(../images/bg_pattern_1.jpg);
+		background-repeat: repeat;
+		border-radius: 3px;
+		box-shadow: 0 15px 20px #00000080;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 28px 25px 20px;
+		position: relative;
+		width: 100%;
+	}
+	._guild-info {
+		color: #666;
+		display: flex;
+		flex-direction: column;
+		row-gap: 4px;
+		._name {
+			align-items: center;
+			display: inline-flex;
+			font-size: 15px;
+			font-weight: 500;
+			justify-content: space-between;
+			margin-right: 10px;
+			width: 62px;
+			i {
+				background-color: #666;
+			}
+		}
+		._guild-title {
+			align-items: center;
+			display: flex;
+			i {
+				height: 18px;
+				width: 16px;
+			}
+			._guild-level {
+				align-items: center;
+				border: 1px solid #66666680;
+				border-radius: 9999px;
+				box-sizing: border-box;
+				color: #666;
+				display: inline-flex;
+				font-size: 11px;
+				font-weight: 600;
+				height: 20px;
+				justify-self: center;
+				line-height: 1;
+				padding: 3px 8px 2px;
+			}
+			._guild-name {
+				color: #3e3731;
+				font-size: 18px;
+				font-weight: 500;
+				margin-left: 5px;
+			}
+			._guild-ranking {
+				align-items: center;
+				color: #666;
+				display: inline-flex;
+				font-size: 14px;
+				font-weight: 400;
+				margin-top: 3px;
+				&:before {
+					background-color: #c2c0be;
+					border-radius: 9999px;
+					content: "";
+					display: inline-block;
+					height: 4px;
+					margin: 0 5px;
+					width: 4px;
+				}
+			}
+		}
+		._guild-master {
+			align-items: center;
+			display: inline-flex;
+			font-size: 15px;
+			i {
+				height: 14px;
+				margin-bottom: 1px;
+				margin-left: -2px;
+				width: 19px;
+			}
+		}
+		._guild-member {
+			align-items: center;
+			display: inline-flex;
+			font-size: 15px;
+			i {
+				height: 15px;
+				width: 14px;
+			}
+			strong {
+				color: #66666680;
+				font-weight: inherit;
+			}
+		}
+	}
+	._guild-description {
+		background-color: #e3e1e080;
+		border: 1px solid #00000026;
+		border-radius: 3px;
+		box-sizing: border-box;
+		color: #666;
+		font-size: 13px;
+		margin-top: 18px;
+		padding: 9px 12px 7px;
+		width: 100%;
+		word-wrap: break-word;
+	}
+	._land-info {
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-top: 18px;
+		white-space: nowrap;
+		li {
+			align-items: center;
+			display: flex;
+			height: 34px;
+			._title {
+				align-items: center;
+				color: #807e7c;
+				display: inline-flex;
+				font-size: 15px;
+				.i--money {
+					background-color: #666;
+					height: 14px;
+					margin-right: 5px;
+					width: 20px;
+				}
+			}
+			.dot-line {
+				border-color: #c2c0be;
+				min-width: 27px;
+			}
+			._land-wealth {
+				align-items: center;
+				display: inline-flex;
+				&.type--diamond {
+					._land-wealth__icon {
+						background-image: url(../images/img_wealth_diamond.png);
+						background-position: 65% 50%;
+						background-size: 65%;
+					}
+				}
+				&.type--rudy {
+					._land-wealth__icon {
+						background-image: url(../images/img_wealth_rudy.png);
+						background-position: 55% 50%;
+						background-size: 65%;
+					}
+				}
+				._land-wealth__icon {
+					background-repeat: no-repeat;
+					border: 1px solid #00000026;
+					border-radius: 9999px;
+					display: inline-flex;
+					height: 34px;
+					margin-right: 9px;
+					position: relative;
+					width: 34px;
+					&:before {
+						background-image: url(../images/img_wealth_mark.png);
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+						background-size: contain;
+						content: "";
+						display: inline-block;
+						height: 21px;
+						left: -3px;
+						position: absolute;
+						top: -1px;
+						width: 14px;
+					}
+				}
+				& + ._land-wealth {
+					margin-left: 20px;
+				}
+			}
+			._value {
+				color: #ab733c;
+				font-family: WarsOfPrasia, serif;
+				font-size: 19px;
+				font-style: italic;
+			}
+			.i--money-percent {
+				background-color: #666;
+				height: 14px;
+				margin-right: 5px;
+				width: 20px;
+			}
+			.i--money-percent {
+				background-color: #666;
+				height: 14px;
+				margin-right: 5px;
+				width: 20px;
+			}
+		}
+		hr {
+			height: 0;
+			margin: 0;
+			opacity: 0;
+			overflow: hidden;
+			width: 100%;
+		}
+	}
+}

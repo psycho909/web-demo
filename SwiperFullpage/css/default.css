@@ -1,0 +1,126 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.page1 {
+  background-color: #ddd;
+}
+.page1 .title {
+  width: 21.5104166667vw;
+  height: 13.5416666667vw;
+  background-size: 100%;
+  background-image: url(https://tw.hicdn.beanfun.com/beanfun/GamaWWW/WorldFlipper/official/images/home/anim-logo.png);
+  opacity: 0;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: all 0.6s;
+  -o-transition: all 0.6s;
+  transition: all 0.6s;
+  -webkit-transition-delay: 0.6s;
+       -o-transition-delay: 0.6s;
+          transition-delay: 0.6s;
+}
+.page1 .title.anim {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.page2 {
+  background-color: #eee;
+}
+.page2 .box {
+  width: 15.625vw;
+  height: 15.625vw;
+  background-color: red;
+  -webkit-transition: all 2s;
+  -o-transition: all 2s;
+  transition: all 2s;
+}
+.page2 .box.anim {
+  border-radius: 100vmax;
+}
+.page2 .character {
+  width: 35vw;
+  height: 35vw;
+  background-size: 100%;
+  background-image: url("https://tw.hicdn.beanfun.com/beanfun/WebImage/1606491858314.png");
+  position: absolute;
+  left: 50%;
+  margin-left: -17.5vw;
+  -webkit-transition: all 0.6s;
+  -o-transition: all 0.6s;
+  transition: all 0.6s;
+  -webkit-transition-delay: 0.6s;
+       -o-transition-delay: 0.6s;
+          transition-delay: 0.6s;
+  opacity: 0;
+}
+.page2 .character.anim {
+  opacity: 1;
+  -webkit-transform: translateX(50%);
+      -ms-transform: translateX(50%);
+          transform: translateX(50%);
+}
+
+.page3 {
+  background-color: #666;
+}
+.page3 #part3-video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.page4 .swiper {
+  width: 20.8333333333vw;
+  height: 20.8333333333vw;
+  border: 1px solid #000;
+}

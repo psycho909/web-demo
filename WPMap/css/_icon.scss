@@ -1,0 +1,43 @@
+[class*="i--"] {
+	box-sizing: border-box;
+	display: inline-flex;
+	flex: 0 0 auto;
+	vertical-align: top;
+	fill: currentColor;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-size: contain;
+	mask-position: center center;
+	-webkit-mask-position: center center;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	mask-size: 100% 100%;
+	-webkit-mask-size: 100% 100%;
+	min-height: 5px;
+	min-width: 5px;
+}
+.i--plus {
+	mask-image: url(../svg/icon_plus.svg);
+}
+.i--minus {
+	mask-image: url(../svg/icon_minus.svg);
+}
+.i--xmark-2 {
+	mask-image: url(../svg/icon_xmark_2.svg);
+}
+.i--guildmark {
+	mask-image: url(../svg/icon_guildmark.svg);
+}
+.i--crown {
+	mask-image: url(../svg/icon_crown.svg);
+}
+.i--member {
+	mask-image: url(../svg/icon_member.svg);
+}
+.i--money {
+	mask-image: url(../svg/icon_money.svg);
+}
+.i--money-percent {
+	mask-image: url(../svg/icon_money_percent.svg);
+}

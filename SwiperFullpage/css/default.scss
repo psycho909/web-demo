@@ -1,0 +1,103 @@
+@function vw($val) {
+	@return ($val / 1920) * 100vw;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+html,
+body {
+	position: relative;
+	height: 100%;
+}
+
+body {
+	background: #eee;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.page1 {
+	background-color: #ddd;
+	.title {
+		width: vw(413);
+		height: vw(260);
+		background-size: 100%;
+		background-image: url(https://tw.hicdn.beanfun.com/beanfun/GamaWWW/WorldFlipper/official/images/home/anim-logo.png);
+		opacity: 0;
+		transform: scale(1.1);
+		transition: all 0.6s;
+		transition-delay: 0.6s;
+		&.anim {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+}
+.page2 {
+	background-color: #eee;
+	.box {
+		width: vw(300);
+		height: vw(300);
+		background-color: red;
+		transition: all 2s;
+		&.anim {
+			border-radius: 100vmax;
+		}
+	}
+	.character {
+		width: vw(672);
+		height: vw(672);
+		background-size: 100%;
+		background-image: url("https://tw.hicdn.beanfun.com/beanfun/WebImage/1606491858314.png");
+		position: absolute;
+		left: 50%;
+		margin-left: vw(-336);
+		transition: all 0.6s;
+		transition-delay: 0.6s;
+		opacity: 0;
+		&.anim {
+			opacity: 1;
+			transform: translateX(50%);
+		}
+	}
+}
+.page3 {
+	background-color: #666;
+	#part3-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+.page4 {
+	.swiper {
+		width: vw(400);
+		height: vw(400);
+		border: 1px solid #000;
+	}
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<link rel="stylesheet" href="./css/default.css" />
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<!-- Swiper -->
+		<div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide page1">
+					<div class="title"></div>
+				</div>
+				<div class="swiper-slide page2">
+					<div class="box"></div>
+					<div class="character"></div>
+				</div>
+				<div class="swiper-slide page3">
+					<video id="part3-video" class="part3-video-pc" poster="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2-bg.jpg" loop="" playsinline=""><source src="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2.mp4" type="video/mp4" /></video>
+				</div>
+				<div class="swiper-slide page4">
+					<div class="swiper mySwiper2">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">Slide 1</div>
+							<div class="swiper-slide">Slide 2</div>
+							<div class="swiper-slide">Slide 3</div>
+							<div class="swiper-slide">Slide 4</div>
+							<div class="swiper-slide">Slide 5</div>
+							<div class="swiper-slide">Slide 6</div>
+							<div class="swiper-slide">Slide 7</div>
+							<div class="swiper-slide">Slide 8</div>
+							<div class="swiper-slide">Slide 9</div>
+						</div>
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var swiper = new Swiper(".mySwiper", {
+				direction: "vertical",
+				speed: 600,
+				init: false,
+				mousewheel: {
+					thresholdTime: 600
+				}
+			});
+
+			swiper.on("afterInit", function () {
+				$(".page1 .title").addClass("anim");
+				console.log("INIT");
+				// do something
+			});
+			swiper.on("slideChange", function (swiper) {
+				let currentIndex = swiper.activeIndex;
+				if (currentIndex == 0) {
+					$(".page1 .title").addClass("anim");
+				} else {
+					$(".page1 .title").removeClass("anim");
+				}
+				if (currentIndex == 1) {
+					$(".page2 .character").addClass("anim");
+				} else {
+					$(".page2 .character").removeClass("anim");
+				}
+				if (currentIndex == 2) {
+					$("#part3-video").get(0).play();
+				} else {
+					$("#part3-video").get(0).pause();
+				}
+				console.log("slide changed", swiper.activeIndex);
+			});
+			swiper.init();
+
+			var swiper2 = new Swiper(".mySwiper2", {
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev"
+				}
+			});
+		</script>
+	</body>
+</html>
