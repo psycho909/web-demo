@@ -253,8 +253,7 @@ button {
 .text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .default .gbox-wrap {
@@ -2554,7 +2553,6 @@ body {
   background-image: url("./images/sec2-card-front.png");
   -webkit-transition: -webkit-clip-path 0.6s linear;
   transition: -webkit-clip-path 0.6s linear;
-  -o-transition: clip-path 0.6s linear;
   transition: clip-path 0.6s linear;
   transition: clip-path 0.6s linear, -webkit-clip-path 0.6s linear;
   -webkit-clip-path: circle(0 at 50% 50%);
