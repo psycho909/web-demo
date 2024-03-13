@@ -41,17 +41,43 @@
 						<div class="swiper-button-prev"></div>
 					</div>
 				</div>
+				<div class="swiper-slide page-footer">
+					<div id="footer-area"></div>
+				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="天堂" theme="dark" appendTo="footer-area"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/game-footer.js" id="game-footer" prod="新楓之谷" theme="dark"></script> -->
 		<script>
-			var swiper = new Swiper(".mySwiper", {
+			let option2 = {
 				direction: "vertical",
 				speed: 600,
 				init: false,
+				autoHeight: true,
 				mousewheel: {
 					thresholdTime: 600
 				}
-			});
+			};
+			let option = {
+				direction: "vertical",
+				speed: 1000,
+				pagination: false,
+				mousewheel: true,
+				slidesPerView: "auto",
+				allowTouchMove: false,
+				autoHeight: true,
+				init: false,
+				scrollbar: {
+					el: ".swiper-scrollbar",
+					hide: false,
+					draggable: true
+				},
+				lazy: {
+					loadPrevNext: true,
+					loadOnTransitionStart: true
+				}
+			};
+			var swiper = new Swiper(".mySwiper", option);
 
 			swiper.on("afterInit", function () {
 				$(".page1 .title").addClass("anim");
