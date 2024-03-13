@@ -46,6 +46,9 @@ body::-webkit-scrollbar {
 	min-width: 15px;
 	width: auto;
 	width: 100%;
+	@media (max-width: 768px) {
+		border-width: 2px;
+	}
 }
 .mask-text {
 	box-sizing: border-box;

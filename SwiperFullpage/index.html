@@ -22,7 +22,7 @@
 					<div class="character"></div>
 				</div>
 				<div class="swiper-slide page3">
-					<video id="part3-video" class="part3-video-pc" poster="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2-bg.jpg" loop="" playsinline=""><source src="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2.mp4" type="video/mp4" /></video>
+					<video id="part3-video" class="part3-video-pc" poster="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2-bg.jpg" loop="" playsinline="" muted><source src="https://tw.hicdn.beanfun.com/beanfun/event/MapleStory/E20231206/assets/video/part3-2.mp4" type="video/mp4" /></video>
 				</div>
 				<div class="swiper-slide page4">
 					<div class="swiper mySwiper2">
@@ -97,7 +97,9 @@
 					$(".page2 .character").removeClass("anim");
 				}
 				if (currentIndex == 2) {
-					$("#part3-video").get(0).play();
+					setTimeout(() => {
+						$("#part3-video").get(0).play();
+					}, 0);
 				} else {
 					$("#part3-video").get(0).pause();
 				}

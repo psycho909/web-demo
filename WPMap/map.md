@@ -31,6 +31,16 @@
 
 -   陣營切換 ()
 
+## 領圖區塊判斷
+- isMatchUI 有媒合到為true
+- isOccupyElf:判斷是否有怪物佔據有佔據為true
+  - 有guild_id 為false
+- isShowTradeTax:判斷稅率
+  - !isOccupyElf && gradeType !== "garrison"
+- chainIndexs
+  - 計算有相計算有相同據點的Index
+  - 可以用chainIndexs裡面[index,index]判斷有沒有相同的據點，去做hover效果
+
 ## 注意
 
 空城是.-occupy-elf 沒有特效 <span class="_land-effect"></spam>

@@ -21,7 +21,8 @@
 				color: #fff;
 			}
 		}
-		&.-hover {
+		&.-hover,
+		&.-chain {
 			._land-badge {
 				transform: translate3d(0, -40px, 0) scale(1);
 				transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);

@@ -165,3 +165,21 @@ window.addEventListener("mousemove", (e) => {
 
 document.documentElement.classList.add("use-custom-cursor");
 document.querySelector(".cursor__visual").classList.add("show");
+
+// 計算chainIndexs
+// const dataFilter = [];
+// const h=data.length;
+// for (let k = 0; k < h; ++k) {
+//     const S = data[k];
+//     if (S.isMatchUI) {
+//         const R = [];
+//         for (let D = 0; D < h; ++D)
+//             S.guild_id && S.guild_id === data[D].guild_id && R.push(D);
+//         S.ui.chainIndexs = R;
+//         S.ui = {
+//             ...S.ui,
+//             chainIndexs: R
+//         };
+//         c.push(S)
+//     }
+// }

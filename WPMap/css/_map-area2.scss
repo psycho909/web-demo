@@ -34,7 +34,8 @@
 				}
 			}
 		}
-		&.-hover {
+		&.-hover,
+		&.-chain {
 			path {
 				stroke-width: 2;
 				stroke-dasharray: 0;

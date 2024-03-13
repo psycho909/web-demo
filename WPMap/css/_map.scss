@@ -115,6 +115,9 @@
 	height: 100%;
 	width: 100%;
 	position: relative;
+	@media (min-width: 768px) {
+		display: none;
+	}
 }
 .territory-map__filter {
 	height: 0;
