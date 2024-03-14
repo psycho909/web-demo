@@ -22,8 +22,6 @@ let app = Vue.createApp({
 		let ss = null;
 		let as = Vue.ref(false);
 		let L = [0, 0];
-		let isPress = Vue.ref(false);
-		let isHoverPointer = Vue.ref(false);
 		let dataFilter = world.map((v, i) => {
 			if (territory[v.territory_id]) {
 				v.isMatchUI = true;
@@ -154,7 +152,7 @@ let app = Vue.createApp({
 					borders[index].classList.add("-chain");
 					Ls(index);
 					document.documentElement.classList.remove("use-custom-cursor");
-					// document.querySelector(".cursor__visual").classList.remove("show");
+					document.querySelector(".cursor__visual").classList.remove("show");
 				});
 
 				// 當滑鼠移出時，移除 -hover 類別
@@ -165,12 +163,51 @@ let app = Vue.createApp({
 					borders[index].classList.remove("-chain");
 					Rs(index);
 					document.documentElement.classList.add("use-custom-cursor");
-					// document.querySelector(".cursor__visual").classList.add("show");
+					document.querySelector(".cursor__visual").classList.add("show");
 				});
 			});
+			function Gs(e, n) {
+				if (r.isMovingMap) {
+					r.isMovingMap = !1;
+					return;
+				}
+				(r.activeIndex = n), (r.isActive = !0);
+				const pd = data[n],
+					[m, a] = pd.ui.coords;
+				(as = m > 65), p.value.setScale(p.value.default.limitCloseupScale * 0.6), p.value.setFocusMapPercent(m + L[0], a + L[1]);
+				document.querySelector(".map-detail").classList.add("-active");
+				lands.forEach((land, i) => {
+					if (i !== r.activeIndex) {
+						land.classList.remove("-select");
+					} else {
+						land.classList.add("-select");
+					}
+				});
 
-			document.documentElement.classList.add("use-custom-cursor");
-			// document.querySelector(".cursor__visual").classList.add("show");
+				borders.forEach((border, i) => {
+					if (i !== r.activeIndex) {
+						border.classList.remove("-select");
+					} else {
+						border.classList.add("-select");
+					}
+				});
+			}
+			// 領土點擊
+			// document.querySelectorAll("._land").forEach((e, n) => {
+			// 	e.addEventListener("click", () => Gs(e, n));
+			// });
+			// 信息關閉
+			// document.querySelector(".map-detail__close").addEventListener("click", () => {
+			// 	r.isActive = !1;
+			// 	document.querySelector(".map-detail").classList.remove("-active");
+			// 	lands.forEach((land, i) => {
+			// 		land.classList.remove("-select");
+			// 	});
+
+			// 	borders.forEach((border, i) => {
+			// 		border.classList.remove("-select");
+			// 	});
+			// });
 
 			const c = gsap.quickTo(".cursor__pointer", "x", {
 					duration: 0.22,
@@ -180,24 +217,13 @@ let app = Vue.createApp({
 					duration: 0.22,
 					ease: "power3.out"
 				});
-			window.addEventListener("mousemove", (g) => {
-				const y = g.composedPath();
-				for (let E = 0, _ = g.composedPath().length; E < _; ++E) {
-					if (y[E].tagName === "A" || y[E].tagName === "BUTTON") {
-						isHoverPointer.value = !0;
-						break;
-					}
-					isHoverPointer.value = !1;
-				}
-				c(g.clientX);
-				f(g.clientY);
+			window.addEventListener("mousemove", (e) => {
+				c(e.clientX);
+				f(e.clientY);
 			});
-			window.addEventListener("mousedown", (e) => {
-				isPress.value = true;
-			});
-			window.addEventListener("mouseup", (e) => {
-				isPress.value = false;
-			});
+
+			document.documentElement.classList.add("use-custom-cursor");
+			document.querySelector(".cursor__visual").classList.add("show");
 		});
 		return {
 			territoryFilter,
@@ -205,9 +231,7 @@ let app = Vue.createApp({
 			landClick,
 			detailActive,
 			r,
-			detailBoxClose,
-			isPress,
-			isHoverPointer
+			detailBoxClose
 		};
 	}
 });

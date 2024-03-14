@@ -20,6 +20,22 @@
 	-o-user-drag: none;
 	user-drag: none;
 	transition: opacity 0.15s ease;
+	&.-before-press {
+	}
+	&.-press {
+		.cursor__visual {
+			span {
+				transform: scale(0.86);
+			}
+		}
+	}
+	&.-hover {
+		.cursor__visual {
+			span:first-child {
+				transform: scale(0.95);
+			}
+		}
+	}
 	&__pointer {
 		left: 0;
 		position: absolute;
@@ -36,9 +52,9 @@
 		overflow: hidden;
 		position: relative;
 		transform: translate3d(-50%, -50%, 0);
-		opacity: 0;
+		opacity: 1;
 		&.show {
-			opacity: 1;
+			// opacity: 1;
 		}
 		&.type--drag-text-2 {
 			box-sizing: border-box;
@@ -115,7 +131,7 @@
 	height: 100%;
 	width: 100%;
 	position: relative;
-	@media (min-width: 768px) {
+	@media (max-width: 768px) {
 		display: none;
 	}
 }

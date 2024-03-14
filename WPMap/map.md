@@ -31,7 +31,7 @@
 
 -   陣營切換 ()
 
-## 領圖區塊判斷
+## 領圖區塊判斷 (done)
 - isMatchUI 有媒合到為true
 - isOccupyElf:判斷是否有怪物佔據有佔據為true
   - 有guild_id 為false

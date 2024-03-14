@@ -10,9 +10,21 @@
 	transition: opacity 0.2s ease;
 	width: 500px;
 	z-index: 3;
+	._elf-title {
+		color: #666;
+		font-size: 19px;
+		margin-top: 12px;
+	}
 	&.-active {
 		opacity: 1;
 		pointer-events: all;
+	}
+	&.-occupy-elf {
+		._land-info {
+			border-top: 1px solid #0000001a;
+			margin-top: 20px;
+			padding-top: 20px;
+		}
 	}
 	&__close {
 		align-items: center;

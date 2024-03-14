@@ -1,4 +1,4 @@
-let territory = {
+let territoryData = {
 	worlds: [
 		{
 			name: "아우리엘",
@@ -898,3 +898,5 @@ let territory = {
 		}
 	}
 };
+
+export default territoryData;

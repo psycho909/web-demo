@@ -1,6 +1,9 @@
 .territory-table {
-	display: flex;
+	display: none;
 	flex-direction: column;
+	@media (max-width: 768px) {
+		display: flex;
+	}
 	&__focus {
 		color: #fff;
 		filter: drop-shadow(0 7px 13px rgba(0, 0, 0, 0.4));

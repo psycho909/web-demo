@@ -87,6 +87,26 @@ body::-webkit-scrollbar {
 	white-space: nowrap;
 	will-change: width;
 }
+.spinner--progress-dots {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+	grid-gap: 2px;
+	span {
+		animation: bound-f905bb39 0.5s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+		background-color: var(--0dba516f);
+		border-radius: 9999px;
+		display: inline-block;
+		height: 6px;
+		width: 6px;
+		&:nth-child(2) {
+			animation-delay: 0.1s;
+		}
+		&:nth-child(3) {
+			animation-delay: 0.2s;
+		}
+	}
+}
 .selector {
 	box-sizing: border-box;
 	cursor: default;
@@ -266,5 +286,15 @@ body::-webkit-scrollbar {
 	100% {
 		opacity: 0;
 		transform: scale(2);
+	}
+}
+
+@keyframes bound-f905bb39 {
+	0% {
+		opacity: 0.35;
+		transform: scale(0.6);
+	}
+	100% {
+		opacity: 1;
 	}
 }
