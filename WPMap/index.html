@@ -14,7 +14,7 @@
 	<body>
 		<div id="app">
 			<div id="plate--base">
-				<div class="cursor" :class="[isPress?'-press':'',isHoverPointer?'-hover':'']">
+				<div class="cursor -before-press" :class="[isPress?'-press':'',isHoverPointer?'-hover':'']">
 					<span class="cursor__pointer" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px)">
 						<span class="cursor__visual type--drag-text-2" v-if="!isHoverPointer"><span></span><span></span><span></span></span>
 					</span>
@@ -121,7 +121,7 @@
 											</div>
 										</div>
 										<div class="_guild-description" v-if="territoryFilter[r.activeIndex]?.guild_id !== null">{{territoryFilter[r.activeIndex]?.guild_description}}</div>
-										<div class="spinner--progress-dots" style="--0dba516f: rgba(200, 200, 200, 1)">
+										<div class="spinner--progress-dots" style="--0dba516f: rgba(200, 200, 200, 1)" v-if="territoryFilter[r.activeIndex].guild_id === null">
 											<span></span>
 											<span></span>
 											<span></span>

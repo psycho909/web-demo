@@ -153,7 +153,7 @@ let app = Vue.createApp({
 					borders[index].classList.add("-hover");
 					borders[index].classList.add("-chain");
 					Ls(index);
-					document.documentElement.classList.remove("use-custom-cursor");
+					// document.documentElement.classList.remove("use-custom-cursor");
 					// document.querySelector(".cursor__visual").classList.remove("show");
 				});
 
@@ -164,7 +164,7 @@ let app = Vue.createApp({
 					borders[index].classList.remove("-hover");
 					borders[index].classList.remove("-chain");
 					Rs(index);
-					document.documentElement.classList.add("use-custom-cursor");
+					// document.documentElement.classList.add("use-custom-cursor");
 					// document.querySelector(".cursor__visual").classList.add("show");
 				});
 			});
@@ -185,9 +185,11 @@ let app = Vue.createApp({
 				for (let E = 0, _ = g.composedPath().length; E < _; ++E) {
 					if (y[E].tagName === "A" || y[E].tagName === "BUTTON") {
 						isHoverPointer.value = !0;
+						document.documentElement.classList.remove("use-custom-cursor");
 						break;
 					}
 					isHoverPointer.value = !1;
+					document.documentElement.classList.add("use-custom-cursor");
 				}
 				c(g.clientX);
 				f(g.clientY);
