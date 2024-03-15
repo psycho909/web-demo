@@ -25,34 +25,71 @@
 					<div class="layout__wrap">
 						<div class="page__nav">
 							<div class="page__nav__dimmed"></div>
+							<!-- 頁面切換按鈕 -->
 							<div class="page__nav__depth1"></div>
 							<div class="page__nav__depth2">
-								<div class="button--selector">
+								<div class="button--selector button--selector-world" @click="selectToggle('world',$event)">
 									<span class="_name">世界選擇</span>
-									<div class="mask-text _value"><div>아우리엘</div></div>
+									<div class="mask-text _value"><div>{{worldSelectComputed?.name}}</div></div>
 									<div class="selector type--fly">
-										<select>
-											<option v-for="world in worlds" :value="world.value">{{world.name}}</option>
+										<select v-model="worldSelect">
+											<option v-for="world in worlds" :value="world.W">{{world.name}}</option>
 										</select>
-										<div class="selector__box -open type--fly">
+										<div class="selector__box type--fly" :class="[worldSelectToggle?'-open':'']">
 											<span class="selector__dimmed"></span>
-											<div class="selector__transform" style="height: 360px">
-												<span class="selector__close"><span>닫기</span></span>
+											<div class="selector__transform" v-if="worldSelectToggle">
+												<span class="selector__close"><span></span></span>
 												<div class="selector__content" style="max-height: 360px">
 													<ul>
-														<li class="-selected" v-for="world in worlds"><span>{{world.name}}</span></li>
+														<li v-for="world in worlds" :class="[worldSelect === world.W?'-selected':'']" @click="selected('world',world.W)"><span>{{world.name}}</span></li>
 													</ul>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="button--selector">
+								<div class="button--selector button--selector-territory" @click="selectToggle('territory',$event)">
 									<span class="_name">領域選擇</span>
-									<div class="mask-text _value"><div>아우리엘 01</div></div>
+									<div class="mask-text _value"><div>{{territorySelectComputed?.name}}</div></div>
+									<div class="selector type--fly">
+										<select v-model="worldSelect">
+											<option v-for="territory in worldSelectComputed?.realms" :value="territory.R">{{territory.name}}</option>
+										</select>
+										<div class="selector__box type--fly" :class="[territorySelectToggle?'-open':'']">
+											<span class="selector__dimmed"></span>
+											<div class="selector__transform" v-if="territorySelectToggle">
+												<span class="selector__close"><span></span></span>
+												<div class="selector__content" style="max-height: 360px">
+													<ul>
+														<li v-for="territory in worldSelectComputed?.realms" :class="[territorySelect === territory.R?'-selected':'']" @click="selected('territory',territory.R)"><span>{{territory.name}}</span></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="page__nav__depth3"></div>
+							<div class="page__nav__depth3">
+								<div class="button--selector button--selector-world" @click="selectToggle('landType',$event)">
+									<span class="_name">{{landTypeSelect?.name}}</span>
+									<div class="selector type--fly">
+										<select v-model="landTypeSelect">
+											<option v-for="l in landType" :value="l.value">{{l.name}}</option>
+										</select>
+										<div class="selector__box type--fly" :class="[landTypeSelectToggle?'-open':'']">
+											<span class="selector__dimmed"></span>
+											<div class="selector__transform" v-if="landTypeSelectToggle">
+												<span class="selector__close"><span></span></span>
+												<div class="selector__content" style="max-height: 360px">
+													<ul>
+														<li v-for="l in landType" :class="[landTypeSelect === l.value?'-selected':'']" @click="selected('landType',l)"><span>{{l.name}}</span></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<p class="_interval-notice">※ 據點佔領現況每小時更新一次。</p>
 							<p class="_viewport-notice">※1920 解析為據點佔領現況最佳化解析度。</p>
 						</div>
@@ -156,86 +193,48 @@
 								</div>
 							</div>
 							<div class="sort--garrison territory-table">
-								<div class="territory-table__focus type--garrison">
-									<div class="_wrap">
-										<div class="_header">
-											<span></span>
-											<h3 class="_name">축제수림 주둔지</h3>
-											<button class="_refresh"><i class="i--refresh"></i><span>새로고침</span></button>
+								<ul class="territory-table__list">
+									<li class="territory-table__item type--garrison">
+										<div class="land-box">
+											<span class="land-info__badge"><i class="i--garrison"></i></span>
+											<span class="land-info__name">紅淵駐紮地</span>
 										</div>
-										<div class="_content">
-											<div class="_guild">
-												<span class="_guild-level">Lv.21</span>
-												<p class="_guild-name">KlN</p>
+										<div class="land-box">
+											<span class="land-guild__mark"><i class="i--guildmark"></i></span>
+											<span class="land-guild__name">台灣菁英團</span>
+											<span class="land-guilm__member">44/99</span>
+										</div>
+										<div class="land-box">
+											<div class="land-guild__master">
+												<span>會長名稱</span>
+												<span>台灣南波萬</span>
 											</div>
-											<ul class="_taxs">
-												<li class="_info-item _tax-stack">
-													<div class="_info-name"><i class="i--money"></i> 누적 세금</div>
-													<span class="dot-line"></span>
-													<div class="_info-wealth type--diamond">
-														<span class="_info-wealth__icon"></span>
-														<div class="_info-value">0</div>
-													</div>
-													<div class="_info-wealth type--rudy">
-														<span class="_info-wealth__icon"></span>
-														<div class="_info-value">0</div>
-													</div>
-												</li>
-												<!---->
-												<li class="_info-item _shop-tax">
-													<div class="_info-name"><i class="i--money-percent"></i> 잡화 상점 세율</div>
-													<span class="dot-line"></span>
-													<div class="_info-value">20%</div>
-												</li>
-												<li class="_craft-tax _info-item">
-													<div class="_info-name"><i class="i--money-percent"></i> 대장간 세율</div>
-													<span class="dot-line"></span>
-													<div class="_info-value">30%</div>
-												</li>
-											</ul>
+											<div class="land-guild__description">
+												<span>招募資訊</span>
+												<span>愛戰的休揪一起</span>
+											</div>
 										</div>
-									</div>
-								</div>
-								<p class="_interval-notice">※ 거점 보유 현황은 1시간마다 갱신됩니다.</p>
-								<div class="territory-table__list">
-									<div class="territory-table__group"><span>거점</span><span>레벨 / 결사명 / 순위</span><span>결사장 / 결사원</span></div>
-									<ul>
-										<li class="territory-table__item type--garrison">
-											<ul class="_wrap">
-												<li class="_land-name">검은숲 주둔지</li>
-												<li class="_guild-info-1">
-													<span class="_guild-level">Lv. 17</span>
-													<p class="_guild-name">DS</p>
-													<p class="_guild-ranking">41위</p>
-												</li>
-												<li class="_guild-info-2">
-													<span class="_guild-master">쟌느</span><span class="_guild-member">5 <strong>/37</strong></span>
-												</li>
-											</ul>
-											<ul class="_taxs">
-												<li class="_tax-stack _info-item">
-													<span class="_info-name"><i class="i--money"></i>누적 세금 </span><span class="dot-line"></span>
-													<div class="_info-wealth type--diamond">
-														<span class="_info-wealth__icon"></span>
-														<div class="_info-value">0</div>
-													</div>
-													<div class="_info-wealth type--rudy">
-														<span class="_info-wealth__icon"></span>
-														<div class="_info-value">0</div>
-													</div>
-												</li>
-												<!---->
-												<li class="_trade-tax _info-item">
-													<span class="_info-name"><i class="i--money-percent"></i>잡화 상점 세율 </span><span class="dot-line"></span><span class="_info-value">20%</span>
-												</li>
-												<li class="_trade-tax _info-item">
-													<span class="_info-name"><i class="i--money-percent"></i>대장간 세율 </span><span class="dot-line"></span><span class="_info-value">30%</span>
-												</li>
-											</ul>
-											<p class="_guild-description">중립입니다. 직장인 터치 없어요. 편히 함께해요.</p>
-										</li>
-									</ul>
-								</div>
+										<div class="land-box">
+											<span class="land-tax-stack"> <i class="i--money"></i>累積稅金 </span>
+											<div class="land-wealth type--diamond">
+												<span class="land-wealth__icon"></span>
+												<span class="land-wealth__value">0</span>
+											</div>
+											<div class="land-wealth type--ruby">
+												<span class="land-wealth__icon"></span>
+												<span class="land-wealth__value">0</span>
+											</div>
+										</div>
+										<div class="land-box">
+											<span class="land-trade-tax"> <i class="i--money"></i>一般商店稅率 </span>
+											<span class="land-trade-tax__value">30%</span>
+										</div>
+										<div class="land-box">
+											<span class="land-trade-tax"> <i class="i--money"></i>鐵匠稅率 </span>
+											<span class="land-trade-tax__value">30%</span>
+										</div>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>

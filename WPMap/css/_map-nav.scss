@@ -9,6 +9,9 @@
 		right: 30px;
 		top: 30px;
 		z-index: 2;
+		@include media {
+			display: none;
+		}
 	}
 	._viewport-notice {
 		background-color: #ffffff4d;
@@ -20,6 +23,9 @@
 		padding: 5px 15px;
 		position: fixed;
 		z-index: 5;
+		@include media {
+			display: none;
+		}
 	}
 	&__dimmed {
 		background: linear-gradient(0deg, #0000 2%, #000000c2);

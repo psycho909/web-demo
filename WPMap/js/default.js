@@ -7,7 +7,27 @@ let app = Vue.createApp({
 	setup() {
 		let p = Vue.ref(null);
 		let worlds = Vue.reactive(territoryData.worlds);
+		let worldSelect = Vue.ref(null);
+		let territorySelect = Vue.ref(null);
 		let territoryFilter = Vue.reactive([]);
+		let worldSelectToggle = Vue.ref(false);
+		let landTypeSelectToggle = Vue.ref(false);
+		let territorySelectToggle = Vue.ref(false);
+		let landType = Vue.reactive([
+			{
+				name: "駐紮地",
+				value: "garrison"
+			},
+			{
+				name: "要塞",
+				value: "fortress"
+			},
+			{
+				name: "城堡",
+				value: "castle"
+			}
+		]);
+		let landTypeSelect = Vue.ref(null);
 		let world = worldData;
 		let territory = territoryData.territorys;
 		let r = Vue.reactive({
@@ -71,6 +91,61 @@ let app = Vue.createApp({
 			r.activeIndex = -1;
 			detailActive.value = false;
 		};
+		const selectToggle = (type, event) => {
+			if (type == "world") {
+				worldSelectToggle.value = !worldSelectToggle.value;
+				setTimeout(() => {
+					let h = document.querySelector(".button--selector-world ul").clientHeight;
+					if (h > 360) {
+						h = 360;
+					}
+					document.querySelector(".button--selector-world .selector__transform").style.height = h + "px";
+				}, 0);
+			}
+			if (type == "territory") {
+				territorySelectToggle.value = !territorySelectToggle.value;
+				setTimeout(() => {
+					let h = document.querySelector(".button--selector-territory ul").clientHeight;
+					if (h > 360) {
+						h = 360;
+					}
+					document.querySelector(".button--selector-territory .selector__transform").style.height = h + "px";
+				}, 0);
+			}
+			if (type == "landType") {
+				landTypeSelectToggle.value = !landTypeSelectToggle.value;
+			}
+		};
+		const selected = (type, W) => {
+			if (type == "world") {
+				worldSelect.value = W;
+			}
+			if (type == "territory") {
+				territorySelect.value = W;
+			}
+			if (type == "landType") {
+				landTypeSelect.value = W;
+			}
+		};
+
+		const worldSelectComputed = Vue.computed(() => {
+			let w = worlds.filter((v, i) => {
+				return v.W === worldSelect.value;
+			})[0];
+			return w;
+		});
+		const territorySelectComputed = Vue.computed(() => {
+			let w = worlds.filter((v, i) => {
+				return v.W === worldSelect.value;
+			})[0];
+			if (w) {
+				let t = w.realms.filter((v, i) => {
+					return v.R === territorySelect.value;
+				})[0];
+				return t;
+			}
+			return [];
+		});
 		const imageElement = new Image();
 		imageElement.src = "./images/bg_worldmap_1_new.jpg";
 
@@ -200,6 +275,10 @@ let app = Vue.createApp({
 			window.addEventListener("mouseup", (e) => {
 				isPress.value = false;
 			});
+
+			worldSelect.value = worlds[0].W;
+			territorySelect.value = worlds[0].realms[0].R;
+			landTypeSelect.value = landType[0];
 		});
 		return {
 			territoryFilter,
@@ -209,7 +288,18 @@ let app = Vue.createApp({
 			r,
 			detailBoxClose,
 			isPress,
-			isHoverPointer
+			isHoverPointer,
+			worldSelect,
+			territorySelect,
+			worldSelectToggle,
+			territorySelectToggle,
+			selectToggle,
+			worldSelectComputed,
+			selected,
+			territorySelectComputed,
+			landType,
+			landTypeSelect,
+			landTypeSelectToggle
 		};
 	}
 });

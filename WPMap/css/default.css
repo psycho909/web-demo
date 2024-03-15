@@ -31,7 +31,7 @@ html.use-custom-cursor textarea {
 }
 
 body {
-  background-color: orangered;
+  background-color: #181512;
 }
 
 #app::-webkit-scrollbar,
@@ -195,6 +195,10 @@ body::-webkit-scrollbar {
   pointer-events: all;
   opacity: 1;
   visibility: visible;
+  display: block;
+}
+.selector__box.-hide {
+  display: none;
 }
 
 .selector__dimmed {
@@ -806,6 +810,11 @@ body::-webkit-scrollbar {
   top: 30px;
   z-index: 2;
 }
+@media screen and (max-width: 768px) {
+  .page__nav ._interval-notice {
+    display: none;
+  }
+}
 .page__nav ._viewport-notice {
   background-color: rgba(255, 255, 255, 0.3019607843);
   border-radius: 9999px;
@@ -816,6 +825,11 @@ body::-webkit-scrollbar {
   padding: 5px 15px;
   position: fixed;
   z-index: 5;
+}
+@media screen and (max-width: 768px) {
+  .page__nav ._viewport-notice {
+    display: none;
+  }
 }
 .page__nav__dimmed {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(2%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7607843137)));
@@ -1816,15 +1830,6 @@ body::-webkit-scrollbar {
   text-align: center;
 }
 .territory-table__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.territory-table__list ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1835,78 +1840,4 @@ body::-webkit-scrollbar {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-.territory-table__group {
-  border-top: 1px solid rgba(0, 0, 0, 0.1019607843);
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1019607843);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1019607843);
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 13px 16px;
-  text-align: center;
-}
-.territory-table__group span {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  color: #666;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-size: 13px;
-  font-weight: 600;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-.territory-table__group span + span:before {
-  background-color: rgba(227, 225, 224, 0.5019607843);
-  content: "";
-  display: inline-block;
-  height: 16px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  -webkit-transform: translate3d(-50%, 0, 0);
-          transform: translate3d(-50%, 0, 0);
-  width: 1px;
-}
-.territory-table__group span:first-child {
-  width: 60px;
-}
-.territory-table__group span:nth-child(2) {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-.territory-table__group span:nth-child(3) {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-.territory-table__item {
-  border-bottom: 2px solid #e3e1e0;
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding-bottom: 18px;
-  padding-top: 12px;
-}
-.territory-table__item.type--garrison, .territory-table__item.type--fortress, .territory-table__item.type--castle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.territory-table__item ul._wrap {
-  border-bottom: 1px solid rgba(227, 225, 224, 0.5019607843);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.territory-table__item ._taxs {
-  margin-top: 12px;
 }

@@ -14,6 +14,11 @@
 	padding: 0;
 	margin: 0;
 }
+@mixin media($breakpoint: 768px) {
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+}
 html.use-custom-cursor,
 html.use-custom-cursor a,
 html.use-custom-cursor button,
@@ -28,7 +33,7 @@ html.use-custom-cursor textarea {
 	cursor: none !important;
 }
 body {
-	background-color: orangered;
+	background-color: #181512;
 }
 #app::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -149,6 +154,10 @@ body::-webkit-scrollbar {
 		pointer-events: all;
 		opacity: 1;
 		visibility: visible;
+		display: block;
+	}
+	&.-hide {
+		display: none;
 	}
 }
 .selector__dimmed {

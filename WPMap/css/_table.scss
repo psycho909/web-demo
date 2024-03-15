@@ -174,71 +174,54 @@
 		text-align: center;
 	}
 	&__list {
+		align-items: center;
 		display: flex;
 		flex-direction: column;
-		ul {
-			align-items: center;
-			display: flex;
-			flex-direction: column;
-		}
-	}
-	&__group {
-		border-top: 1px solid #0000001a;
-		box-shadow: 0 2px 4px #0000001a;
-		box-sizing: border-box;
-		display: flex;
-		padding: 13px 16px;
-		text-align: center;
-		span {
-			box-sizing: border-box;
-			color: #666;
-			display: inline-flex;
-			font-size: 13px;
-			font-weight: 600;
-			justify-content: center;
-			& + span {
-				&:before {
-					background-color: #e3e1e080;
-					content: "";
-					display: inline-block;
-					height: 16px;
-					left: 0;
-					position: absolute;
-					top: 0;
-					transform: translate3d(-50%, 0, 0);
-					width: 1px;
-				}
-			}
-			&:first-child {
-				width: 60px;
-			}
-			&:nth-child(2) {
-				flex: 1;
-			}
-			&:nth-child(3) {
-				flex: 1;
-			}
-		}
 	}
 	&__item {
-		border-bottom: 2px solid #e3e1e0;
-		display: none;
-		flex-direction: column;
-		padding-bottom: 18px;
-		padding-top: 12px;
-		&.type--garrison,
-		&.type--fortress,
+		&.type--garrison {
+		}
 		&.type--castle {
-			display: flex;
 		}
-		ul {
-			&._wrap {
-				border-bottom: 1px solid #e3e1e080;
-				display: flex;
+		&.type--fortress {
+		}
+		.land {
+			&-box {
 			}
-		}
-		._taxs {
-			margin-top: 12px;
+			&-info {
+				&__badge {
+				}
+				&__name {
+				}
+			}
+			&-guild {
+				&__mark {
+				}
+				&__name {
+				}
+				&__member {
+				}
+				&_master {
+				}
+				&__description {
+				}
+			}
+			&-tax-stack {
+			}
+			&-wealth {
+				&.type--diamond {
+				}
+				&.type--rudy {
+				}
+				&__icon {
+				}
+				&__value {
+				}
+			}
+			&-trade-tax {
+				&__value {
+				}
+			}
 		}
 	}
 }
