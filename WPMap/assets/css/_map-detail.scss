@@ -28,7 +28,7 @@
 	}
 	&__close {
 		align-items: center;
-		background-color: #0000004d;
+		background-color: #000;
 		border: 1px solid #0000001a;
 		border-radius: 100vmax;
 		display: inline-flex;
@@ -60,7 +60,8 @@
 		}
 	}
 	&__box {
-		background-image: url(../images/bg_pattern_1.jpg);
+		// background-image: url(./images/bg_pattern_1.jpg);
+		background-color: rgba(#000, 0.8);
 		background-repeat: repeat;
 		border-radius: 3px;
 		box-shadow: 0 15px 20px #00000080;
@@ -68,7 +69,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		padding: 28px 25px 20px;
+		padding: 30px;
 		position: relative;
 		width: 100%;
 	}
@@ -84,9 +85,10 @@
 			font-weight: 500;
 			justify-content: space-between;
 			margin-right: 10px;
-			width: 62px;
+			width: 92px;
 			i {
 				background-color: #666;
+				margin-right: 10px;
 			}
 		}
 		._guild-title {
@@ -111,14 +113,13 @@
 				padding: 3px 8px 2px;
 			}
 			._guild-name {
-				color: #3e3731;
+				color: #c2a779;
 				font-size: 18px;
 				font-weight: 500;
-				margin-left: 5px;
 			}
 			._guild-ranking {
 				align-items: center;
-				color: #666;
+				color: #c2a779;
 				display: inline-flex;
 				font-size: 14px;
 				font-weight: 400;
@@ -144,6 +145,9 @@
 				margin-left: -2px;
 				width: 19px;
 			}
+			._value {
+				color: #c2a779;
+			}
 		}
 		._guild-member {
 			align-items: center;
@@ -154,20 +158,21 @@
 				width: 14px;
 			}
 			strong {
-				color: #66666680;
 				font-weight: inherit;
+			}
+			._value {
+				color: #c2a779;
 			}
 		}
 	}
 	._guild-description {
-		background-color: #e3e1e080;
-		border: 1px solid #00000026;
+		background-color: rgba(#000, 0.8);
 		border-radius: 3px;
 		box-sizing: border-box;
-		color: #666;
-		font-size: 13px;
-		margin-top: 18px;
-		padding: 9px 12px 7px;
+		color: #c2a779;
+		font-size: 16px;
+		margin-top: 22px;
+		padding: 10px 18px;
 		width: 100%;
 		word-wrap: break-word;
 	}
@@ -175,27 +180,26 @@
 		box-sizing: border-box;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		// justify-content: space-between;
 		margin-top: 18px;
 		white-space: nowrap;
 		li {
 			align-items: center;
 			display: flex;
-			height: 34px;
 			._title {
 				align-items: center;
-				color: #807e7c;
+				color: #877f7f;
 				display: inline-flex;
-				font-size: 15px;
+				font-size: 16px;
 				.i--money {
-					background-color: #666;
+					background-color: #877f7f;
 					height: 14px;
 					margin-right: 5px;
 					width: 20px;
 				}
 			}
 			.dot-line {
-				border-color: #c2c0be;
+				border-color: #877f7f;
 				min-width: 27px;
 			}
 			._land-wealth {
@@ -203,29 +207,30 @@
 				display: inline-flex;
 				&.type--diamond {
 					._land-wealth__icon {
-						background-image: url(../images/img_wealth_diamond.png);
+						background-image: url(./images/img_wealth_diamond.png);
 						background-position: 65% 50%;
 						background-size: 65%;
 					}
 				}
 				&.type--rudy {
 					._land-wealth__icon {
-						background-image: url(../images/img_wealth_rudy.png);
-						background-position: 55% 50%;
-						background-size: 65%;
+						background-image: url(./images/img_wealth_rudy.png);
+						background-position: 65% 70%;
+						background-size: 75%;
 					}
 				}
 				._land-wealth__icon {
 					background-repeat: no-repeat;
-					border: 1px solid #00000026;
+					border: 2px solid rgba(#504338, 1);
 					border-radius: 9999px;
 					display: inline-flex;
-					height: 34px;
-					margin-right: 9px;
+					height: 36px;
+					margin-right: 8px;
 					position: relative;
-					width: 34px;
+					width: 36px;
+					box-sizing: border-box;
 					&:before {
-						background-image: url(../images/img_wealth_mark.png);
+						background-image: url(./images/img_wealth_mark.png);
 						background-position: 50% 50%;
 						background-repeat: no-repeat;
 						background-size: contain;
@@ -239,14 +244,13 @@
 					}
 				}
 				& + ._land-wealth {
-					margin-left: 20px;
+					margin-left: 66px;
 				}
 			}
 			._value {
-				color: #ab733c;
+				color: #c2a779;
 				font-family: WarsOfPrasia, serif;
-				font-size: 19px;
-				font-style: italic;
+				font-size: 20px;
 			}
 			.i--money-percent {
 				background-color: #666;
@@ -267,6 +271,9 @@
 			opacity: 0;
 			overflow: hidden;
 			width: 100%;
+		}
+		._land-craft-tax {
+			margin-left: 58px;
 		}
 	}
 }

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<link rel="stylesheet" href="./css/default.css" />
+		<link rel="stylesheet" href="./assets/css/default.css" />
 		<script src="https://tw.hicdn.beanfun.com/plugins/gsap/3.11.5/gsap.min.js"></script>
 		<!-- 開發用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
@@ -26,8 +26,12 @@
 						<div class="page__nav">
 							<div class="page__nav__dimmed"></div>
 							<!-- 頁面切換按鈕 -->
-							<div class="page__nav__depth1"></div>
-							<div class="page__nav__depth2">
+							<div class="page__nav-item page__nav__depth1">
+								<div class="page__nav__depth1-item">戰榜RANK</div>
+								<div class="page__nav__depth1-item">賽季戰況</div>
+								<div class="page__nav__depth1-item current">據點現況</div>
+							</div>
+							<div class="page__nav-item page__nav__depth2">
 								<div class="button--selector button--selector-world" @click="selectToggle('world',$event)">
 									<span class="_name">世界選擇</span>
 									<div class="mask-text _value"><div>{{worldSelectComputed?.name}}</div></div>
@@ -69,9 +73,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="page__nav__depth3">
+							<div class="page__nav-item page__nav__depth3">
 								<div class="button--selector button--selector-world" @click="selectToggle('landType',$event)">
-									<span class="_name">{{landTypeSelect?.name}}</span>
+									<span class="_name"><i :class="`i--${landTypeSelect?.value}`"></i>{{landTypeSelect?.name}}</span>
 									<div class="selector type--fly">
 										<select v-model="landTypeSelect">
 											<option v-for="l in landType" :value="l.value">{{l.name}}</option>
@@ -82,7 +86,7 @@
 												<span class="selector__close"><span></span></span>
 												<div class="selector__content" style="max-height: 360px">
 													<ul>
-														<li v-for="l in landType" :class="[landTypeSelect === l.value?'-selected':'']" @click="selected('landType',l)"><span>{{l.name}}</span></li>
+														<li v-for="l in landType" :class="[landTypeSelect === l.value?'-selected':'']" @click="selected('landType',l)"><i :class="`i--${l?.value}`"></i><span>{{l.name}}</span></li>
 													</ul>
 												</div>
 											</div>
@@ -146,15 +150,15 @@
 											<div class="_guild-title">
 												<span class="_name">
 													<i class="i--guildmark"></i>
-													旅團名稱
+													旅團名稱:
 												</span>
 												<span class="_guild-name">{{territoryFilter[r.activeIndex]?.guild_name}}</span>
 											</div>
 											<div class="_guild-master">
-												<span class="_name"> <i class="i--crown"></i>會長名稱</span>{{territoryFilter[r.activeIndex]?.guild_master_gc_name}}
+												<span class="_name"> <i class="i--crown"></i>會長名稱:</span><span class="_value">{{territoryFilter[r.activeIndex]?.guild_master_gc_name}}</span>
 											</div>
 											<div class="_guild-member">
-												<span class="_name"><i class="i--member"></i>旅團成員</span>{{territoryFilter[r.activeIndex]?.guild_member_count}}<strong>/{{territoryFilter[r.activeIndex]?.max_guild_member_count}}</strong>
+												<span class="_name"><i class="i--member"></i>旅團成員:</span><span class="_value">{{territoryFilter[r.activeIndex]?.guild_member_count}}<strong>/{{territoryFilter[r.activeIndex]?.max_guild_member_count}}</strong></span>
 											</div>
 										</div>
 										<div class="_guild-description" v-if="territoryFilter[r.activeIndex]?.guild_id !== null">{{territoryFilter[r.activeIndex]?.guild_description}}</div>
@@ -193,28 +197,31 @@
 								</div>
 							</div>
 							<div class="sort--garrison territory-table">
+								<p class="territory-table__notice">※據點佔領現況每小時更新一次</p>
 								<ul class="territory-table__list">
 									<li class="territory-table__item type--garrison">
 										<div class="land-box">
-											<span class="land-info__badge"><i class="i--garrison"></i></span>
+											<span class="land-info__badge"></span>
 											<span class="land-info__name">紅淵駐紮地</span>
 										</div>
 										<div class="land-box">
 											<span class="land-guild__mark"><i class="i--guildmark"></i></span>
 											<span class="land-guild__name">台灣菁英團</span>
-											<span class="land-guilm__member">44/99</span>
+											<span class="land-guild__member">44/99</span>
 										</div>
 										<div class="land-box">
-											<div class="land-guild__master">
-												<span>會長名稱</span>
-												<span>台灣南波萬</span>
-											</div>
-											<div class="land-guild__description">
-												<span>招募資訊</span>
-												<span>愛戰的休揪一起</span>
+											<div class="land-guild">
+												<div class="land-guild__master">
+													<span>會長名稱</span>
+													<span>台灣南波萬</span>
+												</div>
+												<div class="land-guild__description">
+													<span>招募資訊</span>
+													<span>愛戰的休揪一起</span>
+												</div>
 											</div>
 										</div>
-										<div class="land-box">
+										<div class="land-box land-tax">
 											<span class="land-tax-stack"> <i class="i--money"></i>累積稅金 </span>
 											<div class="land-wealth type--diamond">
 												<span class="land-wealth__icon"></span>
@@ -225,11 +232,11 @@
 												<span class="land-wealth__value">0</span>
 											</div>
 										</div>
-										<div class="land-box">
+										<div class="land-box land-tax">
 											<span class="land-trade-tax"> <i class="i--money"></i>一般商店稅率 </span>
 											<span class="land-trade-tax__value">30%</span>
 										</div>
-										<div class="land-box">
+										<div class="land-box land-tax">
 											<span class="land-trade-tax"> <i class="i--money"></i>鐵匠稅率 </span>
 											<span class="land-trade-tax__value">30%</span>
 										</div>

@@ -117,10 +117,10 @@
 			transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 			width: 35px;
 			&.type--fortress {
-				background-image: url(../images/img_landbadge_fortress.png);
+				background-image: url(./images/img_landbadge_fortress.png);
 			}
 			&.type--garrison {
-				background-image: url(../images/img_landbadge_garrison.png);
+				background-image: url(./images/img_landbadge_garrison.png);
 			}
 		}
 		._land-more {
@@ -138,9 +138,9 @@
 			transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
 			white-space: nowrap;
 			._land-name {
-				color: #302923;
+				color: #423b32;
 				font-family: WarsOfPrasia, serif;
-				font-size: 19px;
+				font-size: 20px;
 				line-height: 1;
 			}
 			._land-guild-name {
@@ -156,7 +156,7 @@
 				transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
 				p {
 					color: #fff;
-					font-size: 15px;
+					font-size: 14px;
 					font-weight: 600;
 				}
 				._land-plus {
@@ -166,7 +166,8 @@
 					border-radius: 9999px;
 					box-sizing: border-box;
 					display: inline-flex;
-					height: 20px;
+					width: 25px;
+					height: 25px;
 					justify-content: center;
 					margin-left: 5px;
 					margin-right: -8px;
@@ -175,7 +176,7 @@
 					position: relative;
 					transform: translate3d(-15px, 0, 0);
 					transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-					width: 20px;
+
 					&:nth-child(2) {
 						animation-delay: 0.25s;
 					}

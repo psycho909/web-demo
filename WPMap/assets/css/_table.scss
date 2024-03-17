@@ -4,6 +4,11 @@
 	@media (max-width: 768px) {
 		display: flex;
 	}
+	&__notice {
+		font-size: vw(28);
+		color: #877f7f;
+		margin-bottom: vw(18);
+	}
 	&__focus {
 		color: #fff;
 		filter: drop-shadow(0 7px 13px rgba(0, 0, 0, 0.4));
@@ -11,21 +16,21 @@
 		&.type--garrison {
 			._header {
 				&:before {
-					background-image: url(../images/img_landbadge_garrison.png);
+					background-image: url(./images/img_landbadge_garrison.png);
 				}
 			}
 		}
 		&.type--fortress {
 			._header {
 				&:before {
-					background-image: url(../images/img_landbadge_fortress.png);
+					background-image: url(./images/img_landbadge_fortress.png);
 				}
 			}
 		}
 		&.type--castle {
 			._header {
 				&:before {
-					background-image: url(../images/img_landbadge_castle.png);
+					background-image: url(./images/img_landbadge_castle.png);
 				}
 			}
 		}
@@ -124,14 +129,14 @@
 		display: inline-flex;
 		&.type--diamond {
 			._info-wealth__icon {
-				background-image: url(../images/icon_diamond.png);
+				background-image: url(./images/icon_diamond.png);
 				background-position: 65% 50%;
 				background-size: 65%;
 			}
 		}
 		&.type--rudy {
 			._info-wealth__icon {
-				background-image: url(../images/icon_rudy.png);
+				background-image: url(./images/icon_rudy.png);
 				background-position: 55% 50%;
 				background-size: 65%;
 			}
@@ -151,7 +156,7 @@
 			position: relative;
 			width: 22px;
 			&:before {
-				background-image: url(../images/icon_diamond.png);
+				background-image: url(./images/icon_diamond.png);
 				background-position: 50% 50%;
 				background-repeat: no-repeat;
 				background-size: contain;
@@ -179,47 +184,181 @@
 		flex-direction: column;
 	}
 	&__item {
+		width: 100%;
+		background-color: rgba(#000, 0.5);
+		border: vw(1) solid rgba(#504338, 0.5);
+		padding: 0 vw(30);
+		box-sizing: border-box;
 		&.type--garrison {
+			.land-info__badge {
+				width: vw(29);
+				height: vw(40);
+				background-image: url(./images/img_landbadge_garrison.png);
+				background-size: 100%;
+				margin-right: vw(19);
+			}
 		}
 		&.type--castle {
+			.land-info__badge {
+				width: vw(29);
+				height: vw(40);
+				background-image: url(./images/img_landbadge_garrison.png);
+				background-size: 100%;
+				margin-right: vw(19);
+			}
 		}
 		&.type--fortress {
+			.land-info__badge {
+				width: vw(29);
+				height: vw(40);
+				background-image: url(./images/img_landbadge_fortress.png);
+				background-size: 100%;
+				margin-right: vw(19);
+			}
 		}
 		.land {
 			&-box {
+				font-size: vw(28);
+				display: flex;
+				align-items: center;
+				padding: vw(30) 0;
+				border-bottom: vw(1) solid #504338;
+				&:last-child {
+					border-bottom: none;
+				}
+			}
+			&-tax {
+				padding: vw(25) 0;
 			}
 			&-info {
 				&__badge {
 				}
 				&__name {
+					color: #c2a779;
+					font-size: vw(32);
 				}
 			}
 			&-guild {
 				&__mark {
+					margin: 0 vw(22);
+					.i--guildmark {
+						min-height: vw(40);
+						min-width: vw(36);
+						background-color: #c2a779;
+					}
 				}
 				&__name {
+					font-size: vw(48);
+					color: #c2a779;
+					font-weight: bold;
 				}
 				&__member {
+					font-size: vw(32);
+					color: #c2a779;
+					margin-left: auto;
 				}
-				&_master {
+				&__master {
+					span {
+						font-size: vw(32);
+						&:first-child {
+							color: #877f7f;
+						}
+						&:nth-child(2) {
+							color: #c2a779;
+							margin-left: vw(20);
+						}
+					}
 				}
 				&__description {
+					span {
+						font-size: vw(32);
+						&:first-child {
+							color: #877f7f;
+						}
+						&:nth-child(2) {
+							color: #c2a779;
+							margin-left: vw(20);
+						}
+					}
 				}
 			}
 			&-tax-stack {
+				font-size: vw(28);
+				color: #877f7f;
+				display: flex;
+				align-items: center;
+				.i--money {
+					width: vw(40);
+					height: vw(26);
+					background-color: #877f7f;
+					margin-right: vw(20);
+				}
 			}
 			&-wealth {
+				display: flex;
+				align-items: center;
 				&.type--diamond {
+					margin-left: auto;
+					margin-right: vw(30);
+					.land-wealth__icon {
+						background-image: url(./images/img_wealth_diamond.png);
+						background-position: 65% 50%;
+						background-size: 65%;
+					}
 				}
-				&.type--rudy {
+				&.type--ruby {
+					.land-wealth__icon {
+						background-image: url(./images/img_wealth_rudy.png);
+						background-position: 55% 50%;
+						background-size: 65%;
+					}
 				}
 				&__icon {
+					background-repeat: no-repeat;
+					border: vw(1) solid rgba(#c2a779, 1);
+					border-radius: 100vmax;
+					display: -webkit-inline-box;
+					display: -ms-inline-flexbox;
+					display: inline-flex;
+					height: vw(40);
+					margin-right: vw(10);
+					position: relative;
+					width: vw(40);
+					background-color: rgba(#000, 0.5);
+					&:before {
+						background-image: url(./images/img_wealth_mark.png);
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+						background-size: contain;
+						content: "";
+						display: inline-block;
+						height: vw(35);
+						left: vw(-6);
+						position: absolute;
+						top: vw(-8);
+						width: vw(16);
+					}
 				}
 				&__value {
+					font-size: vw(28);
+					color: #c2a779;
 				}
 			}
 			&-trade-tax {
+				font-size: vw(28);
+				color: #877f7f;
+				display: flex;
+				align-items: center;
+				.i--money {
+					width: vw(40);
+					height: vw(26);
+					background-color: #877f7f;
+					margin-right: vw(20);
+				}
 				&__value {
+					font-size: vw(28);
+					color: #c2a779;
+					margin-left: auto;
 				}
 			}
 		}

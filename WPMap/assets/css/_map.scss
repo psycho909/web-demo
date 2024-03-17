@@ -1,116 +1,40 @@
-#plate--base {
-	height: 100%;
-	left: 0;
-	pointer-events: none;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 4000;
+body {
+	@include media {
+		background-color: #151312;
+	}
 }
-.cursor {
-	display: inline-flex;
-	height: 0;
-	pointer-events: none !important;
-	position: fixed;
-	width: 0;
-	z-index: 99999;
-	-webkit-user-drag: none;
-	-khtml-user-drag: none;
-	-moz-user-drag: none;
-	-o-user-drag: none;
-	user-drag: none;
-	transition: opacity 0.15s ease;
-	&.-before-press {
-	}
-	&.-press {
-		.cursor__visual {
-			span {
-				transform: scale(0.86);
-			}
-		}
-	}
-	&.-hover {
-		.cursor__visual {
-			span:first-child {
-				transform: scale(0.95);
-			}
-		}
-	}
-	&__pointer {
-		left: 0;
-		position: absolute;
-		top: 0;
-		z-index: 100;
-		display: inline-flex;
-		pointer-events: none !important;
-		will-change: transform;
-	}
-	&__visual {
-		display: inline-flex;
-		pointer-events: none !important;
-		will-change: transform;
-		overflow: hidden;
-		position: relative;
-		transform: translate3d(-50%, -50%, 0);
-		opacity: 1;
-		&.show {
-			// opacity: 1;
-		}
-		&.type--drag-text-2 {
+#app {
+	@include media {
+		width: 100%;
+		padding: 0 vw(30);
+		background-image: url(./images/bg-m.jpg);
+		background-size: vw(768) vw(989);
+		background-repeat: no-repeat;
+		background-position: center 0;
+		box-sizing: border-box;
+		& > * {
 			box-sizing: border-box;
-			filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
-			height: 83px;
-			padding: 5px;
-			width: 83px;
-			&:before {
-				align-items: center;
-				color: #fff;
-				content: "DRAG";
-				display: inline-flex;
-				font-family: WarsOfPrasia, serif;
-				font-size: 14px;
-				font-weight: 400;
-				height: 100%;
-				justify-content: center;
-				left: 0;
-				position: absolute;
-				top: 0;
-				width: 100%;
-			}
-			span {
-				background-position: 50%;
-				background-repeat: no-repeat;
-				background-size: contain;
-				box-sizing: border-box;
-				height: 100%;
-				left: 0;
-				pointer-events: none !important;
-				position: absolute;
-				top: 0;
-				width: 100%;
-				&:first-child {
-					border: 3px solid #ffffff80;
-					border-radius: 9999px;
-					height: 100%;
-					position: relative;
-					transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease;
-					width: 100%;
-				}
-			}
 		}
 	}
 }
+
 #plate--page {
 	min-height: var(--maxvh);
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	z-index: 1;
+	@include media {
+		min-height: auto;
+	}
 }
 .page--records-territory {
 	height: calc(var(--maxvh-without-navtop));
 	overflow: hidden;
 	width: 100%;
+	@include media {
+		height: auto;
+	}
 }
 
 .page__content {

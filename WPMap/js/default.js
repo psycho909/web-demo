@@ -94,7 +94,12 @@ let app = Vue.createApp({
 		const selectToggle = (type, event) => {
 			if (type == "world") {
 				worldSelectToggle.value = !worldSelectToggle.value;
+				territorySelectToggle.value = false;
+				landTypeSelectToggle.value = false;
 				setTimeout(() => {
+					if (!worldSelectToggle.value) {
+						return;
+					}
 					let h = document.querySelector(".button--selector-world ul").clientHeight;
 					if (h > 360) {
 						h = 360;
@@ -104,7 +109,12 @@ let app = Vue.createApp({
 			}
 			if (type == "territory") {
 				territorySelectToggle.value = !territorySelectToggle.value;
+				worldSelectToggle.value = false;
+				landTypeSelectToggle.value = false;
 				setTimeout(() => {
+					if (!territorySelectToggle.value) {
+						return;
+					}
 					let h = document.querySelector(".button--selector-territory ul").clientHeight;
 					if (h > 360) {
 						h = 360;
@@ -114,6 +124,11 @@ let app = Vue.createApp({
 			}
 			if (type == "landType") {
 				landTypeSelectToggle.value = !landTypeSelectToggle.value;
+				territorySelectToggle.value = false;
+				worldSelectToggle.value = false;
+				if (!landTypeSelectToggle.value) {
+					return;
+				}
 			}
 		};
 		const selected = (type, W) => {
@@ -147,7 +162,7 @@ let app = Vue.createApp({
 			return [];
 		});
 		const imageElement = new Image();
-		imageElement.src = "./images/bg_worldmap_1_new.jpg";
+		imageElement.src = "../assets/images/bg_worldmap_1_new.jpg";
 
 		Vue.onMounted(() => {
 			// 獲取所有的 land 和 border 元素
