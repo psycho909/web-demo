@@ -106,7 +106,6 @@
 			column-gap: 0;
 			@include media {
 				padding: vw(24) vw(30);
-				padding-right: vw(82);
 				font-size: vw(32);
 				width: 100%;
 				color: #c2a779;
@@ -118,9 +117,9 @@
 				content: "";
 				display: inline-block;
 				display: inline-flex;
-				height: 12px;
+				height: 6px;
 				vertical-align: top;
-				width: 12px;
+				width: 11px;
 				fill: currentColor;
 				background-color: #c2c0be;
 				background-position: 50%;
@@ -262,7 +261,6 @@
 		.button--selector {
 			@include media {
 				padding: vw(24) vw(30);
-				padding-right: vw(82);
 				font-size: vw(32);
 				width: 100%;
 				color: #c2a779;
@@ -332,6 +330,15 @@
 							border-bottom: vw(1) solid #c2a779;
 							&:last-child {
 								border-bottom: none;
+							}
+							&.-selected {
+								background-color: #61543d;
+								i {
+									background-color: #c2a779;
+								}
+								span {
+									color: #c2a779;
+								}
 							}
 							.i--garrison {
 								@include media {

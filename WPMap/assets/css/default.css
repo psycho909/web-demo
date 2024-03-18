@@ -106,7 +106,6 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
-  -o-transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   white-space: nowrap;
@@ -224,7 +223,6 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: -webkit-box-shadow 0.4s ease;
   transition: -webkit-box-shadow 0.4s ease;
-  -o-transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease, -webkit-box-shadow 0.4s ease;
   width: auto;
@@ -258,7 +256,6 @@ body::-webkit-scrollbar {
        user-select: all;
   -webkit-user-drag: auto;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(85%, rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
-  background: -o-linear-gradient(top, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   height: 40px;
   left: 0;
@@ -303,7 +300,6 @@ body::-webkit-scrollbar {
   min-height: 0;
   overflow-y: overlay;
   -webkit-transition: border 0.4s ease;
-  -o-transition: border 0.4s ease;
   transition: border 0.4s ease;
   width: 100%;
 }
@@ -355,7 +351,6 @@ body::-webkit-scrollbar {
   padding: 9px 14px 9px 9px;
   text-align: left;
   -webkit-transition: background-color 0.14s ease, color 0.14s ease;
-  -o-transition: background-color 0.14s ease, color 0.14s ease;
   transition: background-color 0.14s ease, color 0.14s ease;
   vertical-align: top;
 }
@@ -523,6 +518,61 @@ body::-webkit-scrollbar {
           mask-image: url(./svg/icon_refresh.svg);
 }
 
+.i--garrison {
+  -webkit-mask-image: url(./svg/icon_garrison.svg);
+          mask-image: url(./svg/icon_garrison.svg);
+}
+
+.i--fortress {
+  -webkit-mask-image: url(./svg/icon_fortress.svg);
+          mask-image: url(./svg/icon_fortress.svg);
+}
+
+.i--castle {
+  -webkit-mask-image: url(./svg/icon_castle.svg);
+          mask-image: url(./svg/icon_castle.svg);
+}
+
+.type--diamond .land-wealth__icon {
+  background-image: url(./images/img_wealth_diamond.png);
+  background-position: 65% 50%;
+  background-size: 65%;
+}
+
+.type--ruby .land-wealth__icon {
+  background-image: url(./images/img_wealth_rudy.png);
+  background-position: 65% 70%;
+  background-size: 75%;
+}
+
+.land-wealth__icon {
+  background-repeat: no-repeat;
+  border: 2px solid #504338;
+  border-radius: 100vmax;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 36px;
+  margin-right: 8px;
+  position: relative;
+  width: 36px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.land-wealth__icon:before {
+  background-image: url(./images/img_wealth_mark.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 21px;
+  left: -3px;
+  position: absolute;
+  top: -1px;
+  width: 14px;
+}
+
 @media screen and (max-width: 768px) {
   body {
     background-color: #151312;
@@ -530,7 +580,7 @@ body::-webkit-scrollbar {
 }
 
 @media screen and (max-width: 768px) {
-  #app {
+  #map {
     width: 100%;
     padding: 0 3.90625vw;
     background-image: url(./images/bg-m.jpg);
@@ -540,7 +590,7 @@ body::-webkit-scrollbar {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
-  #app > * {
+  #map > * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
@@ -660,7 +710,6 @@ body::-webkit-scrollbar {
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-transition: background-color 0.14s ease;
-  -o-transition: background-color 0.14s ease;
   transition: background-color 0.14s ease;
   width: 54px;
   background-color: transparent;
@@ -699,7 +748,6 @@ body::-webkit-scrollbar {
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-transition: background-color 0.14s ease;
-  -o-transition: background-color 0.14s ease;
   transition: background-color 0.14s ease;
   width: 54px;
   background-color: transparent;
@@ -762,7 +810,6 @@ body::-webkit-scrollbar {
 }
 .page__nav__dimmed {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(2%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7607843137)));
-  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.7607843137));
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.7607843137));
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -859,7 +906,6 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 768px) {
   .page__nav__depth2 .button--selector {
     padding: 3.125vw 3.90625vw;
-    padding-right: 10.6770833333vw;
     font-size: 4.1666666667vw;
     width: 100%;
     color: #c2a779;
@@ -875,9 +921,9 @@ body::-webkit-scrollbar {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  height: 12px;
+  height: 6px;
   vertical-align: top;
-  width: 12px;
+  width: 11px;
   fill: currentColor;
   background-color: #c2c0be;
   background-position: 50%;
@@ -899,7 +945,6 @@ body::-webkit-scrollbar {
   min-width: 5px;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
-  -o-transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -1035,7 +1080,6 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 768px) {
   .page__nav__depth3 .button--selector {
     padding: 3.125vw 3.90625vw;
-    padding-right: 10.6770833333vw;
     font-size: 4.1666666667vw;
     width: 100%;
     color: #c2a779;
@@ -1075,7 +1119,6 @@ body::-webkit-scrollbar {
   min-width: 5px;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
-  -o-transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -1117,6 +1160,15 @@ body::-webkit-scrollbar {
   }
   .page__nav__depth3 .button--selector .selector__content ul li:last-child {
     border-bottom: none;
+  }
+  .page__nav__depth3 .button--selector .selector__content ul li.-selected {
+    background-color: #61543d;
+  }
+  .page__nav__depth3 .button--selector .selector__content ul li.-selected i {
+    background-color: #c2a779;
+  }
+  .page__nav__depth3 .button--selector .selector__content ul li.-selected span {
+    color: #c2a779;
   }
 }
 @media screen and (max-width: 768px) and (max-width: 768px) {
@@ -1220,7 +1272,6 @@ body::-webkit-scrollbar {
   -o-user-drag: none;
   user-drag: none;
   -webkit-transition: opacity 0.15s ease;
-  -o-transition: opacity 0.15s ease;
   transition: opacity 0.15s ease;
 }
 .cursor.-press .cursor__visual span {
@@ -1306,7 +1357,6 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
   transition: background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
-  -o-transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease;
   transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease;
   transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
   width: 100%;
@@ -1335,7 +1385,6 @@ body::-webkit-scrollbar {
           transform: translate3d(-50%, -50%, 0);
   -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  -o-transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   -webkit-user-select: none;
@@ -1354,7 +1403,6 @@ body::-webkit-scrollbar {
           transform: translate3d(0, -40px, 0) scale(1);
   -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-  -o-transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1364,14 +1412,12 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, 0, 0);
           transform: translate3d(-50%, 0, 0);
   -webkit-transition-delay: 30ms;
-       -o-transition-delay: 30ms;
           transition-delay: 30ms;
 }
 .map-area-1 ._land.-hover ._land-guild-name, .map-area-1 ._land.-chain ._land-guild-name {
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition-delay: 60ms;
-       -o-transition-delay: 60ms;
           transition-delay: 60ms;
 }
 .map-area-1 ._land.-hover ._land-more ._land-guild-name ._land-plus, .map-area-1 ._land.-chain ._land-more ._land-guild-name ._land-plus {
@@ -1384,7 +1430,6 @@ body::-webkit-scrollbar {
           transform: translate3d(0, -40px, 0) scale(1);
   -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-  -o-transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1394,14 +1439,12 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, 0, 0);
           transform: translate3d(-50%, 0, 0);
   -webkit-transition-delay: 30ms;
-       -o-transition-delay: 30ms;
           transition-delay: 30ms;
 }
 .map-area-1 ._land.-select ._land-guild-name {
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition-delay: 60ms;
-       -o-transition-delay: 60ms;
           transition-delay: 60ms;
 }
 .map-area-1 ._land.-select ._land-more ._land-guild-name ._land-plus {
@@ -1423,7 +1466,6 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
   -webkit-transition: opacity 0.5s ease 0.4s;
-  -o-transition: opacity 0.5s ease 0.4s;
   transition: opacity 0.5s ease 0.4s;
   width: 60px;
   nimation-delay: 79ms;
@@ -1479,7 +1521,6 @@ body::-webkit-scrollbar {
           transform: translateZ(0) scale(0.95);
   -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
-  -o-transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   width: 35px;
@@ -1515,7 +1556,6 @@ body::-webkit-scrollbar {
           transform: translate3d(-50%, 15px, 0);
   -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   white-space: nowrap;
@@ -1544,7 +1584,6 @@ body::-webkit-scrollbar {
           transform: translate3d(0, 5px, 0);
   -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -1579,7 +1618,6 @@ body::-webkit-scrollbar {
           transform: translate3d(-15px, 0, 0);
   -webkit-transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  -o-transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1630,7 +1668,6 @@ body::-webkit-scrollbar {
   fill: rgba(0, 0, 0, 0);
   -webkit-transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
   transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
-  -o-transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
   transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
   transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
   stroke-dasharray: 0 3 0;
@@ -1677,7 +1714,6 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(calc(400px - 50%), -50%, 0);
           transform: translate3d(calc(400px - 50%), -50%, 0);
   -webkit-transition: opacity 0.2s ease;
-  -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   width: 500px;
   z-index: 3;
@@ -1938,42 +1974,15 @@ body::-webkit-scrollbar {
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-.map-detail ._land-info li ._land-wealth.type--diamond ._land-wealth__icon {
+.map-detail ._land-info li ._land-wealth.type--diamond .land-wealth__icon {
   background-image: url(./images/img_wealth_diamond.png);
   background-position: 65% 50%;
   background-size: 65%;
 }
-.map-detail ._land-info li ._land-wealth.type--rudy ._land-wealth__icon {
+.map-detail ._land-info li ._land-wealth.type--rudy .land-wealth__icon {
   background-image: url(./images/img_wealth_rudy.png);
   background-position: 65% 70%;
   background-size: 75%;
-}
-.map-detail ._land-info li ._land-wealth ._land-wealth__icon {
-  background-repeat: no-repeat;
-  border: 2px solid #504338;
-  border-radius: 9999px;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  height: 36px;
-  margin-right: 8px;
-  position: relative;
-  width: 36px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-.map-detail ._land-info li ._land-wealth ._land-wealth__icon:before {
-  background-image: url(./images/img_wealth_mark.png);
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 21px;
-  left: -3px;
-  position: absolute;
-  top: -1px;
-  width: 14px;
 }
 .map-detail ._land-info li ._land-wealth + ._land-wealth {
   margin-left: 66px;
@@ -2018,202 +2027,14 @@ body::-webkit-scrollbar {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    margin-bottom: 3.90625vw;
   }
 }
-.territory-table__notice {
-  font-size: 3.6458333333vw;
-  color: #877f7f;
-  margin-bottom: 2.34375vw;
-}
-.territory-table__focus {
-  color: #fff;
-  -webkit-filter: drop-shadow(0 7px 13px rgba(0, 0, 0, 0.4));
-          filter: drop-shadow(0 7px 13px rgba(0, 0, 0, 0.4));
-  padding: 20px 16px;
-}
-.territory-table__focus.type--garrison ._header:before {
-  background-image: url(./images/img_landbadge_garrison.png);
-}
-.territory-table__focus.type--fortress ._header:before {
-  background-image: url(./images/img_landbadge_fortress.png);
-}
-.territory-table__focus.type--castle ._header:before {
-  background-image: url(./images/img_landbadge_castle.png);
-}
-.territory-table__focus ._wrap {
-  background-color: #ad7028;
-  -webkit-clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
-          clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
-}
-.territory-table__focus ._wrap ._taxs {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin-top: 20px;
-  grid-gap: 8px;
-}
-.territory-table__focus ._header {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #9b6c36;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 14px 20px;
-  position: relative;
-}
-.territory-table__focus ._header:before {
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: inline-block;
-  height: 28px;
-  margin-right: 7px;
-  width: 21px;
-}
-.territory-table__focus ._header h3 {
-  color: #fff;
-  font-family: WarsOfPrasia, serif;
-  font-size: 20px;
-  text-shadow: 0 3px 2px rgba(0, 0, 0, 0.3019607843);
-}
-.territory-table__focus ._header ._refresh {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin-left: auto;
-}
-.territory-table__focus ._header ._refresh i {
-  background-color: rgba(255, 255, 255, 0.8);
-  height: 16px;
-  width: 18px;
-}
-.territory-table__focus ._content {
-  padding: 24px 20px 22px;
-}
-.territory-table__focus ._content ._guild {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-column-gap: 5px;
-     -moz-column-gap: 5px;
-          column-gap: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  row-gap: 8px;
-}
-.territory-table ._guild-level {
-  border: 1px solid rgba(255, 255, 255, 0.5019607843);
-  border-radius: 9999px;
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1;
-  padding: 2px 8px 3px;
-}
-.territory-table ._guild-name {
-  font-size: 18px;
-  font-weight: 500;
-}
-.territory-table ._info-item {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  white-space: nowrap;
-  width: 100%;
-}
-.territory-table ._info-item ._info-name {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: rgba(255, 255, 255, 0.7019607843);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 14px;
-}
-.territory-table ._info-item ._info-name i {
-  background-color: rgba(255, 255, 255, 0.7019607843);
-  height: 12px;
-  margin-right: 5px;
-  width: 18px;
-}
-.territory-table ._info-item ._info-value {
-  font-family: WarsOfPrasia, serif;
-  font-size: 19px;
-  font-style: italic;
-}
-.territory-table ._info-wealth {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-.territory-table ._info-wealth.type--diamond ._info-wealth__icon {
-  background-image: url(./images/icon_diamond.png);
-  background-position: 65% 50%;
-  background-size: 65%;
-}
-.territory-table ._info-wealth.type--rudy ._info-wealth__icon {
-  background-image: url(./images/icon_rudy.png);
-  background-position: 55% 50%;
-  background-size: 65%;
-}
-.territory-table ._info-wealth + ._info-wealth {
-  margin-left: 16px;
-}
-.territory-table ._info-wealth ._info-wealth__icon {
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: 1px solid rgba(255, 255, 255, 0.2509803922);
-  border-radius: 9999px;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  height: 22px;
-  margin-right: 5px;
-  position: relative;
-  width: 22px;
-}
-.territory-table ._info-wealth ._info-wealth__icon:before {
-  background-image: url(./images/icon_diamond.png);
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  display: none;
-  display: inline-block;
-  height: 11px;
-  left: -3px;
-  position: absolute;
-  top: -1px;
-  width: 8px;
-}
-.territory-table ._interval-notice {
-  color: #c2c0be;
-  font-size: 12px;
-  font-weight: 400;
-  margin-bottom: 20px;
-  text-align: center;
+@media screen and (max-width: 768px) {
+  .territory-table__pagination {
+    margin-bottom: 11.71875vw;
+    font-size: 4.1666666667vw;
+  }
 }
 .territory-table__list {
   -webkit-box-align: center;
@@ -2226,6 +2047,7 @@ body::-webkit-scrollbar {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  row-gap: 3.90625vw;
 }
 .territory-table__item {
   width: 100%;
@@ -2255,6 +2077,16 @@ body::-webkit-scrollbar {
   background-image: url(./images/img_landbadge_fortress.png);
   background-size: 100%;
   margin-right: 2.4739583333vw;
+}
+.territory-table__item.type--occpuy-elf .land-info__name,
+.territory-table__item.type--occpuy-elf .land-info__occupy-elf,
+.territory-table__item.type--occpuy-elf .land-wealth__value,
+.territory-table__item.type--occpuy-elf .land-trade-tax__value {
+  color: #c7bfb3;
+}
+.territory-table__item.type--occpuy-elf .land-info__occupy-elf {
+  margin-left: auto;
+  font-size: 3.6458333333vw;
 }
 .territory-table__item .land-box {
   font-size: 3.6458333333vw;
@@ -2403,4 +2235,854 @@ body::-webkit-scrollbar {
   font-size: 3.6458333333vw;
   color: #c2a779;
   margin-left: auto;
+}
+
+.main-territory {
+  background-image: url("./images/mainTerritory/bg.jpg");
+}
+@media screen and (max-width: 768px) {
+  .main-territory {
+    background-image: url("./images/mainTerritory/bg-m.jpg");
+    overflow: hidden;
+  }
+}
+.main-territory__wrap {
+  width: 1200px;
+  position: relative;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__wrap {
+    width: 100%;
+    padding: 7.8125vw 0;
+  }
+}
+.main-territory__title {
+  width: 593px;
+  height: 51px;
+  background-image: url("./images/mainTerritory/title.png");
+  background-size: 100%;
+  margin: 0 auto 30px;
+  font-size: 0;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__title {
+    width: 96.484375vw;
+    height: 8.4635416667vw;
+    background-image: url("./images/mainTerritory/title-m.png");
+  }
+}
+.main-territory__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 60px;
+  -webkit-column-gap: 30px;
+     -moz-column-gap: 30px;
+          column-gap: 30px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin-bottom: 7.8125vw;
+    -webkit-column-gap: 0;
+       -moz-column-gap: 0;
+            column-gap: 0;
+    row-gap: 3.90625vw;
+    padding: 0 3.90625vw;
+  }
+}
+.main-territory__nav .button--selector {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(80, 67, 56, 0.5);
+  cursor: pointer;
+  min-height: 0;
+  padding: 11px 10px;
+  pointer-events: all;
+  position: relative;
+  border-radius: 0;
+  width: 275px;
+  -webkit-column-gap: 0;
+     -moz-column-gap: 0;
+          column-gap: 0;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector {
+    padding: 3.125vw 3.90625vw;
+    font-size: 4.1666666667vw;
+    width: 100%;
+    color: #c2a779;
+    border-radius: 0;
+    border: 0.1302083333vw solid #c2a779;
+  }
+}
+.main-territory__nav .button--selector:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 6px;
+  vertical-align: top;
+  width: 11px;
+  fill: currentColor;
+  background-color: #c2c0be;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  margin-left: 16px;
+  -webkit-mask-image: url(./svg/icon_arrow_down.svg);
+          mask-image: url(./svg/icon_arrow_down.svg);
+  mask-position: center center;
+  -webkit-mask-position: center center;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  min-height: 5px;
+  min-width: 5px;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector:after {
+    width: 2.8645833333vw;
+    height: 1.5625vw;
+    margin-left: 3.7760416667vw;
+    background-color: #c2a779;
+  }
+}
+.main-territory__nav .button--selector ._name {
+  color: #c2a779;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  height: auto;
+  line-height: 1;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector ._name {
+    font-size: 4.1666666667vw;
+    color: #c2a779;
+  }
+}
+.main-territory__nav .button--selector ._value {
+  color: #877f7f;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  margin-left: auto;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector ._value {
+    font-size: 4.1666666667vw;
+  }
+}
+.main-territory__nav .button--selector .selector {
+  max-height: 360px;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector .selector {
+    min-width: 100%;
+    margin-top: 0;
+  }
+}
+.main-territory__nav .button--selector .selector__transform {
+  border-radius: 0;
+  background-color: transparent;
+}
+.main-territory__nav .button--selector .selector__close {
+  display: none;
+}
+.main-territory__nav .button--selector .selector__content {
+  background-color: black;
+  border: 1px solid rgba(80, 67, 56, 0.5);
+  border-radius: 0;
+}
+.main-territory__nav .button--selector .selector__content ul li {
+  border-bottom: 1px solid #504338;
+}
+.main-territory__nav .button--selector .selector__content ul li.-selected {
+  background-color: #61543d;
+}
+.main-territory__nav .button--selector .selector__content ul li.-selected span {
+  color: #c2a779;
+}
+.main-territory__nav .button--selector .selector__content ul li span {
+  color: #877f7f;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav .button--selector .selector__content {
+    background-color: #000;
+    border: 0.1302083333vw solid #c2a779;
+  }
+  .main-territory__nav .button--selector .selector__content ul li {
+    font-size: 4.1666666667vw;
+    color: #877f7f;
+    padding: 3.2552083333vw;
+    border-bottom: 0.1302083333vw solid #c2a779;
+  }
+  .main-territory__nav .button--selector .selector__content ul li:last-child {
+    border-bottom: none;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav .button--selector .selector__content ul li .i--garrison {
+    min-width: 2.6041666667vw;
+    min-height: 4.0364583333vw;
+    -webkit-mask-image: url(./svg/icon_garrison.svg);
+            mask-image: url(./svg/icon_garrison.svg);
+    background-color: #877f7f;
+    margin-right: 2.9947916667vw;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav .button--selector .selector__content ul li .i--castle {
+    min-width: 4.6875vw;
+    min-height: 4.0364583333vw;
+    -webkit-mask-image: url(./svg/icon_castle.svg);
+            mask-image: url(./svg/icon_castle.svg);
+    background-color: #877f7f;
+    margin-right: 2.0833333333vw;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav .button--selector .selector__content ul li .i--fortress {
+    min-width: 4.8177083333vw;
+    min-height: 3.6458333333vw;
+    -webkit-mask-image: url(./svg/icon_fortress.svg);
+            mask-image: url(./svg/icon_fortress.svg);
+    background-color: #877f7f;
+    margin-right: 1.953125vw;
+  }
+}
+.main-territory__nav-type {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__nav-type {
+    display: block;
+  }
+  .main-territory__nav-type .button--selector:after {
+    margin-left: auto;
+  }
+  .main-territory__nav-type .button--selector .selector__content ul li.-selected {
+    background-color: #61543d;
+  }
+  .main-territory__nav-type .button--selector .selector__content ul li.-selected i {
+    background-color: #c2a779;
+  }
+  .main-territory__nav-type .button--selector .selector__content ul li.-selected span {
+    color: #c2a779;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav-type .button--selector ._name .i--garrison {
+    min-width: 2.6041666667vw;
+    min-height: 4.0364583333vw;
+    -webkit-mask-image: url(./svg/icon_garrison.svg);
+            mask-image: url(./svg/icon_garrison.svg);
+    background-color: #c2a779;
+    margin-right: 2.9947916667vw;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav-type .button--selector ._name .i--castle {
+    min-width: 4.6875vw;
+    min-height: 4.0364583333vw;
+    -webkit-mask-image: url(./svg/icon_castle.svg);
+            mask-image: url(./svg/icon_castle.svg);
+    background-color: #c2a779;
+    margin-right: 2.0833333333vw;
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .main-territory__nav-type .button--selector ._name .i--fortress {
+    min-width: 4.8177083333vw;
+    min-height: 3.6458333333vw;
+    -webkit-mask-image: url(./svg/icon_fortress.svg);
+            mask-image: url(./svg/icon_fortress.svg);
+    background-color: #c2a779;
+    margin-right: 1.953125vw;
+  }
+}
+.main-territory__tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-column-gap: 15px;
+     -moz-column-gap: 15px;
+          column-gap: 15px;
+  margin-bottom: 30px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__tab {
+    display: none;
+  }
+}
+.main-territory__tab-item {
+  width: 120px;
+  height: 40px;
+  background-image: url("./images/mainTerritory/tab-type-bg.png");
+  background-size: 200%;
+  font-size: 16px;
+  color: #877f7f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+.main-territory__tab-item i {
+  margin-right: 10px;
+  background-color: #877f7f;
+}
+.main-territory__tab-item i.i--garrison {
+  width: 10px;
+  height: 16px;
+  -webkit-mask-image: url(./svg/icon_garrison.svg);
+          mask-image: url(./svg/icon_garrison.svg);
+}
+.main-territory__tab-item i.i--fortress {
+  width: 18px;
+  height: 14px;
+  -webkit-mask-image: url(./svg/icon_fortress.svg);
+          mask-image: url(./svg/icon_fortress.svg);
+}
+.main-territory__tab-item i.i--castle {
+  width: 18px;
+  height: 16px;
+  -webkit-mask-image: url(./svg/icon_castle.svg);
+          mask-image: url(./svg/icon_castle.svg);
+}
+@media screen and (min-width: 768px) {
+  .main-territory__tab-item:hover {
+    background-position-x: 100%;
+    color: #c2a779;
+  }
+  .main-territory__tab-item:hover i {
+    background-color: #c2a779;
+  }
+}
+.main-territory__tab-item.active {
+  background-position-x: 100%;
+  color: #c2a779;
+}
+.main-territory__tab-item.active i {
+  background-color: #c2a779;
+}
+.main-territory__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 280px;
+  right: 60px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info {
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 0 3.90625vw;
+    margin-bottom: 2.0833333333vw;
+  }
+}
+.main-territory__info-total {
+  font-size: 14px;
+  color: #877f7f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 13px;
+  line-height: 1;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-total {
+    font-size: 3.6458333333vw;
+    margin-right: 0;
+  }
+}
+.main-territory__info-total span {
+  font-size: 16px;
+  color: #c2a779;
+  margin-left: 3px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-total span {
+    font-size: 4.1666666667vw;
+    margin-left: 0.390625vw;
+  }
+}
+.main-territory__info-notice {
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-notice {
+    margin-left: auto;
+  }
+}
+.main-territory__info-notice .i--notice {
+  width: 20px;
+  height: 20px;
+  background-image: url("./images/mainTerritory/icon_notice.png");
+  background-size: cover;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-notice .i--notice {
+    display: none;
+  }
+}
+.main-territory__info-notice-popup {
+  border: 1px solid #c2a779;
+  font-size: 14px;
+  color: #c2a779;
+  background-color: black;
+  padding: 6px 11px;
+  position: absolute;
+  top: -100%;
+  margin-top: -24px;
+  right: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-notice-popup {
+    font-size: 3.6458333333vw;
+    border: none;
+    color: #877f7f;
+    background-color: transparent;
+    padding: 0;
+    top: 0;
+    margin-top: 0;
+    position: relative;
+  }
+}
+.main-territory__info-notice-popup span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: absolute;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 8px;
+  vertical-align: top;
+  width: 8px;
+  bottom: -8px;
+  -webkit-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+  right: 6px;
+}
+.main-territory__info-notice-popup span:before {
+  background-color: black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  content: "";
+  display: inline-block;
+  height: 100%;
+  -webkit-transform: rotate(225deg);
+      -ms-transform: rotate(225deg);
+          transform: rotate(225deg);
+  width: 100%;
+  border-left: 1px solid #c2a779;
+  border-top: 1px solid #c2a779;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__info-notice-popup span {
+    display: none;
+  }
+}
+.main-territory__swiper {
+  width: 1080px;
+  margin: 0 auto 60px;
+  margin-bottom: 60px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__swiper {
+    width: 100%;
+    margin-bottom: 7.8125vw;
+    overflow: visible;
+  }
+}
+.main-territory__swiper-box {
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__swiper-box {
+    padding: 0 15%;
+  }
+}
+.main-territory__swiper-slide {
+  width: 340px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid #504338;
+  padding: 30px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__swiper-slide {
+    width: 71.6145833333vw;
+    border-width: 0.2604166667vw;
+    padding: 3.90625vw;
+  }
+}
+.main-territory__swiper-next {
+  width: 29px;
+  height: 40px;
+  background-size: cover;
+  background-image: url("./images/mainTerritory/btn-next.png");
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__swiper-next {
+    display: none;
+  }
+}
+.main-territory__swiper-prev {
+  width: 29px;
+  height: 40px;
+  background-size: cover;
+  background-image: url("./images/mainTerritory/btn-prev.png");
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__swiper-prev {
+    display: none;
+  }
+}
+.main-territory__btn {
+  width: 245px;
+  height: 60px;
+  background-size: 200%;
+  background-image: url("./images/mainTerritory/btn-more.png");
+  margin: 0 auto;
+  font-size: 0;
+  display: block;
+}
+@media screen and (min-width: 768px) {
+  .main-territory__btn:hover {
+    background-position-x: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-territory__btn {
+    width: 58.59375vw;
+    height: 14.3229166667vw;
+    background-image: url("./images/mainTerritory/btn-more-m.png");
+    background-size: 100%;
+  }
+}
+.main-territory__land-box {
+  border-bottom: 1px solid #504338;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px 0;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-box {
+    border-bottom-width: 0.1302083333vw;
+    padding: 3.125vw 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-box:first-child {
+    padding: 3.90625vw 0;
+  }
+}
+.main-territory__land-box:last-child {
+  border-bottom: 0;
+}
+.main-territory__land-box--guild {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 31px 0;
+}
+.main-territory__land-type i {
+  background-color: #c2a779;
+  margin-right: 20px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-type i {
+    margin-right: 5.2083333333vw;
+  }
+}
+.main-territory__land-type i.i--garrison {
+  width: 19px;
+  height: 30px;
+  -webkit-mask-image: url(./svg/icon_garrison.svg);
+          mask-image: url(./svg/icon_garrison.svg);
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-type i.i--garrison {
+    width: 4.9479166667vw;
+    height: 7.8125vw;
+  }
+}
+.main-territory__land-type i.i--fortress {
+  width: 39px;
+  height: 30px;
+  -webkit-mask-image: url(./svg/icon_fortress.svg);
+          mask-image: url(./svg/icon_fortress.svg);
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-type i.i--fortress {
+    height: 10.2864583333vw;
+    height: 7.8125vw;
+  }
+}
+.main-territory__land-type i.i--castle {
+  width: 34px;
+  height: 30px;
+  -webkit-mask-image: url(./svg/icon_castle.svg);
+          mask-image: url(./svg/icon_castle.svg);
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-type i.i--castle {
+    width: 9.1145833333vw;
+    height: 7.8125vw;
+  }
+}
+.main-territory__land-name {
+  color: #c2a779;
+  font-size: 16px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-name {
+    font-size: 4.1666666667vw;
+  }
+}
+.main-territory__land-guild__lv {
+  min-width: 96px;
+  height: 30px;
+  color: #c7bfb3;
+  font-size: 16px;
+  border: 2px solid #504338;
+  border-radius: 100vmax;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 16px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-guild__lv {
+    min-width: 25vw;
+    height: 7.8125vw;
+    font-size: 4.1666666667vw;
+    border-width: 0.2604166667vw;
+    margin-bottom: 3.90625vw;
+  }
+}
+.main-territory__land-guild__name {
+  color: #8e5f3f;
+  font-size: 24px;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-guild__name {
+    font-size: 6.25vw;
+  }
+}
+.main-territory__land-tax .land-tax-stack {
+  font-size: 14px;
+  color: #877f7f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-tax-stack {
+    font-size: 3.6458333333vw;
+  }
+}
+.main-territory__land-tax .land-tax-stack .i--money {
+  width: 20px;
+  height: 13px;
+  margin-right: 10px;
+  background-color: #877f7f;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-tax-stack .i--money {
+    width: 5.2083333333vw;
+    height: 3.3854166667vw;
+    margin-right: 2.6041666667vw;
+  }
+}
+.main-territory__land-tax .land-wealth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main-territory__land-tax .land-wealth.type--diamond {
+  margin-left: auto;
+  margin-right: 10px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-wealth.type--diamond {
+    margin-right: 2.34375vw;
+  }
+}
+.main-territory__land-tax .land-wealth.type--diamond .land-wealth__icon {
+  background-image: url(./images/img_wealth_diamond.png);
+  background-position: 65% 50%;
+  background-size: 65%;
+}
+.main-territory__land-tax .land-wealth.type--ruby .land-wealth__icon {
+  background-image: url(./images/img_wealth_rudy.png);
+  background-position: 55% 50%;
+  background-size: 65%;
+}
+.main-territory__land-tax .land-wealth__icon {
+  background-repeat: no-repeat;
+  border: 1px solid #c2a779;
+  border-radius: 100vmax;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 30px;
+  margin-right: 6px;
+  position: relative;
+  width: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-wealth__icon {
+    width: 7.03125vw;
+    height: 7.03125vw;
+    margin-right: 1.3020833333vw;
+    border-width: 0.1302083333vw;
+  }
+}
+.main-territory__land-tax .land-wealth__icon:before {
+  background-image: url(./images/img_wealth_mark.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 24px;
+  left: -4px;
+  position: absolute;
+  top: -6px;
+  width: 11px;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-wealth__icon:before {
+    width: 2.9947916667vw;
+    height: 5.2083333333vw;
+    top: -0.78125vw;
+    left: -1.0416666667vw;
+  }
+}
+.main-territory__land-tax .land-wealth__value {
+  font-size: 16px;
+  color: #c2a779;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-wealth__value {
+    font-size: 4.1666666667vw;
+  }
+}
+.main-territory__land-tax .land-trade-tax {
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #877f7f;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-trade-tax {
+    font-size: 3.6458333333vw;
+  }
+}
+.main-territory__land-tax .land-trade-tax .i--money {
+  width: 20px;
+  height: 13px;
+  margin-right: 10px;
+  background-color: #877f7f;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-trade-tax .i--money {
+    width: 5.2083333333vw;
+    height: 3.3854166667vw;
+    margin-right: 2.6041666667vw;
+  }
+}
+.main-territory__land-tax .land-trade-tax__value {
+  color: #c2a779;
+  font-size: 16px;
+  margin-left: auto;
+}
+@media screen and (max-width: 768px) {
+  .main-territory__land-tax .land-trade-tax__value {
+    font-size: 4.1666666667vw;
+  }
 }

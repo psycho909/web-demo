@@ -23,6 +23,13 @@
 		@content;
 	}
 }
+@mixin hover($breakpoint: 768px) {
+	@media screen and (min-width: $breakpoint) {
+		&:hover {
+			@content;
+		}
+	}
+}
 html.use-custom-cursor,
 html.use-custom-cursor a,
 html.use-custom-cursor button,

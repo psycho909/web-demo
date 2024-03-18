@@ -206,41 +206,17 @@
 				align-items: center;
 				display: inline-flex;
 				&.type--diamond {
-					._land-wealth__icon {
+					.land-wealth__icon {
 						background-image: url(./images/img_wealth_diamond.png);
 						background-position: 65% 50%;
 						background-size: 65%;
 					}
 				}
 				&.type--rudy {
-					._land-wealth__icon {
+					.land-wealth__icon {
 						background-image: url(./images/img_wealth_rudy.png);
 						background-position: 65% 70%;
 						background-size: 75%;
-					}
-				}
-				._land-wealth__icon {
-					background-repeat: no-repeat;
-					border: 2px solid rgba(#504338, 1);
-					border-radius: 9999px;
-					display: inline-flex;
-					height: 36px;
-					margin-right: 8px;
-					position: relative;
-					width: 36px;
-					box-sizing: border-box;
-					&:before {
-						background-image: url(./images/img_wealth_mark.png);
-						background-position: 50% 50%;
-						background-repeat: no-repeat;
-						background-size: contain;
-						content: "";
-						display: inline-block;
-						height: 21px;
-						left: -3px;
-						position: absolute;
-						top: -1px;
-						width: 14px;
 					}
 				}
 				& + ._land-wealth {

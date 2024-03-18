@@ -44,3 +44,50 @@
 .i--refresh {
 	mask-image: url(./svg/icon_refresh.svg);
 }
+.i--garrison {
+	mask-image: url(./svg/icon_garrison.svg);
+}
+.i--fortress {
+	mask-image: url(./svg/icon_fortress.svg);
+}
+.i--castle {
+	mask-image: url(./svg/icon_castle.svg);
+}
+.type--diamond {
+	.land-wealth__icon {
+		background-image: url(./images/img_wealth_diamond.png);
+		background-position: 65% 50%;
+		background-size: 65%;
+	}
+}
+.type--ruby {
+	.land-wealth__icon {
+		background-image: url(./images/img_wealth_rudy.png);
+		background-position: 65% 70%;
+		background-size: 75%;
+	}
+}
+.land-wealth__icon {
+	background-repeat: no-repeat;
+	border: 2px solid #504338;
+	border-radius: 100vmax;
+	display: inline-flex;
+	height: 36px;
+	margin-right: 8px;
+	position: relative;
+	width: 36px;
+	box-sizing: border-box;
+	&:before {
+		background-image: url(./images/img_wealth_mark.png);
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		content: "";
+		display: inline-block;
+		height: 21px;
+		left: -3px;
+		position: absolute;
+		top: -1px;
+		width: 14px;
+	}
+}

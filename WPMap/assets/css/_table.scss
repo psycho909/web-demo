@@ -3,185 +3,19 @@
 	flex-direction: column;
 	@media (max-width: 768px) {
 		display: flex;
+		margin-bottom: vw(30);
 	}
-	&__notice {
-		font-size: vw(28);
-		color: #877f7f;
-		margin-bottom: vw(18);
-	}
-	&__focus {
-		color: #fff;
-		filter: drop-shadow(0 7px 13px rgba(0, 0, 0, 0.4));
-		padding: 20px 16px;
-		&.type--garrison {
-			._header {
-				&:before {
-					background-image: url(./images/img_landbadge_garrison.png);
-				}
-			}
+	&__pagination {
+		@include media {
+			margin-bottom: vw(90);
+			font-size: vw(32);
 		}
-		&.type--fortress {
-			._header {
-				&:before {
-					background-image: url(./images/img_landbadge_fortress.png);
-				}
-			}
-		}
-		&.type--castle {
-			._header {
-				&:before {
-					background-image: url(./images/img_landbadge_castle.png);
-				}
-			}
-		}
-		._wrap {
-			background-color: #ad7028;
-			clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
-			._taxs {
-				display: flex;
-				flex-direction: column;
-				margin-top: 20px;
-				grid-gap: 8px;
-			}
-		}
-		._header {
-			align-items: center;
-			background-color: #9b6c36;
-			display: flex;
-			padding: 14px 20px;
-			position: relative;
-			&:before {
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-				background-size: contain;
-				content: "";
-				display: inline-block;
-				height: 28px;
-				margin-right: 7px;
-				width: 21px;
-			}
-			h3 {
-				color: #fff;
-				font-family: WarsOfPrasia, serif;
-				font-size: 20px;
-				text-shadow: 0 3px 2px #0000004d;
-			}
-			._refresh {
-				align-items: center;
-				display: inline-flex;
-				margin-left: auto;
-				i {
-					background-color: #fffc;
-					height: 16px;
-					width: 18px;
-				}
-			}
-		}
-		._content {
-			padding: 24px 20px 22px;
-			._guild {
-				align-items: center;
-				column-gap: 5px;
-				display: flex;
-				justify-content: center;
-				row-gap: 8px;
-			}
-		}
-	}
-	._guild-level {
-		border: 1px solid #ffffff80;
-		border-radius: 9999px;
-		display: inline-block;
-		font-size: 10px;
-		font-weight: 600;
-		line-height: 1;
-		padding: 2px 8px 3px;
-	}
-	._guild-name {
-		font-size: 18px;
-		font-weight: 500;
-	}
-	._info-item {
-		align-items: center;
-		display: flex;
-		white-space: nowrap;
-		width: 100%;
-		._info-name {
-			align-items: center;
-			color: #ffffffb3;
-			display: flex;
-			font-size: 14px;
-			i {
-				background-color: #ffffffb3;
-				height: 12px;
-				margin-right: 5px;
-				width: 18px;
-			}
-		}
-		._info-value {
-			font-family: WarsOfPrasia, serif;
-			font-size: 19px;
-			font-style: italic;
-		}
-	}
-	._info-wealth {
-		align-items: center;
-		display: inline-flex;
-		&.type--diamond {
-			._info-wealth__icon {
-				background-image: url(./images/icon_diamond.png);
-				background-position: 65% 50%;
-				background-size: 65%;
-			}
-		}
-		&.type--rudy {
-			._info-wealth__icon {
-				background-image: url(./images/icon_rudy.png);
-				background-position: 55% 50%;
-				background-size: 65%;
-			}
-		}
-		& + ._info-wealth {
-			margin-left: 16px;
-		}
-		._info-wealth__icon {
-			background-position: 50% 50%;
-			background-repeat: no-repeat;
-			background-size: contain;
-			border: 1px solid #ffffff40;
-			border-radius: 9999px;
-			display: inline-flex;
-			height: 22px;
-			margin-right: 5px;
-			position: relative;
-			width: 22px;
-			&:before {
-				background-image: url(./images/icon_diamond.png);
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-				background-size: contain;
-				content: "";
-				display: none;
-				display: inline-block;
-				height: 11px;
-				left: -3px;
-				position: absolute;
-				top: -1px;
-				width: 8px;
-			}
-		}
-	}
-	._interval-notice {
-		color: #c2c0be;
-		font-size: 12px;
-		font-weight: 400;
-		margin-bottom: 20px;
-		text-align: center;
 	}
 	&__list {
 		align-items: center;
 		display: flex;
 		flex-direction: column;
+		row-gap: vw(30);
 	}
 	&__item {
 		width: 100%;
@@ -214,6 +48,18 @@
 				background-image: url(./images/img_landbadge_fortress.png);
 				background-size: 100%;
 				margin-right: vw(19);
+			}
+		}
+		&.type--occpuy-elf {
+			.land-info__name,
+			.land-info__occupy-elf,
+			.land-wealth__value,
+			.land-trade-tax__value {
+				color: #c7bfb3;
+			}
+			.land-info__occupy-elf {
+				margin-left: auto;
+				font-size: vw(28);
 			}
 		}
 		.land {
@@ -317,8 +163,6 @@
 					background-repeat: no-repeat;
 					border: vw(1) solid rgba(#c2a779, 1);
 					border-radius: 100vmax;
-					display: -webkit-inline-box;
-					display: -ms-inline-flexbox;
 					display: inline-flex;
 					height: vw(40);
 					margin-right: vw(10);

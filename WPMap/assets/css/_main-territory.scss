@@ -1,0 +1,697 @@
+.main-territory {
+	background-image: url("./images/mainTerritory/bg.jpg");
+	@include media {
+		background-image: url("./images/mainTerritory/bg-m.jpg");
+		overflow: hidden;
+	}
+	&__wrap {
+		width: 1200px;
+		position: relative;
+		margin: 0 auto;
+		padding: 60px 0;
+		@include media {
+			width: 100%;
+			padding: vw(60) 0;
+		}
+	}
+	&__title {
+		width: 593px;
+		height: 51px;
+		background-image: url("./images/mainTerritory/title.png");
+		background-size: 100%;
+		margin: 0 auto 30px;
+		font-size: 0;
+		@include media {
+			width: vw(741);
+			height: vw(65);
+			background-image: url("./images/mainTerritory/title-m.png");
+		}
+	}
+	&__nav {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 60px;
+		column-gap: 30px;
+		@include media {
+			flex-direction: column;
+			margin-bottom: vw(60);
+			column-gap: 0;
+			row-gap: vw(30);
+			padding: 0 vw(30);
+		}
+		.button--selector {
+			background-color: rgba(#000, 0.5);
+			border: 1px solid rgba(#504338, 0.5);
+			cursor: pointer;
+			min-height: 0;
+			padding: 11px 10px;
+			pointer-events: all;
+			position: relative;
+			border-radius: 0;
+			width: 275px;
+			column-gap: 0;
+			@include media {
+				padding: vw(24) vw(30);
+				font-size: vw(32);
+				width: 100%;
+				color: #c2a779;
+				border-radius: 0;
+				border: vw(1) solid #c2a779;
+			}
+			&:after {
+				box-sizing: border-box;
+				content: "";
+				display: inline-block;
+				display: inline-flex;
+				height: 6px;
+				vertical-align: top;
+				width: 11px;
+				fill: currentColor;
+				background-color: #c2c0be;
+				background-position: 50%;
+				background-repeat: no-repeat;
+				background-size: contain;
+				flex: 0 0 auto;
+				margin-left: 16px;
+				mask-image: url(./svg/icon_arrow_down.svg);
+				mask-position: center center;
+				-webkit-mask-position: center center;
+				mask-repeat: no-repeat;
+				-webkit-mask-repeat: no-repeat;
+				mask-size: 100% 100%;
+				-webkit-mask-size: 100% 100%;
+				min-height: 5px;
+				min-width: 5px;
+				transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+				@include media {
+					// position: absolute;
+					// top: 50%;
+					// right: vw(30);
+					// transform: translateY(-50%);
+					width: vw(22);
+					height: vw(12);
+					margin-left: vw(29);
+					background-color: #c2a779;
+				}
+			}
+			._name {
+				color: #c2a779;
+				display: inline-block;
+				font-size: 16px;
+				font-weight: 500;
+				height: auto;
+				line-height: 1;
+				@include media {
+					font-size: vw(32);
+					color: #c2a779;
+				}
+			}
+			._value {
+				color: #877f7f;
+				font-size: 14px;
+				font-weight: 600;
+				text-align: right;
+				margin-left: auto;
+				@include media {
+					font-size: vw(32);
+				}
+			}
+			.selector {
+				max-height: 360px;
+				width: 100%;
+				@include media {
+					min-width: 100%;
+					margin-top: 0;
+				}
+				&__transform {
+					border-radius: 0;
+					background-color: transparent;
+					// @include media {
+					// 	background-color: #000;
+					// }
+				}
+				&__close {
+					display: none;
+				}
+				&__content {
+					background-color: rgba(#000, 1);
+					border: 1px solid rgba(#504338, 0.5);
+					border-radius: 0;
+					ul li {
+						border-bottom: 1px solid #504338;
+						&.-selected {
+							background-color: #61543d;
+							span {
+								color: #c2a779;
+							}
+						}
+						span {
+							color: #877f7f;
+						}
+					}
+					@include media {
+						background-color: #000;
+						border: vw(1) solid #c2a779;
+						ul li {
+							font-size: vw(32);
+							color: #877f7f;
+							padding: vw(25);
+							border-bottom: vw(1) solid #c2a779;
+							&:last-child {
+								border-bottom: none;
+							}
+							.i--garrison {
+								@include media {
+									min-width: vw(20);
+									min-height: vw(31);
+									mask-image: url(./svg/icon_garrison.svg);
+									background-color: #877f7f;
+									margin-right: vw(23);
+								}
+							}
+							.i--castle {
+								@include media {
+									min-width: vw(36);
+									min-height: vw(31);
+									mask-image: url(./svg/icon_castle.svg);
+									background-color: #877f7f;
+									margin-right: vw(16);
+								}
+							}
+							.i--fortress {
+								@include media {
+									min-width: vw(37);
+									min-height: vw(28);
+									mask-image: url(./svg/icon_fortress.svg);
+									background-color: #877f7f;
+									margin-right: vw(15);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&-item {
+		}
+		&-world {
+		}
+		&-realm {
+		}
+		&-type {
+			display: none;
+			@include media {
+				display: block;
+				.button--selector {
+					&:after {
+						margin-left: auto;
+					}
+					.selector__content {
+						ul li {
+							&.-selected {
+								background-color: #61543d;
+								i {
+									background-color: #c2a779;
+								}
+								span {
+									color: #c2a779;
+								}
+							}
+						}
+					}
+					._name {
+						.i--garrison {
+							@include media {
+								min-width: vw(20);
+								min-height: vw(31);
+								mask-image: url(./svg/icon_garrison.svg);
+								background-color: #c2a779;
+								margin-right: vw(23);
+							}
+						}
+						.i--castle {
+							@include media {
+								min-width: vw(36);
+								min-height: vw(31);
+								mask-image: url(./svg/icon_castle.svg);
+								background-color: #c2a779;
+								margin-right: vw(16);
+							}
+						}
+						.i--fortress {
+							@include media {
+								min-width: vw(37);
+								min-height: vw(28);
+								mask-image: url(./svg/icon_fortress.svg);
+								background-color: #c2a779;
+								margin-right: vw(15);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	&__tab {
+		display: flex;
+		justify-content: center;
+		column-gap: 15px;
+		margin-bottom: 30px;
+		@include media {
+			display: none;
+		}
+		&-item {
+			width: 120px;
+			height: 40px;
+			background-image: url("./images/mainTerritory/tab-type-bg.png");
+			background-size: 200%;
+			font-size: 16px;
+			color: #877f7f;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			i {
+				margin-right: 10px;
+				background-color: #877f7f;
+				&.i--garrison {
+					width: 10px;
+					height: 16px;
+					mask-image: url(./svg/icon_garrison.svg);
+				}
+				&.i--fortress {
+					width: 18px;
+					height: 14px;
+					mask-image: url(./svg/icon_fortress.svg);
+				}
+				&.i--castle {
+					width: 18px;
+					height: 16px;
+					mask-image: url(./svg/icon_castle.svg);
+				}
+			}
+			@include hover {
+				background-position-x: 100%;
+				color: #c2a779;
+				i {
+					background-color: #c2a779;
+				}
+			}
+			&.active {
+				background-position-x: 100%;
+				color: #c2a779;
+				i {
+					background-color: #c2a779;
+				}
+			}
+		}
+	}
+	&__info {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 280px;
+		right: 60px;
+		@include media {
+			position: relative;
+			top: 0;
+			right: 0;
+			padding: 0 vw(30);
+			margin-bottom: vw(16);
+		}
+		&-total {
+			font-size: 14px;
+			color: #877f7f;
+			display: flex;
+			align-items: center;
+			margin-right: 13px;
+			line-height: 1;
+			@include media {
+				font-size: vw(28);
+				margin-right: 0;
+			}
+			span {
+				font-size: 16px;
+				color: #c2a779;
+				margin-left: 3px;
+				@include media {
+					font-size: vw(32);
+					margin-left: vw(3);
+				}
+			}
+		}
+		&-notice {
+			position: relative;
+			@include media {
+				margin-left: auto;
+			}
+			.i--notice {
+				width: 20px;
+				height: 20px;
+				background-image: url("./images/mainTerritory/icon_notice.png");
+				background-size: cover;
+				@include media {
+					display: none;
+				}
+			}
+			&-popup {
+				border: 1px solid #c2a779;
+				font-size: 14px;
+				color: #c2a779;
+				background-color: rgba(#000000, 1);
+				padding: 6px 11px;
+				position: absolute;
+				top: -100%;
+				margin-top: -24px;
+				right: 0;
+				display: inline-flex;
+				white-space: nowrap;
+				@include media {
+					font-size: vw(28);
+					border: none;
+					color: #877f7f;
+					background-color: transparent;
+					padding: 0;
+					top: 0;
+					margin-top: 0;
+					position: relative;
+				}
+				span {
+					display: inline-flex;
+					position: absolute;
+					box-sizing: border-box;
+					height: 8px;
+					vertical-align: top;
+					width: 8px;
+					bottom: -8px;
+					transform: translate3d(0, -50%, 0);
+					right: 6px;
+					&:before {
+						background-color: rgba(#000000, 1);
+						box-sizing: border-box;
+						content: "";
+						display: inline-block;
+						height: 100%;
+						transform: rotate(225deg);
+						width: 100%;
+						border-left: 1px solid #c2a779;
+						border-top: 1px solid #c2a779;
+					}
+					@include media {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	&__swiper {
+		width: 1080px;
+		margin: 0 auto 60px;
+		margin-bottom: 60px;
+		@include media {
+			width: 100%;
+			margin-bottom: vw(60);
+			overflow: visible;
+		}
+		&-box {
+			position: relative;
+			@include media {
+				padding: 0 15%;
+			}
+		}
+		&-wrapper {
+		}
+		&-slide {
+			width: 340px;
+			background-color: rgba(#000000, 0.5);
+			border: 2px solid #504338;
+			padding: 30px;
+			position: relative;
+			box-sizing: border-box;
+			@include media {
+				width: vw(550);
+				border-width: vw(2);
+				padding: vw(30);
+			}
+		}
+		&-next {
+			width: 29px;
+			height: 40px;
+			background-size: cover;
+			background-image: url("./images/mainTerritory/btn-next.png");
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			transform: translateY(-50%);
+			cursor: pointer;
+			@include media {
+				display: none;
+			}
+		}
+		&-prev {
+			width: 29px;
+			height: 40px;
+			background-size: cover;
+			background-image: url("./images/mainTerritory/btn-prev.png");
+			position: absolute;
+			top: 50%;
+			left: 15px;
+			transform: translateY(-50%);
+			cursor: pointer;
+			@include media {
+				display: none;
+			}
+		}
+	}
+	&__btn {
+		width: 245px;
+		height: 60px;
+		background-size: 200%;
+		background-image: url("./images/mainTerritory/btn-more.png");
+		margin: 0 auto;
+		font-size: 0;
+		display: block;
+		@include hover {
+			background-position-x: 100%;
+		}
+		@include media {
+			width: vw(450);
+			height: vw(110);
+			background-image: url("./images/mainTerritory/btn-more-m.png");
+			background-size: 100%;
+		}
+	}
+	&__land {
+		&-box {
+			border-bottom: 1px solid #504338;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 10px 0;
+			@include media {
+				border-bottom-width: vw(1);
+				padding: vw(24) 0;
+			}
+			&:first-child {
+				@include media {
+					padding: vw(30) 0;
+				}
+			}
+			&:last-child {
+				border-bottom: 0;
+			}
+			&--guild {
+				flex-direction: column;
+				padding: 31px 0;
+			}
+		}
+		&-type {
+			i {
+				background-color: #c2a779;
+				margin-right: 20px;
+				@include media {
+					margin-right: vw(40);
+				}
+				&.i--garrison {
+					width: 19px;
+					height: 30px;
+					mask-image: url(./svg/icon_garrison.svg);
+					@include media {
+						width: vw(38);
+						height: vw(60);
+					}
+				}
+				&.i--fortress {
+					width: 39px;
+					height: 30px;
+					mask-image: url(./svg/icon_fortress.svg);
+					@include media {
+						height: vw(79);
+						height: vw(60);
+					}
+				}
+				&.i--castle {
+					width: 34px;
+					height: 30px;
+					mask-image: url(./svg/icon_castle.svg);
+					@include media {
+						width: vw(70);
+						height: vw(60);
+					}
+				}
+			}
+		}
+		&-name {
+			color: #c2a779;
+			font-size: 16px;
+			@include media {
+				font-size: vw(32);
+			}
+		}
+		&-guild {
+			&__lv {
+				min-width: 96px;
+				height: 30px;
+				color: #c7bfb3;
+				font-size: 16px;
+				border: 2px solid #504338;
+				border-radius: 100vmax;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 16px;
+				@include media {
+					min-width: vw(192);
+					height: vw(60);
+					font-size: vw(32);
+					border-width: vw(2);
+					margin-bottom: vw(30);
+				}
+			}
+			&__name {
+				color: #8e5f3f;
+				font-size: 24px;
+				font-weight: bold;
+				@include media {
+					font-size: vw(48);
+				}
+			}
+		}
+		&-tax {
+			.land-tax-stack {
+				font-size: 14px;
+				color: #877f7f;
+				display: flex;
+				align-items: center;
+				@include media {
+					font-size: vw(28);
+				}
+				.i--money {
+					width: 20px;
+					height: 13px;
+					margin-right: 10px;
+					background-color: #877f7f;
+					@include media {
+						width: vw(40);
+						height: vw(26);
+						margin-right: vw(20);
+					}
+				}
+			}
+			.land-wealth {
+				display: flex;
+				align-items: center;
+				&.type--diamond {
+					margin-left: auto;
+					margin-right: 10px;
+					@include media {
+						margin-right: vw(18);
+					}
+					.land-wealth__icon {
+						background-image: url(./images/img_wealth_diamond.png);
+						background-position: 65% 50%;
+						background-size: 65%;
+					}
+				}
+				&.type--ruby {
+					.land-wealth__icon {
+						background-image: url(./images/img_wealth_rudy.png);
+						background-position: 55% 50%;
+						background-size: 65%;
+					}
+				}
+				&__icon {
+					background-repeat: no-repeat;
+					border: 1px solid rgba(#c2a779, 1);
+					border-radius: 100vmax;
+					display: inline-flex;
+					height: 30px;
+					margin-right: 6px;
+					position: relative;
+					width: 30px;
+					background-color: rgba(#000, 0.5);
+					@include media {
+						width: vw(54);
+						height: vw(54);
+						margin-right: vw(10);
+						border-width: vw(1);
+					}
+					&:before {
+						background-image: url(./images/img_wealth_mark.png);
+						background-position: 50% 50%;
+						background-repeat: no-repeat;
+						background-size: contain;
+						content: "";
+						display: inline-block;
+						height: 24px;
+						left: -4px;
+						position: absolute;
+						top: -6px;
+						width: 11px;
+						@include media {
+							width: vw(23);
+							height: vw(40);
+							top: vw(-6);
+							left: vw(-8);
+						}
+					}
+				}
+				&__value {
+					font-size: 16px;
+					color: #c2a779;
+					@include media {
+						font-size: vw(32);
+					}
+				}
+			}
+			.land-trade-tax {
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				color: #877f7f;
+				@include media {
+					font-size: vw(28);
+				}
+				.i--money {
+					width: 20px;
+					height: 13px;
+					margin-right: 10px;
+					background-color: #877f7f;
+					@include media {
+						width: vw(40);
+						height: vw(26);
+						margin-right: vw(20);
+					}
+				}
+				&__value {
+					color: #c2a779;
+					font-size: 16px;
+					margin-left: auto;
+					@include media {
+						font-size: vw(32);
+					}
+				}
+			}
+		}
+	}
+}
