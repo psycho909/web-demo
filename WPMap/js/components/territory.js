@@ -362,7 +362,7 @@ const territory = {
                             <div class="page__nav__depth1-item current">據點現況</div>
                         </div>
                         <div class="page__nav-item page__nav__depth2">
-                            <div class="button--selector button--selector-world" @click="selectToggle('world',$event)">
+                            <button class="button--selector button--selector-world" @click="selectToggle('world',$event)">
                                 <span class="_name">世界選擇</span>
                                 <div class="mask-text _value"><div>{{worldSelectComputed?.name}}</div></div>
                                 <div class="selector type--fly">
@@ -381,8 +381,8 @@ const territory = {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="button--selector button--selector-territory" @click="selectToggle('realm',$event)">
+                            </button>
+                            <button class="button--selector button--selector-territory" @click="selectToggle('realm',$event)">
                                 <span class="_name">領域選擇</span>
                                 <div class="mask-text _value"><div>{{realmSelectComputed?.name}}</div></div>
                                 <div class="selector type--fly">
@@ -401,7 +401,7 @@ const territory = {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                         </div>
                         <div class="page__nav-item page__nav__depth3">
                             <div class="button--selector button--selector-world" @click="selectToggle('landType',$event)">
