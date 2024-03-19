@@ -1,6 +1,6 @@
 :root {
-	--maxvh: 942px;
-	--maxvh-without-navtop: 793px;
+	--maxvh: 100vh;
+	--maxvh-without-navtop: 100vh;
 	--navtop-gap: 149px;
 	--navtop-height: 149px;
 	--nexon-gnb-height: 63px;
@@ -14,7 +14,11 @@
 	padding: 0;
 	margin: 0;
 }
-
+body,
+html {
+	font-optical-sizing: auto;
+	min-height: 100%;
+}
 @function vw($px) {
 	@return ($px * 100vw) / 768;
 }

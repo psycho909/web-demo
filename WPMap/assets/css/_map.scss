@@ -96,6 +96,7 @@ body {
 	right: 44px;
 	grid-gap: 15px;
 	display: flex;
+	z-index: 9;
 	._scale-up {
 		align-items: center;
 		border: 2px solid #ffffff80;

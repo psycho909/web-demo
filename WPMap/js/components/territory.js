@@ -322,6 +322,12 @@ const territory = {
 			realmSelect.value = worlds[0].realms[0].R;
 			landTypeSelect.value = landType[0];
 			document.documentElement.classList.add("use-custom-cursor");
+			// 最大高度
+			let maxvh = window.innerHeight + "px";
+			// 最大高度減去導覽列高度
+			let maxvhNavtop = maxvh;
+			document.querySelector(":root").style.setProperty(`--maxvh`, maxvh);
+			document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop);
 			if (isMobile.any) {
 				window.addEventListener("scroll", function () {
 					var list = document.querySelector(".territory-table__list");
@@ -348,6 +354,13 @@ const territory = {
 							item.classList.remove("current");
 						}
 					});
+				});
+			} else {
+				window.addEventListener("resize", function () {
+					let maxvh = window.innerHeight + "px";
+					let maxvhNavtop = maxvh;
+					document.querySelector(":root").style.setProperty(`--maxvh`, maxvh);
+					document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop);
 				});
 			}
 		});
