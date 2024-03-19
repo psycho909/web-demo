@@ -38,6 +38,7 @@ const mainTerritory = {
 			} else {
 				v.isMatchUI = false;
 			}
+			v.landType = v.territory_grade.toLocaleLowerCase();
 			v.ui = {
 				...territory[v.territory_id],
 				isOccupyElf: v.guild_id == null ? true : false,
@@ -110,7 +111,18 @@ const mainTerritory = {
 				realmSelect.value = W;
 			}
 			if (type == "landType") {
+				if (landTypeSelect.value === W) {
+					return;
+				}
 				landTypeSelect.value = W;
+
+				Vue.nextTick(() => {
+					Vue.nextTick(() => {
+						swiper.value.update();
+						swiper.value.loopDestroy();
+						swiper.value.loopCreate();
+					});
+				});
 			}
 		};
 		// 世界選取過濾
@@ -137,7 +149,7 @@ const mainTerritory = {
 		// 據點現況Slide
 		const landTypeFilter = Vue.computed(() => {
 			let l = dataFilter.filter((v, i) => {
-				if (v.ui.gradeType === landTypeSelect.value?.v) {
+				if (v.territory_grade.toLocaleLowerCase() === landTypeSelect.value?.v) {
 					return v;
 				}
 			});
@@ -162,6 +174,7 @@ const mainTerritory = {
 					swiper.value = new Swiper(".main-territory__swiper", {
 						slidesPerView: 3,
 						spaceBetween: 30,
+						centeredSlides: true,
 						loop: true,
 						navigation: {
 							nextEl: ".main-territory__swiper-next",
@@ -172,6 +185,7 @@ const mainTerritory = {
 			});
 		});
 		return {
+			world,
 			worlds,
 			landType,
 			worldSelect,
@@ -259,10 +273,10 @@ const mainTerritory = {
                 </div>
             </div>
             <div class="main-territory__tab">
-                <div v-for="l in landType" class="main-territory__tab-item" :class="[landTypeSelect?.v === l.v?'active':'']" @click="selected('landType',l)"><i class="i--garrison"></i>{{l.name}}</div>
+                <div v-for="l in landType" class="main-territory__tab-item" :class="[landTypeSelect?.v === l.v?'active':'']" @click="selected('landType',l)"><i :class="'i--'+l.v"></i>{{l.name}}</div>
             </div>
             <div class="main-territory__info">
-                <div class="main-territory__info-total">總計:<span>999</span></div>
+                <div class="main-territory__info-total">總計:<span>{{world.length}}</span></div>
                 <div class="main-territory__info-notice">
                     <i class="i--notice"></i>
                     <div class="main-territory__info-notice-popup">據點佔領現況每1小時更新一次<span></span></div>
@@ -273,12 +287,15 @@ const mainTerritory = {
                     <div class="main-territory__swiper-wrapper swiper-wrapper">
                         <div class="main-territory__swiper-slide swiper-slide" v-for="(land,index) of landTypeFilter">
                             <div class="main-territory__land-box">
-                                <span class="main-territory__land-type"><i class="i--garrison"></i></span>
+                                <span class="main-territory__land-type"><i :class="'i--'+land.landType"></i></span>
                                 <div class="main-territory__land-name">{{land.ui.name}}</div>
                             </div>
                             <div class="main-territory__land-box main-territory__land-box--guild">
-                                <div class="main-territory__land-guild__lv">LV.{{land.guild_level}}</div>
-                                <div class="main-territory__land-guild__name">{{land.guild_master_gc_name}}</div>
+                                <div class="main-territory__land-guild__lv" :class="[land.guild_id !== null?'':'npc']">
+									<span v-if="land.guild_id !== null">LV.{{land.guild_level}}</span>
+									<div class="spinner--progress-dots" style="--0dba516f: rgba(200, 200, 200, 1);" v-else><span></span><span></span><span></span></div>
+								</div>
+                                <div class="main-territory__land-guild__name">{{land.guild_id !== null?land.guild_master_gc_name:'佔領精靈軍隊'}}</div>
                             </div>
                             <div class="main-territory__land-box main-territory__land-tax">
                                 <span class="land-tax-stack"><i class="i--money"></i>累積稅金 </span>

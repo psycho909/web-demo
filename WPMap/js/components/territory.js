@@ -4,7 +4,16 @@ import territoryData from "../territoryData.js";
 
 const territory = {
 	setup() {
-		let p = Vue.ref(null);
+		// 地圖事件變數
+		let map = Vue.ref(null);
+		let r = Vue.reactive({
+			hoverIndex: -1,
+			activeIndex: -1,
+			chainIndexs: [],
+			isActive: false,
+			isMiniumMap: false,
+			isMovingMap: false
+		});
 		// 世界選取
 		let worlds = Vue.reactive(territoryData.worlds);
 		let worldSelect = Vue.ref(null);
@@ -30,18 +39,12 @@ const territory = {
 			}
 		]);
 		let landTypeSelect = Vue.ref(null);
-		let r = Vue.reactive({
-			hoverIndex: -1,
-			activeIndex: -1,
-			chainIndexs: [],
-			isActive: false,
-			isMiniumMap: false,
-			isMovingMap: false
-		});
+
 		let detailActive = Vue.ref(false);
 		let ss = null;
 		let as = Vue.ref(false);
 		let L = [0, 0];
+		// 判斷滑鼠狀態
 		let isPress = Vue.ref(false);
 		let isHoverPointer = Vue.ref(false);
 		// 獲取領地SVG資料
@@ -54,6 +57,7 @@ const territory = {
 			} else {
 				v.isMatchUI = false;
 			}
+			v.landType = v.territory_grade.toLocaleLowerCase();
 			v.ui = {
 				...territory[v.territory_id],
 				isOccupyElf: v.guild_id == null ? true : false,
@@ -96,7 +100,7 @@ const territory = {
 			(r.activeIndex = index), (r.isActive = true);
 			const pd = territoryFilter[index],
 				[m, a] = pd.ui.coords;
-			(as.value = m > 65), p.value.setScale(p.value.default.limitCloseupScale * 0.6), p.value.setFocusMapPercent(m + L[0], a + L[1]);
+			(as.value = m > 65), map.value.setScale(map.value.default.limitCloseupScale * 0.6), map.value.setFocusMapPercent(m + L[0], a + L[1]);
 			detailActive.value = true;
 		}
 		// 選取切換
@@ -177,7 +181,7 @@ const territory = {
 		// MB據點現況
 		const landTypeFilter = Vue.computed(() => {
 			let l = dataFilter.filter((v, i) => {
-				if (v.ui.gradeType === landTypeSelect.value?.v) {
+				if (v.landType === landTypeSelect.value?.v) {
 					return v;
 				}
 			});
@@ -195,7 +199,9 @@ const territory = {
 			// 獲取所有的 land 和 border 元素
 			let lands = document.querySelectorAll("._land");
 			let borders = document.querySelectorAll("._border");
-			p.value = new ImageMap2D({
+
+			// 地圖事件
+			map.value = new ImageMap2D({
 				image: imageElement,
 				frame: document.querySelector(".territory-map"),
 				canvas: document.querySelector(".map-canvas"),
@@ -209,10 +215,10 @@ const territory = {
 				wheelScale: 0.03,
 				power: 0.12
 			});
-			p.value.on("pressDownBefore", (m, a) => {
+			map.value.on("pressDownBefore", (m, a) => {
 				for (let c = 0, u = a.length; c < u; ++c) if (a[c] === ss) return !1;
 			});
-			p.value.on("pressMove", (m, a) => {
+			map.value.on("pressMove", (m, a) => {
 				const { dx: c, dy: u } = a,
 					h = Math.max(Math.abs(c), Math.abs(u)),
 					w = h > 120,
@@ -229,28 +235,28 @@ const territory = {
 					});
 				}
 			});
-			p.value.on("pressUp", () => {
+			map.value.on("pressUp", () => {
 				setTimeout(() => {
 					r.isMovingMap = !1;
 				}, 0);
 			});
-			p.value.on("changeScale", () => {
-				(r.isMiniumMap = p.value.focus.scale <= p.value.default.limitCloseoutScale), r.isMiniumMap && (r.isActive = !1);
+			map.value.on("changeScale", () => {
+				(r.isMiniumMap = map.value.focus.scale <= map.value.default.limitCloseoutScale), r.isMiniumMap && (r.isActive = !1);
 			});
-			p.value.create();
+			map.value.create();
 
-			// 放大
+			// 地圖放大
 			document.querySelector("._scale-up").addEventListener("click", () => {
-				if (!p.value) return;
-				let l = p.value.focus.scale + 0.2;
-				l > 1.5 && (l = 1.5), p.setScale(l);
+				if (!map.value) return;
+				let l = map.value.focus.scale + 0.2;
+				l > 1.5 && (l = 1.5), map.value.setScale(l);
 			});
 
-			// 缩小
+			// 地圖缩小
 			document.querySelector("._scale-down").addEventListener("click", () => {
-				if (!p.value) return;
-				let l = p.value.focus.scale - 0.2;
-				l < p.value.default.limitCloseoutScale && (l = p.value.default.limitCloseoutScale), p.setScale(l);
+				if (!map.value) return;
+				let l = map.value.focus.scale - 0.2;
+				l < map.value.default.limitCloseoutScale && (l = map.value.default.limitCloseoutScale), map.value.setScale(l);
 			});
 			function Ls(index) {
 				r.hoverIndex = index;
@@ -281,10 +287,7 @@ const territory = {
 					Rs(index);
 				});
 			});
-
-			document.documentElement.classList.add("use-custom-cursor");
-			// document.querySelector(".cursor__visual").classList.add("show");
-
+			// 滑鼠樣式
 			const c = gsap.quickTo(".cursor__pointer", "x", {
 					duration: 0.22,
 					ease: "power3.out"
@@ -314,9 +317,39 @@ const territory = {
 				isPress.value = false;
 			});
 
+			// 初始化選單
 			worldSelect.value = worlds[0].W;
 			realmSelect.value = worlds[0].realms[0].R;
 			landTypeSelect.value = landType[0];
+			document.documentElement.classList.add("use-custom-cursor");
+			if (isMobile.any) {
+				window.addEventListener("scroll", function () {
+					var list = document.querySelector(".territory-table__list");
+					var items = document.querySelectorAll("li.territory-table__item");
+
+					// 获取视窗中心的Y坐标
+					var viewportCenter = window.innerHeight / 2 || document.documentElement.clientHeight / 2;
+
+					// 获取.row-gap值
+					var style = window.getComputedStyle(list);
+					var rowGap = parseInt(style.getPropertyValue("row-gap"), 10);
+
+					items.forEach(function (item) {
+						var rect = item.getBoundingClientRect();
+
+						// 计算元素中心点的Y坐标，考虑到row-gap
+						var itemCenter = rect.top + rect.height / 2 - rowGap * 2;
+
+						// 检查元素中心是否在视窗中心的一定范围内，这里的范围可以根据需要调整
+						if (Math.abs(viewportCenter - itemCenter) < 100) {
+							// 例如，这里的范围设置为100像素
+							item.classList.add("current");
+						} else {
+							item.classList.remove("current");
+						}
+					});
+				});
+			}
 		});
 		return {
 			territoryFilter,
@@ -452,7 +485,7 @@ const territory = {
                             <div class="territory-map__canvas">
                                 <div class="map-area-1">
                                     <button v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)">
-                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'type--'+territory.ui.gradeType"></span>
+                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'type--'+territory.landType"></span>
                                         <div class="_land-more">
                                             <p class="_land-name">{{territory.ui.name}}</p>
                                             <div class="_land-guild-name">
@@ -530,7 +563,7 @@ const territory = {
                         <div class="sort--garrison territory-table">
                             <p class="territory-table__notice">※據點佔領現況每小時更新一次</p>
                             <ul class="territory-table__list">
-                                <li class="territory-table__item" :class="[land.ui.isOccupyElf?'type--occpuy-elf type--'+land.ui.gradeType:'type--'+land.ui.gradeType]" v-for="(land,index) of landTypeFilter">
+                                <li class="territory-table__item" :class="[land.ui.isOccupyElf?'type--occpuy-elf type--'+land.landType:'type--'+land.landType]" v-for="(land,index) of landTypeFilter">
                                     <div class="land-box">
                                         <span class="land-info__badge"></span>
                                         <span class="land-info__name">{{land.ui.name}}</span>
@@ -539,7 +572,7 @@ const territory = {
                                     <div class="land-box" v-if="land.guild_id !== null">
                                         <span class="land-guild__mark"><i class="i--guildmark"></i></span>
                                         <span class="land-guild__name">{{land.guild_name}}</span>
-                                        <span class="land-guild__member">44/99</span>
+                                        <span class="land-guild__member">{{land.guild_member_count}}/{{land.max_guild_member_count}}</span>
                                     </div>
                                     <div class="land-box" v-if="land.guild_id !== null">
                                         <div class="land-guild">
@@ -575,7 +608,6 @@ const territory = {
                                 </li>
                             </ul>
                         </div>
-                        <div class="territory-table__pagination"></div>
                     </div>
                 </div>
             </div>
