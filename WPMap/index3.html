@@ -16,7 +16,9 @@
 	</head>
 	<body>
 		<div id="app">
-			<pagination></pagination>
+			<button type="button" @click="random">按鈕{{currentPage }}</button>
+			<pagination2 :list-data="data" @update:current-page="handlePageUpdate"></pagination2>
+
 			<!-- <main-territory></main-territory> -->
 		</div>
 		<script type="module" src="./js/default.js"></script>
