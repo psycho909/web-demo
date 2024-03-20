@@ -1,5 +1,6 @@
 import territoryData from "../territoryData.js";
-import worldData from "../worldData.js";
+import worldData1 from "../worldData.js";
+import worldData2 from "../worldData2.js";
 const mainTerritory = {
 	setup() {
 		// 世界選取
@@ -7,7 +8,6 @@ const mainTerritory = {
 		let worldSelect = Vue.ref(null);
 		// 領域選取
 		let realmSelect = Vue.ref(null);
-		let territoryFilter = Vue.reactive([]);
 		// 類型選擇
 		let landType = Vue.reactive([
 			{
@@ -31,36 +31,41 @@ const mainTerritory = {
 		// 獲取領地SVG資料
 		let territory = territoryData.territorys;
 		// 類API資料
-		let world = worldData;
-		let dataFilter = world.map((v, i) => {
-			if (territory[v.territory_id]) {
-				v.isMatchUI = true;
-			} else {
-				v.isMatchUI = false;
-			}
-			v.landType = v.territory_grade.toLocaleLowerCase();
-			v.ui = {
-				...territory[v.territory_id],
-				isOccupyElf: v.guild_id == null ? true : false,
-				isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
-				chainIndexs: []
-			};
-			return v;
+		let worldData = Vue.ref([]);
+		worldData.value = [...worldData1];
+		const territoryFilter = Vue.computed(() => {
+			const guildIndexMap = new Map();
+
+			// Pre-process to create a map for guild_id to indices
+			worldData.value.forEach((v, i) => {
+				if (v.guild_id) {
+					if (!guildIndexMap.has(v.guild_id)) {
+						guildIndexMap.set(v.guild_id, []);
+					}
+					guildIndexMap.get(v.guild_id).push(i);
+				}
+			});
+
+			// Filter and transform the world data
+			return worldData.value
+				.map((v) => {
+					const isMatchUI = !!territory[v.territory_id];
+					const chainIndices = v.guild_id ? guildIndexMap.get(v.guild_id) : [];
+					return {
+						...v,
+						isMatchUI,
+						landType: v.territory_grade.toLowerCase(),
+						ui: {
+							...(territory[v.territory_id] || {}),
+							isOccupyElf: v.guild_id == null,
+							isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
+							chainIndexs: chainIndices
+						}
+					};
+				})
+				.filter((v) => v.isMatchUI);
 		});
-		let dataLength = dataFilter.length;
-		for (let i = 0; i < dataLength; ++i) {
-			const S = dataFilter[i];
-			if (S.isMatchUI) {
-				let R = [];
-				for (let D = 0; D < dataLength; ++D) S.guild_id && S.guild_id === dataFilter[D].guild_id && R.push(D);
-				S.ui.chainIndexs = R;
-				S.ui = {
-					...S.ui,
-					chainIndexs: R
-				};
-				territoryFilter.push(S);
-			}
-		}
+
 		// 選取切換
 		const selectToggle = (type, event) => {
 			if (type == "world") {
@@ -106,9 +111,13 @@ const mainTerritory = {
 		const selected = (type, W) => {
 			if (type == "world") {
 				worldSelect.value = W;
+				// 切換世界時重新打API
+				worldData.value = [...worldData2];
 			}
 			if (type == "territory") {
 				realmSelect.value = W;
+				// 切換世界時重新打API
+				worldData.value = [...worldData1];
 			}
 			if (type == "landType") {
 				if (landTypeSelect.value === W) {
@@ -116,6 +125,7 @@ const mainTerritory = {
 				}
 				landTypeSelect.value = W;
 
+				// 更新輪播資料
 				Vue.nextTick(() => {
 					Vue.nextTick(() => {
 						swiper.value.update();
@@ -148,7 +158,7 @@ const mainTerritory = {
 		});
 		// 據點現況Slide
 		const landTypeFilter = Vue.computed(() => {
-			let l = dataFilter.filter((v, i) => {
+			let l = territoryFilter.value.filter((v, i) => {
 				if (v.territory_grade.toLocaleLowerCase() === landTypeSelect.value?.v) {
 					return v;
 				}
@@ -158,6 +168,13 @@ const mainTerritory = {
 			}
 			return [];
 		});
+		// 打開notice
+		const isOpen = Vue.ref(false);
+
+		const openNotice = () => {
+			isOpen.value = !isOpen.value;
+		};
+		// 初始化
 		Vue.onMounted(() => {
 			worldSelect.value = worlds[0].W;
 			realmSelect.value = worlds[0].realms[0].R;
@@ -185,7 +202,7 @@ const mainTerritory = {
 			});
 		});
 		return {
-			world,
+			territoryFilter,
 			worlds,
 			landType,
 			worldSelect,
@@ -198,7 +215,9 @@ const mainTerritory = {
 			worldSelectToggle,
 			realmSelectToggle,
 			landTypeSelectToggle,
-			landTypeFilter
+			landTypeFilter,
+			openNotice,
+			isOpen
 		};
 	},
 	template: `
@@ -276,8 +295,8 @@ const mainTerritory = {
                 <div v-for="l in landType" class="main-territory__tab-item" :class="[landTypeSelect?.v === l.v?'active':'']" @click="selected('landType',l)"><i :class="'i--'+l.v"></i>{{l.name}}</div>
             </div>
             <div class="main-territory__info">
-                <div class="main-territory__info-total">總計:<span>{{world.length}}</span></div>
-                <div class="main-territory__info-notice">
+                <div class="main-territory__info-total">總計:<span>{{territoryFilter.length}}</span></div>
+                <div :class="['main-territory__info-notice', { '-open': isOpen }]" @click="openNotice">
                     <i class="i--notice"></i>
                     <div class="main-territory__info-notice-popup">據點佔領現況每1小時更新一次<span></span></div>
                 </div>

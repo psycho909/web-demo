@@ -343,6 +343,11 @@
 		}
 		&-notice {
 			position: relative;
+			&.-open {
+				.main-territory__info-notice-popup {
+					display: block;
+				}
+			}
 			@include media {
 				margin-left: auto;
 			}
@@ -351,6 +356,7 @@
 				height: 20px;
 				background-image: url("./images/mainTerritory/icon_notice.png");
 				background-size: cover;
+				cursor: pointer;
 				@include media {
 					display: none;
 				}
@@ -367,6 +373,7 @@
 				right: 0;
 				display: inline-flex;
 				white-space: nowrap;
+				display: none;
 				@include media {
 					font-size: vw(28);
 					border: none;

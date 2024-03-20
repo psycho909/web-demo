@@ -1,5 +1,6 @@
 import ImageMap2D from "../mapCanvas.js";
-import worldData from "../worldData.js";
+import worldData1 from "../worldData.js";
+import worldData2 from "../worldData2.js";
 import territoryData from "../territoryData.js";
 
 const territory = {
@@ -19,7 +20,8 @@ const territory = {
 		let worldSelect = Vue.ref(null);
 		// 領域選取
 		let realmSelect = Vue.ref(null);
-		let territoryFilter = Vue.reactive([]);
+		// 獲取API data後領地資料整理
+		// let territoryFilter = Vue.reactive([]);
 		let worldSelectToggle = Vue.ref(false);
 		let landTypeSelectToggle = Vue.ref(false);
 		let realmSelectToggle = Vue.ref(false);
@@ -50,36 +52,40 @@ const territory = {
 		// 獲取領地SVG資料
 		let territory = territoryData.territorys;
 		// 類API資料
-		let world = worldData;
-		let dataFilter = world.map((v, i) => {
-			if (territory[v.territory_id]) {
-				v.isMatchUI = true;
-			} else {
-				v.isMatchUI = false;
-			}
-			v.landType = v.territory_grade.toLocaleLowerCase();
-			v.ui = {
-				...territory[v.territory_id],
-				isOccupyElf: v.guild_id == null ? true : false,
-				isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
-				chainIndexs: []
-			};
-			return v;
+		let worldData = Vue.ref([]);
+		worldData.value = [...worldData1];
+		const territoryFilter = Vue.computed(() => {
+			const guildIndexMap = new Map();
+
+			// Pre-process to create a map for guild_id to indices
+			worldData.value.forEach((v, i) => {
+				if (v.guild_id) {
+					if (!guildIndexMap.has(v.guild_id)) {
+						guildIndexMap.set(v.guild_id, []);
+					}
+					guildIndexMap.get(v.guild_id).push(i);
+				}
+			});
+
+			// Filter and transform the world data
+			return worldData.value
+				.map((v) => {
+					const isMatchUI = !!territory[v.territory_id];
+					const chainIndices = v.guild_id ? guildIndexMap.get(v.guild_id) : [];
+					return {
+						...v,
+						isMatchUI,
+						landType: v.territory_grade.toLowerCase(),
+						ui: {
+							...(territory[v.territory_id] || {}),
+							isOccupyElf: v.guild_id == null,
+							isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
+							chainIndexs: chainIndices
+						}
+					};
+				})
+				.filter((v) => v.isMatchUI);
 		});
-		let dataLength = dataFilter.length;
-		for (let i = 0; i < dataLength; ++i) {
-			const S = dataFilter[i];
-			if (S.isMatchUI) {
-				let R = [];
-				for (let D = 0; D < dataLength; ++D) S.guild_id && S.guild_id === dataFilter[D].guild_id && R.push(D);
-				S.ui.chainIndexs = R;
-				S.ui = {
-					...S.ui,
-					chainIndexs: R
-				};
-				territoryFilter.push(S);
-			}
-		}
 
 		// 領地點擊
 		const landClick = (id, index) => {
@@ -98,7 +104,7 @@ const territory = {
 				return;
 			}
 			(r.activeIndex = index), (r.isActive = true);
-			const pd = territoryFilter[index],
+			const pd = territoryFilter.value[index],
 				[m, a] = pd.ui.coords;
 			(as.value = m > 65), map.value.setScale(map.value.default.limitCloseupScale * 0.6), map.value.setFocusMapPercent(m + L[0], a + L[1]);
 			detailActive.value = true;
@@ -144,13 +150,17 @@ const territory = {
 				}
 			}
 		};
-		// 選取v-model
+		// 世界跟區域選取v-model
 		const selected = (type, W) => {
 			if (type == "world") {
 				worldSelect.value = W;
+				// 切換世界時重新打API
+				worldData.value = [...worldData2];
 			}
 			if (type == "territory") {
 				realmSelect.value = W;
+				// 切換區域時重新打API
+				worldData.value = [...worldData1];
 			}
 			if (type == "landType") {
 				landTypeSelect.value = W;
@@ -180,7 +190,7 @@ const territory = {
 		});
 		// MB據點現況
 		const landTypeFilter = Vue.computed(() => {
-			let l = dataFilter.filter((v, i) => {
+			let l = territoryFilter.value.filter((v, i) => {
 				if (v.landType === landTypeSelect.value?.v) {
 					return v;
 				}
@@ -260,7 +270,7 @@ const territory = {
 			});
 			function Ls(index) {
 				r.hoverIndex = index;
-				r.chainIndexs = dataFilter[index].ui.chainIndexs;
+				r.chainIndexs = territoryFilter.value[index].ui.chainIndexs;
 			}
 			function Rs(index) {
 				r.hoverIndex = -1;
@@ -322,12 +332,17 @@ const territory = {
 			realmSelect.value = worlds[0].realms[0].R;
 			landTypeSelect.value = landType[0];
 			document.documentElement.classList.add("use-custom-cursor");
+			// 導覽列高度
+			let navTop = 0;
+			if (document.querySelector(".navBar") !== null) {
+				navTop = document.querySelector(".navBar").clientHeight;
+			}
 			// 最大高度
-			let maxvh = window.innerHeight + "px";
+			let maxvh = window.innerHeight;
 			// 最大高度減去導覽列高度
-			let maxvhNavtop = maxvh;
-			document.querySelector(":root").style.setProperty(`--maxvh`, maxvh);
-			document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop);
+			let maxvhNavtop = maxvh - navTop;
+			document.querySelector(":root").style.setProperty(`--maxvh`, maxvh + "px");
+			document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop + "px");
 			if (isMobile.any) {
 				window.addEventListener("scroll", function () {
 					var list = document.querySelector(".territory-table__list");
@@ -357,10 +372,10 @@ const territory = {
 				});
 			} else {
 				window.addEventListener("resize", function () {
-					let maxvh = window.innerHeight + "px";
-					let maxvhNavtop = maxvh;
-					document.querySelector(":root").style.setProperty(`--maxvh`, maxvh);
-					document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop);
+					let maxvh = window.innerHeight;
+					let maxvhNavtop = maxvh - navTop;
+					document.querySelector(":root").style.setProperty(`--maxvh`, maxvh + "px");
+					document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop + "px");
 				});
 			}
 		});
@@ -384,7 +399,8 @@ const territory = {
 			landType,
 			landTypeSelect,
 			landTypeSelectToggle,
-			landTypeFilter
+			landTypeFilter,
+			worldData
 		};
 	},
 	template: `
