@@ -91,3 +91,32 @@
 		width: 14px;
 	}
 }
+
+// 幻影劍士
+.i--class-MirageBlade {
+	mask-image: url(./svg/icon_class_1.svg);
+}
+// 香射手
+.i--class-IncenseArcher {
+	mask-image: url(./svg/icon_class_2.svg);
+}
+
+// 咒文刻印師
+.i--class-RuneScribe {
+	mask-image: url(./svg/icon_class_3.svg);
+}
+
+// 執行官
+.i--class-Enforcer {
+	mask-image: url(./svg/icon_class_4.svg);
+}
+
+// 等級排行
+.i--lv-rank {
+	mask-image: url(./svg/icon_lv_rank.svg);
+}
+
+// 旅團排行
+.i--guild-rank {
+	mask-image: url(./svg/icon_guild_rank.svg);
+}
