@@ -1,5 +1,5 @@
 import data from "./test.js";
-let { defineComponent, ref, reactive, watch, onMounted, getCurrentInstance } = Vue;
+let { defineComponent, ref, reactive, watch, onMounted, computed } = Vue;
 
 const exchange = defineComponent({
 	props: {
@@ -14,10 +14,17 @@ const exchange = defineComponent({
 		pageNumberLimit: {
 			type: Number,
 			default: 10
+		},
+		showFirstPageButton: {
+			type: Boolean,
+			default: true // Show by default
+		},
+		showLastPageButton: {
+			type: Boolean,
+			default: true // Show by default
 		}
 	},
-	setup(props) {
-		const { emit } = getCurrentInstance();
+	setup(props, { emit }) {
 		const currentPage = ref(1);
 		const api = ref(false);
 		const pagination = reactive({
@@ -99,7 +106,8 @@ const exchange = defineComponent({
 			emit("update:current-page", newPage);
 			renderPageNumbers();
 		};
-
+		const isFirstPage = computed(() => currentPage.value === 1);
+		const isLastPage = computed(() => currentPage.value === pagination.pageMax);
 		watch(
 			() => props.listData,
 			() => {
@@ -123,20 +131,24 @@ const exchange = defineComponent({
 			pagination,
 			currentPage,
 			goToFirstPage,
-			goToLastPage
+			goToLastPage,
+			isFirstPage,
+			isLastPage,
+			showFirstPageButton: props.showFirstPageButton,
+			showLastPageButton: props.showLastPageButton
 		};
 	},
 	template: `
         <div class="exchange">
             <div class="pagination">
                 <ul class="pagination-numbers" style="display:flex;color:#fff;list-style:none;">
-                    <li><span class="pagination-first" @click="goToFirstPage">&lt;&lt;</span></li>
+                    <li v-if="showFirstPageButton"><span class="pagination-first" :class="[isFirstPage?'disabled':'',]" @click="goToFirstPage">&lt;&lt;</span></li>
                     <li><span class="pagination-prev" @click="handlePrevClick">&lt;</span></li>
                     <li :id="page" v-for="page in pagination.pagesList" :class="{ active: page === currentPage }" @click="handleClick(page)">
                         {{ page }}
                     </li>
                     <li><span class="pagination-next" @click="handleNextClick">&gt;</span></li>
-                    <li><span class="pagination-last" @click="goToLastPage">&gt;&gt;</span></li>
+                    <li v-if="showLastPageButton"><span class="pagination-last" :class="[isLastPage?'disabled':'',]" @click="goToLastPage">&gt;&gt;</span></li>
                 </ul>
             </div>
         </div>
