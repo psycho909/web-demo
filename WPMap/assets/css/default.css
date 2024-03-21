@@ -578,6 +578,19 @@ body::-webkit-scrollbar {
   width: 14px;
 }
 
+.i--class-all {
+  -webkit-mask-image: url(./svg/icon_class_all.svg);
+          mask-image: url(./svg/icon_class_all.svg);
+  width: 24px;
+  height: 24px;
+}
+@media screen and (max-width: 768px) {
+  .i--class-all {
+    width: 6.25vw;
+    height: 6.25vw;
+  }
+}
+
 .i--class-MirageBlade {
   -webkit-mask-image: url(./svg/icon_class_1.svg);
           mask-image: url(./svg/icon_class_1.svg);
@@ -598,14 +611,90 @@ body::-webkit-scrollbar {
           mask-image: url(./svg/icon_class_4.svg);
 }
 
-.i--lv-rank {
-  -webkit-mask-image: url(./svg/icon_lv_rank.svg);
-          mask-image: url(./svg/icon_lv_rank.svg);
+.i--rank-lv {
+  -webkit-mask-image: url(./svg/icon_rank_lv.svg);
+          mask-image: url(./svg/icon_rank_lv.svg);
 }
 
-.i--guild-rank {
-  -webkit-mask-image: url(./svg/icon_guild_rank.svg);
-          mask-image: url(./svg/icon_guild_rank.svg);
+.i--rank-guild {
+  -webkit-mask-image: url(./svg/icon_rank_guild.svg);
+          mask-image: url(./svg/icon_rank_guild.svg);
+}
+
+.i--0 {
+  -webkit-mask-image: url(./svg/icon_zero.svg);
+          mask-image: url(./svg/icon_zero.svg);
+}
+
+.i--1 {
+  -webkit-mask-image: url(./svg/icon_one.svg);
+          mask-image: url(./svg/icon_one.svg);
+}
+
+.i--2 {
+  -webkit-mask-image: url(./svg/icon_two.svg);
+          mask-image: url(./svg/icon_two.svg);
+}
+
+.i--3 {
+  -webkit-mask-image: url(./svg/icon_three.svg);
+          mask-image: url(./svg/icon_three.svg);
+}
+
+.i--4 {
+  -webkit-mask-image: url(./svg/icon_four.svg);
+          mask-image: url(./svg/icon_four.svg);
+}
+
+.i--5 {
+  -webkit-mask-image: url(./svg/icon_five.svg);
+          mask-image: url(./svg/icon_five.svg);
+}
+
+.i--6 {
+  -webkit-mask-image: url(./svg/icon_six.svg);
+          mask-image: url(./svg/icon_six.svg);
+}
+
+.i--7 {
+  -webkit-mask-image: url(./svg/icon_seven.svg);
+          mask-image: url(./svg/icon_seven.svg);
+}
+
+.i--8 {
+  -webkit-mask-image: url(./svg/icon_eight.svg);
+          mask-image: url(./svg/icon_eight.svg);
+}
+
+.i--9 {
+  -webkit-mask-image: url(./svg/icon_nine.svg);
+          mask-image: url(./svg/icon_nine.svg);
+}
+
+.i--percent {
+  width: 22px;
+  height: 19px;
+  -webkit-mask-image: url(./svg/icon_percent.svg);
+          mask-image: url(./svg/icon_percent.svg);
+  background-color: #faecd7;
+}
+@media screen and (max-width: 768px) {
+  .i--percent {
+    width: 3.7760416667vw;
+    height: 3.2552083333vw;
+  }
+}
+
+.i--number {
+  width: 13px;
+  height: 19px;
+  background-color: #faecd7;
+}
+@media screen and (max-width: 768px) {
+  .i--number {
+    width: 2.34375vw;
+    height: 3.125vw;
+  }
 }
 
 @media screen and (max-width: 768px) {

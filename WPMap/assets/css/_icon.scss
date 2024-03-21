@@ -91,7 +91,16 @@
 		width: 14px;
 	}
 }
-
+// 全部
+.i--class-all {
+	mask-image: url(./svg/icon_class_all.svg);
+	width: 24px;
+	height: 24px;
+	@include media {
+		width: vw(48);
+		height: vw(48);
+	}
+}
 // 幻影劍士
 .i--class-MirageBlade {
 	mask-image: url(./svg/icon_class_1.svg);
@@ -112,11 +121,61 @@
 }
 
 // 等級排行
-.i--lv-rank {
-	mask-image: url(./svg/icon_lv_rank.svg);
+.i--rank-lv {
+	mask-image: url(./svg/icon_rank_lv.svg);
 }
 
 // 旅團排行
-.i--guild-rank {
-	mask-image: url(./svg/icon_guild_rank.svg);
+.i--rank-guild {
+	mask-image: url(./svg/icon_rank_guild.svg);
+}
+
+.i--0 {
+	mask-image: url(./svg/icon_zero.svg);
+}
+.i--1 {
+	mask-image: url(./svg/icon_one.svg);
+}
+.i--2 {
+	mask-image: url(./svg/icon_two.svg);
+}
+.i--3 {
+	mask-image: url(./svg/icon_three.svg);
+}
+.i--4 {
+	mask-image: url(./svg/icon_four.svg);
+}
+.i--5 {
+	mask-image: url(./svg/icon_five.svg);
+}
+.i--6 {
+	mask-image: url(./svg/icon_six.svg);
+}
+.i--7 {
+	mask-image: url(./svg/icon_seven.svg);
+}
+.i--8 {
+	mask-image: url(./svg/icon_eight.svg);
+}
+.i--9 {
+	mask-image: url(./svg/icon_nine.svg);
+}
+.i--percent {
+	width: 22px;
+	height: 19px;
+	mask-image: url(./svg/icon_percent.svg);
+	background-color: #faecd7;
+	@include media {
+		width: vw(29);
+		height: vw(25);
+	}
+}
+.i--number {
+	width: 13px;
+	height: 19px;
+	background-color: #faecd7;
+	@include media {
+		width: vw(18);
+		height: vw(24);
+	}
 }

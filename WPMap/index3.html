@@ -16,6 +16,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<rank></rank>
 			<button type="button" @click="random">按鈕{{currentPage }}</button>
 			<pagination2 :list-data="data" @update:current-page="handlePageUpdate"></pagination2>
 

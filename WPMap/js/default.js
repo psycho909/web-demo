@@ -2,13 +2,15 @@ import territory from "./components/territory.js";
 import mainTerritory from "./components/mainTerritory.js";
 import pagination from "./components/pagination.js";
 import pagination2 from "./components/pagination2.js";
+import records from "./components/records.js";
 // import data from "./components/test.js";
 let app = Vue.createApp({
 	components: {
 		territory,
 		mainTerritory,
 		pagination,
-		pagination2
+		pagination2,
+		records
 	},
 	setup() {
 		let data = Vue.ref([]);
