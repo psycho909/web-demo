@@ -73,6 +73,32 @@ const exchange = defineComponent({
 				updatePageAndEmit(currentPage.value);
 			}
 		};
+		const goToFirstPage = () => {
+			const newPage = 1;
+			currentPage.value = newPage;
+			pagination.minPageNumberLimit = 0;
+			pagination.maxPageNumberLimit = Math.min(pagination.pageMax, props.pageNumberLimit);
+			emit("update:current-page", newPage); // Remember to use kebab-case for the event name
+			renderPageNumbers();
+		};
+
+		const goToLastPage = () => {
+			const newPage = pagination.pageMax;
+			currentPage.value = newPage;
+
+			// Calculate the starting point for the last set of pages.
+			let startPage = pagination.pageMax - (pagination.pageMax % props.pageNumberLimit || props.pageNumberLimit);
+			if (startPage === pagination.pageMax) {
+				startPage -= props.pageNumberLimit;
+			}
+
+			pagination.minPageNumberLimit = Math.max(0, startPage);
+			pagination.maxPageNumberLimit = pagination.pageMax;
+
+			// Emit the change and update the visible pages.
+			emit("update:current-page", newPage);
+			renderPageNumbers();
+		};
 
 		watch(
 			() => props.listData,
@@ -95,18 +121,22 @@ const exchange = defineComponent({
 			handlePrevClick,
 			handleNextClick,
 			pagination,
-			currentPage
+			currentPage,
+			goToFirstPage,
+			goToLastPage
 		};
 	},
 	template: `
         <div class="exchange">
             <div class="pagination">
                 <ul class="pagination-numbers" style="display:flex;color:#fff;list-style:none;">
+                    <li><span class="pagination-first" @click="goToFirstPage">&lt;&lt;</span></li>
                     <li><span class="pagination-prev" @click="handlePrevClick">&lt;</span></li>
                     <li :id="page" v-for="page in pagination.pagesList" :class="{ active: page === currentPage }" @click="handleClick(page)">
                         {{ page }}
                     </li>
                     <li><span class="pagination-next" @click="handleNextClick">&gt;</span></li>
+                    <li><span class="pagination-last" @click="goToLastPage">&gt;&gt;</span></li>
                 </ul>
             </div>
         </div>
