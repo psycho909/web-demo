@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+			}
+			.grid-item__inner {
+				grid-column: span 4;
+				display: grid;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+			}
+			@media screen and (max-width: 768px) {
+				.grid-item__inner {
+					grid-column: span 4;
+					grid-template-columns: repeat(4, minmax(0, 1fr));
+					display: block;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid">
+			<div class="grid-item">1</div>
+			<div class="grid-item__inner">
+				<div class="grid-item">台灣南坡萬</div>
+				<div class="grid-item">Lv.76</div>
+				<div class="grid-item">15</div>
+				<div class="grid-item">台灣菁英團</div>
+			</div>
+		</div>
+		<script>
+			function countdown(endTime) {
+				return new Promise((resolve, reject) => {
+					const end = new Date(endTime).getTime();
+
+					function updateTimer() {
+						const now = new Date().getTime();
+						const distance = end - now;
+
+						if (distance < 0) {
+							console.log("倒數計時結束。");
+							resolve("計時結束"); // 解決Promise
+							return;
+						}
+						// 計算天、小時、分鐘和秒
+						const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+						const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+						const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+						const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+						console.log(days + "天 " + hours + "小時 " + minutes + "分鐘 " + seconds + "秒 ");
+						// 更新計時器的邏輯...
+
+						requestAnimationFrame(updateTimer);
+					}
+
+					requestAnimationFrame(updateTimer);
+				});
+			}
+
+			// 使用Promise
+			countdown("2024-03-22 15:52:00").then((message) => {
+				console.log(message); // 輸出: "計時結束"
+			});
+		</script>
+	</body>
+</html>

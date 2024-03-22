@@ -1,0 +1,26 @@
+body {
+	background-color: #000;
+}
+.number {
+	&.style1 {
+		i {
+			background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
+		}
+	}
+	&.style2 {
+		filter: drop-shadow(0px 0px 4px #ffff00);
+		i {
+			background-image: linear-gradient(to top, #8b6f3d 0%, #ffe2ae 100%);
+		}
+	}
+	i {
+		// fz40px
+		width: 19px;
+		height: 30px;
+		// fz72px
+		// width: 35px;
+		// height: 55px;
+		@include media {
+		}
+	}
+}

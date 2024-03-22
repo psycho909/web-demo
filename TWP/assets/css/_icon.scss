@@ -1,0 +1,26 @@
+[class*="i--"] {
+	box-sizing: border-box;
+	display: inline-flex;
+	flex: 0 0 auto;
+	vertical-align: top;
+	fill: currentColor;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-size: contain;
+	mask-position: center center;
+	-webkit-mask-position: center center;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	mask-size: 100% 100%;
+	-webkit-mask-size: 100% 100%;
+	min-height: 5px;
+	min-width: 5px;
+}
+
+// 使用sass @for迴圈，將重複的部分簡化
+@for $i from 0 through 9 {
+	.i--number-#{$i} {
+		mask-image: url(./svg/icon_number-#{$i}.svg);
+	}
+}

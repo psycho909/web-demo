@@ -1,0 +1,15 @@
+@function vw($px) {
+	@return ($px * 100vw) / 768;
+}
+@mixin media($breakpoint: 768px) {
+	@media screen and (max-width: $breakpoint) {
+		@content;
+	}
+}
+@mixin hover($breakpoint: 768px) {
+	@media screen and (min-width: $breakpoint) {
+		&:hover {
+			@content;
+		}
+	}
+}
