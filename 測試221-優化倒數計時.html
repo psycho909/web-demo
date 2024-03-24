@@ -21,9 +21,41 @@
 					display: block;
 				}
 			}
+			.hexagon {
+				width: 100px;
+				height: 57.74px;
+				background-color: black;
+				position: relative;
+			}
+
+			.hexagon:before,
+			.hexagon:after {
+				content: "";
+				position: absolute;
+				width: 0;
+				border-left: 50px solid transparent;
+				border-right: 50px solid transparent;
+			}
+
+			.hexagon:before {
+				bottom: 100%;
+				border-bottom: 28.87px solid black;
+			}
+
+			.hexagon:after {
+				top: 100%;
+				width: 0;
+				border-top: 28.87px solid black;
+			}
+
+			/* 紅色邊框 */
+			.hexagon {
+				border: 1px solid red;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="hexagon"></div>
 		<div class="grid">
 			<div class="grid-item">1</div>
 			<div class="grid-item__inner">
