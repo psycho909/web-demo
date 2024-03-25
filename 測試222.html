@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				background-color: #000;
+			}
+			.text {
+				background-color: #000;
+				font-size: 20px;
+				color: #c2a779;
+			}
+			.bold {
+				font-size: 24px;
+				font-weight: bold;
+			}
+			.gray {
+				color: #877f7f;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="text bold">扭曲的黃金港</div>
+		<div class="text">扭曲的黃金港</div>
+		<div class="text gray">扭曲的黃金港</div>
+		<table id="table"></table>
+		<div id="button">送出</div>
+		<script>
+			let data = [
+				{ Seq: 1, recycle: null, receive: null },
+				{ Seq: 2, recycle: null, receive: null },
+				{ Seq: 3, recycle: null, receive: null },
+				{ Seq: 4, recycle: null, receive: null },
+				{ Seq: 5, recycle: null, receive: null },
+				{ Seq: 6, recycle: null, receive: null }
+			];
+			// 全域變數，暫存資料用
+			let list_ItemList = {};
+
+			// 當點擊 radio 時，將資料存入 list_ItemList
+			let toggleChoice = (key, value) => {
+				if (list_ItemList[key] === value) {
+					list_ItemList[key] = null;
+				} else {
+					list_ItemList[key] = value;
+				}
+			};
+			function generateHTML(data) {
+				// 暫存資料清空
+				list_ItemList = {};
+				// 生成 HTML
+				let HTML = ``;
+				data.forEach((item, index) => {
+					HTML += `
+                        <tr>
+                            <td style="background-color:#FFFFCC">
+                                <span>${item.Seq}</span>
+                                <input type="text" id="${item.Seq}" value="${item.Seq}" hidden />
+                            </td>
+                            <td style="background-color:#FFFFCC">
+                                <input type="radio" name="'exchange'+${item.Seq}" value="recycle" id="DoExchange" onclick="toggleChoice(${item.Seq}, 'recycle')">
+                            </td>
+                            <td style="background-color:#FFFFCC">
+                                <input type="radio" name="'exchange'+${item.Seq}" value="receive" id="DoRecycle" onclick="toggleChoice(${item.Seq}, 'receive')">    
+                            </td>
+                        </tr>
+                    `;
+				});
+				document.getElementById("table").innerHTML = HTML;
+			}
+			generateHTML(data);
+
+			// 按鈕點擊事件，送出資料
+			document.querySelector("#button").addEventListener("click", () => {
+				// 將 list_ItemList 轉換成API接收需要的格式
+				let list_Item = Object.keys(list_ItemList).map((key, index) => ({
+					Seq: key,
+					IsReceive: list_ItemList[key] === "receive",
+					IsRecycle: list_ItemList[key] === "recycle"
+				}));
+				// 當資料完成後，將資料送出後，重新生成新的HTML
+				generateHTML(data);
+				console.log(list_Item);
+			});
+		</script>
+	</body>
+</html>

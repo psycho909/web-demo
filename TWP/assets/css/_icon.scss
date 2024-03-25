@@ -24,3 +24,12 @@
 		mask-image: url(./svg/icon_number-#{$i}.svg);
 	}
 }
+.i--colon {
+	width: 11px;
+	height: 19px;
+	mask-image: url(./svg/icon-colon.svg);
+	@include media {
+		width: vw(24);
+		height: vw(38);
+	}
+}
