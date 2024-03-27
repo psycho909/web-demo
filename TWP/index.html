@@ -9,17 +9,19 @@
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
-
 		<script src="https://tw.hicdn.beanfun.com/plugins/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
+		<!-- 正式用 -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script> -->
 	</head>
 	<body>
-		<div class="number style1">
-			<i class="i--number-0"></i>
-			<i class="i--number-9"></i>
-		</div>
-		<div class="number style2">
-			<i class="i--number-0"></i>
-			<i class="i--number-9"></i>
+		<div id="app">
+			<nav-bar></nav-bar>
+			<top></top>
+			<!-- <entrance></entrance> -->
+			<!-- <login></login> -->
+			<selected></selected>
 		</div>
 		<script type="module" src="./js/default.js"></script>
 	</body>

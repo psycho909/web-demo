@@ -18,3 +18,11 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+
+body {
+	min-width: 1200px;
+	background-color: #1c1b18;
+	@include media {
+		min-width: 100%;
+	}
+}

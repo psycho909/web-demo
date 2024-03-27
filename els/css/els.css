@@ -1,0 +1,227 @@
+﻿/* 只要取消table，只針對大項目 */
+.table{ margin:auto; padding:auto;text-align:center;
+}
+/* 只要取消table，只針對大項目 */
+
+
+
+
+body{
+	background-position:center top;
+	width:100%;
+	background-image:url(../images/els/news_index_bg_up.jpg);
+	background-repeat:no-repeat;
+	background-color:#ffc200;
+}
+
+
+.content_right100{ display:block;margin-right:100px;}
+
+/* 內頁大架構設定 */
+#main {
+	z-index:0;
+	display:block;
+	width:100%;
+	height:232px;
+}
+
+#content{ background-image:url(../images/page/content_top.jpg); background-position:top; background-repeat:no-repeat;}
+
+#copyright{
+	display:block;
+	width:1024px;
+	height:110px;
+	background-image:url(../images/copyright/bg.jpg);
+}
+/* 內頁大架構設定 */
+
+
+.news{
+	padding:0px 0px 0px 10px;
+}
+.main_icno{ margin:0px 15px 0px 15px;}
+.frame{margin-bottom:3px;}
+.gray td, .gray th{
+	border: 1px solid #CCCCCC;
+	margin-bottom:3px;
+}
+.g_frame{
+display:block;
+	border: 1px solid #999999;
+	padding:5px;
+	text-align:center;
+	margin:10px;
+}
+
+
+
+/* 首頁內容文字 */
+
+.d123456789{
+	line-height:30px;
+	font-size:14px;
+	color:#455B00;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+
+.d123456789 a{
+line-height:30px;
+	font-size:14px;
+	color:#455B00;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+.d123456789 a:hover{
+	font-size:16px;
+	color:#FF6600;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	letter-spacing: 5px;
+}
+.text{
+	font-size:12px;
+	color:#666666;
+}
+.text a{
+	font-size:12px;
+	color:#666666;
+	text-decoration: none;	
+}
+.text a:hover{
+	color:#990000;
+}
+
+.more{
+	font-size:14px;
+	color:#000000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+.more a{
+	font-size:18px;
+	color:#000000;
+	text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+	font-weight:bold;
+}
+.more a:hover{
+	color:#999999;
+}
+
+.heading13__p05{
+	font-size:13px;
+	color:#BB7E00;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:5px 5px 5px 5px;
+	font-weight: bold;
+}
+
+.heading14_4_p05_c{
+	font-size:14px;
+	color:#996600;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	font-weight: bold;
+	text-align:center;
+}
+.heading14_4_p05{
+	font-size:14px;
+	color:#996600;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	font-weight: bold;
+	text-align:left;
+}
+
+.heading14_FFF_p05{
+	font-size:14px;
+	color:#FFFFCC;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	font-weight: bold;
+	text-align:left;
+}
+
+.p12_ghost_po5{
+	font-size:12px;
+	color:#FFFFFF;
+	padding:0 0 0 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+
+
+.p12_FF0{
+	font-size:12px;
+	color:#FF0000;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+.p12_FF0 a{
+	font-size:12px;
+	color:#FF0000;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+.p12_FF0 a:hover{
+	color:#FF6600;
+	line-height: 24px;
+}
+.p12_666_p05{
+	font-size:12px;
+	color:#666666;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	line-height: 14px;
+}
+.p12_666_p05_head{
+	font-size:12px;
+	color:#cc0000;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+.p12_FF6_p05{
+	font-size:12px;
+	color:#FF6600;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	line-height: 24px;
+}
+.p12_FFC{
+	font-size:12px;
+	color:#FFFFCC;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0 5px 0 5px;
+	line-height: 24px;
+}
+
+
+.p12_link{
+	font-size:12px;
+	color:#0099CC;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+.p12_link a{
+	font-size:12px;
+	color:#0099CC;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+.p12_link a:hover{
+	font-size:12px;
+	color:#FF6600;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 24px;
+}
+
+.message_bg{
+	display:block;
+	width:466px;
+	height:267px;
+	text-align:center;
+	background-image:url(../cu/images/message_bg.jpg);
+	background-position:top;
+}
+.line{ display:block; height:15px; background-image:url(../els/images/line.jpg); background-repeat:repeat-x;}
+.td{ width:600px; display:block;}

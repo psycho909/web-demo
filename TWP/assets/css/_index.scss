@@ -24,3 +24,56 @@ body {
 		}
 	}
 }
+.top {
+	width: 40px;
+	height: 40px;
+	background-color: rgba(#000, 0.7);
+	box-shadow: inset 0 0 0 1px #504338;
+	background-position: center 11px;
+	background-repeat: no-repeat;
+	background-image: url("./images/icon-top.png");
+	background-size: 15px 20px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	@include media {
+		width: vw(80);
+		height: vw(80);
+		box-shadow: inset 0 0 0 vw(2) #504338;
+		background-size: vw(30) vw(40);
+		background-position: center vw(22);
+	}
+}
+
+#app {
+	width: 100%;
+	background-image: url("./images/bg.jpg");
+	background-position: center 0;
+	background-repeat: no-repeat;
+	@include media {
+		background-image: url("./images/m-bg.jpg");
+	}
+}
+.btn-common {
+	width: 150px;
+	height: 40px;
+	font-size: 16px;
+	color: #b68d67;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: inset 0 0 0 1px #504338;
+	background-color: #000;
+	text-decoration: none;
+	@include hover {
+		box-shadow: inset 0 0 0 1px #c2a779;
+		color: #c2a779;
+		background-image: linear-gradient(to right, #0c0a09 0%, #695315 100%);
+	}
+	@include media {
+		width: vw(300);
+		height: vw(80);
+		font-size: vw(32);
+		box-shadow: inset 0 0 0 vw(2) #504338;
+	}
+}
