@@ -1,6 +1,8 @@
-// import useEventStore from "./store.js";
+import pinia from "./pinia.js";
+import useEventStore from "./store.js";
 
 export function MessageLB(msg, url, callback) {
+	// const store = useEventStore(pinia);
 	$.gbox.open(msg, {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -31,38 +33,9 @@ export function MessageLB(msg, url, callback) {
 	});
 }
 
-export function LB(msg, url, callback) {
-	var config = {
-		addClass: "default",
-		hasCloseBtn: true,
-		hasActionBtn: true,
-		afterClose: function () {
-			$.gbox.close();
-		},
-		actionBtns: [
-			{
-				text: "text1",
-				class: "btn",
-				click: function () {
-					$.gbox.close();
-				}
-			},
-			{
-				text: "text2",
-				class: "btn",
-				click: function () {
-					$.gbox.close();
-				}
-			}
-		]
-	};
-
-	var HTML = "";
-	$.gbox.open(HTML, config);
-}
-
 // index 警告
 export function Warning() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -151,6 +124,7 @@ export function Notice() {
 // 選擇領域
 // 選擇領域 - 未搶佔
 export function SelectNot() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -187,6 +161,7 @@ export function SelectNot() {
 }
 // 選擇領域 - 已佔領
 export function SelectPlundered() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -224,6 +199,7 @@ export function SelectPlundered() {
 }
 // 選擇領域 - 搶奪成功
 export function SelectPlunderSuccess() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -260,6 +236,7 @@ export function SelectPlunderSuccess() {
 }
 // 選擇領域 - 搶奪失敗
 export function SelectPlunderFailed() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -286,14 +263,14 @@ export function SelectPlunderFailed() {
 			<div class="plunder-protect-time-box">
 				<span class="plunder-protect-time__icon"></span>
 				<div class="plunder-protect-time__num-box">
-					<i class="plunder-protect-time__num" data-type="hour" data-num="0"></i>
-					<i class="plunder-protect-time__num" data-type="hour" data-num="3"></i>
-					<i class="plunder-protect-time__num i--colon"></i>
-					<i class="plunder-protect-time__num" data-type="min" data-num="1"></i>
-					<i class="plunder-protect-time__num" data-type="min" data-num="6"></i>
-					<i class="plunder-protect-time__num i--colon"></i>
-					<i class="plunder-protect-time__num" data-type="sec" data-num="5"></i>
-					<i class="plunder-protect-time__num" data-type="sec" data-num="9"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="hour" data-num="0"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="hour" data-num="3"></i>
+					<i class="plunder-protect-time__num icon--num-style1 i--colon"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="min" data-num="1"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="min" data-num="6"></i>
+					<i class="plunder-protect-time__num icon--num-style1 i--colon"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="sec" data-num="5"></i>
+					<i class="plunder-protect-time__num icon--num icon--num-style1" data-type="sec" data-num="9"></i>
 				</div>
 			</div>
 		</div>
@@ -303,6 +280,7 @@ export function SelectPlunderFailed() {
 
 // 選擇領域 - 未創立
 export function SelectCreate() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -332,6 +310,7 @@ export function SelectCreate() {
 }
 // 選擇領域 - 創立成功
 export function SelectCreated() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -381,6 +360,7 @@ export function SelectCreated() {
 // 預創角色
 // 預創角色 - 保護
 export function PreProtect() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -413,6 +393,7 @@ export function PreProtect() {
 
 // 預創角色 - 技能冷卻中
 export function PreCD() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -442,6 +423,7 @@ export function PreCD() {
 // 搶奪角色
 // 搶奪角色 - 搶奪成功
 export function PlunderSuccess() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -471,6 +453,7 @@ export function PlunderSuccess() {
 }
 // 搶奪角色 - 已被搶奪
 export function Plundered() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,
@@ -500,6 +483,7 @@ export function Plundered() {
 }
 // 搶奪角色 - 搶奪失敗
 export function PlunderFailed() {
+	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
 		hasCloseBtn: true,

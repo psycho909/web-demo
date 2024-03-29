@@ -378,32 +378,6 @@
 						padding: v(24) 0;
 					}
 				}
-				box-sizing: border-box;
-				display: inline-flex;
-				flex: 0 0 auto;
-				vertical-align: top;
-				fill: currentColor;
-				background-position: 50%;
-				background-repeat: no-repeat;
-				background-size: 100% 100%;
-				background-size: contain;
-				mask-position: center center;
-				mask-repeat: no-repeat;
-				mask-size: 100% 100%;
-				min-height: 5px;
-				min-width: 5px;
-				width: 19px;
-				height: 30px;
-				background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
-				@include media {
-					width: vw(36);
-					height: vw(55);
-				}
-				@for $i from 0 through 9 {
-					&[data-num="#{$i}"] {
-						mask-image: url(./svg/icon_number-#{$i}.svg);
-					}
-				}
 			}
 		}
 	}

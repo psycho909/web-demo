@@ -94,7 +94,33 @@
 						}
 					}
 				}
-				&[data-type="smooth"] {
+				&[data-type="0"] {
+					color: #e9e95f;
+					&:before {
+						width: 10px;
+						height: 10px;
+						border-radius: 100vmax;
+						background-color: #e9e95f;
+						@include media {
+							width: vw(20);
+							height: vw(20);
+						}
+					}
+				}
+				&[data-type="1"] {
+					color: #189ae5;
+					&:before {
+						width: 10px;
+						height: 10px;
+						border-radius: 100vmax;
+						background-color: #189ae5;
+						@include media {
+							width: vw(20);
+							height: vw(20);
+						}
+					}
+				}
+				&[data-type="2"] {
 					color: #58bc7a;
 					&:before {
 						width: 10px;
@@ -107,7 +133,7 @@
 						}
 					}
 				}
-				&[data-type="crowded"] {
+				&[data-type="3"] {
 					color: #ff9900;
 					&:before {
 						width: 10px;
@@ -120,7 +146,7 @@
 						}
 					}
 				}
-				&[data-type="saturated"] {
+				&[data-type="4"] {
 					color: #ff0000;
 					&:before {
 						width: 10px;
@@ -133,7 +159,7 @@
 						}
 					}
 				}
-				&[data-type="close"] {
+				&[data-type="5"] {
 					color: #999;
 					&:before {
 						width: 10px;
@@ -212,6 +238,19 @@
 			background-image: url("./images/select-realm-title1.png");
 			margin: 0 auto 30px;
 			position: relative;
+			span {
+				font-weight: bold;
+				font-size: 28px;
+				color: #c2a779;
+				position: absolute;
+				top: -6px;
+				left: 50%;
+				transform: translateX(-50%);
+				@include media {
+					font-size: vw(50);
+					top: vw(-12);
+				}
+			}
 			@include media {
 				width: vw(648);
 				height: vw(64);
@@ -269,6 +308,13 @@
 					padding-bottom: vw(40);
 					grid-template-columns: 1fr;
 				}
+				input {
+					display: none;
+					opacity: 0;
+					&:checked + div {
+						color: #c2a779;
+					}
+				}
 				&:after {
 					content: none;
 					@include media {
@@ -291,6 +337,10 @@
 			padding: 8px 0;
 			display: flex;
 			align-items: center;
+			cursor: pointer;
+			&.current {
+				color: #c2a779;
+			}
 			@include media {
 				padding: 0;
 			}
@@ -302,7 +352,34 @@
 					margin-right: vw(4);
 				}
 			}
-			&[data-type="smooth"] {
+			&[data-type="0"] {
+				color: #e9e95f;
+				&:before {
+					width: 10px;
+					height: 10px;
+					border-radius: 100vmax;
+					background-color: #e9e95f;
+					@include media {
+						width: vw(20);
+						height: vw(20);
+					}
+				}
+			}
+			&[data-type="1"] {
+				color: #189ae5;
+				&:before {
+					width: 10px;
+					height: 10px;
+					border-radius: 100vmax;
+					background-color: #189ae5;
+					@include media {
+						width: vw(20);
+						height: vw(20);
+					}
+				}
+			}
+			&[data-type="2"] {
+				color: #58bc7a;
 				&:before {
 					width: 10px;
 					height: 10px;
@@ -314,7 +391,8 @@
 					}
 				}
 			}
-			&[data-type="crowded"] {
+			&[data-type="3"] {
+				color: #ff9900;
 				&:before {
 					width: 10px;
 					height: 10px;
@@ -326,7 +404,8 @@
 					}
 				}
 			}
-			&[data-type="saturated"] {
+			&[data-type="4"] {
+				color: #ff0000;
 				&:before {
 					width: 10px;
 					height: 10px;
@@ -338,7 +417,8 @@
 					}
 				}
 			}
-			&[data-type="close"] {
+			&[data-type="5"] {
+				color: #999;
 				&:before {
 					width: 10px;
 					height: 10px;
@@ -440,6 +520,7 @@
 				background-size: 200%;
 				background-image: url("./images/btn-check.png");
 				margin-bottom: 30px;
+				font-size: 0;
 				@include hover {
 					background-position-x: 100%;
 				}

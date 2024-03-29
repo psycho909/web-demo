@@ -22,8 +22,8 @@ const navBar = {
 						<li class="nav-bar__menu-item" data-page="">預創旅團</li>
 					</ul>
 					<div class="nav-bar__social-list">
-						<a href="我是官網YT" class="nav-bar__social-item" target="_blank" data-type="yt"></a>
-						<a href="我是官網FB" class="nav-bar__social-item" target="_blank" data-type="f"></a>
+						<a href="https://www.youtube.com/@user-warsofprasia" class="nav-bar__social-item" target="_blank" data-type="yt"></a>
+						<a href="https://www.facebook.com/warsofprasia.tw" class="nav-bar__social-item" target="_blank" data-type="f"></a>
 					</div>
 				</div>
 			</div>
