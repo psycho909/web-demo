@@ -1,10 +1,10 @@
 import timeCreviceRaid from "./time-crevice-raid.js";
-import timeCreviceRank from "./time-crevice-rank.js";
+import timeCreviceKill from "./time-crevice-kill.js";
 
 const timeCrevice = {
 	components: {
 		timeCreviceRaid,
-		timeCreviceRank
+		timeCreviceKill
 	},
 	template: `
 	<div class="time-crevice__nav">

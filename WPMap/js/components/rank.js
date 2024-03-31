@@ -24,7 +24,7 @@ const rank = {
                         <span class="selector__dimmed"></span>
                         <div class="selector__transform" v-if="worldSelectToggle">
                             <span class="selector__close"><span></span></span>
-                            <div class="selector__content" style="max-height: 360px">
+                            <div class="selector__content" style="max-height: 500px">
                                 <ul>
                                     <li v-for="world in worlds" :class="[worldSelect === world.W?'-selected':'']" @click="selected('world',world.W)"><span>{{world.name}}</span></li>
                                 </ul>
@@ -46,7 +46,7 @@ const rank = {
                         <span class="selector__dimmed"></span>
                         <div class="selector__transform" v-if="realmSelectToggle">
                             <span class="selector__close"><span></span></span>
-                            <div class="selector__content" style="max-height: 360px">
+                            <div class="selector__content" style="max-height: 500px">
                                 <ul>
                                     <li v-for="territory in worldSelectComputed?.realms" :class="[realmSelect === territory.R?'-selected':'']" @click="selected('territory',territory.R)"><span>{{territory.name}}</span></li>
                                 </ul>
