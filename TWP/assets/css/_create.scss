@@ -2,25 +2,23 @@
 	&-content {
 		width: 1200px;
 		margin: 0 auto;
-		padding-top: 148px;
-		padding-bottom: 60px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		position: relative;
 		@include media {
 			width: 100%;
-			padding: vw(206) 0 vw(120);
 		}
 	}
 	&-title {
 		font-size: 0;
-		width: 323px;
+		width: 267px;
 		height: 40px;
 		background-size: 100%;
 		background-image: url("./images/title-create-character.png");
-		margin-bottom: 30px;
+		margin-bottom: 0;
 		@include media {
-			width: vw(650);
+			width: vw(533);
 			height: vw(80);
 			margin-bottom: vw(60);
 		}
@@ -34,11 +32,13 @@
 		background-size: 380px 90px;
 		background-position: center 0;
 		background-repeat: no-repeat;
+		margin-bottom: 64px;
 		@include media {
 			width: 100vw;
-			height: vw(540);
+			height: auto;
 			background-image: url("./images/m-count-down-bg.png");
 			background-size: vw(760) vw(180);
+			margin-bottom: 0;
 		}
 		&__btn {
 			&-group {
@@ -55,14 +55,14 @@
 				}
 				&:before {
 					content: "";
-					width: 296px;
+					width: 234px;
 					height: 25px;
 					background-size: 100%;
 					background-image: url("./images/btn-line.png");
 					position: absolute;
-					top: 50%;
+					top: 88px;
 					left: 50%;
-					transform: translate(-50%, -50%);
+					transform: translateX(-50%);
 					@include media {
 						content: none;
 					}
@@ -74,7 +74,8 @@
 				background-image: url("./images/btn-protect.png");
 				background-size: 300%;
 				background-position-x: -100%;
-				&.disabled {
+				margin: 120px auto 0;
+				&.-disabled {
 					background-position-x: 0%;
 				}
 				@include hover {
@@ -83,6 +84,7 @@
 				@include media {
 					width: vw(490);
 					height: vw(120);
+					margin: 0;
 				}
 			}
 			&-plunder {
@@ -111,6 +113,7 @@
 		top: 0;
 		left: 50%;
 		transform: translateX(-50%);
+		text-align: center;
 		&__title {
 			font-size: 20px;
 			color: #c7bfb3;
@@ -123,13 +126,15 @@
 		&__notice {
 			font-size: 14px;
 			color: #ff3e3e;
-			margin: 8px 0;
 			text-align: center;
+			position: absolute;
+			bottom: -90px;
+			left: 50%;
+			transform: translateX(-50%);
 			@include media {
 				font-size: vw(28);
-				margin: vw(24) 0;
-				padding: 0 vw(40);
-				display: none;
+				bottom: vw(-80);
+				// display: none;
 			}
 		}
 		&__time {
@@ -162,17 +167,18 @@
 			width: 100vw;
 			height: vw(968);
 			background-image: url("./images/m-create-name-bg.png");
+			margin-top: vw(-36);
 		}
 		&__title {
 			font-size: 0;
-			width: 221px;
+			width: 192px;
 			height: 35px;
 			background-size: 100%;
 			background-image: url("./images/title-create-character-name.png");
 			margin-top: 160px;
 			margin-bottom: 15px;
 			@include media {
-				width: vw(441);
+				width: vw(384);
 				height: vw(70);
 				margin-top: vw(320);
 				margin-bottom: vw(30);
@@ -226,36 +232,52 @@
 		&__notice {
 			font-size: 16px;
 			color: #c7bfb3;
+			margin-top: 12px;
 			@include media {
 				font-size: vw(32);
+				margin-top: vw(24);
 			}
 		}
 	}
 	&-hold {
+		@include media {
+			margin-top: vw(-72);
+		}
 		&__title {
 			font-size: 0;
-			width: 302px;
-			height: 35px;
+			width: 273px;
+			height: 34px;
 			background-size: 100%;
 			background-image: url("./images/create-name-title2.png");
 			margin: 30px auto;
 			@include media {
-				width: vw(605);
-				height: vw(70);
+				width: vw(546);
+				height: vw(68);
 			}
 		}
-
+		&__box {
+			margin-bottom: 60px;
+			@include media {
+				margin-bottom: vw(120);
+			}
+		}
 		&__list {
 			width: 1200px;
 			margin: 0 auto;
-			margin-bottom: 60px;
 			position: relative;
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			place-items: center;
+			display: flex;
+			column-gap: 57px;
+			justify-content: center;
+			.swiper-slide {
+				width: 265px;
+				@include media {
+					width: auto;
+				}
+			}
 			@include media {
 				width: 100vw;
-				margin-bottom: vw(120);
+				column-gap: 0;
+				justify-content: normal;
 			}
 		}
 		&__item {
@@ -269,6 +291,7 @@
 			justify-content: center;
 			background-color: rgba(#000, 1);
 			box-shadow: inset 0 0 0 1px #ffe2ae;
+			margin: auto;
 			&:before {
 				content: "";
 				width: calc(100% - 20px);
@@ -278,7 +301,7 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%) rotate(-45deg);
-				background-image: linear-gradient(to bottom, rgba(#f5c168, 0.17) 0%, rgba(#f5c168, 0) 50%, rgba(#f5c168, 0.17) 100%);
+				background-image: linear-gradient(to bottom, rgba(#f5c168, 0.17) 0%, rgba(#f5c168, 0) 30%, rgba(#f5c168, 0) 70%, rgba(#f5c168, 0.17) 100%);
 				@include media {
 					width: calc(100% - vw(40));
 					height: calc(100% - vw(40));
@@ -297,10 +320,13 @@
 				top: 50%;
 				right: 0;
 				background-image: url("./images/btn-next.png");
+				display: none;
+				z-index: 99;
 				@include media {
 					width: vw(46);
 					height: vw(60);
 					right: vw(17);
+					display: block;
 				}
 			}
 			&-prev {
@@ -311,10 +337,13 @@
 				top: 50%;
 				left: 0;
 				background-image: url("./images/btn-prev.png");
+				display: none;
+				z-index: 99;
 				@include media {
 					width: vw(46);
 					height: vw(60);
 					left: vw(17);
+					display: block;
 				}
 			}
 			&--lock {
@@ -445,6 +474,90 @@
 				}
 				&-num {
 				}
+			}
+		}
+	}
+	&-task {
+		&__list {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 100px 0;
+			&:before {
+				content: "";
+				width: 1px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: -18px;
+				background-image: linear-gradient(to bottom, rgba(#c2a779, 0) 0%, rgba(#c2a779, 0.75) 30%, #c2a779 50%, rgba(#c2a779, 0.75) 70%, rgba(#c2a779, 0) 100%);
+			}
+			@include media {
+				display: none;
+			}
+		}
+		&__item {
+			font-size: 16px;
+			text-align: right;
+			margin-bottom: 40px;
+			&.complete {
+				span:first-child {
+					&:after {
+						display: block;
+					}
+				}
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+			span {
+				display: block;
+				position: relative;
+				&:first-child {
+					color: #baa990;
+					&:before {
+						content: "";
+						width: 9px;
+						height: 9px;
+						background-size: cover;
+						background-image: url("./images/line-point.png");
+						position: absolute;
+						top: 50%;
+						right: -22px;
+						transform: translateY(-50%);
+					}
+					&:after {
+						content: "";
+						width: 12px;
+						height: 12px;
+						background-size: 100%;
+						background-image: url("./images/icon-check.png");
+						position: absolute;
+						top: 50%;
+						left: -20px;
+						transform: translateY(-50%);
+						display: none;
+					}
+				}
+				&:last-child {
+					color: #7f6b54;
+				}
+			}
+		}
+	}
+	&-btn {
+		&__mission {
+			display: none;
+			@include media {
+				position: fixed;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				display: block;
+				width: vw(60);
+				height: vw(120);
+				background-size: cover;
+				background-image: url("./images/create-mission-open.png");
 			}
 		}
 	}

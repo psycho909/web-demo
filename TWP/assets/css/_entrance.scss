@@ -3,29 +3,29 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-top: 155px;
-		padding-bottom: 155px;
 	}
 	&-logo {
 		width: 323px;
 		height: 250px;
 		background-size: 100%;
 		background-image: url("./images/index-logo.png");
+		margin-bottom: 17px;
 		@include media {
 			width: vw(297);
 			height: vw(230);
-			margin-bottom: vw(50);
+			margin-bottom: vw(67);
 		}
 	}
 	&-slogan {
-		width: 684px;
-		height: 247px;
+		width: 608px;
+		height: 218px;
 		background-size: 100%;
 		background-image: url("./images/index-title-head.png");
+		margin-bottom: 16px;
 		@include media {
-			width: vw(684);
-			height: vw(247);
-			margin-bottom: vw(27);
+			width: vw(608);
+			height: vw(218);
+			margin-bottom: vw(52);
 		}
 	}
 	&-date {
@@ -48,7 +48,7 @@
 			background-size: 200%;
 			background-image: url("./images/btn-enter.png");
 			font-size: 0;
-			margin-bottom: 46px;
+			margin-bottom: 60px;
 			@include hover {
 				background-position-x: 100%;
 			}
@@ -59,8 +59,6 @@
 				background-size: 100%;
 				margin-bottom: vw(120);
 			}
-		}
-		&__notice {
 		}
 	}
 }

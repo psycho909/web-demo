@@ -1,13 +1,16 @@
-import { Notice, MessageLB } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle } from "../lightbox.js";
+import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import useEventStore from "../store.js";
+const { storeToRefs } = Pinia;
 
 const create = {
 	setup() {
 		let stopTimer;
+		let api = Vue.ref(false);
 		const store = useEventStore();
 		const timer = Vue.ref({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
-		const list = Vue.ref([]);
-
+		const { titleData } = storeToRefs(store);
+		let CoolDownMin = Vue.ref(0);
 		// 數字轉換
 		const formattedTime = Vue.computed(() => {
 			return {
@@ -21,9 +24,7 @@ const create = {
 		function quickCountdown() {
 			return new Promise((resolve) => {
 				let remaining = 9;
-				timer.value.seconds = "09"; // 确保倒计时从9开始
-				console.log("开始快速倒數");
-
+				timer.value.seconds = "09";
 				const updateTimer = () => {
 					const formattedSeconds = remaining.toString().padStart(2, "0");
 					timer.value.seconds = formattedSeconds;
@@ -31,8 +32,7 @@ const create = {
 					if (remaining > 0) {
 						setTimeout(updateTimer, 10);
 					} else {
-						console.log("快速倒數結束");
-						resolve("倒數結束"); // 倒数完成时解决Promise
+						resolve("倒數結束");
 					}
 					remaining -= 1;
 				};
@@ -40,6 +40,7 @@ const create = {
 				updateTimer();
 			});
 		}
+		// 倒數計時
 		function countdown(initialEndTime, onUpdate) {
 			let endTime = new Date(initialEndTime).getTime();
 			let frameId;
@@ -56,7 +57,6 @@ const create = {
 				const distance = endTime - now;
 
 				if (distance < 0) {
-					console.log("倒數計時結束。");
 					onUpdate({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 					stop();
 					return;
@@ -89,30 +89,53 @@ const create = {
 		}
 
 		// 刪除稱號
-		const deleteItem = () => {
-			console.log("deleteItem");
+		const deleteItem = (Seq) => {
+			// 打開lightbox確認是否刪除
+			RemoveTitle(Seq);
 		};
 		// 稱號招喚
 		const rollItem = () => {
-			// 倒數計時中
+			// 冷卻中
 			if (formattedTime.value.completed) {
 				return;
 			}
-			stopTimer.stop();
+			// 限制最多三個
+			if (titleData.value.length >= 3) {
+				return;
+			}
+			// 停止計時器
+			if (stopTimer) {
+				stopTimer.stop();
+			}
+
+			// 冷卻開始
 			stopTimer = countdown("2024-03-30 00:00:00", (update) => {
 				timer.value = update;
 			});
-			if (list.value.length >= 3) {
-				return;
-			}
-			// store.setCurrentPage("plunder");
+
+			// 1.打API稱號招喚並跳頁
+			// 2.跳轉頁面在打API
+			store.setCurrentPage("plunder");
 			console.log("rollItem");
+		};
+		const MissionLB = () => {
+			let data = [];
+			Mission(data);
 		};
 		Vue.onMounted(() => {
 			quickCountdown();
 			// stopTimer = countdown("2024-03-29 17:47:00", (update) => {
 			// 	timer.value = update;
 			// });
+			if (isMobile.any) {
+				var swiper = new Swiper(".create-hold__box", {
+					loop: true,
+					navigation: {
+						nextEl: ".create-hold__item-next",
+						prevEl: ".create-hold__item-prev"
+					}
+				});
+			}
 		});
 
 		// 組件卸載時停止計時器
@@ -121,14 +144,14 @@ const create = {
 				stopTimer.stop();
 			}
 		});
-		return { Notice, deleteItem, rollItem, list, formattedTime };
+		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB };
 	},
 	template: `
 		<div class="create-content">
-			<div class="create-title">預創角色名稱</div>
+			<div class="create-title">天命覺醒</div>
 			<div class="create-action">
 				<div class="create-countdown">
-					<div class="create-countdown__title">保護及搶奪冷卻時間</div>
+					<div class="create-countdown__title">召喚冷卻時間</div>
 					<div class="create-countdown__time-box">
 						<!-- 時 -->
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[0]"></i>
@@ -142,14 +165,14 @@ const create = {
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[0]"></i>
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[1]"></i>
 					</div>
-					<div class="create-countdown__notice">可使用保護或掠奪技能</div>
 				</div>
 				<div class="create-action__btn-group">
-					<a href="javascript:;" class="create-action__btn-protect" @click="rollItem">保護</a>
+					<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem">召換天命</a>
 				</div>
+				<div class="create-countdown__notice" v-if="!formattedTime.completed">可進行天命召喚</div>
 			</div>
 			<div class="create-pre">
-				<div class="create-pre__title">預約角色名稱</div>
+				<div class="create-pre__title">角色名稱</div>
 				<div class="create-pre__name">角色名稱最多十個文字</div>
 				<div class="create-pre__realm">
 					<span>扭曲的黃金港01</span>
@@ -157,14 +180,39 @@ const create = {
 				<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
 			</div>
 			<div class="create-hold">
-				<div class="create-hold__title">目前持有的角色名稱</div>
-				<div class="create-hold__list">
-					<div class="create-hold__item" v-for="i in 3">
-						<div class="create-hold__name">角色名稱最多十個文字</div>
-						<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem">設為預約角色</a>
+				<div class="create-hold__title">目前持有的天命</div>
+				<div class="create-hold__box swiper">
+					<div class="create-hold__list swiper-wrapper">
+						<div class="swiper-slide" v-for="i in titleData">
+							<div class="create-hold__item">
+								<div class="create-hold__name">{{i.TitleName}}</div>
+								<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
+							</div>
+						</div>
 					</div>
+					<div class="create-hold__item-prev"></div>
+					<div class="create-hold__item-next"></div>
 				</div>
 			</div>
+			<div class="create-task__list">
+				<div class="create-task__item complete">
+					<span>活動結束後每持有1個紫色天命</span>
+					<span>可獲得一般造型召喚券5張</span>
+				</div>
+				<div class="create-task__item">
+					<span>活動結束後每持有1個紫色天命</span>
+					<span>可獲得一般造型召喚券5張</span>
+				</div>
+				<div class="create-task__item">
+					<span>活動結束後每持有1個紫色天命</span>
+					<span>可獲得一般造型召喚券5張</span>
+				</div>
+				<div class="create-task__item">
+					<span>活動結束後每持有1個紫色天命</span>
+					<span>可獲得一般造型召喚券5張</span>
+				</div>
+			</div>
+			<a href="javascript:;" class="create-btn__mission" @click="MissionLB"></a>
 			<a href="javascript:;" class="create-btn__notice btn-common" @click="()=>Notice()">注意事項</a>
 		</div>
 	`

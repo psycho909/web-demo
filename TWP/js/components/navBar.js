@@ -17,9 +17,9 @@ const navBar = {
 				</div>
 				<div class="nav-bar__content" :class="[menuStatus?'-open':'']">
 					<ul class="nav-bar__menu-list">
-						<li class="nav-bar__menu-item current" data-page="">奪名之戰</li>
-						<li class="nav-bar__menu-item" data-page="">事前預約</li>
-						<li class="nav-bar__menu-item" data-page="">預創旅團</li>
+						<li class="nav-bar__menu-item current"><a href="javascript:;">天命覺醒</a></li>
+						<li class="nav-bar__menu-item"><a href="事前預約" target="_blank">事前預約</a></li>
+						<li class="nav-bar__menu-item"><a href="預創旅團" target="_blank">預創旅團</a></li>
 					</ul>
 					<div class="nav-bar__social-list">
 						<a href="https://www.youtube.com/@user-warsofprasia" class="nav-bar__social-item" target="_blank" data-type="yt"></a>

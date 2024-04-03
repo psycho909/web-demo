@@ -89,30 +89,4 @@
 			margin-left: vw(10);
 		}
 	}
-	&--refresh {
-		width: 32px;
-		height: 44px;
-		background-size: cover;
-		background-image: url("./images/icon-refresh.png");
-	}
-	&--protect {
-		width: 70px;
-		height: 76px;
-		background-size: 100%;
-		background-image: url("./images/icon-protect.png");
-		@include media {
-			width: vw(140);
-			height: vw(152);
-		}
-	}
-	&--pre {
-		width: 67px;
-		height: 80px;
-		background-size: 100%;
-		background-image: url("./images/icon-pre.png");
-		@include media {
-			width: vw(134);
-			height: vw(160);
-		}
-	}
 }

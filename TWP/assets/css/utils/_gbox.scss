@@ -251,7 +251,7 @@
 		&-box {
 			margin: 30px auto 15px;
 			display: flex;
-			column-gap: 15px;
+			column-gap: 30px;
 			justify-content: center;
 			@include media {
 				margin: vw(60) auto vw(30);
@@ -322,7 +322,7 @@
 		}
 	}
 }
-.plunder {
+.lb-plunder {
 	&-content {
 		display: flex;
 		flex-direction: column;
@@ -378,6 +378,58 @@
 						padding: v(24) 0;
 					}
 				}
+			}
+		}
+	}
+}
+.lb-select {
+	.gbox-action {
+		margin-top: 60px;
+		@include media {
+			margin-top: vw(80);
+		}
+	}
+}
+.lb-mission {
+	.gbox-wrap {
+		padding: vw(120) vw(30);
+	}
+	&__content {
+	}
+	&__item {
+		font-size: vw(32);
+		text-align: left;
+		margin-bottom: vw(60);
+		&.complete {
+			span:first-child {
+				&:after {
+					display: block;
+				}
+			}
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		span {
+			display: block;
+			position: relative;
+			&:first-child {
+				color: #baa990;
+				&:after {
+					content: "";
+					width: vw(25);
+					height: vw(25);
+					background-size: 100%;
+					background-image: url("./images/icon-check.png");
+					position: absolute;
+					top: 50%;
+					left: vw(-40);
+					transform: translateY(-50%);
+					display: none;
+				}
+			}
+			&:last-child {
+				color: #7f6b54;
 			}
 		}
 	}

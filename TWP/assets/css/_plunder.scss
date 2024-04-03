@@ -2,11 +2,8 @@
 	&-content {
 		width: 1200px;
 		margin: 0 auto;
-		padding-top: 148px;
-		padding-bottom: 60px;
 		@include media {
 			width: 100%;
-			padding: vw(206) vw(30) vw(120);
 		}
 	}
 	&-title {
@@ -17,8 +14,9 @@
 		background-image: url("./images/title-plunder.png");
 		margin-bottom: 30px;
 		@include media {
-			width: vw(650);
+			width: vw(517);
 			height: vw(80);
+			background-image: url("./images/m-title-plunder.png");
 		}
 	}
 	&-chosen {
@@ -107,8 +105,8 @@
 			padding: vw(60) vw(30);
 		}
 		&__title {
-			width: 187px;
-			height: 26px;
+			width: 177px;
+			height: 33px;
 			background-image: url("./images/title-recommend.png");
 			background-size: 100%;
 			margin: 0 auto 30px;

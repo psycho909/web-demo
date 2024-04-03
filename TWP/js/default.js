@@ -7,10 +7,10 @@ import create from "./pages/create.js";
 import plunder from "./pages/plunder.js";
 import pinia from "./pinia.js";
 import useEventStore from "./store.js";
-
+import { getAndRemoveQueryStringInsensitive, setCookie, getCookie } from "./utils.js";
 // SelectPlunderFailed();
 // MessageLB("MessageLB");
-
+// Plundered();
 const { storeToRefs } = Pinia;
 
 let app = Vue.createApp({
@@ -24,34 +24,49 @@ let app = Vue.createApp({
 	},
 	setup() {
 		const store = useEventStore();
+		const { titleList } = storeToRefs(store);
 		let token = Vue.ref("");
-		let currentPage = Vue.ref("create");
-		function getAndRemoveOTT() {
-			// 假設當前URL是 https://warsofprasia.beanfun.com/login/galaxyCallback?OTT=...
-			// 首先，創建一個URL對象
-			const currentUrl = new URL(window.location.href);
-
-			// 使用URLSearchParams獲取查詢參數
-			const searchParams = currentUrl.searchParams;
-
-			// 獲取OTT參數
-			const ottValue = searchParams.get("OTT");
-			console.log("OTT Value:", ottValue);
-
-			// 刪除OTT參數
-			searchParams.delete("OTT");
-
-			// 更新瀏覽器的URL，但不重新加載頁面
-			window.history.pushState({}, "", currentUrl);
-
-			// 返回OTT參數值
-			return ottValue;
-		}
+		let currentPage = Vue.ref("selected");
 		Vue.watch(storeToRefs(store).currentPage, (val) => {
 			currentPage.value = val;
 		});
 		Vue.onMounted(() => {
-			getAndRemoveOTT();
+			let cookie = getCookie("TWPEvent");
+			// let selectedItemId = localStorage.getItem("selectedItemId");
+			// 如果有cookie，則是已經登入過
+			if (cookie) {
+				// 判斷是否有稱號招喚過並未送出
+				// if (titleList.value.length < 3) {
+				// 	if (selectedItemId) {
+				// 		// 打API
+				// 	}
+				// }
+				// 取得使用者角色資料(cookie);
+				// 進入稱號招喚頁面
+				// store.setCurrentPage("create");
+			}
+			// 如果有URL?queryString DDDD並有token，則是其他頁面跳轉過來
+			if (getAndRemoveQueryStringInsensitive("DDDD")) {
+				// 打API獲取角色資訊及Token
+				// Token存入Cookie
+				// 判斷是否有稱號招喚過並未送出
+				// if (titleList.value.length < 3) {
+				// 	if (selectedItemId) {
+				// 		// 打API
+				// 	}
+				// }
+			}
+			// 如果有URL?queryString OTT並有token，則是login頁面跳轉過來
+			if (getAndRemoveQueryStringInsensitive("OTT")) {
+				// 打API獲取角色資訊及Token
+				// Token存入Cookie
+				// 判斷是否有稱號招喚過並未送出
+				// if (titleList.value.length < 3) {
+				// 	if (selectedItemId) {
+				// 		// 打API
+				// 	}
+				// }
+			}
 		});
 		return { currentPage };
 	}

@@ -1,5 +1,6 @@
 import pinia from "./pinia.js";
 import useEventStore from "./store.js";
+import { InsertUserDataAndCharacter } from "./api.js";
 
 export function MessageLB(msg, url, callback) {
 	// const store = useEventStore(pinia);
@@ -293,6 +294,14 @@ export function SelectCreate() {
 				text: "確定",
 				class: "btn",
 				click: function () {
+					// 打API
+					SelectCreated();
+				}
+			},
+			{
+				text: "返回",
+				class: "btn",
+				click: function () {
 					$.gbox.close();
 				}
 			}
@@ -309,27 +318,21 @@ export function SelectCreate() {
 	$.gbox.open(HTML, config);
 }
 // 選擇領域 - 創立成功
-export function SelectCreated() {
-	// const store = useEventStore(pinia);
+export function SelectCreated(data) {
+	const store = useEventStore(pinia);
 	var config = {
-		addClass: "default",
-		hasCloseBtn: true,
+		addClass: "default lb-select",
+		hasCloseBtn: false,
 		hasActionBtn: true,
 		afterClose: function () {
 			$.gbox.close();
 		},
 		actionBtns: [
 			{
-				text: "延長保護",
+				text: "召換天命",
 				class: "btn",
 				click: function () {
-					$.gbox.close();
-				}
-			},
-			{
-				text: "發起搶奪",
-				class: "btn",
-				click: function () {
+					store.setCurrentPage("create");
 					$.gbox.close();
 				}
 			}
@@ -350,9 +353,8 @@ export function SelectCreated() {
 				</div>
 			</div>
 			<div class="select-realm-name">台灣南波萬</div>
-			<p>該名稱已設定為預定角色，30分鐘後</p>
-			<p>將可被他人搶奪，是否延長保護時間或</p>
-			<p>對其他名稱發起搶奪?</p>
+			<p>您已可進行天命召喚</p>
+			<p>點擊召喚後將進入天命召喚頁面</p>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
@@ -422,7 +424,7 @@ export function PreCD() {
 }
 // 搶奪角色
 // 搶奪角色 - 搶奪成功
-export function PlunderSuccess() {
+export function PlunderSuccess(data) {
 	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
@@ -443,10 +445,9 @@ export function PlunderSuccess() {
 	};
 
 	var HTML = `
-		<div class="plunder-content">
-			<p>已成功搶奪角色名稱</p>
-			<div class="plunder-name">角色名稱最多十個文字</div>
-			<p class="red">請等冷卻時間結束後，重新嘗試</p>
+		<div class="lb-plunder-content">
+			<p>已成功獲得天命</p>
+			<div class="lb-plunder-name">角色名稱最多十個文字</div>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
@@ -473,9 +474,9 @@ export function Plundered() {
 	};
 
 	var HTML = `
-		<div class="plunder-content">
+		<div class="lb-plunder-content">
 			<p>角色名稱已被搶奪</p>
-			<div class="plunder-name">角色名稱最多十個文字</div>
+			<div class="lb-plunder-name">角色名稱最多十個文字</div>
 			<p class="red">系統已自動給與『無名之輩01』角色名稱</p>
 		</div>
 	`;
@@ -520,6 +521,74 @@ export function PlunderFailed() {
 					<i class="plunder-protect-time__num" data-type="sec" data-num="9"></i>
 				</div>
 			</div>
+		</div>
+	`;
+	$.gbox.open(HTML, config);
+}
+// 任務內容
+export function Mission() {
+	let msg = `
+	<div class="lb-mission__content">
+		<div class="lb-mission__list">
+			<div class="lb-mission__item complete">
+				<span>活動結束後每持有1個紫色天命</span>
+				<span>可獲得一般造型召喚券5張</span>
+			</div>
+			<div class="lb-mission__item">
+				<span>活動結束後每持有1個紫色天命</span>
+				<span>可獲得一般造型召喚券5張</span>
+			</div>
+			<div class="lb-mission__item">
+				<span>活動結束後每持有1個紫色天命</span>
+				<span>可獲得一般造型召喚券5張</span>
+			</div>
+			<div class="lb-mission__item">
+				<span>活動結束後每持有1個紫色天命</span>
+				<span>可獲得一般造型召喚券5張</span>
+			</div>
+		</div>
+	</div>
+	`;
+	$.gbox.open(msg, {
+		addClass: "default lb-mission",
+		hasCloseBtn: true,
+		hasActionBtn: false
+	});
+}
+
+// 捨棄天命
+export function RemoveTitle(Seq) {
+	const store = useEventStore(pinia);
+	var config = {
+		addClass: "default",
+		hasCloseBtn: true,
+		hasActionBtn: true,
+		afterClose: function () {
+			$.gbox.close();
+		},
+		actionBtns: [
+			{
+				text: "確定",
+				class: "btn",
+				click: function () {
+					store.removeTitle(Seq);
+					$.gbox.close();
+				}
+			},
+			{
+				text: "返回",
+				class: "btn",
+				click: function () {
+					$.gbox.close();
+				}
+			}
+		]
+	};
+
+	var HTML = `
+		<div class="lb-plunder-content">
+			<p>是否捨棄天命</p>
+			<div class="lb-plunder-name">角色名稱最多十個文字</div>
 		</div>
 	`;
 	$.gbox.open(HTML, config);
