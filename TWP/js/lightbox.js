@@ -280,7 +280,7 @@ export function SelectPlunderFailed() {
 }
 
 // 選擇領域 - 未創立
-export function SelectCreate() {
+export function SelectCreate(data) {
 	// const store = useEventStore(pinia);
 	var config = {
 		addClass: "default",
@@ -295,7 +295,19 @@ export function SelectCreate() {
 				class: "btn",
 				click: function () {
 					// 打API
-					SelectCreated();
+					// InsertUserDataAndCharacter(data).then((res) => {
+					// 	$("#loadingProgress").hide();
+					// 		let { code, message, listData,url } = res.data;
+					// 		if (code == -1) {
+					// 			MessageLB(message);
+					// 			return;
+					// 		}
+					// 	if(code == -2){
+					// 		MessageLB(message,url);
+					// 		return;
+					// 	}
+					// SelectCreated(data);
+					// });
 				}
 			},
 			{

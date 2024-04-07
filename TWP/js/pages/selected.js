@@ -118,10 +118,17 @@ const selected = {
 				return;
 			}
 			nameError.value = "";
+			// $("#loadingProgress").show();
+			// $("#loadingProgress").hide();
 			// API判斷名稱有無重複
-
+			let data = {
+				token: "",
+				WorldSeq: selectedRealm.value.split("-")[0],
+				ServerSeq: selectedRealm.value.split("-")[1],
+				Name: selectedName.value
+			};
 			// 沒有重複
-			SelectCreate();
+			SelectCreate(data);
 		};
 		// 選擇領域id filter後顯示名稱
 		let filterWorldSeq = Vue.computed(() => {
@@ -136,12 +143,18 @@ const selected = {
 			// WorldSeq整理group
 			serverData.value = groupedByWorldSeq(listData);
 			// API取得伺服器資料
+			// $("#loadingProgress").show();
 			// GetServerData().then((res) => {
-			// 	let { code, message, listData } = res.data;
-			// 	if (code != 1) {
-			// 		Message();
+			// $("#loadingProgress").hide();
+			// 	let { code, message, listData,url } = res.data;
+			// 	if (code == -1) {
+			// 		MessageLB(message);
 			// 		return;
 			// 	}
+			// if(code == -2){
+			// 	MessageLB(message,url);
+			// 	return;
+			// }
 			// 	serverData.value = groupedByWorldSeq(listData);
 			// });
 		});

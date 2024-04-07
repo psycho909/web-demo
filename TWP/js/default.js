@@ -24,7 +24,7 @@ let app = Vue.createApp({
 	},
 	setup() {
 		const store = useEventStore();
-		const { titleList } = storeToRefs(store);
+		const { titleData } = storeToRefs(store);
 		let token = Vue.ref("");
 		let currentPage = Vue.ref("selected");
 		Vue.watch(storeToRefs(store).currentPage, (val) => {
@@ -36,7 +36,7 @@ let app = Vue.createApp({
 			// 如果有cookie，則是已經登入過
 			if (cookie) {
 				// 判斷是否有稱號招喚過並未送出
-				// if (titleList.value.length < 3) {
+				// if (titleData.value.length < 3) {
 				// 	if (selectedItemId) {
 				// 		// 打API
 				// 	}
@@ -50,7 +50,7 @@ let app = Vue.createApp({
 				// 打API獲取角色資訊及Token
 				// Token存入Cookie
 				// 判斷是否有稱號招喚過並未送出
-				// if (titleList.value.length < 3) {
+				// if (titleData.value.length < 3) {
 				// 	if (selectedItemId) {
 				// 		// 打API
 				// 	}
@@ -61,7 +61,7 @@ let app = Vue.createApp({
 				// 打API獲取角色資訊及Token
 				// Token存入Cookie
 				// 判斷是否有稱號招喚過並未送出
-				// if (titleList.value.length < 3) {
+				// if (titleData.value.length < 3) {
 				// 	if (selectedItemId) {
 				// 		// 打API
 				// 	}

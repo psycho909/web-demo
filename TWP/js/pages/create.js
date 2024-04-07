@@ -114,9 +114,22 @@ const create = {
 			});
 
 			// 1.打API稱號招喚並跳頁
-			// 2.跳轉頁面在打API
-			store.setCurrentPage("plunder");
-			console.log("rollItem");
+			$("#loadingProgress").show();
+			InsertTitleLog(store.token).then((res) => {
+				$("#loadingProgress").hide();
+				let { code, message, listData, url } = res.data;
+				if (code != 1) {
+					MessageLB(message);
+					return;
+				}
+				if (code == -2) {
+					MessageLB(message, url);
+					return;
+				}
+				store.setTitleData(listData);
+				store.setCurrentPage("plunder");
+				console.log("rollItem");
+			});
 		};
 		const MissionLB = () => {
 			let data = [];
@@ -126,6 +139,19 @@ const create = {
 			quickCountdown();
 			// stopTimer = countdown("2024-03-29 17:47:00", (update) => {
 			// 	timer.value = update;
+			// });
+			// $("#loadingProgress").show();
+			// GetUserCharacterData(cookie).then((res) => {
+			// 	let { code, message, listData, url } = res.data;
+			// $("#loadingProgress").hide();
+			// 	if (code != 1) {
+			// 		MessageLB(message);
+			// 		return;
+			// 	}
+			// 	if (code == -2) {
+			// 		MessageLB(message, url);
+			// 		return;
+			// 	}
 			// });
 			if (isMobile.any) {
 				var swiper = new Swiper(".create-hold__box", {

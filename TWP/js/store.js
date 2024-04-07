@@ -15,7 +15,8 @@ const useEventStore = defineStore("event", {
 				TitleLevel: 0,
 				Seq: 1
 			}
-		]
+		],
+		titleList: []
 	}),
 	actions: {
 		setData(data) {
@@ -25,13 +26,16 @@ const useEventStore = defineStore("event", {
 		setCurrentPage(page) {
 			this.currentPage = page;
 		},
-		setTitleList(data) {
+		setTitleData(data) {
 			if (this.titleData.length < 3) {
 				this.titleData = [...this.titleData, data];
 			}
 		},
 		removeTitle(Seq) {
 			this.titleData = this.titleData.filter((title) => title.Seq !== Seq);
+		},
+		setTitleData(data) {
+			this.titleList = data;
 		}
 	}
 });
