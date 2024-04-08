@@ -180,7 +180,7 @@ const selected = {
 							<div class="selected-realm__inner">
 								<div class="selected-realm__inner-box">
 									<label v-for="(realm,realmIndex) in worlds" :key="realm.ServerSeq">
-										<input type="radio" name="realm" :value="worlds[0]?.WorldSeq+'-'+realm.ServerSeq" v-model="selectedRealm" />
+										<input type="radio" name="realm" :value="realm" v-model="selectedRealm" />
 										<div class="selected-realm__item" :data-type="realm.Flag">{{realm.ServerName}} <span class="icon--recommend" v-if="realm.IsAdminRecommend"></span><span class="icon--new" v-if="realm.IsAdminNew"></span></div>
 									</label>
 								</div>
@@ -192,7 +192,7 @@ const selected = {
 			<div class="selected-chosen" v-if="selectedRealm != null">
 				<div class="selected-chosen__title">
 					<span class="selected-chosen__title-hexagon"></span>
-					{{filterWorldSeq.ServerName}}
+					
 				</div>
 				<div class="selected-chosen__input">
 					<input type="text" placeholder="請輸入1~10個字的角色名稱" maxlength="10" v-model="selectedName" />

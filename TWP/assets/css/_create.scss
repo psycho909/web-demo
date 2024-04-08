@@ -77,6 +77,10 @@
 				margin: 120px auto 0;
 				&.-disabled {
 					background-position-x: 0%;
+					cursor: not-allowed;
+					@include hover {
+						background-position-x: 0%;
+					}
 				}
 				@include hover {
 					background-position-x: -200%;

@@ -1,5 +1,5 @@
-import timeCreviceRaid from "./time-crevice-raid.js";
-import timeCreviceKill from "./time-crevice-kill.js";
+import timeCreviceRaid from "../components/time-crevice-raid.js";
+import timeCreviceKill from "../components/time-crevice-kill.js";
 
 const timeCrevice = {
 	components: {

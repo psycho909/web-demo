@@ -1,5 +1,5 @@
-import rankGuild from "./rank-guild.js";
-import rankLV from "./rank-lv.js";
+import rankGuild from "../components/rank-guild.js";
+import rankLV from "../components/rank-lv.js";
 
 const rank = {
 	components: {

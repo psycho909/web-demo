@@ -1189,8 +1189,6 @@ body {
   .entrance-btn__in {
     width: 63.8020833333vw;
     height: 15.625vw;
-    background-image: url("./images/m-btn-enter.png");
-    background-size: 100%;
     margin-bottom: 15.625vw;
   }
 }
@@ -1753,6 +1751,9 @@ body {
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
+.selected-realm__item[data-type="5"] {
+  cursor: default;
+}
 .selected-realm__item.current {
   color: #c2a779;
 }
@@ -2122,6 +2123,12 @@ body {
 }
 .create-action__btn-protect.-disabled {
   background-position-x: 0%;
+  cursor: not-allowed;
+}
+@media screen and (min-width: 768px) {
+  .create-action__btn-protect.-disabled:hover {
+    background-position-x: 0%;
+  }
 }
 @media screen and (min-width: 768px) {
   .create-action__btn-protect:hover {
