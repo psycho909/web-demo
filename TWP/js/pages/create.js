@@ -220,16 +220,7 @@ const create = {
 				</div>
 				<div class="create-countdown__notice" v-if="!formattedTime.completed">可進行天命召喚</div>
 			</div>
-			<div class="create-pre">
-				<div class="create-pre__title">角色名稱</div>
-				<div class="create-pre__name">角色名稱最多十個文字</div>
-				<div class="create-pre__realm">
-					<span>扭曲的黃金港01</span>
-				</div>
-				<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
-			</div>
 			<div class="create-hold">
-				<div class="create-hold__title">目前持有的天命</div>
 				<div class="create-hold__box swiper">
 					<div class="create-hold__list swiper-wrapper">
 						<div class="swiper-slide" v-for="i in titleData">
@@ -246,6 +237,14 @@ const create = {
 					<div class="create-hold__item-next"></div>
 				</div>
 				<div class="swiper-pagination"></div>
+			</div>
+			<div class="create-pre">
+				<div class="create-pre__title">角色名稱</div>
+				<div class="create-pre__name">角色名稱最多十個文字</div>
+				<div class="create-pre__realm">
+					<span>扭曲的黃金港01</span>
+				</div>
+				<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
 			</div>
 			<div class="create-task__list">
 				<div class="create-task__item complete">
