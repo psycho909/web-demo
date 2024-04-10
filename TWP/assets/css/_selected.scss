@@ -229,10 +229,8 @@
 			}
 		}
 		&__title {
-			width: 482px;
+			// width: 482px;
 			height: 32px;
-			background-size: 100%;
-			background-image: url("./images/select-realm-title.png");
 			margin: 0 auto 30px;
 			position: relative;
 			span {
@@ -243,15 +241,41 @@
 				top: -6px;
 				left: 50%;
 				transform: translateX(-50%);
+				display: inline-block;
+				&:before {
+					content: "";
+					width: 118px;
+					height: 15px;
+					background-image: url("./images/select-realm-title1.png");
+					background-repeat: no-repeat;
+					background-size: 100%;
+					position: absolute;
+					bottom: 0;
+					left: -140px;
+				}
+				&:after {
+					content: "";
+					width: 118px;
+					height: 15px;
+					background-image: url("./images/select-realm-title2.png");
+					background-repeat: no-repeat;
+					background-size: 100%;
+					position: absolute;
+					bottom: 0;
+					right: -140px;
+				}
 				@include media {
 					font-size: vw(50);
 					top: vw(-12);
+					&:before,
+					&:after {
+						content: none;
+					}
 				}
 			}
 			@include media {
 				width: vw(648);
 				height: vw(64);
-				background-image: url("./images/m-select-realm-title.png");
 				margin-bottom: vw(16);
 			}
 			&:before {

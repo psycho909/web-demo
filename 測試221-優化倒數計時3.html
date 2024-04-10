@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+			}
+			.grid-item__inner {
+				grid-column: span 4;
+				display: grid;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+			}
+			@media screen and (max-width: 768px) {
+				.grid-item__inner {
+					grid-column: span 4;
+					grid-template-columns: repeat(4, minmax(0, 1fr));
+					display: block;
+				}
+			}
+			.hexagon {
+				width: 100px;
+				height: 57.74px;
+				background-color: black;
+				position: relative;
+			}
+
+			.hexagon:before,
+			.hexagon:after {
+				content: "";
+				position: absolute;
+				width: 0;
+				border-left: 50px solid transparent;
+				border-right: 50px solid transparent;
+			}
+
+			.hexagon:before {
+				bottom: 100%;
+				border-bottom: 28.87px solid black;
+			}
+
+			.hexagon:after {
+				top: 100%;
+				width: 0;
+				border-top: 28.87px solid black;
+			}
+
+			/* 紅色邊框 */
+			.hexagon {
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="hexagon"></div>
+		<div class="grid">
+			<div class="grid-item">1</div>
+			<div class="grid-item__inner">
+				<div class="grid-item">台灣南坡萬</div>
+				<div class="grid-item">Lv.76</div>
+				<div class="grid-item">15</div>
+				<div class="grid-item">台灣菁英團</div>
+			</div>
+		</div>
+		<script>
+			function countdown(initialSeconds, onUpdate) {
+				let now = new Date().getTime();
+				let endTime = now + initialSeconds * 1000; // Convert seconds to milliseconds and add to current time
+				let frameId;
+
+				function stop() {
+					if (frameId) {
+						cancelAnimationFrame(frameId);
+						frameId = null;
+					}
+				}
+
+				function updateTimer() {
+					now = new Date().getTime();
+					const distance = endTime - now;
+
+					if (distance < 0) {
+						onUpdate({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: true });
+						stop();
+						return;
+					}
+
+					const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+					onUpdate({ days, hours, minutes, seconds, completed: false });
+
+					frameId = requestAnimationFrame(updateTimer);
+				}
+
+				function start(newSeconds) {
+					if (newSeconds !== undefined) {
+						now = new Date().getTime();
+						endTime = now + newSeconds * 1000; // Update the endTime based on the new seconds provided
+					}
+					if (!frameId) {
+						updateTimer();
+					}
+				}
+
+				// Initially start the timer
+				start();
+
+				// Return control methods
+				return { start, stop };
+			}
+
+			// Example usage:
+			const timer = countdown(180, (time) => {
+				console.log(`Days: ${time.days}, Hours: ${time.hours}, Minutes: ${time.minutes}, Seconds: ${time.seconds}`);
+				if (time.completed) {
+					console.log("Countdown completed!");
+				}
+			});
+		</script>
+	</body>
+</html>

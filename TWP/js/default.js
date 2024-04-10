@@ -26,7 +26,7 @@ let app = Vue.createApp({
 		const store = useEventStore();
 		const { titleData } = storeToRefs(store);
 		let token = Vue.ref("");
-		let currentPage = Vue.ref("selected");
+		let currentPage = Vue.ref("create");
 		Vue.watch(storeToRefs(store).currentPage, (val) => {
 			currentPage.value = val;
 		});

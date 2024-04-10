@@ -1,16 +1,35 @@
 import { Notice, MessageLB, Mission, RemoveTitle } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
+import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
 
 const create = {
 	setup() {
 		let stopTimer;
+		let canvasArr = Vue.ref([]);
 		let api = Vue.ref(false);
 		const store = useEventStore();
 		const timer = Vue.ref({ days: 0, hours: 0, minutes: 0, seconds: 0, completed: false });
 		const { titleData } = storeToRefs(store);
 		let CoolDownMin = Vue.ref(0);
+		Vue.watch(
+			canvasArr.value,
+			(val) => {
+				let canvasArrA = [];
+				val.forEach((item) => {
+					let type = item.getAttribute("data-type");
+					console.log($(item.firstElementChild));
+					const sprite = new CanvasSprite($(item.firstElementChild), 60, 0);
+					sprite.PreLoad("../../assets/css/images/bt_default/", "bt_default_0").then((res) => {
+						sprite.Loop();
+					});
+				});
+			},
+			{
+				immediate: true
+			}
+		);
 		// 數字轉換
 		const formattedTime = Vue.computed(() => {
 			return {
@@ -156,6 +175,10 @@ const create = {
 			if (isMobile.any) {
 				var swiper = new Swiper(".create-hold__box", {
 					loop: true,
+					pagination: {
+						el: ".swiper-pagination",
+						type: "fraction"
+					},
 					navigation: {
 						nextEl: ".create-hold__item-next",
 						prevEl: ".create-hold__item-prev"
@@ -170,7 +193,7 @@ const create = {
 				stopTimer.stop();
 			}
 		});
-		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB };
+		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr };
 	},
 	template: `
 		<div class="create-content">
@@ -210,15 +233,19 @@ const create = {
 				<div class="create-hold__box swiper">
 					<div class="create-hold__list swiper-wrapper">
 						<div class="swiper-slide" v-for="i in titleData">
-							<div class="create-hold__item">
+							<div class="create-hold__item" data-type="1">
 								<div class="create-hold__name">{{i.TitleName}}</div>
 								<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
+								<div class="create-hold__canvas" ref="canvasArr" :data-type="i.titleLevel">
+									<canvas width="180" height="180"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="create-hold__item-prev"></div>
 					<div class="create-hold__item-next"></div>
 				</div>
+				<div class="swiper-pagination"></div>
 			</div>
 			<div class="create-task__list">
 				<div class="create-task__item complete">
