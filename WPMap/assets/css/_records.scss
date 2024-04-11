@@ -1,0 +1,38 @@
+.records {
+	&-wrap {
+		background-image: url("./images/records/bg-records.jpg");
+		background-position: center 0;
+		background-repeat: no-repeat;
+		min-height: 100vh;
+		min-height: 100dvh;
+		padding-top: 370px;
+	}
+	&-nav {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin-bottom: 30px;
+		&__item {
+			font-size: 16px;
+			text-align: center;
+			background-color: rgba(#000, 0.5);
+			color: #877f7f;
+			border: 0.1px solid #504338;
+			border-bottom: 0.1px solid #c2a779;
+			padding: 14px 0;
+			cursor: pointer;
+			&.current {
+				background-color: transparent;
+				color: #c2a779;
+				border: 1px solid #c2a779;
+				border-bottom: none;
+			}
+		}
+	}
+	&-content {
+		max-width: 1200px;
+		margin: 0 auto;
+		position: relative;
+	}
+}

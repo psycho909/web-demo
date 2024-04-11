@@ -11,7 +11,7 @@ const listData = [
 		ServerName: "扭曲的黃金港1",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 1,
@@ -20,7 +20,7 @@ const listData = [
 		ServerName: "扭曲的黃金港2",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 1,
@@ -29,7 +29,7 @@ const listData = [
 		ServerName: "扭曲的黃金港3",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 1,
@@ -38,7 +38,7 @@ const listData = [
 		ServerName: "扭曲的黃金港4",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 1,
@@ -47,7 +47,7 @@ const listData = [
 		ServerName: "扭曲的黃金港5",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 2,
@@ -56,7 +56,7 @@ const listData = [
 		ServerName: "扭曲的黃金港1",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 2,
@@ -65,7 +65,7 @@ const listData = [
 		ServerName: "扭曲的黃金港2",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	},
 	{
 		WorldSeq: 3,
@@ -74,7 +74,7 @@ const listData = [
 		ServerName: "扭曲的黃金港3-1",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 1
 	},
 	{
 		WorldSeq: 3,
@@ -83,7 +83,7 @@ const listData = [
 		ServerName: "扭曲的黃金港3-2",
 		Flag: 1,
 		IsAdminNew: 0,
-		IsAdminRecommend: 0
+		isAdminRecommend: 0
 	}
 ];
 const selected = {
@@ -94,6 +94,7 @@ const selected = {
 		let selectedName = Vue.ref("");
 		let nameError = Vue.ref("");
 		let status = Vue.ref(false);
+		let firstRecommendedServer = Vue.ref(null);
 		function groupedByWorldSeq(data) {
 			let groupedBy = {};
 			return (groupedBy = data.reduce((acc, obj) => {
@@ -142,21 +143,19 @@ const selected = {
 		Vue.onMounted(() => {
 			// WorldSeq整理group
 			serverData.value = groupedByWorldSeq(listData);
-			// API取得伺服器資料
-			// $("#loadingProgress").show();
-			// GetServerData().then((res) => {
-			// $("#loadingProgress").hide();
-			// 	let { code, message, listData,url } = res.data;
-			// 	if (code == -1) {
-			// 		MessageLB(message);
-			// 		return;
-			// 	}
-			// if(code == -2){
-			// 	MessageLB(message,url);
-			// 	return;
-			// }
-			// 	serverData.value = groupedByWorldSeq(listData);
-			// });
+			for (let worldKey in serverData.value) {
+				if (serverData.value.hasOwnProperty(worldKey)) {
+					// Find the first server in the current world where isAdminRecommend is 1
+					let recommendedServer = serverData.value[worldKey].find((server) => server.isAdminRecommend === 1);
+					if (recommendedServer) {
+						firstRecommendedServer.value = recommendedServer;
+						break; // Stop the search once the first match is found
+					}
+				}
+			}
+			// currentWorldSeq.value = firstRecommendedServer.value.worldSeq;
+			// selectedRealm.value = firstRecommendedServer.value;
+			console.log(firstRecommendedServer.value);
 		});
 		return { Notice, serverData, selectedRealm, selectedName, checkName, filterWorldSeq, nameError, toggleStatus, status };
 	},
@@ -181,7 +180,7 @@ const selected = {
 								<div class="selected-realm__inner-box">
 									<label v-for="(realm,realmIndex) in worlds" :key="realm.ServerSeq">
 										<input type="radio" name="realm" :value="realm" v-model="selectedRealm" />
-										<div class="selected-realm__item" :data-type="realm.Flag">{{realm.ServerName}} <span class="icon--recommend" v-if="realm.IsAdminRecommend"></span><span class="icon--new" v-if="realm.IsAdminNew"></span></div>
+										<div class="selected-realm__item" :data-type="realm.flag"><span class="icon--circle"></span>{{realm.serverName}}<span class="icon--new" v-if="realm.isAdminNew"></span><span class="icon--recommend" v-if="realm.isAdminRecommend"></span></div>
 									</label>
 								</div>
 							</div>

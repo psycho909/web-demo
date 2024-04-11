@@ -106,7 +106,49 @@ body::-webkit-scrollbar {
 	transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 	white-space: nowrap;
 	will-change: width;
+	&:after {
+		box-sizing: border-box;
+		content: "";
+		display: inline-flex;
+		height: 6px;
+		vertical-align: top;
+		width: 11px;
+		fill: currentColor;
+		background-color: #c2c0be;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		flex: 0 0 auto;
+		margin-left: 16px;
+		mask-image: url(./svg/icon_arrow_down.svg);
+		mask-position: center center;
+		mask-repeat: no-repeat;
+		mask-size: 100% 100%;
+		min-height: 5px;
+		min-width: 5px;
+		transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+	}
+	._name {
+		color: #c2a779;
+		display: inline-block;
+		font-size: 16px;
+		font-weight: 500;
+		height: auto;
+		line-height: 1;
+	}
+	._value {
+		color: #877f7f;
+		font-size: 14px;
+		font-weight: 600;
+		text-align: right;
+		margin-left: auto;
+	}
+	.selector {
+		max-height: 360px;
+		width: 100%;
+	}
 }
+
 .spinner--progress-dots {
 	align-items: center;
 	display: inline-flex;

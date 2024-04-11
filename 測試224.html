@@ -8,7 +8,7 @@
 			* {
 				padding: 0;
 				margin: 0;
-				background-color: #000;
+				/* background-color: #000; */
 			}
 			.create-hold__item {
 				width: 265px;
@@ -58,9 +58,99 @@
 					filter: drop-shadow(0 0 3px rgba(104, 196, 255, 0.5)) drop-shadow(0 0 6px rgba(104, 196, 255, 0.5)) drop-shadow(0 0 9px rgba(104, 196, 255, 0.5)) drop-shadow(0 0 12px rgba(104, 196, 255, 0.5));
 				}
 			}
+			.accordion-content {
+				display: none;
+				padding: 15px;
+				border: 1px solid #ddd;
+				border-top: none;
+			}
+
+			.accordion-button {
+				background-color: #f1f1f1;
+				color: #444;
+				cursor: pointer;
+				padding: 18px;
+				width: 100%;
+				border: 1px solid #ddd;
+				text-align: left;
+				outline: none;
+				font-size: 15px;
+				transition: 0.4s;
+			}
+
+			.accordion-button:after {
+				content: "\002B"; /* Unicode character for "plus" sign (+) */
+				color: #777;
+				float: right;
+				margin-left: 5px;
+			}
+
+			.accordion-button.active:after {
+				content: "\2212"; /* Unicode character for "minus" sign (−) */
+			}
 		</style>
 	</head>
 	<body>
+		<div class="accordion">
+			<div class="accordion-item">
+				<button class="accordion-button">Section 1</button>
+				<div class="accordion-content">
+					<p>This is the first section's content...</p>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<button class="accordion-button">Section 2</button>
+				<div class="accordion-content">
+					<p>This is the second section's content...</p>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<button class="accordion-button">Section 3</button>
+				<div class="accordion-content">
+					<p>This is the third section's content...</p>
+				</div>
+			</div>
+		</div>
 		<div class="create-hold__item"></div>
+		<script>
+			// 为每个手风琴按钮添加点击事件监听器
+			document.querySelectorAll(".accordion-button").forEach((button) => {
+				button.addEventListener("click", function () {
+					// 关闭其他所有手风琴项
+					document.querySelectorAll(".accordion-content").forEach((content) => {
+						if (content !== this.nextElementSibling) {
+							content.style.display = "none";
+							content.previousElementSibling.classList.remove("active");
+						}
+					});
+
+					// 切换当前手风琴项
+					this.classList.toggle("active");
+					const content = this.nextElementSibling;
+					if (this.classList.contains("active")) {
+						content.style.display = "block";
+					} else {
+						content.style.display = "none";
+					}
+				});
+			});
+
+			// 在文档上添加点击事件监听器来检测点击事件
+			document.addEventListener("click", function (event) {
+				// 检查是否点击的是手风琴按钮或手风琴内容
+				const isAccordionButton = event.target.classList.contains("accordion-button");
+				const isInsideAccordion = event.target.closest(".accordion-item");
+
+				if (!isAccordionButton && !isInsideAccordion) {
+					// 如果点击的不是手风琴按钮也不是手风琴内容，则关闭所有手风琴内容
+					document.querySelectorAll(".accordion-content").forEach((content) => {
+						content.style.display = "none";
+					});
+					document.querySelectorAll(".accordion-button").forEach((button) => {
+						button.classList.remove("active");
+					});
+				}
+			});
+		</script>
 	</body>
 </html>

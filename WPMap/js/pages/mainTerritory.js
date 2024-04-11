@@ -65,7 +65,24 @@ const mainTerritory = {
 				})
 				.filter((v) => v.isMatchUI);
 		});
-
+		// 當點擊其他非選取DOM關閉
+		const closeSelect = (event) => {
+			const isAccordionButton = event.target.classList.contains("button--selector");
+			const somethingButton = event.target.closest(".button--selector");
+			const isInsideAccordion = event.target.closest(".selector__content");
+			if (!isAccordionButton && !isInsideAccordion && !somethingButton) {
+				document.querySelectorAll(".button--selector").forEach((content) => {
+					landTypeSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					worldSelectToggle.value = false;
+				});
+				document.querySelectorAll(".selector__content").forEach((button) => {
+					landTypeSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					worldSelectToggle.value = false;
+				});
+			}
+		};
 		// 選取切換
 		const selectToggle = (type, event) => {
 			if (type == "world") {
@@ -124,13 +141,36 @@ const mainTerritory = {
 					return;
 				}
 				landTypeSelect.value = W;
-
 				// 更新輪播資料
 				Vue.nextTick(() => {
 					Vue.nextTick(() => {
-						swiper.value.update();
-						swiper.value.loopDestroy();
-						swiper.value.loopCreate();
+						if (!isMobile.any) {
+							if (swiper.value.destroyed && landTypeFilter.value.length > 3) {
+								swiper.value = new Swiper(".main-territory__swiper", {
+									slidesPerView: 3,
+									spaceBetween: 30,
+									centeredSlides: true,
+									loop: true,
+									navigation: {
+										nextEl: ".main-territory__swiper-next",
+										prevEl: ".main-territory__swiper-prev"
+									}
+								});
+							}
+							if (landTypeFilter.value.length <= 3) {
+								swiper.value.update();
+								swiper.value.loopDestroy();
+								swiper.value.destroy();
+							} else {
+								swiper.value.update();
+								swiper.value.loopDestroy();
+								swiper.value.loopCreate();
+							}
+						} else {
+							swiper.value.update();
+							swiper.value.loopDestroy();
+							swiper.value.loopCreate();
+						}
 					});
 				});
 			}
@@ -217,11 +257,12 @@ const mainTerritory = {
 			landTypeSelectToggle,
 			landTypeFilter,
 			openNotice,
-			isOpen
+			isOpen,
+			closeSelect
 		};
 	},
 	template: `
-    <div class="main-territory">
+    <div class="main-territory" @click="closeSelect">
         <div class="main-territory__wrap">
             <div class="main-territory__title">據點現況</div>
             <div class="main-territory__nav">
@@ -301,7 +342,7 @@ const mainTerritory = {
                     <div class="main-territory__info-notice-popup">據點佔領現況每1小時更新一次<span></span></div>
                 </div>
             </div>
-            <div class="main-territory__swiper-box">
+            <div class="main-territory__swiper-box" :class="[landTypeFilter.length <= 3 ? 'stop-swiper':'']">
                 <div class="main-territory__swiper swiper">
                     <div class="main-territory__swiper-wrapper swiper-wrapper">
                         <div class="main-territory__swiper-slide swiper-slide" v-for="(land,index) of landTypeFilter">

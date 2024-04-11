@@ -1,0 +1,73 @@
+.rank {
+	&-nav {
+		max-width: 1200px;
+		margin: 0 auto 30px;
+		box-shadow: inset 0 -2px 0 0 #504338;
+		display: flex;
+		&__item {
+			color: #877f7f;
+			font-size: 16px;
+			padding: 10px 30px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			&.current {
+				color: #c2a779;
+				border-bottom: 2px solid #c2a779;
+				i {
+					background-color: #c2a779;
+				}
+			}
+			i {
+				margin-right: 8px;
+				background-color: #877f7f;
+			}
+			.i--rank-lv {
+				width: 16px;
+				height: 20px;
+			}
+			.i--rank-guild {
+				width: 18px;
+				height: 22px;
+			}
+		}
+	}
+	&-selector {
+		margin-bottom: 60px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 30px;
+		&__item {
+		}
+		&__world {
+		}
+		&__realm {
+		}
+	}
+	&-content {
+	}
+	&-tag {
+		&__item {
+		}
+	}
+	&-notcie {
+	}
+	&-table {
+		&__item {
+		}
+		&__col {
+			&-group {
+			}
+		}
+		&__ranking {
+			&-number {
+				&--1 {
+				}
+				&--2 {
+				}
+				&--3 {
+				}
+			}
+		}
+	}
+}

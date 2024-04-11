@@ -9,11 +9,11 @@ const records = {
 	template: `
         <div class="records-wrap">
             <div class="records-nav">
-                <div class="records-nav__item">戰榜RANK</div>
+                <div class="records-nav__item current">戰榜RANK</div>
                 <div class="records-nav__item">賽季戰況</div>
-                <div class="records-nav__item current">據點現況</div>
+                <div class="records-nav__item">據點現況</div>
             </div>
-            <rank></rank>
+            <div class="records-content"><rank></rank></div>
         </div>
     `
 };

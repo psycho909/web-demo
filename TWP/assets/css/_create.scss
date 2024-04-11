@@ -25,17 +25,15 @@
 	}
 	&-action {
 		width: 724px;
-		height: 120px;
 		position: relative;
 		display: flex;
 		background-image: url("./images/count-down-bg.png");
 		background-size: 380px 90px;
 		background-position: center 0;
 		background-repeat: no-repeat;
-		margin-bottom: 94px;
+		margin-bottom: 30px;
 		@include media {
 			width: 100vw;
-			height: auto;
 			background-image: url("./images/m-count-down-bg.png");
 			background-size: vw(760) vw(180);
 			margin-bottom: vw(130);
@@ -132,12 +130,12 @@
 			color: #ff3e3e;
 			text-align: center;
 			position: absolute;
-			bottom: -90px;
+			bottom: -30px;
 			left: 50%;
 			transform: translateX(-50%);
 			@include media {
 				font-size: vw(28);
-				bottom: vw(-80);
+				bottom: vw(-70);
 				// display: none;
 			}
 		}
@@ -266,10 +264,10 @@
 		}
 	}
 	&-hold {
-		margin-bottom: 60px;
+		margin-bottom: 96px;
 		position: relative;
 		@include media {
-			margin-bottom: vw(240);
+			margin-bottom: vw(160);
 		}
 		&__title {
 			font-size: 0;

@@ -422,6 +422,20 @@
 		&-box {
 			position: relative;
 			margin-bottom: 60px;
+			&.stop-swiper {
+				.swiper-wrapper {
+					column-gap: 30px;
+					justify-content: center;
+					@include media {
+						justify-content: unset;
+						column-gap: 0;
+					}
+				}
+				.main-territory__swiper-prev,
+				.main-territory__swiper-next {
+					display: none;
+				}
+			}
 			@include media {
 				margin-bottom: vw(60);
 				padding: 0 15%;
@@ -443,6 +457,9 @@
 					box-shadow: inset 0 0 0 vw(2) #b89b69;
 					padding: vw(30);
 				}
+			}
+			@include hover {
+				box-shadow: inset 0 0 0 2px #b89b69;
 			}
 			@include media {
 				width: vw(550);

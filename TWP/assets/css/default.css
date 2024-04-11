@@ -123,7 +123,6 @@ body {
 @media screen and (min-width: 768px) {
   .default .gbox-btn:hover {
     background-image: -webkit-gradient(linear, left top, right top, from(#0c0a09), to(#695315));
-    background-image: -o-linear-gradient(left, #0c0a09 0%, #695315 100%);
     background-image: linear-gradient(to right, #0c0a09 0%, #695315 100%);
   }
 }
@@ -670,12 +669,10 @@ body {
 }
 .icon--num-style1 {
   background-image: -webkit-gradient(linear, left bottom, left top, from(#ff0000), to(#ad0000));
-  background-image: -o-linear-gradient(bottom, #ff0000 0%, #ad0000 100%);
   background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
 }
 .icon--num-style2 {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffe2ae), to(#8b6f3d));
-  background-image: -o-linear-gradient(top, #ffe2ae 0%, #8b6f3d 100%);
   background-image: linear-gradient(to bottom, #ffe2ae 0%, #8b6f3d 100%);
   -webkit-filter: drop-shadow(0px 0px 4px #ffff00);
           filter: drop-shadow(0px 0px 4px #ffff00);
@@ -1085,7 +1082,6 @@ body {
             box-shadow: inset 0 0 0 1px #c2a779;
     color: #c2a779;
     background-image: -webkit-gradient(linear, left top, right top, from(#0c0a09), to(#695315));
-    background-image: -o-linear-gradient(left, #0c0a09 0%, #695315 100%);
     background-image: linear-gradient(to right, #0c0a09 0%, #695315 100%);
   }
 }
@@ -1112,7 +1108,6 @@ body {
 .fade-enter-active,
 .fade-leave-active {
   -webkit-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
 
@@ -1453,7 +1448,7 @@ body {
   }
 }
 .selected-realm__status-item[data-type=recommend] {
-  color: #189ae5;
+  color: #f3f3f3;
 }
 .selected-realm__status-item[data-type=recommend]:before {
   width: 14px;
@@ -1635,20 +1630,15 @@ body {
   }
 }
 .selected-realm__title {
-  height: 32px;
   margin: 0 auto 30px;
   position: relative;
+  text-align: center;
 }
 .selected-realm__title span {
   font-weight: bold;
   font-size: 28px;
   color: #c2a779;
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+  position: relative;
   display: inline-block;
 }
 .selected-realm__title span:before {
@@ -1675,8 +1665,10 @@ body {
 }
 @media screen and (max-width: 768px) {
   .selected-realm__title span {
+    width: 100%;
+    text-align: center;
     font-size: 6.5104166667vw;
-    top: -1.5625vw;
+    padding: 0 7.8125vw;
   }
   .selected-realm__title span:before, .selected-realm__title span:after {
     content: none;
@@ -1685,7 +1677,6 @@ body {
 @media screen and (max-width: 768px) {
   .selected-realm__title {
     width: 84.375vw;
-    height: 8.3333333333vw;
     margin-bottom: 2.0833333333vw;
   }
 }
@@ -1727,11 +1718,10 @@ body {
        -moz-column-gap: 0;
             column-gap: 0;
     row-gap: 5.2083333333vw;
-    padding: 0 14.9739583333vw;
+    padding: 0;
     background-color: rgba(38, 30, 6, 0.5);
     grid-template-rows: 0fr;
     -webkit-transition: 0.25s grid-template-rows ease;
-    -o-transition: 0.25s grid-template-rows ease;
     transition: 0.25s grid-template-rows ease;
     transition: 0.25s grid-template-rows ease, 0.25s -ms-grid-rows ease;
   }
@@ -1746,7 +1736,6 @@ body {
 @media screen and (max-width: 768px) {
   .selected-realm__inner-box {
     overflow: hidden;
-    row-gap: 5.2083333333vw;
     padding-top: 5.7291666667vw;
     padding-bottom: 5.2083333333vw;
     grid-template-columns: 1fr;
@@ -1764,6 +1753,11 @@ body {
 @media screen and (max-width: 768px) {
   .selected-realm__inner-box input:checked + div {
     background-image: none;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(5%, rgba(63, 54, 39, 0)), color-stop(15%, rgba(63, 54, 39, 0.1)), color-stop(35%, #3f3627), color-stop(45%, #3f3627), color-stop(55%, #3f3627), color-stop(65%, #3f3627), color-stop(85%, rgba(63, 54, 39, 0.1)), color-stop(95%, rgba(63, 54, 39, 0)));
+    background-image: linear-gradient(to right, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
+  }
+  .selected-realm__inner-box input:checked + div:before, .selected-realm__inner-box input:checked + div:after {
+    content: "";
   }
 }
 .selected-realm__inner-box:after {
@@ -1781,7 +1775,6 @@ body {
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
-    background-image: -o-linear-gradient(left, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
   }
 }
@@ -1803,99 +1796,88 @@ body {
 .selected-realm__item[data-type="5"] {
   cursor: default;
 }
+.selected-realm__item .icon--circle {
+  display: inline-block;
+  margin-right: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100vmax;
+}
+@media screen and (max-width: 768px) {
+  .selected-realm__item .icon--circle {
+    width: 2.6041666667vw;
+    height: 2.6041666667vw;
+    margin-right: 1.5625vw;
+  }
+}
 .selected-realm__item.current {
   color: #c2a779;
+}
+@media screen and (max-width: 768px) {
+  .selected-realm__item.current {
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(5%, rgba(63, 54, 39, 0)), color-stop(15%, rgba(63, 54, 39, 0.1)), color-stop(35%, #3f3627), color-stop(45%, #3f3627), color-stop(55%, #3f3627), color-stop(65%, #3f3627), color-stop(85%, rgba(63, 54, 39, 0.1)), color-stop(95%, rgba(63, 54, 39, 0)));
+    background-image: linear-gradient(to right, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
+  }
+  .selected-realm__item.current:after {
+    content: "";
+  }
 }
 @media screen and (max-width: 768px) {
   .selected-realm__item {
     padding: 0;
     height: auto;
+    padding: 2.6041666667vw 20.0520833333vw;
   }
-}
-.selected-realm__item:before {
-  content: "";
-  display: inline-block;
-  margin-right: 4px;
 }
 @media screen and (max-width: 768px) {
   .selected-realm__item:before {
-    margin-right: 0.5208333333vw;
+    content: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    width: 100%;
+    height: 0.1302083333vw;
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
+    background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
+    background-repeat: no-repeat;
+  }
+}
+@media screen and (max-width: 768px) {
+  .selected-realm__item:after {
+    content: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    width: 100%;
+    height: 0.1302083333vw;
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
+    background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
+    background-repeat: no-repeat;
   }
 }
 .selected-realm__item[data-type="0"] {
   color: #e9e95f;
 }
-.selected-realm__item[data-type="0"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
+.selected-realm__item[data-type="0"] .icon--circle {
   background-color: #e9e95f;
 }
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="0"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
-}
-.selected-realm__item[data-type="1"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
-  background-color: #189ae5;
-}
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="1"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
-}
-.selected-realm__item[data-type="2"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
+.selected-realm__item[data-type="1"] .icon--circle {
   background-color: #58bc7a;
 }
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="2"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
-}
-.selected-realm__item[data-type="3"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
+.selected-realm__item[data-type="2"] .icon--circle {
   background-color: #ff9900;
 }
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="3"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
-}
-.selected-realm__item[data-type="4"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
+.selected-realm__item[data-type="3"] .icon--circle {
   background-color: #ff0000;
 }
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="4"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
-}
-.selected-realm__item[data-type="5"]:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 100vmax;
+.selected-realm__item[data-type="4"] .icon--circle {
   background-color: #999;
-}
-@media screen and (max-width: 768px) {
-  .selected-realm__item[data-type="5"]:before {
-    width: 2.6041666667vw;
-    height: 2.6041666667vw;
-  }
 }
 .selected-chosen {
   display: -webkit-box;
@@ -2102,7 +2084,6 @@ body {
 }
 .create-action {
   width: 724px;
-  height: 120px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2111,12 +2092,11 @@ body {
   background-size: 380px 90px;
   background-position: center 0;
   background-repeat: no-repeat;
-  margin-bottom: 94px;
+  margin-bottom: 30px;
 }
 @media screen and (max-width: 768px) {
   .create-action {
     width: 100vw;
-    height: auto;
     background-image: url("./images/m-count-down-bg.png");
     background-size: 98.9583333333vw 23.4375vw;
     margin-bottom: 16.9270833333vw;
@@ -2239,7 +2219,7 @@ body {
   color: #ff3e3e;
   text-align: center;
   position: absolute;
-  bottom: -90px;
+  bottom: -30px;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
@@ -2248,7 +2228,7 @@ body {
 @media screen and (max-width: 768px) {
   .create-countdown__notice {
     font-size: 3.6458333333vw;
-    bottom: -10.4166666667vw;
+    bottom: -9.1145833333vw;
   }
 }
 .create-countdown__time-box {
@@ -2410,12 +2390,12 @@ body {
   }
 }
 .create-hold {
-  margin-bottom: 60px;
+  margin-bottom: 96px;
   position: relative;
 }
 @media screen and (max-width: 768px) {
   .create-hold {
-    margin-bottom: 31.25vw;
+    margin-bottom: 20.8333333333vw;
   }
 }
 .create-hold__title {
@@ -2627,7 +2607,6 @@ body {
       -ms-transform: translate(-50%, -50%) rotate(-45deg);
           transform: translate(-50%, -50%) rotate(-45deg);
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(245, 193, 104, 0.17)), color-stop(50%, rgba(245, 193, 104, 0)), to(rgba(245, 193, 104, 0.17)));
-  background-image: -o-linear-gradient(top, rgba(245, 193, 104, 0.17) 0%, rgba(245, 193, 104, 0) 50%, rgba(245, 193, 104, 0.17) 100%);
   background-image: linear-gradient(to bottom, rgba(245, 193, 104, 0.17) 0%, rgba(245, 193, 104, 0) 50%, rgba(245, 193, 104, 0.17) 100%);
 }
 @media screen and (max-width: 768px) {
@@ -2744,7 +2723,6 @@ body {
   top: 0;
   right: -18px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(194, 167, 121, 0)), color-stop(30%, rgba(194, 167, 121, 0.75)), color-stop(50%, #c2a779), color-stop(70%, rgba(194, 167, 121, 0.75)), to(rgba(194, 167, 121, 0)));
-  background-image: -o-linear-gradient(top, rgba(194, 167, 121, 0) 0%, rgba(194, 167, 121, 0.75) 30%, #c2a779 50%, rgba(194, 167, 121, 0.75) 70%, rgba(194, 167, 121, 0) 100%);
   background-image: linear-gradient(to bottom, rgba(194, 167, 121, 0) 0%, rgba(194, 167, 121, 0.75) 30%, #c2a779 50%, rgba(194, 167, 121, 0.75) 70%, rgba(194, 167, 121, 0) 100%);
 }
 @media screen and (max-width: 768px) {

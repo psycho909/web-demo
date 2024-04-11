@@ -1,0 +1,68 @@
+.kill {
+	&-nav {
+		&__progress {
+			&-box {
+				span {
+				}
+			}
+			&-check {
+			}
+		}
+		&__search {
+			&-bar {
+			}
+			&-input {
+				input {
+				}
+			}
+			&-submit {
+			}
+		}
+		&__selector {
+			&-season {
+			}
+			&-group {
+			}
+			&-item {
+			}
+		}
+	}
+	&-content {
+	}
+	&-notice {
+	}
+	&-table {
+		&__head {
+		}
+		&__item {
+		}
+		&__col {
+			&-group {
+			}
+			&--value {
+			}
+			&--key {
+			}
+			&--lv {
+			}
+			&--pc {
+			}
+			&--mb {
+			}
+		}
+		&__body {
+		}
+		&__item {
+		}
+		&__rank {
+			&-number {
+				&[data-type="1"] {
+				}
+				&[data-type="2"] {
+				}
+				&[data-type="3"] {
+				}
+			}
+		}
+	}
+}

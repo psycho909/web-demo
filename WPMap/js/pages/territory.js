@@ -109,6 +109,24 @@ const territory = {
 			(as.value = m > 65), map.value.setScale(map.value.default.limitCloseupScale * 0.6), map.value.setFocusMapPercent(m + L[0], a + L[1]);
 			detailActive.value = true;
 		}
+		// 當點擊其他非選取DOM關閉
+		const closeSelect = (event) => {
+			const isAccordionButton = event.target.classList.contains("button--selector");
+			const somethingButton = event.target.closest(".button--selector");
+			const isInsideAccordion = event.target.closest(".selector__content");
+			if (!isAccordionButton && !isInsideAccordion && !somethingButton) {
+				document.querySelectorAll(".button--selector").forEach((content) => {
+					worldSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					landTypeSelectToggle.value = false;
+				});
+				document.querySelectorAll(".selector__content").forEach((button) => {
+					worldSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					landTypeSelectToggle.value = false;
+				});
+			}
+		};
 		// 選取切換
 		const selectToggle = (type, event) => {
 			if (type == "world") {
@@ -400,11 +418,12 @@ const territory = {
 			landTypeSelect,
 			landTypeSelectToggle,
 			landTypeFilter,
-			worldData
+			worldData,
+			closeSelect
 		};
 	},
 	template: `
-    <div id="map-territory">
+    <div id="map-territory" @click="closeSelect">
         <div id="plate--base">
             <div class="cursor -before-press" :class="[isPress?'-press':'',isHoverPointer?'-hover':'']">
                 <span class="cursor__pointer" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px)">

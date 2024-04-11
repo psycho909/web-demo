@@ -7,11 +7,11 @@ const timeCrevice = {
 		timeCreviceKill
 	},
 	template: `
-	<div class="time-crevice__nav">
-        <div class="time-crevice__nav-item">BOSS擊殺紀錄</div>
-        <div class="time-crevice__nav-item">擊殺排行</div>
+	<div class="time-crevice-nav">
+        <div class="time-crevice-nav__item">BOSS擊殺紀錄</div>
+        <div class="time-crevice-nav__item">擊殺排行</div>
     </div>
-	<timeCreviceRaid></timeCreviceRaid>
+	<div class="time-crevice-content"><timeCreviceRaid></timeCreviceRaid></div>
 	`
 };
 
