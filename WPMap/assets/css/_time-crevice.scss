@@ -1,8 +1,47 @@
 .time-crevice {
 	&-nav {
+		max-width: 1200px;
+		margin: 0 auto 30px;
+		box-shadow: inset 0 -2px 0 0 #504338;
+		display: flex;
+		@include media {
+			margin: 0 auto vw(60);
+			box-shadow: inset 0 vw(-2) 0 0 #504338;
+		}
 		&__item {
+			color: #877f7f;
+			font-size: 16px;
+			padding: 10px 30px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			@include media {
+				width: 50%;
+				font-size: vw(32);
+				padding: vw(25) 0;
+				justify-content: center;
+			}
+			&.current {
+				color: #c2a779;
+				border-bottom: 2px solid #c2a779;
+				@include media {
+					border-bottom: vw(2) solid #c2a779;
+				}
+				i {
+					background-color: #c2a779;
+				}
+			}
+			i {
+				margin-right: 8px;
+				background-color: #877f7f;
+				@include media {
+					margin-right: vw(17);
+				}
+			}
 		}
 	}
 	&-content {
+		max-width: 1200px;
+		margin: 0 auto;
 	}
 }

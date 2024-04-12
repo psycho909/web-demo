@@ -2,11 +2,11 @@ const timeCreviceKill = {
 	template: `
 		<div class="kill-nav">
 			<div class="kill-nav__progress">
-				<div class="kill-nav__progress-box">
+				<div class="kill-nav__progress-inner">
 					<span>進度條</span>
 					第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前
 				</div>
-				<a href="javascript:;" class="kill-nav__progress-check">查看</a>
+				<a href="javascript:;" class="kill-nav__progress-check hexatag">查看</a>
 			</div>
 			<div class="kill-nav__search">
 				<div class="kill-nav__search-bar">
@@ -86,7 +86,7 @@ const timeCreviceKill = {
 				</div>
 				<div class="kill-table__body">
 					<div class="kill-table__item">
-						<div class="kill-table__col-group">
+						<div class="kill-table__col-header">
 							<div class="kill-table__col">
 								<span class="kill-table__col--value">第1季</span>
 							</div>
@@ -94,31 +94,33 @@ const timeCreviceKill = {
 								<span class="kill-table__col--value">第5組</span>
 							</div>
 						</div>
-						<div class="kill-table__col-group">
-							<div class="kill-table__col">
-								<span class="kill-table__rank-number" data-type="1">1</span>
+						<div class="kill-table__col-wrap">
+							<div class="kill-table__col-rank">
+								<div class="kill-table__col">
+									<span class="kill-table__col--value"><span class="kill-table__rank-number" data-type="1">1</span></span>
+								</div>
 							</div>
-						</div>
-						<div class="kill-table__col-group">
-							<div class="kill-table__col">
-								<span class="kill-table__col--key">BOSS名稱</span>
-								<span class="kill-table__col--value">8</span>
-							</div>
-							<div class="kill-table__col kill-table__col--pc">
-								<span class="kill-table__col--value">Lv.15</span>
-							</div>
-							<div class="kill-table__col">
-								<span class="kill-table__col--key">旅團名稱</span>
-								<span class="kill-table__col--lv kill-table__col--mb">Lv.15</span>
-								<span class="kill-table__col--value">台灣菁英團</span>
-							</div>
-							<div class="kill-table__col">
-								<span class="kill-table__col--key">會長名稱</span>
-								<span class="kill-table__col--value">台灣南坡萬</span>
-							</div>
-							<div class="kill-table__col">
-								<span class="kill-table__col--key">領域名稱</span>
-								<span class="kill-table__col--value">扭曲的黃金港02</span>
+							<div class="kill-table__col-content">
+								<div class="kill-table__col">
+									<span class="kill-table__col--key">BOSS名稱</span>
+									<span class="kill-table__col--value">8</span>
+								</div>
+								<div class="kill-table__col kill-table__col--pc">
+									<span class="kill-table__col--value">Lv.15</span>
+								</div>
+								<div class="kill-table__col">
+									<span class="kill-table__col--key">旅團名稱</span>
+									<span class="kill-table__col--lv kill-table__col--mb">Lv.15</span>
+									<span class="kill-table__col--value">台灣菁英團</span>
+								</div>
+								<div class="kill-table__col">
+									<span class="kill-table__col--key">會長名稱</span>
+									<span class="kill-table__col--value">台灣南坡萬</span>
+								</div>
+								<div class="kill-table__col">
+									<span class="kill-table__col--key">領域名稱</span>
+									<span class="kill-table__col--value">扭曲的黃金港02</span>
+								</div>
 							</div>
 						</div>
 					</div>

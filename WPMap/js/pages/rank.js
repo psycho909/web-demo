@@ -1,10 +1,10 @@
 import rankGuild from "../components/rank-guild.js";
-import rankLV from "../components/rank-lv.js";
+import rankLevel from "../components/rank-level.js";
 
 const rank = {
 	components: {
 		rankGuild,
-		rankLV
+		rankLevel
 	},
 	template: `
     <div class="rank-nav">
@@ -57,7 +57,7 @@ const rank = {
             </div>
         </div>
     </div>
-    <rank-guild></rank-guild>
+    <rank-level></rank-level>
     `
 };
 

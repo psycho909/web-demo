@@ -2,11 +2,11 @@ const timeCreviceRaid = {
 	template: `
 	<div class="raid-nav">
 		<div class="raid-nav__progress">
-			<div class="raid-nav__progress-box">
+			<div class="raid-nav__progress-inner">
 				<span>進度條</span>
 				第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前
 			</div>
-			<a href="javascript:;" class="raid-nav__progress-check">查看</a>
+			<a href="javascript:;" class="raid-nav__progress-check hexatag">查看</a>
 		</div>
 		<div class="raid-nav__search">
 			<div class="raid-nav__search-bar">
@@ -107,7 +107,7 @@ const timeCreviceRaid = {
 			<div class="raid-table__body">
 				<div class="raid-table__item">
 					<div class="raid-table__card">
-						<div class="raid-table__col-group">
+						<div class="raid-table__col-header">
 							<div class="raid-table__col">
 								<span class="raid-table__col--value">第1季</span>
 							</div>
@@ -118,30 +118,34 @@ const timeCreviceRaid = {
 								<span class="raid-table__col--key">BOSS名稱</span>
 							</div>
 						</div>
-						<div class="raid-table__col-group">
-							<div class="raid-table__col">
-								<span class="raid-table__col--key">旅團名稱</span>
-								<span class="raid-table__col--value">台灣菁英團</span>
+						<div class="raid-table__col-wrap">
+							<div class="raid-table__col-content">
+								<div class="raid-table__col">
+									<span class="raid-table__col--key">旅團名稱</span>
+									<span class="raid-table__col--value">台灣菁英團</span>
+								</div>
+								<div class="raid-table__col">
+									<span class="raid-table__col--key">會長名稱</span>
+									<span class="raid-table__col--value">台灣菁英團</span>
+								</div>
+								<div class="raid-table__col">
+									<span class="raid-table__col--key">領域名稱</span>
+									<span class="raid-table__col--value">台灣菁英團</span>
+								</div>
+								<div class="raid-table__col">
+									<span class="raid-table__col--key">討伐名稱</span>
+									<span class="raid-table__col--value">台灣菁英團</span>
+									<a href="javascript:;" class="raid-table__btn-toggle raid-table__col--mb">
+										<i class="i--plus"></i>
+									</a>
+								</div>
 							</div>
-							<div class="raid-table__col">
-								<span class="raid-table__col--key">會長名稱</span>
-								<span class="raid-table__col--value">台灣菁英團</span>
-							</div>
-							<div class="raid-table__col">
-								<span class="raid-table__col--key">領域名稱</span>
-								<span class="raid-table__col--value">台灣菁英團</span>
-							</div>
-							<div class="raid-table__col">
-								<span class="raid-table__col--key">討伐名稱</span>
-								<span class="raid-table__col--value">台灣菁英團</span>
-								<a href="javascript:;" class="raid-table__btn-toggle raid-table__col--mb">
-									<i class="i--plus"></i>
-								</a>
-							</div>
-							<div class="raid-table__col">
-								<a href="javascript:;" class="raid-table__btn-toggle raid-table__col--pc">
-									<i class="i--plus"></i>
-								</a>
+							<div class="raid-table__col-button">
+								<div class="raid-table__col">
+									<a href="javascript:;" class="raid-table__btn-toggle raid-table__col--pc">
+										<i class="i--plus"></i>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

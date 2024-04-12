@@ -119,15 +119,6 @@
 			transform: translateZ(0) scale(0.95);
 			transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 			width: 35px;
-			&.type--fortress {
-				background-image: url(./images/img_landbadge_fortress.png);
-			}
-			&.type--garrison {
-				background-image: url(./images/img_landbadge_garrison.png);
-			}
-			&.type--castle {
-				background-image: url(./images/img_landbadge_castle.png);
-			}
 		}
 		._land-more {
 			align-items: center;

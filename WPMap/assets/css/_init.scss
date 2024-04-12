@@ -77,6 +77,56 @@ body::-webkit-scrollbar {
 	text-align: inherit;
 	width: auto;
 }
+.hexatag {
+	align-items: center;
+	background-image: url(./svg/polygon_hexatag.svg);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-size: 200% 100%;
+	box-sizing: border-box;
+	color: #615d59;
+	display: inline-flex;
+	flex: 0 0 auto;
+	font-size: 14px;
+	font-weight: 600;
+	height: 30px;
+	justify-content: center;
+	line-height: 1;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding: 8px 0;
+	position: relative;
+	width: auto;
+	transition: filter 0.2s ease;
+	&.-stroke {
+		background-image: url(./svg/polygon_hexatag_stroke.svg);
+	}
+	&:after,
+	&:before {
+		background-image: inherit;
+		background-position: 50% 50%;
+		background-position: 0 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-size: auto 100%;
+		box-sizing: border-box;
+		content: "";
+		height: 100%;
+		position: absolute;
+		right: 100%;
+		width: 15px;
+	}
+	&:before {
+		transform: translate3d(0.2%, 0, 0);
+	}
+	&:after {
+		background-position: 100% 50%;
+		left: 100%;
+		right: unset;
+		transform: translate3d(-0.2%, 0, 0);
+	}
+}
 [class*="button--"] {
 	background-position: 50%;
 	background-repeat: no-repeat;
@@ -106,6 +156,9 @@ body::-webkit-scrollbar {
 	transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 	white-space: nowrap;
 	will-change: width;
+	@include media {
+		padding: vw(24) vw(30);
+	}
 	&:after {
 		box-sizing: border-box;
 		content: "";
@@ -127,6 +180,10 @@ body::-webkit-scrollbar {
 		min-height: 5px;
 		min-width: 5px;
 		transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+		@include media {
+			width: vw(22);
+			height: vw(12);
+		}
 	}
 	._name {
 		color: #c2a779;
@@ -135,6 +192,9 @@ body::-webkit-scrollbar {
 		font-weight: 500;
 		height: auto;
 		line-height: 1;
+		@include media {
+			font-size: vw(32);
+		}
 	}
 	._value {
 		color: #877f7f;
@@ -142,10 +202,38 @@ body::-webkit-scrollbar {
 		font-weight: 600;
 		text-align: right;
 		margin-left: auto;
+		@include media {
+			font-size: vw(28);
+		}
 	}
 	.selector {
 		max-height: 360px;
 		width: 100%;
+		@include media {
+			min-width: 100%;
+			margin-top: 0;
+		}
+	}
+	.selector__content {
+		background-color: #000;
+		border: vw(1) solid #c2a779;
+		ul li {
+			@include media {
+				font-size: vw(32);
+				color: #877f7f;
+				padding: vw(25);
+				border-bottom: vw(1) solid #c2a779;
+			}
+			&.-selected {
+				background-color: #61543d;
+				span {
+					color: #c2a779;
+				}
+			}
+			span {
+				color: #877f7f;
+			}
+		}
 	}
 }
 

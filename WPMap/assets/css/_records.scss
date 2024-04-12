@@ -6,6 +6,13 @@
 		min-height: 100vh;
 		min-height: 100dvh;
 		padding-top: 370px;
+		padding-bottom: 90px;
+		@include media {
+			background-image: url("./images/records/bg-m.jpg");
+			padding-top: vw(150);
+			padding-bottom: vw(90);
+			padding: vw(150) vw(30) vw(90);
+		}
 	}
 	&-nav {
 		max-width: 1200px;
@@ -13,20 +20,33 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		margin-bottom: 30px;
+		@include media {
+			margin-bottom: vw(30);
+		}
 		&__item {
 			font-size: 16px;
 			text-align: center;
 			background-color: rgba(#000, 0.5);
 			color: #877f7f;
-			border: 0.1px solid #504338;
-			border-bottom: 0.1px solid #c2a779;
+			border: 1px solid #504338;
+			border-bottom: 1px solid #c2a779;
 			padding: 14px 0;
 			cursor: pointer;
+			@include media {
+				font-size: vw(32);
+				padding: vw(28) 0;
+				border: vw(1) solid #504338;
+				border-bottom: vw(1) solid #c2a779;
+			}
 			&.current {
 				background-color: transparent;
 				color: #c2a779;
 				border: 1px solid #c2a779;
 				border-bottom: none;
+				@include media {
+					border: vw(1) solid #c2a779;
+					border-bottom: none;
+				}
 			}
 		}
 	}

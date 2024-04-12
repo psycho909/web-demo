@@ -1,24 +1,89 @@
 .kill {
 	&-nav {
+		flex-wrap: wrap;
+		display: flex;
 		&__progress {
-			&-box {
+			display: inline-flex;
+			align-items: center;
+			&-inner {
+				font-size: 16px;
+				color: #c7bfb3;
+				padding: 12px 0;
+				border-bottom: 1px solid #504338;
 				span {
+					color: #c69d7b;
+					margin-right: 15px;
 				}
 			}
 			&-check {
+				margin-left: 30px;
+				text-decoration: none;
+				height: 40px;
+				@include hover {
+					color: #c69d7b;
+					background-image: url(./svg/polygon_hexatag_stroke.svg);
+				}
 			}
 		}
 		&__search {
+			display: inline-flex;
+			align-self: center;
+			margin-left: auto;
+			width: 380px;
 			&-bar {
+				background-color: rgba(#000000, 0.5);
+				box-shadow: inset 0 0 0 1px #504338;
+				display: flex;
+				width: 100%;
 			}
 			&-input {
+				width: 100%;
 				input {
+					background-color: transparent;
+					border: none;
+					font-size: 14px;
+					color: #877f7f;
+					padding: 14px;
+					width: 100%;
+					&:focus-visible {
+						outline: none;
+					}
 				}
 			}
 			&-submit {
+				width: 40px;
+				height: 40px;
+				background-image: url("./images/records/icon-search.png");
+				background-position: center center;
+				background-size: 16px 16px;
+				background-repeat: no-repeat;
 			}
 		}
 		&__selector {
+			width: 100%;
+			margin: 30px auto 60px;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			column-gap: 30px;
+			@include media {
+				grid-template-columns: 1fr;
+				column-gap: 0;
+				row-gap: vw(30);
+				margin-bottom: vw(30);
+			}
+			.button--selector {
+				width: 100%;
+				box-shadow: inset 0 0 0 1px #c2a779;
+				border-radius: 0;
+				border: none;
+				@include media {
+					box-shadow: inset 0 0 0 vw(1) #c2a779;
+					font-size: vw(32);
+				}
+				&:after {
+					background-color: #c2a779;
+				}
+			}
 			&-season {
 			}
 			&-group {
@@ -30,6 +95,15 @@
 	&-content {
 	}
 	&-notice {
+		font-size: 14px;
+		color: #877f7f;
+		text-align: right;
+		padding: 8px 0;
+		@include media {
+			font-size: vw(28);
+			text-align: left;
+			padding: vw(16) 0;
+		}
 	}
 	&-table {
 		&__head {

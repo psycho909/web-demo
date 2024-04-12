@@ -13,7 +13,7 @@ const records = {
                 <div class="records-nav__item">賽季戰況</div>
                 <div class="records-nav__item">據點現況</div>
             </div>
-            <div class="records-content"><rank></rank></div>
+            <div class="records-content"><time-crevice></time-crevice></div>
         </div>
     `
 };

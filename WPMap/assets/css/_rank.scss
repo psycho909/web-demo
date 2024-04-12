@@ -4,6 +4,10 @@
 		margin: 0 auto 30px;
 		box-shadow: inset 0 -2px 0 0 #504338;
 		display: flex;
+		@include media {
+			margin: 0 auto vw(60);
+			box-shadow: inset 0 vw(-2) 0 0 #504338;
+		}
 		&__item {
 			color: #877f7f;
 			font-size: 16px;
@@ -11,9 +15,18 @@
 			cursor: pointer;
 			display: flex;
 			align-items: center;
+			@include media {
+				width: 50%;
+				font-size: vw(32);
+				padding: vw(25) 0;
+				justify-content: center;
+			}
 			&.current {
 				color: #c2a779;
 				border-bottom: 2px solid #c2a779;
+				@include media {
+					border-bottom: vw(2) solid #c2a779;
+				}
 				i {
 					background-color: #c2a779;
 				}
@@ -21,14 +34,25 @@
 			i {
 				margin-right: 8px;
 				background-color: #877f7f;
+				@include media {
+					margin-right: vw(17);
+				}
 			}
 			.i--rank-lv {
 				width: 16px;
 				height: 20px;
+				@include media {
+					width: vw(32);
+					height: vw(40);
+				}
 			}
 			.i--rank-guild {
 				width: 18px;
 				height: 22px;
+				@include media {
+					width: vw(36);
+					height: vw(46);
+				}
 			}
 		}
 	}
@@ -37,6 +61,25 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		column-gap: 30px;
+		@include media {
+			grid-template-columns: 1fr;
+			column-gap: 0;
+			row-gap: vw(30);
+			margin-bottom: vw(30);
+		}
+		.button--selector {
+			width: 100%;
+			box-shadow: inset 0 0 0 1px #c2a779;
+			border-radius: 0;
+			border: none;
+			@include media {
+				box-shadow: inset 0 0 0 vw(1) #c2a779;
+				font-size: vw(32);
+			}
+			&:after {
+				background-color: #c2a779;
+			}
+		}
 		&__item {
 		}
 		&__world {
@@ -47,26 +90,246 @@
 	&-content {
 	}
 	&-tag {
+		margin-bottom: 30px;
+		@include media {
+			margin-bottom: vw(60);
+		}
+		&__selector {
+			display: none;
+			@include media {
+				display: block;
+			}
+			.button--selector {
+				width: 100%;
+				border-radius: 0;
+				border: none;
+				@include media {
+					box-shadow: inset 0 0 0 vw(1) #c2a779;
+					font-size: vw(32);
+				}
+				&:after {
+					background-color: #c2a779;
+					margin-left: auto;
+				}
+				._name {
+					display: flex;
+					align-items: center;
+					i {
+						background-color: #c2a779;
+						width: vw(40);
+						height: vw(40);
+						margin-right: vw(12);
+					}
+				}
+			}
+		}
+		&__list {
+			display: flex;
+			column-gap: 15px;
+			justify-content: center;
+			@include media {
+				display: none;
+			}
+		}
 		&__item {
+			width: 151px;
+			height: 40px;
+			font-size: 16px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			@include media {
+				display: none;
+			}
+			&.current {
+				color: #c2a779;
+				i {
+					background-color: #c2a779;
+				}
+			}
+			i {
+				background-color: #877f7f;
+				width: 20px;
+				height: 20px;
+				margin-right: 7px;
+			}
 		}
 	}
-	&-notcie {
+	&-notice {
+		font-size: 14px;
+		color: #877f7f;
+		text-align: right;
+		padding: 8px 0;
+		@include media {
+			font-size: vw(28);
+			text-align: left;
+			padding: vw(16) 0;
+		}
 	}
 	&-table {
+		border-top: 1px solid #504338;
+		border-bottom: 1px solid #504338;
+		@include media {
+			border-top: vw(1) solid #504338;
+			border-bottom: vw(1) solid #504338;
+		}
+		&--level {
+		}
 		&__item {
+			background-color: rgba(#000000, 0.5);
+			font-size: 16px;
+			display: grid;
+			text-align: center;
+			padding: 16px 0;
+			color: #c7bfb3;
+			grid-template-columns: 150px 1fr;
+			@include media {
+				font-size: vw(32);
+				padding: vw(30);
+				grid-template-columns: vw(170) 1fr;
+			}
+			&[data-rank="1"],
+			&[data-rank="2"],
+			&[data-rank="3"] {
+				color: #faecd7;
+				.rank-table__col {
+					i {
+						background-color: #faecd7;
+					}
+				}
+				.rank-table__ranking-number {
+					font-size: 0;
+					width: 60px;
+					height: 60px;
+					background-size: 100%;
+					@include media {
+						width: vw(120);
+						height: vw(120);
+					}
+					&--1 {
+						background-image: url("./images/records/ranking-1.png");
+					}
+					&--2 {
+						background-image: url("./images/records/ranking-2.png");
+					}
+					&--3 {
+						background-image: url("./images/records/ranking-3.png");
+					}
+				}
+			}
+			&[data-rank="1"] {
+				background-image: linear-gradient(to right, rgba(#c69d7b, 0.8) 10%, rgba(#c69d7b, 0) 90%);
+			}
+			&[data-rank="2"] {
+				background-image: linear-gradient(to right, rgba(#c69d7b, 0.6) 10%, rgba(#c69d7b, 0) 90%);
+			}
+			&[data-rank="3"] {
+				background-image: linear-gradient(to right, rgba(#c69d7b, 0.4) 10%, rgba(#c69d7b, 0) 90%);
+			}
+		}
+		&__header {
+			color: #c2a779;
+			grid-template-columns: 150px 375px 150px 150px 375px;
+			&--level {
+				grid-template-columns: 150px 250px 250px 150px 150px 250px;
+			}
+			@include media {
+				display: none;
+			}
 		}
 		&__col {
-			&-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			column-gap: 10px;
+			@include media {
+				column-gap: vw(20);
+				row-gap: vw(18);
+			}
+			&--key {
+				display: none;
+				@include media {
+					display: block;
+				}
+			}
+			&--value {
+				&-lv {
+					display: none;
+					@include media {
+						display: inline-block;
+					}
+				}
+			}
+			&--lv {
+				@include media {
+					display: none;
+				}
+			}
+			&--land-badge {
+				@include media {
+					align-items: start;
+					.rank-table__col--value {
+						display: flex;
+						column-gap: vw(15);
+					}
+				}
+			}
+			@include media {
+				justify-content: start;
+			}
+			.land-badge {
+				background-position: 50% 50%;
+				background-repeat: no-repeat;
+				background-size: contain;
+				cursor: default;
+				filter: drop-shadow(0 7px 4px rgba(0, 0, 0, 0.15));
+				height: 40px;
+				position: relative;
+				transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+				width: 29px;
+				display: inline-block;
+				@include media {
+					width: vw(44);
+					height: vw(60);
+				}
+			}
+			&-ranking {
+				align-items: center;
+				column-gap: 20px;
+				display: flex;
+				justify-content: center;
+				width: 100%;
+			}
+			&-inner {
+				display: grid;
+				grid-column-start: 2;
+				grid-template-columns: 375px 150px 150px 375px;
+				&--level {
+					grid-template-columns: 250px 250px 150px 150px 250px;
+					@include media {
+						grid-template-columns: 1fr;
+					}
+				}
+				@include media {
+					grid-template-columns: 1fr;
+				}
+			}
+			i {
+				width: 19px;
+				height: 19px;
+				background-color: #c7bfb3;
+				margin-right: 9px;
+				@include media {
+					width: vw(37);
+					height: vw(37);
+					margin-right: 0;
+				}
 			}
 		}
 		&__ranking {
 			&-number {
-				&--1 {
-				}
-				&--2 {
-				}
-				&--3 {
-				}
+				font-size: 24px;
 			}
 		}
 	}
