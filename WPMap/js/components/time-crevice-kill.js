@@ -4,7 +4,7 @@ const timeCreviceKill = {
 			<div class="kill-nav__progress">
 				<div class="kill-nav__progress-inner">
 					<span>進度條</span>
-					第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前
+					<span>第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前</span>
 				</div>
 				<a href="javascript:;" class="kill-nav__progress-check hexatag">查看</a>
 			</div>
@@ -68,19 +68,19 @@ const timeCreviceKill = {
 			<div class="kill-table">
 				<div class="kill-table__head">
 					<div class="kill-table__item">
-						<div class="kill-table__col-group">
+						<div class="kill-table__col-header">
 							<div class="kill-table__col">賽季</div>
 							<div class="kill-table__col">組別</div>
 						</div>
-						<div class="kill-table__col-group">
-							<div class="kill-table__col">排名</div>
-						</div>
-						<div class="kill-table__col-group">
-							<div class="kill-table__col">BOSS擊殺</div>
-							<div class="kill-table__col">旅團等級</div>
-							<div class="kill-table__col">旅團名稱</div>
-							<div class="kill-table__col">會長名稱</div>
-							<div class="kill-table__col">領域名稱</div>
+						<div class="kill-table__col-wrap">
+							<div class="kill-table__col-rank"><div class="kill-table__col">排名</div></div>
+							<div class="kill-table__col-content">
+								<div class="kill-table__col">BOSS擊殺</div>
+								<div class="kill-table__col">旅團等級</div>
+								<div class="kill-table__col">旅團名稱</div>
+								<div class="kill-table__col">會長名稱</div>
+								<div class="kill-table__col">領域名稱</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -97,10 +97,14 @@ const timeCreviceKill = {
 						<div class="kill-table__col-wrap">
 							<div class="kill-table__col-rank">
 								<div class="kill-table__col">
-									<span class="kill-table__col--value"><span class="kill-table__rank-number" data-type="1">1</span></span>
+									<span class="kill-table__col--value"><span class="kill-table__rank-number" data-rank="1"><span>1</span></span></span>
 								</div>
 							</div>
 							<div class="kill-table__col-content">
+								<div class="kill-table__col kill-table__col-season kill-table__col--mb">
+									<span class="kill-table__col--value">第1季</span>
+									<span class="kill-table__col--value">第5組</span>
+								</div>
 								<div class="kill-table__col">
 									<span class="kill-table__col--key">BOSS名稱</span>
 									<span class="kill-table__col--value">8</span>

@@ -1,10 +1,17 @@
+import accordionMb from "./time-crevice-raid-accordion-mb.js";
+import accordionPc from "./time-crevice-raid-accordion-pc.js";
+
 const timeCreviceRaid = {
+	components: {
+		accordionPc,
+		accordionMb
+	},
 	template: `
 	<div class="raid-nav">
 		<div class="raid-nav__progress">
 			<div class="raid-nav__progress-inner">
 				<span>進度條</span>
-				第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前
+				<span>第4季 2024.02.07 (週三) ~ 2024.03.06 (週三) 維護前</span>
 			</div>
 			<a href="javascript:;" class="raid-nav__progress-check hexatag">查看</a>
 		</div>
@@ -90,12 +97,12 @@ const timeCreviceRaid = {
 		<div class="raid-table">
 			<div class="raid-table__head">
 				<div class="raid-table__item">
-					<div class="raid-table__col-group">
+					<div class="raid-table__col-header">
 						<div class="raid-table__col">賽季</div>
 						<div class="raid-table__col">組別</div>
 						<div class="raid-table__col">BOSS</div>
 					</div>
-					<div class="raid-table__col-group">
+					<div class="raid-table__col-wrap">
 						<div class="raid-table__col">旅團名稱</div>
 						<div class="raid-table__col">會長名稱</div>
 						<div class="raid-table__col">領域名稱</div>
@@ -115,7 +122,7 @@ const timeCreviceRaid = {
 								<span class="raid-table__col--value">第5組</span>
 							</div>
 							<div class="raid-table__col">
-								<span class="raid-table__col--key">BOSS名稱</span>
+								<span class="raid-table__col--value">BOSS名稱</span>
 							</div>
 						</div>
 						<div class="raid-table__col-wrap">
@@ -126,18 +133,15 @@ const timeCreviceRaid = {
 								</div>
 								<div class="raid-table__col">
 									<span class="raid-table__col--key">會長名稱</span>
-									<span class="raid-table__col--value">台灣菁英團</span>
+									<span class="raid-table__col--value">台灣南坡萬</span>
 								</div>
 								<div class="raid-table__col">
 									<span class="raid-table__col--key">領域名稱</span>
-									<span class="raid-table__col--value">台灣菁英團</span>
+									<span class="raid-table__col--value">扭曲的黃金港02</span>
 								</div>
 								<div class="raid-table__col">
-									<span class="raid-table__col--key">討伐名稱</span>
-									<span class="raid-table__col--value">台灣菁英團</span>
-									<a href="javascript:;" class="raid-table__btn-toggle raid-table__col--mb">
-										<i class="i--plus"></i>
-									</a>
+									<span class="raid-table__col--key">討伐時間</span>
+									<span class="raid-table__col--value">2024.02.02 23:30</span>
 								</div>
 							</div>
 							<div class="raid-table__col-button">
@@ -149,98 +153,8 @@ const timeCreviceRaid = {
 							</div>
 						</div>
 					</div>
-					<div class="raid-table__accordion">
-						<div class="raid-table__accordion-body">
-							<div class="raid-table__accordion-inner">
-								<div class="raid-table__accordion-inner-box">
-									<div class="raid-table__accordion-title">MVP</div>
-									<div class="raid-table__accordion-table">
-										<div class="raid-table__accordion-table__block">
-											<div class="raid-table__accordion-table__head"><span>排行</span><span>承受傷害</span></div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="1">1</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="2">2</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="3">3</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-										</div>
-										<div class="raid-table__accordion-table__block">
-											<div class="raid-table__accordion-table__head"><span>承受傷害</span></div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="1">1</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="2">2</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="3">3</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-										</div>
-										<div class="raid-table__accordion-table__block">
-											<div class="raid-table__accordion-table__head"><span>承受傷害</span></div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="1">1</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="2">2</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-											<div class="raid-table__accordion-table__body">
-												<span class="raid-table__accordion-table__rank-number" data-type="3">3</span>
-												<span class="raid-table__accordion-table__character-class"><i class="i--class-enforcer"></i></span>
-												<span class="raid-table__accordion-table__character-name">台灣南坡萬</span>
-												<span class="raid-table__accordion-table__character-level">LV.67</span>
-												<span class="dot-line"></span>
-												<span class="raid-table__accordion-table__percent">16</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<accordion-pc></accordion-pc>
+					<accordion-mb></accordion-mb>
 				</div>
 			</div>
 		</div>
