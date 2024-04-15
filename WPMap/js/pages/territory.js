@@ -4,61 +4,52 @@ import worldData2 from "../worldData2.js";
 import territoryData from "../territoryData.js";
 
 const territory = {
-	setup() {
-		// 地圖事件變數
-		let map = Vue.ref(null);
-		let r = Vue.reactive({
-			hoverIndex: -1,
-			activeIndex: -1,
-			chainIndexs: [],
-			isActive: false,
-			isMiniumMap: false,
-			isMovingMap: false
-		});
-		// 世界選取
-		let worlds = Vue.reactive(territoryData.worlds);
-		let worldSelect = Vue.ref(null);
-		// 領域選取
-		let realmSelect = Vue.ref(null);
-		// 獲取API data後領地資料整理
-		// let territoryFilter = Vue.reactive([]);
-		let worldSelectToggle = Vue.ref(false);
-		let landTypeSelectToggle = Vue.ref(false);
-		let realmSelectToggle = Vue.ref(false);
-		// 類型選擇
-		let landType = Vue.reactive([
-			{
-				name: "駐紮地",
-				v: "garrison"
+	data() {
+		return {
+			map: null,
+			r: {
+				hoverIndex: -1,
+				activeIndex: -1,
+				chainIndexs: [],
+				isActive: false,
+				isMiniumMap: false,
+				isMovingMap: false
 			},
-			{
-				name: "要塞",
-				v: "fortress"
-			},
-			{
-				name: "城堡",
-				v: "castle"
-			}
-		]);
-		let landTypeSelect = Vue.ref(null);
-
-		let detailActive = Vue.ref(false);
-		let ss = null;
-		let as = Vue.ref(false);
-		let L = [0, 0];
-		// 判斷滑鼠狀態
-		let isPress = Vue.ref(false);
-		let isHoverPointer = Vue.ref(false);
-		// 獲取領地SVG資料
-		let territory = territoryData.territorys;
-		// 類API資料
-		let worldData = Vue.ref([]);
-		worldData.value = [...worldData1];
-		const territoryFilter = Vue.computed(() => {
+			worlds: territoryData.worlds,
+			worldSelect: null,
+			realmSelect: null,
+			worldSelectToggle: false,
+			landTypeSelectToggle: false,
+			realmSelectToggle: false,
+			landType: [
+				{
+					name: "駐紮地",
+					v: "garrison"
+				},
+				{
+					name: "要塞",
+					v: "fortress"
+				},
+				{
+					name: "城堡",
+					v: "castle"
+				}
+			],
+			landTypeSelect: null,
+			detailActive: false,
+			ss: null,
+			as: false,
+			L: [0, 0],
+			isPress: false,
+			isHoverPointer: false,
+			territory: territoryData.territorys,
+			worldData: [...worldData1]
+		};
+	},
+	computed: {
+		territoryFilter() {
 			const guildIndexMap = new Map();
-
-			// Pre-process to create a map for guild_id to indices
-			worldData.value.forEach((v, i) => {
+			this.worldData.forEach((v, i) => {
 				if (v.guild_id) {
 					if (!guildIndexMap.has(v.guild_id)) {
 						guildIndexMap.set(v.guild_id, []);
@@ -66,18 +57,16 @@ const territory = {
 					guildIndexMap.get(v.guild_id).push(i);
 				}
 			});
-
-			// Filter and transform the world data
-			return worldData.value
+			return this.worldData
 				.map((v) => {
-					const isMatchUI = !!territory[v.territory_id];
+					const isMatchUI = !!this.territory[v.territory_id];
 					const chainIndices = v.guild_id ? guildIndexMap.get(v.guild_id) : [];
 					return {
 						...v,
 						isMatchUI,
 						landType: v.territory_grade.toLowerCase(),
 						ui: {
-							...(territory[v.territory_id] || {}),
+							...(this.territory[v.territory_id] || {}),
 							isOccupyElf: v.guild_id == null,
 							isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
 							chainIndexs: chainIndices
@@ -85,56 +74,64 @@ const territory = {
 					};
 				})
 				.filter((v) => v.isMatchUI);
-		});
-
-		// 領地點擊
-		const landClick = (id, index) => {
-			detailBox(id, index);
-		};
-		// 領地訊息關閉
-		const detailBoxClose = () => {
-			r.isActive = false;
-			r.activeIndex = -1;
-			detailActive.value = false;
-		};
-		// 領地訊息開啟置中
-		function detailBox(id, index) {
-			if (r.isMovingMap) {
-				r.isMovingMap = false;
+		},
+		worldSelectComputed() {
+			return this.worlds.find((w) => w.W === this.worldSelect);
+		},
+		realmSelectComputed() {
+			const world = this.worlds.find((w) => w.W === this.worldSelect);
+			if (world) {
+				return world.realms.find((r) => r.R === this.realmSelect);
+			}
+			return [];
+		},
+		landTypeFilter() {
+			const filtered = this.territoryFilter.filter((v) => v.territory_grade.toLocaleLowerCase() === this.landTypeSelect?.v);
+			return filtered.length > 0 ? filtered : [];
+		}
+	},
+	methods: {
+		landClick(id, index) {
+			this.detailBox(id, index);
+		},
+		detailBoxClose() {
+			this.r.isActive = false;
+			this.r.activeIndex = -1;
+			this.detailActive = false;
+		},
+		detailBox(id, index) {
+			if (this.r.isMovingMap) {
+				this.r.isMovingMap = false;
 				return;
 			}
-			(r.activeIndex = index), (r.isActive = true);
-			const pd = territoryFilter.value[index],
-				[m, a] = pd.ui.coords;
-			(as.value = m > 65), map.value.setScale(map.value.default.limitCloseupScale * 0.6), map.value.setFocusMapPercent(m + L[0], a + L[1]);
-			detailActive.value = true;
-		}
-		// 當點擊其他非選取DOM關閉
-		const closeSelect = (event) => {
+			this.r.activeIndex = index;
+			this.r.isActive = true;
+			const pd = this.territoryFilter[index];
+			const [m, a] = pd.ui.coords;
+			this.as = m > 65;
+			this.map.setScale(this.map.default.limitCloseupScale * 0.6);
+			this.map.setFocusMapPercent(m + this.L[0], a + this.L[1]);
+			this.detailActive = true;
+		},
+		closeSelect(event) {
 			const isAccordionButton = event.target.classList.contains("button--selector");
 			const somethingButton = event.target.closest(".button--selector");
 			const isInsideAccordion = event.target.closest(".selector__content");
 			if (!isAccordionButton && !isInsideAccordion && !somethingButton) {
-				document.querySelectorAll(".button--selector").forEach((content) => {
-					worldSelectToggle.value = false;
-					realmSelectToggle.value = false;
-					landTypeSelectToggle.value = false;
-				});
-				document.querySelectorAll(".selector__content").forEach((button) => {
-					worldSelectToggle.value = false;
-					realmSelectToggle.value = false;
-					landTypeSelectToggle.value = false;
+				document.querySelectorAll(".button--selector, .selector__content").forEach((content) => {
+					this.worldSelectToggle = false;
+					this.realmSelectToggle = false;
+					this.landTypeSelectToggle = false;
 				});
 			}
-		};
-		// 選取切換
-		const selectToggle = (type, event) => {
+		},
+		selectToggle(type, event) {
 			if (type == "world") {
-				worldSelectToggle.value = !worldSelectToggle.value;
-				realmSelectToggle.value = false;
-				landTypeSelectToggle.value = false;
+				this.worldSelectToggle = !this.worldSelectToggle;
+				this.realmSelectToggle = false;
+				this.landTypeSelectToggle = false;
 				setTimeout(() => {
-					if (!worldSelectToggle.value) {
+					if (!this.worldSelectToggle) {
 						return;
 					}
 					let h = document.querySelector(".button--selector-world ul").clientHeight;
@@ -145,11 +142,11 @@ const territory = {
 				}, 0);
 			}
 			if (type == "realm") {
-				realmSelectToggle.value = !realmSelectToggle.value;
-				worldSelectToggle.value = false;
-				landTypeSelectToggle.value = false;
+				this.realmSelectToggle = !this.realmSelectToggle;
+				this.worldSelectToggle = false;
+				this.landTypeSelectToggle = false;
 				setTimeout(() => {
-					if (!realmSelectToggle.value) {
+					if (!this.realmSelectToggle) {
 						return;
 					}
 					let h = document.querySelector(".button--selector-territory ul").clientHeight;
@@ -160,76 +157,37 @@ const territory = {
 				}, 0);
 			}
 			if (type == "landType") {
-				landTypeSelectToggle.value = !landTypeSelectToggle.value;
-				realmSelectToggle.value = false;
-				worldSelectToggle.value = false;
-				if (!landTypeSelectToggle.value) {
+				this.landTypeSelectToggle = !this.landTypeSelectToggle;
+				this.realmSelectToggle = false;
+				this.worldSelectToggle = false;
+				if (!this.landTypeSelectToggle) {
 					return;
 				}
 			}
-		};
-		// 世界跟區域選取v-model
-		const selected = (type, W) => {
+		},
+		selected(type, W) {
 			if (type == "world") {
-				worldSelect.value = W;
-				// 切換世界時重新打API
-				worldData.value = [...worldData2];
+				this.worldSelect = W;
+				this.worldData = [...worldData2];
 			}
 			if (type == "territory") {
-				realmSelect.value = W;
-				// 切換區域時重新打API
-				worldData.value = [...worldData1];
+				this.realmSelect = W;
+				this.worldData = [...worldData1];
 			}
 			if (type == "landType") {
-				landTypeSelect.value = W;
+				this.landTypeSelect = W;
 			}
-		};
-
-		// 世界選取過濾
-		const worldSelectComputed = Vue.computed(() => {
-			let w = worlds.filter((v, i) => {
-				return v.W === worldSelect.value;
-			})[0];
-			return w;
-		});
-
-		// 領域選取過濾
-		const realmSelectComputed = Vue.computed(() => {
-			let w = worlds.filter((v, i) => {
-				return v.W === worldSelect.value;
-			})[0];
-			if (w) {
-				let t = w.realms.filter((v, i) => {
-					return v.R === realmSelect.value;
-				})[0];
-				return t;
-			}
-			return [];
-		});
-		// MB據點現況
-		const landTypeFilter = Vue.computed(() => {
-			let l = territoryFilter.value.filter((v, i) => {
-				if (v.landType === landTypeSelect.value?.v) {
-					return v;
-				}
-			});
-			if (l.length > 0) {
-				return l;
-			}
-			return [];
-		});
-		// 地圖創建
-		const imageElement = new Image();
-		imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
-
-		// 初始化
-		Vue.onMounted(() => {
+		},
+		imageMapSetup() {
+			// 地圖創建
+			const imageElement = new Image();
+			imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
 			// 獲取所有的 land 和 border 元素
 			let lands = document.querySelectorAll("._land");
 			let borders = document.querySelectorAll("._border");
 
 			// 地圖事件
-			map.value = new ImageMap2D({
+			this.map = new ImageMap2D({
 				image: imageElement,
 				frame: document.querySelector(".territory-map"),
 				canvas: document.querySelector(".map-canvas"),
@@ -243,16 +201,16 @@ const territory = {
 				wheelScale: 0.03,
 				power: 0.12
 			});
-			map.value.on("pressDownBefore", (m, a) => {
-				for (let c = 0, u = a.length; c < u; ++c) if (a[c] === ss) return !1;
+			this.map.on("pressDownBefore", (m, a) => {
+				for (let c = 0, u = a.length; c < u; ++c) if (a[c] === this.ss) return !1;
 			});
-			map.value.on("pressMove", (m, a) => {
+			this.map.on("pressMove", (m, a) => {
 				const { dx: c, dy: u } = a,
 					h = Math.max(Math.abs(c), Math.abs(u)),
 					w = h > 120,
 					b = h > 10;
-				(r.isMovingMap = b), w && (r.isActive = !1);
-				if (!r.isActive) {
+				(this.r.isMovingMap = b), w && (this.r.isActive = !1);
+				if (!this.r.isActive) {
 					document.querySelector(".map-detail").classList.remove("-active");
 					lands.forEach((land, i) => {
 						land.classList.remove("-select");
@@ -263,28 +221,28 @@ const territory = {
 					});
 				}
 			});
-			map.value.on("pressUp", () => {
+			this.map.on("pressUp", () => {
 				setTimeout(() => {
-					r.isMovingMap = !1;
+					this.r.isMovingMap = !1;
 				}, 0);
 			});
-			map.value.on("changeScale", () => {
-				(r.isMiniumMap = map.value.focus.scale <= map.value.default.limitCloseoutScale), r.isMiniumMap && (r.isActive = !1);
+			this.map.on("changeScale", () => {
+				(this.r.isMiniumMap = this.map.focus.scale <= this.map.default.limitCloseoutScale), this.r.isMiniumMap && (this.r.isActive = !1);
 			});
-			map.value.create();
+			this.map.create();
 
 			// 地圖放大
 			document.querySelector("._scale-up").addEventListener("click", () => {
-				if (!map.value) return;
-				let l = map.value.focus.scale + 0.2;
-				l > 1.5 && (l = 1.5), map.value.setScale(l);
+				if (!this.map) return;
+				let l = this.map.focus.scale + 0.2;
+				l > 1.5 && (l = 1.5), this.map.setScale(l);
 			});
 
 			// 地圖缩小
 			document.querySelector("._scale-down").addEventListener("click", () => {
-				if (!map.value) return;
-				let l = map.value.focus.scale - 0.2;
-				l < map.value.default.limitCloseoutScale && (l = map.value.default.limitCloseoutScale), map.value.setScale(l);
+				if (!this.map) return;
+				let l = this.map.focus.scale - 0.2;
+				l < this.map.default.limitCloseoutScale && (l = this.map.default.limitCloseoutScale), this.map.setScale(l);
 			});
 			function Ls(index) {
 				r.hoverIndex = index;
@@ -328,27 +286,24 @@ const territory = {
 				const y = g.composedPath();
 				for (let E = 0, _ = g.composedPath().length; E < _; ++E) {
 					if (y[E].tagName === "A" || y[E].tagName === "BUTTON") {
-						isHoverPointer.value = !0;
+						this.isHoverPointer = !0;
 						document.documentElement.classList.remove("use-custom-cursor");
 						break;
 					}
-					isHoverPointer.value = !1;
+					this.isHoverPointer = !1;
 					document.documentElement.classList.add("use-custom-cursor");
 				}
 				c(g.clientX);
 				f(g.clientY);
 			});
 			window.addEventListener("mousedown", (e) => {
-				isPress.value = true;
+				this.isPress = true;
 			});
 			window.addEventListener("mouseup", (e) => {
-				isPress.value = false;
+				this.isPress = false;
 			});
 
 			// 初始化選單
-			worldSelect.value = worlds[0].W;
-			realmSelect.value = worlds[0].realms[0].R;
-			landTypeSelect.value = landType[0];
 			document.documentElement.classList.add("use-custom-cursor");
 			// 導覽列高度
 			let navTop = 0;
@@ -396,31 +351,13 @@ const territory = {
 					document.querySelector(":root").style.setProperty(`--maxvh-without-navtop`, maxvhNavtop + "px");
 				});
 			}
-		});
-		return {
-			territoryFilter,
-			worlds,
-			landClick,
-			detailActive,
-			r,
-			detailBoxClose,
-			isPress,
-			isHoverPointer,
-			worldSelect,
-			realmSelect,
-			worldSelectToggle,
-			realmSelectToggle,
-			selectToggle,
-			worldSelectComputed,
-			selected,
-			realmSelectComputed,
-			landType,
-			landTypeSelect,
-			landTypeSelectToggle,
-			landTypeFilter,
-			worldData,
-			closeSelect
-		};
+		}
+	},
+	mounted() {
+		this.worldSelect = this.worlds[0].W;
+		this.realmSelect = this.worlds[0].realms[0].R;
+		this.landTypeSelect = this.landType[0];
+		this.imageMapSetup();
 	},
 	template: `
     <div id="map-territory" @click="closeSelect">
@@ -533,7 +470,7 @@ const territory = {
                             <div class="territory-map__canvas">
                                 <div class="map-area-1">
                                     <button v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)">
-                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'type--'+territory.landType"></span>
+                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'land--'+territory.landType"></span>
                                         <div class="_land-more">
                                             <p class="_land-name">{{territory.ui.name}}</p>
                                             <div class="_land-guild-name">
