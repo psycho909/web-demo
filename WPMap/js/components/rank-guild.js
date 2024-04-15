@@ -32,9 +32,9 @@ const rankGuild = {
                     <div class="rank-table__col rank-table__col--land-badge">
                         <span class="rank-table__col--key">佔領據點</span>
                         <div class="rank-table__col--value">
-                            <span class="land-badge type--fortress"></span>
-                            <span class="land-badge type--castle"></span>
-                            <span class="land-badge type--garrison"></span>
+                            <span class="land-badge land--fortress"></span>
+                            <span class="land-badge land--castle"></span>
+                            <span class="land-badge land--garrison"></span>
                         </div>
                     </div>
                 </div>

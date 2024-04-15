@@ -3,7 +3,7 @@ const rankLevel = {
     <div class="rank-content">
         <div class="rank-tag">
             <div class="rank-tag__list">
-                <div class="rank-tag__item hexatag -stroke current"><i class="i--class-all"></i>全部</div>
+                <div class="rank-tag__item hexatag -stroke active"><i class="i--class-all"></i>全部</div>
                 <div class="rank-tag__item hexatag"><i class="i--class-MirageBlade"></i>幻影劍士</div>
                 <div class="rank-tag__item hexatag"><i class="i--class-IncenseArcher"></i>香射手</div>
                 <div class="rank-tag__item hexatag"><i class="i--class-RuneScribe"></i>咒文刻印師</div>

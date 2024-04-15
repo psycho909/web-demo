@@ -4,6 +4,8 @@
 	@media (max-width: 768px) {
 		display: flex;
 		margin-bottom: vw(200);
+		min-height: calc(100vh - vw(1000));
+		min-height: calc(100dvh - vw(1000));
 	}
 	&__notice {
 		font-size: vw(28);
@@ -22,7 +24,7 @@
 		border: vw(1) solid rgba(#504338, 0.5);
 		padding: 0 vw(30);
 		box-sizing: border-box;
-		&.current {
+		&.active {
 			border-color: #b89b69;
 			box-shadow: 0 0 0 vw(4) #b89b69;
 		}

@@ -8,7 +8,7 @@ const rank = {
 	},
 	template: `
     <div class="rank-nav">
-        <div class="rank-nav__item current"><i class="i--rank-lv"></i>等級排行</div>
+        <div class="rank-nav__item active"><i class="i--rank-lv"></i>等級排行</div>
         <div class="rank-nav__item"><i class="i--rank-guild"></i>旅團排行</div>
     </div>
     <div class="rank-selector">

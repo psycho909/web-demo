@@ -711,15 +711,15 @@ body::-webkit-scrollbar {
           mask-image: url(./svg/icon_castle.svg);
 }
 
-.type--fortress {
+.land--fortress {
   background-image: url(./images/img_landbadge_fortress.png);
 }
 
-.type--garrison {
+.land--garrison {
   background-image: url(./images/img_landbadge_garrison.png);
 }
 
-.type--castle {
+.land--castle {
   background-image: url(./images/img_landbadge_castle.png);
 }
 
@@ -893,6 +893,7 @@ body::-webkit-scrollbar {
     width: 100%;
     padding: 0 3.90625vw;
     background-image: url(./images/territory/bg-m.jpg);
+    background-color: #141311;
     background-size: 100vw 128.7760416667vw;
     background-repeat: no-repeat;
     background-position: center 0;
@@ -1367,7 +1368,7 @@ body::-webkit-scrollbar {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
-  .page__nav__depth1-item.current {
+  .page__nav__depth1-item.active {
     background-color: transparent;
     color: #c2a779;
     border: 0.1302083333vw solid #c2a779;
@@ -2181,6 +2182,8 @@ body::-webkit-scrollbar {
     display: -ms-flexbox;
     display: flex;
     margin-bottom: 26.0416666667vw;
+    min-height: calc(100vh - 130.2083333333vw);
+    min-height: calc(100dvh - 130.2083333333vw);
   }
 }
 .territory-table__notice {
@@ -2209,7 +2212,7 @@ body::-webkit-scrollbar {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.territory-table__item.current {
+.territory-table__item.active {
   border-color: #b89b69;
   -webkit-box-shadow: 0 0 0 0.5208333333vw #b89b69;
           box-shadow: 0 0 0 0.5208333333vw #b89b69;
@@ -3358,14 +3361,14 @@ body::-webkit-scrollbar {
     border-bottom: 0.1302083333vw solid #c2a779;
   }
 }
-.records-nav__item.current {
+.records-nav__item.active {
   background-color: transparent;
   color: #c2a779;
   border: 1px solid #c2a779;
   border-bottom: none;
 }
 @media screen and (max-width: 768px) {
-  .records-nav__item.current {
+  .records-nav__item.active {
     border: 0.1302083333vw solid #c2a779;
     border-bottom: none;
   }
@@ -3414,16 +3417,16 @@ body::-webkit-scrollbar {
             justify-content: center;
   }
 }
-.rank-nav__item.current {
+.rank-nav__item.active {
   color: #c2a779;
   border-bottom: 2px solid #c2a779;
 }
 @media screen and (max-width: 768px) {
-  .rank-nav__item.current {
+  .rank-nav__item.active {
     border-bottom: 0.2604166667vw solid #c2a779;
   }
 }
-.rank-nav__item.current i {
+.rank-nav__item.active i {
   background-color: #c2a779;
 }
 .rank-nav__item i {
@@ -3572,10 +3575,10 @@ body::-webkit-scrollbar {
     display: none;
   }
 }
-.rank-tag__item.current {
+.rank-tag__item.active {
   color: #c2a779;
 }
-.rank-tag__item.current i {
+.rank-tag__item.active i {
   background-color: #c2a779;
 }
 .rank-tag__item i {
@@ -3849,16 +3852,16 @@ body::-webkit-scrollbar {
             justify-content: center;
   }
 }
-.time-crevice-nav__item.current {
+.time-crevice-nav__item.active {
   color: #c2a779;
   border-bottom: 2px solid #c2a779;
 }
 @media screen and (max-width: 768px) {
-  .time-crevice-nav__item.current {
+  .time-crevice-nav__item.active {
     border-bottom: 0.2604166667vw solid #c2a779;
   }
 }
-.time-crevice-nav__item.current i {
+.time-crevice-nav__item.active i {
   background-color: #c2a779;
 }
 .time-crevice-nav__item i {

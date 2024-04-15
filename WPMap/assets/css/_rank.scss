@@ -21,7 +21,7 @@
 				padding: vw(25) 0;
 				justify-content: center;
 			}
-			&.current {
+			&.active {
 				color: #c2a779;
 				border-bottom: 2px solid #c2a779;
 				@include media {
@@ -142,7 +142,7 @@
 			@include media {
 				display: none;
 			}
-			&.current {
+			&.active {
 				color: #c2a779;
 				i {
 					background-color: #c2a779;

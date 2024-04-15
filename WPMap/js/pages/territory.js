@@ -382,9 +382,9 @@ const territory = {
 						// 检查元素中心是否在视窗中心的一定范围内，这里的范围可以根据需要调整
 						if (Math.abs(viewportCenter - itemCenter) < 100) {
 							// 例如，这里的范围设置为100像素
-							item.classList.add("current");
+							item.classList.add("active");
 						} else {
-							item.classList.remove("current");
+							item.classList.remove("active");
 						}
 					});
 				});
@@ -440,7 +440,7 @@ const territory = {
                         <div class="page__nav-item page__nav__depth1">
                             <div class="page__nav__depth1-item">戰榜RANK</div>
                             <div class="page__nav__depth1-item">賽季戰況</div>
-                            <div class="page__nav__depth1-item current">據點現況</div>
+                            <div class="page__nav__depth1-item active">據點現況</div>
                         </div>
                         <div class="page__nav-item page__nav__depth2">
                             <button class="button--selector button--selector-world" @click="selectToggle('world',$event)">

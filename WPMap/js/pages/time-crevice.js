@@ -8,7 +8,7 @@ const timeCrevice = {
 	},
 	template: `
 	<div class="time-crevice-nav">
-        <div class="time-crevice-nav__item current">BOSS擊殺紀錄</div>
+        <div class="time-crevice-nav__item active">BOSS擊殺紀錄</div>
         <div class="time-crevice-nav__item">擊殺排行</div>
     </div>
 	<div class="time-crevice-content"><timeCrevice-kill></timeCrevice-kill></div>
