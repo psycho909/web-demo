@@ -19,6 +19,7 @@
 				}
 				span {
 					&:first-child {
+						margin-right: 15px;
 						@include media {
 							font-size: vw(32);
 							flex-shrink: 0;
@@ -84,7 +85,7 @@
 					border: none;
 					font-size: 14px;
 					color: #877f7f;
-					padding: 14px;
+					padding: 12px;
 					width: 100%;
 					@include media {
 						padding: vw(24) vw(30);
@@ -97,14 +98,23 @@
 			&-submit {
 				width: 40px;
 				height: 40px;
-				background-image: url("./images/records/icon-search.png");
-				background-position: center center;
-				background-size: 16px 16px;
 				background-repeat: no-repeat;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				i {
+					width: 16px;
+					height: 16px;
+					background-color: #c2a779;
+				}
 				@include media {
 					width: vw(80);
 					height: vw(80);
 					background-size: vw(32) vw(32);
+					i {
+						width: vw(32);
+						height: vw(32);
+					}
 				}
 			}
 		}
@@ -288,17 +298,17 @@
 				}
 				&[data-rank="1"] {
 					span {
-						background-image: url("./images/records/ranking-1.png");
+						background-image: url("./images/ranking-1.png");
 					}
 				}
 				&[data-rank="2"] {
 					span {
-						background-image: url("./images/records/ranking-2.png");
+						background-image: url("./images/ranking-2.png");
 					}
 				}
 				&[data-rank="3"] {
 					span {
-						background-image: url("./images/records/ranking-3.png");
+						background-image: url("./images/ranking-3.png");
 					}
 				}
 			}

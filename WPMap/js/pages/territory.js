@@ -220,7 +220,7 @@ const territory = {
 		});
 		// 地圖創建
 		const imageElement = new Image();
-		imageElement.src = "./assets/css/images/bg_worldmap_1_new.jpg";
+		imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
 
 		// 初始化
 		Vue.onMounted(() => {

@@ -11,9 +11,11 @@ const timeCreviceKill = {
 			<div class="kill-nav__search">
 				<div class="kill-nav__search-bar">
 					<div class="kill-nav__search-input">
-						<input type="text" />
+						<input type="text" placeholder="請輸入旅團名稱" />
 					</div>
-					<a href="javascript:;" class="kill-nav__search-submit"></a>
+					<a href="javascript:;" class="kill-nav__search-submit">
+						<i class="i--search"></i>
+					</a>
 				</div>
 			</div>
 			<div class="kill-nav__selector">

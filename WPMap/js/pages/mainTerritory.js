@@ -1,6 +1,8 @@
 import territoryData from "../territoryData.js";
 import worldData1 from "../worldData.js";
 import worldData2 from "../worldData2.js";
+import { GetWorldList, GetServerList, PostLiveapiTerritoryByWorldId } from "../api.js";
+
 const mainTerritory = {
 	setup() {
 		// 世界選取

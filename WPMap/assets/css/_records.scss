@@ -1,6 +1,6 @@
 .records {
 	&-wrap {
-		background-image: url("./images/records/bg-records.jpg");
+		background-image: url("./images/bg-records.jpg");
 		background-position: center 0;
 		background-repeat: no-repeat;
 		min-height: 100vh;
@@ -8,7 +8,7 @@
 		padding-top: 370px;
 		padding-bottom: 90px;
 		@include media {
-			background-image: url("./images/records/bg-m.jpg");
+			background-image: url("./images/bg-m.jpg");
 			padding-top: vw(150);
 			padding-bottom: vw(90);
 			padding: vw(150) vw(30) vw(90);
