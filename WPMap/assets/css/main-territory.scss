@@ -1,3 +1,5 @@
+@import "./_init.scss";
+@import "./_icon.scss";
 .main-territory {
 	background-image: url("./images/mainTerritory/bg.jpg");
 	@include media {

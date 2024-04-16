@@ -4,40 +4,42 @@ import worldData2 from "../worldData2.js";
 import { GetWorldList, GetServerList, PostLiveapiTerritoryByWorldId } from "../api.js";
 
 const mainTerritory = {
-	data() {
-		return {
-			worlds: [],
-			worldSelect: null,
-			realmSelect: null,
-			landType: [
-				{
-					name: "駐紮地",
-					v: "garrison"
-				},
-				{
-					name: "要塞",
-					v: "fortress"
-				},
-				{
-					name: "城堡",
-					v: "castle"
-				}
-			],
-			landTypeSelect: null,
-			worldSelectToggle: false,
-			realmSelectToggle: false,
-			landTypeSelectToggle: false,
-			swiper: null,
-			territory: {},
-			worldData: [],
-			isOpen: false
-		};
-	},
-	computed: {
-		territoryFilter() {
+	setup() {
+		// 世界選取
+		let worlds = Vue.reactive(territoryData.worlds);
+		let worldSelect = Vue.ref(null);
+		// 領域選取
+		let realmSelect = Vue.ref(null);
+		// 類型選擇
+		let landType = Vue.reactive([
+			{
+				name: "駐紮地",
+				v: "garrison"
+			},
+			{
+				name: "要塞",
+				v: "fortress"
+			},
+			{
+				name: "城堡",
+				v: "castle"
+			}
+		]);
+		let landTypeSelect = Vue.ref(null);
+		let worldSelectToggle = Vue.ref(false);
+		let realmSelectToggle = Vue.ref(false);
+		let landTypeSelectToggle = Vue.ref(false);
+		let swiper = Vue.ref(null);
+		// 獲取領地SVG資料
+		let territory = territoryData.territorys;
+		// 類API資料
+		let worldData = Vue.ref([]);
+		worldData.value = [...worldData1];
+		const territoryFilter = Vue.computed(() => {
 			const guildIndexMap = new Map();
 
-			this.worldData.forEach((v, i) => {
+			// Pre-process to create a map for guild_id to indices
+			worldData.value.forEach((v, i) => {
 				if (v.guild_id) {
 					if (!guildIndexMap.has(v.guild_id)) {
 						guildIndexMap.set(v.guild_id, []);
@@ -46,16 +48,17 @@ const mainTerritory = {
 				}
 			});
 
-			return this.worldData
+			// Filter and transform the world data
+			return worldData.value
 				.map((v) => {
-					const isMatchUI = !!this.territory[v.territory_id];
+					const isMatchUI = !!territory[v.territory_id];
 					const chainIndices = v.guild_id ? guildIndexMap.get(v.guild_id) : [];
 					return {
 						...v,
 						isMatchUI,
 						landType: v.territory_grade.toLowerCase(),
 						ui: {
-							...(this.territory[v.territory_id] || {}),
+							...(territory[v.territory_id] || {}),
 							isOccupyElf: v.guild_id == null,
 							isShowTradeTax: v.guild_id != null && v.gradeType !== "garrison",
 							chainIndexs: chainIndices
@@ -63,167 +66,202 @@ const mainTerritory = {
 					};
 				})
 				.filter((v) => v.isMatchUI);
-		},
-		worldSelectComputed() {
-			return this.worlds.find((w) => w.W === this.worldSelect);
-		},
-		territorySelectComputed() {
-			const world = this.worlds.find((w) => w.W === this.worldSelect);
-			if (world) {
-				return world.realms.find((r) => r.R === this.realmSelect);
-			}
-			return [];
-		},
-		landTypeFilter() {
-			const filtered = this.territoryFilter.filter((v) => v.territory_grade.toLocaleLowerCase() === this.landTypeSelect?.v);
-			return filtered.length > 0 ? filtered : [];
-		}
-	},
-	methods: {
-		selectToggle(type, event) {
-			if (type === "world") {
-				this.worldSelectToggle = !this.worldSelectToggle;
-				this.realmSelectToggle = false;
-				this.landTypeSelectToggle = false;
-				if (!this.worldSelectToggle) {
-					return;
-				}
-				this.updateSelectorHeight(".button--selector-world");
-			}
-			if (type === "realm") {
-				this.realmSelectToggle = !this.realmSelectToggle;
-				this.worldSelectToggle = false;
-				this.landTypeSelectToggle = false;
-				if (!this.realmSelectToggle) {
-					return;
-				}
-				this.updateSelectorHeight(".button--selector-territory");
-			}
-			if (type === "landType") {
-				this.landTypeSelectToggle = !this.landTypeSelectToggle;
-				this.realmSelectToggle = false;
-				this.worldSelectToggle = false;
-				if (!this.landTypeSelectToggle) {
-					return;
-				}
-			}
-		},
-		selected(type, W) {
-			if (type === "world") {
-				this.worldSelect = W;
-				this.worldData = [...worldData2];
-			}
-			if (type === "territory") {
-				this.realmSelect = W;
-				this.worldData = [...worldData1];
-			}
-			if (type === "landType") {
-				if (this.landTypeSelect === W) {
-					return;
-				}
-				this.landTypeSelect = W;
-				this.$nextTick(() => {
-					this.updateSwiper();
-				});
-			}
-		},
-		openNotice() {
-			this.isOpen = !this.isOpen;
-		},
-		closeSelect(event) {
+		});
+		// 當點擊其他非選取DOM關閉
+		const closeSelect = (event) => {
 			const isAccordionButton = event.target.classList.contains("button--selector");
 			const somethingButton = event.target.closest(".button--selector");
 			const isInsideAccordion = event.target.closest(".selector__content");
 			if (!isAccordionButton && !isInsideAccordion && !somethingButton) {
-				document.querySelectorAll(".button--selector, .selector__content").forEach((content) => {
-					this.landTypeSelectToggle = false;
-					this.realmSelectToggle = false;
-					this.worldSelectToggle = false;
+				document.querySelectorAll(".button--selector").forEach((content) => {
+					landTypeSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					worldSelectToggle.value = false;
+				});
+				document.querySelectorAll(".selector__content").forEach((button) => {
+					landTypeSelectToggle.value = false;
+					realmSelectToggle.value = false;
+					worldSelectToggle.value = false;
 				});
 			}
-		},
-		updateSelectorHeight(selector) {
-			setTimeout(() => {
-				const listHeight = document.querySelector(selector + " ul").clientHeight;
-				const maxHeight = 360;
-				document.querySelector(selector + " .selector__transform").style.height = Math.min(listHeight, maxHeight) + "px";
-			}, 0);
-		},
-		updateSwiper() {
-			this.$nextTick(() => {
-				if (!isMobile.any) {
-					if (this.swiper.destroyed && this.landTypeFilter.length > 3) {
-						this.swiper = new Swiper(".main-territory__swiper", {
-							slidesPerView: 3,
-							spaceBetween: 30,
-							centeredSlides: true,
-							loop: true,
-							navigation: {
-								nextEl: ".main-territory__swiper-next",
-								prevEl: ".main-territory__swiper-prev"
+		};
+		// 選取切換
+		const selectToggle = (type, event) => {
+			if (type == "world") {
+				worldSelectToggle.value = !worldSelectToggle.value;
+				realmSelectToggle.value = false;
+				landTypeSelectToggle.value = false;
+				setTimeout(() => {
+					if (!worldSelectToggle.value) {
+						return;
+					}
+					let h = document.querySelector(".button--selector-world ul").clientHeight;
+					if (h > 360) {
+						h = 360;
+					}
+					document.querySelector(".button--selector-world .selector__transform").style.height = h + "px";
+				}, 0);
+			}
+			if (type == "realm") {
+				realmSelectToggle.value = !realmSelectToggle.value;
+				worldSelectToggle.value = false;
+				landTypeSelectToggle.value = false;
+				setTimeout(() => {
+					if (!realmSelectToggle.value) {
+						return;
+					}
+					let h = document.querySelector(".button--selector-territory ul").clientHeight;
+					if (h > 360) {
+						h = 360;
+					}
+					document.querySelector(".button--selector-territory .selector__transform").style.height = h + "px";
+				}, 0);
+			}
+			if (type == "landType") {
+				landTypeSelectToggle.value = !landTypeSelectToggle.value;
+				realmSelectToggle.value = false;
+				worldSelectToggle.value = false;
+				if (!landTypeSelectToggle.value) {
+					return;
+				}
+			}
+		};
+		// 選取v-model
+		const selected = (type, W) => {
+			if (type == "world") {
+				worldSelect.value = W;
+				// 切換世界時重新打API
+				worldData.value = [...worldData2];
+			}
+			if (type == "territory") {
+				realmSelect.value = W;
+				// 切換世界時重新打API
+				worldData.value = [...worldData1];
+			}
+			if (type == "landType") {
+				if (landTypeSelect.value === W) {
+					return;
+				}
+				landTypeSelect.value = W;
+				// 更新輪播資料
+				Vue.nextTick(() => {
+					Vue.nextTick(() => {
+						if (!isMobile.any) {
+							if (swiper.value.destroyed && landTypeFilter.value.length > 3) {
+								swiper.value = new Swiper(".main-territory__swiper", {
+									slidesPerView: 3,
+									spaceBetween: 30,
+									centeredSlides: true,
+									loop: true,
+									navigation: {
+										nextEl: ".main-territory__swiper-next",
+										prevEl: ".main-territory__swiper-prev"
+									}
+								});
 							}
-						});
-					}
-					if (this.landTypeFilter.length <= 3) {
-						this.swiper.update();
-						this.swiper.loopDestroy();
-						this.swiper.destroy();
-					} else {
-						this.swiper.update();
-						this.swiper.loopDestroy();
-						this.swiper.loopCreate();
-					}
-				} else {
-					if (this.landTypeFilter.length <= 1) {
-						this.swiper.update();
-						this.swiper.loopDestroy();
-						this.swiper.destroy();
-					} else {
-						if (this.swiper.destroyed) {
-							this.swiper = new Swiper(".main-territory__swiper", {
-								slidesPerView: 1,
-								spaceBetween: 30,
-								centeredSlides: true,
-								loop: true
-							});
+							if (landTypeFilter.value.length <= 3) {
+								swiper.value.update();
+								swiper.value.loopDestroy();
+								swiper.value.destroy();
+							} else {
+								swiper.value.update();
+								swiper.value.loopDestroy();
+								swiper.value.loopCreate();
+							}
 						} else {
-							this.swiper.update();
-							this.swiper.loopDestroy();
-							this.swiper.loopCreate();
+							swiper.value.update();
+							swiper.value.loopDestroy();
+							swiper.value.loopCreate();
 						}
-					}
+					});
+				});
+			}
+		};
+		// 世界選取過濾
+		const worldSelectComputed = Vue.computed(() => {
+			let w = worlds.filter((v, i) => {
+				return v.W === worldSelect.value;
+			})[0];
+			return w;
+		});
+
+		// 領域選取過濾
+		const territorySelectComputed = Vue.computed(() => {
+			let w = worlds.filter((v, i) => {
+				return v.W === worldSelect.value;
+			})[0];
+			if (w) {
+				let t = w.realms.filter((v, i) => {
+					return v.R === realmSelect.value;
+				})[0];
+				return t;
+			}
+			return [];
+		});
+		// 據點現況Slide
+		const landTypeFilter = Vue.computed(() => {
+			let l = territoryFilter.value.filter((v, i) => {
+				if (v.territory_grade.toLocaleLowerCase() === landTypeSelect.value?.v) {
+					return v;
 				}
 			});
-		}
-	},
-	mounted() {
-		this.worlds = territoryData.worlds;
-		this.territory = territoryData.territorys;
-		this.worldData = [...worldData1];
-		this.worldSelect = this.worlds[0].W;
-		this.realmSelect = this.worlds[0].realms[0].R;
-		this.landTypeSelect = this.landType[0];
-		this.$nextTick(() => {
-			if (isMobile.any) {
-				this.swiper = new Swiper(".main-territory__swiper", {
-					slidesPerView: 1,
-					spaceBetween: 30,
-					centeredSlides: true,
-					loop: true
-				});
-			} else {
-				this.swiper = new Swiper(".main-territory__swiper", {
-					slidesPerView: 3,
-					spaceBetween: 30,
-					centeredSlides: true,
-					loop: true,
-					navigation: {
-						nextEl: ".main-territory__swiper-next",
-						prevEl: ".main-territory__swiper-prev"
-					}
-				});
+			if (l.length > 0) {
+				return l;
 			}
+			return [];
 		});
+		// 打開notice
+		const isOpen = Vue.ref(false);
+
+		const openNotice = () => {
+			isOpen.value = !isOpen.value;
+		};
+		// 初始化
+		Vue.onMounted(() => {
+			worldSelect.value = worlds[0].W;
+			realmSelect.value = worlds[0].realms[0].R;
+			landTypeSelect.value = landType[0];
+			Vue.nextTick(() => {
+				if (isMobile.any) {
+					swiper.value = new Swiper(".main-territory__swiper", {
+						slidesPerView: 1,
+						spaceBetween: 30,
+						centeredSlides: true,
+						loop: true
+					});
+				} else {
+					swiper.value = new Swiper(".main-territory__swiper", {
+						slidesPerView: 3,
+						spaceBetween: 30,
+						centeredSlides: true,
+						loop: true,
+						navigation: {
+							nextEl: ".main-territory__swiper-next",
+							prevEl: ".main-territory__swiper-prev"
+						}
+					});
+				}
+			});
+		});
+		return {
+			territoryFilter,
+			worlds,
+			landType,
+			worldSelect,
+			realmSelect,
+			landTypeSelect,
+			selectToggle,
+			selected,
+			worldSelectComputed,
+			territorySelectComputed,
+			worldSelectToggle,
+			realmSelectToggle,
+			landTypeSelectToggle,
+			landTypeFilter,
+			openNotice,
+			isOpen,
+			closeSelect
+		};
 	},
 	template: `
     <div class="main-territory" @click="closeSelect">

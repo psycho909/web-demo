@@ -198,7 +198,7 @@ body::-webkit-scrollbar {
 		}
 	}
 	._value {
-		color: #877f7f;
+		color: #c2a779;
 		font-size: 14px;
 		font-weight: 600;
 		text-align: right;
@@ -217,8 +217,13 @@ body::-webkit-scrollbar {
 	}
 	.selector__content {
 		background-color: #000;
-		border: vw(1) solid #c2a779;
+		border: 1px solid #c2a779;
+		border-radius: 0;
 		ul li {
+			border-bottom: 1px solid #c2a779;
+			&:last-child {
+				border-bottom: 0;
+			}
 			@include media {
 				font-size: vw(32);
 				color: #877f7f;

@@ -15,6 +15,7 @@
 			cursor: pointer;
 			display: flex;
 			align-items: center;
+			position: relative;
 			@include media {
 				width: 50%;
 				font-size: vw(32);
@@ -23,9 +24,22 @@
 			}
 			&.active {
 				color: #c2a779;
-				border-bottom: 2px solid #c2a779;
+				&:before {
+					content: "";
+					width: 100%;
+					height: 2px;
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					transform: translateX(-50%);
+					background-color: #c2a779;
+					@include media {
+						height: vw(2);
+					}
+				}
+				// border-bottom: 2px solid #c2a779;
 				@include media {
-					border-bottom: vw(2) solid #c2a779;
+					// border-bottom: vw(2) solid #c2a779;
 				}
 				i {
 					background-color: #c2a779;
@@ -39,11 +53,11 @@
 				}
 			}
 			.i--rank-lv {
-				width: 16px;
-				height: 20px;
+				width: 18px;
+				height: 22px;
 				@include media {
-					width: vw(32);
-					height: vw(40);
+					width: vw(36);
+					height: vw(46);
 				}
 			}
 			.i--rank-guild {
@@ -267,6 +281,10 @@
 				}
 			}
 			&--land-badge {
+				.rank-table__col--value {
+					display: flex;
+					column-gap: 10px;
+				}
 				@include media {
 					align-items: start;
 					.rank-table__col--value {

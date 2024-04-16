@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			@import url("https://fonts.googleapis.com/css?family=Major+Mono+Display");
+			:root {
+				--Hsl: 140;
+			}
+			.slideContainer .slider {
+				position: relative;
+				z-index: 9999;
+				-webkit-appearance: none;
+				width: 100%;
+				height: 2px;
+				border-radius: 9999px;
+				background: hsl(var(--Hsl), 72%, 78%);
+				outline: none;
+				opacity: 0.8;
+			}
+			.slideContainer .slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 24px;
+				height: 24px;
+				border-radius: 50%;
+				/* background: hsl(var(--Hsl), 72%, 68%); */
+				background-image: url("./images/blue.png");
+				background-size: 100%;
+				border: 2px solid #fff;
+				cursor: pointer;
+				opacity: 0.9;
+			}
+			.slideContainer .slider::-moz-range-thumb {
+				width: 25px;
+				height: 25px;
+				background: #4caf50;
+				cursor: pointer;
+			}
+			.content {
+				height: 300px; /* 设定内容区域的高度 */
+				overflow-y: hidden; /* 让内容超出部分可以滚动 */
+				border: 1px solid #ccc;
+			}
+			.slideContainer {
+				position: relative;
+				display: block;
+				transform: rotate(90deg);
+				width: 200px;
+				line-height: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content" class="content">
+			<ol class="notice-list">
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">預創角色名稱後，需於開服後30天內完成創立角色，逾期角色名稱將被刪除</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+				<li class="notice-list__item">單一帳號最多可創立一個角色名稱以及搶奪兩個角色名稱</li>
+			</ol>
+		</div>
+		<div class="slideContainer slideContainer--points">
+			<input type="range" id="points" class="slider" name="points" min="1" max="100" value="1" step="1" />
+		</div>
+		<script>
+			// 获取滑块元素和内容区域元素
+			var slider = document.getElementById("points");
+			var content = document.getElementById("content");
+
+			// 监听滑块变化事件
+			slider.addEventListener("input", function () {
+				// 根据滑块值计算内容区域的滚动位置
+				var scrollPercentage = slider.value / slider.max;
+				var scrollTop = scrollPercentage * (content.scrollHeight - content.clientHeight);
+
+				// 设置内容区域的滚动位置
+				content.scrollTop = scrollTop;
+			});
+		</script>
+	</body>
+</html>
