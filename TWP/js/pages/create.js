@@ -197,9 +197,9 @@ const create = {
 	},
 	template: `
 		<div class="create-content">
-			<div class="create-title">天命覺醒</div>
-			<div class="create-action">
-				<div class="create-countdown">
+			<div class="create-title"><span></span></div>
+			<div class="create-event">
+				<div class="create-action">
 					<div class="create-countdown__title">召喚冷卻時間</div>
 					<div class="create-countdown__time-box">
 						<!-- 時 -->
@@ -214,58 +214,73 @@ const create = {
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[0]"></i>
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[1]"></i>
 					</div>
+					<span class="create-countdown__line"></span>
+					<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
 				</div>
-				<div class="create-action__btn-group">
-					<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem">召換天命</a>
-				</div>
-				<div class="create-countdown__notice" v-if="!formattedTime.completed">可進行天命召喚</div>
-			</div>
-			<div class="create-hold">
-				<div class="create-hold__box swiper">
-					<div class="create-hold__list swiper-wrapper">
-						<div class="swiper-slide" v-for="i in titleData">
-							<div class="create-hold__item" data-type="1">
-								<div class="create-hold__name">{{i.TitleName}}</div>
-								<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
-								<div class="create-hold__canvas" ref="canvasArr" :data-type="i.titleLevel">
-									<canvas width="180" height="180"></canvas>
+				<div class="create-hold">
+					<div class="create-hold__box swiper">
+						<div class="create-hold__list swiper-wrapper">
+							<div class="swiper-slide" v-for="i in titleData">
+								<div class="create-hold__item" :data-type="i.TitleLevel">
+									<span class="circle-light"></span>
+									<template v-if="i.TitleLevel == 0">
+										<i class="i--plus"></i>
+										<div class="create-hold__name">尚未持有天命</div>
+									</template>
+									<template v-else>
+										<div class="create-hold__name">{{i.TitleName}}</div>
+										<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
+									</template>
 								</div>
 							</div>
 						</div>
+						<div class="create-hold__item-prev"></div>
+						<div class="create-hold__item-next"></div>
 					</div>
-					<div class="create-hold__item-prev"></div>
-					<div class="create-hold__item-next"></div>
+					<div class="swiper-pagination"></div>
 				</div>
-				<div class="swiper-pagination"></div>
 			</div>
-			<div class="create-pre">
-				<div class="create-pre__title">角色名稱</div>
-				<div class="create-pre__name">角色名稱最多十個文字</div>
-				<div class="create-pre__realm">
-					<span>扭曲的黃金港01</span>
+
+			<div class="create-left">
+				<div class="create-task">
+					<div class="create-pre">
+						<div class="create-pre__title">角色名稱</div>
+						<div class="create-pre__name">角色名稱最多十個文字</div>
+						<div class="create-pre__realm">
+							<span>扭曲的黃金港01</span>
+						</div>
+						<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
+					</div>
+					<div class="create-task__list">
+						<div class="create-task__content">
+							<div class="create-task__item complete">
+								<div class="create-task__item-info">
+									<span>持有3個天命(3/3)</span>
+									<span>一般坐騎召喚券5張</span>
+								</div>
+								<span class="create-task__item-notice"></span>
+							</div>
+							<div class="create-task__item">
+								<div class="create-task__item-info">
+									<span>持有3個天命(3/3)</span>
+									<span>一般坐騎召喚券5張</span>
+								</div>
+								<span class="create-task__item-notice"></span>
+							</div>
+							<div class="create-task__item">
+								<div class="create-task__item-info">
+									<span>持有3個天命(3/3)</span>
+									<span>一般坐騎召喚券5張</span>
+								</div>
+								<span class="create-task__item-notice"></span>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
-			</div>
-			<div class="create-task__list">
-				<div class="create-task__item complete">
-					<span>活動結束後每持有1個紫色天命</span>
-					<span>可獲得一般造型召喚券5張</span>
-				</div>
-				<div class="create-task__item">
-					<span>活動結束後每持有1個紫色天命</span>
-					<span>可獲得一般造型召喚券5張</span>
-				</div>
-				<div class="create-task__item">
-					<span>活動結束後每持有1個紫色天命</span>
-					<span>可獲得一般造型召喚券5張</span>
-				</div>
-				<div class="create-task__item">
-					<span>活動結束後每持有1個紫色天命</span>
-					<span>可獲得一般造型召喚券5張</span>
-				</div>
+				<a href="javascript:;" class="create-btn__notice btn-common" @click="()=>Notice()">注意事項</a>
 			</div>
 			<a href="javascript:;" class="create-btn__mission" @click="MissionLB"></a>
-			<a href="javascript:;" class="create-btn__notice btn-common" @click="()=>Notice()">注意事項</a>
+			
 		</div>
 	`
 };

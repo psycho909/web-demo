@@ -22,8 +22,8 @@
 	}
 }
 .i--colon {
-	width: 11px;
-	height: 19px;
+	width: 18px;
+	height: 39px;
 	mask-image: url(./svg/icon-colon.svg);
 	@include media {
 		width: vw(24);
@@ -46,8 +46,8 @@
 		mask-size: 100% 100%;
 		min-height: 5px;
 		min-width: 5px;
-		width: 19px;
-		height: 30px;
+		width: 51px;
+		height: 67px;
 		&-style1 {
 			background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
 		}

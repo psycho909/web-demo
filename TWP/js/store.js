@@ -7,13 +7,18 @@ const useEventStore = defineStore("event", {
 		titleData: [
 			{
 				TitleName: "稱號1",
-				TitleLevel: 0,
+				TitleLevel: 1,
 				Seq: 0
 			},
 			{
 				TitleName: "稱號2",
-				TitleLevel: 0,
+				TitleLevel: 2,
 				Seq: 1
+			},
+			{
+				TitleName: "",
+				TitleLevel: 0,
+				Seq: 0
 			}
 		],
 		titleList: []
