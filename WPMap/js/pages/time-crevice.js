@@ -1,6 +1,7 @@
 import timeCreviceRaid from "../components/time-crevice-raid.js";
 import timeCreviceKill from "../components/time-crevice-kill.js";
-
+import { CurrentSeason } from "../lightbox.js";
+CurrentSeason();
 const timeCrevice = {
 	components: {
 		timeCreviceRaid,

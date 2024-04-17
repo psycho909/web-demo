@@ -337,6 +337,7 @@ body::-webkit-scrollbar {
 		@media (min-width: 769px) {
 			display: none;
 		}
+
 		align-items: center;
 		cursor: pointer;
 		display: inline-flex;
@@ -352,6 +353,7 @@ body::-webkit-scrollbar {
 		top: 0;
 		width: 100%;
 		z-index: 1;
+		display: none;
 		span {
 			height: 1px;
 			margin: -1px;

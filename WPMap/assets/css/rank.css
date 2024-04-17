@@ -443,6 +443,7 @@ body::-webkit-scrollbar {
   top: 0;
   width: 100%;
   z-index: 1;
+  display: none;
 }
 @media (min-width: 769px) {
   .selector__transform .selector__close {
@@ -718,15 +719,18 @@ body::-webkit-scrollbar {
           mask-image: url(./svg/icon_castle.svg);
 }
 
-.land--fortress {
+.land--fortress,
+.land--Fortress {
   background-image: url(./images/img_landbadge_fortress.png);
 }
 
-.land--garrison {
+.land--garrison,
+.land--Garrison {
   background-image: url(./images/img_landbadge_garrison.png);
 }
 
-.land--castle {
+.land--castle,
+.land--Castle {
   background-image: url(./images/img_landbadge_castle.png);
 }
 
@@ -897,6 +901,7 @@ body::-webkit-scrollbar {
   min-height: 100dvh;
   padding-top: 370px;
   padding-bottom: 90px;
+  background-color: #181411;
 }
 @media screen and (max-width: 768px) {
   .records-wrap {
@@ -1065,15 +1070,15 @@ body::-webkit-scrollbar {
 }
 .rank-selector .button--selector {
   width: 100%;
-  -webkit-box-shadow: inset 0 0 0 1px #c2a779;
-          box-shadow: inset 0 0 0 1px #c2a779;
+  -webkit-box-shadow: inset 0 0 0 1px #504338;
+          box-shadow: inset 0 0 0 1px #504338;
   border-radius: 0;
   border: none;
 }
 @media screen and (max-width: 768px) {
   .rank-selector .button--selector {
-    -webkit-box-shadow: inset 0 0 0 0.1302083333vw #c2a779;
-            box-shadow: inset 0 0 0 0.1302083333vw #c2a779;
+    -webkit-box-shadow: inset 0 0 0 0.1302083333vw #504338;
+            box-shadow: inset 0 0 0 0.1302083333vw #504338;
     font-size: 4.1666666667vw;
   }
 }
@@ -1205,12 +1210,14 @@ body::-webkit-scrollbar {
   padding: 16px 0;
   color: #c7bfb3;
   grid-template-columns: 150px 1fr;
+  border-bottom: 1px solid #514338;
 }
 @media screen and (max-width: 768px) {
   .rank-table__item {
     font-size: 4.1666666667vw;
     padding: 3.90625vw;
     grid-template-columns: 22.1354166667vw 1fr;
+    border-bottom: 0.1302083333vw solid #514338;
   }
 }
 .rank-table__item[data-rank="1"], .rank-table__item[data-rank="2"], .rank-table__item[data-rank="3"] {
@@ -1390,6 +1397,7 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 768px) {
   .rank-table__col-inner {
     grid-template-columns: 1fr;
+    row-gap: 2.6041666667vw;
   }
 }
 .rank-table__col i {
@@ -1407,4 +1415,10 @@ body::-webkit-scrollbar {
 }
 .rank-table__ranking-number {
   font-size: 24px;
+  font-style: italic;
+}
+@media screen and (max-width: 768px) {
+  .rank-table__ranking-number {
+    font-size: 6.25vw;
+  }
 }

@@ -605,3 +605,36 @@ export function RemoveTitle(Seq) {
 	`;
 	$.gbox.open(HTML, config);
 }
+
+// 需強制出現跳窗告知玩家如何遊玩，且點擊按鈕後即可關閉跳窗(無需幫玩家抽取稱號)
+export function Guide() {
+	var config = {
+		addClass: "default lb-guide",
+		hasCloseBtn: true,
+		hasActionBtn: true,
+		afterClose: function () {
+			$.gbox.close();
+		},
+		actionBtns: [
+			{
+				text: "馬上進入天命覺醒",
+				class: "btn",
+				click: function () {
+					$.gbox.close();
+				}
+			}
+		]
+	};
+
+	var HTML = `
+		<div class="lb-guide-content">
+			<div class="lb-guide-title">活動說明</div>
+			<div class="lb-guide-step">
+				<div class="lb-guide-step__item"></div>
+				<div class="lb-guide-step__item"></div>
+				<div class="lb-guide-step__item"></div>
+			</div>
+		</div>
+	`;
+	$.gbox.open(HTML, config);
+}

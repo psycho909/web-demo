@@ -1,9 +1,9 @@
-import { Notice, MessageLB, Mission, RemoveTitle } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle, Guide } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
-
+Guide();
 const create = {
 	setup() {
 		let stopTimer;
@@ -156,35 +156,6 @@ const create = {
 		};
 		Vue.onMounted(() => {
 			quickCountdown();
-			// stopTimer = countdown("2024-03-29 17:47:00", (update) => {
-			// 	timer.value = update;
-			// });
-			// $("#loadingProgress").show();
-			// GetUserCharacterData(cookie).then((res) => {
-			// 	let { code, message, listData, url } = res.data;
-			// $("#loadingProgress").hide();
-			// 	if (code != 1) {
-			// 		MessageLB(message);
-			// 		return;
-			// 	}
-			// 	if (code == -2) {
-			// 		MessageLB(message, url);
-			// 		return;
-			// 	}
-			// });
-			if (isMobile.any) {
-				var swiper = new Swiper(".create-hold__box", {
-					loop: true,
-					pagination: {
-						el: ".swiper-pagination",
-						type: "fraction"
-					},
-					navigation: {
-						nextEl: ".create-hold__item-next",
-						prevEl: ".create-hold__item-prev"
-					}
-				});
-			}
 		});
 
 		// 組件卸載時停止計時器
@@ -234,10 +205,7 @@ const create = {
 								</div>
 							</div>
 						</div>
-						<div class="create-hold__item-prev"></div>
-						<div class="create-hold__item-next"></div>
 					</div>
-					<div class="swiper-pagination"></div>
 				</div>
 			</div>
 
@@ -249,7 +217,6 @@ const create = {
 						<div class="create-pre__realm">
 							<span>扭曲的黃金港01</span>
 						</div>
-						<div class="create-pre__notice">活動結束後，僅有預約角色名稱能創立角色</div>
 					</div>
 					<div class="create-task__list">
 						<div class="create-task__content">

@@ -83,11 +83,11 @@
 		}
 		.button--selector {
 			width: 100%;
-			box-shadow: inset 0 0 0 1px #c2a779;
+			box-shadow: inset 0 0 0 1px #504338;
 			border-radius: 0;
 			border: none;
 			@include media {
-				box-shadow: inset 0 0 0 vw(1) #c2a779;
+				box-shadow: inset 0 0 0 vw(1) #504338;
 				font-size: vw(32);
 			}
 			&:after {
@@ -198,10 +198,12 @@
 			padding: 16px 0;
 			color: #c7bfb3;
 			grid-template-columns: 150px 1fr;
+			border-bottom: 1px solid #514338;
 			@include media {
 				font-size: vw(32);
 				padding: vw(30);
 				grid-template-columns: vw(170) 1fr;
+				border-bottom: vw(1) solid #514338;
 			}
 			&[data-rank="1"],
 			&[data-rank="2"],
@@ -331,6 +333,7 @@
 				}
 				@include media {
 					grid-template-columns: 1fr;
+					row-gap: vw(20);
 				}
 			}
 			i {
@@ -348,6 +351,10 @@
 		&__ranking {
 			&-number {
 				font-size: 24px;
+				font-style: italic;
+				@include media {
+					font-size: vw(48);
+				}
 			}
 		}
 	}
