@@ -630,9 +630,30 @@ export function Guide() {
 		<div class="lb-guide-content">
 			<div class="lb-guide-title">活動說明</div>
 			<div class="lb-guide-step">
-				<div class="lb-guide-step__item"></div>
-				<div class="lb-guide-step__item"></div>
-				<div class="lb-guide-step__item"></div>
+				<div class="lb-guide-step__item" data-step="1">
+					<div class="lb-guide-step__item-title"></div>
+					<div class="lb-guide-step__item-text">
+						<span>點擊覺醒天命，</span>
+						<span>將隨機獲得一個天命。</span>
+					</div>
+					<div class="lb-guide-step__item-content"></div>
+				</div>
+				<div class="lb-guide-step__item" data-step="2">
+					<div class="lb-guide-step__item-title" data-step="2"></div>
+					<div class="lb-guide-step__item-text">
+						<span>確認持有天命狀態，</span>
+						<span>或選擇捨棄天命。</span>
+					</div>
+					<div class="lb-guide-step__item-content"></div>
+				</div>
+				<div class="lb-guide-step__item" data-step="3">
+					<div class="lb-guide-step__item-title"></div>
+					<div class="lb-guide-step__item-text">
+						<span>達成任務條件，</span>
+						<span>將可獲得獎勵。</span>
+					</div>
+					<div class="lb-guide-step__item-content"></div>
+				</div>
 			</div>
 		</div>
 	`;
