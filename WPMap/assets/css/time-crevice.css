@@ -267,9 +267,19 @@ body::-webkit-scrollbar {
   background-color: #000;
   border: 1px solid #c2a779;
   border-radius: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  -webkit-transition: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.button--selector .selector__content.open {
+  grid-template-rows: 1fr;
+}
+.button--selector .selector__content ul {
+  overflow: auto;
 }
 .button--selector .selector__content ul li {
-  border-bottom: 1px solid #c2a779;
+  border-bottom: 1px solid #504338;
 }
 .button--selector .selector__content ul li:last-child {
   border-bottom: 0;
@@ -279,7 +289,7 @@ body::-webkit-scrollbar {
     font-size: 4.1666666667vw;
     color: #877f7f;
     padding: 3.2552083333vw;
-    border-bottom: 0.1302083333vw solid #c2a779;
+    border-bottom: 0.1302083333vw solid #504338;
   }
 }
 .button--selector .selector__content ul li.-selected {
@@ -362,7 +372,6 @@ body::-webkit-scrollbar {
       -ms-flex-direction: column;
           flex-direction: column;
   left: 0;
-  opacity: 0;
   pointer-events: none;
   position: relative;
   top: 0;
@@ -376,6 +385,9 @@ body::-webkit-scrollbar {
   opacity: 1;
   visibility: visible;
   display: block;
+}
+.selector__box.-open .selector__content {
+  grid-template-rows: 1fr;
 }
 .selector__box.-hide {
   display: none;
@@ -412,7 +424,6 @@ body::-webkit-scrollbar {
   .selector__transform {
     -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1490196078);
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1490196078);
-    height: 0;
     -webkit-transform: none !important;
         -ms-transform: none !important;
             transform: none !important;
@@ -484,14 +495,17 @@ body::-webkit-scrollbar {
   transition: border 0.4s ease;
   width: 100%;
 }
-.selector__content::-webkit-scrollbar {
+.selector__content-box {
+  overflow: hidden;
+}
+.selector__content-box ul::-webkit-scrollbar {
   border-right: 2px solid rgba(0, 0, 0, 0);
   width: 6px;
 }
-.selector__content::-webkit-scrollbar-thumb {
+.selector__content-box ul::-webkit-scrollbar-thumb {
   background: #c2a779;
 }
-.selector__content::-webkit-scrollbar-track {
+.selector__content-box ul::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0);
 }
 .selector__content ul {
@@ -787,22 +801,26 @@ body::-webkit-scrollbar {
   }
 }
 
-.i--class-MirageBlade {
+.i--class-MirageBlade,
+.i--class-mirageblade {
   -webkit-mask-image: url(./svg/icon_class_1.svg);
           mask-image: url(./svg/icon_class_1.svg);
 }
 
-.i--class-IncenseArcher {
+.i--class-IncenseArcher,
+.i--class-incensearcher {
   -webkit-mask-image: url(./svg/icon_class_2.svg);
           mask-image: url(./svg/icon_class_2.svg);
 }
 
-.i--class-RuneScribe {
+.i--class-RuneScribe,
+.i--class-runescribe {
   -webkit-mask-image: url(./svg/icon_class_3.svg);
           mask-image: url(./svg/icon_class_3.svg);
 }
 
-.i--class-Enforcer {
+.i--class-Enforcer,
+.i--class-enforcer {
   -webkit-mask-image: url(./svg/icon_class_4.svg);
           mask-image: url(./svg/icon_class_4.svg);
 }

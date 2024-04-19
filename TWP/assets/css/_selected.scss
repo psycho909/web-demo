@@ -269,7 +269,7 @@
 				@include media {
 					width: 100%;
 					text-align: center;
-					font-size: vw(50);
+					font-size: vw(48);
 					padding: 0 vw(60);
 					// top: vw(-12);
 					&:before,
@@ -497,12 +497,12 @@
 				font-size: vw(48);
 			}
 			&-hexagon {
-				width: 110px;
+				width: 130px;
 				height: 20px;
 				background-size: 100%;
-				background-image: url("./images/hexagon-select-realm.png");
+				background-image: url("./images/hexagon-select-server.png");
 				@include media {
-					width: vw(220);
+					width: vw(260);
 					height: vw(40);
 				}
 			}
@@ -574,8 +574,6 @@
 				@include media {
 					width: vw(490);
 					height: vw(120);
-					background-image: url("./images/m-btn-check-name.png");
-					background-size: 100%;
 					margin-bottom: vw(60);
 				}
 			}

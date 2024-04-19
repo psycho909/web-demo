@@ -156,21 +156,17 @@
 		background-color: #5f4822;
 	}
 	.mCSB_scrollTools {
-		width: 20px;
+		width: 8px;
 		@include media {
-			width: vw(80);
+			width: vw(8);
 		}
 	}
 	.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-		width: 20px;
-		background-color: rgba(255, 255, 255, 0);
-		background-image: url(./images/scrollbar-button.png);
-		background-repeat: no-repeat;
-		background-size: 20px 20px;
-		background-position: center;
+		width: 8px;
+		background-color: #7d5534;
+		border-radius: 0;
 		@include media {
-			width: vw(40);
-			background-size: vw(40) vw(40);
+			width: vw(8);
 		}
 	}
 	&-title {
@@ -251,12 +247,10 @@
 		&-box {
 			margin: 30px auto 15px;
 			display: grid;
-			grid-template-columns: 50% 50%;
-			column-gap: 30px;
+			grid-template-columns: 1fr;
 			justify-content: center;
 			@include media {
 				margin: vw(60) auto vw(30);
-				column-gap: vw(30);
 			}
 		}
 		&__group {
@@ -267,12 +261,12 @@
 		}
 		&__world {
 			&-icon {
-				width: 60px;
+				width: 70px;
 				height: 20px;
-				background-size: cover;
-				background-image: url("./images/hexagon-world.png");
+				background-size: 100%;
+				background-image: url("./images/hexagon-server.png");
 				@include media {
-					width: vw(120);
+					width: vw(140);
 					height: vw(40);
 				}
 			}
@@ -384,12 +378,6 @@
 	}
 }
 .lb-select {
-	.gbox-action {
-		margin-top: 60px;
-		@include media {
-			margin-top: vw(80);
-		}
-	}
 }
 .lb-mission {
 	.gbox-wrap {
@@ -493,9 +481,9 @@
 				}
 				.lb-guide-step__item-content {
 					background-image: url("./images/step1-guide.png");
-					background-size: 196px 183px;
+					background-size: 190px 160px;
 					@include media {
-						background-size: vw(418) vw(390);
+						background-size: vw(421) vw(354);
 					}
 				}
 			}
@@ -511,9 +499,9 @@
 				}
 				.lb-guide-step__item-content {
 					background-image: url("./images/step2-guide.png");
-					background-size: 177px 177px;
+					background-size: 165px 165px;
 					@include media {
-						background-size: vw(381) vw(380);
+						background-size: vw(330) vw(330);
 					}
 				}
 			}

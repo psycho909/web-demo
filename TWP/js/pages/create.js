@@ -1,9 +1,10 @@
-import { Notice, MessageLB, Mission, RemoveTitle, Guide } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
-Guide();
+// Guide();
+// SelectCreated();
 const create = {
 	setup() {
 		let stopTimer;
@@ -156,6 +157,24 @@ const create = {
 		};
 		Vue.onMounted(() => {
 			quickCountdown();
+			if (isMobile.any) {
+				var swiper = new Swiper(".create-hold__box", {
+					loop: true,
+					navigation: {
+						nextEl: ".create-hold__item-next",
+						prevEl: ".create-hold__item-prev"
+					}
+				});
+			} else {
+				$(".create-task__content").mCustomScrollbar({
+					theme: "light",
+					contentTouchScroll: true,
+					mouseWheel: {
+						preventDefault: true
+					}
+					// advanced: { extraDraggableSelectors: ".notice-content" }
+				});
+			}
 		});
 
 		// 組件卸載時停止計時器
@@ -171,7 +190,7 @@ const create = {
 			<div class="create-title"><span></span></div>
 			<div class="create-event">
 				<div class="create-action">
-					<div class="create-countdown__title">召喚冷卻時間</div>
+					<div class="create-countdown__title">獲取冷卻時間</div>
 					<div class="create-countdown__time-box">
 						<!-- 時 -->
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[0]"></i>
@@ -185,7 +204,6 @@ const create = {
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[0]"></i>
 						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[1]"></i>
 					</div>
-					<span class="create-countdown__line"></span>
 					<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
 				</div>
 				<div class="create-hold">
@@ -193,9 +211,7 @@ const create = {
 						<div class="create-hold__list swiper-wrapper">
 							<div class="swiper-slide" v-for="i in titleData">
 								<div class="create-hold__item" :data-type="i.TitleLevel">
-									<span class="circle-light"></span>
 									<template v-if="i.TitleLevel == 0">
-										<i class="i--plus"></i>
 										<div class="create-hold__name">尚未持有天命</div>
 									</template>
 									<template v-else>
@@ -205,6 +221,8 @@ const create = {
 								</div>
 							</div>
 						</div>
+						<div class="create-hold__item-prev"></div>
+						<div class="create-hold__item-next"></div>
 					</div>
 				</div>
 			</div>
@@ -221,6 +239,20 @@ const create = {
 					<div class="create-task__list">
 						<div class="create-task__content">
 							<div class="create-task__item complete">
+								<div class="create-task__item-info">
+									<span>持有3個天命(3/3)</span>
+									<span>一般坐騎召喚券5張</span>
+								</div>
+								<span class="create-task__item-notice"></span>
+							</div>
+							<div class="create-task__item">
+								<div class="create-task__item-info">
+									<span>持有3個天命(3/3)</span>
+									<span>一般坐騎召喚券5張</span>
+								</div>
+								<span class="create-task__item-notice"></span>
+							</div>
+							<div class="create-task__item">
 								<div class="create-task__item-info">
 									<span>持有3個天命(3/3)</span>
 									<span>一般坐騎召喚券5張</span>

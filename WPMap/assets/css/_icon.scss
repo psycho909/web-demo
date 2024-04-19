@@ -117,21 +117,25 @@
 	}
 }
 // 幻影劍士
-.i--class-MirageBlade {
+.i--class-MirageBlade,
+.i--class-mirageblade {
 	mask-image: url(./svg/icon_class_1.svg);
 }
 // 香射手
-.i--class-IncenseArcher {
+.i--class-IncenseArcher,
+.i--class-incensearcher {
 	mask-image: url(./svg/icon_class_2.svg);
 }
 
 // 咒文刻印師
-.i--class-RuneScribe {
+.i--class-RuneScribe,
+.i--class-runescribe {
 	mask-image: url(./svg/icon_class_3.svg);
 }
 
 // 執行官
-.i--class-Enforcer {
+.i--class-Enforcer,
+.i--class-enforcer {
 	mask-image: url(./svg/icon_class_4.svg);
 }
 

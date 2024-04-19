@@ -1,4 +1,4 @@
-export function CurrentSeason() {
+export function CurrentSeason(data) {
 	var config = {
 		addClass: "lb-time-crevice",
 		hasCloseBtn: true,

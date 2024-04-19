@@ -9,23 +9,24 @@
 		height: 250px;
 		background-size: 100%;
 		background-image: url("./images/index-logo.png");
-		margin-bottom: 17px;
 		@include media {
 			width: vw(297);
 			height: vw(230);
-			margin-bottom: vw(67);
 		}
 	}
 	&-slogan {
-		width: 608px;
-		height: 218px;
+		width: 877px;
+		height: 327px;
 		background-size: 100%;
 		background-image: url("./images/index-title-head.png");
-		margin-bottom: 16px;
+		margin-top: -52px;
+		margin-bottom: 0;
 		@include media {
-			width: vw(608);
-			height: vw(218);
-			margin-bottom: vw(52);
+			width: vw(708);
+			height: vw(341);
+			margin-bottom: vw(42);
+			margin-top: vw(-52);
+			background-image: url("./images/m-index-title-head.png");
 		}
 	}
 	&-date {
@@ -48,14 +49,14 @@
 			background-size: 200%;
 			background-image: url("./images/btn-enter.png");
 			font-size: 0;
-			margin-bottom: 60px;
+			margin-bottom: 106px;
 			@include hover {
 				background-position-x: 100%;
 			}
 			@include media {
 				width: vw(490);
 				height: vw(120);
-				margin-bottom: vw(120);
+				margin-bottom: vw(92);
 			}
 		}
 	}
