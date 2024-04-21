@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://rawgit.com/EsotericSoftware/spine-runtimes/3.6/spine-ts/build/spine-webgl.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="./utils.js"></script>
+		<script src="./imagechanges.js"></script>
+	</head>
+	<body>
+		<div class="aspect standalone"></div>
+		<div id="imagechanges-timeline" class="slider"></div>
+		<input id="imagechanges-playbutton" type="button" value="Pause" /><br />
+		<select id="imagechanges-skeleton" size="2"></select>
+		<script>
+			spineDemos.init();
+			spineDemos.addDemo(imageChangesDemo, document.getElementsByClassName("aspect")[0]);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.0.*/dist/spine-player.css" /> -->
+
+		<script src="https://unpkg.com/@esotericsoftware/spine-player@4.0.*/dist/iife/spine-player.js"></script>
+	</head>
+	<body>
+		<button id="play1">play1</button>
+		<button id="play2">play2</button>
+		<div id="player-container" style="width: 640px; height: 480px"></div>
+		<script>
+			var downloader = new spine.Downloader();
+			new spine.SpinePlayer("player-container", {
+				jsonUrl: "./yidou.json",
+				atlasUrl: "./yidou.atlas",
+				premultipliedAlpha: false,
+				showControls: false,
+				alpha: true,
+				showLoading: false,
+				downloader,
+				success: function (player) {
+					// player.setAnimation("walk", true);
+					player.animationState.addAnimation(0, "daiji", true, 0);
+				},
+				error: function (player, reason) {
+					alert(reason);
+				}
+			});
+			document.querySelector("#play1").addEventListener("click", () => {
+				document.querySelector("#player-container").innerHTML = "";
+				new spine.SpinePlayer("player-container", {
+					jsonUrl: "./yidou.json",
+					atlasUrl: "./yidou.atlas",
+					premultipliedAlpha: false,
+					showControls: false,
+					alpha: true,
+					showLoading: false,
+					downloader,
+					success: function (player) {
+						// player.setAnimation("walk", true);
+						player.animationState.addAnimation(0, "daiji", true, 0);
+					},
+					error: function (player, reason) {
+						alert(reason);
+					}
+				});
+			});
+			document.querySelector("#play2").addEventListener("click", () => {
+				document.querySelector("#player-container").innerHTML = "";
+				new spine.SpinePlayer("player-container", {
+					jsonUrl: "./NWLT.json",
+					atlasUrl: "./NWLT.atlas",
+					premultipliedAlpha: false,
+					showControls: false,
+					alpha: true,
+					showLoading: false,
+					downloader,
+					success: function (player) {
+						// player.setAnimation("walk", true);
+						player.animationState.addAnimation(0, "animation", true, 0);
+					},
+					error: function (player, reason) {
+						alert(reason);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
