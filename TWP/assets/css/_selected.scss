@@ -7,14 +7,14 @@
 		}
 	}
 	&-title {
-		width: 260px;
+		width: 258px;
 		height: 36px;
 		background-image: url("./images/title-select-realm.png");
 		background-size: 100%;
 		margin: 0 auto 32px;
 		@include media {
 			width: vw(523);
-			height: vw(72);
+			height: vw(73);
 			margin-bottom: vw(60);
 		}
 	}
@@ -368,9 +368,6 @@
 			}
 		}
 		&__item {
-			&[data-type="5"] {
-				cursor: default;
-			}
 			.icon--circle {
 				display: inline-block;
 				margin-right: 4px;
@@ -469,6 +466,13 @@
 				}
 			}
 			&[data-type="4"] {
+				cursor: default;
+				.icon--circle {
+					background-color: #999;
+				}
+			}
+			&[data-type="5"] {
+				cursor: default;
 				.icon--circle {
 					background-color: #999;
 				}

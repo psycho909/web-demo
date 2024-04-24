@@ -605,7 +605,7 @@ export function Guide() {
 		},
 		actionBtns: [
 			{
-				text: "馬上進入天命覺醒",
+				text: "馬上進入稱號加冕",
 				class: "btn",
 				click: function () {
 					$.gbox.close();
@@ -621,16 +621,16 @@ export function Guide() {
 				<div class="lb-guide-step__item" data-step="1">
 					<div class="lb-guide-step__item-title"></div>
 					<div class="lb-guide-step__item-text">
-						<span>點擊覺醒天命，</span>
-						<span>將隨機獲得一個天命。</span>
+						<span>點擊獲取稱號，</span>
+						<span>將隨機獲得一個稱號。</span>
 					</div>
 					<div class="lb-guide-step__item-content"></div>
 				</div>
 				<div class="lb-guide-step__item" data-step="2">
 					<div class="lb-guide-step__item-title" data-step="2"></div>
 					<div class="lb-guide-step__item-text">
-						<span>確認持有天命狀態，</span>
-						<span>或選擇捨棄天命。</span>
+						<span>確認持有稱號狀態，</span>
+						<span>或選擇捨棄稱號。</span>
 					</div>
 					<div class="lb-guide-step__item-content"></div>
 				</div>

@@ -499,9 +499,9 @@
 				}
 				.lb-guide-step__item-content {
 					background-image: url("./images/step2-guide.png");
-					background-size: 165px 165px;
+					background-size: 144px 158px;
 					@include media {
-						background-size: vw(330) vw(330);
+						background-size: vw(288) vw(317);
 					}
 				}
 			}
@@ -516,7 +516,7 @@
 					}
 				}
 				.lb-guide-step__item-content {
-					background-image: url("./images/step1-guide.png");
+					background-image: url("./images/step3-guide.png");
 					background-size: 196px 166px;
 					@include media {
 						background-size: vw(418) vw(354);

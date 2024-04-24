@@ -920,7 +920,7 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 768px) {
   #map-territory {
     width: 100%;
-    padding: 0 3.90625vw;
+    padding: 19.53125vw 3.90625vw 0;
     background-image: url(./images/territory/bg-m.jpg);
     background-color: #141311;
     background-size: 100vw 128.7760416667vw;
@@ -1129,8 +1129,9 @@ body::-webkit-scrollbar {
   font-weight: 400;
   position: absolute;
   right: 30px;
-  top: 30px;
+  top: 118px;
   z-index: 2;
+  font-size: 16px;
 }
 @media screen and (max-width: 768px) {
   .page__nav ._interval-notice {
@@ -1140,7 +1141,7 @@ body::-webkit-scrollbar {
 .page__nav ._viewport-notice {
   background-color: rgba(255, 255, 255, 0.3019607843);
   border-radius: 9999px;
-  bottom: 20px;
+  bottom: 99px;
   color: #000;
   font-size: 14px;
   left: 20px;
@@ -1200,6 +1201,7 @@ body::-webkit-scrollbar {
             flex-direction: column;
     margin-bottom: 3.90625vw;
     width: 100%;
+    pointer-events: auto;
   }
 }
 .page__nav-item .button--selector {
@@ -1383,7 +1385,7 @@ body::-webkit-scrollbar {
   .page__nav__depth1 {
     display: grid;
     position: relative;
-    margin: 7.8125vw auto;
+    margin: 0 auto 7.8125vw;
     grid-template-columns: 1fr 1fr 1fr;
   }
   .page__nav__depth1-item {
@@ -1396,6 +1398,7 @@ body::-webkit-scrollbar {
     border-bottom: 0.1302083333vw solid #c2a779;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+    text-decoration: none;
   }
   .page__nav__depth1-item.active {
     background-color: transparent;
@@ -1406,6 +1409,12 @@ body::-webkit-scrollbar {
 }
 .page__nav__depth2 {
   z-index: 3;
+  margin-top: var(--margin-top, 30px);
+}
+@media screen and (max-width: 768px) {
+  .page__nav__depth2 {
+    margin-top: 7.8125vw;
+  }
 }
 .page__nav__depth3 {
   background-color: rgba(0, 0, 0, 0.031372549);
@@ -2236,36 +2245,33 @@ body::-webkit-scrollbar {
 .territory-table__item {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  border: 0.1302083333vw solid rgba(80, 67, 56, 0.5);
+  -webkit-box-shadow: inset 0 0 0 0.1302083333vw rgba(80, 67, 56, 0.5);
+          box-shadow: inset 0 0 0 0.1302083333vw rgba(80, 67, 56, 0.5);
   padding: 0 3.90625vw;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 .territory-table__item.active {
-  border-color: #b89b69;
-  -webkit-box-shadow: 0 0 0 0.5208333333vw #b89b69;
-          box-shadow: 0 0 0 0.5208333333vw #b89b69;
+  -webkit-box-shadow: inset 0 0 0 0.5208333333vw #b89b69;
+          box-shadow: inset 0 0 0 0.5208333333vw #b89b69;
+}
+.territory-table__item .land-info__badge {
+  width: 3.7760416667vw;
+  height: 5.2083333333vw;
+  background-size: 100%;
+  margin-right: 2.4739583333vw;
+  background-repeat: no-repeat;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 .territory-table__item.type--garrison .land-info__badge {
-  width: 3.7760416667vw;
-  height: 5.2083333333vw;
   background-image: url(./images/img_landbadge_garrison.png);
-  background-size: 100%;
-  margin-right: 2.4739583333vw;
 }
 .territory-table__item.type--castle .land-info__badge {
-  width: 3.7760416667vw;
-  height: 5.2083333333vw;
   background-image: url(./images/img_landbadge_garrison.png);
-  background-size: 100%;
-  margin-right: 2.4739583333vw;
 }
 .territory-table__item.type--fortress .land-info__badge {
-  width: 3.7760416667vw;
-  height: 5.2083333333vw;
   background-image: url(./images/img_landbadge_fortress.png);
-  background-size: 100%;
-  margin-right: 2.4739583333vw;
 }
 .territory-table__item.type--occpuy-elf .land-info__name,
 .territory-table__item.type--occpuy-elf .land-info__occupy-elf,
@@ -2276,6 +2282,10 @@ body::-webkit-scrollbar {
 .territory-table__item.type--occpuy-elf .land-info__occupy-elf {
   margin-left: auto;
   font-size: 3.6458333333vw;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -ms-flex-item-align: center;
+      align-self: center;
 }
 .territory-table__item .land-box {
   font-size: 3.6458333333vw;
@@ -2298,6 +2308,16 @@ body::-webkit-scrollbar {
   color: #c2a779;
   font-size: 4.1666666667vw;
 }
+.territory-table__item .land-guild {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 2.0833333333vw;
+}
 .territory-table__item .land-guild__mark {
   margin: 0 2.8645833333vw;
 }
@@ -2315,6 +2335,8 @@ body::-webkit-scrollbar {
   font-size: 4.1666666667vw;
   color: #c2a779;
   margin-left: auto;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 .territory-table__item .land-guild__master span {
   font-size: 4.1666666667vw;
@@ -2357,6 +2379,9 @@ body::-webkit-scrollbar {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  margin-right: 2.6041666667vw;
 }
 .territory-table__item .land-tax-stack .i--money {
   width: 5.2083333333vw;
@@ -2425,6 +2450,9 @@ body::-webkit-scrollbar {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  margin-right: 2.6041666667vw;
 }
 .territory-table__item .land-trade-tax .i--money {
   width: 5.2083333333vw;

@@ -198,7 +198,7 @@ const selected = {
 				</div>
 				<span class="selected-chosen__error" v-if="nameError !== ''">{{nameError}}</span>
 				<a href="javascript:;" class="selected-chosen__btn-submit" @click="checkName">檢查名稱</a>
-				<span class="selected-chosen__notice"><span>※ 請注意！</span>創立角色名稱後，選定的領域將無法變更</span>
+				<span class="selected-chosen__notice"><span>※ 請注意！</span><span>創立角色名稱後，</span><span>選定的伺服器與角色名稱將無法變更。</span></span>
 			</div>
 			<a href="javascript:;" class="selected-btn__notice btn-common" @click="()=>Notice()">注意事項</a>
 		</div>

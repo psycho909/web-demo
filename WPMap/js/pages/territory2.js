@@ -6,6 +6,8 @@ import territoryData from "../territoryData.js";
 const territory = {
 	setup() {
 		// 地圖事件變數
+		let borders = Vue.ref([]);
+		let lands = Vue.ref([]);
 		let map = Vue.ref(null);
 		let r = Vue.reactive({
 			hoverIndex: -1,
@@ -221,12 +223,38 @@ const territory = {
 		// 地圖創建
 		const imageElement = new Image();
 		imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
+		function Ls(index) {
+			r.hoverIndex = index;
+			r.chainIndexs = territoryFilter.value[index].ui.chainIndexs;
+		}
+		function Rs(index) {
+			r.hoverIndex = -1;
+			r.chainIndexs = [];
+		}
 
+		function landMouseEnter(data, index, e) {
+			data.ui.chainIndexs.forEach((i) => {
+				lands.value[i].classList.add("-hover");
+				lands.value[i].classList.add("-chain");
+				borders.value[i].classList.add("-hover");
+				borders.value[i].classList.add("-chain");
+			});
+			Ls(index);
+		}
+		function landMouseLeave(index, e) {
+			borders.value.forEach((border, i) => {
+				border.classList.remove("-hover");
+				border.classList.remove("-chain");
+			});
+			lands.value.forEach((land, i) => {
+				land.classList.remove("-hover");
+				land.classList.remove("-chain");
+			});
+			Rs(index);
+		}
 		// 初始化
 		Vue.onMounted(() => {
 			// 獲取所有的 land 和 border 元素
-			let lands = document.querySelectorAll("._land");
-			let borders = document.querySelectorAll("._border");
 
 			// 地圖事件
 			map.value = new ImageMap2D({
@@ -254,11 +282,11 @@ const territory = {
 				(r.isMovingMap = b), w && (r.isActive = !1);
 				if (!r.isActive) {
 					document.querySelector(".map-detail").classList.remove("-active");
-					lands.forEach((land, i) => {
+					lands.value.forEach((land, i) => {
 						land.classList.remove("-select");
 					});
 
-					borders.forEach((border, i) => {
+					borders.value.forEach((border, i) => {
 						border.classList.remove("-select");
 					});
 				}
@@ -286,35 +314,27 @@ const territory = {
 				let l = map.value.focus.scale - 0.2;
 				l < map.value.default.limitCloseoutScale && (l = map.value.default.limitCloseoutScale), map.value.setScale(l);
 			});
-			function Ls(index) {
-				r.hoverIndex = index;
-				r.chainIndexs = territoryFilter.value[index].ui.chainIndexs;
-			}
-			function Rs(index) {
-				r.hoverIndex = -1;
-				r.chainIndexs = [];
-			}
 
-			// 為每個 land 元素添加事件監聽器
-			lands.forEach((land, index) => {
-				// 當滑鼠移入時，添加 -hover 類別
-				land.addEventListener("mouseenter", () => {
-					land.classList.add("-hover");
-					land.classList.add("-chain");
-					borders[index].classList.add("-hover");
-					borders[index].classList.add("-chain");
-					Ls(index);
-				});
+			// // 為每個 land 元素添加事件監聽器
+			// lands.forEach((land, index) => {
+			// 	// 當滑鼠移入時，添加 -hover 類別
+			// 	land.addEventListener("mouseenter", () => {
+			// 		land.classList.add("-hover");
+			// 		land.classList.add("-chain");
+			// 		borders[index].classList.add("-hover");
+			// 		borders[index].classList.add("-chain");
+			// 		Ls(index);
+			// 	});
 
-				// 當滑鼠移出時，移除 -hover 類別
-				land.addEventListener("mouseleave", () => {
-					land.classList.remove("-hover");
-					land.classList.remove("-chain");
-					borders[index].classList.remove("-hover");
-					borders[index].classList.remove("-chain");
-					Rs(index);
-				});
-			});
+			// 	// 當滑鼠移出時，移除 -hover 類別
+			// 	land.addEventListener("mouseleave", () => {
+			// 		land.classList.remove("-hover");
+			// 		land.classList.remove("-chain");
+			// 		borders[index].classList.remove("-hover");
+			// 		borders[index].classList.remove("-chain");
+			// 		Rs(index);
+			// 	});
+			// });
 			// 滑鼠樣式
 			const c = gsap.quickTo(".cursor__pointer", "x", {
 					duration: 0.22,
@@ -419,7 +439,11 @@ const territory = {
 			landTypeSelectToggle,
 			landTypeFilter,
 			worldData,
-			closeSelect
+			closeSelect,
+			landMouseEnter,
+			landMouseLeave,
+			borders,
+			lands
 		};
 	},
 	template: `
@@ -532,8 +556,8 @@ const territory = {
                             </svg>
                             <div class="territory-map__canvas">
                                 <div class="map-area-1">
-                                    <button v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)">
-                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'type--'+territory.landType"></span>
+                                    <button ref="lands" v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)" @mouseenter="landMouseEnter(territory,index,$event)" @mouseleave="landMouseLeave(index,$event)">
+                                        <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'land--'+territory.landType"></span>
                                         <div class="_land-more">
                                             <p class="_land-name">{{territory.ui.name}}</p>
                                             <div class="_land-guild-name">
@@ -545,7 +569,7 @@ const territory = {
                                     </button>
                                 </div>
                                 <div class="map-area-2">
-                                    <div class="_border" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" v-for="(territory,index) in territoryFilter" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'">
+                                    <div ref="borders" class="_border" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" v-for="(territory,index) in territoryFilter" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'">
                                         <svg xmlns="http://www.w3.org/2000/svg" :width="territory.ui.size[0]" :height="territory.ui.size[1]" :viewBox="'0 0 '+territory.ui.size[0]+' '+territory.ui.size[1]" style="transform: scale(1)"><path fill-rule="evenodd" clip-rule="evenodd" :d="territory.ui.d"></path></svg>
                                     </div>
                                 </div>

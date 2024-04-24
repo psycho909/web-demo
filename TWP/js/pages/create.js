@@ -166,14 +166,14 @@ const create = {
 					}
 				});
 			} else {
-				$(".create-task__content").mCustomScrollbar({
-					theme: "light",
-					contentTouchScroll: true,
-					mouseWheel: {
-						preventDefault: true
-					}
-					// advanced: { extraDraggableSelectors: ".notice-content" }
-				});
+				// $(".create-task__content").mCustomScrollbar({
+				// 	theme: "light",
+				// 	contentTouchScroll: true,
+				// 	mouseWheel: {
+				// 		preventDefault: true
+				// 	}
+				// 	// advanced: { extraDraggableSelectors: ".notice-content" }
+				// });
 			}
 		});
 
@@ -189,40 +189,49 @@ const create = {
 		<div class="create-content">
 			<div class="create-title"><span></span></div>
 			<div class="create-event">
-				<div class="create-action">
-					<div class="create-countdown__title">獲取冷卻時間</div>
-					<div class="create-countdown__time-box">
-						<!-- 時 -->
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[0]"></i>
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[1]"></i>
-						<i class="create-countdown__time-num icon--num-style2 i--colon">:</i>
-						<!-- 分 -->
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="min" :data-num="formattedTime.minutes[0]"></i>
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="min" :data-num="formattedTime.minutes[1]"></i>
-						<i class="create-countdown__time-num icon--num-style2 i--colon">:</i>
-						<!-- 秒 -->
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[0]"></i>
-						<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[1]"></i>
+				<div class="create-pre">
+					<div class="create-pre__title">角色名稱</div>
+					<div class="create-pre__name">角色名稱最多十個文字</div>
+					<div class="create-pre__realm">
+						<span>扭曲的黃金港01</span>
 					</div>
-					<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
 				</div>
-				<div class="create-hold">
-					<div class="create-hold__box swiper">
-						<div class="create-hold__list swiper-wrapper">
-							<div class="swiper-slide" v-for="i in titleData">
-								<div class="create-hold__item" :data-type="i.TitleLevel">
-									<template v-if="i.TitleLevel == 0">
-										<div class="create-hold__name">尚未持有天命</div>
-									</template>
-									<template v-else>
-										<div class="create-hold__name">{{i.TitleName}}</div>
-										<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
-									</template>
+				<div class="create-event-content">
+					<div class="create-action">
+						<div class="create-countdown__title">獲取冷卻時間</div>
+						<div class="create-countdown__time-box">
+							<!-- 時 -->
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[0]"></i>
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="hour" :data-num="formattedTime.hours[1]"></i>
+							<i class="create-countdown__time-num icon--num-style2 i--colon">:</i>
+							<!-- 分 -->
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="min" :data-num="formattedTime.minutes[0]"></i>
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="min" :data-num="formattedTime.minutes[1]"></i>
+							<i class="create-countdown__time-num icon--num-style2 i--colon">:</i>
+							<!-- 秒 -->
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[0]"></i>
+							<i class="create-countdown__time-num icon--num icon--num-style2" data-type="sec" :data-num="formattedTime.seconds[1]"></i>
+						</div>
+						<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
+					</div>
+					<div class="create-hold">
+						<div class="create-hold__box swiper">
+							<div class="create-hold__list swiper-wrapper">
+								<div class="swiper-slide" v-for="i in titleData">
+									<div class="create-hold__item" :data-type="i.TitleLevel">
+										<template v-if="i.TitleLevel == 0">
+											<div class="create-hold__name">尚未持有天命</div>
+										</template>
+										<template v-else>
+											<div class="create-hold__name">{{i.TitleName}}</div>
+											<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
+										</template>
+									</div>
 								</div>
 							</div>
+							<div class="create-hold__item-prev"></div>
+							<div class="create-hold__item-next"></div>
 						</div>
-						<div class="create-hold__item-prev"></div>
-						<div class="create-hold__item-next"></div>
 					</div>
 				</div>
 			</div>
@@ -278,6 +287,7 @@ const create = {
 				</div>
 				<a href="javascript:;" class="create-btn__notice btn-common" @click="()=>Notice()">注意事項</a>
 			</div>
+			<div class="create-btn__notice-box"><a href="javascript:;" class="create-btn__notice btn-common" @click="()=>Notice()">注意事項</a></div>
 			<a href="javascript:;" class="create-btn__mission" @click="MissionLB"></a>
 			
 		</div>

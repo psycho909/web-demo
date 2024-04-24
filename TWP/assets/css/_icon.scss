@@ -23,7 +23,7 @@
 }
 .i--colon {
 	width: 18px;
-	height: 39px;
+	height: 22px;
 	mask-image: url(./svg/icon-colon.svg);
 	@include media {
 		width: vw(24);
@@ -46,18 +46,19 @@
 		mask-size: 100% 100%;
 		min-height: 5px;
 		min-width: 5px;
-		width: 35px;
-		height: 46px;
+		width: 22px;
+		height: 29px;
 		&-style1 {
-			background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
+			// background-image: linear-gradient(to top, #ff0000 0%, #ad0000 100%);
 		}
 		&-style2 {
-			background-image: linear-gradient(to bottom, #ffe2ae 0%, #8b6f3d 100%);
-			filter: drop-shadow(0px 0px 4px #ffff00);
+			background-color: #8b6f3d;
+			// background-image: linear-gradient(to bottom, #ffe2ae 0%, #8b6f3d 100%);
+			// filter: drop-shadow(0px 0px 4px #ffff00);
 		}
 		@include media {
 			width: vw(43);
-			height: vw(56);
+			height: vw(59);
 		}
 		@for $i from 0 through 9 {
 			&[data-num="#{$i}"] {

@@ -10,8 +10,9 @@
 		font-weight: 400;
 		position: absolute;
 		right: 30px;
-		top: 30px;
+		top: 118px;
 		z-index: 2;
+		font-size: 16px;
 		@include media {
 			display: none;
 		}
@@ -19,7 +20,7 @@
 	._viewport-notice {
 		background-color: #ffffff4d;
 		border-radius: 9999px;
-		bottom: 20px;
+		bottom: 99px;
 		color: #000;
 		font-size: 14px;
 		left: 20px;
@@ -63,6 +64,7 @@
 			flex-direction: column;
 			margin-bottom: vw(30);
 			width: 100%;
+			pointer-events: auto;
 		}
 		.button--selector {
 			background-color: rgba(#000, 0.5);
@@ -224,7 +226,7 @@
 		@include media {
 			display: grid;
 			position: relative;
-			margin: vw(60) auto;
+			margin: 0 auto vw(60);
 			grid-template-columns: 1fr 1fr 1fr;
 			&-item {
 				font-size: vw(32);
@@ -235,6 +237,7 @@
 				border: vw(1) solid #504338;
 				border-bottom: vw(1) solid #c2a779;
 				box-sizing: border-box;
+				text-decoration: none;
 				&.active {
 					background-color: transparent;
 					color: #c2a779;
@@ -246,6 +249,10 @@
 	}
 	&__depth2 {
 		z-index: 3;
+		margin-top: var(--margin-top, 30px);
+		@include media {
+			margin-top: vw(60);
+		}
 	}
 	&__depth3 {
 		background-color: #00000008;

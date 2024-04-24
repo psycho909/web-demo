@@ -1,4 +1,5 @@
 import territory from "./pages/territory.js";
+import territoryTwo from "./pages/territory2.js";
 import mainTerritory from "./pages/mainTerritory.js";
 import pagination from "./components/pagination.js";
 import pagination2 from "./components/pagination2.js";
@@ -7,6 +8,7 @@ import records from "./pages/records.js";
 let app = Vue.createApp({
 	components: {
 		territory,
+		territoryTwo,
 		mainTerritory,
 		pagination,
 		pagination2,
