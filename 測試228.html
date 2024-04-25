@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>圖片上傳</title>
+	</head>
+	<body>
+		<input type="file" id="imageUpload" accept="image/*" />
+		<button onclick="uploadImage()">上傳圖片</button>
+
+		<script>
+			function uploadImage() {
+				const input = document.getElementById("imageUpload");
+				const file = input.files[0];
+
+				if (file) {
+					const formData = new FormData();
+					formData.append("image", file);
+
+					fetch("/upload", {
+						method: "POST",
+						body: formData
+					})
+						.then((response) => {
+							if (response.ok) {
+								return response.json();
+							}
+							throw new Error("上傳失敗");
+						})
+						.then((data) => {
+							console.log("上傳成功:", data);
+							// 在這裡處理上傳成功後的回應
+						})
+						.catch((error) => {
+							console.error("錯誤:", error);
+							// 在這裡處理上傳失敗後的回應
+						});
+				} else {
+					console.error("請選擇圖片檔案");
+					// 在這裡處理未選擇圖片檔案時的情況
+				}
+			}
+		</script>
+	</body>
+</html>

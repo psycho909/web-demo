@@ -19,6 +19,7 @@
 				}
 				span {
 					&:first-child {
+						color: #c69d7b;
 						margin-right: 15px;
 						@include media {
 							font-size: vw(32);
@@ -27,7 +28,7 @@
 						}
 					}
 					&:last-child {
-						color: #c69d7b;
+						color: #c7bfb3;
 						margin-right: 15px;
 						@include media {
 							font-size: vw(28);
@@ -89,6 +90,7 @@
 					width: 100%;
 					@include media {
 						padding: vw(24) vw(30);
+						font-size: vw(32);
 					}
 					&:focus-visible {
 						outline: none;
@@ -225,6 +227,9 @@
 			}
 			&--value {
 				display: inline-block;
+				@include media {
+					text-align: left;
+				}
 			}
 			&--key {
 				display: none;
@@ -232,6 +237,7 @@
 					display: block;
 					margin-right: vw(30);
 					color: #c2a779;
+					flex-shrink: 0;
 				}
 			}
 			&--lv {

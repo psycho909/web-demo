@@ -20,6 +20,7 @@
 				span {
 					&:first-child {
 						margin-right: 15px;
+						color: #c69d7b;
 						@include media {
 							font-size: vw(32);
 							flex-shrink: 0;
@@ -27,7 +28,7 @@
 						}
 					}
 					&:last-child {
-						color: #c69d7b;
+						color: #c7bfb3;
 						margin-right: 15px;
 						@include media {
 							font-size: vw(28);
@@ -89,6 +90,7 @@
 					width: 100%;
 					@include media {
 						padding: vw(24) vw(30);
+						font-size: vw(32);
 					}
 					&:focus-visible {
 						outline: none;
@@ -178,6 +180,7 @@
 			width: 100%;
 			@include media {
 				grid-template-columns: 1fr;
+				padding: vw(30);
 			}
 		}
 		&__head {
@@ -220,6 +223,12 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			&-btn {
+				@include media {
+					height: 100%;
+					padding: 0;
+				}
+			}
 			@include media {
 				padding: vw(8) 0;
 			}
@@ -261,6 +270,9 @@
 			&-button {
 			}
 			&--value {
+				@include media {
+					text-align: left;
+				}
 			}
 			&--key {
 				display: none;
@@ -268,6 +280,7 @@
 					display: block;
 					color: #c2a779;
 					margin-right: vw(30);
+					flex-shrink: 0;
 				}
 			}
 			&--pc {
@@ -285,6 +298,11 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				&.-close {
+					i {
+						transform: rotate(45deg);
+					}
+				}
 				@include media {
 					width: vw(60);
 					height: vw(60);
@@ -312,6 +330,26 @@
 			overflow: hidden;
 			width: 100%;
 			will-change: height;
+			&.-open {
+				.raid-table__accordion-body {
+					grid-template-rows: 1fr;
+				}
+			}
+			@include media {
+				padding: 0 vw(30);
+			}
+			&--pc {
+				display: block;
+				@include media {
+					display: none;
+				}
+			}
+			&--mb {
+				display: none;
+				@include media {
+					display: block;
+				}
+			}
 			.dot-line {
 				max-width: 50px;
 				margin: 0 14px;
@@ -320,8 +358,12 @@
 				}
 			}
 			&-body {
+				display: grid;
+				grid-template-rows: 0fr;
+				transition: 0.5s;
 			}
 			&-inner {
+				overflow: hidden;
 				&-box {
 					display: flex;
 					flex-direction: column;
@@ -507,6 +549,10 @@
 						width: 13px;
 						height: 18px;
 						background-color: #faecd7;
+						@include media {
+							width: vw(21);
+							height: vw(25);
+						}
 						@for $i from 0 through 9 {
 							&[data-number="#{$i}"] {
 								mask-image: url(./svg/icon_number-#{$i}.svg);
@@ -516,6 +562,10 @@
 							width: 23px;
 							height: 19px;
 							mask-image: url(./svg/icon_number-percent.svg);
+							@include media {
+								width: vw(30);
+								height: vw(26);
+							}
 						}
 					}
 				}

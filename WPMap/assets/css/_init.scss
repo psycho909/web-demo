@@ -221,7 +221,7 @@ body::-webkit-scrollbar {
 		border-radius: 0;
 		display: grid;
 		grid-template-rows: 0fr;
-		transition: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+		transition: 0.5s linear;
 		&.open {
 			grid-template-rows: 1fr;
 		}
@@ -436,6 +436,54 @@ body::-webkit-scrollbar {
 			text-align: left;
 			transition: background-color 0.14s ease, color 0.14s ease;
 			vertical-align: top;
+		}
+	}
+}
+.pagination {
+	&-content {
+		width: 100%;
+		margin-top: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@include media {
+			margin-top: vw(60);
+		}
+	}
+	&-numbers {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		column-gap: 8px;
+		@include media {
+			column-gap: vw(8);
+		}
+		li {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+		&__item {
+			font-size: 16px;
+			color: #877f7f;
+			padding: 6px 6px 8px;
+			@include media {
+				font-size: vw(32);
+				@include media {
+					padding: vw(6) vw(6) vw(8);
+				}
+			}
+			&.active {
+				color: #c2a779;
+			}
+		}
+		&__symbol {
+			span {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
 		}
 	}
 }

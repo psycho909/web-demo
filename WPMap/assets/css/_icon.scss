@@ -198,3 +198,44 @@
 		height: vw(24);
 	}
 }
+
+.i--pagination-last {
+	width: 14px;
+	height: 14px;
+	background-color: #877f7f;
+	mask-image: url("./svg/pagination-last.svg");
+	@include media {
+		width: vw(28);
+		height: vw(28);
+	}
+}
+.i--pagination-next {
+	width: 14px;
+	height: 14px;
+	background-color: #877f7f;
+	mask-image: url("./svg/pagination-next.svg");
+	@include media {
+		width: vw(28);
+		height: vw(28);
+	}
+}
+.i--pagination-first {
+	width: 14px;
+	height: 14px;
+	background-color: #877f7f;
+	mask-image: url("./svg/pagination-first.svg");
+	@include media {
+		width: vw(28);
+		height: vw(28);
+	}
+}
+.i--pagination-prev {
+	width: 14px;
+	height: 14px;
+	background-color: #877f7f;
+	mask-image: url("./svg/pagination-prev.svg");
+	@include media {
+		width: vw(28);
+		height: vw(28);
+	}
+}
