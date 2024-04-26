@@ -35,14 +35,14 @@
 				pointer-events: all;
 				transform: translate3d(-50%, 0, 0);
 				transition-delay: 30ms;
-			}
-			._land-guild-name {
-				transform: translateZ(0);
-				transition-delay: 60ms;
-			}
-			._land-more ._land-guild-name ._land-plus {
-				opacity: 1;
-				transform: translateZ(0);
+				._land-guild-name {
+					transform: translateZ(0);
+					transition-delay: 60ms;
+					._land-plus {
+						opacity: 1;
+						transform: translateZ(0);
+					}
+				}
 			}
 		}
 		&.-select {
@@ -136,21 +136,19 @@
 			white-space: nowrap;
 			._land-name {
 				color: #423b32;
-				font-family: WarsOfPrasia, serif;
 				font-size: 20px;
-				line-height: 1;
 			}
 			._land-guild-name {
 				align-items: center;
-				background-color: #22110159;
-				border-radius: 9999px;
+				background-color: rgba(#000, 0.3);
+				border-radius: 100vmax;
 				box-sizing: border-box;
 				display: inline-flex;
 				margin-top: 10px;
-				padding: 5px 14px 4px;
+				padding: 2px 3px 2px 14px;
 				pointer-events: none;
-				transform: translate3d(0, 5px, 0);
 				transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
+				transform: translate3d(0, 5px, 0);
 				p {
 					color: #fff;
 					font-size: 14px;
@@ -166,9 +164,7 @@
 					width: 25px;
 					height: 25px;
 					justify-content: center;
-					margin-left: 5px;
-					margin-right: -8px;
-					margin-top: -1px;
+					margin-left: 3px;
 					opacity: 0;
 					position: relative;
 					transform: translate3d(-15px, 0, 0);

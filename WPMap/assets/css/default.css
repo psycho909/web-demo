@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --maxvh: 100vh;
   --maxvh-without-navtop: 100vh;
@@ -269,8 +270,8 @@ body::-webkit-scrollbar {
   border-radius: 0;
   display: grid;
   grid-template-rows: 0fr;
-  -webkit-transition: 0.5s linear;
-  transition: 0.5s linear;
+  -webkit-transition: var(--animation-time, 0.5s) linear;
+  transition: var(--animation-time, 0.5s) linear;
 }
 .button--selector .selector__content.open {
   grid-template-rows: 1fr;
@@ -637,6 +638,95 @@ body::-webkit-scrollbar {
           align-items: center;
 }
 
+.-empty {
+  height: 300px;
+  font-size: 16px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #c2a779;
+}
+.-empty::after {
+  content: "目前沒有資料";
+  display: inline-block;
+}
+@media screen and (max-width: 768px) {
+  .-empty {
+    font-size: 4.1666666667vw;
+    height: 39.0625vw;
+  }
+}
+
+.-loading {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 300px;
+}
+@media screen and (max-width: 768px) {
+  .-loading {
+    height: 39.0625vw;
+  }
+}
+.-loading > * {
+  display: none !important;
+}
+.-loading:after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-animation: rotation 1.2s linear infinite;
+          animation: rotation 1.2s linear infinite;
+}
+@media screen and (max-width: 768px) {
+  .-loading:after {
+    width: 7.8125vw;
+    height: 7.8125vw;
+    border-width: 0.6510416667vw;
+  }
+}
+
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 @-webkit-keyframes wave-b44e1f3e {
   0% {
     opacity: 0;
@@ -655,7 +745,6 @@ body::-webkit-scrollbar {
             transform: scale(1);
   }
 }
-
 @keyframes wave-b44e1f3e {
   0% {
     opacity: 0;
@@ -1265,10 +1354,10 @@ body::-webkit-scrollbar {
   color: #fff;
   font-weight: 400;
   position: absolute;
-  right: 30px;
+  right: 1.5625vw;
   top: 118px;
   z-index: 2;
-  font-size: 16px;
+  font-size: 0.8333333333vw;
 }
 @media screen and (max-width: 768px) {
   .page__nav ._interval-notice {
@@ -1277,12 +1366,12 @@ body::-webkit-scrollbar {
 }
 .page__nav ._viewport-notice {
   background-color: rgba(255, 255, 255, 0.3019607843);
-  border-radius: 9999px;
+  border-radius: 100vmax;
   bottom: 99px;
   color: #000;
-  font-size: 14px;
-  left: 20px;
-  padding: 5px 15px;
+  font-size: 0.8333333333vw;
+  left: 1.0416666667vw;
+  padding: 0.2604166667vw 0.78125vw;
   position: fixed;
   z-index: 5;
 }
@@ -1748,7 +1837,7 @@ body::-webkit-scrollbar {
   -webkit-transition-delay: 30ms;
           transition-delay: 30ms;
 }
-.map-area-1 ._land.-hover ._land-guild-name, .map-area-1 ._land.-chain ._land-guild-name {
+.map-area-1 ._land.-hover ._land-more ._land-guild-name, .map-area-1 ._land.-chain ._land-more ._land-guild-name {
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition-delay: 60ms;
@@ -1890,30 +1979,28 @@ body::-webkit-scrollbar {
 }
 .map-area-1 ._land ._land-more ._land-name {
   color: #423b32;
-  font-family: WarsOfPrasia, serif;
   font-size: 20px;
-  line-height: 1;
 }
 .map-area-1 ._land ._land-more ._land-guild-name {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: rgba(34, 17, 1, 0.3490196078);
-  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 100vmax;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   margin-top: 10px;
-  padding: 5px 14px 4px;
+  padding: 2px 3px 2px 14px;
   pointer-events: none;
-  -webkit-transform: translate3d(0, 5px, 0);
-          transform: translate3d(0, 5px, 0);
   -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  -webkit-transform: translate3d(0, 5px, 0);
+          transform: translate3d(0, 5px, 0);
 }
 .map-area-1 ._land ._land-more ._land-guild-name p {
   color: #fff;
@@ -1937,9 +2024,7 @@ body::-webkit-scrollbar {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-left: 5px;
-  margin-right: -8px;
-  margin-top: -1px;
+  margin-left: 3px;
   opacity: 0;
   position: relative;
   -webkit-transform: translate3d(-15px, 0, 0);
@@ -2116,7 +2201,7 @@ body::-webkit-scrollbar {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-  padding: 30px;
+  padding: 30px 25px;
   position: relative;
   width: 100%;
 }
@@ -2129,7 +2214,7 @@ body::-webkit-scrollbar {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  row-gap: 4px;
+  row-gap: 10px;
 }
 .map-detail ._guild-info ._name {
   -webkit-box-align: center;
@@ -2138,13 +2223,11 @@ body::-webkit-scrollbar {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  font-size: 15px;
-  font-weight: 500;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-right: 10px;
-  width: 92px;
+  font-size: 16px;
+  margin-right: 4px;
+  min-width: 100px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 .map-detail ._guild-info ._name i {
   background-color: #666;
@@ -2183,8 +2266,7 @@ body::-webkit-scrollbar {
 }
 .map-detail ._guild-info ._guild-title ._guild-name {
   color: #c2a779;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
 }
 .map-detail ._guild-info ._guild-title ._guild-ranking {
   -webkit-box-align: center;
@@ -2252,6 +2334,7 @@ body::-webkit-scrollbar {
   color: #c2a779;
   font-size: 16px;
   margin-top: 22px;
+  margin-bottom: 22px;
   padding: 10px 18px;
   width: 100%;
   word-wrap: break-word;
@@ -2264,7 +2347,6 @@ body::-webkit-scrollbar {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-top: 18px;
   white-space: nowrap;
 }
 .map-detail ._land-info li {
@@ -2274,6 +2356,9 @@ body::-webkit-scrollbar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+.map-detail ._land-info li._land-total-tax {
+  margin-bottom: 16px;
 }
 .map-detail ._land-info li ._title {
   -webkit-box-align: center;
@@ -2318,8 +2403,8 @@ body::-webkit-scrollbar {
 }
 .map-detail ._land-info li ._value {
   color: #c2a779;
-  font-family: WarsOfPrasia, serif;
   font-size: 20px;
+  padding-bottom: 4px;
 }
 .map-detail ._land-info li .i--money-percent {
   background-color: #666;

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --maxvh: 100vh;
   --maxvh-without-navtop: 100vh;
@@ -269,8 +270,8 @@ body::-webkit-scrollbar {
   border-radius: 0;
   display: grid;
   grid-template-rows: 0fr;
-  -webkit-transition: 0.5s linear;
-  transition: 0.5s linear;
+  -webkit-transition: var(--animation-time, 0.5s) linear;
+  transition: var(--animation-time, 0.5s) linear;
 }
 .button--selector .selector__content.open {
   grid-template-rows: 1fr;
@@ -637,6 +638,95 @@ body::-webkit-scrollbar {
           align-items: center;
 }
 
+.-empty {
+  height: 300px;
+  font-size: 16px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #c2a779;
+}
+.-empty::after {
+  content: "目前沒有資料";
+  display: inline-block;
+}
+@media screen and (max-width: 768px) {
+  .-empty {
+    font-size: 4.1666666667vw;
+    height: 39.0625vw;
+  }
+}
+
+.-loading {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 300px;
+}
+@media screen and (max-width: 768px) {
+  .-loading {
+    height: 39.0625vw;
+  }
+}
+.-loading > * {
+  display: none !important;
+}
+.-loading:after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-animation: rotation 1.2s linear infinite;
+          animation: rotation 1.2s linear infinite;
+}
+@media screen and (max-width: 768px) {
+  .-loading:after {
+    width: 7.8125vw;
+    height: 7.8125vw;
+    border-width: 0.6510416667vw;
+  }
+}
+
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 @-webkit-keyframes wave-b44e1f3e {
   0% {
     opacity: 0;
@@ -655,7 +745,6 @@ body::-webkit-scrollbar {
             transform: scale(1);
   }
 }
-
 @keyframes wave-b44e1f3e {
   0% {
     opacity: 0;
@@ -2211,6 +2300,9 @@ body::-webkit-scrollbar {
   width: 100%;
   border-bottom: 1px solid #504338;
 }
+.raid-table__item.-open .raid-table__accordion-body {
+  grid-template-rows: 1fr;
+}
 @media screen and (max-width: 768px) {
   .raid-table__item {
     font-size: 4.1666666667vw;
@@ -2356,9 +2448,6 @@ body::-webkit-scrollbar {
   width: 100%;
   will-change: height;
 }
-.raid-table__accordion.-open .raid-table__accordion-body {
-  grid-template-rows: 1fr;
-}
 @media screen and (max-width: 768px) {
   .raid-table__accordion {
     padding: 0 3.90625vw;
@@ -2366,6 +2455,9 @@ body::-webkit-scrollbar {
 }
 .raid-table__accordion--pc {
   display: block;
+}
+.raid-table__accordion--pc .raid-table__accordion-inner-box {
+  padding: 0 30px 30px;
 }
 @media screen and (max-width: 768px) {
   .raid-table__accordion--pc {

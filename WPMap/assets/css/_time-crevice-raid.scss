@@ -212,6 +212,11 @@
 			transition: box-shadow 0.5s ease, border-color 0.4s ease;
 			width: 100%;
 			border-bottom: 1px solid #504338;
+			&.-open {
+				.raid-table__accordion-body {
+					grid-template-rows: 1fr;
+				}
+			}
 			@include media {
 				font-size: vw(32);
 				border-bottom: vw(1) solid #504338;
@@ -330,16 +335,15 @@
 			overflow: hidden;
 			width: 100%;
 			will-change: height;
-			&.-open {
-				.raid-table__accordion-body {
-					grid-template-rows: 1fr;
-				}
-			}
 			@include media {
 				padding: 0 vw(30);
 			}
 			&--pc {
 				display: block;
+
+				.raid-table__accordion-inner-box {
+					padding: 0 30px 30px;
+				}
 				@include media {
 					display: none;
 				}

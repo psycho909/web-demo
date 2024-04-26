@@ -221,7 +221,7 @@ body::-webkit-scrollbar {
 		border-radius: 0;
 		display: grid;
 		grid-template-rows: 0fr;
-		transition: 0.5s linear;
+		transition: var(--animation-time, 0.5s) linear;
 		&.open {
 			grid-template-rows: 1fr;
 		}
@@ -485,6 +485,60 @@ body::-webkit-scrollbar {
 				align-items: center;
 			}
 		}
+	}
+}
+.-empty {
+	height: 300px;
+	font-size: 16px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #c2a779;
+	&::after {
+		content: "目前沒有資料";
+		display: inline-block;
+	}
+	@include media {
+		font-size: vw(32);
+		height: vw(300);
+	}
+}
+.-loading {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+	@include media {
+		height: vw(300);
+	}
+	& > * {
+		display: none !important;
+	}
+	&:after {
+		content: "";
+		width: 30px;
+		height: 30px;
+		border: 5px solid #fff;
+		border-bottom-color: transparent;
+		border-radius: 50%;
+		display: inline-block;
+		box-sizing: border-box;
+		animation: rotation 1.2s linear infinite;
+		@include media {
+			width: vw(60);
+			height: vw(60);
+			border-width: vw(5);
+		}
+	}
+}
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }
 @keyframes wave-b44e1f3e {

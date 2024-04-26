@@ -9,22 +9,22 @@
 		color: #fff;
 		font-weight: 400;
 		position: absolute;
-		right: 30px;
+		right: calc(30 / 1920 * 100vw);
 		top: 118px;
 		z-index: 2;
-		font-size: 16px;
+		font-size: calc(16 / 1920 * 100vw);
 		@include media {
 			display: none;
 		}
 	}
 	._viewport-notice {
 		background-color: #ffffff4d;
-		border-radius: 9999px;
+		border-radius: 100vmax;
 		bottom: 99px;
 		color: #000;
-		font-size: 14px;
-		left: 20px;
-		padding: 5px 15px;
+		font-size: calc(16 / 1920 * 100vw);
+		left: calc(20 / 1920 * 100vw);
+		padding: calc(5 / 1920 * 100vw) calc(15 / 1920 * 100vw);
 		position: fixed;
 		z-index: 5;
 		@include media {
