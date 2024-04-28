@@ -443,7 +443,8 @@ const territory = {
 			landMouseEnter,
 			landMouseLeave,
 			borders,
-			lands
+			lands,
+			r
 		};
 	},
 	template: `
@@ -533,7 +534,7 @@ const territory = {
                         <p class="_viewport-notice">※1920 解析為據點佔領現況最佳化解析度。</p>
                     </div>
                     <div class="page__content">
-                        <div class="territory-map">
+                        <div class="territory-map" :class="[r.isMiniumMap?'-minimum':'']">
                             <svg class="territory-map__filter">
                                 <defs>
                                     <linearGradient id="gradient-hover-border" gradientTransform="rotate(90)">

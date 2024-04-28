@@ -72,6 +72,11 @@ body {
 	@media (max-width: 768px) {
 		display: none;
 	}
+	&.-minimum {
+		.map-area-1 ._land {
+			transform: translate3d(-50%, -50%, 0) scale(0.8);
+		}
+	}
 }
 .territory-map__filter {
 	height: 0;

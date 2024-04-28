@@ -1,1 +1,0 @@
-import{a as t,b as o,aj as a}from"./entry.JhK8AsVu.js";const f={__name:"default",setup(r){const s=t(),e=o();return e.install({insign:!1,ps:!1,gnb:!0}),e.useNexonGnb(),s.unuseGnb(),(n,l)=>a(n.$slots,"default")}};export{f as default};
