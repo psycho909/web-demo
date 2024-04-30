@@ -191,7 +191,7 @@ const create = {
 			<div class="create-event">
 				<div class="create-pre">
 					<div class="create-pre__title">角色名稱</div>
-					<div class="create-pre__name">角色名稱最多十個文字</div>
+					<div class="create-pre__name-box"><div class="create-pre__name">角色名稱最多十個文字</div><a href="javascript:;" class="create-pre__btn-logout">登出</a></div>
 					<div class="create-pre__realm">
 						<span>扭曲的黃金港01</span>
 					</div>
@@ -244,6 +244,7 @@ const create = {
 						<div class="create-pre__realm">
 							<span>扭曲的黃金港01</span>
 						</div>
+						<a href="javascript:;" class="create-pre__btn-logout">登出</a>
 					</div>
 					<div class="create-task__list">
 						<div class="create-task__content">

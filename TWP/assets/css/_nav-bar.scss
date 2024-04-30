@@ -112,7 +112,7 @@
 				text-decoration: none;
 				display: block;
 				@include media {
-					width: vw(220);
+					width: auto;
 					font-size: vw(40);
 					padding: vw(30) vw(24);
 				}

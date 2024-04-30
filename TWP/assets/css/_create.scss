@@ -308,6 +308,24 @@
 				font-size: vw(48);
 				// margin-bottom: vw(18);
 			}
+			&-box {
+				position: relative;
+			}
+		}
+		&__btn-logout {
+			color: #b68d67;
+			font-size: 18px;
+			position: absolute;
+			bottom: 0;
+			right: -8px;
+			transform: translate(100%, 0);
+			@include media {
+				font-size: vw(36);
+				position: relative;
+				right: 0;
+				transform: none;
+				margin-top: vw(18);
+			}
 		}
 		&__realm {
 			text-align: center;
@@ -598,7 +616,7 @@
 		row-gap: 46px;
 		@include media {
 			row-gap: vw(90);
-			margin-bottom: vw(60);
+			margin-bottom: vw(80);
 		}
 		&__list {
 			width: 100%;

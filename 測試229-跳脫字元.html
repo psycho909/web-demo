@@ -18,6 +18,23 @@
 	</head>
 	<body>
 		<ul class="mPagination pagination" id="mSNPagination"></ul>
-		<script src="./測試229.js"></script>
+		<div class="box"></div>
+		<script>
+			function escapeHtml(html) {
+				return html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			}
+
+			let data = {
+				name: "John",
+				h: "<ROBERT>Hello</ROBERT>"
+			};
+
+			let escapedHtml = escapeHtml(data.h);
+
+			// let HTML = `<div>${escapeHtml(data.h)}</div>`;
+			let HTML = "<div>" + escapeHtml(data.h) + "</div>";
+			document.querySelector(".box").innerHTML = HTML;
+		</script>
+		<!-- <script src="./測試229.js"></script> -->
 	</body>
 </html>

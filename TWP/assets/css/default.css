@@ -6,6 +6,12 @@
           box-sizing: border-box;
 }
 
+@media screen and (max-width: 768px) {
+  html.-ovh {
+    overflow: hidden;
+  }
+}
+
 body {
   min-width: 1200px;
   background-color: #1c1b18;
@@ -124,7 +130,6 @@ body {
 @media screen and (min-width: 768px) {
   .default .gbox-btn:hover {
     background-image: -webkit-gradient(linear, left top, right top, from(#0c0a09), to(#695315));
-    background-image: -o-linear-gradient(left, #0c0a09 0%, #695315 100%);
     background-image: linear-gradient(to right, #0c0a09 0%, #695315 100%);
   }
 }
@@ -1112,7 +1117,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .nav-bar__menu-item a {
-    width: 28.6458333333vw;
+    width: auto;
     font-size: 5.2083333333vw;
     padding: 3.90625vw 3.125vw;
   }
@@ -1275,7 +1280,6 @@ body {
             box-shadow: inset 0 0 0 1px #c2a779;
     color: #c2a779;
     background-image: -webkit-gradient(linear, left top, right top, from(#0c0a09), to(#695315));
-    background-image: -o-linear-gradient(left, #0c0a09 0%, #695315 100%);
     background-image: linear-gradient(to right, #0c0a09 0%, #695315 100%);
   }
 }
@@ -1302,7 +1306,6 @@ body {
 .fade-enter-active,
 .fade-leave-active {
   -webkit-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
 
@@ -1379,12 +1382,12 @@ body {
   background-size: 100%;
   background-image: url("./images/index-text-date.png");
   margin-bottom: 30px;
+  background-repeat: no-repeat;
 }
 @media screen and (max-width: 768px) {
   .entrance-date {
     width: 38.9322916667vw;
     height: 7.2916666667vw;
-    background-image: url("./images/m-index-text-date.png");
     margin-bottom: 13.0208333333vw;
   }
 }
@@ -1918,7 +1921,6 @@ body {
     background-color: rgba(38, 30, 6, 0.5);
     grid-template-rows: 0fr;
     -webkit-transition: 0.25s grid-template-rows ease;
-    -o-transition: 0.25s grid-template-rows ease;
     transition: 0.25s grid-template-rows ease;
     transition: 0.25s grid-template-rows ease, 0.25s -ms-grid-rows ease;
   }
@@ -1951,7 +1953,6 @@ body {
   .selected-realm__inner-box input:checked + div {
     background-image: none;
     background-image: -webkit-gradient(linear, left top, right top, color-stop(5%, rgba(63, 54, 39, 0)), color-stop(15%, rgba(63, 54, 39, 0.1)), color-stop(35%, #3f3627), color-stop(45%, #3f3627), color-stop(55%, #3f3627), color-stop(65%, #3f3627), color-stop(85%, rgba(63, 54, 39, 0.1)), color-stop(95%, rgba(63, 54, 39, 0)));
-    background-image: -o-linear-gradient(left, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
     background-image: linear-gradient(to right, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
   }
   .selected-realm__inner-box input:checked + div:before, .selected-realm__inner-box input:checked + div:after {
@@ -1973,7 +1974,6 @@ body {
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
-    background-image: -o-linear-gradient(left, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
   }
 }
@@ -2012,7 +2012,6 @@ body {
 @media screen and (max-width: 768px) {
   .selected-realm__item.current {
     background-image: -webkit-gradient(linear, left top, right top, color-stop(5%, rgba(63, 54, 39, 0)), color-stop(15%, rgba(63, 54, 39, 0.1)), color-stop(35%, #3f3627), color-stop(45%, #3f3627), color-stop(55%, #3f3627), color-stop(65%, #3f3627), color-stop(85%, rgba(63, 54, 39, 0.1)), color-stop(95%, rgba(63, 54, 39, 0)));
-    background-image: -o-linear-gradient(left, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
     background-image: linear-gradient(to right, rgba(63, 54, 39, 0) 5%, rgba(63, 54, 39, 0.1) 15%, #3f3627 35%, #3f3627 45%, #3f3627 55%, #3f3627 65%, rgba(63, 54, 39, 0.1) 85%, rgba(63, 54, 39, 0) 95%);
   }
   .selected-realm__item.current:after {
@@ -2038,7 +2037,6 @@ body {
     width: 100%;
     height: 0.1302083333vw;
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
-    background-image: -o-linear-gradient(left, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-repeat: no-repeat;
   }
@@ -2055,7 +2053,6 @@ body {
     width: 100%;
     height: 0.1302083333vw;
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(194, 167, 121, 0)), color-stop(25%, #c2a779), color-stop(50%, #c1a679), color-stop(75%, #c2a779), to(rgba(194, 167, 121, 0)));
-    background-image: -o-linear-gradient(left, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-image: linear-gradient(to right, rgba(194, 167, 121, 0) 0%, #c2a779 25%, #c1a679 50%, #c2a779 75%, rgba(194, 167, 121, 0) 100%);
     background-repeat: no-repeat;
   }
@@ -2675,6 +2672,30 @@ body {
     font-size: 6.25vw;
   }
 }
+.create-pre__name-box {
+  position: relative;
+}
+.create-pre__btn-logout {
+  color: #b68d67;
+  font-size: 18px;
+  position: absolute;
+  bottom: 0;
+  right: -8px;
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0);
+}
+@media screen and (max-width: 768px) {
+  .create-pre__btn-logout {
+    font-size: 4.6875vw;
+    position: relative;
+    right: 0;
+    -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
+    margin-top: 2.34375vw;
+  }
+}
 .create-pre__realm {
   text-align: center;
   font-size: 20px;
@@ -3042,7 +3063,7 @@ body {
 @media screen and (max-width: 768px) {
   .create-task {
     row-gap: 11.71875vw;
-    margin-bottom: 7.8125vw;
+    margin-bottom: 10.4166666667vw;
   }
 }
 .create-task__list {
@@ -3153,7 +3174,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(127, 107, 84, 0.2)), color-stop(90%, rgba(194, 167, 121, 0)));
-  background-image: -o-linear-gradient(left, rgba(127, 107, 84, 0.2) 0%, rgba(194, 167, 121, 0) 90%);
   background-image: linear-gradient(to right, rgba(127, 107, 84, 0.2) 0%, rgba(194, 167, 121, 0) 90%);
 }
 @media screen and (max-width: 768px) {
@@ -3164,7 +3184,6 @@ body {
 }
 .create-task__item.complete {
   background-image: -webkit-gradient(linear, left top, right top, from(#c2a779), color-stop(90%, rgba(194, 167, 121, 0)));
-  background-image: -o-linear-gradient(left, #c2a779 0%, rgba(194, 167, 121, 0) 90%);
   background-image: linear-gradient(to right, #c2a779 0%, rgba(194, 167, 121, 0) 90%);
 }
 .create-task__item.complete .create-task__item-info span:first-child {

@@ -35,10 +35,10 @@
 		background-size: 100%;
 		background-image: url("./images/index-text-date.png");
 		margin-bottom: 30px;
+		background-repeat: no-repeat;
 		@include media {
 			width: vw(299);
 			height: vw(56);
-			background-image: url("./images/m-index-text-date.png");
 			margin-bottom: vw(100);
 		}
 	}

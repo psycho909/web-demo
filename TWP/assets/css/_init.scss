@@ -19,6 +19,14 @@
 	box-sizing: border-box;
 }
 
+html {
+	&.-ovh {
+		@include media {
+			overflow: hidden;
+		}
+	}
+}
+
 body {
 	min-width: 1200px;
 	background-color: #1c1b18;

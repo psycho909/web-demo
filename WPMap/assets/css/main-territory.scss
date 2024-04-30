@@ -140,6 +140,7 @@
 					background-color: rgba(#000, 1);
 					border: 1px solid rgba(#504338, 0.5);
 					border-radius: 0;
+
 					ul li {
 						border-bottom: 1px solid #504338;
 						&.-selected {
@@ -152,9 +153,11 @@
 							color: #877f7f;
 						}
 					}
+
 					@include media {
 						background-color: #000;
 						border: vw(1) solid #c2a779;
+
 						ul li {
 							font-size: vw(32);
 							color: #877f7f;
@@ -423,7 +426,6 @@
 		}
 		&-box {
 			position: relative;
-			margin-bottom: 60px;
 			&.stop-swiper {
 				.swiper-wrapper {
 					column-gap: 30px;
@@ -438,8 +440,13 @@
 					display: none;
 				}
 			}
+			&.-empty {
+				height: 456px;
+				@include media {
+					height: vw(711);
+				}
+			}
 			@include media {
-				margin-bottom: vw(60);
 				padding: 0 15%;
 			}
 		}
@@ -730,6 +737,18 @@
 						font-size: vw(32);
 					}
 				}
+			}
+		}
+	}
+	&__content {
+		margin-bottom: 60px;
+		@include media {
+			margin-bottom: vw(60);
+		}
+		&.-loading {
+			height: 456px;
+			@include media {
+				height: vw(711);
 			}
 		}
 	}
