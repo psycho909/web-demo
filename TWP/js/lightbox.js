@@ -22,13 +22,6 @@ export function MessageLB(msg, url, callback) {
 						}
 					}
 				}
-			},
-			{
-				text: "取消",
-				class: "btn-cancel",
-				click: function () {
-					$.gbox.close();
-				}
 			}
 		]
 	});

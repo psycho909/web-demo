@@ -121,6 +121,7 @@ const create = {
 			}
 			// 限制最多三個
 			if (titleData.value.length >= 3) {
+				MessageLB("持有的稱號已達上限，<br/>請先刪除1個稱號再進行召喚。");
 				return;
 			}
 			// 停止計時器

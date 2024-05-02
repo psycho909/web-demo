@@ -6,8 +6,8 @@
 		<title>Document</title>
 		<script type="text/javascript" src="./js/browser-image-compression.js"></script>
 		<script type="text/javascript" src="./js/jszip.min.js"></script>
-		<script src="https://cdn.staticfile.net/pako/1.0.5/pako.min.js"></script>
-		<script src="https://cdn.staticfile.net/upng-js/2.1.0/UPNG.min.js"></script>
+		<script src="./js/pako.min.js"></script>
+		<script src="./js/UPNG.min.js"></script>
 	</head>
 	<body>
 		<div id="drop-area" style="border: 2px dashed #ccc; padding: 20px; text-align: center">Drag images here or <input type="file" accept="image/*" multiple onchange="handleImageUpload(event);" /></div>
@@ -43,7 +43,6 @@
 			let dropArea = document.getElementById("drop-area");
 			let initialJPGQuality = 0.5;
 			let initialPNGQuality = 0.5;
-			let imageGroup = [];
 			// 防止瀏覽器默認行為
 			["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
 				dropArea.addEventListener(eventName, preventDefaults, false);
@@ -116,31 +115,49 @@
 			async function handleImageUploadFiles(files) {
 				const zip = new JSZip();
 				let output;
-				imageGroup = [];
+				let imageGroup = [];
+				let fileSizeGroup = [];
+				let finishSizeGroup = [];
+				let fileSizeGroupSize = 0;
+				let finishSizeGroupSize = 0;
 				let processedFiles = 0;
+				let fileSize = 0;
+				let finishSize = 0;
 				progressDom.innerHTML = `Processing ${files.length} files...`;
-
 				for (const file of files) {
-					logDom.innerHTML += `<br/>Processing "${file.name}": ${(file.size / 1024 / 1024).toFixed(2)}mb ...`;
-
+					if (file.size / 1024 > 1024) {
+						fileSize = (file.size / 1024 / 1024).toFixed(2) + "mb";
+					} else {
+						fileSize = (file.size / 1024).toFixed(2) + "kb";
+					}
+					fileSizeGroup.push(file.size / 1024);
+					logDom.innerHTML += `<br/>Processing "${file.name}": ${fileSize} ...`;
 					const options = {
 						useWebWorker: true,
 						initialQuality: initialJPGQuality
 					};
-
 					try {
 						if (file.type === "image/png") {
 							output = await compressPNGImage(file, options);
 						} else {
 							output = await imageCompression(file, options);
 						}
+						if (output.size / 1024 > 1024) {
+							finishSize = (output.size / 1024 / 1024).toFixed(2) + "mb";
+						} else {
+							finishSize = (output.size / 1024).toFixed(2) + "kb";
+						}
 						// output產出Blob
+						finishSizeGroup.push(output.size / 1024);
 						imageGroup.push(output);
-						console.log(output);
 						zip.file(file.name, output);
-						logDom.innerHTML += ` Finished "${file.name}". ${(output.size / 1024 / 1024).toFixed(2)}mb`;
+						logDom.innerHTML += ` Finished "${file.name}". ${finishSize} ... -${parseInt(((file.size - output.size) / file.size) * 100)}%`;
+
+						fileSizeGroupSize = fileSizeGroup.reduce((a, b) => a + b, 0);
+						finishSizeGroupSize = finishSizeGroup.reduce((a, b) => a + b, 0);
+
 						processedFiles++;
-						progressDom.innerHTML = `Processed ${processedFiles} of ${files.length} files.`;
+						progressDom.innerHTML = `Processed ${processedFiles} of ${files.length} files... ${parseInt(((fileSizeGroupSize - finishSizeGroupSize) / fileSizeGroupSize) * 100)}%`;
 					} catch (error) {
 						alert(error.message);
 					}

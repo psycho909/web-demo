@@ -1185,9 +1185,13 @@ body {
 }
 @media screen and (max-width: 768px) {
   .nav-bar__social-item[data-type=yt] {
-    width: 7.5520833333vw;
-    height: 5.3385416667vw;
+    width: 13.28125vw;
+    height: 9.375vw;
     margin: 0 1.3020833333vw;
+    background-repeat: no-repeat;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
   }
 }
 .nav-bar__social-item[data-type=f] {
@@ -1204,9 +1208,35 @@ body {
 }
 @media screen and (max-width: 768px) {
   .nav-bar__social-item[data-type=f] {
-    width: 7.6822916667vw;
-    height: 7.5520833333vw;
+    width: 11.0677083333vw;
+    height: 11.0677083333vw;
     margin: 0 1.3020833333vw;
+    background-repeat: no-repeat;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+}
+.nav-bar__social-item[data-type=baha] {
+  margin: 0 26px;
+  width: 30px;
+  height: 27px;
+  background-image: url("./images/icon-baha.png");
+  background-size: 200%;
+}
+@media screen and (min-width: 768px) {
+  .nav-bar__social-item[data-type=baha]:hover {
+    background-position-x: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .nav-bar__social-item[data-type=baha] {
+    width: 13.28125vw;
+    height: 11.71875vw;
+    margin: 0 1.3020833333vw;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
   }
 }
 
@@ -2281,7 +2311,7 @@ body {
 .create-title {
   width: 100%;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 @media screen and (max-width: 768px) {
   .create-title {
@@ -2304,6 +2334,7 @@ body {
 }
 .create-event {
   width: 530px;
+  margin-top: -30px;
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
@@ -2314,6 +2345,7 @@ body {
         -ms-flex-order: 1;
             order: 1;
     width: 92.1875vw;
+    margin-top: 0;
   }
 }
 .create-event .create-pre {

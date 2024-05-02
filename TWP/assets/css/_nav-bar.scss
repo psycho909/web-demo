@@ -171,9 +171,11 @@
 					background-position-x: 100%;
 				}
 				@include media {
-					width: vw(58);
-					height: vw(41);
+					width: vw(102);
+					height: vw(72);
 					margin: 0 vw(10);
+					background-repeat: no-repeat;
+					order: 3;
 				}
 			}
 			&[data-type="f"] {
@@ -186,9 +188,27 @@
 					background-position-x: 100%;
 				}
 				@include media {
-					width: vw(59);
-					height: vw(58);
+					width: vw(85);
+					height: vw(85);
 					margin: 0 vw(10);
+					background-repeat: no-repeat;
+					order: 2;
+				}
+			}
+			&[data-type="baha"] {
+				margin: 0 26px;
+				width: 30px;
+				height: 27px;
+				background-image: url("./images/icon-baha.png");
+				background-size: 200%;
+				@include hover {
+					background-position-x: 100%;
+				}
+				@include media {
+					width: vw(102);
+					height: vw(90);
+					margin: 0 vw(10);
+					order: 1;
 				}
 			}
 		}
