@@ -11,6 +11,7 @@
 	bottom: 30px;
 	right: 50%;
 	margin-right: -700px;
+	z-index: 99;
 	@include media {
 		width: vw(80);
 		height: vw(80);
@@ -18,7 +19,7 @@
 		background-size: vw(30) vw(40);
 		background-position: center vw(22);
 		bottom: vw(30);
-		right: 0;
+		right: vw(30);
 		margin-right: 0;
 	}
 }

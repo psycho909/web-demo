@@ -16,9 +16,9 @@ const useEventStore = defineStore("event", {
 				Seq: 1
 			},
 			{
-				TitleName: "",
-				TitleLevel: 0,
-				Seq: 0
+				TitleName: "稱號3",
+				TitleLevel: 3,
+				Seq: 2
 			}
 		],
 		titleList: []
@@ -37,7 +37,26 @@ const useEventStore = defineStore("event", {
 			}
 		},
 		removeTitle(Seq) {
-			this.titleData = this.titleData.filter((title) => title.Seq !== Seq);
+			this.titleData = [
+				{
+					TitleName: "稱號1",
+					TitleLevel: 1,
+					Seq: 0
+				},
+				{
+					TitleName: "稱號3",
+					TitleLevel: 2,
+					Seq: 1
+				},
+				{
+					TitleName: "",
+					TitleLevel: 0,
+					Seq: 0
+				}
+			];
+			while (this.titleData.length < 3) {
+				this.titleData.push({ seq: 0, titleName: "", titleLevel: 0 });
+			}
 		},
 		setTitleData(data) {
 			this.titleList = data;

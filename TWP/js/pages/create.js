@@ -8,6 +8,8 @@ const { storeToRefs } = Pinia;
 const create = {
 	setup() {
 		let stopTimer;
+		let swiper = Vue.ref(null);
+		let splide = Vue.ref(null);
 		let canvasArr = Vue.ref([]);
 		let api = Vue.ref(false);
 		const store = useEventStore();
@@ -15,20 +17,29 @@ const create = {
 		const { titleData } = storeToRefs(store);
 		let CoolDownMin = Vue.ref(0);
 		Vue.watch(
-			canvasArr.value,
-			(val) => {
-				let canvasArrA = [];
-				val.forEach((item) => {
-					let type = item.getAttribute("data-type");
-					console.log($(item.firstElementChild));
-					const sprite = new CanvasSprite($(item.firstElementChild), 60, 0);
-					sprite.PreLoad("../../assets/css/images/bt_default/", "bt_default_0").then((res) => {
-						sprite.Loop();
+			() => store.titleData,
+			() => {
+				if (isMobile.any) {
+					Vue.nextTick(() => {
+						console.log("watch titleData");
+						splide.value.refresh();
+						// swiper.value = new Swiper(".create-hold__swiper", {
+						// 	slidesPerView: 3,
+						// 	spaceBetween: 30,
+						// 	// centeredSlides: true,
+						// 	loop: true,
+						// 	// width: 270,
+						// 	navigation: {
+						// 		nextEl: ".create-hold__item-next",
+						// 		prevEl: ".create-hold__item-prev"
+						// 	}
+						// });
+						// swiper.value.update();
+						// swiper.value.loopDestroy();
+						// swiper.value.loopCreate();
+						// swiper.value.slideToLoop(1);
 					});
-				});
-			},
-			{
-				immediate: true
+				}
 			}
 		);
 		// 數字轉換
@@ -156,16 +167,34 @@ const create = {
 			let data = [];
 			Mission(data);
 		};
+		const slideToGo = (page) => {
+			splide.value.go(page);
+		};
 		Vue.onMounted(() => {
 			quickCountdown();
 			if (isMobile.any) {
-				var swiper = new Swiper(".create-hold__box", {
-					loop: true,
-					navigation: {
-						nextEl: ".create-hold__item-next",
-						prevEl: ".create-hold__item-prev"
+				splide.value.value = new Splide(".splide", {
+					type: "loop",
+					padding: "20%",
+					pagination: false,
+					arrows: false,
+					classes: {
+						prev: "splide__arrow--prev create-hold__item-prev",
+						next: "splide__arrow--next create-hold__item-next"
 					}
 				});
+
+				splide.value.mount();
+				// swiper.value = new Swiper(".create-hold__swiper", {
+				// 	slidesPerView: 3,
+				// 	spaceBetween: 30,
+				// 	// centeredSlides: true,
+				// 	loop: true,
+				// 	navigation: {
+				// 		nextEl: ".create-hold__item-next",
+				// 		prevEl: ".create-hold__item-prev"
+				// 	}
+				// });
 			} else {
 				// $(".create-task__content").mCustomScrollbar({
 				// 	theme: "light",
@@ -184,7 +213,7 @@ const create = {
 				stopTimer.stop();
 			}
 		});
-		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr };
+		return { Notice, deleteItem, rollItem, titleData, formattedTime, MissionLB, canvasArr, deleteItem, slideToGo };
 	},
 	template: `
 		<div class="create-content">
@@ -216,23 +245,25 @@ const create = {
 						<a href="javascript:;" class="create-action__btn-protect" :class="[formattedTime.completed?'-disabled':'']" @click="rollItem"><div class="line"></div>召換天命</a>
 					</div>
 					<div class="create-hold">
-						<div class="create-hold__box swiper">
-							<div class="create-hold__list swiper-wrapper">
-								<div class="swiper-slide" v-for="i in titleData">
-									<div class="create-hold__item" :data-type="i.TitleLevel">
-										<template v-if="i.TitleLevel == 0">
-											<div class="create-hold__name">尚未持有天命</div>
-										</template>
-										<template v-else>
-											<div class="create-hold__name">{{i.TitleName}}</div>
-											<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i.Seq)">捨棄天命</a>
-										</template>
+						<div class="create-hold__box splide">
+							<div class="create-hold__swiper swiper splide__track">
+								<div class="create-hold__list swiper-wrapper splide__list">
+									<div class="swiper-slide splide__slide" v-for="i in titleData">
+										<div class="create-hold__item" :data-type="i.TitleLevel">
+											<template v-if="i.TitleLevel == 0">
+												<div class="create-hold__name">尚未持有天命</div>
+											</template>
+											<template v-else>
+												<div class="create-hold__name">{{i.TitleName}}</div>
+												<a href="javascript:;" class="create-hold__btn-set btn-common" @click="deleteItem(i)">捨棄天命</a>
+											</template>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="create-hold__item-prev"></div>
-							<div class="create-hold__item-next"></div>
 						</div>
+						<div class="create-hold__item-prev" @click="slideToGo('-1')"></div>
+						<div class="create-hold__item-next" @click="slideToGo('+1')"></div>
 					</div>
 				</div>
 			</div>

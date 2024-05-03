@@ -423,6 +423,7 @@
 		@include media {
 			width: 100%;
 			overflow: visible;
+			margin: 0 auto;
 		}
 		&-box {
 			position: relative;

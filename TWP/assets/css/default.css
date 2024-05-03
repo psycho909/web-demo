@@ -36,8 +36,8 @@ body {
 @media screen and (max-width: 768px) {
   .default .gbox-wrap {
     max-width: 95.3125vw;
-    margin-top: 10.4166666667vw;
-    margin-bottom: 10.4166666667vw;
+    margin-top: 0;
+    margin-bottom: 0;
     -webkit-box-shadow: inset 0 0 0 0.5208333333vw #c69d7b;
             box-shadow: inset 0 0 0 0.5208333333vw #c69d7b;
     padding: 7.8125vw;
@@ -237,6 +237,11 @@ body {
     width: 1.0416666667vw;
   }
 }
+@media screen and (max-width: 768px) {
+  .notice .mCSB_inside > .mCSB_container {
+    margin-right: 3.90625vw;
+  }
+}
 .notice-title {
   font-size: 36px;
   font-weight: bold;
@@ -259,6 +264,7 @@ body {
 @media screen and (max-width: 768px) {
   .notice-content {
     max-height: calc(100dvh - 27.34375vw - 20.8333333333vw);
+    margin-right: 5.2083333333vw;
   }
 }
 .notice-list {
@@ -268,8 +274,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .notice-list {
-    padding-left: 6.5104166667vw;
-    padding-right: 5.2083333333vw;
+    padding-left: 9.375vw;
   }
 }
 
@@ -951,7 +956,7 @@ body {
 }
 
 .nav-bar {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -1254,6 +1259,7 @@ body {
   bottom: 30px;
   right: 50%;
   margin-right: -700px;
+  z-index: 99;
 }
 @media screen and (max-width: 768px) {
   .top {
@@ -1264,7 +1270,7 @@ body {
     background-size: 3.90625vw 5.2083333333vw;
     background-position: center 2.8645833333vw;
     bottom: 3.90625vw;
-    right: 0;
+    right: 3.90625vw;
     margin-right: 0;
   }
 }
@@ -2053,6 +2059,9 @@ body {
     padding: 0;
     height: auto;
     padding: 2.6041666667vw 20.0520833333vw;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 }
 @media screen and (max-width: 768px) {
@@ -2759,6 +2768,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold {
+    padding: 0 15%;
     padding-bottom: 13.0208333333vw;
   }
 }
@@ -2776,12 +2786,29 @@ body {
     height: 8.8541666667vw;
   }
 }
-.create-hold__box.swiper, .create-hold__box.swiper-container {
+@media screen and (max-width: 768px) {
+  .create-hold__box {
+    width: 71.3541666667vw;
+    overflow: hidden;
+    position: relative;
+  }
+}
+.create-hold__swiper.swiper-container {
   overflow: initial;
 }
 @media screen and (max-width: 768px) {
-  .create-hold__box.swiper, .create-hold__box.swiper-container {
+  .create-hold__swiper.swiper-container {
     overflow: hidden;
+  }
+}
+.create-hold__swiper.swiper {
+  overflow: initial;
+}
+@media screen and (max-width: 768px) {
+  .create-hold__swiper.swiper {
+    width: 71.3541666667vw;
+    overflow: visible;
+    margin: 0 auto;
   }
 }
 @media screen and (max-width: 768px) {
@@ -2815,7 +2842,6 @@ body {
 }
 @media screen and (max-width: 768px) {
   .create-hold__list .swiper-slide {
-    width: 45.5729166667vw;
     height: 45.5729166667vw;
   }
 }
@@ -2949,14 +2975,17 @@ body {
   background-image: url("./images/btn-next.png");
   display: none;
   z-index: 99;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 @media screen and (max-width: 768px) {
   .create-hold__item-next {
-    width: 5.9895833333vw;
+    width: 5.9895833333vw !important;
     height: 7.8125vw;
     right: 2.2135416667vw;
     display: block;
-    margin-top: -3.125vw;
+    margin-top: -5.9895833333vw;
   }
 }
 .create-hold__item-prev {
@@ -2969,14 +2998,17 @@ body {
   background-image: url("./images/btn-prev.png");
   display: none;
   z-index: 99;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 @media screen and (max-width: 768px) {
   .create-hold__item-prev {
-    width: 5.9895833333vw;
+    width: 5.9895833333vw !important;
     height: 7.8125vw;
     left: 2.2135416667vw;
     display: block;
-    margin-top: -3.125vw;
+    margin-top: -5.9895833333vw;
   }
 }
 .create-hold .i--plus {
@@ -3274,7 +3306,7 @@ body {
   }
 }
 .create-task__item-notice:before {
-  content: "去完成";
+  content: "未完成";
   display: inline-block;
 }
 .create-btn__mission {
@@ -3313,6 +3345,25 @@ body {
   .create-btn__notice-box {
     display: none;
   }
+}
+
+.splide__pagination {
+  display: none;
+}
+
+.splide__arrow {
+  background-color: transparent;
+  border-radius: 0;
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+}
+.splide__arrow svg {
+  display: none;
+}
+
+.splide {
+  visibility: visible;
 }
 
 .plunder-content {

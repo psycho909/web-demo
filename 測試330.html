@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<style>
 			.video1 video {
 				display: none;
@@ -12,11 +14,21 @@
 		</style>
 	</head>
 	<body>
+		<div id="box"></div>
 		<div class="video1">
 			<!-- 當video有autoplay時，會無視display:none;及preload:none;，進入加載資源 -->
 			<video preload:none controls muted playsinline>
 				<source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_3840_2160_30fps.mp4" type="video/mp4" />
 			</video>
 		</div>
+		<script>
+			let obj = {
+				name: "<ROOBT>Hello<RBOOT>World!"
+			};
+			let HTML = "<ROOBT>Hello<RBOOT>World!";
+			let box = document.getElementById("box");
+			// $("#box").text(HTML);
+			box.textContent = "這個是" + obj.name;
+		</script>
 	</body>
 </html>

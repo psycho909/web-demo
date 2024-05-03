@@ -1638,6 +1638,7 @@ body::-webkit-scrollbar {
   .main-territory__swiper {
     width: 100%;
     overflow: visible;
+    margin: 0 auto;
   }
 }
 .main-territory__swiper-box {

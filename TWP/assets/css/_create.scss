@@ -354,6 +354,7 @@
 		padding-bottom: 60px;
 		z-index: 2;
 		@include media {
+			padding: 0 15%;
 			padding-bottom: vw(100);
 		}
 		&__title {
@@ -369,11 +370,26 @@
 			}
 		}
 		&__box {
-			&.swiper,
+			@include media {
+				width: vw(548);
+				overflow: hidden;
+				position: relative;
+			}
+		}
+		&__swiper {
 			&.swiper-container {
 				overflow: initial;
 				@include media {
 					overflow: hidden;
+				}
+			}
+			&.swiper {
+				overflow: initial;
+				@include media {
+					// width: vw(270);
+					width: vw(548);
+					overflow: visible;
+					margin: 0 auto;
 				}
 			}
 		}
@@ -397,7 +413,7 @@
 				height: 158px;
 				display: flex;
 				@include media {
-					width: vw(350);
+					// width: vw(270) !important;
 					height: vw(350);
 				}
 			}
@@ -505,12 +521,13 @@
 				background-image: url("./images/btn-next.png");
 				display: none;
 				z-index: 99;
+				transform: translateY(-50%);
 				@include media {
-					width: vw(46);
+					width: vw(46) !important;
 					height: vw(60);
 					right: vw(17);
 					display: block;
-					margin-top: vw(-24);
+					margin-top: vw(-46);
 				}
 			}
 			&-prev {
@@ -523,12 +540,13 @@
 				background-image: url("./images/btn-prev.png");
 				display: none;
 				z-index: 99;
+				transform: translateY(-50%);
 				@include media {
-					width: vw(46);
+					width: vw(46) !important;
 					height: vw(60);
 					left: vw(17);
 					display: block;
-					margin-top: vw(-24);
+					margin-top: vw(-46);
 				}
 			}
 		}
@@ -768,7 +786,7 @@
 					// border: vw(2) solid #c69d7b;
 				}
 				&:before {
-					content: "去完成";
+					content: "未完成";
 					display: inline-block;
 				}
 			}
@@ -805,3 +823,19 @@
 	}
 }
 // @include spriteAnimation(play, 0.8s, 12, infinite, 0%, -1200%);
+.splide__pagination {
+	display: none;
+}
+.splide__arrow {
+	background-color: transparent;
+	border-radius: 0;
+	opacity: 1;
+	position: absolute;
+	width: 100%;
+	svg {
+		display: none;
+	}
+}
+.splide {
+	visibility: visible;
+}

@@ -225,10 +225,10 @@ export function getAndRemoveQueryStringInsensitive(key) {
 }
 
 export function isValidString(input) {
-	// 正則表達式匹配特殊符號、空格、注音符號和全形英文字符
+	// 正則表達式匹配特殊符號、空格、注音符號、全形英文字符和數字
 	// 特殊符號範圍根據需求可自行調整
-	// 注音符號範圍為 \u3105-\u312F，全形英文範圍為 \uFF21-\uFF3A (大寫) 和 \uFF41-\uFF5A (小寫)
-	const forbiddenPattern = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~` \u3105-\u312F\uFF21-\uFF3A\uFF41-\uFF5A]+/;
+	// 注音符號範圍為 \u3105-\u312F，全形英文範圍為 \uFF21-\uFF3A (大寫) 和 \uFF41-\uFF5A (小寫)，數字範圍為 0-9
+	const forbiddenPattern = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`\u3105-\u312F\uFF21-\uFF3A\uFF41-\uFF5A\d]+/;
 
 	return !forbiddenPattern.test(input);
 }

@@ -72,6 +72,7 @@ export function Notice() {
 		hasCloseBtn: true,
 		hasActionBtn: false,
 		afterOpen: function () {
+			document.documentElement.style.overflow = "hidden";
 			$(".notice-content").mCustomScrollbar({
 				theme: "light",
 				contentTouchScroll: true,
@@ -82,6 +83,7 @@ export function Notice() {
 			});
 		},
 		afterClose: function () {
+			document.documentElement.style.overflow = "auto";
 			$.gbox.close();
 		}
 	};
