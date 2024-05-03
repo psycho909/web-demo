@@ -23,6 +23,7 @@ const create = {
 					Vue.nextTick(() => {
 						console.log("watch titleData");
 						splide.value.refresh();
+						splide.value.go(0);
 						// swiper.value = new Swiper(".create-hold__swiper", {
 						// 	slidesPerView: 3,
 						// 	spaceBetween: 30,
@@ -173,7 +174,7 @@ const create = {
 		Vue.onMounted(() => {
 			quickCountdown();
 			if (isMobile.any) {
-				splide.value.value = new Splide(".splide", {
+				splide.value = new Splide(".splide", {
 					type: "loop",
 					padding: "20%",
 					pagination: false,
