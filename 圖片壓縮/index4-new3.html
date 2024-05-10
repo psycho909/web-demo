@@ -66,21 +66,12 @@
 				} else if (!width && height) {
 					width = Math.round(decoded.width * (height / decoded.height));
 				}
-
-				// TODO: Resize dimensions using canvas
-
 				width = width || decoded.width;
 				height = height || decoded.height;
 
 				const compressed = UPNG.encode(rgba8, width, height, 256 * quality);
 
 				const newFile = new File([compressed], file.name || `${Date.now()}.png`, { type: "image/png" });
-				// const base64String = btoa(String.fromCharCode(...new Uint8Array(compressed)));
-				// const estimatedFileSize = (base64String.length * 3) / 4;
-				// if (!noCompressIfLarger) {
-				// 	return newFile;
-				// }
-				// console.log(estimatedFileSize, newFile);
 				return file.size > newFile.size ? newFile : file;
 			}
 			function blobToBase64(blob) {

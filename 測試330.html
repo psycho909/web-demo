@@ -11,9 +11,55 @@
 				display: none;
 				/* visibility: none; */
 			}
+			@keyframes rotate {
+				100% {
+					transform: rotate(1turn);
+				}
+			}
+
+			.conic {
+				position: relative;
+				z-index: 0;
+				width: 400px;
+				height: 300px;
+				margin: 20px;
+				border-radius: 10px;
+				overflow: hidden;
+				padding: 2rem;
+				background-image: url("./images/1.jpg");
+				&::before {
+					content: "";
+					position: absolute;
+					z-index: -2;
+					left: -50%;
+					top: -50%;
+					width: 200%;
+					height: 200%;
+					background-color: #1a232a;
+					background-repeat: no-repeat;
+					background-position: 0 0;
+					background-image: conic-gradient(transparent, rgba(168, 239, 255, 1), transparent 30%);
+					animation: rotate 4s linear infinite;
+				}
+
+				&::after {
+					content: "";
+					position: absolute;
+					z-index: -1;
+					left: 6px;
+					top: 6px;
+					width: calc(100% - 12px);
+					height: calc(100% - 12px);
+					background: #000;
+					border-radius: 5px;
+				}
+			}
 		</style>
 	</head>
 	<body>
+		<div>
+			<div class="conic"></div>
+		</div>
 		<div id="box"></div>
 		<div class="video1">
 			<!-- 當video有autoplay時，會無視display:none;及preload:none;，進入加載資源 -->

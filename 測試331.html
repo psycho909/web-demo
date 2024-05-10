@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script> -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h3>{{msg}}</h3>
+			<ul>
+				<li-one></li-one>
+			</ul>
+			<table>
+				<!-- <tr is="vue:one-two"></tr> -->
+				<tr is="one-two"></tr>
+			</table>
+		</div>
+		<script>
+			const Fragment = {
+				install(Vue) {
+					// install the teleporter
+					Vue.directive("fragment", {
+						inserted(element) {
+							const fragment = document.createDocumentFragment();
+							Array.from(element.childNodes).forEach((child) => fragment.appendChild(child));
+							element.parentNode.insertBefore(fragment, element);
+							element.parentNode.removeChild(element);
+						}
+					});
+
+					Vue.component("vue-fragment", {
+						template: `<div v-fragment><slot /></div>`
+					});
+				}
+			};
+
+			Vue.use(Fragment);
+			let LiOne = {
+				template: `
+					<li>213</li>
+				`
+			};
+			let OneTwo = {
+				template: `
+					<vue-fragment>
+					<tr>
+						<td>1-1</td>
+						<td>1-2</td>
+						<td>1-3</td>
+					</tr>
+					<tr>
+						<td>2-1</td>
+						<td>2-2</td>
+						<td>2-3</td>
+					</tr>
+					<tr>
+						<td>3-1</td>
+						<td>3-2</td>
+						<td>3-3</td>
+					</tr>
+				</vue-fragment>
+				`
+			};
+			new Vue({
+				el: "#app",
+				components: {
+					"one-two": OneTwo,
+					"li-one": LiOne
+				},
+				data: {
+					msg: "J"
+				}
+			});
+
+			// const app = Vue.createApp({
+			// 	components: {
+			// 		"one-two": OneTwo
+			// 	},
+			// 	data() {
+			// 		return {
+			// 			msg: "J"
+			// 		};
+			// 	}
+			// }).mount("#app");
+		</script>
+	</body>
+</html>
