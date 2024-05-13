@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<select v-model="selected">
+				<option value="-1">請選擇</option>
+				<option :value="l" v-for="l in list">{{l.name}}</option>
+			</select>
+			<button type="button" class="" @click="getSelected">get</button>
+		</div>
+
+		<script>
+			let app = Vue.createApp({
+				setup() {
+					let list = Vue.reactive([
+						{ id: 1, name: "A" },
+						{ id: 2, name: "B" },
+						{ id: 3, name: "C" }
+					]);
+					let selected = Vue.ref(-1);
+					let getSelected = () => {
+						console.log(selected.value);
+					};
+					return {
+						list,
+						selected,
+						getSelected
+					};
+				},
+				data() {
+					return {
+						msg: "Hello Vue 3"
+					};
+				}
+			}).mount("#app");
+		</script>
+	</body>
+</html>

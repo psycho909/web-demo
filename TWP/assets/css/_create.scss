@@ -412,6 +412,7 @@
 			display: flex;
 			column-gap: 16px;
 			justify-content: center;
+
 			.swiper-slide {
 				width: 145px;
 				height: 145px;
@@ -762,7 +763,7 @@
 					position: relative;
 					&:first-child {
 						color: #baa990;
-						margin-bottom: 6px;
+						margin-bottom: 4px;
 						@include media {
 							margin-bottom: vw(6);
 						}
@@ -842,4 +843,7 @@
 }
 .splide {
 	visibility: visible;
+}
+.splide.is-initialized:not(.is-active) .splide__list {
+	display: flex;
 }

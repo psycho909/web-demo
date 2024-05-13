@@ -595,24 +595,70 @@ export function RemoveTitle(Seq) {
 
 // 需強制出現跳窗告知玩家如何遊玩，且點擊按鈕後即可關閉跳窗(無需幫玩家抽取稱號)
 export function Guide() {
+	function handleOrientationChange() {
+		var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
+
+		switch (orientation) {
+			case 0:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+			case 90:
+			case -90:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+			case 180:
+				if (window.screen.width <= 768) {
+					if (isMobile.any) {
+						$(".lb-guide-step").mCustomScrollbar({
+							theme: "light",
+							contentTouchScroll: true,
+							mouseWheel: {
+								preventDefault: true
+							}
+						});
+					}
+				} else {
+					$(".lb-guide-step").mCustomScrollbar("disable", true);
+				}
+				break;
+		}
+	}
 	var config = {
 		addClass: "default lb-guide",
 		hasCloseBtn: false,
 		hasActionBtn: true,
 		afterOpen: function () {
 			document.documentElement.style.overflow = "hidden";
-			if (isMobile.any) {
-				$(".lb-guide-step").mCustomScrollbar({
-					theme: "light",
-					contentTouchScroll: true,
-					mouseWheel: {
-						preventDefault: true
-					}
-				});
-			}
+			// 在頁面加載時綁定事件監聽器
+			window.addEventListener("orientationchange", handleOrientationChange);
 		},
 		afterClose: function () {
 			document.documentElement.style.overflow = "auto";
+			window.removeEventListener("orientationchange", handleOrientationChange);
 			$.gbox.close();
 		},
 		actionBtns: [
@@ -621,6 +667,7 @@ export function Guide() {
 				class: "btn lb-create-btn",
 				click: function () {
 					document.documentElement.style.overflow = "auto";
+					window.removeEventListener("orientationchange", handleOrientationChange);
 					$.gbox.close();
 				}
 			}

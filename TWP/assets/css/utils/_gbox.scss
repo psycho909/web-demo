@@ -468,7 +468,7 @@
 .lb-guide {
 	.gbox-action {
 		@include media {
-			padding-right: vw(40);
+			padding-right: vw(70);
 		}
 	}
 	.gbox-wrap {
@@ -478,6 +478,39 @@
 			max-width: vw(732);
 			padding: vw(60);
 			padding-right: 0;
+		}
+	}
+	.mCS_disabled {
+		&.lb-guide-step {
+			display: block;
+		}
+		#mCSB_1_container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			column-gap: 30px;
+			position: relative;
+			&:before {
+				content: "";
+				width: 100%;
+				height: 1px;
+				background-color: rgba(#7b6d64, 0.5);
+				position: absolute;
+				top: 36px;
+				left: 50%;
+				transform: translateX(-50%);
+				@include media {
+					display: none;
+				}
+			}
+			@include media {
+				grid-template-columns: 1fr;
+				column-gap: 0;
+				row-gap: vw(48);
+				max-height: calc(100dvh - vw(340) - vw(160));
+				padding-right: vw(40);
+				width: 100%;
+				overflow: hidden;
+			}
 		}
 	}
 	.mCSB_scrollTools .mCSB_draggerRail {
@@ -511,7 +544,7 @@
 		@include media {
 			font-size: vw(60);
 			margin-bottom: vw(60);
-			padding-right: vw(40);
+			padding-right: vw(70);
 		}
 	}
 	&-content {
