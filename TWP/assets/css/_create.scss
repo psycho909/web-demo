@@ -323,12 +323,14 @@
 			bottom: 0;
 			right: -8px;
 			transform: translate(100%, 0);
+			width: 40px;
 			@include media {
 				font-size: vw(36);
 				position: relative;
 				right: 0;
 				transform: none;
 				margin-top: vw(18);
+				width: auto;
 			}
 		}
 		&__realm {

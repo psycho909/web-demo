@@ -599,53 +599,18 @@ export function Guide() {
 		var orientation = window.orientation || window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
 
 		setTimeout(() => {
-			switch (orientation) {
-				case 0:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
+			if (document.documentElement.clientWidth <= 768) {
+				if (isMobile.any) {
+					$(".lb-guide-step").mCustomScrollbar({
+						theme: "light",
+						contentTouchScroll: true,
+						mouseWheel: {
+							preventDefault: true
 						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("disable", true);
-					}
-					break;
-				case 90:
-				case -90:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
-						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("disable", true);
-					}
-					break;
-				case 180:
-					if (document.documentElement.clientWidth <= 768) {
-						if (isMobile.any) {
-							$(".lb-guide-step").mCustomScrollbar({
-								theme: "light",
-								contentTouchScroll: true,
-								mouseWheel: {
-									preventDefault: true
-								}
-							});
-						}
-					} else {
-						$(".lb-guide-step").mCustomScrollbar("disable", true);
-					}
-					break;
+					});
+				}
+			} else {
+				$(".lb-guide-step").mCustomScrollbar("destroy");
 			}
 		}, 200);
 	}
