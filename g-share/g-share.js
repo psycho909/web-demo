@@ -55,7 +55,7 @@
 	 * @param {*} hashtags 分享標籤
 	 * @returns {Object} 回傳分享連結
 	 */
-	exports.generateSocialShareUrls = function (url = "", title = "", description = "", hashtags = []) {
+	exports.generateSocialShareUrls = function ({ url = "", title = "", description = "", hashtags = [] } = {}) {
 		// Encode the common parameters
 		const encodedUrl = encodeURIComponent(url);
 		const encodedTitle = encodeURIComponent(title);

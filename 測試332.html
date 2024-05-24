@@ -4,23 +4,70 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
 		<!-- 開發用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
 		<!-- 正式用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<script src="https:///alpha-frontend.beanfun.com/plugins/topBar/topbar.js" id="top-bar" prod="新瑪奇"></script>
+		<script src="https://alpha-frontend.beanfun.com/plugins/cookie-bar/cookie-bar.js" id="cookie-bar"></script>
+		<script src="https://alpha-frontend.beanfun.com/plugins/g-calendar/g-calendar.js"></script>
+		<script src="https://alpha-frontend.beanfun.com/plugins/g-share/g-share.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://alpha-frontend.beanfun.com/plugins/gtime/gtime.js"></script>
+		<script src="https://alpha-frontend.beanfun.com/plugins/orientation/orientationResizeSwitchFunc.js"></script>
+		<style>
+			.mySwiper {
+				width: 300px;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app">
+			<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">
+				<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒</a>
+				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒</a>
+				<a class="g-calendar-outlook" href="javascript:;">outlook 活動行事曆提醒</a>
+			</div>
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="l in list">Slide {{l.name}} <a href="javascript:;" @click="handleClick(l.name)">按鈕</a></div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
 			<select v-model="selected">
 				<option value="-1">請選擇</option>
 				<option :value="l" v-for="l in list">{{l.name}}</option>
 			</select>
 			<button type="button" class="" @click="getSelected">get</button>
 		</div>
-
+		<script type="text/javascript" src="./js/game-footer.js" id="game-footer" prod="波拉西亞" theme="dark"></script>
 		<script>
+			function LB() {
+				let msg = "gbox內容";
+				let config = {
+					actionBtns: [
+						{
+							text: "按鈕文字",
+							id: "按鈕id",
+							class: "按鈕class",
+							target: true,
+							click: "https://chatgpt.com/?oai-dm=1"
+						}
+					]
+				};
+				$.gbox.open(msg, config);
+			}
 			let app = Vue.createApp({
 				setup() {
+					let swiper3 = Vue.ref(null);
 					let list = Vue.reactive([
 						{ id: 1, name: "A" },
 						{ id: 2, name: "B" },
@@ -30,10 +77,24 @@
 					let getSelected = () => {
 						console.log(selected.value);
 					};
+					let handleClick = (name) => {
+						console.log(name);
+					};
+					Vue.onMounted(() => {
+						swiper3.value = new Swiper(".swiper ", {
+							loop: true,
+							navigation: {
+								nextEl: ".swiper-button-next",
+								prevEl: ".swiper-button-prev"
+							}
+						});
+					});
 					return {
 						list,
 						selected,
-						getSelected
+						getSelected,
+						handleClick,
+						swiper3
 					};
 				},
 				data() {

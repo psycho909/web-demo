@@ -1,10 +1,11 @@
-import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated, PrePhone } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
 // Guide();
 // SelectCreated();
+// PrePhone();
 const create = {
 	setup() {
 		let stopTimer;
@@ -211,6 +212,11 @@ const create = {
 	},
 	template: `
 		<div class="create-content">
+			<teleport to="#app">
+				<a href="https://warsofprasia-event.beanfun.com/Event/E20240516Register/Index" target="_blank" class="create-watermark v3">
+					<span class="create-watermark__box"><span></span></span>
+				</a>
+			</teleport>
 			<div class="create-title"><span></span></div>
 			<div class="create-event">
 				<div class="create-pre">
