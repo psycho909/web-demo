@@ -8,28 +8,102 @@
 
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+
 		<!-- 開發用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
 		<!-- 正式用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
-		<script src="https:///alpha-frontend.beanfun.com/plugins/topBar/topbar.js" id="top-bar" prod="新瑪奇"></script>
-		<script src="https://alpha-frontend.beanfun.com/plugins/cookie-bar/cookie-bar.js" id="cookie-bar"></script>
-		<script src="https://alpha-frontend.beanfun.com/plugins/g-calendar/g-calendar.js"></script>
-		<script src="https://alpha-frontend.beanfun.com/plugins/g-share/g-share.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
-		<script src="https://alpha-frontend.beanfun.com/plugins/gtime/gtime.js"></script>
-		<script src="https://alpha-frontend.beanfun.com/plugins/orientation/orientationResizeSwitchFunc.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/gbox/gbox.js"></script>
+		<script src="https:///frontend.beanfun.com/plugins/topBar/topbar.js" id="top-bar" prod="新瑪奇"></script>
+		<script src="https://frontend.beanfun.com/plugins/cookie-bar/cookie-bar.js" id="cookie-bar"></script>
+		<script src="https://frontend.beanfun.com/plugins/g-calendar/g-calendar.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/g-share/g-share.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/loadingProgress/loadingProgress.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/gtime/gtime.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/orientation/orientationResizeSwitchFunc.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/game-footer/game-footer.js" id="game-footer" prod="天堂國際服" theme="dark"></script>
+
 		<style>
 			.mySwiper {
 				width: 300px;
+			}
+			.box {
+				background-color: #000;
+			}
+			.tab {
+				width: 217px;
+				height: 31px;
+				background-size: cover;
+				background-image: url("./images/tab1-off.png");
+				cursor: pointer;
+			}
+			.tab:hover {
+				filter: saturate(1.2) brightness(1.5) contrast(1.6);
+			}
+			.text {
+				width: 124px;
+				height: 25px;
+				background-size: cover;
+				background-image: url("./images/nav-text.png");
+				filter: brightness(2) drop-shadow(0 0 1px #fff000) drop-shadow(0 0 4px #fff000);
+			}
+			.event1 {
+				width: 341px;
+				height: 385px;
+				position: relative;
+			}
+			.event1:before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 100%;
+				height: 100%;
+				background-size: 200%;
+				background-image: url("./images/page2-event1.png");
+				background-position-x: 0;
+				background-repeat: no-repeat;
+			}
+			.event1:after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 100%;
+				height: 100%;
+				background-size: 200%;
+				background-image: url("./images/page2-event1.png");
+				background-position-x: 100%;
+				background-position-y: 0;
+				background-repeat: no-repeat;
+				display: none;
+			}
+			.event1:hover:before {
+				display: none;
+			}
+			.event1:hover:after {
+				display: block;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
+			<div class="box">
+				<div class="event1"></div>
+				<div class="tab"></div>
+				<div class="text"></div>
+			</div>
+			<div class="g-share" data-url="https://tw-event.beanfun.com/mapleStory/Event/E20231206/Index.aspx" data-title="我是標題" data-desc="我是描述" data-hashtag="Maple,MD">
+				<a href="javascript:;" target="_blank" class="g-share-fb">fb</a>
+				<a href="javascript:;" target="_blank" class="g-share-line">line</a>
+				<a href="javascript:;" target="_blank" class="g-share-twitter">twitter</a>
+				<a href="javascript:;" target="_blank" class="g-share-native">native</a>
+				<a href="javascript:;" class="g-share-copy">copy</a>
+			</div>
+
 			<div class="g-calendar" begin="2021/07/19 10:00" end="2021/07/19 12:00" title="天堂活動頁" description="descriptiondescriptiondescription" autoDetectDevice="true">
 				<a class="g-calendar-google" href="javascript:;">Google 活動行事曆提醒</a>
 				<a class="g-calendar-ios" href="javascript:;">IOS 活動行事曆提醒</a>
@@ -40,7 +114,7 @@
 					<div class="swiper-slide" v-for="l in list">Slide {{l.name}} <a href="javascript:;" @click="handleClick(l.name)">按鈕</a></div>
 				</div>
 				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+				<div class="siper-button-prev"></div>
 			</div>
 			<select v-model="selected">
 				<option value="-1">請選擇</option>
@@ -48,8 +122,11 @@
 			</select>
 			<button type="button" class="" @click="getSelected">get</button>
 		</div>
-		<script type="text/javascript" src="./js/game-footer.js" id="game-footer" prod="波拉西亞" theme="dark"></script>
+		<!-- <script type="text/javascript" src="./js/game-footer.js" id="game-footer" prod="波拉西亞" theme="dark"></script> -->
 		<script>
+			window.addEventListener("pageshow", function (event) {
+				console.log("after , pageshow :", event);
+			});
 			function LB() {
 				let msg = "gbox內容";
 				let config = {

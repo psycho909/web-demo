@@ -107,12 +107,14 @@
 			list-style-type: none;
 			display: flex;
 			column-gap: 100px;
+			margin-left: 142px;
 			@include media {
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				column-gap: 0;
 				row-gap: vw(60);
+				margin-left: 0;
 			}
 		}
 		&-item {

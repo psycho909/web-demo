@@ -1668,6 +1668,7 @@ body {
   -webkit-column-gap: 100px;
      -moz-column-gap: 100px;
           column-gap: 100px;
+  margin-left: 142px;
 }
 @media screen and (max-width: 768px) {
   .nav-bar__menu-list {
@@ -1685,6 +1686,7 @@ body {
        -moz-column-gap: 0;
             column-gap: 0;
     row-gap: 7.8125vw;
+    margin-left: 0;
   }
 }
 .nav-bar__menu-item a {
