@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="player"></div>
-    <script async src="https://www.youtube.com/iframe_api"></script>
-    <script>
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '360',
-                width: '640',
-                videoId: 'i5RNvD7dpgU',
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-        var done = false;
-        function onPlayerStateChange(event) {
-            console.log(event.data,YT.PlayerState.ENDED)
-            if (event.data == YT.PlayerState.ENDED) {
-                player.loadVideoById("i5RNvD7dpgU")
-                // setTimeout(stopVideo, 10);
-                // done = true;
-            }
-        }
-        function stopVideo() {
-            console.log("Stop")
-            player.stopVideo();
-        }
-    </script>
-</body>
-
+	<body>
+		<div id="player"></div>
+		<script async src="https://www.youtube.com/iframe_api"></script>
+		<script>
+			var player;
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player("player", {
+					playerVars: {
+						controls: 0,
+						modestbranding: 0,
+						showinfo: 0,
+						rel: 0,
+						loop: 1,
+						fs: 0, // 顯示全螢幕按鈕
+						cc_load_policty: 0, // 隱藏字幕
+						iv_load_policy: 3, // 隱藏影片註解
+						autohide: 0 // 播放影片時隱藏影片控制列
+					},
+					height: "360",
+					width: "640",
+					videoId: "i5RNvD7dpgU",
+					events: {
+						onReady: onPlayerReady,
+						onStateChange: onPlayerStateChange
+					}
+				});
+			}
+			function onPlayerReady(event) {
+				console.log("123");
+				event.target.playVideo();
+			}
+			var done = false;
+			function onPlayerStateChange(event) {
+				console.log(event.data, YT.PlayerState.ENDED);
+				if (event.data == YT.PlayerState.ENDED) {
+					player.loadVideoById("i5RNvD7dpgU");
+					// setTimeout(stopVideo, 10);
+					// done = true;
+				}
+			}
+			function stopVideo() {
+				console.log("Stop");
+				player.stopVideo();
+			}
+		</script>
+	</body>
 </html>

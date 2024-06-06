@@ -1,10 +1,11 @@
-import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated } from "../lightbox.js";
+import { Notice, MessageLB, Mission, RemoveTitle, Guide, SelectCreated, PrePhone } from "../lightbox.js";
 import { GetUserCharacterData, InsertTitleLog, UpdateTitleLog } from "../api.js";
 import { CanvasSprite } from "../canvas.js";
 import useEventStore from "../store.js";
 const { storeToRefs } = Pinia;
 // Guide();
 // SelectCreated();
+// PrePhone();
 const create = {
 	setup() {
 		let stopTimer;
@@ -22,78 +23,25 @@ const create = {
 				orientation = orientation.angle;
 			}
 			setTimeout(() => {
-				switch (orientation) {
-					case 0:
-						// 裝置直立
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.any) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
+				if (document.documentElement.clientWidth <= 768) {
+					if (isMobile.any) {
+						splide.value = new Splide(".splide", {
+							type: "loop",
+							padding: "20%",
+							pagination: false,
+							arrows: false,
+							classes: {
+								prev: "splide__arrow--prev create-hold__item-prev",
+								next: "splide__arrow--next create-hold__item-next"
+							}
+						});
 
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-						break;
-					case 90:
-					case -90:
-						// 裝置橫向
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.phone) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
-
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-
-						break;
-					case 180:
-						// 裝置上下顛倒
-						if (document.documentElement.clientWidth <= 768) {
-							if (isMobile.any) {
-								splide.value = new Splide(".splide", {
-									type: "loop",
-									padding: "20%",
-									pagination: false,
-									arrows: false,
-									classes: {
-										prev: "splide__arrow--prev create-hold__item-prev",
-										next: "splide__arrow--next create-hold__item-next"
-									}
-								});
-
-								splide.value.mount();
-							}
-						} else {
-							if (splide.value !== null) {
-								splide.value.destroy();
-							}
-						}
-						break;
+						splide.value.mount();
+					}
+				} else {
+					if (splide.value !== null) {
+						splide.value.destroy();
+					}
 				}
 			}, 200);
 		}
@@ -264,6 +212,11 @@ const create = {
 	},
 	template: `
 		<div class="create-content">
+			<teleport to="#app">
+				<a href="https://warsofprasia-event.beanfun.com/Event/E20240516Register/Index" target="_blank" class="create-watermark v3">
+					<span class="create-watermark__box"><span></span></span>
+				</a>
+			</teleport>
 			<div class="create-title"><span></span></div>
 			<div class="create-event">
 				<div class="create-pre">

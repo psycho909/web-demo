@@ -40,6 +40,20 @@
 				width: calc(1920 / 1920 * 100vw);
 				height: calc(1080 / 1920 * 100vw);
 			}
+			.canvas-4 {
+				width: calc(1180 / 1920 * 100vw);
+				height: calc(500 / 1920 * 100vw);
+				z-index: 1;
+			}
+			.canvas-5 {
+				width: calc(1180 / 1920 * 100vw);
+				height: calc(500 / 1920 * 100vw);
+				z-index: 2;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: none;
+			}
 			.btn-box {
 				position: absolute;
 				top: 0;
@@ -50,6 +64,9 @@
 			.loading {
 				background-color: #000;
 			}
+			.linear {
+				position: relative;
+			}
 		</style>
 	</head>
 	<body>
@@ -58,6 +75,10 @@
 			<button id="stop" class="btn">停止</button>
 		</div>
 		<div class="flex">
+			<div class="linear">
+				<canvas class="canvas canvas-4" width="1180" height="500"></canvas>
+				<canvas class="canvas canvas-5" width="1180" height="500"></canvas>
+			</div>
 			<div class="c">
 				<canvas class="canvas canvas-1" width="1000" height="429"></canvas>
 			</div>
@@ -140,10 +161,11 @@
 						}
 
 						if (_this.index < _this.step) {
+							// resolve(_this.index);
 							requestAnimationFrame(runAnimation);
 						} else {
 							_this.index = 0;
-							resolve(); // 當動畫完成時解決 Promise
+							resolve(_this.index); // 當動畫完成時解決 Promise
 						}
 					}
 					requestAnimationFrame(runAnimation);
@@ -195,10 +217,12 @@
 			var c1 = new CanvasSprite($(".canvas-1"), 12, 0);
 			var c2 = new CanvasSprite($(".canvas-2"), 60, 0);
 			var c3 = new CanvasSprite($(".canvas-3"), 60, 0);
+			var c4 = new CanvasSprite($(".canvas-4"), 72, 0);
+			var c5 = new CanvasSprite($(".canvas-5"), 72, 0);
 			loadingProgress({
 				loadedFN: function () {
 					// 進入判斷所有圖片Loading完後關閉Loading
-					Promise.allSettled([c1.PreLoad("./gold/", "A 獎_rander_00001"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./slide1-2/", "20000")]).then((res) => {
+					Promise.allSettled([c1.PreLoad("./gold/", "A 獎_rander_00001"), c2.PreLoad("./bt_default/", "bt_default_"), c3.PreLoad("./slide1-2/", "20000"), c4.PreLoad("./title/", "_render_in_00"), c5.PreLoad("./slogan/", "_render_loop_00")]).then((res) => {
 						$("#loadingProgress").hide();
 					});
 				},
@@ -215,15 +239,23 @@
 				// 	}
 				// });
 				c1.Run().then(() => {
-					console.log("DONE");
+					// console.log("DONE");
 				});
 				c2.Loop();
 				c3.Loop();
+				c4.Run().then((res) => {
+					console.log(res);
+					$(".canvas-5").fadeIn();
+					$(".canvas-4").fadeOut();
+					c5.Loop();
+					console.log("DONE");
+				});
 			});
 			$("#stop").on("click", function () {
 				c1.Stop();
 				c2.Stop();
 				c3.Stop();
+				c4.Stop();
 			});
 		</script>
 	</body>

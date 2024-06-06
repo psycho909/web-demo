@@ -52,7 +52,7 @@
 						fs: 0, // 顯示全螢幕按鈕
 						cc_load_policty: 0, // 隱藏字幕
 						iv_load_policy: 3, // 隱藏影片註解
-						autohide: 0, // 播放影片時隱藏影片控制列
+						autohide: 0 // 播放影片時隱藏影片控制列
 					},
 					events: {
 						onReady: function (e) {
@@ -68,14 +68,14 @@
 							if (e.data === 0) {
 								player.playVideo();
 							}
-						},
-					},
+						}
+					}
 				});
 			}
 
 			// 需要加上
 			// enablejsapi=1
-			var videoHTML = `<div class="video-box"><iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/0D0CSOjE8oU?playsinline=1&amp;autoplay=1&amp;mute=1&amp;rel=0;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+			var videoHTML = `<div class="video-box"><iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/ymOEAuApF1I?playsinline=1&amp;autoplay=1&amp;mute=1&amp;rel=0;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
 			// var videoHTML = '<div id="home-video" data-video="0D0CSOjE8oU"></div';
 			var defaultObj = {
 				addClass: "default",
@@ -92,7 +92,7 @@
 							onYouTubeIframeAPIReady();
 						}
 					}
-				},
+				}
 			};
 			$.gbox.open(videoHTML, defaultObj);
 			document.getElementById("btn").addEventListener("click", function () {

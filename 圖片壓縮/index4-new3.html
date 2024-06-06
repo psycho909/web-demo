@@ -10,8 +10,9 @@
 	</head>
 	<body>
 		<input id="file" type="file" accept="image/*" />
-		<a href="javascript:;" id="compress">壓縮</a>
-		<div>
+		<a href="javascript:;" id="compress">壓縮按鈕</a>
+		<!-- 壓縮率設定 -->
+		<!-- <div>
 			<div>
 				<label>
 					<input type="checkbox" id="useDefaultQuality" checked />
@@ -34,22 +35,23 @@
 				<label> Custom Compression Quality: <span id="pngQualityValue">0.5</span> </label>
 				<input type="range" id="customPNGQuality" min="0.1" max="1" step="0.1" value="0.5" />
 			</div>
-		</div>
-		<p id="main-thread-log"></p>
-		<div id="progress"></div>
+		</div> -->
+		<!-- 顯示壓縮前後大小 -->
+		<!-- <p id="main-thread-log"></p> -->
 		<script>
-			let logDom = document.querySelector("#main-thread-log");
-			let progressDom = document.querySelector("#progress");
-			let dropArea = document.getElementById("drop-area");
-			let initialJPGQuality = 0.5;
-			let initialPNGQuality = 0.5;
+			let logDom = document.querySelector("#main-thread-log"); // 顯示壓縮前後大小
+			let initialJPGQuality = 0.5; // JPG 壓縮率
+			let initialPNGQuality = 0.5; // PNG 壓縮率
 
-			document.querySelector("#compress").addEventListener("click", function () {
+			// 壓縮按鈕
+			document.querySelector("#compress").addEventListener("click", async function () {
 				let file = document.querySelector("#file").files[0];
 				if (!file) {
 					return;
 				}
-				handleImageUpload(file);
+				// 處理上傳圖片回傳base64
+				let base64String = await handleImageUploadFile(file);
+				console.log(base64String);
 			});
 
 			// PNG 壓縮
@@ -86,18 +88,18 @@
 					reader.readAsDataURL(blob);
 				});
 			}
-			// 处理上传的图片
+			// 處理上傳圖片
 			async function handleImageUploadFile(file) {
 				let output;
 				let fileSize = 0;
 				let finishSize = 0;
-
+				let logDomStr = "";
 				if (file.size / 1024 > 1024) {
 					fileSize = (file.size / 1024 / 1024).toFixed(2) + "mb";
 				} else {
 					fileSize = (file.size / 1024).toFixed(2) + "kb";
 				}
-				logDom.innerHTML += `<br/>Processing "${file.name}": ${fileSize} ...`;
+				logDomStr += `<br/>壓縮前: "${file.name}": ${fileSize} ...`;
 
 				const options = {
 					useWebWorker: true,
@@ -112,7 +114,7 @@
 					}
 
 					const base64String = await blobToBase64(output);
-					logDom.innerHTML += `Finished "${file.name}".`;
+					logDomStr += `壓縮後: "${file.name}".`;
 
 					let compressedSize = 0;
 					if (output.size / 1024 > 1024) {
@@ -120,72 +122,73 @@
 					} else {
 						compressedSize = (output.size / 1024).toFixed(2) + "kb";
 					}
-					console.log(base64String);
 					let compressionPercentage = ((1 - output.size / file.size) * 100).toFixed(2);
-					logDom.innerHTML += `${compressedSize}, Compression: ${compressionPercentage}% <a href="${base64String}" download="${file.name}">Download</a>`;
+					logDomStr += `${compressedSize}, 壓縮率: ${compressionPercentage}% <a href="${base64String}" download="${file.name}">Download</a>`;
+					if (logDom) {
+						logDom.innerHTML = logDomStr;
+					}
 					document.querySelector("#file").value = "";
+					return base64String;
 				} catch (error) {
 					alert(error.message);
 				}
 			}
 
-			async function handleImageUpload(event) {
-				// const file = event.target.files[0];
-				await handleImageUploadFile(event);
-			}
-
 			// 控制JPG壓縮率開關
-			document.getElementById("useDefaultQuality").addEventListener("change", function (e) {
-				const isDefault = e.target.checked;
+			if (document.getElementById("useDefaultQuality")) {
+				document.getElementById("useDefaultQuality").addEventListener("change", function (e) {
+					const isDefault = e.target.checked;
+					const customQualityControl = document.getElementById("customQualityControl");
+					const customQualitySlider = document.getElementById("customQuality");
+
+					if (isDefault) {
+						initialJPGQuality = 0.5; // 使用默認壓縮率
+						customQualityControl.style.display = "none";
+					} else {
+						customQualityControl.style.display = "block";
+						initialJPGQuality = parseFloat(customQualitySlider.value);
+					}
+					document.getElementById("qualityValue").textContent = initialJPGQuality.toString();
+				});
+
+				document.getElementById("customQuality").addEventListener("input", function (e) {
+					initialJPGQuality = parseFloat(e.target.value);
+					document.getElementById("qualityValue").textContent = initialJPGQuality.toString();
+				});
+				// 初始JPG&PNG使用默認壓縮率
+				const isDefault = document.getElementById("useDefaultQuality").checked;
 				const customQualityControl = document.getElementById("customQualityControl");
-				const customQualitySlider = document.getElementById("customQuality");
-
-				if (isDefault) {
-					initialJPGQuality = 0.5; // 使用默认的压缩率
-					customQualityControl.style.display = "none"; // 隐藏滑动条
-				} else {
-					customQualityControl.style.display = "block"; // 显示滑动条
-					initialJPGQuality = parseFloat(customQualitySlider.value); // 使用滑动条的值作为压缩率
+				if (!isDefault) {
+					customQualityControl.style.display = "block";
 				}
-				document.getElementById("qualityValue").textContent = initialJPGQuality.toString();
-			});
-
-			document.getElementById("customQuality").addEventListener("input", function (e) {
-				initialJPGQuality = parseFloat(e.target.value);
-				document.getElementById("qualityValue").textContent = initialJPGQuality.toString();
-			});
+			}
 
 			// 控制PNG壓縮率開關
-			document.getElementById("useDefaultPNGQuality").addEventListener("change", function (e) {
-				const isDefault = e.target.checked;
-				const customQualityControl = document.getElementById("customPNGQualityControl");
-				const customQualitySlider = document.getElementById("customPNGQuality");
+			if (document.getElementById("useDefaultPNGQuality")) {
+				document.getElementById("useDefaultPNGQuality").addEventListener("change", function (e) {
+					const isDefault = e.target.checked;
+					const customQualityControl = document.getElementById("customPNGQualityControl");
+					const customQualitySlider = document.getElementById("customPNGQuality");
 
-				if (isDefault) {
-					initialPNGQuality = 0.5;
-					customQualityControl.style.display = "none";
-				} else {
-					customQualityControl.style.display = "block";
-					initialPNGQuality = parseFloat(customQualitySlider.value);
+					if (isDefault) {
+						initialPNGQuality = 0.5;
+						customQualityControl.style.display = "none";
+					} else {
+						customQualityControl.style.display = "block";
+						initialPNGQuality = parseFloat(customQualitySlider.value);
+					}
+					document.getElementById("pngQualityValue").textContent = initialPNGQuality.toString();
+				});
+
+				document.getElementById("customPNGQuality").addEventListener("input", function (e) {
+					initialPNGQuality = parseFloat(e.target.value);
+					document.getElementById("pngQualityValue").textContent = initialPNGQuality.toString();
+				});
+				const isPNGDefault = document.getElementById("useDefaultPNGQuality").checked;
+				const customPNGQualityControl = document.getElementById("customPNGQualityControl");
+				if (!isPNGDefault) {
+					customPNGQualityControl.style.display = "block";
 				}
-				document.getElementById("pngQualityValue").textContent = initialPNGQuality.toString();
-			});
-
-			document.getElementById("customPNGQuality").addEventListener("input", function (e) {
-				initialPNGQuality = parseFloat(e.target.value);
-				document.getElementById("pngQualityValue").textContent = initialPNGQuality.toString();
-			});
-
-			// 初始JPG&PNG使用默認壓縮率
-			const isDefault = document.getElementById("useDefaultQuality").checked;
-			const customQualityControl = document.getElementById("customQualityControl");
-			if (!isDefault) {
-				customQualityControl.style.display = "block";
-			}
-			const isPNGDefault = document.getElementById("useDefaultPNGQuality").checked;
-			const customPNGQualityControl = document.getElementById("customPNGQualityControl");
-			if (!isPNGDefault) {
-				customPNGQualityControl.style.display = "block";
 			}
 		</script>
 	</body>

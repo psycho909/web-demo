@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 		<!-- Link Swiper's CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/css/splide.min.css" integrity="sha512-KhFXpe+VJEu5HYbJyKQs9VvwGB+jQepqb4ZnlhUF/jQGxYJcjdxOTf6cr445hOc791FFLs18DKVpfrQnONOB1g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<!-- Demo styles -->
 		<style>
 			html,
@@ -44,12 +45,24 @@
 				height: 100%;
 				object-fit: cover;
 			}
+			.navContent a:not([href]) {
+				color: red;
+			}
 		</style>
 	</head>
 
 	<body>
+		<div class="navContent">
+			<a target="_blank"><span>事前預約</span></a> <a href="https://warsofprasia-event.beanfun.com/Event/E20240516/" target="_blank"><span>預先創角</span></a> <a href="https://warsofprasia-cbt.beanfun.com/" target="_blank"><span>英雄前哨戰</span></a> <a href="https://warsofprasia.beanfun.com" target="_blank"><span>前往官網</span></a>
+		</div>
+		<select id="edit_BullentinRootId">
+			<option id="天M" value="0">天M</option>
+			<option id="新楓之谷" value="1">新楓之谷</option>
+			<option id="Slide2" value="2">Slide2</option>
+			<option id="Slide3" value="3">Slide3</option>
+		</select>
 		<!-- Swiper -->
-		<section class="splide" aria-label="Splide Basic HTML Example">
+		<!-- <section class="splide" aria-label="Splide Basic HTML Example">
 			<div class="splide__track">
 				<ul class="splide__list">
 					<li class="splide__slide">Slide 01</li>
@@ -57,19 +70,34 @@
 					<li class="splide__slide">Slide 03</li>
 				</ul>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- Swiper JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js" integrity="sha512-4TcjHXQMLM7Y6eqfiasrsnRCc8D/unDeY1UGKGgfwyLUCTsHYMxF7/UHayjItKQKIoP6TTQ6AMamb9w2GMAvNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 		<!-- Initialize Swiper -->
 		<script>
-			var splide = new Splide(".splide", {
-				type: "loop",
-				padding: "5rem"
-			});
+			function selected(name) {
+				$("#edit_BullentinRootId option").each(function (index, element) {
+					if ($(element).attr("id") == name) {
+						$("#edit_BullentinRootId").val($(element).val());
+					}
+				});
+			}
 
-			splide.mount();
+			// var splide = new Splide(".splide", {
+			// 	type: "loop",
+			// 	padding: "5rem"
+			// });
+
+			// splide.mount();
+
+			// function handleOrientationChange() {
+			// 	setTimeout(() => {
+			// 		console.log(document.documentElement.clientWidth, window.innerWidth);
+			// 	}, 100);
+			// }
+			// window.addEventListener("orientationchange", handleOrientationChange);
 		</script>
 	</body>
 </html>
