@@ -171,7 +171,11 @@
 					scrollingSpeed: 0,
 					anchors: ["sec1", "sec2", "sec3", "sec4"],
 					fitToSectionDelay: 600,
+					afterLoad: function (anchorLink, index) {
+						console.log("afterLoad");
+					},
 					onLeave: function (origin, nextIndex, direction) {
+						console.log("onLeave");
 						var sec_leave = "#section" + origin;
 						var sec_arrive = "#section" + nextIndex;
 						if (!stopper) {
@@ -193,7 +197,7 @@
 							return false;
 						}
 						console.log(origin, nextIndex, direction);
-					},
+					}
 				});
 			});
 		</script>

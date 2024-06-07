@@ -529,6 +529,19 @@ gf_jsonData = {
 	},
 	波拉西亞: {
 		logoImg: {
+<<<<<<< HEAD
+			dark: ["logos/logo-gama.png", "logos/logo-nexon.png", "logos/logo-beanfun.png"],
+			light: ["logos/logo-gama.png", "logos/logo-nexon-w.png", "logos/logo-beanfun-w.png"]
+		},
+		logoLink: ["https://www.gamania.com/", "https://www.nexon.net/", "https://tw.beanfun.com/"],
+		copyright: {
+			desktop: "© 2024 Gamania Digital Entertainment Co,<br>Ltd.All Rights Reserved.,<br>© NEXON Korea Corporation,<br>Licensed to Gamania Digital Entertainment Co., Ltd., in Taiwan.",
+			mobile: " © 2024 Gamania Digital Entertainment Co,<br>Ltd.All Rights Reserved.,<br>© NEXON Korea Corporation,<br>Licensed to Gamania Digital Entertainment Co., Ltd., in Taiwan."
+		},
+		gradeImg: "grade/class_18.gif",
+		gradeInfo: ["本遊戲部份內容涉及暴力、性情節。", "請避免沉迷遊戲。", "本遊戲部份內容需另行支付費用。"],
+		favicon: "favicon/icon-TWP-48.ico"
+=======
 			dark: ["logos/logo-nexon.png", "logos/logo-gama.png", "logos/logo-beanfun.png"],
 			light: ["logos/logo-nexon-w.png", "logos/logo-gama.png", "logos/logo-beanfun-w.png"]
 		},
@@ -540,6 +553,7 @@ gf_jsonData = {
 		gradeImg: "grade/class_18.gif",
 		gradeInfo: ["本遊戲部份內容涉及暴力、性情節。", "請避免沉迷遊戲。", "本遊戲部份內容需另行支付費用。"],
 		favicon: "favicon/icon-TWP.ico"
+>>>>>>> d9e88af9ce4d8b911a984672784c6f9cc16b58be
 	}
 };
 // 取參數
