@@ -2494,7 +2494,7 @@ body::-webkit-scrollbar {
   background-image: url(./images/img_landbadge_garrison.png);
 }
 .territory-table__item.type--castle .land-info__badge {
-  background-image: url(./images/img_landbadge_garrison.png);
+  background-image: url(./images/img_landbadge_castle.png);
 }
 .territory-table__item.type--fortress .land-info__badge {
   background-image: url(./images/img_landbadge_fortress.png);
@@ -2690,4 +2690,4 @@ body::-webkit-scrollbar {
   font-size: 3.6458333333vw;
   color: #c2a779;
   margin-left: auto;
-}
+}/*# sourceMappingURL=default.css.map */

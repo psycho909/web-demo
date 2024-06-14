@@ -289,6 +289,9 @@ const territory = {
 					borders.value.forEach((border, i) => {
 						border.classList.remove("-select");
 					});
+					r.isActive = false;
+					r.activeIndex = -1;
+					detailActive.value = false;
 				}
 			});
 			map.value.on("pressUp", () => {

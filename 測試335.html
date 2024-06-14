@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
+		<!-- 正式用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.prod.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{count}}</div>
+			<my-button @click="increment">按鈕1</my-button>
+			<my-button @click="asyncFn(1000)">按鈕2</my-button>
+			<div id="home-video1"></div>
+			<div id="home-video2"></div>
+		</div>
+		<script>
+			function useCounter() {
+				const count = Vue.ref(0);
+				function increment() {
+					count.value++;
+				}
+				return {
+					count,
+					increment
+				};
+			}
+			let MyButton = {
+				props: {
+					onClick: Function
+				},
+				setup(props) {
+					const loading = Vue.ref(false);
+					async function clickHandler(e) {
+						loading.value = true;
+						try {
+							await props.onClick(e);
+						} catch (e) {
+							console.error(e);
+						} finally {
+							loading.value = false;
+						}
+					}
+					return {
+						loading,
+						clickHandler
+					};
+				},
+				template: `
+                    <button @click="clickHandler" :data-loading="loading"><slot></slot></button>
+                `
+			};
+			const app = Vue.createApp({
+				components: {
+					MyButton
+				},
+				setup() {
+					const { count, increment } = useCounter();
+					function asyncFn(time) {
+						return new Promise((resolve, reject) => {
+							setTimeout(() => {
+								resolve("asyncFn");
+							}, time);
+						});
+					}
+					async function handle1() {
+						await asyncFn(3000);
+					}
+					async function handle3() {
+						await asyncFn(5000);
+					}
+
+					Vue.onMounted(() => {
+						var tag = document.createElement("script");
+						tag.src = "https://www.youtube.com/player_api";
+						var firstScriptTag = document.getElementsByTagName("script")[0];
+						firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+						var player;
+						var player2;
+						window.onYouTubeIframeAPIReady = function () {
+							player = new YT.Player("home-video1", {
+								videoId: "i5RNvD7dpgU",
+								playerVars: {
+									start: 1, // 影片從幾秒後開始
+									controls: 0, // 控制列隱藏
+									modestbranding: 0, // 隱藏youtube icon
+									rel: 0, // 隱藏title youtube icon
+									loop: 1, // loop
+									fs: 0, // 顯示全螢幕按鈕
+									cc_load_policty: 0, // 隱藏字幕
+									iv_load_policy: 3, // 隱藏影片註解 1:顯示 3:不顯示 沒有2
+									autohide: 0 // 播放影片時隱藏影片控制列
+								},
+								events: {
+									onReady: function (e) {
+										e.target.playVideo();
+										e.target.mute(); // 需要先靜音才能自動播放
+									},
+									onStateChange: function (e) {
+										console.log(e.data);
+										if (e.data === YT.PlayerState.ENDED) {
+											player.playVideo();
+										}
+									}
+								}
+							});
+							player2 = new YT.Player("home-video2", {
+								videoId: "i5RNvD7dpgU",
+								playerVars: {
+									start: 1, // 影片從幾秒後開始
+									controls: 0, // 控制列隱藏
+									modestbranding: 0, // 隱藏youtube icon
+									rel: 0, // 隱藏title youtube icon
+									loop: 1, // loop
+									fs: 0, // 顯示全螢幕按鈕
+									cc_load_policty: 0, // 隱藏字幕
+									iv_load_policy: 3, // 隱藏影片註解 1:顯示 3:不顯示 沒有2
+									autohide: 0 // 播放影片時隱藏影片控制列
+								},
+								events: {
+									onReady: function (e) {
+										e.target.playVideo();
+										e.target.mute(); // 需要先靜音才能自動播放
+									},
+									onStateChange: function (e) {
+										console.log(e.data);
+										if (e.data === YT.PlayerState.ENDED) {
+											player2.playVideo();
+										}
+									}
+								}
+							});
+						};
+					});
+					return {
+						handle1,
+						handle3,
+						asyncFn,
+						count,
+						increment
+					};
+				}
+			});
+			app.mount("#app");
+		</script>
+	</body>
+</html>
