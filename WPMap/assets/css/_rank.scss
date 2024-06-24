@@ -315,7 +315,6 @@
 				transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
 				width: 29px;
 				display: inline-block;
-				cursor: pointer;
 				@include media {
 					width: vw(44);
 					height: vw(60);

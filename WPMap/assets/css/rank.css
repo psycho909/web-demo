@@ -1623,7 +1623,6 @@ body::-webkit-scrollbar {
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   width: 29px;
   display: inline-block;
-  cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   .rank-table__col .land-badge {
