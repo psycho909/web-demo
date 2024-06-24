@@ -107,6 +107,7 @@ body::-webkit-scrollbar {
   width: auto;
   -webkit-transition: -webkit-filter 0.2s ease;
   transition: -webkit-filter 0.2s ease;
+  -o-transition: filter 0.2s ease;
   transition: filter 0.2s ease;
   transition: filter 0.2s ease, -webkit-filter 0.2s ease;
 }
@@ -179,6 +180,7 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  -o-transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   white-space: nowrap;
@@ -220,6 +222,7 @@ body::-webkit-scrollbar {
   min-width: 5px;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -271,6 +274,7 @@ body::-webkit-scrollbar {
   display: grid;
   grid-template-rows: 0fr;
   -webkit-transition: var(--animation-time, 0.5s) linear;
+  -o-transition: var(--animation-time, 0.5s) linear;
   transition: var(--animation-time, 0.5s) linear;
 }
 .button--selector .selector__content.open {
@@ -416,6 +420,7 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: -webkit-box-shadow 0.4s ease;
   transition: -webkit-box-shadow 0.4s ease;
+  -o-transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease, -webkit-box-shadow 0.4s ease;
   width: auto;
@@ -448,6 +453,7 @@ body::-webkit-scrollbar {
        user-select: all;
   -webkit-user-drag: auto;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(85%, rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+  background: -o-linear-gradient(top, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   height: 40px;
   left: 0;
@@ -493,6 +499,7 @@ body::-webkit-scrollbar {
   min-height: 0;
   overflow-y: overlay;
   -webkit-transition: border 0.4s ease;
+  -o-transition: border 0.4s ease;
   transition: border 0.4s ease;
   width: 100%;
 }
@@ -547,6 +554,7 @@ body::-webkit-scrollbar {
   padding: 9px 14px 9px 9px;
   text-align: left;
   -webkit-transition: background-color 0.14s ease, color 0.14s ease;
+  -o-transition: background-color 0.14s ease, color 0.14s ease;
   transition: background-color 0.14s ease, color 0.14s ease;
   vertical-align: top;
 }
@@ -1497,14 +1505,17 @@ body::-webkit-scrollbar {
 }
 .rank-table__item[data-rank="1"] {
   background-image: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(198, 157, 123, 0.8)), color-stop(90%, rgba(198, 157, 123, 0)));
+  background-image: -o-linear-gradient(left, rgba(198, 157, 123, 0.8) 10%, rgba(198, 157, 123, 0) 90%);
   background-image: linear-gradient(to right, rgba(198, 157, 123, 0.8) 10%, rgba(198, 157, 123, 0) 90%);
 }
 .rank-table__item[data-rank="2"] {
   background-image: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(198, 157, 123, 0.6)), color-stop(90%, rgba(198, 157, 123, 0)));
+  background-image: -o-linear-gradient(left, rgba(198, 157, 123, 0.6) 10%, rgba(198, 157, 123, 0) 90%);
   background-image: linear-gradient(to right, rgba(198, 157, 123, 0.6) 10%, rgba(198, 157, 123, 0) 90%);
 }
 .rank-table__item[data-rank="3"] {
   background-image: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(198, 157, 123, 0.4)), color-stop(90%, rgba(198, 157, 123, 0)));
+  background-image: -o-linear-gradient(left, rgba(198, 157, 123, 0.4) 10%, rgba(198, 157, 123, 0) 90%);
   background-image: linear-gradient(to right, rgba(198, 157, 123, 0.4) 10%, rgba(198, 157, 123, 0) 90%);
 }
 .rank-table__header {
@@ -1586,6 +1597,7 @@ body::-webkit-scrollbar {
     -webkit-column-gap: 1.953125vw;
        -moz-column-gap: 1.953125vw;
             column-gap: 1.953125vw;
+    margin-top: -0.78125vw;
   }
 }
 @media screen and (max-width: 768px) {
@@ -1606,15 +1618,50 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  -o-transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   width: 29px;
   display: inline-block;
+  cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   .rank-table__col .land-badge {
     width: 5.7291666667vw;
     height: 7.8125vw;
+  }
+}
+.rank-table__col .land-badge span {
+  opacity: 0;
+  background: #000;
+  border: 1px solid #504338;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1019607843);
+          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1019607843);
+  color: #c2a779;
+  font-size: 14px;
+  padding: 6px;
+  white-space: nowrap;
+  bottom: 100%;
+  margin-bottom: 10px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+@media screen and (max-width: 768px) {
+  .rank-table__col .land-badge span {
+    margin-bottom: 1.3020833333vw;
+    border-radius: 0.78125vw;
+    font-size: 3.90625vw;
+    -webkit-box-shadow: 0 0.390625vw 0.9114583333vw rgba(0, 0, 0, 0.1019607843);
+            box-shadow: 0 0.390625vw 0.9114583333vw rgba(0, 0, 0, 0.1019607843);
+    border: 0.1302083333vw solid #504338;
+  }
+}
+@media screen and (min-width: 768px) {
+  .rank-table__col .land-badge:hover span {
+    opacity: 1;
   }
 }
 .rank-table__col-ranking {
@@ -1672,4 +1719,4 @@ body::-webkit-scrollbar {
   .rank-table__ranking-number {
     font-size: 6.25vw;
   }
-}/*# sourceMappingURL=rank.css.map */
+}

@@ -107,6 +107,7 @@ body::-webkit-scrollbar {
   width: auto;
   -webkit-transition: -webkit-filter 0.2s ease;
   transition: -webkit-filter 0.2s ease;
+  -o-transition: filter 0.2s ease;
   transition: filter 0.2s ease;
   transition: filter 0.2s ease, -webkit-filter 0.2s ease;
 }
@@ -179,6 +180,7 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border-color 0.2s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  -o-transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   transition: border-color 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
   white-space: nowrap;
@@ -220,6 +222,7 @@ body::-webkit-scrollbar {
   min-width: 5px;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -271,6 +274,7 @@ body::-webkit-scrollbar {
   display: grid;
   grid-template-rows: 0fr;
   -webkit-transition: var(--animation-time, 0.5s) linear;
+  -o-transition: var(--animation-time, 0.5s) linear;
   transition: var(--animation-time, 0.5s) linear;
 }
 .button--selector .selector__content.open {
@@ -416,6 +420,7 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: -webkit-box-shadow 0.4s ease;
   transition: -webkit-box-shadow 0.4s ease;
+  -o-transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease;
   transition: box-shadow 0.4s ease, -webkit-box-shadow 0.4s ease;
   width: auto;
@@ -448,6 +453,7 @@ body::-webkit-scrollbar {
        user-select: all;
   -webkit-user-drag: auto;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(85%, rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+  background: -o-linear-gradient(top, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 85%, rgba(255, 255, 255, 0));
   height: 40px;
   left: 0;
@@ -493,6 +499,7 @@ body::-webkit-scrollbar {
   min-height: 0;
   overflow-y: overlay;
   -webkit-transition: border 0.4s ease;
+  -o-transition: border 0.4s ease;
   transition: border 0.4s ease;
   width: 100%;
 }
@@ -547,6 +554,7 @@ body::-webkit-scrollbar {
   padding: 9px 14px 9px 9px;
   text-align: left;
   -webkit-transition: background-color 0.14s ease, color 0.14s ease;
+  -o-transition: background-color 0.14s ease, color 0.14s ease;
   transition: background-color 0.14s ease, color 0.14s ease;
   vertical-align: top;
 }
@@ -1283,6 +1291,7 @@ body::-webkit-scrollbar {
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-transition: background-color 0.14s ease;
+  -o-transition: background-color 0.14s ease;
   transition: background-color 0.14s ease;
   width: 54px;
   background-color: transparent;
@@ -1322,6 +1331,7 @@ body::-webkit-scrollbar {
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-transition: background-color 0.14s ease;
+  -o-transition: background-color 0.14s ease;
   transition: background-color 0.14s ease;
   width: 54px;
   background-color: transparent;
@@ -1386,6 +1396,7 @@ body::-webkit-scrollbar {
 }
 .page__nav__dimmed {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(2%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7607843137)));
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.7607843137));
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.7607843137));
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1492,6 +1503,7 @@ body::-webkit-scrollbar {
   min-width: 5px;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
   transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), -webkit-transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
@@ -1696,6 +1708,7 @@ body::-webkit-scrollbar {
   -o-user-drag: none;
   user-drag: none;
   -webkit-transition: opacity 0.15s ease;
+  -o-transition: opacity 0.15s ease;
   transition: opacity 0.15s ease;
 }
 .cursor.-press .cursor__visual span {
@@ -1781,6 +1794,7 @@ body::-webkit-scrollbar {
   position: relative;
   -webkit-transition: background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
   transition: background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
+  -o-transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease;
   transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease;
   transition: transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97), background-color 0.1s ease, -webkit-transform 0.24s cubic-bezier(0.34, 2.05, 0.56, 0.97);
   width: 100%;
@@ -1809,6 +1823,7 @@ body::-webkit-scrollbar {
           transform: translate3d(-50%, -50%, 0);
   -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  -o-transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), -webkit-transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   -webkit-user-select: none;
@@ -1830,6 +1845,7 @@ body::-webkit-scrollbar {
           transform: translate3d(0, -40px, 0) scale(1);
   -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  -o-transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1839,12 +1855,14 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, 0, 0);
           transform: translate3d(-50%, 0, 0);
   -webkit-transition-delay: 30ms;
+       -o-transition-delay: 30ms;
           transition-delay: 30ms;
 }
 .map-area-1 ._land.-hover ._land-more ._land-guild-name, .map-area-1 ._land.-chain ._land-more ._land-guild-name {
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition-delay: 60ms;
+       -o-transition-delay: 60ms;
           transition-delay: 60ms;
 }
 .map-area-1 ._land.-hover ._land-more ._land-guild-name ._land-plus, .map-area-1 ._land.-chain ._land-more ._land-guild-name ._land-plus {
@@ -1857,6 +1875,7 @@ body::-webkit-scrollbar {
           transform: translate3d(0, -40px, 0) scale(1);
   -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  -o-transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1866,12 +1885,14 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, 0, 0);
           transform: translate3d(-50%, 0, 0);
   -webkit-transition-delay: 30ms;
+       -o-transition-delay: 30ms;
           transition-delay: 30ms;
 }
 .map-area-1 ._land.-select ._land-guild-name {
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
   -webkit-transition-delay: 60ms;
+       -o-transition-delay: 60ms;
           transition-delay: 60ms;
 }
 .map-area-1 ._land.-select ._land-more ._land-guild-name ._land-plus {
@@ -1893,6 +1914,7 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(-50%, -50%, 0);
           transform: translate3d(-50%, -50%, 0);
   -webkit-transition: opacity 0.5s ease 0.4s;
+  -o-transition: opacity 0.5s ease 0.4s;
   transition: opacity 0.5s ease 0.4s;
   width: 60px;
   nimation-delay: 79ms;
@@ -1948,6 +1970,7 @@ body::-webkit-scrollbar {
           transform: translateZ(0) scale(0.95);
   -webkit-transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  -o-transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), -webkit-transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
   width: 35px;
@@ -1977,6 +2000,7 @@ body::-webkit-scrollbar {
           transform: translate3d(-50%, 15px, 0);
   -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   white-space: nowrap;
@@ -2001,6 +2025,7 @@ body::-webkit-scrollbar {
   pointer-events: none;
   -webkit-transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   transition: opacity 0.3s ease, background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  -o-transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease;
   transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.5s ease, -webkit-transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
   -webkit-transform: translate3d(0, 5px, 0);
@@ -2035,6 +2060,7 @@ body::-webkit-scrollbar {
           transform: translate3d(-15px, 0, 0);
   -webkit-transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   transition: opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  -o-transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease, -webkit-transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2085,6 +2111,7 @@ body::-webkit-scrollbar {
   fill: rgba(0, 0, 0, 0);
   -webkit-transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
   transition: fill 0.34s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
+  -o-transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
   transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease;
   transition: fill 0.34s ease, filter 0.2s ease, stroke 0.5s ease, -webkit-filter 0.2s ease;
   stroke-dasharray: 0 3 0;
@@ -2131,6 +2158,7 @@ body::-webkit-scrollbar {
   -webkit-transform: translate3d(calc(400px - 50%), -50%, 0);
           transform: translate3d(calc(400px - 50%), -50%, 0);
   -webkit-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   width: 500px;
   z-index: 3;
@@ -2594,7 +2622,8 @@ body::-webkit-scrollbar {
   width: 62.5vw;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
 }
 .territory-table__item .land-tax-stack {
   font-size: 3.6458333333vw;
@@ -2690,4 +2719,4 @@ body::-webkit-scrollbar {
   font-size: 3.6458333333vw;
   color: #c2a779;
   margin-left: auto;
-}/*# sourceMappingURL=default.css.map */
+}

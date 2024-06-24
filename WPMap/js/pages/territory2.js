@@ -560,7 +560,7 @@ const territory = {
                             </svg>
                             <div class="territory-map__canvas">
                                 <div class="map-area-1">
-                                    <button ref="lands" v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)" @mouseenter="landMouseEnter(territory,index,$event)" @mouseleave="landMouseLeave(index,$event)">
+                                    <button ref="lands" :data-land="territory.territory_id" v-for="(territory,index) in territoryFilter" class="_land" :class="[territory.ui.isOccupyElf?'-occupy-elf':'',r.activeIndex == index?'-select':'']" :style="'left:'+territory.ui.coords[0]+'%;top:'+territory.ui.coords[1]+'%;'" @click="landClick(territory.territory_id,index)" @mouseenter="landMouseEnter(territory,index,$event)" @mouseleave="landMouseLeave(index,$event)">
                                         <span class="_land-effect"><span></span><span></span><span></span></span><span class="_land-badge" :class="'land--'+territory.landType"></span>
                                         <div class="_land-more">
                                             <p class="_land-name">{{territory.ui.name}}</p>
