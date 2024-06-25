@@ -57,7 +57,7 @@ const rank = {
             </div>
         </div>
     </div>
-    <rank-level></rank-level>
+    <rank-guild></rank-guild>
     `
 };
 
