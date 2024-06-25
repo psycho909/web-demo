@@ -1,3 +1,4 @@
 {
-	"image-manager.appearance.language": "zh-CN"
+	"image-manager.appearance.language": "zh-CN",
+	"liveServer.settings.port": 5501
 }

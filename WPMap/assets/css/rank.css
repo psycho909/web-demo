@@ -42,12 +42,13 @@ body {
   background-color: #181512;
 }
 
-#app::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  height: 0;
-  opacity: 0;
-  visibility: hidden;
-  width: 0;
+#app.records {
+  min-width: 1200px;
+}
+@media screen and (max-width: 768px) {
+  #app.records {
+    min-width: auto;
+  }
 }
 
 .dot-line {
@@ -664,6 +665,32 @@ body::-webkit-scrollbar {
   }
 }
 
+.-error {
+  height: 300px;
+  font-size: 16px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #c2a779;
+}
+.-error::after {
+  content: "目前沒有資料(系統忙碌中)";
+  display: inline-block;
+}
+@media screen and (max-width: 768px) {
+  .-error {
+    font-size: 4.1666666667vw;
+    height: 39.0625vw;
+  }
+}
+
 .-loading {
   position: relative;
   display: -webkit-box;
@@ -1186,6 +1213,18 @@ body::-webkit-scrollbar {
     border-bottom: 0.1302083333vw solid #c2a779;
   }
 }
+.records-nav__item.none {
+  font-size: 0;
+  border: 0;
+  cursor: default;
+  border-bottom: 1px solid #c2a779;
+  background-color: rgba(0, 0, 0, 0);
+}
+@media screen and (max-width: 768px) {
+  .records-nav__item.none {
+    border-bottom: 0.1302083333vw solid #c2a779;
+  }
+}
 .records-nav__item.active {
   background-color: transparent;
   color: #c2a779;
@@ -1532,6 +1571,27 @@ body::-webkit-scrollbar {
   -webkit-column-gap: 10px;
      -moz-column-gap: 10px;
           column-gap: 10px;
+}
+.rank-table__col.-player {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.rank-table__col.-player .icon-class {
+  margin-top: 2px;
+}
+@media screen and (max-width: 768px) {
+  .rank-table__col.-player .icon-class {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .rank-table__col.-player {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 @media screen and (max-width: 768px) {
   .rank-table__col {

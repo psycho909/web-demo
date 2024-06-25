@@ -40,6 +40,16 @@
 				border: vw(1) solid #504338;
 				border-bottom: vw(1) solid #c2a779;
 			}
+			&.none {
+				font-size: 0;
+				border: 0;
+				cursor: default;
+				border-bottom: 1px solid #c2a779;
+				background-color: rgba(0, 0, 0, 0);
+				@include media {
+					border-bottom: vw(1) solid #c2a779;
+				}
+			}
 			&.active {
 				background-color: transparent;
 				color: #c2a779;

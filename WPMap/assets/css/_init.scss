@@ -53,11 +53,20 @@ body {
 }
 #app::-webkit-scrollbar,
 body::-webkit-scrollbar {
-	height: 0;
-	opacity: 0;
-	visibility: hidden;
-	width: 0;
+	// height: 0;
+	// opacity: 0;
+	// visibility: hidden;
+	// width: 0;
 }
+#app {
+	&.records {
+		min-width: 1200px;
+		@include media {
+			min-width: auto;
+		}
+	}
+}
+
 .dot-line {
 	border-top: 3px dotted #ffffff4d;
 	display: inline-block;
@@ -497,6 +506,23 @@ body::-webkit-scrollbar {
 	color: #c2a779;
 	&::after {
 		content: "目前沒有資料";
+		display: inline-block;
+	}
+	@include media {
+		font-size: vw(32);
+		height: vw(300);
+	}
+}
+.-error {
+	height: 300px;
+	font-size: 16px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #c2a779;
+	&::after {
+		content: "目前沒有資料(系統忙碌中)";
 		display: inline-block;
 	}
 	@include media {

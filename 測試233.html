@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+	</head>
+	<body>
+		<input type="radio" id="toggleAgree" />
+		<div class="redemption_ag">sadasdasdasdasd</div>
+
+		<script>
+			$("#toggleAgree").on("change", function () {
+				toggleDiv();
+			});
+			// 判斷#toggleAgree是否被選取，選取.redemption_ag顯示，否則隱藏
+			function toggleDiv() {
+				if ($("#toggleAgree").is(":checked")) {
+					$(".redemption_ag").show();
+				} else {
+					$(".redemption_ag").hide();
+				}
+			}
+			const getUrlSearchParams = (params) => {
+				let param = new URL(location.href).searchParams.get(params.toLowerCase());
+				console.log(param);
+				if (param) {
+					let lan_param = param.toLowerCase();
+					return lan_param;
+				} else {
+					return false;
+				}
+			};
+
+			getUrlSearchParams("type");
+		</script>
+	</body>
+</html>

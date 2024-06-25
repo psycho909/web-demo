@@ -244,6 +244,11 @@
 					border: vw(1) solid #c2a779;
 					border-bottom: none;
 				}
+				&.none {
+					border: none;
+					background-color: rgba(0, 0, 0, 0);
+					border-bottom: vw(1) solid #c2a779;
+				}
 			}
 		}
 	}

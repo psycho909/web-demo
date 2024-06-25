@@ -262,6 +262,21 @@
 			justify-content: center;
 			align-items: center;
 			column-gap: 10px;
+			&.-player {
+				justify-content: flex-start;
+				padding-left: 60px;
+				padding-right: 60px;
+				.icon-class {
+					margin-top: 2px;
+					@include media {
+						margin-top: 0;
+					}
+				}
+				@include media {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
 			@include media {
 				column-gap: vw(20);
 				row-gap: vw(18);
