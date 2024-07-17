@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link href="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.css" rel="stylesheet" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/swiper/9.1.0/swiper-bundle.min.js"></script>
+		<style>
+			html,
+			body {
+				position: relative;
+				height: 100%;
+			}
+
+			body {
+				background: #242424;
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0;
+				padding: 0;
+			}
+
+			.swiper {
+				width: 100%;
+				height: 100%;
+			}
+
+			.swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #242424;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-slide img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.btn {
+				width: 290px;
+				height: 64px;
+				position: relative;
+				background-image: url("./images/btn-polygon-page2-on.png");
+				/* box-shadow: 0 0 10px #ffceb1; */
+				filter: drop-shadow(0 0 10px #fff1af);
+			}
+			.text {
+				width: 100px;
+				height: 25px;
+				/* background-size: contain; */
+				/* background-image: url("./images/page1-tab1.png"); */
+				position: relative;
+			}
+			.text:after {
+				content: "";
+				width: 100px;
+				height: 25px;
+				background-size: contain;
+				background-image: url("./images/page1-tab1.png");
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			.text:before {
+				content: "";
+				width: 197px;
+				height: 86px;
+				background-size: 100%;
+				background-image: url("./images/page1-content-light.png");
+				position: absolute;
+				bottom: -44px;
+				left: 50%;
+				transform: translateX(-50%);
+				pointer-events: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Swiper -->
+		<div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="swiper mySwiper-inner1">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<a href="javascript:;" class="text"></a>
+								<div class="btn"></div>
+							</div>
+							<div class="swiper-slide">Slide-inner1 2</div>
+							<div class="swiper-slide">Slide-inner1 3</div>
+							<div class="swiper-slide">Slide-inner1 4</div>
+							<div class="swiper-slide">Slide-inner1 5</div>
+							<div class="swiper-slide">Slide-inner1 6</div>
+							<div class="swiper-slide">Slide-inner1 7</div>
+							<div class="swiper-slide">Slide-inner1 8</div>
+							<div class="swiper-slide">Slide-inner1 9</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<div class="swiper-slide">Slide 2</div>
+				<div class="swiper-slide">Slide 3</div>
+				<div class="swiper-slide">Slide 4</div>
+				<div class="swiper-slide">Slide 5</div>
+				<div class="swiper-slide">Slide 6</div>
+				<div class="swiper-slide">Slide 7</div>
+				<div class="swiper-slide">Slide 8</div>
+				<div class="swiper-slide">Slide 9</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		</div>
+		<div class="main-accumulate__list">
+			<span class="main-accumulate__num num1" data-value="0"></span>
+			<span class="main-accumulate__num hide num10" data-value=""></span>
+			<span class="main-accumulate__num hide num100" data-value=""></span>
+			<span class="main-accumulate__num hide num1000" data-value=""></span>
+			<span class="main-accumulate__num hide num10000" data-value=""></span>
+			<span class="main-accumulate__num hide num100000" data-value=""></span>
+		</div>
+		<script>
+			var swiper = new Swiper(".mySwiper", {
+				allowTouchMove: false,
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev"
+				}
+			});
+			var swiper = new Swiper(".mySwiper-inner1", {
+				pagination: {
+					el: ".swiper-pagination"
+				}
+			});
+			function animateNumbers(targetNumber) {
+				const duration = 1500;
+				const steps = 50;
+				const increment = targetNumber / steps;
+				const delay = duration / steps;
+				const num100000 = document.querySelector(".num100000");
+				const num10000 = document.querySelector(".num10000");
+				const num1000 = document.querySelector(".num1000");
+				const num100 = document.querySelector(".num100");
+				const num10 = document.querySelector(".num10");
+				const num1 = document.querySelector(".num1");
+
+				const interval = setInterval(() => {
+					currentNumber += increment;
+					if (currentNumber >= targetNumber) {
+						clearInterval(interval);
+						currentNumber = targetNumber;
+					}
+					if (currentNumber >= 10) {
+						num10.classList.remove("hide");
+					}
+					if (currentNumber >= 100) {
+						num100.classList.remove("hide");
+					}
+					if (currentNumber >= 1000) {
+						num1000.classList.remove("hide");
+					}
+					if (currentNumber >= 10000) {
+						num10000.classList.remove("hide");
+					}
+					if (currentNumber >= 100000) {
+						num100000.classList.remove("hide");
+					}
+					const formattedNumber = ("000000" + Math.floor(currentNumber)).slice(-6);
+					num100000.textContent = formattedNumber[0];
+					num100000.setAttribute("data-value", formattedNumber[0]);
+					num10000.textContent = formattedNumber[1];
+					num10000.setAttribute("data-value", formattedNumber[1]);
+					num1000.textContent = formattedNumber[2];
+					num1000.setAttribute("data-value", formattedNumber[2]);
+					num100.textContent = formattedNumber[3];
+					num100.setAttribute("data-value", formattedNumber[3]);
+					num10.textContent = formattedNumber[4];
+					num10.setAttribute("data-value", formattedNumber[4]);
+					num1.textContent = formattedNumber[5];
+					num1.setAttribute("data-value", formattedNumber[5]);
+				}, delay);
+			}
+		</script>
+	</body>
+</html>

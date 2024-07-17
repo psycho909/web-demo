@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="./js/detectAdBlock.js"></script>
+		<style>
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+			}
+			.box {
+				border: 1px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="google.ad"></div>
+		<div class="grid">
+			<div
+				class="box abc"
+				data-type="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			213213
+			123123"
+			>
+				1
+			</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+		</div>
+		<script>
+			detectAdBlock().then(() => {
+				if (blockedType.any) {
+					console.log("廣告阻擋器已啟用");
+					if (blockedType.fbAD) {
+						console.log("Facebook 廣告資源被阻擋");
+					}
+					if (blockedType.googleAD) {
+						console.log("Google 廣告資源被阻擋");
+					}
+					if (blockedType.fbIframe) {
+						console.log("Facebook 嵌入資源被阻擋");
+					}
+					alert("有廣告");
+				} else {
+					alert("未檢測到廣告阻擋器");
+				}
+			});
+		</script>
+	</body>
+</html>

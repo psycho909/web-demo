@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			svg {
+				border: 1px #eee solid;
+			}
+		</style>
+
+		<script src="./js/qrcode.min.js"></script>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script>
+			let box = document.querySelector("#box");
+
+			var qrcodes = [
+				new QRCode({
+					msg: "https://gemini.google.com/",
+					pad: 2
+				})
+			];
+			console.log(qrcodes);
+			for (var i = 0; i < qrcodes.length; c++) {
+				box.appendChild(qrcodes[i]);
+			}
+		</script>
+	</body>
+</html>
