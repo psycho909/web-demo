@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>數字倒數動畫</title>
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+				font-family: Arial, sans-serif;
+				background-color: #f0f0f0;
+			}
+			#counter-container {
+				width: 50px;
+				height: 80px;
+				overflow: hidden;
+				background-color: #ffffff;
+				border: 2px solid #333;
+				border-radius: 10px;
+			}
+			#counter {
+				width: 50px;
+				height: 80px; /* 10 digits * 100% */
+				background-image: url("./images/number/num.png");
+				background-size: 100% 1000%;
+				transition: transform 0.5s cubic-bezier(0.41, -0.01, 0.63, 1.09);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="counter-container">
+			<div id="counter"></div>
+		</div>
+
+		<script>
+			const counter = document.getElementById("counter");
+			const targetNumber = 5; // 指定的最終數字
+
+			function setNumber(num) {
+				counter.style.transform = `translateY(${-num * 100}%)`;
+			}
+
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			// 快速旋轉3輪
+			let i = 0;
+			const spinInterval = setInterval(() => {
+				setNumber(getRandomInt(0, 9));
+				i++;
+				if (i >= 30) {
+					clearInterval(spinInterval);
+					setTimeout(finalSpin, 3000); // 等待3秒後開始最終旋轉
+				}
+			}, 50);
+
+			function finalSpin() {
+				const finalNumbers = [9, 8, 7, 6, targetNumber];
+				finalNumbers.forEach((num, index) => {
+					setTimeout(() => {
+						if (index === finalNumbers.length - 1) {
+							counter.style.transition = "transform 2s cubic-bezier(.41,-0.01,.63,1.09)";
+						}
+						setNumber(num);
+					}, index * 300);
+				});
+			}
+		</script>
+	</body>
+</html>
