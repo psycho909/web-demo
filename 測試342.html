@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>FullPage demo0</title>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+		<link rel="stylesheet" href=" https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/fullpage/scrolloverflow.js"></script>
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/fullpage/fullpage.js"></script>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			/* Custom CSS
+ * --------------------------------------- */
+			body {
+				font-family: arial, helvetica;
+				color: #333;
+				color: rgba(0, 0, 0, 0.5);
+			}
+			.wrap {
+				margin-left: auto;
+				margin-right: auto;
+				width: 960px;
+				position: relative;
+			}
+			h1 {
+				font-size: 6em;
+			}
+			p {
+				font-size: 2em;
+			}
+			.intro p {
+				width: 50%;
+				margin: 0 auto;
+				font-size: 1.5em;
+			}
+			.section {
+				text-align: center;
+			}
+			h1 {
+				font-size: 5em;
+				font-family: arial, helvetica;
+				color: #fff;
+				margin: 0;
+				padding: 40px 0 0 0;
+			}
+			.intro p {
+				color: #fff;
+				padding: 40px 0 0 0;
+			}
+			.set-height {
+				height: 960px;
+			}
+			#section1 {
+				/* min-height: 1080px; */
+			}
+			.UNI-footer.dark {
+				position: fixed;
+				bottom: 0;
+				z-index: 9999;
+				width: 100%;
+			}
+			.box {
+				width: 300px;
+				height: 200px;
+				background: #000000;
+				border-radius: 2px;
+				margin: 12vh 0;
+				padding: 10px;
+				border: 3px solid #fff;
+				margin: 60px auto;
+			}
+			.box.on {
+				background-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="fullpage">
+			<div class="section" id="section0">
+				<div class="intro">
+					<h1>Scrolling inside sections</h1>
+					<p>Easy and useful! Just make use of the option `scrollOverflow` for it and add the `scrolloverflow` vendor libary! <br /></p>
+					<div class="box"></div>
+					<img src="https://alvarotrigo.com/fullPage/examples/imgs/iphone2.png" alt="iphone" id="iphone-two" />
+					<div class="box"></div>
+					<p>Eu nec ferri molestie consequat, vel at alia dolore putant. Labore philosophia ut vix. In vis nostrud interesset appellantur, vis et tation feugiat scripserit. Te nec noster suavitate persecuti. Diceret erroribus cu vix, alii omnes ei sit. Sea an corrumpit patrioque, virtute accumsan nominavi et usu, ex mei dolore vocibus incorrupte. Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Per alienum torquatos eu. Sed saepe quodsi et, ullum choro definitionem sed et. Ullum elitr comprehensam sed at, sint illum propriae per eu. Eu enim laudem reformidans vel. Pro clita quando ad. Usu te virtute quaestio, ut eruditi tacimates volutpat per. Affert accusamus duo ex, ea pri habeo graece, cu magna dolorum sea. Quas dictas assueverit ad qui, cu duo harum fabulas apeirian, ullum gubergren et sit. Ne cetero recusabo adipiscing quo, cu harum quaestio neglegentur cum. Has tation aliquip ad, virtute volumus definitionem mel ne. Nobis audiam civibus ius at. Ei eum hinc mutat inciderint. Cu maluisset assentior per, graecis ponderum no mel. Eum eu vitae quando gloriatur, cum graece percipitur no, sed errem maiestatis te. Sed porro epicuri te, ad nam malorum verterem. Ea zril aliquip euismod sed.</p>
+					<div class="box"></div>
+					<a href="#section1">Scroll</a>
+				</div>
+			</div>
+
+			<div class="section" id="section1">
+				<div class="slide" id="slide1">
+					<div class="intro">
+						<h1>Also in sections</h1>
+						<img src="https://alvarotrigo.com/fullPage/examples/imgs/iphone-two.png" alt="iphone" id="iphone-two" />
+						<p>Eu nec ferri molestie consequat, vel at alia dolore putant. Labore philosophia ut vix. In vis nostrud interesset appellantur, vis et tation feugiat scripserit. Te nec noster suavitate persecuti. Diceret erroribus cu vix, alii omnes ei sit. Sea an corrumpit patrioque, virtute accumsan nominavi et usu, ex mei dolore vocibus incorrupte. Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Per alienum torquatos eu.</p>
+					</div>
+				</div>
+
+				<div class="slide" id="slide2"><h1>Even inside slides</h1></div>
+				<div class="slide" id="slide3">
+					<div class="intro">
+						<h1>Scrolling slide</h1>
+						<img src="https://alvarotrigo.com/fullPage/examples/imgs/iphone-red.png" alt="iphone" id="iphone-two" />
+						<p>Eu nec ferri molestie consequat, vel at alia dolore putant. Labore philosophia ut vix. In vis nostrud interesset appellantur, vis et tation feugiat scripserit. Te nec noster suavitate persecuti. Diceret erroribus cu vix, alii omnes ei sit. Sea an corrumpit patrioque, virtute accumsan nominavi et usu, ex mei dolore vocibus incorrupte. Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Eu ponderum comprehensam his, case antiopam pri te. Mel ne partem consequat instructior. Ad dicunt malorum sea, ex qui omnes invenire gubergren. Ius cu autem aliquando, pri vide ornatus perpetua an, no has epicuri verterem. Nam at animal pertinax efficiantur. Per alienum torquatos eu.</p>
+						<a href="#section2">Scroll</a>
+					</div>
+				</div>
+			</div>
+			<div class="section" id="section2">
+				<div class="intro">
+					<h1>No limitations!</h1>
+					<p>Content is a priority. Even if it is so large :)</p>
+					<a href="#section0">Scroll</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div id="menu" class="menu">menu</div> -->
+		<script>
+			$("#fullpage").fullpage({
+				sectionsColor: ["#4A6FB1", "#939FAA", "#323539"],
+				scrollOverflow: true,
+				scrollOverflowReset: true,
+				keyboardScrolling: false,
+				afterLoad: function (anchorLink) {
+					// 選擇所有的 .box 元素
+					const boxes = document.querySelectorAll(".box");
+
+					// 創建 Intersection Observer
+					const observer = new IntersectionObserver(
+						(entries) => {
+							entries.forEach((entry) => {
+								// 當 box 進入視口時
+								if (entry.isIntersecting) {
+									entry.target.classList.add("on");
+								} else {
+									// 可選: 當 box 離開視口時移除 'on' 類
+									// entry.target.classList.remove("on");
+								}
+							});
+						},
+						{
+							// 設置 root 為 null 表示使用視口作為根
+							root: null,
+							// rootMargin 可以擴大或縮小根元素的邊界框
+							rootMargin: "0px",
+							// threshold 設為 0 表示只要有一部分進入視口就觸發
+							threshold: 1.0
+						}
+					);
+
+					// 對每個 .box 元素應用觀察器
+					boxes.forEach((box) => {
+						observer.observe(box);
+					});
+				}
+			});
+			AOS.init();
+			// disabled mouse scroll
+			$.fn.fullpage.setMouseWheelScrolling(false);
+			// $.fn.fullpage.setAllowScrolling(false);
+			// 选择 .fp-scroller 中的所有 .box 元素
+		</script>
+	</body>
+</html>
