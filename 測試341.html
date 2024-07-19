@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>數字倒數動畫</title>
+		<style>
+			html,
+			body {
+				height: 100%;
+			}
+
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: linear-gradient(45deg, grey 0%, lightgray 100%);
+			}
+
+			.slots {
+				position: relative;
+				display: flex;
+			}
+			.slots .reel {
+				position: relative;
+				width: 65px;
+				height: 91px;
+				overflow: hidden;
+				background-color: #183130;
+			}
+			.slots .reel span {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background-image: url("./images/number/num4.png");
+				background-position: 0 0;
+				background-size: 100% 1000%;
+				display: block;
+			}
+			@media screen and (max-width: 768px) {
+				.slots .reel {
+					width: calc(65 / 768 * 100vw);
+					height: calc(91 / 768 * 100vw);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slots">
+			<div class="reel" data-type="hour"><span></span></div>
+			<div class="reel" data-type="hour"><span></span></div>
+			<div class="reel" data-type="min"><span></span></div>
+			<div class="reel" data-type="min"><span></span></div>
+			<div class="reel" data-type="sec"><span></span></div>
+			<div class="reel" data-type="sec"><span></span></div>
+		</div>
+		<script src="./測試341.js"></script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>數字倒數動畫</title>
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+				font-family: Arial, sans-serif;
+				background-color: #f0f0f0;
+			}
+			#counter-container {
+				width: 65px;
+				height: 91px;
+				background-color: #183130;
+				overflow: hidden;
+				border: 2px solid #333;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#counter {
+				width: 65px;
+				height: 91px;
+				background-image: url("./images/number/num4.png");
+				background-size: 100% 1000%;
+				background-position-y: 0;
+				transition: all 0.3s;
+			}
+			#counter[data-num="0"] {
+				background-position-y: 0;
+			}
+			#counter[data-num="1"] {
+				background-position-y: -100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="counter-container">
+			<div id="counter" data-num="0"></div>
+		</div>
+
+		<script></script>
+	</body>
+</html>
