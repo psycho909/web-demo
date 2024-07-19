@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.box {
+				width: 300px;
+				height: 200px;
+				background: #000000;
+				border-radius: 2px;
+				margin: 12vh 0;
+				padding: 10px;
+				border: 3px solid #fff;
+				margin: 60px auto;
+			}
+			.block {
+				width: 300px;
+				height: 400px;
+				background: blue;
+				border-radius: 2px;
+				margin: 12vh 0;
+				padding: 10px;
+				border: 3px solid #fff;
+				margin: 60px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="block"></div>
+			<div class="box"></div>
+			<div class="block"></div>
+			<div class="block"></div>
+			<div class="block"></div>
+			<div class="box"></div>
+		</div>
+		<script>
+			// 选择 .fp-scroller 中的所有 .box 元素
+			const boxes = document.querySelectorAll(".box");
+
+			// 创建 IntersectionObserver 实例
+			const observer = new IntersectionObserver(
+				(entries, observer) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							// 添加 'on' 类
+							entry.target.classList.add("on");
+							// 如果只希望触发一次，可以取消观察
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{
+					rootMargin: "0px",
+					threshold: 0.5 // 当 .box 元素 50% 可见时触发
+				}
+			);
+
+			// 观察每个 .box 元素
+			boxes.forEach((box) => {
+				observer.observe(box);
+			});
+		</script>
+	</body>
+</html>
