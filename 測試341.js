@@ -3,7 +3,7 @@
  */
 const num_icons = 10, // Number of icons in the strip
 	// Max-speed in ms for animating one icon down
-	time_per_icon = 50,
+	time_per_icon = 30,
 	// Holds icon indexes
 	indexes = [0, 0, 0, 0, 0, 0];
 
@@ -29,11 +29,13 @@ const roll = (reel, offset = 0, icon_width, icon_height, targetIndex) => {
 		setTimeout(() => {
 			// Set transition properties ==> https://cubic-bezier.com/#.41,-0.01,.63,1.09
 			reel.style.transition = `background-position-y ${(8 + 1 * delta) * time_per_icon}ms cubic-bezier(.41,-0.01,.63,1.09)`;
+			// reel.style.transition = `background-position-y ${time_per_icon}ms cubic-bezier(.41,-0.01,.63,1.09)`;
 			// Set background position
 			reel.style.backgroundPositionY = `-${backgroundPositionY + delta * icon_height}px`;
 		}, offset * 150);
 
 		let end = (8 + 1 * delta) * time_per_icon + offset * 150;
+		// let end = time_per_icon;
 		// After animation
 		setTimeout(() => {
 			// Reset position, so that it doesn't get higher without limit
@@ -94,7 +96,8 @@ function setReelIndexes(newIndexes) {
 		const delta = (newIndex - currentIndex + num_icons) % num_icons;
 
 		// reel.style.transition = "none";
-		reel.style.transition = `background-position-y ${(8 + 1 * delta) * time_per_icon}ms cubic-bezier(.41,-0.01,.63,1.09)`;
+		// reel.style.transition = `background-position-y ${(8 + 1 * delta) * time_per_icon}ms cubic-bezier(.41,-0.01,.63,1.09)`;
+		// reel.style.transition = `background-position-y ${(8 + 1 * delta) * time_per_icon}ms cubic-bezier(.41,-0.01,.63,1.09)`;
 		reel.style.backgroundPositionY = `-${newIndex * icon_height}px`;
 		indexes[i] = newIndex;
 	});
@@ -121,8 +124,9 @@ function getCountdown(endDate) {
 	// 回傳倒數計時字串
 	return `${hours}${minutes}${seconds}`.split("");
 }
-
 function startCountdown(endDate, callback) {
+	let timer;
+
 	function update() {
 		const countdownString = getCountdown(endDate);
 		callback(countdownString);
@@ -136,14 +140,14 @@ function startCountdown(endDate, callback) {
 	update();
 
 	// 設置定時器，每秒更新一次
-	const timer = setInterval(update, 1000);
+	timer = setInterval(update, 1000);
 
 	// 返回一個函數，用於停止計時器
 	return () => clearInterval(timer);
 }
 
 // 使用示例
-const endDate = new Date("2024-07-18 18:00:00").getTime();
+const endDate = new Date("2024-07-19 18:00:00").getTime();
 let targetIndex = getCountdown(endDate);
 // console.log(targetIndex);
 // const stopCountdown = startCountdown(endDate, (countdownString) => {
@@ -154,6 +158,7 @@ let targetIndex = getCountdown(endDate);
 // stopCountdown();
 
 // Kickoff with target positions
+console.log(targetIndex);
 setTimeout(
 	() =>
 		rollAll(targetIndex, () => {
