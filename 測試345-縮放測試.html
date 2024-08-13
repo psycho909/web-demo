@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<pre>
+            <code>
+                <div id="app">
+                    <header></header>
+                    <h1>標題</h1>
+                    <main></main>
+                    <footer></footer>
+                    <div class="fixed"></div>
+                    <!-- 包括任何使用 position: fixed 的元素 -->
+                </div>
+                
+                使用JS，可以在#app裡面的內容依照當前瀏覽器視窗大小等比例縮放，視覺設計是寬度為1920，注意裡面有使用position: fixed，不使用CSS，不使用transform:scale，不限制高度
+            </code>
+        </pre>
+		<script>
+			// 設置基準寬度
+			const baseWidth = 1920;
+
+			// 獲取app元素
+			const app = document.getElementById("app");
+
+			// 創建一個包裹元素
+			const wrapper = document.createElement("div");
+			document.body.insertBefore(wrapper, app);
+			wrapper.appendChild(app);
+
+			// 創建縮放函數
+			function scaleApp() {
+				// 獲取當前視窗寬度
+				const currentWidth = window.innerWidth;
+
+				// 計算縮放比例
+				const scale = currentWidth / baseWidth;
+
+				// 設置wrapper的樣式
+				wrapper.style.width = "100%";
+				wrapper.style.height = "auto";
+				wrapper.style.overflow = "hidden";
+
+				// 設置app的樣式
+				app.style.width = baseWidth + "px";
+				app.style.height = "auto";
+				app.style.transform = `scale(${scale})`;
+				app.style.transformOrigin = "top left";
+				app.style.margin = "0 auto";
+
+				// 調整wrapper的高度以適應縮放後的app
+				wrapper.style.height = app.offsetHeight * scale + "px";
+			}
+
+			// 重置body和html的樣式
+			document.body.style.margin = "0";
+			document.body.style.padding = "0";
+			document.documentElement.style.margin = "0";
+			document.documentElement.style.padding = "0";
+
+			// 初始調用縮放函數
+			scaleApp();
+
+			// 在視窗大小改變時調用縮放函數
+			window.addEventListener("resize", scaleApp);
+
+			// 如果app內容動態變化，可能需要重新計算
+			const observer = new MutationObserver(scaleApp);
+			observer.observe(app, { childList: true, subtree: true, attributes: true });
+		</script>
+	</body>
+</html>
