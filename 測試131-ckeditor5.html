@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<!-- <script src="https://alpha-tw.beanfun.com/3KO/removable/pchome/plugins/ckeditor/5/ckeditor.js"></script> -->
-		<script src="https://tw.hicdn.beanfun.com/plugins/ckeditor/5/ckeditor.js"></script>
+		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/ckeditor/5/ckeditor.js"></script> -->
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
 		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
@@ -14,11 +14,22 @@
 	<body>
 		<div class="btn">btn</div>
 		<div id="myButton">按鈕</div>
-		<script>
+		<script type="importmap">
+			{
+				"imports": {
+					"ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.js",
+					"ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.0.0/"
+				}
+			}
+		</script>
+
+		<script type="module">
+			import { ClassicEditor, Essentials, Bold, Italic, Font, Paragraph, PendingActions } from "ckeditor5";
 			$(".btn").on("click", function () {
 				LB();
 			});
-			let editor;
+
+			let editor = ClassicEditor;
 			function LB(msg, url, callback) {
 				var config = {
 					addClass: "default",
@@ -28,13 +39,15 @@
 						$.gbox.close();
 					},
 					afterOpen: function () {
-						ClassicEditor.create(document.querySelector(".editor"), {
-							toolbar: {
-								items: ["bold", "italic", "link"]
-							}
-						})
-							.then((editor) => {
-								window.Content_Update = editor;
+						editor
+							.create(document.querySelector(".editor"), {
+								plugins: [],
+								toolbar: {
+									items: ["bold", "italic", "link"]
+								}
+							})
+							.then((edit) => {
+								window.Content_Update = edit;
 							})
 							.catch((error) => {
 								console.error(error);
@@ -48,6 +61,7 @@
 							text: "text1",
 							class: "myButton",
 							click: function () {
+								console.log(Content_Update.getData());
 								$.gbox.close();
 							}
 						}
