@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.css" />
+		<script type="text/javascript" src="https://tw.hicdn.beanfun.com/plugins/tiny-slider2.9.2/tiny-slider.js"></script>
 		<style>
 			.box {
 				width: 300px;
@@ -17,10 +19,29 @@
 		</style>
 	</head>
 	<body>
-		<div id="app">
-			<div class="box"></div>
-			<div class="box"></div>
-			<div class="text">Text</div>
+		<div class="content active" data-content="2">
+			<div class="slider slider2">
+				<div class="page" data-num="8-1">1</div>
+				<div class="page" data-num="8-2">2</div>
+				<div class="page" data-num="8-3">3</div>
+				<div class="page" data-num="8-4">4</div>
+				<div class="page" data-num="8-5">5</div>
+				<div class="page" data-num="8-6" data-type="dt">6</div>
+				<div class="page" data-num="8-7" data-type="dt">7</div>
+			</div>
+			<div class="slider-nav slider-nav-2">
+				<div class="dot btn"></div>
+				<div class="dot btn"></div>
+				<div class="dot btn"></div>
+				<div class="dot btn"></div>
+				<div class="dot btn"></div>
+				<div class="dot btn" data-type="dt"></div>
+				<div class="dot btn" data-type="dt"></div>
+			</div>
+			<div class="slider-control slider-control-2">
+				<div class="btn btn-prev"></div>
+				<div class="btn btn-next"></div>
+			</div>
 		</div>
 	</body>
 </html>

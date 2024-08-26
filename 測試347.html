@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			:root {
+				--fadeHeight: 300px;
+			}
+
+			.container {
+				/* mask-image: linear-gradient(to top, transparent, transparent var(--fadeHeight), black var(--fadeHeight)), linear-gradient(to bottom, transparent, transparent var(--fadeHeight), black var(--fadeHeight), black calc(100% - var(--fadeHeight)), transparent); */
+				mask-image: linear-gradient(to bottom, black 0%, black 50%, black calc(100% - var(--fadeHeight)), transparent);
+			}
+
+			html {
+				color: white;
+				font-family: arial, sans-serif;
+				height: 100%;
+			}
+
+			body {
+				height: 100%;
+				margin: 0;
+			}
+
+			body *:not(app-root > *)::-webkit-scrollbar-thumb {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+
+			body > div {
+				height: 100%;
+				display: grid;
+				place-items: center;
+				color: #000;
+			}
+
+			.container {
+				width: 50%;
+				height: 50%;
+				overflow-y: scroll;
+				padding-right: 1em;
+			}
+
+			p {
+				font-size: 1.125em;
+				line-height: 1.5;
+			}
+
+			p:first-child {
+				margin-top: 0;
+			}
+
+			p:last-child {
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="container">
+				<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum possimus quam optio qui laboriosam officiis doloremque ipsum, eaque, repellat eligendi, id ut. Optio voluptatibus quaerat exercitationem, ipsa doloribus voluptas sunt?</p>
+				<p>Similique voluptates nesciunt quae architecto. Sed suscipit eius ipsum nostrum sint non unde dolorum ab eaque sunt numquam iste, nesciunt quos dolores laudantium corporis, placeat officiis aspernatur alias. Praesentium, quibusdam?</p>
+				<p>Aliquid fugit dolor reiciendis rem aut debitis incidunt? Blanditiis, eum inventore facilis quasi perspiciatis eligendi beatae qui sapiente quo voluptas, non magni excepturi nesciunt officiis numquam accusamus maiores amet soluta!</p>
+				<p>Ad nulla vero hic officia, expedita repudiandae totam rerum eligendi dolore quas ipsum! Repudiandae doloremque, iure quos impedit facere error reprehenderit numquam deleniti nam! Dolore aut numquam labore quia dolorum.</p>
+				<p>Quasi suscipit vero tenetur hic beatae fuga architecto blanditiis atque! Accusantium, eveniet porro! Esse amet aspernatur maiores, in quaerat vitae? Et officiis, voluptates ut magni qui dolorum in ipsum dolore.</p>
+				<p>Aperiam soluta quos illo veniam praesentium rem rerum cupiditate similique assumenda sit vitae animi dolorum iure a, consectetur cum optio, tenetur id reiciendis quod hic, accusamus ullam! Eligendi, unde ipsa.</p>
+				<p>Voluptas magnam eveniet nobis qui quidem a quas voluptates. Mollitia eveniet corrupti quos repellat modi suscipit. Delectus corporis quidem, nobis sunt omnis vitae recusandae sed eos quasi ratione expedita beatae.</p>
+				<p>Debitis, nam, saepe nihil corrupti voluptas vero maxime animi cupiditate, quis eligendi adipisci a reprehenderit esse neque sunt fugiat accusantium quod optio quaerat voluptatum. Fugit eos vel omnis nihil non.</p>
+				<p>Ducimus adipisci distinctio dolor aliquam illum perspiciatis illo iure minus expedita similique? Maxime repellendus sequi ducimus, recusandae fugit atque commodi, odio corrupti velit, itaque temporibus dicta? Nobis quibusdam esse veniam.</p>
+				<p>Ex animi iure magnam a aliquam perferendis recusandae eos, velit veritatis adipisci hic laborum esse temporibus quibusdam. Aliquid illo, dignissimos, pariatur libero tempore est eius recusandae dolor, ipsum voluptate repellendus!</p>
+			</div>
+		</div>
+	</body>
+</html>
