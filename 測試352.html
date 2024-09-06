@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				background-color: #000;
+			}
+			canvas {
+				height: 100%;
+				left: 0;
+				position: absolute;
+				width: 100%;
+				box-sizing: border-box;
+				display: inline-block;
+				left: 0;
+				-webkit-mask-image: linear-gradient(0deg, #0000 10%, #000 40%);
+				mask-image: linear-gradient(0deg, #0000 10%, #000 40%);
+				top: 0;
+				z-index: 10;
+			}
+			.box {
+				box-sizing: border-box;
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<body>
+			<div class="box"><canvas id="canvas2" width="1920" height="911"></canvas></div>
+		</body>
+		<script>
+			let u = window.devicePixelRatio;
+			let p = (a) => (a * Math.PI) / 180;
+
+			class h {
+				constructor(r) {
+					(this.isActive = !1),
+						(this.ctx = r.getContext("2d")),
+						(this.size = {
+							cx: 0,
+							cy: 0
+						}),
+						(this.tick = 0),
+						(this.canvas = r);
+					const f = [
+						{
+							size: 3.4,
+							dotsLength: 8,
+							dotSize: 8,
+							width: 3,
+							dotSpeed: 0.2,
+							moveRange: 40,
+							alpha: 0.4
+						},
+						{
+							size: 3.58,
+							dotsLength: 8,
+							dotSize: 8,
+							dotSpeed: 0.4,
+							width: 1,
+							reverse: !0,
+							moveRange: 40,
+							alpha: 0.45,
+							dashed: !0
+						},
+						{
+							size: 4.1,
+							dotsLength: 2,
+							dotSpeed: 0.1,
+							dotSize: 5,
+							width: 3,
+							moveRange: 33,
+							alpha: 0.55
+						}
+					];
+					(this.dotsLength = 10), (this.dots = []), (this.arcs = []);
+					for (let s = 0; s < f.length; ++s) {
+						const g = f[s],
+							v = [];
+						for (let M = 0; M < g.dotsLength; ++M) {
+							const N = {
+								size: Math.random() * g.dotSize + 2,
+								speed: (Math.random() * g.dotSpeed + 0.1) * (Math.random() > 0.5, 1),
+								angle: Math.random() * 360
+							};
+							v.push(N);
+						}
+						const b = {
+							...g,
+							y: 0,
+							speed: Math.random() * 0.7 + 0.3,
+							dots: v
+						};
+						this.arcs.push(b);
+					}
+				}
+				update() {
+					++this.tick, (this.canvas.width = window.innerWidth * u), (this.canvas.height = window.innerHeight * u), (this.size.fw = this.canvas.width), (this.size.fh = this.canvas.height), (this.size.cx = this.size.fw / 2), (this.size.cy = this.size.fh / 2), [...this.arcs];
+					for (let r = 0, f = this.arcs.length; r < f; ++r) {
+						const s = this.arcs[r];
+						(s.y += s.speed), (this.radius = Math.sqrt(Math.pow(this.canvas.width, 2) + Math.pow(this.canvas.height, 2)));
+						const g = this.radius / s.size;
+						this.ctx.beginPath(), s.dashed ? this.ctx.setLineDash([5]) : this.ctx.setLineDash([0]), (this.ctx.strokeStyle = `rgba(168,143,112,${s.alpha})`), (this.ctx.fillStyle = `rgba(168,143,112,${s.alpha})`), (this.ctx.lineWidth = s.width);
+						const v = Math.cos(p(s.y)) * s.moveRange + this.size.cy;
+						this.ctx.arc(this.size.cx, v, g, 0, 2 * Math.PI), this.ctx.stroke();
+						const b = [...s.dots],
+							M = s.reverse ? 1 : -1;
+						for (let N = 0, at = b.length; N < at; ++N) {
+							const $ = b[N];
+							this.ctx.beginPath(), ($.angle += $.speed * M);
+							const ot = Math.cos(p($.angle)) * g + this.size.cx,
+								nt = Math.sin(p($.angle)) * g + v;
+							this.ctx.arc(ot, nt, $.size, 0, 2 * Math.PI), this.ctx.fill(), (b[N] = $);
+						}
+						s.dots = b;
+					}
+				}
+				play() {
+					const r = () => {
+						this.isActive && (requestAnimationFrame(r), this.update());
+					};
+					(this.isActive = !0), r();
+				}
+				stop() {
+					this.isActive = !1;
+				}
+			}
+
+			let n = document.getElementById("canvas2");
+			let ne = new h(n);
+			ne.play();
+		</script>
+	</body>
+</html>
