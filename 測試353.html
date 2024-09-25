@@ -5,89 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <style>
-            .grid-container {
-                display: grid;
-                grid-template-columns: repeat(6, 1fr);
-                grid-gap: 10px;
-                max-width: 600px;
-                margin: 0 auto;
+            body{
+                background-color: #000;
             }
-
-            .grid-item {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                background-color: #4a3c2d;
-                transform: rotate(45deg);
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            .box{
+                width: 271px;
+                height: 118px;
+                background-image: url('./images/logo.png');
+                position: relative;
                 overflow: hidden;
             }
-
-            .grid-item img {
-                max-width: 70%;
-                max-height: 70%;
-                transform: rotate(-45deg);
-            }
-
-            .grid-item:nth-child(1) {
-                grid-column: 2 / span 2;
-                grid-row: 1 / span 2;
-            }
-            .grid-item:nth-child(2) {
-                grid-column: 4 / span 2;
-                grid-row: 1 / span 2;
-            }
-            .grid-item:nth-child(3) {
-                grid-column: 6 / span 2;
-                grid-row: 1 / span 2;
-            }
-            .grid-item:nth-child(4) {
-                grid-column: 1 / span 2;
-                grid-row: 2 / span 2;
-            }
-            .grid-item:nth-child(5) {
-                grid-column: 3 / span 2;
-                grid-row: 2 / span 2;
-            }
-            .grid-item:nth-child(6) {
-                grid-column: 5 / span 2;
-                grid-row: 2 / span 2;
-            }
-
-            .new-badge {
-                position: absolute;
-                top: 0;
-                right: 0;
-                background-color: #ff6600;
-                color: white;
-                padding: 2px 5px;
-                font-size: 12px;
-                transform: rotate(-45deg) translate(30%, -50%);
-            }
+            .box::after{
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(45deg, rgba(255,255,255,0) 40%, rgba(255, 255, 255, 0.7), rgba(255,255,255,0) 60%);
+  animation: shark-wrap 2s infinite;
+  transform: translateX(-100%);
+}
+@keyframes shark-wrap {
+  to {
+    transform: translateX(100%);
+  }
+}
         </style>
     </head>
     <body>
-        <div class="grid-container">
-            <div class="grid-item">
-                <img src="icon1.png" alt="Icon 1" />
-                <span class="new-badge">N</span>
-            </div>
-            <div class="grid-item">
-                <img src="icon2.png" alt="Icon 2" />
-            </div>
-            <div class="grid-item">
-                <img src="icon3.png" alt="Icon 3" />
-            </div>
-            <div class="grid-item">
-                <img src="icon4.png" alt="Icon 4" />
-            </div>
-            <div class="grid-item">
-                <img src="icon5.png" alt="Icon 5" />
-            </div>
-            <div class="grid-item">
-                <img src="icon6.png" alt="Icon 6" />
-            </div>
-        </div>
+        <div class="box"></div>
     </body>
 </html>
