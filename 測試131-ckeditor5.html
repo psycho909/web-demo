@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<!-- <script src="https://alpha-tw.beanfun.com/3KO/removable/pchome/plugins/ckeditor/5/ckeditor.js"></script> -->
-		<!-- <script src="https://tw.hicdn.beanfun.com/plugins/ckeditor/5/ckeditor.js"></script> -->
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
-		<script src="https://tw.hicdn.beanfun.com/beanfun/GamaWWW/allProducts/script/gbox/gbox.js"></script>
+		<meta charset="utf-8" />
+		<title>CKEditor 5 Sample</title>
+		<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
+		<script src="https://tw.hicdn.beanfun.com/plugins/axios/0.21.1/axios.min.js"></script>
 	</head>
 	<body>
-		<div class="btn">btn</div>
-		<div id="myButton">按鈕</div>
+		<div>
+			<div class="main-container">
+				<div class="editor-container editor-container_classic-editor" id="editor-container">
+					<div class="editor-container__editor"><div id="editor"></div></div>
+				</div>
+			</div>
+		</div>
 		<script type="importmap">
 			{
 				"imports": {
@@ -22,56 +22,71 @@
 				}
 			}
 		</script>
-
 		<script type="module">
-			import { ClassicEditor, Essentials, Bold, Italic, Font, Paragraph, PendingActions } from "ckeditor5";
-			$(".btn").on("click", function () {
-				LB();
-			});
+			import { ClassicEditor, AccessibilityHelp, Autosave, Bold, CloudServices, Essentials, FontBackgroundColor, FontColor, FontFamily, FontSize, ImageBlock, ImageInline, ImageToolbar, ImageUpload, Italic, Link, LinkImage, Paragraph, SelectAll, Table, TableCellProperties, TableProperties, TableToolbar, Undo } from "ckeditor5";
 
-			let editor = ClassicEditor;
-			function LB(msg, url, callback) {
-				var config = {
-					addClass: "default",
-					hasCloseBtn: true,
-					hasActionBtn: true,
-					afterClose: function () {
-						$.gbox.close();
-					},
-					afterOpen: function () {
-						editor
-							.create(document.querySelector(".editor"), {
-								plugins: [],
-								toolbar: {
-									items: ["bold", "italic", "link"]
-								}
-							})
-							.then((edit) => {
-								window.Content_Update = edit;
-							})
-							.catch((error) => {
-								console.error(error);
-							});
-						setTimeout(() => {
-							Content_Update.setData("123213");
-						}, 0);
-					},
-					actionBtns: [
-						{
-							text: "text1",
-							class: "myButton",
-							click: function () {
-								console.log(Content_Update.getData());
-								$.gbox.close();
-							}
-						}
-					]
-				};
+			import translations from "ckeditor5/translations/zh.js";
+			class MyUploadAdapter {
+				constructor(loader) {
+					this.loader = loader;
+				}
 
-				var HTML = `<div class="editor"></div>`;
-				$.gbox.open(HTML, config);
+				upload() {
+					return this.loader.file.then(
+						(file) =>
+							new Promise((resolve, reject) => {
+								const data = new FormData();
+								data.append("file", file);
+								console.log(data);
+								// 發送圖片上傳請求
+								axios
+									.post("../api/ImageUpload/UploadImgCkeditor?OTP=1&CKEditorFuncNum=CommonPlatform-NoticeList", data, {
+										headers: {
+											"Content-Type": "multipart/form-data"
+										}
+									})
+									.then((response) => {
+										resolve({
+											default: response.data.url // 從服務端返回圖片 URL
+										});
+									})
+									.catch((err) => {
+										console.log(err);
+									});
+							})
+					);
+				}
+
+				abort() {
+					// Abort the upload process
+				}
 			}
-			LB();
+			function MyCustomUploadAdapterPlugin(editor) {
+				editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+					return new MyUploadAdapter(loader);
+				};
+			}
+			const editorConfig = {
+				toolbar: {
+					items: ["bold", "italic", "link", "fontSize"],
+					shouldNotGroupWhenFull: false
+				},
+				plugins: [Autosave, Bold, CloudServices, Essentials, FontBackgroundColor, FontColor, FontSize, ImageBlock, ImageInline, ImageToolbar, ImageUpload, Italic, Link, LinkImage, Paragraph, Table, TableCellProperties, TableProperties, TableToolbar],
+				fontFamily: {
+					supportAllValues: true
+				},
+				fontSize: {
+					options: ["small", "default", "big"]
+				},
+				image: {
+					toolbar: ["imageTextAlternative"]
+				},
+				initialData: '<h2>Congratulations on setting up CKEditor 5! 🎉</h2>\n<p>\n    You\'ve successfully created a CKEditor 5 project. This powerful text editor will enhance your application, enabling rich text editing\n    capabilities that are customizable and easy to use.\n</p>\n<h3>What\'s next?</h3>\n<ol>\n    <li>\n        <strong>Integrate into your app</strong>: time to bring the editing into your application. Take the code you created and add to your\n        application.\n    </li>\n    <li>\n        <strong>Explore features:</strong> Experiment with different plugins and toolbar options to discover what works best for your needs.\n    </li>\n    <li>\n        <strong>Customize your editor:</strong> Tailor the editor\'s configuration to match your application\'s style and requirements. Or even\n        write your plugin!\n    </li>\n</ol>\n<p>\n    Keep experimenting, and don\'t hesitate to push the boundaries of what you can achieve with CKEditor 5. Your feedback is invaluable to us\n    as we strive to improve and evolve. Happy editing!\n</p>\n<h3>Helpful resources</h3>\n<ul>\n    <li>📝 <a href="https://orders.ckeditor.com/trial/premium-features">Trial sign up</a>,</li>\n    <li>📕 <a href="https://ckeditor.com/docs/ckeditor5/latest/installation/index.html">Documentation</a>,</li>\n    <li>⭐️ <a href="https://github.com/ckeditor/ckeditor5">GitHub</a> (star us if you can!),</li>\n    <li>🏠 <a href="https://ckeditor.com">CKEditor Homepage</a>,</li>\n    <li>🧑‍💻 <a href="https://ckeditor.com/ckeditor-5/demo/">CKEditor 5 Demos</a>,</li>\n</ul>\n<h3>Need help?</h3>\n<p>\n    See this text, but the editor is not starting up? Check the browser\'s console for clues and guidance. It may be related to an incorrect\n    license key if you use premium features or another feature-related requirement. If you cannot make it work, file a GitHub issue, and we\n    will help as soon as possible!\n</p>\n',
+				language: "zh",
+				translations: [translations]
+			};
+			editorConfig.extraPlugins = [MyCustomUploadAdapterPlugin];
+			ClassicEditor.create(document.querySelector("#editor"), editorConfig);
 		</script>
 	</body>
 </html>

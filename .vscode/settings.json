@@ -27,5 +27,6 @@
         "Konva"
     ],
     "image-manager.appearance.language": "zh-CN",
+    "livePreview.defaultPreviewPath": "/測試351.html",
     // "previewServer.port": 62803
 }

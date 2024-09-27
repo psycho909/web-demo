@@ -1,3 +1,7 @@
+import {CurrentSeason} from "../lightbox.js"
+
+CurrentSeason()
+
 const timeCreviceKill = {
 	template: `
 		<div class="kill-nav">
