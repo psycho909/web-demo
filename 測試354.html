@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+		<style>
+			#wrapper {
+				background: #fff;
+				width: 100%;
+				height: 1000px;
+				margin: 0;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.container {
+				background: #fff;
+				width: 100%;
+				max-width: 1136px;
+				margin: 0;
+				position: relative;
+				overflow: hidden;
+				margin: 0 auto;
+				color: #fff;
+			}
+
+			.swiper {
+				margin: 216px auto;
+				width: 62%;
+				height: auto;
+				overflow: visible;
+			}
+			@media (min-width: 992px) {
+				.swiper {
+					width: 49%;
+				}
+			}
+
+			.swiper-slide {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+				font-size: 22px;
+				font-weight: bold;
+				color: #0096d6;
+				background: #fff;
+				-webkit-border-radius: 16px;
+				-moz-border-radius: 16px;
+				border-radius: 16px;
+			}
+
+			.swiper-slide.swiper-slide-prev {
+				align-items: flex-start;
+			}
+			.swiper-slide.swiper-slide-next {
+				align-items: flex-end;
+			}
+			.swiper-slide img {
+				width: 100%;
+				-webkit-border-radius: 16px;
+				-moz-border-radius: 16px;
+				border-radius: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="container">
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/71ec3206c5/first-slide.png" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/e701cc7b08/test-bild-2.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/93eac150e5/test-bild-3.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/71ec3206c5/first-slide.png" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/e701cc7b08/test-bild-2.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/93eac150e5/test-bild-3.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<img src="https://a.storyblok.com/f/64176/1200x700/93eac150e5/test-bild-3.jpg" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Initialize Swiper -->
+		<script>
+			var swiper2 = new Swiper(".mySwiper", {
+				grabCursor: true,
+				effect: "creative",
+				loop: true,
+				loopAdditionalSlides: 9,
+				slideToClickedSlide: true,
+				creativeEffect: {
+					prev: {
+						translate: ["-57%", "-180px", -800]
+					},
+					next: {
+						translate: ["83%", "-180px", -800]
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
