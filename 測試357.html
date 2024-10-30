@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			html,
+			body {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h1>Hello World</h1>
+		</div>
+		<script>
+			function adjustZoom(baseWidth = 1920, elementSelector = "#app") {
+				// 獲取視窗的寬度
+				let windowWidth = window.innerWidth;
+
+				// 選取自定義的元素
+				let appElement = document.querySelector(elementSelector);
+				if (appElement) {
+					// 當視窗寬度小於 baseWidth 時進行縮放
+					if (windowWidth < baseWidth) {
+						let zoomLevel = windowWidth / baseWidth;
+						appElement.style.zoom = zoomLevel;
+					} else {
+						// 視窗寬度大於或等於 baseWidth，重置縮放
+						appElement.style.zoom = 1;
+					}
+				}
+			}
+
+			// 使用 debounce 優化 resize 事件
+			function debounce(func, delay) {
+				let timeout;
+				return function () {
+					clearTimeout(timeout);
+					timeout = setTimeout(func, delay);
+				};
+			}
+
+			// 初始化縮放
+			adjustZoom();
+
+			// 監聽視窗大小變化，使用 debounce 優化效能
+			window.addEventListener(
+				"resize",
+				debounce(() => adjustZoom(), 100)
+			);
+		</script>
+	</body>
+</html>
