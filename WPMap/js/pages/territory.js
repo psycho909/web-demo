@@ -181,7 +181,8 @@ const territory = {
 		imageMapSetup() {
 			// 地圖創建
 			const imageElement = new Image();
-			imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
+			// imageElement.src = "./assets/css/images/territory/bg_worldmap_1_new.jpg";
+			imageElement.src = "./assets/css/images/territory/bg_worldmap_24_1.jpg";
 			// 獲取所有的 land 和 border 元素
 			let lands = document.querySelectorAll("._land");
 			let borders = document.querySelectorAll("._border");

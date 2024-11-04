@@ -3,7 +3,7 @@ import territoryTwo from "./pages/territory2.js";
 import mainTerritory from "./pages/mainTerritory.js";
 import pagination from "./components/pagination.js";
 import pagination2 from "./components/pagination2.js";
-import records from "./pages/records.js";
+// import records from "./pages/records.js";
 // import data from "./components/test.js";
 let app = Vue.createApp({
 	components: {
@@ -11,8 +11,8 @@ let app = Vue.createApp({
 		territoryTwo,
 		mainTerritory,
 		pagination,
-		pagination2,
-		records
+		pagination2
+		// records
 	},
 	setup() {
 		const currentPage = Vue.ref(1);
