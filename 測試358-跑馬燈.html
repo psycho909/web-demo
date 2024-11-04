@@ -7,7 +7,7 @@
 		<style>
 			.marquee-container {
 				width: 100%;
-				height: 50px;
+				height: 100px;
 				background-color: #f0f0f0;
 				margin: 20px 0;
 				overflow: hidden;
@@ -36,7 +36,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="marquee1" class="marquee-container"></div>
+		<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0"></div>
 
 		<div class="control-panel">
 			<div>
@@ -64,9 +64,14 @@
 		<!-- 控制腳本 -->
 		<script>
 			// 初始數據
-			const items = ["項目1", "項目2", "項目3", "項目4", "項目5"];
+			const items = [
+				"Welcome!",
+				"https://fakeimg.pl/200x100/282828/eae0d0/", // 图片 URL
+				"Special Offer",
+				"https://fakeimg.pl/200x100/282828/eae0d0/", // 另一张图片
+				"Contact Us!"
+			];
 
-			// 初始化跑馬燈
 			const marquee = new Marquee("#marquee1", {
 				items: items,
 				direction: "left",
