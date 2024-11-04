@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{msg}}</div>
+			<div v-for="l in list">{{l.Title}}</div>
+		</div>
+		<script>
+			let app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						msg: "Hello",
+						list: {
+							1: {
+								Title: "通關關卡次數",
+								Unit: "次",
+								T: 1,
+								L: 1,
+								Y: 1,
+								share: false
+							},
+							2: {
+								Title: "從交易所獲得金幣數",
+								Unit: "個",
+								T: 2,
+								L: 2,
+								Y: 2,
+								share: true
+							},
+							3: {
+								Title: "通關巢穴次數",
+								Unit: "次",
+								T: 3,
+								L: 3,
+								Y: 3,
+								share: false
+							},
+							4: {
+								Title: "強化道具成功總次數",
+								Unit: "次",
+								T: 4,
+								L: 4,
+								Y: 4,
+								share: true
+							},
+							5: {
+								Title: "花費的金幣數",
+								Unit: "個",
+								T: 5,
+								L: 5,
+								Y: 5,
+								share: true
+							},
+							6: {
+								Title: "我一日不登就難受（年度登入平台總次數）",
+								Unit: "次",
+								T: 6,
+								L: 6,
+								Y: 6,
+								share: false
+							},
+							7: {
+								Title: "錢錢都變成了快樂～（年度總儲值金額）",
+								Unit: "元",
+								T: 7,
+								L: 7,
+								Y: 7,
+								share: false
+							}
+						}
+					};
+				}
+			});
+		</script>
+	</body>
+</html>
