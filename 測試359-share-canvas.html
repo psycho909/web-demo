@@ -27,22 +27,22 @@
 			const canvas = document.getElementById("shareCanvas");
 			const ctx = canvas.getContext("2d");
 			const errorDiv = document.getElementById("error");
-
+			canvas.style.display = "none";
 			canvas.width = 1200;
 			canvas.height = 630;
 
-			// Function to load an image with CORS support
+			// 加載圖片（支持CORS）
 			function loadImage(src) {
 				return new Promise((resolve, reject) => {
 					const img = new Image();
 					img.crossOrigin = "anonymous";
 					img.onload = () => resolve(img);
-					img.onerror = (e) => reject(new Error(`Failed to load image: ${src}`));
+					img.onerror = (e) => reject(new Error(`圖片加載失敗: ${src}`));
 					img.src = src;
 				});
 			}
 
-			// Function to draw centered text
+			// 繪製居中文字
 			function drawCenteredText(text, x, y, font, color) {
 				ctx.font = font;
 				ctx.fillStyle = color;
@@ -50,9 +50,9 @@
 				ctx.fillText(text, x, y);
 			}
 
-			// Function to draw growth rate text with dynamic positioning, only if growthRate is provided
+			// 繪製成長率文字（動態定位），僅在有成長率時顯示
 			function drawGrowthRate(cardX, baselineY, growthRate) {
-				if (!growthRate) return; // Hide growth rate if empty
+				if (!growthRate) return; // 成長率為空時隱藏
 
 				const centerX = cardX + 139;
 				const normalFont = 'normal 28px "Microsoft JhengHei"';
@@ -85,16 +85,16 @@
 				ctx.fillText(suffix, startX, baselineY);
 			}
 
-			// Function to draw card content with custom values, with specific settings for "mabi" logo
+			// 根據自定義值繪製卡片內容，對於"mabi"圖標進行特定設置
 			function drawCardContent(cardX, cardY, { days2024, days2023, growthRate, show2024, show2023, desc2024Image, desc2023Image }, isMabi) {
-				// Adjust positions if "mabi" is the selected logo
+				// 如果圖標是"mabi"，調整位置
 				const titleY = isMabi ? cardY + 105 : cardY + 90;
 				const desc2024Y = isMabi ? cardY + 209 : cardY + 174;
 
-				// Draw the "累積登入天數" label
+				// 繪製"累積登入天數"標籤
 				drawCenteredText("累積登入天數", cardX + 139, titleY, 'bold 28px "Microsoft JhengHei"', "#ffebd1");
 
-				// Draw 2024 day count if specified
+				// 如果指定顯示2024天數，繪製2024天數
 				if (show2024 && days2024) {
 					if (isMabi) {
 						drawCenteredText(days2024, cardX + 139, cardY + 295, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
@@ -103,10 +103,10 @@
 					}
 				}
 
-				// Draw growth rate only if not "mabi" and growthRate is provided
+				// 僅在不是"mabi"且有成長率時繪製成長率
 				if (!isMabi) drawGrowthRate(cardX, cardY + 300, growthRate);
 
-				// Draw 2023 day count and label only if show2023 is true and not "mabi"
+				// 僅在顯示2023且不是"mabi"時，繪製2023天數和標籤
 				if (show2023 && !isMabi) {
 					if (desc2023Image) ctx.drawImage(desc2023Image, cardX + 85, cardY + 322);
 					if (days2023) {
@@ -114,13 +114,13 @@
 					}
 				}
 
-				// Draw 2024 label image if applicable
+				// 如果顯示2024標籤圖片，則繪製
 				if (show2024 && desc2024Image) {
 					ctx.drawImage(desc2024Image, cardX + 85, desc2024Y);
 				}
 			}
 
-			// Main function to draw everything with customizable settings
+			// 主函式，繪製所有內容並進行自定義設置
 			async function drawShareImage({
 				logo = "cso",
 				cardData = [
@@ -150,11 +150,11 @@
 						const { x, y } = cardPositions[i];
 						const card = cardData[i];
 
-						// Set shadow properties for the card
-						ctx.shadowColor = "rgba(81,44, 0, 0.75)"; // Shadow color
-						ctx.shadowOffsetX = 0; // Horizontal shadow offset
-						ctx.shadowOffsetY = 4; // Vertical shadow offset
-						ctx.shadowBlur = 11; // Blur amount
+						// 為卡片設置陰影屬性
+						ctx.shadowColor = "rgba(81,44, 0, 0.75)"; // 陰影顏色
+						ctx.shadowOffsetX = 0; // 水平陰影偏移
+						ctx.shadowOffsetY = 4; // 垂直陰影偏移
+						ctx.shadowBlur = 11; // 模糊程度
 						ctx.drawImage(cardBgImage, x, y, 278, 428);
 
 						const desc2024Image = card.show2024 ? await loadImage("./images/share/share-desc-2024.png") : null;
@@ -163,17 +163,17 @@
 						drawCardContent(x, y, { ...card, desc2024Image, desc2023Image }, isMabi);
 					}
 				} catch (error) {
-					console.error("Error:", error);
+					console.error("錯誤:", error);
 					errorDiv.textContent = error.message;
 				}
 			}
 
-			// Function to return the Base64 image string
+			// 返回Base64圖像字符串的函式
 			function getBase64Image(format = "image/jpeg", quality = 0.7) {
-				return canvas.toDataURL(format, quality); // Use JPEG format with specified quality
+				return canvas.toDataURL(format, quality); // 使用指定品質的JPEG格式
 			}
 
-			// Function to generate a downloadable image
+			// 生成可下載圖片的函式
 			function downloadImage() {
 				const imageData = getBase64Image();
 				const downloadLink = document.createElement("a");
@@ -181,6 +181,7 @@
 				downloadLink.download = "share_image.png";
 				downloadLink.click();
 			}
+
 			let obj = {
 				logo: "maple",
 				cardData: [
@@ -189,7 +190,8 @@
 					{ show2024: true, show2023: true, days2024: "789天", days2023: "200天", growthRate: "" }
 				]
 			};
-			// Initialize drawing with default settings
+
+			// 使用預設設置初始化繪製
 			drawShareImage(obj);
 		</script>
 	</body>

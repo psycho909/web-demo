@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Share Image Generator</title>
+		<style>
+			/* Your existing CSS here */
+			.download-btn {
+				margin-top: 20px;
+				padding: 10px 20px;
+				font-size: 16px;
+				color: white;
+				background-color: #007bff;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="shareCanvas"></canvas>
+		<div id="error" class="error"></div>
+		<button class="download-btn">Download Image</button>
+		<script type="module">
+			import { drawShareImage, downloadImage } from "./測試359-share-canvas2.js";
+			let obj = {
+				logo: "dn",
+				cardData: [
+					{ show2024: true, show2023: true, days2024: "123天", days2023: "100天", growthRate: "100" },
+					{ show2024: true, show2023: false, days2024: "456天", days2023: "", growthRate: "200" },
+					{ show2024: true, show2023: true, days2024: "789天", days2023: "200天", growthRate: "" }
+				]
+			};
+			drawShareImage(obj);
+
+			document.querySelector(".download-btn").addEventListener("click", downloadImage);
+		</script>
+	</body>
+</html>
