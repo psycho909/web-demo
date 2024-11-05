@@ -22,8 +22,9 @@
 		<canvas id="shareCanvas"></canvas>
 		<div id="error" class="error"></div>
 		<button class="download-btn">Download Image</button>
+		<button class="download-btn2">getBase64Image</button>
 		<script type="module">
-			import { drawShareImage, downloadImage } from "./測試359-share-canvas2.js";
+			import { drawShareImage, downloadImage, getBase64Image } from "./測試359-share-canvas2.js";
 			let obj = {
 				logo: "dn",
 				cardData: [
@@ -35,6 +36,9 @@
 			drawShareImage(obj);
 
 			document.querySelector(".download-btn").addEventListener("click", downloadImage);
+			document.querySelector(".download-btn2").addEventListener("click", () => {
+				console.log(getBase64Image());
+			});
 		</script>
 	</body>
 </html>

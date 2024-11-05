@@ -145,7 +145,7 @@ export async function drawShareImage({
 }
 
 // 獲取 Base64 圖片字符串的函數
-export function getBase64Image(format = "image/jpeg", quality = 0.7) {
+export function getBase64Image(format = "image/jpeg", quality = 0.6) {
 	return canvas.toDataURL(format, quality); // 使用 JPEG 格式並設置質量
 }
 
