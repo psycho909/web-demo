@@ -22,9 +22,9 @@ export function drawCenteredText(text, x, y, font, color) {
 	ctx.fillText(text, x, y);
 }
 
-// 動態繪製成長率文本的函數（僅當提供 growthRate 時才顯示）
-export function drawGrowthRate(cardX, baselineY, growthRate) {
-	if (!growthRate) return; // 若 growthRate 為空則隱藏成長率
+// 動態繪製成長率文本的函數（僅當提供 Y 時才顯示）
+export function drawGrowthRate(cardX, baselineY, Y) {
+	if (!Y) return; // 若 Y 為空則隱藏成長率
 
 	const centerX = cardX + 139;
 	const normalFont = 'normal 28px "Microsoft JhengHei"';
@@ -37,7 +37,7 @@ export function drawGrowthRate(cardX, baselineY, growthRate) {
 	const suffixWidth = ctx.measureText(suffix).width;
 
 	ctx.font = largeFont;
-	const numberWidth = ctx.measureText(growthRate).width;
+	const numberWidth = ctx.measureText(Y).width;
 
 	const spacing = 2;
 	const totalWidth = prefixWidth + numberWidth + suffixWidth + spacing * 2;
@@ -50,7 +50,7 @@ export function drawGrowthRate(cardX, baselineY, growthRate) {
 
 	startX += prefixWidth + spacing;
 	ctx.font = largeFont;
-	ctx.fillText(growthRate, startX, baselineY);
+	ctx.fillText(Y, startX, baselineY);
 
 	startX += numberWidth + spacing;
 	ctx.font = normalFont;
@@ -58,27 +58,27 @@ export function drawGrowthRate(cardX, baselineY, growthRate) {
 }
 
 // 繪製卡片內容的函數，支持 "mabi" 標誌的特殊設置
-export function drawCardContent(cardX, cardY, { days2024, days2023, growthRate, show2024, show2023, desc2024Image, desc2023Image }, isMabi) {
+export function drawCardContent(cardX, cardY, { L, T, Y, show2024, show2023, desc2024Image, desc2023Image, titleText }, isMabi) {
 	const titleY = isMabi ? cardY + 105 : cardY + 90;
 	const desc2024Y = isMabi ? cardY + 209 : cardY + 174;
 
-	// 繪製 "累積登入天數" 標籤
-	drawCenteredText("累積登入天數", cardX + 139, titleY, 'bold 28px "Microsoft JhengHei"', "#ffebd1");
+	// 繪製自訂的標題文字
+	drawCenteredText(titleText, cardX + 139, titleY, 'bold 28px "Microsoft JhengHei"', "#ffebd1");
 
 	// 若有指定天數顯示，則繪製 2024 天數
-	if (show2024 && days2024) {
+	if (show2024 && L) {
 		const textY = isMabi ? cardY + 295 : cardY + 240;
-		drawCenteredText(days2024, cardX + 139, textY, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+		drawCenteredText(L, cardX + 139, textY, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
 	}
 
-	// 若非 "mabi" 標誌且有 growthRate 則繪製成長率
-	if (!isMabi) drawGrowthRate(cardX, cardY + 300, growthRate);
+	// 若非 "mabi" 標誌且有 Y 則繪製成長率
+	if (!isMabi) drawGrowthRate(cardX, cardY + 300, Y);
 
 	// 若非 "mabi" 且 show2023 顯示，則繪製 2023 的天數和標籤
 	if (show2023 && !isMabi) {
 		if (desc2023Image) ctx.drawImage(desc2023Image, cardX + 85, cardY + 322);
-		if (days2023) {
-			drawCenteredText(days2023, cardX + 139, cardY + 388, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+		if (T) {
+			drawCenteredText(T, cardX + 139, cardY + 388, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
 		}
 	}
 
@@ -92,15 +92,14 @@ export function drawCardContent(cardX, cardY, { days2024, days2023, growthRate, 
 export async function drawShareImage({
 	logo = "cso",
 	cardData = [
-		{ show2024: true, show2023: true, days2024: "123天", days2023: "100天", growthRate: "100" },
-		{ show2024: true, show2023: false, days2024: "456天", days2023: "", growthRate: "200" },
-		{ show2024: true, show2023: true, days2024: "789天", days2023: "200天", growthRate: "" }
+		{ titleText: "累積登入天數", show2024: true, show2023: true, L: "123天", T: "100天", Y: "100" },
+		{ titleText: "遊戲次數", show2024: true, show2023: false, L: "456天", T: "", Y: "200" },
+		{ titleText: "每日挑戰", show2024: true, show2023: true, L: "789天", T: "200天", Y: "" }
 	]
 } = {}) {
 	// 初始化畫布和上下文
 	canvas = document.getElementById("shareCanvas");
 	ctx = canvas.getContext("2d");
-	errorDiv = document.getElementById("error");
 
 	canvas.width = 1200;
 	canvas.height = 630;
@@ -140,12 +139,11 @@ export async function drawShareImage({
 		}
 	} catch (error) {
 		console.error("Error:", error);
-		errorDiv.textContent = error.message;
 	}
 }
 
 // 獲取 Base64 圖片字符串的函數
-export function getBase64Image(format = "image/jpeg", quality = 0.6) {
+export function getBase64Image(format = "image/jpeg", quality = 0.7) {
 	return canvas.toDataURL(format, quality); // 使用 JPEG 格式並設置質量
 }
 
