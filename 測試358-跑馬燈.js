@@ -54,19 +54,31 @@ class Marquee {
 		this.container.appendChild(this.wrapper);
 	}
 
-	createItemElement(text, isDuplicate = false) {
-		const item = document.createElement("span");
-		item.className = isDuplicate ? `${this.options.itemClass} ${this.options.duplicateClass}` : this.options.itemClass;
-		item.textContent = text;
-		item.style.margin = `0 ${this.options.gap / 2}px`;
-		return item;
+	createItemElement(item, isDuplicate = false) {
+		// 根据内容类型创建文字或图片项
+		const itemElement = document.createElement(item.includes("http") ? "img" : "span");
+		itemElement.className = isDuplicate ? `${this.options.itemClass} ${this.options.duplicateClass}` : this.options.itemClass;
+
+		if (item.includes("http")) {
+			itemElement.src = item; // 设置图片的 URL
+			itemElement.alt = "Marquee Image"; // 设置图片的替代文本
+			itemElement.style.cssText = `
+                width: auto;
+                height: 100%;
+                vertical-align: middle;
+            `;
+		} else {
+			itemElement.textContent = item;
+		}
+		itemElement.style.margin = `0 ${this.options.gap / 2}px`;
+		return itemElement;
 	}
 
 	updateItems(items) {
 		// 停止當前動畫
 		this.pause();
 
-		// 更新選項中的items
+		// 更新選項中的 items
 		this.options.items = items;
 
 		// 清空內容容器
@@ -76,11 +88,8 @@ class Marquee {
 		const createContent = () => {
 			const fragment = document.createDocumentFragment();
 
-			items.forEach((text, index) => {
-				// 添加項目
-				fragment.appendChild(this.createItemElement(text));
-
-				// 添加分隔符（包括最後一個項目後面）
+			items.forEach((item) => {
+				fragment.appendChild(this.createItemElement(item));
 				const separator = document.createElement("span");
 				separator.textContent = this.options.separator;
 				fragment.appendChild(separator);
@@ -89,19 +98,16 @@ class Marquee {
 			return fragment;
 		};
 
-		// 添加原始內容
-		this.content.appendChild(createContent());
-
-		// 添加複製的內容（不包括最後一個分隔符）
-		const duplicateContent = createContent();
-		// 移除最後一個分隔符
-		duplicateContent.lastChild.remove();
-		this.content.appendChild(duplicateContent);
+		// 重复添加内容，使其在滚动时保持连续性
+		for (let i = 0; i < 3; i++) {
+			// 添加三份内容
+			this.content.appendChild(createContent());
+		}
 
 		// 重置位置
 		this.resetPosition();
 
-		// 恢復動畫
+		// 恢复动画
 		this.resume();
 	}
 
@@ -136,8 +142,8 @@ class Marquee {
 		const move = () => {
 			if (!this.isRunning || this.isPaused) return;
 
-			const contentWidth = this.content.offsetWidth / 2;
-			const contentHeight = this.content.offsetHeight / 2;
+			const contentWidth = this.content.offsetWidth / 3; // 原内容的宽度
+			const contentHeight = this.content.offsetHeight / 3;
 
 			switch (this.options.direction) {
 				case "left":
@@ -215,7 +221,6 @@ class Marquee {
 	}
 
 	setSpeed(speed) {
-		// 確保速度是有效的數字
 		const newSpeed = parseFloat(speed);
 		if (!isNaN(newSpeed) && newSpeed > 0) {
 			this.options.speed = newSpeed;
