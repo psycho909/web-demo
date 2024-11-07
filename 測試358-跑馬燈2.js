@@ -1,3 +1,4 @@
+// 備份用
 class Marquee {
 	constructor(element, options = {}) {
 		this.container = typeof element === "string" ? document.querySelector(element) : element;

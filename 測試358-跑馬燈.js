@@ -136,21 +136,17 @@ class Marquee {
 		setTimeout(() => {
 			switch (this.options.direction) {
 				case "left":
-					this.currentPosition = this.wrapper.clientWidth;
-					this.content.style.left = "0";
+					this.content.style.left = `${this.currentPosition}px`;
 					this.content.style.top = "0";
 					break;
 				case "right":
-					this.currentPosition = -this.content.offsetWidth; // 使用 offsetWidth 替代 clientWidth
 					this.content.style.left = `${this.currentPosition}px`;
 					this.content.style.top = "0";
 					break;
 				case "up":
-					this.currentPosition = this.wrapper.offsetHeight;
 					this.content.style.top = `${this.currentPosition}px`;
 					break;
 				case "down":
-					this.currentPosition = -this.content.offsetHeight;
 					this.content.style.top = `${this.currentPosition}px`;
 					break;
 			}

@@ -24,8 +24,16 @@
 		<button class="download-btn">Download Image</button>
 		<button class="download-btn2">getBase64Image</button>
 		<script type="module">
-			import { drawShareImage, downloadImage, getBase64Image } from "./測試359-share-canvas2.js";
-			drawShareImage();
+			import { drawShareImage, downloadImage, getBase64Image } from "./測試359-share-canvas3.js";
+			let obj = {
+				logo: "cso",
+				cardData: [
+					{ Title: "累積登入天數", show2024: true, show2023: true, L: "123天", T: "100天", Y: null },
+					{ Title: "遊戲次數", show2024: true, show2023: false, L: "456天", T: "", Y: null },
+					{ Title: "每日挑戰", show2024: true, show2023: true, L: "789天", T: "200天", Y: null }
+				]
+			};
+			drawShareImage(obj);
 
 			document.querySelector(".download-btn").addEventListener("click", downloadImage);
 			document.querySelector(".download-btn2").addEventListener("click", () => {
