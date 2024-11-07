@@ -101,60 +101,43 @@ class Marquee {
 		// 重复添加内容，使其在滚动时保持连续性
 		if (this.options.direction === "left" || this.options.direction === "right") {
 			for (let i = 0; i < 3; i++) {
+				// 添加三份内容
 				this.content.appendChild(createContent());
 			}
 		} else {
 			this.content.appendChild(createContent());
 		}
 
-		// 等待所有圖片載入後再重置位置
-		const images = this.content.getElementsByTagName("img");
-		if (images.length > 0) {
-			Promise.all(
-				Array.from(images).map((img) => {
-					return new Promise((resolve) => {
-						if (img.complete) {
-							resolve();
-						} else {
-							img.onload = () => resolve();
-							img.onerror = () => resolve(); // 即使圖片載入失敗也繼續
-						}
-					});
-				})
-			).then(() => {
-				this.resetPosition();
-				this.resume();
-			});
-		} else {
-			// 如果沒有圖片，直接重置位置
-			this.resetPosition();
-			this.resume();
-		}
+		// 重置位置
+		this.resetPosition();
+
+		// 恢复动画
+		this.resume();
 	}
 
 	resetPosition() {
-		setTimeout(() => {
-			switch (this.options.direction) {
-				case "left":
-					this.currentPosition = this.wrapper.clientWidth;
-					this.content.style.left = "0";
-					this.content.style.top = "0";
-					break;
-				case "right":
-					this.currentPosition = -this.content.offsetWidth; // 使用 offsetWidth 替代 clientWidth
-					this.content.style.left = `${this.currentPosition}px`;
-					this.content.style.top = "0";
-					break;
-				case "up":
-					this.currentPosition = this.wrapper.offsetHeight;
-					this.content.style.top = `${this.currentPosition}px`;
-					break;
-				case "down":
-					this.currentPosition = -this.content.offsetHeight;
-					this.content.style.top = `${this.currentPosition}px`;
-					break;
-			}
-		}, 0);
+		switch (this.options.direction) {
+			case "left":
+				this.currentPosition = 0;
+				this.content.style.left = "0";
+				this.content.style.top = "0";
+				break;
+			case "right":
+				this.currentPosition = -this.content.offsetWidth / 2;
+				this.content.style.left = `${this.currentPosition}px`;
+				this.content.style.top = "0";
+				break;
+			case "up":
+				// Set initial position to be below the container (outside of the visible area)
+				this.currentPosition = this.wrapper.offsetHeight;
+				this.content.style.top = `${this.currentPosition}px`;
+				break;
+			case "down":
+				// Set initial position to be above the container (outside of the visible area)
+				this.currentPosition = -this.content.offsetHeight;
+				this.content.style.top = `${this.currentPosition}px`;
+				break;
+		}
 	}
 
 	animate() {
@@ -170,8 +153,8 @@ class Marquee {
 			switch (this.options.direction) {
 				case "left":
 					this.currentPosition -= this.options.speed / 60;
-					if (this.currentPosition <= -(contentWidth / 3)) {
-						// Reset position to the start of the second duplicate for seamless loop
+					if (this.currentPosition <= -contentWidth / 2) {
+						// Reset position to the start of the duplicate for seamless loop
 						this.currentPosition = 0;
 					}
 					this.content.style.left = `${this.currentPosition}px`;
@@ -181,7 +164,7 @@ class Marquee {
 					this.currentPosition += this.options.speed / 60;
 					if (this.currentPosition >= 0) {
 						// Reset position to the start of the duplicate for seamless loop
-						this.currentPosition = -contentWidth / 3; // 因為我們有3份複製的內容，所以除以3
+						this.currentPosition = -contentWidth / 2;
 					}
 					this.content.style.left = `${this.currentPosition}px`;
 					break;

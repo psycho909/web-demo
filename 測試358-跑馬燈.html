@@ -65,11 +65,11 @@
 		<script>
 			// 初始數據
 			const items = [
-				"Welcome!",
+				"https://fakeimg.pl/200x100/282828/eae0d0/",
 				"https://fakeimg.pl/200x100/282828/eae0d0/", // 图片 URL
-				"Special Offer",
+				"https://fakeimg.pl/200x100/282828/eae0d0/",
 				"https://fakeimg.pl/200x100/282828/eae0d0/", // 另一张图片
-				"Contact Us!"
+				"https://fakeimg.pl/200x100/282828/eae0d0/"
 			];
 
 			const marquee = new Marquee("#marquee1", {
@@ -108,6 +108,8 @@
 			function changeDirection(direction) {
 				marquee.setDirection(direction);
 			}
+
+			document.getElementById("pauseButton").addEventListener("click", () => marquee.togglePause());
 		</script>
 	</body>
 </html>
