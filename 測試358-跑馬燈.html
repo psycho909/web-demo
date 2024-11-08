@@ -64,20 +64,12 @@
 		<!-- 控制腳本 -->
 		<script>
 			// 初始數據
-			const items = [
-				"https://fakeimg.pl/200x100/282828/eae0d0/",
-				"https://fakeimg.pl/200x100/282828/eae0d0/", // 图片 URL
-				"https://fakeimg.pl/200x100/282828/eae0d0/",
-				"https://fakeimg.pl/200x100/282828/eae0d0/", // 另一张图片
-				"https://fakeimg.pl/200x100/282828/eae0d0/"
-			];
+			const items = ["AA", "BB", "CC", "DD", "https://fakeimg.pl/200x100/282828/eae0d0/"];
 
 			const marquee = new Marquee("#marquee1", {
 				items: items,
 				direction: "down",
-				speed: 50,
-				gap: 50,
-				separator: " | "
+				speed: 10
 			});
 
 			// 添加新項目
@@ -110,6 +102,50 @@
 			}
 
 			document.getElementById("pauseButton").addEventListener("click", () => marquee.togglePause());
+
+			// // 方式 1：使用 async/await
+			// async function updateMarquee() {
+			// 	try {
+			// 		await marquee.reinitialize({
+			// 			items: newItems,
+			// 			speed: 60,
+			// 			direction: "right"
+			// 		});
+			// 		console.log("Marquee updated successfully");
+			// 	} catch (error) {
+			// 		console.error("Failed to update marquee:", error);
+			// 	}
+			// }
+
+			// // 方式 2：使用 Promise
+			// marquee
+			// 	.reinitialize({
+			// 		items: newItems,
+			// 		speed: 60,
+			// 		direction: "right"
+			// 	})
+			// 	.then(() => {
+			// 		console.log("Marquee updated successfully");
+			// 	})
+			// 	.catch((error) => {
+			// 		console.error("Failed to update marquee:", error);
+			// 	});
+
+			// // 方式 3：只更新部分選項
+			// marquee.reinitialize({
+			// 	items: newItems // 只更新項目，其他選項保持不變
+			// });
+
+			// // 方式 4：鏈式調用
+			// marquee
+			// 	.destroy()
+			// 	.reinitialize({
+			// 		items: newItems,
+			// 		speed: 60
+			// 	})
+			// 	.then(() => {
+			// 		console.log("Marquee reinitialized");
+			// 	});
 		</script>
 	</body>
 </html>

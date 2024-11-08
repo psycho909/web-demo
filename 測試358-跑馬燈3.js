@@ -58,7 +58,7 @@ class Marquee {
 				this.content.style.whiteSpace = "nowrap";
 				// 為 down 方向設置初始位置
 				if (this.options.direction === "down") {
-					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
+					this.currentPosition = -this.content.offsetHeight;
 				}
 			}
 
@@ -144,6 +144,7 @@ class Marquee {
 		});
 	}
 
+	// 內容更新相關方法
 	updateItems(items) {
 		// 確保 items 是數組
 		if (!Array.isArray(items)) {
@@ -168,8 +169,11 @@ class Marquee {
 			return fragment;
 		};
 
-		// 對所有方向都創建多個副本以實現無縫效果
-		for (let i = 0; i < 3; i++) {
+		if (this.options.direction === "left" || this.options.direction === "right") {
+			for (let i = 0; i < 3; i++) {
+				this.content.appendChild(createContent());
+			}
+		} else {
 			this.content.appendChild(createContent());
 		}
 
@@ -238,14 +242,14 @@ class Marquee {
 						break;
 					case "up":
 						this.currentPosition -= pixelsPerFrame;
-						if (this.currentPosition <= -(contentHeight / 3)) {
-							this.currentPosition = 0;
+						if (this.currentPosition <= -contentHeight) {
+							this.currentPosition = containerHeight;
 						}
 						break;
 					case "down":
 						this.currentPosition += pixelsPerFrame;
-						if (this.currentPosition >= 0) {
-							this.currentPosition = -(contentHeight / 3);
+						if (this.currentPosition >= containerHeight) {
+							this.currentPosition = -contentHeight;
 						}
 						break;
 				}
@@ -265,19 +269,10 @@ class Marquee {
 	// 修改 resetPosition 方法
 	resetPosition() {
 		setTimeout(() => {
-			// 根據不同方向設置初始位置
-			switch (this.options.direction) {
-				case "right":
-					this.currentPosition = -(this.content.offsetWidth / 3);
-					break;
-				case "down":
-					// 修改 down 方向的初始位置，從容器底部開始
-					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
-					break;
-				default:
-					this.currentPosition = 0;
+			// 如果是向下滾動，初始位置設為 -contentHeight
+			if (this.options.direction === "down") {
+				this.currentPosition = -this.content.offsetHeight;
 			}
-
 			const transform = this.options.direction === "left" || this.options.direction === "right" ? `translateX(${this.currentPosition}px)` : `translateY(${this.currentPosition}px)`;
 			this.content.style.transform = transform;
 		}, 0);
