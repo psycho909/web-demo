@@ -60,16 +60,18 @@
 
 		<!-- 引入跑馬燈類 -->
 		<script src="./測試358-跑馬燈.js"></script>
+		<!-- <script src="./測試358-跑馬燈2.js"></script> -->
 
 		<!-- 控制腳本 -->
 		<script>
 			// 初始數據
+			// const items = ["AA", "BB", "CC", "DD", "https://fakeimg.pl/200x100/282828/eae0d0/"];
 			const items = ["AA", "BB", "CC", "DD", "https://fakeimg.pl/200x100/282828/eae0d0/"];
 
 			const marquee = new Marquee("#marquee1", {
 				items: items,
-				direction: "down",
-				speed: 10
+				direction: "left",
+				speed: 50
 			});
 
 			// 添加新項目

@@ -42,6 +42,9 @@ class Marquee {
 		this.handleMouseLeave = this.handleMouseLeave.bind(this);
 		this.handleResize = this.throttleResize.bind(this);
 
+		// 創建多個副本以實現無縫效果
+		this.infinite = 6;
+
 		// 自動初始化
 		this.initPromise = this.init().catch((error) => {
 			console.error("Marquee initialization failed:", error);
@@ -58,7 +61,7 @@ class Marquee {
 				this.content.style.whiteSpace = "nowrap";
 				// 為 down 方向設置初始位置
 				if (this.options.direction === "down") {
-					this.currentPosition = -this.content.offsetHeight;
+					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
 				}
 			}
 
@@ -92,6 +95,8 @@ class Marquee {
             display: inline-block;
             transform: translateZ(0);
             will-change: transform;
+			opacity: 0;
+        transition: opacity 0.3s ease;
         `;
 
 		this.wrapper.appendChild(this.content);
@@ -144,7 +149,6 @@ class Marquee {
 		});
 	}
 
-	// 內容更新相關方法
 	updateItems(items) {
 		// 確保 items 是數組
 		if (!Array.isArray(items)) {
@@ -158,7 +162,7 @@ class Marquee {
 		const createContent = () => {
 			const fragment = document.createDocumentFragment();
 			// 根據方向決定是否需要反轉順序
-			const itemsToRender = this.options.direction === "down" ? [...this.options.items].reverse() : this.options.items;
+			const itemsToRender = this.options.direction === "down" || this.options.direction === "right" ? [...this.options.items].reverse() : this.options.items;
 
 			itemsToRender.forEach((item) => {
 				fragment.appendChild(this.createItemElement(item));
@@ -169,11 +173,8 @@ class Marquee {
 			return fragment;
 		};
 
-		if (this.options.direction === "left" || this.options.direction === "right") {
-			for (let i = 0; i < 3; i++) {
-				this.content.appendChild(createContent());
-			}
-		} else {
+		// 對所有方向都創建多個副本以實現無縫效果
+		for (let i = 0; i < this.infinite; i++) {
 			this.content.appendChild(createContent());
 		}
 
@@ -197,15 +198,18 @@ class Marquee {
 			)
 				.then(() => {
 					this.resetPosition();
+					this.content.style.opacity = "1"; // 所有圖片載入完成後顯示
 					this.resume();
 				})
 				.catch((error) => {
 					console.error("Error loading images:", error);
 					this.resetPosition();
+					this.content.style.opacity = "1"; // 即使有錯誤也顯示
 					this.resume();
 				});
 		} else {
 			this.resetPosition();
+			this.content.style.opacity = "1"; // 沒有圖片時直接顯示
 			this.resume();
 		}
 	}
@@ -223,38 +227,38 @@ class Marquee {
 
 			if (deltaTime >= this.frameInterval) {
 				const contentHeight = this.content.offsetHeight;
-				const containerHeight = this.wrapper.offsetHeight;
 				const contentWidth = this.content.offsetWidth;
 				const pixelsPerFrame = (this.options.speed * deltaTime) / 1000;
 
 				switch (this.options.direction) {
 					case "left":
 						this.currentPosition -= pixelsPerFrame;
-						if (this.currentPosition <= -(contentWidth / 3)) {
-							this.currentPosition = 0;
+						// 當內容移動超過一個完整循環時，重置位置但保持連續性
+						if (this.currentPosition <= -(contentWidth / this.infinite)) {
+							this.currentPosition += contentWidth / this.infinite;
 						}
 						break;
 					case "right":
 						this.currentPosition += pixelsPerFrame;
-						if (this.currentPosition >= 0) {
-							this.currentPosition = -contentWidth / 3;
+						if (this.currentPosition >= contentWidth / this.infinite) {
+							this.currentPosition -= contentWidth / this.infinite;
 						}
 						break;
 					case "up":
 						this.currentPosition -= pixelsPerFrame;
-						if (this.currentPosition <= -contentHeight) {
-							this.currentPosition = containerHeight;
+						if (this.currentPosition <= -(contentHeight / this.infinite)) {
+							this.currentPosition += contentHeight / this.infinite;
 						}
 						break;
 					case "down":
 						this.currentPosition += pixelsPerFrame;
-						if (this.currentPosition >= containerHeight) {
-							this.currentPosition = -contentHeight;
+						if (this.currentPosition >= contentHeight / this.infinite) {
+							this.currentPosition -= contentHeight / this.infinite;
 						}
 						break;
 				}
 
-				const transform = this.options.direction === "left" || this.options.direction === "right" ? `translateX(${this.currentPosition}px)` : `translateY(${this.currentPosition}px)`;
+				const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
 
 				this.content.style.transform = transform;
 				this.lastTimestamp = timestamp;
@@ -268,14 +272,21 @@ class Marquee {
 
 	// 修改 resetPosition 方法
 	resetPosition() {
-		setTimeout(() => {
-			// 如果是向下滾動，初始位置設為 -contentHeight
-			if (this.options.direction === "down") {
-				this.currentPosition = -this.content.offsetHeight;
-			}
-			const transform = this.options.direction === "left" || this.options.direction === "right" ? `translateX(${this.currentPosition}px)` : `translateY(${this.currentPosition}px)`;
-			this.content.style.transform = transform;
-		}, 0);
+		// 移除 setTimeout，直接設置位置
+		switch (this.options.direction) {
+			case "right":
+				this.currentPosition = -(this.content.offsetWidth - this.wrapper.offsetWidth);
+				break;
+			case "down":
+				this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
+				break;
+			default:
+				this.currentPosition = 0;
+		}
+
+		// 使用 translate3d 來強制啟用硬件加速
+		const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
+		this.content.style.transform = transform;
 	}
 
 	// 事件處理相關方法
