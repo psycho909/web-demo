@@ -36,7 +36,12 @@
 		</style>
 	</head>
 	<body>
-		<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0"></div>
+		<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
+			<div class="marquee-item">A</div>
+			<div class="marquee-item">B</div>
+			<div class="marquee-item"><img src="https://fakeimg.pl/200x100/282828/eae0d0/" alt="" /></div>
+			<div class="marquee-item">D</div>
+		</div>
 		<div class="control-panel">
 			<div>
 				<button onclick="addItem()">添加項目</button>
@@ -59,18 +64,15 @@
 		</div>
 
 		<!-- 引入跑馬燈類 -->
-		<script src="./測試358-跑馬燈.js"></script>
+		<script src="./測試358-跑馬燈2-2.js"></script>
 		<!-- <script src="./測試358-跑馬燈2.js"></script> -->
 
 		<!-- 控制腳本 -->
 		<script>
 			// 初始數據
-			// const items = ["AA", "BB", "CC", "DD", "https://fakeimg.pl/200x100/282828/eae0d0/"];
-			const items = ["AA", "BB", "CC", "DD"];
 
-			const marquee = new Marquee("#marquee1", {
-				items: items,
-				direction: "right",
+			let marquee = new Marquee("#marquee1", {
+				direction: "down",
 				speed: 50
 			});
 
@@ -105,49 +107,34 @@
 
 			document.getElementById("pauseButton").addEventListener("click", () => marquee.togglePause());
 
-			// // 方式 1：使用 async/await
-			// async function updateMarquee() {
-			// 	try {
-			// 		await marquee.reinitialize({
-			// 			items: newItems,
-			// 			speed: 60,
-			// 			direction: "right"
-			// 		});
-			// 		console.log("Marquee updated successfully");
-			// 	} catch (error) {
-			// 		console.error("Failed to update marquee:", error);
-			// 	}
-			// }
+			/*
+function updateMarqueeContent(newItems) {
+    // 1. 先銷毀現有的 Marquee 實例
+    if (marquee) {
+        marquee.destroy();
+        marquee = null;
+    }
 
-			// // 方式 2：使用 Promise
-			// marquee
-			// 	.reinitialize({
-			// 		items: newItems,
-			// 		speed: 60,
-			// 		direction: "right"
-			// 	})
-			// 	.then(() => {
-			// 		console.log("Marquee updated successfully");
-			// 	})
-			// 	.catch((error) => {
-			// 		console.error("Failed to update marquee:", error);
-			// 	});
+    // 2. 更新 HTML 內容
+    const container = document.querySelector('.marquee-container');
+    container.innerHTML = `
+        <div class="marquee">
+            ${newItems.map(item => `<div class="marquee-item">${item}</div>`).join('')}
+        </div>
+    `;
 
-			// // 方式 3：只更新部分選項
-			// marquee.reinitialize({
-			// 	items: newItems // 只更新項目，其他選項保持不變
-			// });
+    // 3. 重新初始化 Marquee
+    marquee = new Marquee("#marquee1",{
+        speed: 60,
+        direction: 'left'
+        // 其他需要的配置項...
+    });
+}
 
-			// // 方式 4：鏈式調用
-			// marquee
-			// 	.destroy()
-			// 	.reinitialize({
-			// 		items: newItems,
-			// 		speed: 60
-			// 	})
-			// 	.then(() => {
-			// 		console.log("Marquee reinitialized");
-			// 	});
+// 使用方式
+updateMarqueeContent(['新內容1', '新內容2', '新內容3']);
+
+*/
 		</script>
 	</body>
 </html>

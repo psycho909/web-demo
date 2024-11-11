@@ -161,19 +161,35 @@ class Marquee {
 
 		const createContent = () => {
 			const fragment = document.createDocumentFragment();
-			// 根據方向決定是否需要反轉順序
 			const itemsToRender = this.options.direction === "down" || this.options.direction === "right" ? [...this.options.items].reverse() : this.options.items;
 
-			itemsToRender.forEach((item) => {
+			// 修改這部分，只在有分隔符且不是最後一個項目時添加分隔符
+			itemsToRender.forEach((item, index) => {
 				fragment.appendChild(this.createItemElement(item));
-				const separator = document.createElement("span");
-				separator.textContent = this.options.separator;
-				fragment.appendChild(separator);
+				if (this.options.separator && index < itemsToRender.length - 1) {
+					const separator = document.createElement("span");
+					separator.textContent = this.options.separator;
+					fragment.appendChild(separator);
+				}
 			});
 			return fragment;
 		};
+		// 先創建一個副本來測量寬度
+		this.content.appendChild(createContent());
 
-		// 對所有方向都創建多個副本以實現無縫效果
+		// 計算需要的副本數量
+		if (["left", "right"].includes(this.options.direction)) {
+			const contentWidth = this.content.offsetWidth;
+			const wrapperWidth = this.wrapper.offsetWidth;
+
+			if (contentWidth < wrapperWidth) {
+				// 計算需要多少副本才能填滿容器
+				this.infinite = Math.ceil(wrapperWidth / contentWidth) + 1;
+			}
+		}
+
+		// 清空內容後重新創建所需數量的副本
+		this.content.innerHTML = "";
 		for (let i = 0; i < this.infinite; i++) {
 			this.content.appendChild(createContent());
 		}
@@ -240,7 +256,7 @@ class Marquee {
 						break;
 					case "right":
 						this.currentPosition += pixelsPerFrame;
-						if (this.currentPosition >= contentWidth / this.infinite) {
+						if (this.currentPosition >= 0) {
 							this.currentPosition -= contentWidth / this.infinite;
 						}
 						break;
@@ -252,7 +268,7 @@ class Marquee {
 						break;
 					case "down":
 						this.currentPosition += pixelsPerFrame;
-						if (this.currentPosition >= contentHeight / this.infinite) {
+						if (this.currentPosition >= 0) {
 							this.currentPosition -= contentHeight / this.infinite;
 						}
 						break;
