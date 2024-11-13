@@ -341,9 +341,9 @@ class Marquee {
 							this.currentPosition -= pixelsPerFrame;
 							const items = this.content.querySelectorAll(`.${this.options.itemClass}`);
 							const currentItem = items[this.currentItemIndex];
-
-							if (Math.abs(this.currentPosition) >= this.wrapper.offsetWidth) {
-								this.currentPosition = 0;
+							// if (Math.abs(this.currentPosition) >= this.wrapper.offsetWidth)
+							if (this.currentPosition <= -contentWidth) {
+								this.currentPosition = wrapperWidth;
 								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
 								items.forEach((item, index) => {
 									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
@@ -370,7 +370,7 @@ class Marquee {
 							const currentItem = items[this.currentItemIndex];
 
 							if (this.currentPosition >= this.wrapper.offsetWidth) {
-								this.currentPosition = 0;
+								this.currentPosition = -contentWidth;
 								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
 								items.forEach((item, index) => {
 									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";

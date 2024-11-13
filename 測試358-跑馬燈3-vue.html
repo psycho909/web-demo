@@ -4,11 +4,18 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>跑馬燈示例</title>
+		<link href="https://fonts.gstatic.com" crossorigin rel="preconnect" />
+		<link href="https://fonts.googleapis.com" crossorigin rel="preconnect" />
+		<link rel="stylesheet" id="generate-google-fonts-css" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP%3A500%2C700%2C900%7CAnton%3Aregular%7COswald%3A600%2C700&#038;display=auto&#038;ver=3.4.0" media="all" />
 		<script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
 			.marquee-container {
 				width: 100%;
-				height: 100px;
+				height: 480px;
 				background-color: #f0f0f0;
 				margin: 20px 0;
 				overflow: hidden;
@@ -18,139 +25,241 @@
 				color: #333;
 				font-size: 16px;
 				display: inline-block;
+				margin-right: 5px;
 			}
-
-			.control-panel {
-				margin: 20px;
-				padding: 20px;
-				border: 1px solid #ccc;
+			.marquee-item__content {
+				height: 480px;
+				background-size: 100%;
 			}
-
-			.speed-control {
-				margin: 10px 0;
+			.marquee-item__content[data-type="1"] {
+				width: 450px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide01.jpg");
 			}
-
-			button {
-				margin: 5px;
-				padding: 5px 10px;
+			.marquee-item__content[data-type="2"] {
+				width: 450px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide02.jpg");
+			}
+			.marquee-item__content[data-type="3"] {
+				width: 450px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide03.jpg");
+			}
+			.marquee-item__content[data-type="4"] {
+				width: 380px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide04.jpg");
+			}
+			.marquee-item__content[data-type="5"] {
+				width: 600px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide05.jpg");
+			}
+			.marquee-item__content[data-type="6"] {
+				width: 600px;
+				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide06.jpg");
+			}
+			#marquee3 {
+				height: 125px;
+			}
+			.marquee-item__text {
+				font-weight: 600;
+				font-size: clamp(90px, 4.86vw + 31.6px, 125px);
+				font-family: Oswald, sans-serif;
+				line-height: 1;
+			}
+			.marquee-item__img {
+				height: 102px;
+			}
+			#marquee4,
+			#marquee5,
+			#marquee7 {
+				height: 100px;
+				overflow: hidden;
+			}
+			#marquee6 {
+				width: 800px;
+				height: 100px;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
 			<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
-				<div class="marquee-item">A</div>
-				<div class="marquee-item">B</div>
-				<div class="marquee-item"><img src="https://fakeimg.pl/200x100/282828/eae0d0/" alt="" /></div>
-				<div class="marquee-item">D</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="1"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="2"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="3"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="4"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="5"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="6"></div>
+				</div>
 			</div>
-			<div class="control-panel">
-				<div>
-					<button onclick="addItem()">添加項目</button>
-					<button onclick="removeItem()">移除項目</button>
+			<div id="marquee2" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="1"></div>
 				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="2"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="3"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="4"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="5"></div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__content" data-type="6"></div>
+				</div>
+			</div>
+			<div id="marquee3" class="marquee-container" style="width: 100%; background-color: #fff">
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<img class="marquee-item__img" src="https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/promo_slidetxt_img@2x.jpg" alt="" title="" />
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<img class="marquee-item__img" src="https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/promo_slidetxt_img@2x.jpg" alt="" title="" />
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<img class="marquee-item__img" src="https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/promo_slidetxt_img@2x.jpg" alt="" title="" />
+				</div>
+			</div>
 
-				<div class="speed-control">
-					速度:
-					<input type="range" min="10" max="200" value="50" onchange="changeSpeed(this.value)" oninput="updateSpeedValue(this.value)" />
-					<span class="speed-value" id="speedValue">50</span>
+			<div id="marquee4" class="marquee-container">
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
 				</div>
-
-				<div>
-					<button onclick="changeDirection('left')">向左</button>
-					<button onclick="changeDirection('right')">向右</button>
-					<button onclick="changeDirection('up')">向上</button>
-					<button onclick="changeDirection('down')">向下</button>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
 				</div>
-				<button id="pauseButton">Pause</button>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2026</div>
+				</div>
+			</div>
+			<div id="marquee5" class="marquee-container">
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2026</div>
+				</div>
+			</div>
+			<div id="marquee6" class="marquee-container">
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2026</div>
+				</div>
+			</div>
+			<div id="marquee7" class="marquee-container">
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2026</div>
+				</div>
 			</div>
 		</div>
 
 		<!-- 引入跑馬燈類 -->
-		<script src="./測試358-跑馬燈2-2.js"></script>
-		<!-- <script src="./測試358-跑馬燈2.js"></script> -->
-
+		<script src="./測試358-跑馬燈2-3.js"></script>
 		<!-- 控制腳本 -->
 		<script>
-			let app = Vue.createApp({
-				setup() {
-					Vue.onMounted(() => {
-						let marquee = new Marquee("#marquee1", {
-							direction: "down",
-							speed: 50
-						});
-
-						// 添加新項目
-						function addItem() {
-							items.push(`新項目 ${items.length + 1}`);
-							marquee.updateItems(items);
-						}
-
-						// 移除最後一項
-						function removeItem() {
-							if (items.length > 1) {
-								items.pop();
-								marquee.updateItems(items);
-							}
-						}
-
-						// 改變速度
-						function changeSpeed(speed) {
-							marquee.setSpeed(parseFloat(speed));
-						}
-
-						// 更新速度顯示值
-						function updateSpeedValue(value) {
-							document.getElementById("speedValue").textContent = value;
-						}
-
-						// 改變方向
-						function changeDirection(direction) {
-							marquee.setDirection(direction);
-						}
-
-						document.getElementById("pauseButton").addEventListener("click", () => marquee.togglePause());
-					});
-					return {
-						items: []
-					};
-				},
-				data() {
-					return {
-						items: []
-					};
-				}
+			let marquee1 = new Marquee("#marquee1", {
+				direction: "right",
+				speed: 100
 			});
-			app.mount("#app");
-
-			/*
-function updateMarqueeContent(newItems) {
-    // 1. 先銷毀現有的 Marquee 實例
-    if (marquee) {
-        marquee.destroy();
-        marquee = null;
-    }
-
-    // 2. 更新 HTML 內容
-    const container = document.querySelector('.marquee-container');
-    container.innerHTML = `
-        <div class="marquee">
-            ${newItems.map(item => `<div class="marquee-item">${item}</div>`).join('')}
-        </div>
-    `;
-
-    // 3. 重新初始化 Marquee
-    marquee = new Marquee("#marquee1",{
-        speed: 60,
-        direction: 'left'
-        // 其他需要的配置項...
-    });
-}
-
-// 使用方式
-updateMarqueeContent(['新內容1', '新內容2', '新內容3']);
-
-*/
+			let marquee2 = new Marquee("#marquee2", {
+				direction: "left",
+				speed: 100
+			});
+			let marquee3 = new Marquee("#marquee3", {
+				direction: "right",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee4 = new Marquee("#marquee4", {
+				direction: "down",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee5 = new Marquee("#marquee5", {
+				direction: "up",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee6 = new Marquee("#marquee6", {
+				direction: "right",
+				speed: 100,
+				pauseOnHover: false,
+				singleItemMode: true // 啟用單項目模式
+			});
+			let marquee7 = new Marquee("#marquee7", {
+				direction: "left",
+				speed: 100,
+				pauseOnHover: false,
+				noInfiniteScroll: true // 啟用新的非無限滾動模式
+			});
+			// let app = Vue.createApp({
+			// 	setup() {
+			// 		Vue.onMounted(() => {
+			// 			let marquee1 = new Marquee("#marquee1", {
+			// 				direction: "right",
+			// 				speed: 50
+			// 			});
+			// 			let marquee2 = new Marquee("#marquee2", {
+			// 				direction: "left",
+			// 				speed: 50
+			// 			});
+			// 			let marquee3 = new Marquee("#marquee3", {
+			// 				direction: "left",
+			// 				speed: 50,
+			// 				pauseOnHover: false
+			// 			});
+			// 			let marquee4 = new Marquee("#marquee4", {
+			// 				direction: "up",
+			// 				speed: 50,
+			// 				pauseOnHover: false
+			// 			});
+			// 		});
+			// 		return {
+			// 			items: []
+			// 		};
+			// 	},
+			// 	data() {
+			// 		return {
+			// 			items: []
+			// 		};
+			// 	}
+			// });
+			// app.mount("#app");
 		</script>
 	</body>
 </html>
