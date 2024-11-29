@@ -15,9 +15,6 @@ class Marquee {
 			itemClass: options.itemClass || "marquee-item",
 			duplicateClass: options.duplicateClass || "marquee-duplicate",
 			loadingClass: options.loadingClass || "marquee-loading",
-			pauseOnHover: options.pauseOnHover !== undefined ? options.pauseOnHover : true, // 新增滑鼠移入暫停控制
-			singleItemMode: options.singleItemMode !== undefined ? options.singleItemMode : false, // 新增單項目模式開關
-			noInfiniteScroll: options.noInfiniteScroll !== undefined ? options.noInfiniteScroll : false, // 新增選項
 			...options
 		};
 
@@ -46,18 +43,12 @@ class Marquee {
 		this.handleResize = this.throttleResize.bind(this);
 
 		// 創建多個副本以實現無縫效果
-		this.infinite = 2;
-		// 新增效能優化相關屬性
-		this.rafEnabled = true; // 控制 requestAnimationFrame
-		this.lastFrameTime = 0;
-		this.minFrameInterval = 16; // 約等於 60fps
+		this.infinite = 6;
 		// 新增事件處理器綁定
 		this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
 		// 添加新的屬性來追踪暫停時的時間戳
 		this.pausedTimestamp = 0;
-		// 新增單項目模式相關屬性
-		this.currentItemIndex = 0;
-		this.itemWidth = 0;
+
 		// 自動初始化
 		this.initPromise = this.init().catch((error) => {
 			console.error("Marquee initialization failed:", error);
@@ -67,22 +58,19 @@ class Marquee {
 	// 初始化相關方法
 	async init() {
 		try {
-			// 在創建結構前先獲取原始的 marquee items
-			const originalItems = Array.from(this.container.querySelectorAll(".marquee-item")).map((el) => el.innerHTML);
-
 			this.createStructure();
 			if (["up", "down"].includes(this.options.direction)) {
 				this.content.style.display = "inline-flex";
 				this.content.style.flexDirection = "column";
 				this.content.style.whiteSpace = "nowrap";
+				// 為 down 方向設置初始位置
 				if (this.options.direction === "down") {
 					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
 				}
 			}
 
-			// 使用從 HTML 獲取的項目
-			await this.preloadImages(originalItems);
-			this.updateItems(originalItems);
+			await this.preloadImages(this.options.items);
+			this.updateItems(this.options.items);
 			this.bindEvents();
 			this.isInitialized = true;
 			this.start();
@@ -122,62 +110,38 @@ class Marquee {
 
 	// 圖片處理相關方法
 	createItemElement(item, isDuplicate = false) {
-		const itemElement = document.createElement("div");
-		itemElement.className = isDuplicate ? `${this.options.itemClass} ${this.options.duplicateClass}` : this.options.itemClass;
+		const itemStr = String(item);
+		const itemElement = document.createElement(itemStr.includes("http") ? "img" : "span");
 
-		// 直接設置內容，不管是文字還是HTML
-		itemElement.innerHTML = String(item);
+		// 修改這裡：分別設置基本類和複製類
+		itemElement.classList.add(this.options.itemClass);
+		if (isDuplicate) {
+			itemElement.classList.add(this.options.duplicateClass);
+		}
 
+		if (itemStr.includes("http")) {
+			itemElement.src = itemStr;
+			itemElement.alt = "Marquee Image";
+			itemElement.style.cssText = `
+				width: auto;
+				height: 100%;
+				vertical-align: middle;
+			`;
+			itemElement.onerror = () => {
+				console.warn(`Failed to load image: ${itemStr}`);
+				itemElement.style.display = "none";
+			};
+		} else {
+			itemElement.textContent = itemStr;
+		}
 		return itemElement;
 	}
 
 	preloadImages(items) {
-		// 創建臨時的 DOM 元素來解析 HTML 字符串
-		const tempDiv = document.createElement("div");
-		const imageUrls = items
-			.flatMap((item) => {
-				tempDiv.innerHTML = item;
-				const urls = [];
-
-				// 檢查 img 標籤
-				const img = tempDiv.querySelector("img");
-				if (img?.src) {
-					urls.push(img.src);
-				}
-
-				// 檢查所有元素的背景圖片
-				const elements = tempDiv.querySelectorAll("*");
-				elements.forEach((element) => {
-					// 檢查 style 屬性中的背景圖片
-					const style = element.getAttribute("style");
-					if (style) {
-						const bgMatch = style.match(/background-image:\s*url\(['"]?(.*?)['"]?\)/);
-						if (bgMatch?.[1]) {
-							urls.push(bgMatch[1]);
-						}
-					}
-
-					// 檢查 class 對應的 CSS 背景圖片（如果需要）
-					const computedStyle = window.getComputedStyle(element);
-					const bgImage = computedStyle.backgroundImage;
-					if (bgImage && bgImage !== "none") {
-						const bgUrl = bgImage.match(/url\(['"]?(.*?)['"]?\)/)?.[1];
-						if (bgUrl) {
-							urls.push(bgUrl);
-						}
-					}
-				});
-
-				tempDiv.innerHTML = ""; // 清空以便重用
-				return urls;
-			})
-			.filter((url) => url && url.includes("http")); // 過濾出有效的 URL
-
-		// 去除重複的 URL
-		const uniqueUrls = [...new Set(imageUrls)];
+		const imageUrls = items.filter((item) => item.includes("http"));
 
 		return Promise.all(
-			uniqueUrls.map((url) => {
+			imageUrls.map((url) => {
 				return new Promise((resolve, reject) => {
 					const img = new Image();
 					img.onload = () => resolve(url);
@@ -193,7 +157,8 @@ class Marquee {
 			return [];
 		});
 	}
-	async updateItems(items) {
+
+	updateItems(items) {
 		// 確保 items 是數組
 		if (!Array.isArray(items)) {
 			items = [items];
@@ -209,15 +174,7 @@ class Marquee {
 
 			itemsToRender.forEach((item, index) => {
 				// 傳入 isDuplicate 參數來標記是否為複製項目
-				const itemElement = this.createItemElement(item, isDuplicate);
-
-				// 如果是單項目模式，設置初始顯示狀態
-				if (this.options.singleItemMode && ["left", "right"].includes(this.options.direction)) {
-					itemElement.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-				}
-
-				fragment.appendChild(itemElement);
-
+				fragment.appendChild(this.createItemElement(item, isDuplicate));
 				if (this.options.separator && index < itemsToRender.length - 1) {
 					const separator = document.createElement("span");
 					separator.textContent = this.options.separator;
@@ -226,46 +183,32 @@ class Marquee {
 			});
 			return fragment;
 		};
-
 		// 先創建原始內容（不是複製的）
 		this.content.appendChild(createContent(false));
 
-		// 只在非單項目模式且需要無限滾動時處理複製
-		if (!this.options.singleItemMode && ["left", "right"].includes(this.options.direction)) {
+		// 計算需要的副本數量
+		if (["left", "right"].includes(this.options.direction)) {
 			const contentWidth = this.content.offsetWidth;
 			const wrapperWidth = this.wrapper.offsetWidth;
 
-			if (!this.options.noInfiniteScroll) {
-				// 原有的無限滾動邏輯
-				if (contentWidth < wrapperWidth) {
-					this.infinite = Math.min(Math.ceil(wrapperWidth / contentWidth) + 1, 3);
-				} else {
-					this.infinite = 2;
-				}
-			} else {
-				// 新的非無限滾動模式
-				this.infinite = 1;
+			if (contentWidth < wrapperWidth) {
+				this.infinite = Math.ceil(wrapperWidth / contentWidth) + 1;
 			}
 		}
-		if (!this.options.singleItemMode) {
-			// 清空內容後重新創建
-			this.content.innerHTML = "";
-			// 添加原始內容
-			this.content.appendChild(createContent(false));
-			// 添加複製內容
-			for (let i = 1; i < this.infinite; i++) {
-				this.content.appendChild(createContent(true));
-			}
+
+		// 清空內容後重新創建
+		this.content.innerHTML = "";
+		// 添加原始內容
+		this.content.appendChild(createContent(false));
+
+		// 添加複製內容
+		for (let i = 1; i < this.infinite; i++) {
+			this.content.appendChild(createContent(true));
 		}
-		// 修改圖片加載和內容顯示的邏輯
+
 		const images = this.content.getElementsByTagName("img");
 		if (images.length > 0) {
-			// 先將所有圖片設置為不可見
-			Array.from(images).forEach((img) => {
-				img.style.visibility = "hidden";
-			});
-
-			await Promise.all(
+			Promise.all(
 				Array.from(images).map((img) => {
 					return new Promise((resolve) => {
 						if (img.complete) {
@@ -280,42 +223,35 @@ class Marquee {
 						}
 					});
 				})
-			);
-
-			// 所有圖片加載完成後，設置為可見
-			Array.from(images).forEach((img) => {
-				if (img.style.display !== "none") {
-					img.style.visibility = "visible";
-				}
-			});
-
-			// 等待一個短暫延遲，確保瀏覽器完成渲染
-			await new Promise((resolve) => setTimeout(resolve, 50));
-
-			this.resetPosition();
-			this.content.classList.remove(this.options.loadingClass);
-			this.content.style.opacity = "1";
-			this.resume();
+			)
+				.then(() => {
+					this.resetPosition();
+					// 移除 loading 類並顯示內容
+					this.content.classList.remove(this.options.loadingClass);
+					this.content.style.opacity = "1"; // 所有圖片載入完成後顯示
+					this.resume();
+				})
+				.catch((error) => {
+					console.error("Error loading images:", error);
+					this.resetPosition();
+					// 即使有錯誤也移除 loading 類並顯示內容
+					this.content.classList.remove(this.options.loadingClass);
+					this.content.style.opacity = "1"; // 即使有錯誤也顯示
+					this.resume();
+				});
 		} else {
 			this.resetPosition();
+			// 沒有圖片時直接移除 loading 類並顯示內容
 			this.content.classList.remove(this.options.loadingClass);
-			this.content.style.opacity = "1";
+			this.content.style.opacity = "1"; // 沒有圖片時直接顯示
 			this.resume();
 		}
 	}
 
+	// 動畫相關方法
 	async animate() {
 		await this.initPromise;
-		if (!this.isRunning || this.isPaused || !this.rafEnabled) return;
-
-		const now = performance.now();
-		const elapsed = now - this.lastFrameTime;
-
-		// 限制更新頻率
-		if (elapsed < this.minFrameInterval) {
-			this.animationFrame = requestAnimationFrame(() => this.animate());
-			return;
-		}
+		if (!this.isRunning || this.isPaused) return;
 
 		const move = (timestamp) => {
 			if (!this.isRunning || this.isPaused) return;
@@ -332,62 +268,20 @@ class Marquee {
 			if (deltaTime >= this.frameInterval) {
 				const contentHeight = this.content.offsetHeight;
 				const contentWidth = this.content.offsetWidth;
-				const wrapperWidth = this.wrapper.offsetWidth;
 				const pixelsPerFrame = (this.options.speed * deltaTime) / 1000;
 
 				switch (this.options.direction) {
 					case "left":
-						if (this.options.singleItemMode) {
-							this.currentPosition -= pixelsPerFrame;
-							const items = this.content.querySelectorAll(`.${this.options.itemClass}`);
-							const currentItem = items[this.currentItemIndex];
-							// if (Math.abs(this.currentPosition) >= this.wrapper.offsetWidth)
-							if (this.currentPosition <= -contentWidth) {
-								this.currentPosition = wrapperWidth;
-								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
-								items.forEach((item, index) => {
-									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-								});
-							}
-						} else if (this.options.noInfiniteScroll) {
-							// 新的非無限滾動邏輯
-							this.currentPosition -= pixelsPerFrame;
-							if (Math.abs(this.currentPosition) >= contentWidth) {
-								this.currentPosition = wrapperWidth;
-							}
-						} else {
-							// 原有的無限滾動邏輯
-							this.currentPosition -= pixelsPerFrame;
-							if (this.currentPosition <= -(contentWidth / this.infinite)) {
-								this.currentPosition += contentWidth / this.infinite;
-							}
+						this.currentPosition -= pixelsPerFrame;
+						// 當內容移動超過一個完整循環時，重置位置但保持連續性
+						if (this.currentPosition <= -(contentWidth / this.infinite)) {
+							this.currentPosition += contentWidth / this.infinite;
 						}
 						break;
 					case "right":
-						if (this.options.singleItemMode) {
-							this.currentPosition += pixelsPerFrame;
-							const items = this.content.querySelectorAll(`.${this.options.itemClass}`);
-							const currentItem = items[this.currentItemIndex];
-
-							if (this.currentPosition >= this.wrapper.offsetWidth) {
-								this.currentPosition = -contentWidth;
-								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
-								items.forEach((item, index) => {
-									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-								});
-							}
-						} else if (this.options.noInfiniteScroll) {
-							// 新的非無限滾動邏輯
-							this.currentPosition += pixelsPerFrame;
-							if (this.currentPosition >= wrapperWidth) {
-								this.currentPosition = -contentWidth;
-							}
-						} else {
-							// 原有的無限滾動邏輯
-							this.currentPosition += pixelsPerFrame;
-							if (this.currentPosition >= 0) {
-								this.currentPosition -= contentWidth / this.infinite;
-							}
+						this.currentPosition += pixelsPerFrame;
+						if (this.currentPosition >= 0) {
+							this.currentPosition -= contentWidth / this.infinite;
 						}
 						break;
 					case "up":
@@ -413,54 +307,28 @@ class Marquee {
 			this.animationFrame = requestAnimationFrame(move);
 		};
 
-		this.lastFrameTime = now;
-		move(); // 初次呼叫
+		move();
 	}
 
 	// 修改 resetPosition 方法
 	resetPosition() {
-		requestAnimationFrame(() => {
-			this._setInitialPosition();
-		});
+		// 移除 setTimeout，直接設置位置
+		switch (this.options.direction) {
+			case "right":
+				this.currentPosition = -(this.content.offsetWidth - this.wrapper.offsetWidth);
+				break;
+			case "down":
+				this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
+				break;
+			default:
+				this.currentPosition = 0;
+		}
+
+		// 使用 translate3d 來強制啟用硬件加速
+		const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
+		this.content.style.transform = transform;
 	}
-	// 新增輔助方法來設置實際位置
-	_setInitialPosition() {
-		// 添加一個小延遲確保內容完全渲染
-		setTimeout(() => {
-			const checkDimensions = () => {
-				const contentWidth = this.content.getBoundingClientRect().width;
-				const wrapperWidth = this.wrapper.getBoundingClientRect().width;
 
-				if (contentWidth === 0) {
-					requestAnimationFrame(checkDimensions);
-					return;
-				}
-
-				switch (this.options.direction) {
-					case "left":
-						this.currentPosition = wrapperWidth;
-						break;
-					case "right":
-						this.currentPosition = -contentWidth;
-						break;
-					case "up":
-						this.currentPosition = this.wrapper.offsetHeight;
-						break;
-					case "down":
-						this.currentPosition = -this.content.offsetHeight;
-						break;
-					default:
-						this.currentPosition = 0;
-				}
-
-				const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
-
-				this.content.style.transform = transform;
-			};
-
-			requestAnimationFrame(checkDimensions);
-		}, 50); // 50ms 的延遲通常足夠等待渲染完成
-	}
 	// 事件處理相關方法
 	handleMouseEnter() {
 		this.pause();
@@ -482,10 +350,8 @@ class Marquee {
 	}
 
 	bindEvents() {
-		if (this.options.pauseOnHover) {
-			this.wrapper.addEventListener("mouseenter", this.handleMouseEnter);
-			this.wrapper.addEventListener("mouseleave", this.handleMouseLeave);
-		}
+		this.wrapper.addEventListener("mouseenter", this.handleMouseEnter);
+		this.wrapper.addEventListener("mouseleave", this.handleMouseLeave);
 
 		window.addEventListener("resize", this.handleResize);
 		// 新增頁面可見性變化監聽
@@ -514,9 +380,10 @@ class Marquee {
 		this.animate();
 	}
 
-	pause() {
+	async pause() {
+		await this.initPromise;
 		this.isPaused = true;
-		this.rafEnabled = false; // 停止 requestAnimationFrame
+		// 保存暫停時的時間戳
 		this.pausedTimestamp = performance.now();
 		if (this.animationFrame) {
 			cancelAnimationFrame(this.animationFrame);
@@ -524,10 +391,10 @@ class Marquee {
 		}
 	}
 
-	resume() {
+	async resume() {
+		await this.initPromise;
 		if (!this.isPaused) return;
 		this.isPaused = false;
-		this.rafEnabled = true; // 重新啟用 requestAnimationFrame
 		this.animate();
 	}
 
@@ -547,24 +414,7 @@ class Marquee {
 			this.resume();
 		}
 	}
-	// 新增方法：動態設置滑鼠暫停行為
-	setPauseOnHover(enabled) {
-		if (this.options.pauseOnHover === enabled) return;
 
-		this.options.pauseOnHover = enabled;
-
-		if (enabled) {
-			this.wrapper.addEventListener("mouseenter", this.handleMouseEnter);
-			this.wrapper.addEventListener("mouseleave", this.handleMouseLeave);
-		} else {
-			this.wrapper.removeEventListener("mouseenter", this.handleMouseEnter);
-			this.wrapper.removeEventListener("mouseleave", this.handleMouseLeave);
-			// 如果當前是因為滑鼠移入而暫停的，則恢復運行
-			if (this.isPaused) {
-				this.resume();
-			}
-		}
-	}
 	// 重新初始化方法
 	async reInit(options = {}) {
 		try {
@@ -616,10 +466,8 @@ class Marquee {
 	// 清理相關方法
 	destroy() {
 		this.pause();
-		if (this.options.pauseOnHover) {
-			this.wrapper.removeEventListener("mouseenter", this.handleMouseEnter);
-			this.wrapper.removeEventListener("mouseleave", this.handleMouseLeave);
-		}
+		this.wrapper.removeEventListener("mouseenter", this.handleMouseEnter);
+		this.wrapper.removeEventListener("mouseleave", this.handleMouseLeave);
 		window.removeEventListener("resize", this.handleResize);
 		document.removeEventListener("visibilitychange", this.handleVisibilityChange);
 

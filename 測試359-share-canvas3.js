@@ -2,6 +2,16 @@
 let canvas;
 let ctx;
 let errorDiv;
+// 定義圖片路徑
+const IMAGE_PATH = "./images/share";
+const IMAGES = {
+	BG: `${IMAGE_PATH}/bg-share.jpg`,
+	TITLE: `${IMAGE_PATH}/share-title.png`,
+	CARD_BG: `${IMAGE_PATH}/share-card-bg.png`,
+	DESC_2024: `${IMAGE_PATH}/share-desc-2024.png`,
+	DESC_2023: `${IMAGE_PATH}/share-desc-2023.png`,
+	getLogo: (logo) => `${IMAGE_PATH}/share-logo-${logo}.png`
+};
 
 // 加載圖片並支持 CORS 的函數
 export function loadImage(src) {
@@ -65,19 +75,31 @@ export function drawCardContent(cardX, cardY, { Title, L, T, Y, show2024, show20
 	// 將標題文字分行顯示（若超過6個字）
 	const titleFont = 'bold 28px "Microsoft JhengHei"';
 	const titleColor = "#ffebd1";
-	if (Title.length > 6) {
-		const firstLine = Title.slice(0, 6);
-		const secondLine = Title.slice(6);
-		drawCenteredText(firstLine, cardX + 139, titleY, titleFont, titleColor);
-		drawCenteredText(secondLine, cardX + 139, titleY + 35, titleFont, titleColor); // 向下移動第二行
-	} else {
+	const lineHeight = 35; // 行距
+
+	if (Title.length <= 8) {
+		// 一行
 		drawCenteredText(Title, cardX + 139, titleY, titleFont, titleColor);
+	} else if (Title.length <= 16) {
+		// 兩行
+		const firstLine = Title.slice(0, 8);
+		const secondLine = Title.slice(8);
+		drawCenteredText(firstLine, cardX + 139, titleY, titleFont, titleColor);
+		drawCenteredText(secondLine, cardX + 139, titleY + lineHeight, titleFont, titleColor);
+	} else {
+		// 三行
+		const firstLine = Title.slice(0, 8);
+		const secondLine = Title.slice(8, 16);
+		const thirdLine = Title.slice(16);
+		drawCenteredText(firstLine, cardX + 139, titleY, titleFont, titleColor);
+		drawCenteredText(secondLine, cardX + 139, titleY + lineHeight, titleFont, titleColor);
+		drawCenteredText(thirdLine, cardX + 139, titleY + lineHeight * 2, titleFont, titleColor);
 	}
 
 	// 若有指定天數顯示，則繪製 2024 天數
-	if (show2024 && L) {
+	if (show2024 && T) {
 		const textY = isMabi ? cardY + 295 : cardY + 240;
-		drawCenteredText(L, cardX + 139, textY, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+		drawCenteredText(T, cardX + 139, textY, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
 	}
 
 	// 若非 "mabi" 標誌且有 Y 則繪製成長率
@@ -86,8 +108,8 @@ export function drawCardContent(cardX, cardY, { Title, L, T, Y, show2024, show20
 	// 若非 "mabi" 且 show2023 顯示，則繪製 2023 的天數和標籤
 	if (show2023 && !isMabi) {
 		if (desc2023Image) ctx.drawImage(desc2023Image, cardX + 85, cardY + 322);
-		if (T) {
-			drawCenteredText(T, cardX + 139, cardY + 388, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
+		if (L) {
+			drawCenteredText(L, cardX + 139, cardY + 388, 'normal 34px "Microsoft JhengHei"', "#d1ac66");
 		}
 	}
 
@@ -114,10 +136,10 @@ export async function drawShareImage({
 	canvas.height = 630;
 
 	try {
-		const bgImage = await loadImage("./images/share/bg-share.jpg");
-		const titleImage = await loadImage("./images/share/share-title.png");
-		const logoImage = await loadImage(`./images/share/share-logo-${logo}.png`);
-		const cardBgImage = await loadImage("./images/share/share-card-bg.png");
+		const bgImage = await loadImage(IMAGES.BG);
+		const titleImage = await loadImage(IMAGES.TITLE);
+		const logoImage = await loadImage(IMAGES.getLogo(logo));
+		const cardBgImage = await loadImage(IMAGES.CARD_BG);
 
 		ctx.drawImage(bgImage, 0, 0, 1200, 630);
 		ctx.drawImage(titleImage, 572, 80, 191, 33);
@@ -141,18 +163,19 @@ export async function drawShareImage({
 			ctx.shadowBlur = 11; // 模糊程度
 			ctx.drawImage(cardBgImage, x, y, 278, 428);
 
-			const desc2024Image = card.show2024 ? await loadImage("./images/share/share-desc-2024.png") : null;
-			const desc2023Image = card.show2023 ? await loadImage("./images/share/share-desc-2023.png") : null;
+			const desc2024Image = card.show2024 ? await loadImage(IMAGES.DESC_2024) : null;
+			const desc2023Image = card.show2023 ? await loadImage(IMAGES.DESC_2023) : null;
 
 			drawCardContent(x, y, { ...card, desc2024Image, desc2023Image }, isMabi);
 		}
+		return getBase64Image();
 	} catch (error) {
 		console.error("Error:", error);
 	}
 }
 
 // 獲取 Base64 圖片字符串的函數
-export function getBase64Image(format = "image/jpeg", quality = 0.7) {
+export function getBase64Image(format = "image/jpeg", quality = 0.6) {
 	return canvas.toDataURL(format, quality);
 }
 
