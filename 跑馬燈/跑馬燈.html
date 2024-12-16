@@ -179,12 +179,6 @@
 				<div class="marquee-item">
 					<div class="marquee-item__text">RECRUIT 2024</div>
 				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2025</div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2026</div>
-				</div>
 			</div>
 		</div>
 
@@ -192,41 +186,6 @@
 		<script src="./跑馬燈.js"></script>
 		<!-- 控制腳本 -->
 		<script>
-			// let marquee1 = new Marquee("#marquee1", {
-			// 	direction: "right",
-			// 	speed: 100
-			// });
-			// let marquee2 = new Marquee("#marquee2", {
-			// 	direction: "left",
-			// 	speed: 100
-			// });
-			// let marquee3 = new Marquee("#marquee3", {
-			// 	direction: "right",
-			// 	speed: 100,
-			// 	pauseOnHover: false
-			// });
-			// let marquee4 = new Marquee("#marquee4", {
-			// 	direction: "down",
-			// 	speed: 100,
-			// 	pauseOnHover: false
-			// });
-			// let marquee5 = new Marquee("#marquee5", {
-			// 	direction: "up",
-			// 	speed: 100,
-			// 	pauseOnHover: false
-			// });
-			// let marquee6 = new Marquee("#marquee6", {
-			// 	direction: "right",
-			// 	speed: 100,
-			// 	pauseOnHover: false,
-			// 	mode: "single" // 啟用單項目模式
-			// });
-			// let marquee7 = new Marquee("#marquee7", {
-			// 	direction: "left",
-			// 	speed: 100,
-			// 	pauseOnHover: false,
-			// 	mode: "group" // 啟用新的非無限滾動模式
-			// });
 			let app = Vue.createApp({
 				setup() {
 					Vue.onMounted(() => {
@@ -254,15 +213,17 @@
 							pauseOnHover: false
 						});
 						let marquee6 = new Marquee("#marquee6", {
-							direction: "right",
-							speed: 100,
+							direction: "left",
+							speed: 1000,
 							pauseOnHover: false,
+							restartDelay: 3000,
 							mode: "single" // 啟用單項目模式
 						});
 						let marquee7 = new Marquee("#marquee7", {
-							direction: "left",
-							speed: 100,
+							direction: "right",
+							speed: 1000,
 							pauseOnHover: false,
+							restartDelay: 3000,
 							mode: "group" // 啟用新的非無限滾動模式
 						});
 					});

@@ -8,15 +8,27 @@ class Marquee {
 
 		// 配置選項
 		this.options = {
+			// 跑馬燈移動方向，預設為「左」
 			direction: options.direction || "left",
+			// 移動速度，預設為 50 (像素/秒)
 			speed: options.speed || 50,
+			// 間隔時間，預設為 3000 毫秒
 			interval: options.interval || 3000,
+			// 要顯示的項目陣列，預設為空陣列
 			items: options.items || [],
+			// 跑馬燈項目的 CSS class 名稱，預設為 'marquee-item'
 			itemClass: options.itemClass || "marquee-item",
+			// 複製項目的 CSS class 名稱，預設為 'marquee-duplicate'
 			duplicateClass: options.duplicateClass || "marquee-duplicate",
+			// 載入中的 CSS class 名稱，預設為 'marquee-loading'
 			loadingClass: options.loadingClass || "marquee-loading",
-			pauseOnHover: options.pauseOnHover !== undefined ? options.pauseOnHover : true, // 新增滑鼠移入暫停控制
-			mode: options.mode || "", // 新增 mode 選項，預設為空字串
+			// 滑鼠懸停時是否暫停，預設為 true
+			pauseOnHover: options.pauseOnHover !== undefined ? options.pauseOnHover : true,
+			// 跑馬燈模式，預設為空字串
+			mode: options.mode || "",
+			// 重新啟動延遲時間，預設為 0 毫秒
+			restartDelay: options.restartDelay || 0,
+			// 展開其他傳入的選項
 			...options
 		};
 
@@ -31,6 +43,7 @@ class Marquee {
 		this.lastTimestamp = 0;
 		this.fps = 60;
 		this.frameInterval = 1000 / this.fps;
+		this.restartTimeout = null; // 新增重啟計時器
 
 		// DOM 元素
 		this.wrapper = null;
@@ -46,20 +59,25 @@ class Marquee {
 
 		// 創建多個副本以實現無縫效果
 		this.infinite = 2;
-		// 新增效能優化相關屬性
-		this.rafEnabled = true; // 控制 requestAnimationFrame
+		// 效能優化相關屬性
+		this.rafEnabled = true;
 		this.lastFrameTime = 0;
-		this.minFrameInterval = 16; // 約等於 60fps
-		// 新增事件處理器綁定
+		this.minFrameInterval = 16;
+
+		// 事件處理器綁定
 		this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
-		// 添加新的屬性來追踪暫停時的時間戳
+
+		// 暫停相關屬性
 		this.pausedTimestamp = 0;
-		// 新增單項目模式相關屬性
+
+		// 單項目模式相關屬性
 		this.currentItemIndex = 0;
 		this.itemWidth = 0;
+
 		// 從 mode 設定衍生的屬性
 		this.singleItemMode = this.options.mode === "single";
 		this.noInfiniteScroll = this.options.mode === "group";
+
 		// 自動初始化
 		this.initPromise = this.init().catch((error) => {
 			console.error("Marquee initialization failed:", error);
@@ -245,7 +263,7 @@ class Marquee {
 					this.infinite = 2;
 				}
 			} else {
-				// 新的非無限滾動模式
+				// group 模式：不論項目數量都不複製
 				this.infinite = 1;
 			}
 		}
@@ -313,7 +331,6 @@ class Marquee {
 		const now = performance.now();
 		const elapsed = now - this.lastFrameTime;
 
-		// 限制更新頻率
 		if (elapsed < this.minFrameInterval) {
 			this.animationFrame = requestAnimationFrame(() => this.animate());
 			return;
@@ -322,7 +339,6 @@ class Marquee {
 		const move = (timestamp) => {
 			if (!this.isRunning || this.isPaused) return;
 
-			// 如果是從暫停恢復，調整lastTimestamp
 			if (this.pausedTimestamp) {
 				this.lastTimestamp = timestamp - (this.pausedTimestamp - this.lastTimestamp);
 				this.pausedTimestamp = 0;
@@ -342,66 +358,112 @@ class Marquee {
 						if (this.singleItemMode) {
 							this.currentPosition -= pixelsPerFrame;
 							const items = this.content.querySelectorAll(`.${this.options.itemClass}`);
-							const currentItem = items[this.currentItemIndex];
-							// if (Math.abs(this.currentPosition) >= this.wrapper.offsetWidth)
+
 							if (this.currentPosition <= -contentWidth) {
+								this.pause();
 								this.currentPosition = wrapperWidth;
 								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
-								items.forEach((item, index) => {
-									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-								});
+
+								// 如果已經顯示完最後一個項目
+								if (this.currentItemIndex === 0) {
+									this.restartTimeout = setTimeout(() => {
+										items.forEach((item, index) => {
+											item.style.display = index === 0 ? "inline-block" : "none";
+										});
+										this.resume();
+									}, this.options.restartDelay);
+								} else {
+									items.forEach((item, index) => {
+										item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
+									});
+									this.resume();
+								}
 							}
 						} else if (this.noInfiniteScroll) {
-							// 新的非無限滾動邏輯
 							this.currentPosition -= pixelsPerFrame;
-							if (Math.abs(this.currentPosition) >= contentWidth) {
-								this.currentPosition = wrapperWidth;
+							if (this.currentPosition <= -contentWidth) {
+								this.pause();
+								this.restartTimeout = setTimeout(() => {
+									this.currentPosition = wrapperWidth;
+									this.resume();
+								}, this.options.restartDelay);
 							}
 						} else {
-							// 原有的無限滾動邏輯
 							this.currentPosition -= pixelsPerFrame;
 							if (this.currentPosition <= -(contentWidth / this.infinite)) {
 								this.currentPosition += contentWidth / this.infinite;
 							}
 						}
 						break;
+
 					case "right":
 						if (this.singleItemMode) {
 							this.currentPosition += pixelsPerFrame;
 							const items = this.content.querySelectorAll(`.${this.options.itemClass}`);
-							const currentItem = items[this.currentItemIndex];
 
-							if (this.currentPosition >= this.wrapper.offsetWidth) {
+							if (this.currentPosition >= wrapperWidth) {
+								this.pause();
 								this.currentPosition = -contentWidth;
 								this.currentItemIndex = (this.currentItemIndex + 1) % items.length;
-								items.forEach((item, index) => {
-									item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-								});
+
+								if (this.currentItemIndex === 0) {
+									this.restartTimeout = setTimeout(() => {
+										items.forEach((item, index) => {
+											item.style.display = index === 0 ? "inline-block" : "none";
+										});
+										this.resume();
+									}, this.options.restartDelay);
+								} else {
+									items.forEach((item, index) => {
+										item.style.display = index === this.currentItemIndex ? "inline-block" : "none";
+									});
+									this.resume();
+								}
 							}
 						} else if (this.noInfiniteScroll) {
-							// 新的非無限滾動邏輯
 							this.currentPosition += pixelsPerFrame;
 							if (this.currentPosition >= wrapperWidth) {
-								this.currentPosition = -contentWidth;
+								this.pause();
+								this.restartTimeout = setTimeout(() => {
+									this.currentPosition = -contentWidth;
+									this.resume();
+								}, this.options.restartDelay);
 							}
 						} else {
-							// 原有的無限滾動邏輯
 							this.currentPosition += pixelsPerFrame;
 							if (this.currentPosition >= 0) {
 								this.currentPosition -= contentWidth / this.infinite;
 							}
 						}
 						break;
+
 					case "up":
 						this.currentPosition -= pixelsPerFrame;
 						if (this.currentPosition <= -(contentHeight / this.infinite)) {
-							this.currentPosition += contentHeight / this.infinite;
+							if (this.noInfiniteScroll) {
+								this.pause();
+								this.restartTimeout = setTimeout(() => {
+									this.currentPosition = this.wrapper.offsetHeight;
+									this.resume();
+								}, this.options.restartDelay);
+							} else {
+								this.currentPosition += contentHeight / this.infinite;
+							}
 						}
 						break;
+
 					case "down":
 						this.currentPosition += pixelsPerFrame;
 						if (this.currentPosition >= 0) {
-							this.currentPosition -= contentHeight / this.infinite;
+							if (this.noInfiniteScroll) {
+								this.pause();
+								this.restartTimeout = setTimeout(() => {
+									this.currentPosition = -contentHeight;
+									this.resume();
+								}, this.options.restartDelay);
+							} else {
+								this.currentPosition -= contentHeight / this.infinite;
+							}
 						}
 						break;
 				}
@@ -416,7 +478,7 @@ class Marquee {
 		};
 
 		this.lastFrameTime = now;
-		move(); // 初次呼叫
+		move();
 	}
 
 	// 修改 resetPosition 方法
@@ -517,8 +579,12 @@ class Marquee {
 	}
 
 	pause() {
+		if (this.restartTimeout) {
+			clearTimeout(this.restartTimeout);
+			this.restartTimeout = null;
+		}
 		this.isPaused = true;
-		this.rafEnabled = false; // 停止 requestAnimationFrame
+		this.rafEnabled = false;
 		this.pausedTimestamp = performance.now();
 		if (this.animationFrame) {
 			cancelAnimationFrame(this.animationFrame);
@@ -527,9 +593,13 @@ class Marquee {
 	}
 
 	resume() {
+		if (this.restartTimeout) {
+			clearTimeout(this.restartTimeout);
+			this.restartTimeout = null;
+		}
 		if (!this.isPaused) return;
 		this.isPaused = false;
-		this.rafEnabled = true; // 重新啟用 requestAnimationFrame
+		this.rafEnabled = true;
 		this.animate();
 	}
 
@@ -628,6 +698,11 @@ class Marquee {
 		if (this.resizeTimeout) {
 			clearTimeout(this.resizeTimeout);
 			this.resizeTimeout = null;
+		}
+
+		if (this.restartTimeout) {
+			clearTimeout(this.restartTimeout);
+			this.restartTimeout = null;
 		}
 
 		this.container.innerHTML = "";
