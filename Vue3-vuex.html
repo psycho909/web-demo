@@ -4,9 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<script src="https://unpkg.com/vue@next"></script>
-		<script src="https://unpkg.com/vue-router@next"></script>
-		<script src="https://unpkg.com/vuex@next"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.2.45/vue.global.prod.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/plugins/vuex/4.1.0/vuex.global.min.js"></script>
 		<style></style>
 	</head>
 	<body>
@@ -39,7 +39,7 @@
 						context.commit("ADD_COUNT");
 					},
 					addName: function (context, data) {
-						console.log(data);
+						console.log("addName", data);
 						context.commit({
 							type: "SET_NAME",
 							data: data
