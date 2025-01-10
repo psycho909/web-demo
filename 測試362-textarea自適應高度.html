@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.a-textarea {
+				width: 300px;
+				position: relative;
+				border: 1px solid red;
+			}
+			.textarea,
+			.hidden-box {
+				padding: 12px;
+				margin: 0;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 16px;
+				line-height: 28px;
+				outline: 0;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				word-break: break-all;
+			}
+			.textarea {
+				position: absolute;
+				inset: 0;
+				resize: none;
+				border: none;
+			}
+			.hidden-box {
+				visibility: hidden;
+			}
+			.hidden-box::after {
+				content: "&#8203;";
+			}
+		</style>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="a-textarea">
+				<textarea v-model="message" class="textarea"></textarea>
+				<pre class="hidden-box">{{message}}</pre>
+			</div>
+		</div>
+		<script>
+			const { createApp, ref } = Vue;
+			createApp({
+				setup() {
+					const message = ref("高度自适应输入框");
+					Vue.onMounted(() => {});
+					return { message };
+				}
+			}).mount("#app");
+		</script>
+	</body>
+</html>

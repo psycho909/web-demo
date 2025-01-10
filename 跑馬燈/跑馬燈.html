@@ -30,6 +30,7 @@
 			.marquee-item__content {
 				height: 480px;
 				background-size: 100%;
+				display: inline-block;
 			}
 			.marquee-item__content[data-type="1"] {
 				width: 450px;
@@ -69,7 +70,8 @@
 			}
 			#marquee4,
 			#marquee5,
-			#marquee7 {
+			#marquee7,
+			#marquee8 {
 				height: 100px;
 				overflow: hidden;
 			}
@@ -84,21 +86,6 @@
 			<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
 				<div class="marquee-item">
 					<div class="marquee-item__content" data-type="1"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="2"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="3"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="4"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="5"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="6"></div>
 				</div>
 			</div>
 			<div id="marquee2" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
@@ -155,27 +142,23 @@
 			</div>
 			<div id="marquee5" class="marquee-container">
 				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2024</div>
-				</div>
-				<div class="marquee-item">
 					<div class="marquee-item__text">RECRUIT 2025</div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2026</div>
 				</div>
 			</div>
 			<div id="marquee6" class="marquee-container">
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2024</div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2025</div>
-				</div>
 				<div class="marquee-item">
 					<div class="marquee-item__text">RECRUIT 2026</div>
 				</div>
 			</div>
 			<div id="marquee7" class="marquee-container">
+				<div class="marquee-item">
+					<span class="marquee-item__content" data-type="1"></span>
+				</div>
+				<div class="marquee-item">
+					<span class="marquee-item__content" data-type="2"></span>
+				</div>
+			</div>
+			<div id="marquee8" class="marquee-container">
 				<div class="marquee-item">
 					<div class="marquee-item__text">RECRUIT 2024</div>
 				</div>
@@ -214,14 +197,21 @@
 						});
 						let marquee6 = new Marquee("#marquee6", {
 							direction: "left",
-							speed: 1000,
+							speed: 100,
 							pauseOnHover: false,
 							restartDelay: 3000,
 							mode: "single" // 啟用單項目模式
 						});
 						let marquee7 = new Marquee("#marquee7", {
+							direction: "left",
+							speed: 100,
+							pauseOnHover: false,
+							restartDelay: 3000,
+							mode: "single" // 啟用單項目模式
+						});
+						let marquee8 = new Marquee("#marquee8", {
 							direction: "right",
-							speed: 1000,
+							speed: 100,
 							pauseOnHover: false,
 							restartDelay: 3000,
 							mode: "group" // 啟用新的非無限滾動模式
