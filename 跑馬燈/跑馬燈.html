@@ -32,27 +32,29 @@
 				background-size: 100%;
 				display: inline-block;
 			}
-			.marquee-item__content[data-type="1"] {
+			[data-type="1"] {
 				width: 450px;
+				height: 480px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide01.jpg");
 			}
-			.marquee-item__content[data-type="2"] {
+			[data-type="2"] {
 				width: 450px;
+				height: 480px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide02.jpg");
 			}
-			.marquee-item__content[data-type="3"] {
+			[data-type="3"] {
 				width: 450px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide03.jpg");
 			}
-			.marquee-item__content[data-type="4"] {
+			[data-type="4"] {
 				width: 380px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide04.jpg");
 			}
-			.marquee-item__content[data-type="5"] {
+			[data-type="5"] {
 				width: 600px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide05.jpg");
 			}
-			.marquee-item__content[data-type="6"] {
+			[data-type="6"] {
 				width: 600px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide06.jpg");
 			}
@@ -72,7 +74,7 @@
 			#marquee5,
 			#marquee7,
 			#marquee8 {
-				height: 100px;
+				height: 124px;
 				overflow: hidden;
 			}
 			#marquee6 {
@@ -130,14 +132,8 @@
 			</div>
 
 			<div id="marquee4" class="marquee-container">
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2024</div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2025</div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2026</div>
+				<div class="marquee-item" v-for="item in data">
+					<div class="marquee-item__text">{{ item }}</div>
 				</div>
 			</div>
 			<div id="marquee5" class="marquee-container">
@@ -152,15 +148,23 @@
 			</div>
 			<div id="marquee7" class="marquee-container">
 				<div class="marquee-item">
-					<span class="marquee-item__content" data-type="1"></span>
+					<div data-type="1"></div>
 				</div>
 				<div class="marquee-item">
-					<span class="marquee-item__content" data-type="2"></span>
+					<div data-type="2"></div>
 				</div>
 			</div>
 			<div id="marquee8" class="marquee-container">
+				<div class="marquee-item" v-for="item in data">
+					<div class="marquee-item__text">{{ item }}</div>
+				</div>
+			</div>
+			<div id="marquee9" class="marquee-container">
 				<div class="marquee-item">
-					<div class="marquee-item__text">RECRUIT 2024</div>
+					<div data-type="1"></div>
+				</div>
+				<div class="marquee-item">
+					<div data-type="2"></div>
 				</div>
 			</div>
 		</div>
@@ -171,6 +175,7 @@
 		<script>
 			let app = Vue.createApp({
 				setup() {
+					let data = Vue.reactive(["RECRUIT 2024", "RECRUIT 2025", "RECRUIT 2026"]);
 					Vue.onMounted(() => {
 						let marquee1 = new Marquee("#marquee1", {
 							direction: "right",
@@ -210,6 +215,13 @@
 							mode: "single" // 啟用單項目模式
 						});
 						let marquee8 = new Marquee("#marquee8", {
+							direction: "left",
+							speed: 100,
+							pauseOnHover: false,
+							restartDelay: 3000,
+							mode: "group" // 啟用新的非無限滾動模式
+						});
+						let marquee9 = new Marquee("#marquee9", {
 							direction: "right",
 							speed: 100,
 							pauseOnHover: false,
@@ -218,7 +230,7 @@
 						});
 					});
 					return {
-						items: []
+						data
 					};
 				},
 				data() {
