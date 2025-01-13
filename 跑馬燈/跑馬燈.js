@@ -119,9 +119,18 @@ class Marquee {
 	}
 
 	createStructure() {
-		this.container.innerHTML = "";
+		// 檢查是否已存在wrapper和content元素
+		this.wrapper = this.container.querySelector(".marquee-wrapper");
+		this.content = this.container.querySelector(".marquee-content");
 
-		this.wrapper = document.createElement("div");
+		if (!this.wrapper && !this.content) {
+			this.container.innerHTML = "";
+
+			this.wrapper = document.createElement("div");
+			this.wrapper.classList.add("marquee-wrapper");
+		}
+
+		// 設置wrapper樣式
 		this.wrapper.style.cssText = `
             position: relative;
             width: 100%;
@@ -130,7 +139,12 @@ class Marquee {
             transform: translateZ(0);
         `;
 
-		this.content = document.createElement("div");
+		if (!this.content) {
+			this.content = document.createElement("div");
+			this.content.classList.add("marquee-content");
+		}
+
+		// 設置content樣式
 		this.content.style.cssText = `
             position: relative;
             white-space: nowrap;
@@ -142,8 +156,12 @@ class Marquee {
         `;
 		// 添加 loading 類
 		this.content.classList.add(this.options.loadingClass);
-		this.wrapper.appendChild(this.content);
-		this.container.appendChild(this.wrapper);
+
+		// 如果是新創建的元素，需要建立DOM結構
+		if (!this.container.contains(this.wrapper)) {
+			this.wrapper.appendChild(this.content);
+			this.container.appendChild(this.wrapper);
+		}
 	}
 
 	// 圖片處理相關方法
@@ -820,5 +838,60 @@ class Marquee {
 			console.error("reInit failed:", error);
 			throw error;
 		}
+	}
+	destroy() {
+		// 停止動畫
+		if (this.animationFrame) {
+			cancelAnimationFrame(this.animationFrame);
+			this.animationFrame = null;
+		}
+
+		// 清除計時器
+		if (this.restartTimeout) {
+			clearTimeout(this.restartTimeout);
+			this.restartTimeout = null;
+		}
+		if (this.resizeTimeout) {
+			clearTimeout(this.resizeTimeout);
+			this.resizeTimeout = null;
+		}
+
+		// 移除事件監聽器
+		if (this.options.pauseOnHover) {
+			this.wrapper?.removeEventListener("mouseenter", this.handleMouseEnter);
+			this.wrapper?.removeEventListener("mouseleave", this.handleMouseLeave);
+		}
+		window.removeEventListener("resize", this.handleResize);
+		document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+
+		// 還原樣式
+		if (this.content) {
+			// 移除所有樣式
+			this.content.style.cssText = "";
+			// 移除 loading 類
+			this.content.classList.remove(this.options.loadingClass);
+			// 移除 transform
+			this.content.style.transform = "";
+			// 移除所有重複的項目
+			const duplicates = this.content.querySelectorAll(`.${this.options.duplicateClass}`);
+			duplicates.forEach((item) => item.remove());
+		}
+
+		if (this.wrapper) {
+			// 移除所有樣式
+			this.wrapper.style.cssText = "";
+		}
+
+		// 重置狀態
+		this.isInitialized = false;
+		this.isRunning = false;
+		this.isPaused = false;
+		this.currentPosition = 0;
+		this.lastTimestamp = 0;
+		this.pausedTimestamp = 0;
+
+		// 清空引用，但不設為 null 因為可能還會重用
+		this.wrapper = this.container.querySelector(".marquee-wrapper");
+		this.content = this.container.querySelector(".marquee-content");
 	}
 }

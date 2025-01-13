@@ -37,8 +37,12 @@
 		<div id="app">
 			<button @click="updateItems">更新marquee0</button>
 			<div id="marquee0" class="marquee-container">
-				<div class="marquee-item" v-for="item in data" :key="item.text">
-					<div class="marquee-item__text" :style="item.style">{{ item.text }}</div>
+				<div class="marquee-wrapper">
+					<div class="marquee-content">
+						<div class="marquee-item" v-for="item in data" :key="item.text">
+							<div class="marquee-item__text" :style="item.style">{{ item.text }}</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -70,6 +74,8 @@
 							// 將數據轉換為 HTML 字符串
 							const items = `<div class="marquee-item__text" style="${item.style}">${item.text}</div>`;
 							// marquee0.value.updateItems(items);
+							marquee0.value.destroy();
+							console.log(marquee0.value);
 							data.value.push(item);
 						}
 					};

@@ -93,10 +93,9 @@ class Marquee {
 	// 初始化相關方法
 	async init() {
 		try {
-			// 在創建結構前先獲取原始的 marquee items
-			const originalItems = Array.from(this.container.querySelectorAll(".marquee-item")).map((el) => el.innerHTML);
-
+			// 創建結構（此時會保留並移動原有的 marquee items）
 			this.createStructure();
+
 			if (["up", "down"].includes(this.options.direction)) {
 				this.content.style.display = "inline-flex";
 				this.content.style.flexDirection = "column";
@@ -105,6 +104,9 @@ class Marquee {
 					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
 				}
 			}
+
+			// 獲取移動後的原始項目內容
+			const originalItems = Array.from(this.content.querySelectorAll(".marquee-item")).map((el) => el.innerHTML);
 
 			// 使用從 HTML 獲取的項目
 			await this.preloadImages(originalItems);
@@ -119,31 +121,72 @@ class Marquee {
 	}
 
 	createStructure() {
-		this.container.innerHTML = "";
+		// 檢查是否已存在wrapper和content元素
+		this.wrapper = this.container.querySelector(".marquee-wrapper");
+		this.content = this.container.querySelector(".marquee-content");
 
-		this.wrapper = document.createElement("div");
-		this.wrapper.style.cssText = `
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            transform: translateZ(0);
-        `;
+		// 如果結構已存在，只添加樣式
+		if (this.wrapper && this.content) {
+			// 設置wrapper樣式
+			this.wrapper.style.cssText = `
+				position: relative;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				transform: translateZ(0);
+			`;
 
-		this.content = document.createElement("div");
-		this.content.style.cssText = `
-            position: relative;
-            white-space: nowrap;
-            display: inline-block;
-            transform: translateZ(0);
-            will-change: transform;
-			opacity: 0;
-        transition: opacity 0.3s ease;
-        `;
-		// 添加 loading 類
-		this.content.classList.add(this.options.loadingClass);
-		this.wrapper.appendChild(this.content);
-		this.container.appendChild(this.wrapper);
+			// 設置content樣式
+			this.content.style.cssText = `
+				position: relative;
+				white-space: nowrap;
+				display: inline-block;
+				transform: translateZ(0);
+				will-change: transform;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			`;
+
+			// 添加 loading 類
+			this.content.classList.add(this.options.loadingClass);
+			return;
+		}
+
+		// 如果結構不存在，創建新元素
+		if (!this.wrapper) {
+			this.wrapper = document.createElement("div");
+			this.wrapper.className = "marquee-wrapper";
+			this.wrapper.style.cssText = `
+				position: relative;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				transform: translateZ(0);
+			`;
+		}
+
+		if (!this.content) {
+			this.content = document.createElement("div");
+			this.content.className = "marquee-content";
+			this.content.style.cssText = `
+				position: relative;
+				white-space: nowrap;
+				display: inline-block;
+				transform: translateZ(0);
+				will-change: transform;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			`;
+			this.content.classList.add(this.options.loadingClass);
+		}
+
+		// 只在需要時建立DOM結構
+		if (!this.content.parentNode) {
+			this.wrapper.appendChild(this.content);
+		}
+		if (!this.wrapper.parentNode) {
+			this.container.appendChild(this.wrapper);
+		}
 	}
 
 	// 圖片處理相關方法
@@ -820,5 +863,61 @@ class Marquee {
 			console.error("reInit failed:", error);
 			throw error;
 		}
+	}
+
+	destroy() {
+		// 停止動畫
+		if (this.animationFrame) {
+			cancelAnimationFrame(this.animationFrame);
+			this.animationFrame = null;
+		}
+
+		// 清除計時器
+		if (this.restartTimeout) {
+			clearTimeout(this.restartTimeout);
+			this.restartTimeout = null;
+		}
+		if (this.resizeTimeout) {
+			clearTimeout(this.resizeTimeout);
+			this.resizeTimeout = null;
+		}
+
+		// 移除事件監聽器
+		if (this.options.pauseOnHover) {
+			this.wrapper?.removeEventListener("mouseenter", this.handleMouseEnter);
+			this.wrapper?.removeEventListener("mouseleave", this.handleMouseLeave);
+		}
+		window.removeEventListener("resize", this.handleResize);
+		document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+
+		// 還原樣式
+		if (this.content) {
+			// 移除所有樣式
+			this.content.style.cssText = "";
+			// 移除 loading 類
+			this.content.classList.remove(this.options.loadingClass);
+			// 移除 transform
+			this.content.style.transform = "";
+			// 移除所有重複的項目
+			const duplicates = this.content.querySelectorAll(`.${this.options.duplicateClass}`);
+			duplicates.forEach((item) => item.remove());
+		}
+
+		if (this.wrapper) {
+			// 移除所有樣式
+			this.wrapper.style.cssText = "";
+		}
+
+		// 重置狀態
+		this.isInitialized = false;
+		this.isRunning = false;
+		this.isPaused = false;
+		this.currentPosition = 0;
+		this.lastTimestamp = 0;
+		this.pausedTimestamp = 0;
+
+		// 清空引用，但不設為 null 因為可能還會重用
+		this.wrapper = this.container.querySelector(".marquee-wrapper");
+		this.content = this.container.querySelector(".marquee-content");
 	}
 }
