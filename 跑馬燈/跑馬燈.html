@@ -8,7 +8,6 @@
 		<link href="https://fonts.googleapis.com" crossorigin rel="preconnect" />
 		<link rel="stylesheet" id="generate-google-fonts-css" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP%3A500%2C700%2C900%7CAnton%3Aregular%7COswald%3A600%2C700&#038;display=auto&#038;ver=3.4.0" media="all" />
 		<!-- 開發用 -->
-		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -78,13 +77,6 @@
 	</head>
 	<body>
 		<div id="app">
-			<button @click="updateItems1">更新marquee0</button>
-			<button @click="updateItems2">更新marquee0</button>
-			<div id="marquee0" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
-				<div class="marquee-item" v-for="(item,index) in data" :key="index">
-					<div class="marquee-item__text">{{ item }}</div>
-				</div>
-			</div>
 			<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
 				<div class="marquee-item">
 					<div class="marquee-item__text">RECRUIT 2024</div>
@@ -149,8 +141,11 @@
 				</div>
 			</div>
 			<div id="marquee8" class="marquee-container">
-				<div class="marquee-item" v-for="item in data2">
-					<div class="marquee-item__text">{{ item }}</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
 				</div>
 			</div>
 			<div id="marquee9" class="marquee-container">
@@ -167,85 +162,51 @@
 		<script src="./跑馬燈.js"></script>
 		<!-- 控制腳本 -->
 		<script>
-			let app = Vue.createApp({
-				setup() {
-					let data = Vue.ref(["【橘子支付買點數】最高享12%回饋7-11零用金", "守護者結伴計畫熱烈開跑，邀請朋友結伴參戰，海量紅利等你拿，立即參加別錯過！"]);
-					let data2 = Vue.ref(["【橘子支付買點數】最高享12%回饋7-11零用金", "守護者結伴計畫熱烈開跑，邀請朋友結伴參戰，海量紅利等你拿，立即參加別錯過！"]);
-					let marquee0 = Vue.ref(null);
-
-					const updateItems1 = () => {
-						// data.value = ["新的內容1", "新的內容2", "新的內容3"];
-						marquee0.value.destroy();
-					};
-					const updateItems2 = () => {
-						data.value.push("1213");
-					};
-					Vue.onMounted(() => {
-						marquee0.value = new Marquee("#marquee0");
-						// let marquee1 = new Marquee("#marquee1", {
-						// 	direction: "right",
-						// 	speed: 100
-						// });
-						let marquee2 = new Marquee("#marquee2", {
-							direction: "left",
-							speed: 100
-						});
-						let marquee3 = new Marquee("#marquee3", {
-							direction: "right",
-							speed: 100,
-							pauseOnHover: false
-						});
-						let marquee4 = new Marquee("#marquee4", {
-							direction: "down",
-							speed: 100,
-							pauseOnHover: false
-						});
-						let marquee5 = new Marquee("#marquee5", {
-							direction: "up",
-							speed: 100,
-							pauseOnHover: false
-						});
-						let marquee6 = new Marquee("#marquee6", {
-							direction: "left",
-							speed: 100,
-							pauseOnHover: false,
-							mode: "single" // 啟用單項目模式
-						});
-						let marquee7 = new Marquee("#marquee7", {
-							direction: "left",
-							speed: 100,
-							pauseOnHover: false,
-							restartDelay: 3000,
-							mode: "single" // 啟用單項目模式
-						});
-						let marquee8 = new Marquee("#marquee8", {
-							direction: "left",
-							speed: 1000,
-							pauseOnHover: false,
-							mode: "group" // 啟用新的非無限滾動模式
-						});
-						let marquee9 = new Marquee("#marquee9", {
-							direction: "right",
-							speed: 100,
-							pauseOnHover: false,
-							restartDelay: 3000,
-							mode: "group" // 啟用新的非無限滾動模式
-						});
-					});
-					return {
-						data,
-						data2,
-						updateItems1,
-						updateItems2
-					};
-				},
-				data() {
-					return {
-						items: []
-					};
-				}
+			let marquee2 = new Marquee("#marquee2", {
+				direction: "left",
+				speed: 100
 			});
-			app.mount("#app");
+			let marquee3 = new Marquee("#marquee3", {
+				direction: "right",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee4 = new Marquee("#marquee4", {
+				direction: "down",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee5 = new Marquee("#marquee5", {
+				direction: "up",
+				speed: 100,
+				pauseOnHover: false
+			});
+			let marquee6 = new Marquee("#marquee6", {
+				direction: "left",
+				speed: 100,
+				pauseOnHover: false,
+				mode: "single" // 啟用單項目模式
+			});
+			let marquee7 = new Marquee("#marquee7", {
+				direction: "left",
+				speed: 100,
+				pauseOnHover: false,
+				restartDelay: 3000,
+				mode: "single" // 啟用單項目模式
+			});
+			let marquee8 = new Marquee("#marquee8", {
+				direction: "left",
+				speed: 1000,
+				pauseOnHover: false,
+				mode: "group" // 啟用新的非無限滾動模式
+			});
+			let marquee9 = new Marquee("#marquee9", {
+				direction: "right",
+				speed: 100,
+				pauseOnHover: false,
+				restartDelay: 3000,
+				mode: "group" // 啟用新的非無限滾動模式
+			});
 		</script>
 	</body>
 </html>

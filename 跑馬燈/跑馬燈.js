@@ -733,142 +733,91 @@ class Marquee {
 	// 重新初始化方法
 	async reInit(options = {}) {
 		try {
-			// 先停止並清理當前實例
-			this.destroy();
+			// 暫停當前動畫
+			this.pause();
 
-			// 更新選項，使用展開運算符合併所有選項
+			// 更新選項前保存舊方向
+			const oldDirection = this.options.direction;
+
+			// 更新選項
 			this.options = {
-				...this.options, // 保留原有選項作為基礎
-				...options, // 覆蓋新的選項
-				// 確保必要的默認值
-				direction: options.direction || this.options.direction || "left",
-				speed: options.speed || this.options.speed || 50,
-				interval: options.interval || this.options.interval || 3000,
-				items: options.items || this.options.items || [],
-				itemClass: options.itemClass || this.options.itemClass || "marquee-item",
-				duplicateClass: options.duplicateClass || this.options.duplicateClass || "marquee-duplicate",
-				loadingClass: options.loadingClass || this.options.loadingClass || "marquee-loading"
+				...this.options, // 保留原有的選項
+				...options // 覆蓋新的選項
 			};
 
-			// 重置所有狀態
-			this.isInitialized = false;
-			this.isRunning = false;
-			this.isPaused = false;
-			this.animationFrame = null;
-			this.currentPosition = 0;
+			// 從 mode 設定衍生的屬性
+			this.singleItemMode = this.options.mode === "single";
+			this.noInfiniteScroll = this.options.mode === "group";
+
+			// 重置動畫相關狀態
+			if (this.animationFrame) {
+				cancelAnimationFrame(this.animationFrame);
+				this.animationFrame = null;
+			}
 			this.lastTimestamp = 0;
 			this.pausedTimestamp = 0;
-			this.wrapper = null;
-			this.content = null;
-			this.resizeTimeout = null;
 
-			// 重新綁定所有事件處理器
-			this.handleMouseEnter = this.handleMouseEnter.bind(this);
-			this.handleMouseLeave = this.handleMouseLeave.bind(this);
-			this.handleResize = this.throttleResize.bind(this);
-			this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+			// 如果方向改變，需要重新排序項目
+			if (options.direction && options.direction !== oldDirection) {
+				// 重新創建內容，使用新的方向
+				const createContent = (isDuplicate = false) => {
+					const fragment = document.createDocumentFragment();
+					// 根據方向決定項目順序
+					let itemsToRender = [...this.options.items];
+					if (this.options.direction === "right") {
+						itemsToRender = itemsToRender.reverse();
+					}
 
-			// 重新初始化
-			await this.init();
+					itemsToRender.forEach((item, index) => {
+						const itemElement = this.createItemElement(item, isDuplicate);
+						fragment.appendChild(itemElement);
+
+						if (this.options.separator && index < itemsToRender.length - 1) {
+							const separator = document.createElement("span");
+							separator.textContent = this.options.separator;
+							fragment.appendChild(separator);
+						}
+					});
+					return fragment;
+				};
+
+				// 清空並重新創建內容
+				this.content.innerHTML = "";
+				this.content.appendChild(createContent(false));
+
+				// 添加複製內容
+				if (!this.singleItemMode) {
+					for (let i = 1; i < this.infinite; i++) {
+						this.content.appendChild(createContent(true));
+					}
+				}
+			}
+
+			// 更新暫停行為
+			if (options.pauseOnHover !== undefined) {
+				this.setPauseOnHover(options.pauseOnHover);
+			}
+
+			// 重置位置並等待完成
+			await new Promise((resolve) => {
+				setTimeout(() => {
+					this._setInitialPosition();
+					resolve();
+				}, 50);
+			});
+
+			// 確保狀態正確並重啟動畫
+			this.isRunning = true;
+			this.isPaused = false;
+			this.rafEnabled = true;
+
+			// 重新開始動畫
+			this.lastTimestamp = performance.now();
+			this.animate();
 
 			return this;
 		} catch (error) {
 			console.error("reInit failed:", error);
-			throw error;
-		}
-	}
-
-	// 清理相關方法
-	async destroy() {
-		try {
-			if (!this.container) {
-				console.warn("Container already destroyed or not initialized");
-				return true;
-			}
-
-			// 停止動畫
-			this.pause();
-
-			// 移除事件監聽器
-			if (this.options.pauseOnHover && this.wrapper) {
-				this.wrapper.removeEventListener("mouseenter", this.handleMouseEnter);
-				this.wrapper.removeEventListener("mouseleave", this.handleMouseLeave);
-			}
-			window.removeEventListener("resize", this.handleResize);
-			document.removeEventListener("visibilitychange", this.handleVisibilityChange);
-
-			// 清除計時器
-			if (this.resizeTimeout) {
-				clearTimeout(this.resizeTimeout);
-				this.resizeTimeout = null;
-			}
-			if (this.restartTimeout) {
-				clearTimeout(this.restartTimeout);
-				this.restartTimeout = null;
-			}
-
-			// 恢復原始內容結構
-			if (this.content && this.container) {
-				try {
-					// 只保留原始項目（非複製項目）
-					const originalItems = Array.from(this.content.querySelectorAll(`.${this.options.itemClass}:not(.${this.options.duplicateClass})`));
-
-					// 等待所有圖片加載完成
-					await Promise.all(
-						originalItems
-							.flatMap((item) => Array.from(item.getElementsByTagName("img")))
-							.map((img) => {
-								if (img.complete) return Promise.resolve();
-								return new Promise((resolve) => {
-									img.onload = resolve;
-									img.onerror = resolve;
-								});
-							})
-					);
-
-					// 清空容器
-					while (this.container.firstChild) {
-						this.container.removeChild(this.container.firstChild);
-					}
-
-					// 還原原始項目
-					originalItems.forEach((item) => {
-						try {
-							// 移除所有樣式和額外的類別
-							item.style.cssText = "";
-							item.className = this.options.itemClass;
-							this.container.appendChild(item.cloneNode(true));
-						} catch (err) {
-							console.warn("Error restoring item:", err);
-						}
-					});
-				} catch (err) {
-					console.warn("Error during content restoration:", err);
-				}
-			}
-
-			// 移除容器上可能添加的樣式
-			if (this.container) {
-				this.container.style.cssText = "";
-			}
-
-			// 重置所有引用
-			this.wrapper = null;
-			this.content = null;
-
-			// 重置狀態
-			this.isInitialized = false;
-			this.isRunning = false;
-			this.isPaused = false;
-			this.currentPosition = 0;
-			this.lastTimestamp = 0;
-			this.pausedTimestamp = 0;
-			this.infinite = 2;
-			this.currentItemIndex = 0;
-
-			return true; // 表示成功完成清理
-		} catch (error) {
-			console.error("Error during destroy:", error);
 			throw error;
 		}
 	}

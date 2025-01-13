@@ -249,3 +249,54 @@ marquee.updateItems(["新項目2", "新項目1"]); // 向左移動時會以 新�
 // 恢復動畫
 marquee.resume();
 ```
+
+### 重新初始化範例
+
+```javascript
+// 初始化跑馬燈
+const marquee = new Marquee("#marquee-container", {
+	items: ["項目2", "項目1"],
+	direction: "left",  // 會以 項目1 -> 項目2 的順序顯示
+	speed: 50
+});
+
+// 使用 reInit 重新初始化，可以一次性更改多個設定
+marquee.reInit({
+	direction: "right", // 改為向右移動，會以 項目2 -> 項目1 的順序顯示
+	speed: 100,        // 改變速度
+	pauseOnHover: true // 添加滑鼠懸停暫停功能
+});
+
+// 也可以搭配其他方法使用
+const button = document.querySelector('#changeSettings');
+button.addEventListener('click', () => {
+	// 點擊按鈕時重新初始化
+	marquee.reInit({
+		direction: "up",
+		speed: 80,
+		mode: "single",
+		restartDelay: 2000
+	});
+});
+
+// Vue 組件中的使用範例
+export default {
+	data() {
+		return {
+			marqueeInstance: null
+		}
+	},
+	methods: {
+		updateMarquee() {
+			this.marqueeInstance.reInit({
+				direction: "right",
+				speed: 150,
+				items: ["新項目1", "新項目2", "新項目3"]
+			});
+		}
+	},
+	mounted() {
+		this.marqueeInstance = new Marquee("#marquee-container");
+	}
+}
+```
