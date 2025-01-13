@@ -24,13 +24,13 @@
 > 向左移動（direction: 'left'）：
 >
 > ```
-> [3] [2] [1] <-- 向左移動
+> [1] [2] [3] <-- 向左移動
 > ```
 >
 > 向右移動（direction: 'right'）：
 >
 > ```
-> 向右移動 --> [1] [2] [3]
+> 向右移動 --> [3] [2] [1]
 > ```
 >
 > 向上移動（direction: 'up'）：
@@ -56,10 +56,6 @@
 
 ```html
 <!-- 基本結構 -->
-<!-- 向左移動時：項目3 -> 項目2 -> 項目1 -->
-<!-- 向右移動時：項目1 -> 項目2 -> 項目3 -->
-<!-- 向上移動時：項目1 -> 項目2 -> 項目3（由上到下） -->
-<!-- 向下移動時：項目3 -> 項目2 -> 項目1（由上到下） -->
 <div id="marquee-container">
 	<div class="marquee-item">項目1</div>
 	<div class="marquee-item">項目2</div>
@@ -130,12 +126,9 @@ const marqueeRight = new Marquee("#marquee-container", {
 | -------------- | ------- | ------------------- | ----------------------------------------------------------- |
 | direction      | string  | 'left'              | 移動方向：'left'、'right'、'up'、'down'                     |
 | speed          | number  | 50                  | 移動速度（像素/秒）                                         |
-| interval       | number  | 3000                | 間隔時間（毫秒）                                            |
 | items          | array   | []                  | 要顯示的項目陣列                                            |
 | itemClass      | string  | 'marquee-item'      | 項目的 CSS class 名稱                                       |
-| duplicateClass | string  | 'marquee-duplicate' | 複製項目的 CSS class 名稱                                   |
-| loadingClass   | string  | 'marquee-loading'   | 載入中的 CSS class 名稱                                     |
-| pauseOnHover   | boolean | true                | 滑鼠懸停時是否暫停                                          |
+| pauseOnHover   | boolean | false                | 滑鼠懸停時是否暫停                                          |
 | mode           | string  | ''                  | 跑馬燈模式：''（預設）、'single'（單項目）、'group'（群組） |
 | restartDelay   | number  | 0                   | 重新啟動延遲時間（毫秒）                                    |
 
@@ -143,7 +136,6 @@ const marqueeRight = new Marquee("#marquee-container", {
 
 ### 控制方法
 
--   `start()`: 開始跑馬燈動畫
 -   `pause()`: 暫停動畫
 -   `resume()`: 恢復動畫
 -   `togglePause()`: 切換暫停/播放狀態

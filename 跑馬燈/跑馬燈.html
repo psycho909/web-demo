@@ -7,7 +7,8 @@
 		<link href="https://fonts.gstatic.com" crossorigin rel="preconnect" />
 		<link href="https://fonts.googleapis.com" crossorigin rel="preconnect" />
 		<link rel="stylesheet" id="generate-google-fonts-css" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP%3A500%2C700%2C900%7CAnton%3Aregular%7COswald%3A600%2C700&#038;display=auto&#038;ver=3.4.0" media="all" />
-		<script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+		<!-- 開發用 -->
+		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
 		<style>
 			* {
 				padding: 0;
@@ -15,7 +16,7 @@
 			}
 			.marquee-container {
 				width: 100%;
-				height: 480px;
+				/* height: 480px; */
 				background-color: #f0f0f0;
 				margin: 20px 0;
 				overflow: hidden;
@@ -28,7 +29,7 @@
 				margin-right: 5px;
 			}
 			.marquee-item__content {
-				height: 480px;
+				/* height: 480px; */
 				background-size: 100%;
 				display: inline-block;
 			}
@@ -58,36 +59,38 @@
 				width: 600px;
 				background-image: url("https://recruit.kyushokuou.com/wordpress/wp-content/uploads/2024/06/top_slide06.jpg");
 			}
-			#marquee3 {
-				height: 125px;
-			}
 			.marquee-item__text {
 				font-weight: 600;
 				font-size: clamp(90px, 4.86vw + 31.6px, 125px);
 				font-family: Oswald, sans-serif;
 				line-height: 1;
 			}
-			.marquee-item__img {
-				height: 102px;
-			}
 			#marquee4,
-			#marquee5,
-			#marquee7,
-			#marquee8 {
+			#marquee5 {
 				height: 124px;
 				overflow: hidden;
 			}
 			#marquee6 {
 				width: 800px;
-				height: 100px;
+				/* height: 100px; */
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app">
+			<button @click="updateItems1">更新marquee0</button>
+			<button @click="updateItems2">更新marquee0</button>
+			<div id="marquee0" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
+				<div class="marquee-item" v-for="(item,index) in data" :key="index">
+					<div class="marquee-item__text">{{ item }}</div>
+				</div>
+			</div>
 			<div id="marquee1" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
 				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="1"></div>
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
 				</div>
 			</div>
 			<div id="marquee2" class="marquee-container" style="width: 100%; background-color: #f0f0f0">
@@ -96,18 +99,6 @@
 				</div>
 				<div class="marquee-item">
 					<div class="marquee-item__content" data-type="2"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="3"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="4"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="5"></div>
-				</div>
-				<div class="marquee-item">
-					<div class="marquee-item__content" data-type="6"></div>
 				</div>
 			</div>
 			<div id="marquee3" class="marquee-container" style="width: 100%; background-color: #fff">
@@ -132,8 +123,11 @@
 			</div>
 
 			<div id="marquee4" class="marquee-container">
-				<div class="marquee-item" v-for="item in data">
-					<div class="marquee-item__text">{{ item }}</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2024</div>
+				</div>
+				<div class="marquee-item">
+					<div class="marquee-item__text">RECRUIT 2025</div>
 				</div>
 			</div>
 			<div id="marquee5" class="marquee-container">
@@ -155,7 +149,7 @@
 				</div>
 			</div>
 			<div id="marquee8" class="marquee-container">
-				<div class="marquee-item" v-for="item in data">
+				<div class="marquee-item" v-for="item in data2">
 					<div class="marquee-item__text">{{ item }}</div>
 				</div>
 			</div>
@@ -175,12 +169,23 @@
 		<script>
 			let app = Vue.createApp({
 				setup() {
-					let data = Vue.reactive(["RECRUIT 2024", "RECRUIT 2025", "RECRUIT 2026"]);
+					let data = Vue.ref(["【橘子支付買點數】最高享12%回饋7-11零用金", "守護者結伴計畫熱烈開跑，邀請朋友結伴參戰，海量紅利等你拿，立即參加別錯過！"]);
+					let data2 = Vue.ref(["【橘子支付買點數】最高享12%回饋7-11零用金", "守護者結伴計畫熱烈開跑，邀請朋友結伴參戰，海量紅利等你拿，立即參加別錯過！"]);
+					let marquee0 = Vue.ref(null);
+
+					const updateItems1 = () => {
+						// data.value = ["新的內容1", "新的內容2", "新的內容3"];
+						marquee0.value.destroy();
+					};
+					const updateItems2 = () => {
+						data.value.push("1213");
+					};
 					Vue.onMounted(() => {
-						let marquee1 = new Marquee("#marquee1", {
-							direction: "right",
-							speed: 100
-						});
+						marquee0.value = new Marquee("#marquee0");
+						// let marquee1 = new Marquee("#marquee1", {
+						// 	direction: "right",
+						// 	speed: 100
+						// });
 						let marquee2 = new Marquee("#marquee2", {
 							direction: "left",
 							speed: 100
@@ -204,7 +209,6 @@
 							direction: "left",
 							speed: 100,
 							pauseOnHover: false,
-							restartDelay: 3000,
 							mode: "single" // 啟用單項目模式
 						});
 						let marquee7 = new Marquee("#marquee7", {
@@ -216,9 +220,8 @@
 						});
 						let marquee8 = new Marquee("#marquee8", {
 							direction: "left",
-							speed: 100,
+							speed: 1000,
 							pauseOnHover: false,
-							restartDelay: 3000,
 							mode: "group" // 啟用新的非無限滾動模式
 						});
 						let marquee9 = new Marquee("#marquee9", {
@@ -230,7 +233,10 @@
 						});
 					});
 					return {
-						data
+						data,
+						data2,
+						updateItems1,
+						updateItems2
 					};
 				},
 				data() {
