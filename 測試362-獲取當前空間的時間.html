@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>獲取當前空間的時間</title>
+	</head>
+	<body>
+		<script>
+			async function getServerTime() {
+				try {
+					// 添加時間戳和 no-cache 參數來防止快取
+					const timestamp = new Date().getTime();
+					const response = await fetch(`${window.location.href}?_=${timestamp}`, {
+						method: "HEAD",
+						cache: "no-store", // 防止使用快取
+						headers: {
+							Pragma: "no-cache",
+							"Cache-Control": "no-cache"
+						}
+					});
+
+					const serverDate = response.headers.get("date");
+					return new Date(serverDate);
+				} catch (error) {
+					console.error("無法獲取伺服器時間:", error);
+					return new Date();
+				}
+			}
+
+			// 使用示例
+			getServerTime().then((time) => {
+				console.log("伺服器時間:", time);
+			});
+		</script>
+	</body>
+</html>
