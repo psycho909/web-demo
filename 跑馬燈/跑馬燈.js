@@ -168,9 +168,16 @@ class Marquee {
 	createItemElement(item, isDuplicate = false) {
 		const itemElement = document.createElement("div");
 		itemElement.className = isDuplicate ? `${this.options.itemClass} ${this.options.duplicateClass}` : this.options.itemClass;
+		itemElement.style.display = "inline-block";
 
 		// 直接設置內容，不管是文字還是HTML
 		itemElement.innerHTML = String(item);
+
+		// 確保內部的 marquee-item 也是 inline-block
+		const innerItems = itemElement.getElementsByClassName(this.options.itemClass);
+		Array.from(innerItems).forEach((innerItem) => {
+			innerItem.style.display = "inline-block";
+		});
 
 		return itemElement;
 	}
@@ -718,8 +725,8 @@ class Marquee {
 				this.content.innerHTML = "";
 				this.content.appendChild(createContent(false));
 
-				// 添加複製內容
-				if (!this.singleItemMode) {
+				// 只在非單項目模式且非群組模式時添加複製內容
+				if (!this.singleItemMode && !this.noInfiniteScroll) {
 					for (let i = 1; i < this.infinite; i++) {
 						this.content.appendChild(createContent(true));
 					}
@@ -768,10 +775,44 @@ class Marquee {
 			this.singleItemMode = this.options.mode === "single";
 			this.noInfiniteScroll = this.options.mode === "group";
 
-			// 如果模式改變為 group 或 single，清除所有重複的項目
+			// 如果模式改變為 group 或 single，移除所有重複的項目
 			if ((this.options.mode === "group" || this.options.mode === "single") && this.options.mode !== oldMode) {
 				const duplicates = this.content.querySelectorAll(`.${this.options.duplicateClass}`);
 				duplicates.forEach((item) => item.remove());
+			}
+
+			// 如果從 group 或 single 模式切換回一般模式，需要重新添加複製項目
+			if ((oldMode === "group" || oldMode === "single") && !this.singleItemMode && !this.noInfiniteScroll) {
+				const createContent = (isDuplicate = true) => {
+					const fragment = document.createDocumentFragment();
+					const itemsToRender = this.options.direction === "right" ? [...this.options.items].reverse() : this.options.items;
+
+					itemsToRender.forEach((item, index) => {
+						const itemElement = this.createItemElement(item, isDuplicate);
+						fragment.appendChild(itemElement);
+
+						if (this.options.separator && index < itemsToRender.length - 1) {
+							const separator = document.createElement("span");
+							separator.textContent = this.options.separator;
+							fragment.appendChild(separator);
+						}
+					});
+					return fragment;
+				};
+
+				// 計算需要的複製數量
+				const contentWidth = this.content.offsetWidth;
+				const wrapperWidth = this.wrapper.offsetWidth;
+				if (contentWidth < wrapperWidth) {
+					this.infinite = Math.ceil(wrapperWidth / contentWidth) + 1;
+				} else {
+					this.infinite = 2;
+				}
+
+				// 添加複製內容
+				for (let i = 1; i < this.infinite; i++) {
+					this.content.appendChild(createContent(true));
+				}
 			}
 
 			// 重置動畫相關狀態

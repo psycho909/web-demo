@@ -246,6 +246,10 @@ marquee.setSpeed(100);
 // 更改方向為向右
 marquee.setDirection("right"); // 會以 項目2 -> 項目1 的順序顯示
 
+// 設置滑鼠懸停行為
+marquee.setPauseOnHover(true); // 啟用滑鼠懸停暫停
+marquee.setPauseOnHover(false); // 禁用滑鼠懸停暫停
+
 // 更新項目
 marquee.updateItems(["新項目2", "新項目1"]); // 向左移動時會以 新項目1 -> 新項目2 的順序顯示
 
@@ -307,6 +311,13 @@ marquee.reInit({
 	direction: "right", // 改為向右移動，會以 項目2 -> 項目1 的順序顯示
 	speed: 100, // 改變速度
 	pauseOnHover: true // 添加滑鼠懸停暫停功能
+});
+
+// 當使用 reInit 更改 mode 為 'group' 或 'single' 時，會自動清除所有重複的項目
+marquee.reInit({
+	mode: "group", // 或 "single"，會自動清除所有 .marquee-duplicate 的項目
+	direction: "left",
+	speed: 80
 });
 
 // 也可以搭配其他方法使用
