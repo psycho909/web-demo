@@ -4,8 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>跑馬燈示例</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 		<!-- 開發用 -->
 		<script src="https://tw.hicdn.beanfun.com/plugins/vue/3.4.19/vue.global.min.js"></script>
+		<!-- Swiper JS -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 		<style>
 			* {
 				padding: 0;
@@ -31,6 +35,26 @@
 				font-family: Oswald, sans-serif;
 				line-height: 1;
 			}
+			.swiper {
+				width: 400px;
+				height: 200px;
+			}
+
+			.swiper-slide {
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-slide img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 		</style>
 	</head>
 	<body>
@@ -39,11 +63,20 @@
 			<div id="marquee0" class="marquee-container">
 				<div class="marquee-wrapper">
 					<div class="marquee-content">
-						<div class="marquee-item" v-for="item in data" :key="item.text">
+						<div class="marquee-item marquee-item1" v-for="item in data" :key="item.text">
 							<div class="marquee-item__text" :style="item.style">{{ item.text }}</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<button type="button" class="" @click="updateItems1">更新</button>
+			<!-- Swiper -->
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="item in data">{{item.text}}</div>
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 			</div>
 		</div>
 
@@ -55,11 +88,15 @@
 				setup() {
 					let data = Vue.ref([
 						{
-							text: "【橘子支付買點數】最高享12%回饋7-11零用金",
+							text: "【橘子支付買點數】",
 							style: "color: #ff6600; font-size: 120px;"
 						},
 						{
-							text: "守護者結伴計畫熱烈開跑，邀請朋友結伴參戰，海量紅利等你拿，立即參加別錯過！",
+							text: "守護者結伴計畫熱烈開跑！",
+							style: "color: #0066cc; font-size: 100px;"
+						},
+						{
+							text: "color: #ff0000; font-size: 110px;",
 							style: "color: #0066cc; font-size: 100px;"
 						}
 					]);
@@ -71,26 +108,43 @@
 							style: "color: #ff0000; font-size: 110px;"
 						};
 						if (marquee0.value) {
-							// 將數據轉換為 HTML 字符串
-							const items = `<div class="marquee-item__text" style="${item.style}">${item.text}</div>`;
-							// marquee0.value.updateItems(items);
-							marquee0.value.destroy();
-							console.log(marquee0.value);
 							data.value.push(item);
+							marquee0.value.reInit({
+								direction: "right",
+								speed: 1000,
+								mode: "group" // 啟用新的非無限滾動模式
+							});
 						}
 					};
-
+					let updateItems1 = () => {
+						let item = {
+							text: "1213",
+							style: "color: #ff0000; font-size: 110px;"
+						};
+						data.value.push(item);
+					};
 					Vue.onMounted(() => {
 						// 初始化時也使用 HTML 字符串
-						const items = data.value.map((item) => `<div class="marquee-item__text" style="${item.style}">${item.text}</div>`);
 						marquee0.value = new Marquee("#marquee0", {
-							speed: 200
+							direction: "left",
+							speed: 200,
+							pauseOnHover: false,
+							mode: "group" // 啟用新的非無限滾動模式
+						});
+						var swiper = new Swiper(".mySwiper", {
+							slidesPerView: 1,
+							loop: true,
+							navigation: {
+								nextEl: ".swiper-button-next",
+								prevEl: ".swiper-button-prev"
+							}
 						});
 					});
 
 					return {
 						data,
-						updateItems
+						updateItems,
+						updateItems1
 					};
 				}
 			});

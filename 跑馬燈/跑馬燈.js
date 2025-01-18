@@ -754,8 +754,9 @@ class Marquee {
 			// 暫停當前動畫
 			this.pause();
 
-			// 更新選項前保存舊方向
+			// 更新選項前保存舊方向和模式
 			const oldDirection = this.options.direction;
+			const oldMode = this.options.mode;
 
 			// 更新選項
 			this.options = {
@@ -766,6 +767,12 @@ class Marquee {
 			// 從 mode 設定衍生的屬性
 			this.singleItemMode = this.options.mode === "single";
 			this.noInfiniteScroll = this.options.mode === "group";
+
+			// 如果模式改變為 group 或 single，清除所有重複的項目
+			if ((this.options.mode === "group" || this.options.mode === "single") && this.options.mode !== oldMode) {
+				const duplicates = this.content.querySelectorAll(`.${this.options.duplicateClass}`);
+				duplicates.forEach((item) => item.remove());
+			}
 
 			// 重置動畫相關狀態
 			if (this.animationFrame) {
@@ -804,7 +811,7 @@ class Marquee {
 				this.content.appendChild(createContent(false));
 
 				// 添加複製內容
-				if (!this.singleItemMode) {
+				if (!this.singleItemMode && !this.noInfiniteScroll) {
 					for (let i = 1; i < this.infinite; i++) {
 						this.content.appendChild(createContent(true));
 					}

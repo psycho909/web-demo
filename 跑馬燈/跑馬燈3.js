@@ -93,9 +93,10 @@ class Marquee {
 	// 初始化相關方法
 	async init() {
 		try {
-			// 創建結構（此時會保留並移動原有的 marquee items）
-			this.createStructure();
+			// 在創建結構前先獲取原始的 marquee items
+			const originalItems = Array.from(this.container.querySelectorAll(".marquee-item")).map((el) => el.innerHTML);
 
+			this.createStructure();
 			if (["up", "down"].includes(this.options.direction)) {
 				this.content.style.display = "inline-flex";
 				this.content.style.flexDirection = "column";
@@ -104,9 +105,6 @@ class Marquee {
 					this.currentPosition = -(this.content.offsetHeight - this.wrapper.offsetHeight);
 				}
 			}
-
-			// 獲取移動後的原始項目內容
-			const originalItems = Array.from(this.content.querySelectorAll(".marquee-item")).map((el) => el.innerHTML);
 
 			// 使用從 HTML 獲取的項目
 			await this.preloadImages(originalItems);
@@ -125,66 +123,43 @@ class Marquee {
 		this.wrapper = this.container.querySelector(".marquee-wrapper");
 		this.content = this.container.querySelector(".marquee-content");
 
-		// 如果結構已存在，只添加樣式
-		if (this.wrapper && this.content) {
-			// 設置wrapper樣式
-			this.wrapper.style.cssText = `
-				position: relative;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-				transform: translateZ(0);
-			`;
+		if (!this.wrapper && !this.content) {
+			this.container.innerHTML = "";
 
-			// 設置content樣式
-			this.content.style.cssText = `
-				position: relative;
-				white-space: nowrap;
-				display: inline-block;
-				transform: translateZ(0);
-				will-change: transform;
-				opacity: 0;
-				transition: opacity 0.3s ease;
-			`;
-
-			// 添加 loading 類
-			this.content.classList.add(this.options.loadingClass);
-			return;
-		}
-
-		// 如果結構不存在，創建新元素
-		if (!this.wrapper) {
 			this.wrapper = document.createElement("div");
-			this.wrapper.className = "marquee-wrapper";
-			this.wrapper.style.cssText = `
-				position: relative;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-				transform: translateZ(0);
-			`;
+			this.wrapper.classList.add("marquee-wrapper");
 		}
+
+		// 設置wrapper樣式
+		this.wrapper.style.cssText = `
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transform: translateZ(0);
+        `;
 
 		if (!this.content) {
 			this.content = document.createElement("div");
-			this.content.className = "marquee-content";
-			this.content.style.cssText = `
-				position: relative;
-				white-space: nowrap;
-				display: inline-block;
-				transform: translateZ(0);
-				will-change: transform;
-				opacity: 0;
-				transition: opacity 0.3s ease;
-			`;
-			this.content.classList.add(this.options.loadingClass);
+			this.content.classList.add("marquee-content");
 		}
 
-		// 只在需要時建立DOM結構
-		if (!this.content.parentNode) {
+		// 設置content樣式
+		this.content.style.cssText = `
+            position: relative;
+            white-space: nowrap;
+            display: inline-block;
+            transform: translateZ(0);
+            will-change: transform;
+			opacity: 0;
+        transition: opacity 0.3s ease;
+        `;
+		// 添加 loading 類
+		this.content.classList.add(this.options.loadingClass);
+
+		// 如果是新創建的元素，需要建立DOM結構
+		if (!this.container.contains(this.wrapper)) {
 			this.wrapper.appendChild(this.content);
-		}
-		if (!this.wrapper.parentNode) {
 			this.container.appendChild(this.wrapper);
 		}
 	}
@@ -269,66 +244,17 @@ class Marquee {
 		}
 
 		this.pause();
-		this.options.items = [...this.options.items, ...items]; // 合併新舊項目
-		this.content.innerHTML = "";
 
-		const createContent = (isDuplicate = false) => {
-			const fragment = document.createDocumentFragment();
-			const itemsToRender = this.options.direction === "down" || this.options.direction === "right" ? [...this.options.items].reverse() : this.options.items;
+		// 獲取所有現有的項目元素
+		const existingItems = this.content.querySelectorAll(`.${this.options.itemClass}`);
 
-			itemsToRender.forEach((item, index) => {
-				// 傳入 isDuplicate 參數來標記是否為複製項目
-				const itemElement = this.createItemElement(item, isDuplicate);
-
-				// 如果是單項目模式，設置初始顯示狀態
-				if (this.singleItemMode && ["left", "right"].includes(this.options.direction)) {
-					itemElement.style.display = index === this.currentItemIndex ? "inline-block" : "none";
-				}
-
-				fragment.appendChild(itemElement);
-
-				if (this.options.separator && index < itemsToRender.length - 1) {
-					const separator = document.createElement("span");
-					separator.textContent = this.options.separator;
-					fragment.appendChild(separator);
-				}
-			});
-			return fragment;
-		};
-
-		// 先創建原始內容（不是複製的）
-		this.content.appendChild(createContent(false));
-
-		// 只在非單項目模式且需要無限滾動時處理複製
-		if (!this.singleItemMode && ["left", "right"].includes(this.options.direction)) {
-			const contentWidth = this.content.offsetWidth;
-			const wrapperWidth = this.wrapper.offsetWidth;
-
-			if (!this.noInfiniteScroll) {
-				// 修改這部分邏輯
-				if (contentWidth < wrapperWidth) {
-					// 計算需要多少份才能填滿容器
-					this.infinite = Math.ceil(wrapperWidth / contentWidth);
-					// 多加一份以確保無縫效果
-					this.infinite += 1;
-				} else {
-					this.infinite = 2;
-				}
-			} else {
-				// group 模式：不論項目數量都不複製
-				this.infinite = 1;
+		// 更新每個項目的內容
+		existingItems.forEach((itemElement, index) => {
+			if (items[index]) {
+				itemElement.innerHTML = String(items[index]);
 			}
-		}
-		if (!this.singleItemMode) {
-			// 清空內容後重新創建
-			this.content.innerHTML = "";
-			// 添加原始內容
-			this.content.appendChild(createContent(false));
-			// 添加複製內容
-			for (let i = 1; i < this.infinite; i++) {
-				this.content.appendChild(createContent(true));
-			}
-		}
+		});
+
 		// 修改圖片加載和內容顯示的邏輯
 		const images = this.content.getElementsByTagName("img");
 		if (images.length > 0) {
@@ -782,15 +708,19 @@ class Marquee {
 			// 更新選項前保存舊方向
 			const oldDirection = this.options.direction;
 
-			// 更新選項
-			this.options = {
-				...this.options, // 保留原有的選項
-				...options // 覆蓋新的選項
-			};
+			// 檢查是否有mode變更
+			if (options.mode === "group" || options.mode === "single") {
+				// 移除所有duplicate元素
+				const duplicates = this.content.querySelectorAll(`.${this.options.duplicateClass}`);
+				duplicates.forEach((item) => item.remove());
+			}
 
-			// 從 mode 設定衍生的屬性
-			this.singleItemMode = this.options.mode === "single";
-			this.noInfiniteScroll = this.options.mode === "group";
+			// 更新選項，但排除mode相關設定
+			const { mode, ...allowedOptions } = options;
+			this.options = {
+				...this.options,
+				...allowedOptions
+			};
 
 			// 重置動畫相關狀態
 			if (this.animationFrame) {
@@ -864,7 +794,6 @@ class Marquee {
 			throw error;
 		}
 	}
-
 	destroy() {
 		// 停止動畫
 		if (this.animationFrame) {
