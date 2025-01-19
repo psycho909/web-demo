@@ -145,15 +145,18 @@ class Marquee {
 		}
 
 		// 設置content樣式
+		const isVertical = ["up", "down"].includes(this.options.direction);
 		this.content.style.cssText = `
             position: relative;
             white-space: nowrap;
-            display: inline-block;
+            display: ${isVertical ? "inline-flex" : "inline-block"};
             transform: translateZ(0);
             will-change: transform;
 			opacity: 0;
-        transition: opacity 0.3s ease;
+			transition: opacity 0.3s ease;
+			${isVertical ? "flex-direction: column;" : ""}
         `;
+
 		// 添加 loading 類
 		this.content.classList.add(this.options.loadingClass);
 
@@ -161,6 +164,15 @@ class Marquee {
 		if (!this.container.contains(this.wrapper)) {
 			this.wrapper.appendChild(this.content);
 			this.container.appendChild(this.wrapper);
+		}
+
+		// 為垂直方向設置特殊樣式
+		if (isVertical) {
+			Array.from(this.content.children).forEach((child) => {
+				child.style.display = "inline-block";
+				child.style.marginBottom = "0";
+				child.style.marginTop = "0";
+			});
 		}
 	}
 
@@ -282,26 +294,19 @@ class Marquee {
 		this.content.appendChild(createContent(false));
 
 		// 只在非單項目模式且需要無限滾動時處理複製
-		if (!this.singleItemMode && ["left", "right"].includes(this.options.direction)) {
-			const contentWidth = this.content.offsetWidth;
-			const wrapperWidth = this.wrapper.offsetWidth;
+		if (!this.singleItemMode && !this.noInfiniteScroll) {
+			const isVertical = ["up", "down"].includes(this.options.direction);
+			const contentSize = isVertical ? this.content.offsetHeight : this.content.offsetWidth;
+			const wrapperSize = isVertical ? this.wrapper.offsetHeight : this.wrapper.offsetWidth;
 
-			if (!this.noInfiniteScroll) {
-				// 修改這部分邏輯
-				if (contentWidth < wrapperWidth) {
-					// 計算需要多少份才能填滿容器
-					this.infinite = Math.ceil(wrapperWidth / contentWidth);
-					// 多加一份以確保無縫效果
-					this.infinite += 1;
-				} else {
-					this.infinite = 2;
-				}
+			// 計算需要的複製次數
+			if (contentSize < wrapperSize) {
+				this.infinite = Math.ceil(wrapperSize / contentSize);
+				this.infinite += 1; // 多加一份以確保無縫效果
 			} else {
-				// group 模式：不論項目數量都不複製
-				this.infinite = 1;
+				this.infinite = 2;
 			}
-		}
-		if (!this.singleItemMode) {
+
 			// 清空內容後重新創建
 			this.content.innerHTML = "";
 			// 添加原始內容
@@ -310,7 +315,19 @@ class Marquee {
 			for (let i = 1; i < this.infinite; i++) {
 				this.content.appendChild(createContent(true));
 			}
+
+			// 為垂直方向設置特殊樣式
+			if (isVertical) {
+				this.content.style.display = "inline-flex";
+				this.content.style.flexDirection = "column";
+				Array.from(this.content.children).forEach((child) => {
+					child.style.display = "inline-block";
+					child.style.marginBottom = "0";
+					child.style.marginTop = "0";
+				});
+			}
 		}
+
 		// 修改圖片加載和內容顯示的邏輯
 		const images = this.content.getElementsByTagName("img");
 		if (images.length > 0) {
@@ -695,18 +712,23 @@ class Marquee {
 
 	setDirection(direction) {
 		if (["left", "right", "up", "down"].includes(direction)) {
+			// 如果方向相同，直接返回
+			if (this.options.direction === direction) {
+				return;
+			}
+
 			this.pause();
 
 			// 保存舊方向
 			const oldDirection = this.options.direction;
 			this.options.direction = direction;
 
-			// 如果是在左右方向之間切換，需要重新排序項目
-			if ((oldDirection === "left" && direction === "right") || (oldDirection === "right" && direction === "left")) {
+			// 如果是在左右方向或上下方向之間切換，需要重新排序項目
+			if ((oldDirection === "left" && direction === "right") || (oldDirection === "right" && direction === "left") || (oldDirection === "up" && direction === "down") || (oldDirection === "down" && direction === "up")) {
 				// 重新創建內容，使用新的方向
 				const createContent = (isDuplicate = false) => {
 					const fragment = document.createDocumentFragment();
-					const itemsToRender = direction === "right" ? [...this.options.items].reverse() : this.options.items;
+					const itemsToRender = direction === "right" || direction === "down" ? [...this.options.items].reverse() : this.options.items;
 
 					itemsToRender.forEach((item, index) => {
 						const itemElement = this.createItemElement(item, isDuplicate);
@@ -730,6 +752,20 @@ class Marquee {
 					for (let i = 1; i < this.infinite; i++) {
 						this.content.appendChild(createContent(true));
 					}
+				}
+
+				// 為垂直方向設置特殊樣式
+				if (["up", "down"].includes(direction)) {
+					this.content.style.display = "inline-flex";
+					this.content.style.flexDirection = "column";
+					Array.from(this.content.children).forEach((child) => {
+						child.style.display = "inline-block";
+						child.style.marginBottom = "0";
+						child.style.marginTop = "0";
+					});
+				} else {
+					this.content.style.display = "inline-block";
+					this.content.style.flexDirection = "";
 				}
 			}
 
