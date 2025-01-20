@@ -3,10 +3,11 @@ class PaginationCore {
 		container,
 		totalPage,
 		pageNumberLimit,
-		onPageChange,
+		pageChange,
 		showFirst = true,
 		showLast = true,
 		mode,
+		init,
 		styles = {
 			active: {},
 			normal: {},
@@ -18,7 +19,7 @@ class PaginationCore {
 		this.pageNumberLimit = pageNumberLimit; // 每次顯示的頁碼數量
 		this.currentPage = 1; // 當前頁碼
 		this.container = container || null; // 分頁容器的 DOM 節點
-		this._onPageChange = onPageChange || (() => {}); // 頁面變化回調函數
+		this._onPageChange = pageChange || (() => {}); // 頁面變化回調函數
 		this.showFirst = showFirst;
 		this.showLast = showLast;
 		// 確保 mode 為 "normal" 或 "center"，預設為 "normal"
@@ -27,42 +28,54 @@ class PaginationCore {
 
 		// 初始化事件監聽器容器
 		this._eventListeners = {
-			pageChange: []
+			pageChange: [],
+			init: []
 		};
 
 		// 如果提供了 onPageChange，添加到事件監聽器中
-		if (typeof onPageChange === "function") {
-			this._eventListeners.pageChange.push(onPageChange);
+		if (typeof pageChange === "function") {
+			this._eventListeners.pageChange.push(pageChange);
 		}
 
-		// 如果提供了容器，立即初始化
-		if (this.container) {
-			this.initializeContainer();
-			this.updatePaginationUI();
+		// 如果提供了 init 回調，添加到事件監聽器中
+		if (typeof init === "function") {
+			this._eventListeners.init.push(init);
 		}
-		this.initializeStyles();
+
+		// 延遲初始化，讓事件監聽器有機會先註冊
+		setTimeout(() => {
+			if (this.container) {
+				this.initializeContainer();
+				this.updatePaginationUI();
+				this.initializeStyles();
+				// 觸發初始化事件
+				this._triggerEvent("init", this.currentPage);
+			} else {
+				this.initializeStyles();
+			}
+		}, 0);
 	}
 
 	// 事件監聽方法
 	on(eventName, callback) {
-		if (eventName === "pageChange" && typeof callback === "function") {
-			this._eventListeners.pageChange.push(callback);
+		if ((eventName === "pageChange" || eventName === "init") && typeof callback === "function") {
+			this._eventListeners[eventName].push(callback);
 		}
 		return this;
 	}
 
 	// 移除事件監聽
 	off(eventName, callback) {
-		if (eventName === "pageChange" && typeof callback === "function") {
-			this._eventListeners.pageChange = this._eventListeners.pageChange.filter((listener) => listener !== callback);
+		if ((eventName === "pageChange" || eventName === "init") && typeof callback === "function") {
+			this._eventListeners[eventName] = this._eventListeners[eventName].filter((listener) => listener !== callback);
 		}
 		return this;
 	}
 
 	// 觸發事件
 	_triggerEvent(eventName, ...args) {
-		if (eventName === "pageChange") {
-			this._eventListeners.pageChange.forEach((listener) => {
+		if (eventName === "pageChange" || eventName === "init") {
+			this._eventListeners[eventName].forEach((listener) => {
 				listener(...args);
 			});
 		}

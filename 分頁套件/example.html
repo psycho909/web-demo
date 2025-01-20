@@ -119,6 +119,11 @@
 				totalPage: 100,
 				pageNumberLimit: 5
 			});
+
+			normalPagination.on("init", (page) => {
+				console.log(`普通分頁模式 - 初始化完成，當前頁碼：${page}`);
+			});
+
 			normalPagination.on("pageChange", (page) => {
 				console.log(`普通分頁模式 - 當前頁碼：${page}`);
 			});
@@ -146,7 +151,10 @@
 						cursor: "not-allowed"
 					}
 				},
-				onPageChange: (page) => {
+				init: (page) => {
+					console.log(`置中分頁模式 - 初始化完成，當前頁碼：${page}`);
+				},
+				pageChange: (page) => {
 					console.log(`置中分頁模式 - 當前頁碼：${page}`);
 				}
 			});
