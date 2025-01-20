@@ -1,19 +1,3 @@
-/**
- * Marquee 跑馬燈類別
- * 提供可自訂的跑馬燈功能，支援多種移動方向和模式
- *
- * 功能特點:
- * - 支援四個方向移動: 左、右、上、下
- * - 三種運行模式:
- *   - 一般模式: 無限循環滾動
- *   - 單項目模式(single): 一次只顯示一個項目
- *   - 群組模式(group): 所有項目一起移動，到邊界時重新開始
- * - 可自訂移動速度和間隔時間
- * - 支援滑鼠懸停暫停
- * - 自動處理圖片預載入
- * - 響應式設計，自動調整複製數量
- * - 支援頁面可見性變化處理
- */
 class Marquee {
 	constructor(element, options = {}) {
 		// 確保元素存在
@@ -106,13 +90,7 @@ class Marquee {
 		});
 	}
 
-	/**
-	 * 初始化跑馬燈
-	 * - 創建 DOM 結構
-	 * - 預載入圖片
-	 * - 更新項目
-	 * - 綁定事件
-	 */
+	// 初始化相關方法
 	async init() {
 		try {
 			// 在創建結構前先獲取原始的 marquee items
@@ -140,11 +118,6 @@ class Marquee {
 		}
 	}
 
-	/**
-	 * 創建跑馬燈的基本 DOM 結構
-	 * - 創建 wrapper 和 content 元素
-	 * - 設置基本樣式
-	 */
 	createStructure() {
 		// 檢查是否已存在wrapper和content元素
 		this.wrapper = this.container.querySelector(".marquee-wrapper");
@@ -203,9 +176,7 @@ class Marquee {
 		}
 	}
 
-	/**
-	 * 創建單個跑馬燈項目元素
-	 */
+	// 圖片處理相關方法
 	createItemElement(item, isDuplicate = false) {
 		const itemElement = document.createElement("div");
 		itemElement.className = isDuplicate ? `${this.options.itemClass} ${this.options.duplicateClass}` : this.options.itemClass;
@@ -223,9 +194,6 @@ class Marquee {
 		return itemElement;
 	}
 
-	/**
-	 * 預載入項目中的所有圖片
-	 */
 	preloadImages(items) {
 		// 創建臨時的 DOM 元素來解析 HTML 字符串
 		const tempDiv = document.createElement("div");
@@ -288,14 +256,6 @@ class Marquee {
 			return [];
 		});
 	}
-
-	/**
-	 * 更新跑馬燈項目
-	 * - 清空現有內容
-	 * - 創建新項目
-	 * - 處理複製項目
-	 * - 處理圖片載入
-	 */
 	async updateItems(items) {
 		// 確保 items 是數組
 		if (!Array.isArray(items)) {
@@ -415,12 +375,6 @@ class Marquee {
 		}
 	}
 
-	/**
-	 * 執行動畫
-	 * - 根據方向和模式計算位置
-	 * - 處理邊界情況
-	 * - 更新 transform
-	 */
 	async animate() {
 		await this.initPromise;
 		if (!this.isRunning || this.isPaused || !this.rafEnabled) return;
@@ -578,35 +532,59 @@ class Marquee {
 		move();
 	}
 
-	/**
-	 * 重置跑馬燈位置到初始狀態
-	 */
+	// 修改 resetPosition 方法
 	resetPosition() {
 		requestAnimationFrame(() => {
 			this._setInitialPosition();
 		});
 	}
+	// 新增輔助方法來設置實際位置
+	_setInitialPosition() {
+		// 添加一個小延遲確保內容完全渲染
+		setTimeout(() => {
+			const checkDimensions = () => {
+				const contentWidth = this.content.getBoundingClientRect().width;
+				const wrapperWidth = this.wrapper.getBoundingClientRect().width;
 
-	/**
-	 * 處理滑鼠進入事件
-	 * 當啟用 pauseOnHover 時暫停跑馬燈
-	 */
+				if (contentWidth === 0) {
+					requestAnimationFrame(checkDimensions);
+					return;
+				}
+
+				switch (this.options.direction) {
+					case "left":
+						this.currentPosition = wrapperWidth;
+						break;
+					case "right":
+						this.currentPosition = -contentWidth;
+						break;
+					case "up":
+						this.currentPosition = this.wrapper.offsetHeight;
+						break;
+					case "down":
+						this.currentPosition = -this.content.offsetHeight;
+						break;
+					default:
+						this.currentPosition = 0;
+				}
+
+				const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
+
+				this.content.style.transform = transform;
+			};
+
+			requestAnimationFrame(checkDimensions);
+		}, 50); // 50ms 的延遲通常足夠等待渲染完成
+	}
+	// 事件處理相關方法
 	handleMouseEnter() {
 		this.pause();
 	}
 
-	/**
-	 * 處理滑鼠離開事件
-	 * 當啟用 pauseOnHover 時恢復跑馬燈運行
-	 */
 	handleMouseLeave() {
 		this.resume();
 	}
 
-	/**
-	 * 處理視窗大小改變事件
-	 * 使用節流處理以避免過度觸發
-	 */
 	throttleResize() {
 		if (this.resizeTimeout) return;
 
@@ -666,12 +644,6 @@ class Marquee {
 		}, 100);
 	}
 
-	/**
-	 * 綁定所有事件監聽器
-	 * - 滑鼠懸停事件
-	 * - 視窗大小改變事件
-	 * - 頁面可見性變化事件
-	 */
 	bindEvents() {
 		if (this.options.pauseOnHover) {
 			this.wrapper.addEventListener("mouseenter", this.handleMouseEnter);
@@ -682,11 +654,7 @@ class Marquee {
 		// 新增頁面可見性變化監聽
 		document.addEventListener("visibilitychange", this.handleVisibilityChange);
 	}
-
-	/**
-	 * 處理頁面可見性變化
-	 * 當頁面隱藏時暫停，顯示時恢復
-	 */
+	// 新增處理頁面可見性變化的方法
 	handleVisibilityChange() {
 		if (document.hidden) {
 			this.pause();
@@ -694,11 +662,6 @@ class Marquee {
 			this.resume();
 		}
 	}
-
-	/**
-	 * 切換跑馬燈的暫停狀態
-	 * 如果正在運行則暫停，如果已暫停則恢復
-	 */
 	togglePause() {
 		if (this.isPaused) {
 			this.resume();
@@ -706,11 +669,7 @@ class Marquee {
 			this.pause();
 		}
 	}
-
-	/**
-	 * 開始跑馬燈動畫
-	 * 等待初始化完成後開始運行
-	 */
+	// 控制相關方法
 	async start() {
 		await this.initPromise;
 		if (this.isRunning) return;
@@ -718,12 +677,6 @@ class Marquee {
 		this.animate();
 	}
 
-	/**
-	 * 暫停跑馬燈動畫
-	 * - 清除重啟計時器
-	 * - 停止動畫幀請求
-	 * - 記錄暫停時間戳
-	 */
 	pause() {
 		if (this.restartTimeout) {
 			clearTimeout(this.restartTimeout);
@@ -738,11 +691,6 @@ class Marquee {
 		}
 	}
 
-	/**
-	 * 恢復跑馬燈動畫
-	 * - 清除重啟計時器
-	 * - 重新開始動畫
-	 */
 	resume() {
 		if (this.restartTimeout) {
 			clearTimeout(this.restartTimeout);
@@ -754,9 +702,7 @@ class Marquee {
 		this.animate();
 	}
 
-	/**
-	 * 設置跑馬燈的移動速度
-	 */
+	// 設置相關方法
 	setSpeed(speed) {
 		const newSpeed = parseFloat(speed);
 		if (!isNaN(newSpeed) && newSpeed > 0) {
@@ -764,9 +710,6 @@ class Marquee {
 		}
 	}
 
-	/**
-	 * 設置跑馬燈的移動方向
-	 */
 	setDirection(direction) {
 		if (["left", "right", "up", "down"].includes(direction)) {
 			// 如果方向相同，直接返回
@@ -830,10 +773,7 @@ class Marquee {
 			this.resume();
 		}
 	}
-
-	/**
-	 * 設置是否在滑鼠懸停時暫停
-	 */
+	// 新增方法：動態設置滑鼠暫停行為
 	setPauseOnHover(enabled) {
 		if (this.options.pauseOnHover === enabled) return;
 
@@ -851,10 +791,7 @@ class Marquee {
 			}
 		}
 	}
-
-	/**
-	 * 使用新的選項重新初始化跑馬燈
-	 */
+	// 重新初始化方法
 	async reInit(options = {}) {
 		try {
 			// 暫停當前動畫
@@ -986,56 +923,6 @@ class Marquee {
 			throw error;
 		}
 	}
-
-	/**
-	 * 設置初始位置
-	 * 根據移動方向設置適當的起始位置
-	 */
-	_setInitialPosition() {
-		// 添加一個小延遲確保內容完全渲染
-		setTimeout(() => {
-			const checkDimensions = () => {
-				const contentWidth = this.content.getBoundingClientRect().width;
-				const wrapperWidth = this.wrapper.getBoundingClientRect().width;
-
-				if (contentWidth === 0) {
-					requestAnimationFrame(checkDimensions);
-					return;
-				}
-
-				switch (this.options.direction) {
-					case "left":
-						this.currentPosition = wrapperWidth;
-						break;
-					case "right":
-						this.currentPosition = -contentWidth;
-						break;
-					case "up":
-						this.currentPosition = this.wrapper.offsetHeight;
-						break;
-					case "down":
-						this.currentPosition = -this.content.offsetHeight;
-						break;
-					default:
-						this.currentPosition = 0;
-				}
-
-				const transform = this.options.direction === "left" || this.options.direction === "right" ? `translate3d(${this.currentPosition}px, 0, 0)` : `translate3d(0, ${this.currentPosition}px, 0)`;
-
-				this.content.style.transform = transform;
-			};
-
-			requestAnimationFrame(checkDimensions);
-		}, 50); // 50ms 的延遲通常足夠等待渲染完成
-	}
-
-	/**
-	 * 銷毀跑馬燈實例
-	 * - 停止動畫
-	 * - 清除計時器
-	 * - 移除事件監聽器
-	 * - 清理 DOM
-	 */
 	destroy() {
 		// 停止動畫
 		if (this.animationFrame) {
