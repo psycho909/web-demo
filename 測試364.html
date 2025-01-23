@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery.min.js"></script>
+		<script src="https://tw.hicdn.beanfun.com/jquery/jquery-migrate.min.js"></script>
+		<script src="https://frontend.beanfun.com/plugins/gbox/gbox.js"></script>
+		<style>
+			:root {
+				--breakpoint: 600px;
+			}
+			.my-button {
+				padding: 10px 20px;
+				margin: 20px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<button class="my-button">開啟 Gbox</button>
+		<picture>
+			<source srcset="./images/02.jpg" media="(max-width: 600px)" />
+			<img src="./images/01.jpg" />
+		</picture>
+		<script>
+			$(document).ready(function () {
+				$(".my-button").on("click", function () {
+					let msg = "<div style='padding: 20px;'>這是一個 Gbox 示範</div>";
+					let config = {
+						addClass: "custom-gbox",
+						titleBar: "Gbox 標題",
+						hasCloseBtn: true,
+						hasActionBtn: true,
+						afterClose: function () {
+							console.log("Gbox已關閉");
+						},
+						actionBtns: [
+							{
+								text: "確認",
+								id: "confirm-btn",
+								class: "confirm-button",
+								click: function () {
+									console.log("點擊確認按鈕");
+									$.gbox.close();
+								}
+							},
+							{
+								text: "取消",
+								id: "cancel-btn",
+								class: "cancel-button",
+								click: function () {
+									console.log("點擊取消按鈕");
+									$.gbox.close();
+								}
+							}
+						]
+					};
+					$.gbox.open(msg, config);
+				});
+			});
+		</script>
+	</body>
+</html>
