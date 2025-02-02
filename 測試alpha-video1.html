@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Video Alpha Canvas</title>
+		<style>
+			canvas {
+				display: block;
+				margin: 0 auto;
+			}
+			video {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<video id="video1" width="1200" height="600" crossorigin="anonymous" muted>
+			<source src="./video/title_in.mp4" type="video/mp4" />
+			Your browser does not support the video tag.
+		</video>
+		<video id="video2" width="1200" height="600" crossorigin="anonymous" muted>
+			<source src="./video/title_loop.mp4" type="video/mp4" />
+			Your browser does not support the video tag.
+		</video>
+		<canvas id="outputCanvas" width="1200" height="600"></canvas>
+
+		<script>
+			const canvas = document.getElementById("outputCanvas");
+			const ctx = canvas.getContext("2d");
+
+			const video1 = document.getElementById("video1");
+			const video2 = document.getElementById("video2");
+
+			const drawAlphaVideo = (video) => {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+				// Top part: Original video
+				ctx.drawImage(video, 0, 0, 1200, 600, 0, 0, 1200, 600);
+
+				// Bottom part: Alpha channel
+				const alphaCanvas = document.createElement("canvas");
+				alphaCanvas.width = 1200;
+				alphaCanvas.height = 600;
+				const alphaCtx = alphaCanvas.getContext("2d");
+				alphaCtx.drawImage(video, 0, 600, 1200, 600, 0, 0, 1200, 600);
+
+				const originalFrame = ctx.getImageData(0, 0, 1200, 600);
+				const alphaFrame = alphaCtx.getImageData(0, 0, 1200, 600);
+				const originalData = originalFrame.data;
+				const alphaData = alphaFrame.data;
+
+				// Apply alpha channel
+				for (let i = 0; i < originalData.length; i += 4) {
+					originalData[i + 3] = alphaData[i];
+				}
+
+				ctx.putImageData(originalFrame, 0, 0);
+			};
+
+			const preloadVideos = (videos, callback) => {
+				let loadedCount = 0;
+				videos.forEach((video) => {
+					video.oncanplaythrough = () => {
+						loadedCount++;
+						if (loadedCount === videos.length) {
+							callback();
+						}
+					};
+				});
+			};
+
+			const playVideo1 = () => {
+				video1.play();
+				const interval = setInterval(() => {
+					if (!video1.paused && !video1.ended) {
+						drawAlphaVideo(video1);
+					} else {
+						clearInterval(interval);
+						video1.pause();
+						video1.currentTime = 0;
+						playVideo2();
+					}
+				}, 1000 / 30); // 30 FPS
+			};
+
+			const playVideo2 = () => {
+				video2.play();
+				const interval = setInterval(() => {
+					if (!video2.paused && !video2.ended) {
+						drawAlphaVideo(video2);
+					} else if (video2.ended) {
+						video2.currentTime = 0;
+						video2.play(); // Restart video2 to maintain the loop
+					}
+				}, 1000 / 30); // 30 FPS
+			};
+
+			// Preload videos and start with video1
+			preloadVideos([video1, video2], playVideo1);
+		</script>
+	</body>
+</html>
