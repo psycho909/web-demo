@@ -208,14 +208,11 @@
 			const videoConfigs = [
 				{
 					src: "./video/title_in.mp4",
-					loop: false, // 覆蓋默認循環設置
-					transitionTo: 1, // 指定下一個視頻
-					preloadTime: 0.8 // 覆蓋默認預加載時間
+					loop: false // 覆蓋默認循環設置
 				},
 				{
 					src: "./video/title_loop.mp4",
-					loop: true, // 這個視頻循環播放
-					transitionTo: 1 // 指向自己
+					loop: true // 這個視頻循環播放
 				}
 			];
 
@@ -223,12 +220,7 @@
 			const playerOptions = {
 				width: 1200, // 畫布寬度
 				height: 600, // 畫布高度
-				fps: 60, // 幀率
-				preloadTime: 0.5, // 默認預加載時間
-				transitionTime: 0.1, // 默認轉場時間
-				loop: false, // 默認不循環
-				muted: true, // 默認靜音
-				crossOrigin: "anonymous" // 默認跨域設置
+				fps: 60 // 幀率
 			};
 
 			const player = new AlphaVideoPlayer(videoConfigs, playerOptions);
