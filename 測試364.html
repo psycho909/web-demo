@@ -16,9 +16,31 @@
 				margin: 20px;
 				cursor: pointer;
 			}
+			.grid {
+				width: 400px;
+				display: grid;
+				grid-template-columns: 100px 1fr 100px;
+				gap: 20px;
+				overflow: hidden;
+			}
+			div {
+				overflow: hidden;
+			}
+			.big {
+				width: 600px;
+				height: 100%;
+				background-color: #000;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="grid">
+			<div>123</div>
+			<div>
+				<div class="big"></div>
+			</div>
+			<div>123</div>
+		</div>
 		<button class="my-button">開啟 Gbox</button>
 		<picture>
 			<source srcset="./images/02.jpg" media="(max-width: 600px)" />
