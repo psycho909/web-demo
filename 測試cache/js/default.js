@@ -34,7 +34,7 @@ let app = Vue.createApp({
 	setup() {
 		let data = Vue.ref(null);
 		let fetchData = async () => {
-			data.value = await fetchNonCachedJSON("data.json");
+			data.value = await fetchNonCachedJSON("https://tw.hicdn.beanfun.com/beanfun/promo/Test/t/data.json");
 		};
 		Vue.onMounted(() => {
 			fetchData();

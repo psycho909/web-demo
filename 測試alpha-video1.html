@@ -75,29 +75,38 @@
 				const interval = setInterval(() => {
 					if (!video1.paused && !video1.ended) {
 						drawAlphaVideo(video1);
+						// 當第一個影片接近結束時預先準備第二個影片
+						if (video1.currentTime >= video1.duration - 0.1) {
+							video2.currentTime = 0;
+							video2.play();
+						}
 					} else {
 						clearInterval(interval);
 						video1.pause();
 						video1.currentTime = 0;
 						playVideo2();
 					}
-				}, 1000 / 30); // 30 FPS
+				}, 1000 / 60); // 提高更新率到 60 FPS
 			};
 
 			const playVideo2 = () => {
-				video2.play();
 				const interval = setInterval(() => {
-					if (!video2.paused && !video2.ended) {
+					if (!video2.paused) {
 						drawAlphaVideo(video2);
-					} else if (video2.ended) {
-						video2.currentTime = 0;
-						video2.play(); // Restart video2 to maintain the loop
 					}
-				}, 1000 / 30); // 30 FPS
+					if (video2.ended) {
+						video2.currentTime = 0;
+						video2.play();
+					}
+				}, 1000 / 60); // 提高更新率到 60 FPS
 			};
 
-			// Preload videos and start with video1
-			preloadVideos([video1, video2], playVideo1);
+			// 初始化時預先載入
+			video2.load();
+			preloadVideos([video1, video2], () => {
+				video2.currentTime = 0;
+				playVideo1();
+			});
 		</script>
 	</body>
 </html>
